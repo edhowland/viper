@@ -19,3 +19,18 @@ describe 'del' do
 
   specify { ->() { subject }.must_raise OperationNotPermitted }
 end
+
+describe 'fwd' do
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { buf.fwd }
+
+  specify { subject; buf.to_s.must_equal 'abcdef' }
+end
+
+describe 'fwd then del' do
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { buf.fwd; buf.del }
+
+  specify { subject; buf.to_s.must_equal 'bcdef' }
+end
+  
