@@ -23,6 +23,10 @@ class Buffer
     @b_buff.unshift(@a_buff.pop)
   end
 
+  def at
+    @b_buff[0]
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end

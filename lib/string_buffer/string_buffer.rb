@@ -29,6 +29,10 @@ class StringBuffer
     @buffer.empty?
   end
 
+  def  [](index)
+    @buffer[index]
+  end
+
   def to_s
     @buffer
   end

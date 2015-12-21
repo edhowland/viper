@@ -48,3 +48,10 @@ describe 'back' do
 
   specify { subject; buf.to_s.must_equal 'a1bcdef' }
 end
+
+describe 'at' do
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { buf.fwd; buf.fwd; buf.at }
+
+  specify { subject.must_equal 'c' }
+end

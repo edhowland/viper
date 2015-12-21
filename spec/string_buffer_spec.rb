@@ -57,3 +57,11 @@ describe 'empty' do
 
   specify { subject.must_equal true }
 end
+
+describe '[]' do
+  let(:buf) { StringBuffer.new 'abcdef' }
+  
+  specify { buf[0].must_equal 'a' }
+  specify { buf[2].must_equal 'c' }
+  specify { buf[-1].must_equal 'f' }
+end
