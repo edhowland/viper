@@ -6,3 +6,9 @@ describe 'initialize' do
 
   specify { subject.to_s.must_equal 'abcdef' }
 end
+
+describe 'ins' do
+  let(:buf) { Buffer.new 'quick brown fox' }
+  subject { buf.ins 'the ' }
+  specify { subject; buf.to_s.must_equal 'the quick brown fox' }
+end
