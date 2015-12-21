@@ -6,4 +6,19 @@ describe 'initialize' do
   subject { StringBuffer.new 'abcdef' }
 
   specify { subject.must_be_instance_of StringBuffer }
+  specify { subject.to_s.must_equal 'abcdef' }
+end
+
+describe 'shift' do
+  let(:buf) { StringBuffer.new 'abcdef' }
+  subject { buf.shift }
+
+  specify { subject.must_equal 'a' }
+end
+
+describe 'after shift' do
+  let(:buf) { StringBuffer.new 'abcdef' }
+  subject { buf.shift }
+
+  specify { subject;  buf.to_s.must_equal 'bcdef' }  
 end

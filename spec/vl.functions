@@ -1,0 +1,13 @@
+vl () 
+{ 
+    vr "../lib/$1"
+}
+vs () 
+{ 
+    vl "snp_job/$1"
+}
+alias clean.test="(cd test.d; rm -rf *)"
+vc () 
+{ 
+    vl "config/${1}"
+}
