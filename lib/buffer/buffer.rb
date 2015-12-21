@@ -27,6 +27,16 @@ class Buffer
     @b_buff[0]
   end
 
+  def beg
+    @b_buff = StringBuffer.new(to_s)
+  @a_buff = StringBuffer.new ''
+  end
+
+  def fin
+    @a_buff = StringBuffer.new(to_s)
+    @b_buff = StringBuffer.new ''
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
