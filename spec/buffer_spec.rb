@@ -34,3 +34,10 @@ describe 'fwd then del' do
   specify { subject; buf.to_s.must_equal 'bcdef' }
 end
   
+
+describe 'fwd then ins' do
+  let(:buf) { Buffer.new 'the brown fox' }
+  subject { buf.fwd; buf.fwd; buf.fwd; buf.fwd; buf.ins 'quick ' }
+
+  specify { subject; buf.to_s.must_equal 'the quick brown fox' }
+end
