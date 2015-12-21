@@ -29,3 +29,24 @@ describe 'unshift' do
 
   specify { subject; buf.to_s.must_equal 'abcdef' }
 end
+
+describe 'push' do
+  let(:buf) { StringBuffer.new 'abcde' }
+  subject { buf.push'f' }
+
+  specify { subject; buf.to_s.must_equal 'abcdef' }
+end
+
+describe 'pop' do
+  let(:buf) { StringBuffer.new 'abcdef' }
+  subject { buf.pop }
+
+  specify { subject.must_equal 'f' }
+end
+  
+describe 'after pop' do
+  let(:buf) { StringBuffer.new 'abcdef' }
+  subject { buf.pop }
+
+  specify { subject; buf.to_s.must_equal 'abcde' }
+end

@@ -15,6 +15,15 @@ class StringBuffer
     @buffer = string + @buffer
     @buffer
   end
+  def push string
+    @buffer << string
+  end
+
+  def pop
+    result = @buffer[-1]
+    @buffer = @buffer[0..(-2)]
+    result
+  end
 
   def to_s
     @buffer
