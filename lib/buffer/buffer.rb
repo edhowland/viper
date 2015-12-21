@@ -19,6 +19,10 @@ class Buffer
     @a_buff.push(@b_buff.shift)
   end
 
+  def back
+    @b_buff.unshift(@a_buff.pop)
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end

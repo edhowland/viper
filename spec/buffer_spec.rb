@@ -41,3 +41,10 @@ describe 'fwd then ins' do
 
   specify { subject; buf.to_s.must_equal 'the quick brown fox' }
 end
+
+describe 'back' do
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { buf.fwd; buf.fwd; buf.back;  buf.ins '1' }
+
+  specify { subject; buf.to_s.must_equal 'a1bcdef' }
+end
