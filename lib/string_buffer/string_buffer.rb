@@ -25,6 +25,10 @@ class StringBuffer
     result
   end
 
+  def empty?
+    @buffer.empty?
+  end
+
   def to_s
     @buffer
   end

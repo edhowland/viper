@@ -12,3 +12,10 @@ describe 'ins' do
   subject { buf.ins 'the ' }
   specify { subject; buf.to_s.must_equal 'the quick brown fox' }
 end
+
+describe 'del' do
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { buf.del }
+
+  specify { ->() { subject }.must_raise OperationNotPermitted }
+end

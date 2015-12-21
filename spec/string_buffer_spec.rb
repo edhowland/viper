@@ -50,3 +50,10 @@ describe 'after pop' do
 
   specify { subject; buf.to_s.must_equal 'abcde' }
 end
+
+describe 'empty' do
+  let(:buf) { StringBuffer.new '' }
+  subject { buf.empty? }
+
+  specify { subject.must_equal true }
+end

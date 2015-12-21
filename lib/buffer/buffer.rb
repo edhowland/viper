@@ -10,6 +10,11 @@ class Buffer
     @a_buff.push string
   end
 
+  def del
+    raise OperationNotPermitted.new('Delete past beginning of buffer') if @a_buff.empty?
+    @a_buff.pop
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
