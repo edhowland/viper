@@ -11,6 +11,11 @@ class StringBuffer
     result
   end
 
+  def unshift string
+    @buffer = string + @buffer
+    @buffer
+  end
+
   def to_s
     @buffer
   end

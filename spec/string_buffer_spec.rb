@@ -22,3 +22,10 @@ describe 'after shift' do
 
   specify { subject;  buf.to_s.must_equal 'bcdef' }  
 end
+
+describe 'unshift' do
+  let(:buf) { StringBuffer.new 'bcdef' }
+  subject { buf.unshift 'a' }
+
+  specify { subject; buf.to_s.must_equal 'abcdef' }
+end
