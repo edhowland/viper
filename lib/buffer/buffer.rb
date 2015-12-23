@@ -37,6 +37,16 @@ class Buffer
     @b_buff = StringBuffer.new ''
   end
 
+  def line
+    lbuf = @a_buff.to_s
+    rbuf = @b_buff.to_s
+    prev_nl = %r{\n.*}
+    next_nl = %r{^.*\n}
+    lpos = prev_nl.match(lbuf).begin(0)
+    rpos = next_nl.match(rbuf).begin(0)
+    lbuf[lpos+1] + rbuf[rpos-1]
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
