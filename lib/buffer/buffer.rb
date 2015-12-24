@@ -37,10 +37,15 @@ class Buffer
     @b_buff = StringBuffer.new ''
   end
 
+  def rchomp string
+    return string [1..(-1)] if string[0] == "\n"
+    string
+  end
+
   def line
-    prev_nl = %r{\n.*}
+    prev_nl = %r{(\n.*)?$}
     next_nl = %r{^.*\n}
-  @a_buff.srch(prev_nl) + @b_buff.srch(next_nl)
+  rchomp(@a_buff.srch(prev_nl)) + @b_buff.srch(next_nl).chomp
   end
 
   def to_s
