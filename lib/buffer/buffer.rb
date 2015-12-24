@@ -43,9 +43,7 @@ class Buffer
   end
 
   def line
-    prev_nl = %r{(\n.*)?$}
-    next_nl = %r{^.*\n}
-  rchomp(@a_buff.srch(prev_nl)) + @b_buff.srch(next_nl).chomp
+    @a_buff.lines[-1] + @b_buff.lines[0]
   end
 
   def to_s

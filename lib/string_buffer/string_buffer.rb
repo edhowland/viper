@@ -39,6 +39,19 @@ class StringBuffer
     m.to_s
   end
 
+  def rsrch regexp
+    m=regexp.match @buffer
+    return '' if m.nil?
+    m[-1]
+  end
+
+  def lines
+    io = StringIO.new @buffer
+    result = []
+    io.each_line {|l| result << l.chomp}
+    result
+  end
+
   def to_s
     @buffer
   end
