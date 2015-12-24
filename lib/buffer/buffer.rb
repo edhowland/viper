@@ -15,12 +15,12 @@ class Buffer
     @a_buff.pop
   end
 
-  def fwd
-    @a_buff.push(@b_buff.shift)
+  def fwd count=1
+    count.times {@a_buff.push(@b_buff.shift)}
   end
 
-  def back
-    @b_buff.unshift(@a_buff.pop)
+  def back count=1
+    count.times {@b_buff.unshift(@a_buff.pop)}
   end
 
   def at
