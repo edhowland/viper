@@ -70,6 +70,14 @@ class Buffer
     end
   end
 
+  def down
+      c = col
+  fwd rline.length + 2 # skip over the newline
+    until col == c
+      fwd
+    end
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
