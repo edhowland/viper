@@ -62,6 +62,14 @@ class Buffer
     lline.length
   end
 
+  def up
+    c = col
+    back c + 1
+    until col == c
+      back
+    end
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
