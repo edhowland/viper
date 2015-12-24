@@ -42,8 +42,12 @@ class Buffer
     string
   end
 
+  def or_empty element
+    (element || '')
+  end
+
   def line
-    @a_buff.lines[-1] + @b_buff.lines[0]
+    or_empty(@a_buff.lines[-1]) + or_empty(@b_buff.lines[0])
   end
 
   def to_s
