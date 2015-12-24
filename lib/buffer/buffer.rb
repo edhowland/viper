@@ -58,6 +58,10 @@ class Buffer
     lline + rline
   end
 
+  def col
+    lline.length
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
