@@ -46,8 +46,16 @@ class Buffer
     (element || '')
   end
 
+  def lline
+    or_empty(@a_buff.lines[-1])
+  end
+
+  def rline
+    or_empty(@b_buff.lines[0])
+  end
+
   def line
-    or_empty(@a_buff.lines[-1]) + or_empty(@b_buff.lines[0])
+    lline + rline
   end
 
   def to_s
