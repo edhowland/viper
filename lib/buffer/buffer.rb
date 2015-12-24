@@ -38,13 +38,9 @@ class Buffer
   end
 
   def line
-    lbuf = @a_buff.to_s
-    rbuf = @b_buff.to_s
     prev_nl = %r{\n.*}
     next_nl = %r{^.*\n}
-    lpos = prev_nl.match(lbuf).begin(0)
-    rpos = next_nl.match(rbuf).begin(0)
-    lbuf[lpos+1] + rbuf[rpos-1]
+  @a_buff.srch(prev_nl) + @b_buff.srch(next_nl)
   end
 
   def to_s

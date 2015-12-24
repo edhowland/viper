@@ -33,6 +33,12 @@ class StringBuffer
     @buffer[index]
   end
 
+  def srch regex
+    m = regex.match @buffer
+    return @buffer if m.nil?
+    m.to_s
+  end
+
   def to_s
     @buffer
   end
