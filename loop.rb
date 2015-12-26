@@ -3,11 +3,7 @@
 require 'io/console'
 require_relative 'key_mappings'
 require_relative 'key_press'
-def map_key(press, mappings=key_mappings)
-  result = mappings[press]
-  result || press
-end
-
+require_relative 'map_key'
 
 loop do
 print 'E>> '
