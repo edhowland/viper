@@ -19,14 +19,9 @@ def perform key, buf=@buffer, bnd=@proc_bindings
 end
   say 'editing: hit q when done'
 loop do
-  #x = key_press
-  #puts 'x is'
-  #p x
-  #puts 'map x is'
-  #p map_key(x)
   key = map_key(key_press)
+  break if key == :ctrl_c
   perform key
-  break if key == :key_q
 end
 
 puts @buffer.to_s
