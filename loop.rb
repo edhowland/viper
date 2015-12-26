@@ -7,7 +7,7 @@ require_relative 'key_press'
 require_relative 'map_key'
 require_relative 'lib/edit_buffer'
 require_relative 'inserter'
-require_relative 'bindings'
+require_relative 'make_bindings'
 
 @buffer = Buffer.new(File.read('./spec/def.rb'))
 @proc_bindings = make_bindings
@@ -17,7 +17,7 @@ def perform key, buf=@buffer, bnd=@proc_bindings
   raise RuntimeError.new("No mapping for #{key}") if prc.nil?
   prc.call buf
 end
-  say 'editing: hit q when done'
+  say 'editing: hit Ctrl-C when done'
 loop do
   key = map_key(key_press)
   break if key == :ctrl_c

@@ -5,6 +5,7 @@ def make_bindings
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
   ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
   result[:space] = inserter(' ')[1]
+  result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:right] = ->(b) { b.fwd; say b.at}
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
