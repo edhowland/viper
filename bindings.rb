@@ -3,5 +3,7 @@
 def make_bindings
   result = {}
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
+  ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
+  result[:space] = inserter(' ')[1]
   result
 end
