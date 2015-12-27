@@ -13,6 +13,7 @@ def make_bindings
   result[:space] = inserter(' ')[1]
 
   [
+  [:apostrophe, "'"], [:quote, '"'], 
     [:asterisk, '*'], [:accent, '``'], [:at, '@'],
     [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
     [:dollar, '$'], [:percent, '%'], [:caret, '^'],

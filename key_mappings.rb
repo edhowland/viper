@@ -36,6 +36,8 @@ def key_mappings
   '\\' => :backslash,
     '/' => :slash,
     '|' => :pipe,
+   "'" => :apostrophe,
+    '"' => :quote,
     '<' => :less,
     '>' => :greater,
     '[' => :lbracket,
