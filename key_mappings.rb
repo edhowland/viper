@@ -32,6 +32,12 @@ def key_mappings
   '+' => :plus,
   '\\' => :backslash,
     '/' => :slash,
-    '|' => :pipe
+    '|' => :pipe,
+    '<' => :less,
+    '>' => :greater,
+    '[' => :lbracket,
+    ']' => :rbracket,
+    '{' => :lbrace,
+    '}' => :rbrace
   }
 end
