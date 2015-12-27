@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # loop.rb - event loop for editor
-require_relative 'lib/edit_buffer'
+require_relative 'lib/viper'
 @buffer = Buffer.new ''
 @proc_bindings = make_bindings
 

@@ -3,6 +3,7 @@
 
 require 'stringio'
 
+require_relative 'viper/version'
 require_relative 'constants'
 require_relative 'exceptions'
 require_relative 'string_buffer'
