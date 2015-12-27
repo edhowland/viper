@@ -4,6 +4,7 @@ def key_mappings
     "\u0011" => :ctrl_q,
     "\u0013" => :ctrl_s,
     "\003" => :ctrl_c,   
+    "\b" => :ctrl_h,
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
     "\f" => :ctrl_l,
