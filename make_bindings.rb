@@ -5,6 +5,11 @@ def make_bindings
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
   ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
   ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
+
+  # punctuation
+  result[:colon] = insert_sym ':'
+  result[:period] = insert_sym '.'
+  result[:comma] = insert_sym ','
   result[:space] = inserter(' ')[1]
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
