@@ -7,6 +7,31 @@ def key_mappings
   "\033[A" => :up,
   "\033[B" => :down,
   "\033[C" => :right,
-  "\033[D" => :left
+  "\033[D" => :left, 
+  # punctuation
+    ';' => :semicolon,
+    ':' => :colon,
+    '.' => :period,
+    ',' => :comma,
+    '?' => :question,
+    '!' => :exclamation,
+    '~' => :tilde,
+    '`' => :accent,
+    '@' => :at,
+    '#' => 'number',
+   '$' => :dollar,
+    '%' => :percent,
+    '^' => :caret,
+    '&' => :ampersand,
+    '*' => :asterik,
+    '(' => :lparen,
+    ')' => :rparen,
+    '-' => :hyphen,
+    '_' => :underline,
+    '=' => :equals,
+  '+' => :plus,
+  '\\' => :backslash,
+    '/' => :slash,
+    '|' => :pipe
   }
 end
