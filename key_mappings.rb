@@ -4,6 +4,7 @@ def key_mappings
     "\003" => :ctrl_c,   
     "\f" => :ctrl_l,
     "\t" => :tab,
+    "\u007F" => :backspace,
   "\033[A" => :up,
   "\033[B" => :down,
   "\033[C" => :right,

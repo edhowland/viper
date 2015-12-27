@@ -13,5 +13,6 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
+  result[:backspace] =->(b) { b.del; say 'delete' }
   result
 end
