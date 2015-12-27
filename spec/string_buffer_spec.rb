@@ -65,3 +65,18 @@ describe '[]' do
   specify { buf[2].must_equal 'c' }
   specify { buf[-1].must_equal 'f' }
 end
+
+describe 'shift past front should raise exception' do
+  let(:buf) { StringBuffer.new 'h' }
+  before { buf.shift }
+  subject { buf.shift }
+
+  specify { ->() { subject }.must_raise BufferExceeded }
+end
+
+describe 'pop empty buffer raises BufferExceeded' do
+  let(:buf) { StringBuffer.new '' }
+  subject { buf.pop }
+
+  specify { ->() { subject }.must_raise BufferExceeded }
+end

@@ -6,6 +6,7 @@ class StringBuffer
   end
 
   def shift
+    raise BufferExceeded.new('Exceeded front') if @buffer.empty?
     result = @buffer[0]
     @buffer = @buffer[1..(-1)]
     result
@@ -20,6 +21,7 @@ class StringBuffer
   end
 
   def pop
+    raise BufferExceeded.new('Exceeded back') if @buffer.empty?
     result = @buffer[-1]
     @buffer = @buffer[0..(-2)]
     result
