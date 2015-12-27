@@ -4,6 +4,7 @@ def make_bindings
   result = {}
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
   ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
+  ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
   result[:space] = inserter(' ')[1]
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
