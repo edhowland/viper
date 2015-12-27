@@ -2,6 +2,11 @@
 
 module Viper
   class Control
+    def initialize
+      @proc_bindings = make_bindings
+    end
+
+    attr_accessor :proc_bindings
     def self.loop &blk
       this = self.new
       exception_raised = false
@@ -18,8 +23,10 @@ module Viper
       map_key(key_press)
     end
 
-    def perform key, buffer
-      puts key
+    def bound_proc_for key
+      result = @proc_bindings[key]
+      raise BindingNotFound.new "No binding found for #{key}"
+      result
     end
   end
 end
