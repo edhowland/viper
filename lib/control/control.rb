@@ -15,7 +15,7 @@ module Viper
     end
 
     def getch
-      'x'
+      map_key(key_press)
     end
 
     def perform key, buffer

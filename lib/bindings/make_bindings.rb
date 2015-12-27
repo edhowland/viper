@@ -7,6 +7,7 @@ def make_bindings
   ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
 
   # Control characters
+  result[:ctrl_q] = ->(b) { raise ExitException.new}
   result[:ctrl_c] = ->(b) { say BELL}
   result[:ctrl_s] = ->(b) { say "save not implemented" }
 

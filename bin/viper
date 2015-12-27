@@ -19,3 +19,11 @@ parser = OptionParser.new do |opt|
 end
 
 parser.parse!
+
+
+@fbuffer = FileBuffer.new(ARGV[0])
+ Viper::Control.loop do |worker|
+  ch = worker.getch
+  p ch
+  raise ExitException.new
+end
