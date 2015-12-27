@@ -11,6 +11,19 @@ def make_bindings
   result[:period] = insert_sym '.'
   result[:comma] = insert_sym ','
   result[:space] = inserter(' ')[1]
+
+  [
+    [:asterisk, '*'], [:accent, '``'],
+    [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
+    [:dollar, '$'], [:percent, '%'], [:caret, '^'],
+    [:ampersand, '&'],
+    [:lparen, '('], [:rparen, ')'], [:hyphen, '-'],
+    [:underline, '_'], [:plus, '+'], [:equals, '='],
+    [:backslash, '\\'], [:pipe, '|'],
+    [:lbracket, '['], [:rbracket, ']'],
+    [:lbrace, '{'], [:rbrace, '{'],
+    [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
+  ].inject(result) {|i, j| i[j[0]] = j[1]; i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
   result[:ctrl_l] = ->(b) { say b.line }
