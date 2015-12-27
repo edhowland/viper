@@ -1,10 +1,14 @@
 # bindings.rb - returns hash of key bindings to procs
+BELL = "\a"
 
 def make_bindings
   result = {}
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
   ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
   ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
+
+  # Control chars
+  result[:ctrl_c] = ->(b) { say BELL}
 
   # punctuation
   result[:colon] = insert_sym ':'

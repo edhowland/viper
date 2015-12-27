@@ -9,10 +9,10 @@ def perform key, buf=@buffer, bnd=@proc_bindings
   raise RuntimeError.new("No mapping for #{key}") if prc.nil?
   prc.call buf
 end
-  say 'editing: hit Ctrl-C when done'
+  say 'editing: hit Ctrl-Q when done'
 loop do
   key = map_key(key_press)
-  break if key == :ctrl_c
+  break if key == :ctrl_q
   perform key
 end
 

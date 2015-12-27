@@ -1,6 +1,7 @@
 # key_mappings.rb - method key_mappings returns a hash of keys to syms
 def key_mappings
     {
+    "\u0011" => :ctrl_q,
     "\003" => :ctrl_c,   
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
