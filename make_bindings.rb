@@ -8,6 +8,7 @@ def make_bindings
 
   # punctuation
   result[:colon] = insert_sym ':'
+  result[:semicolon] = insert_sym ';'
   result[:period] = insert_sym '.'
   result[:comma] = insert_sym ','
   result[:space] = inserter(' ')[1]
@@ -22,7 +23,7 @@ def make_bindings
     [:underline, '_'], [:plus, '+'], [:equals, '='],
     [:backslash, '\\'], [:pipe, '|'],
     [:lbracket, '['], [:rbracket, ']'],
-    [:lbrace, '{'], [:rbrace, '{'],
+    [:lbrace, '{'], [:rbrace, '}'],
     [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
   ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
