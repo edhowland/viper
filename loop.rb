@@ -6,8 +6,12 @@ require_relative 'requires'
 
 def perform key, buf=@buffer, bnd=@proc_bindings
   prc = bnd[key]
-  raise RuntimeError.new("No mapping for #{key}") if prc.nil?
-  prc.call buf
+  begin
+    raise RuntimeError.new("No mapping for #{key}") if prc.nil?
+    prc.call buf
+  rescue => err
+    say BELL
+  end
 end
   say 'editing: hit Ctrl-Q when done'
 loop do

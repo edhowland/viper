@@ -2,6 +2,8 @@
 
 
 require 'stringio'
+
+require_relative 'constants'
 require_relative 'exceptions'
 require_relative 'string_buffer'
 require_relative 'buffer'

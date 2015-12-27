@@ -1,5 +1,4 @@
 # bindings.rb - returns hash of key bindings to procs
-BELL = "\a"
 
 def make_bindings
   result = {}
