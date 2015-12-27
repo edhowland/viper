@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# viper - Main entry for Viper editor
+
+require_relative '../lib/viper'
+require 'optparse'
+
+
+parser = OptionParser.new do |opt|
+  opt.on('-v', '--version', 'Displays the version of Viper') do
+    puts "Viper VIP Editor in Ruby"
+    puts "version #{Viper::VERSION}"
+    exit
+  end
+end
+
+parser.parse!
