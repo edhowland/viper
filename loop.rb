@@ -1,14 +1,6 @@
 #!/usr/bin/env ruby
 # loop.rb - event loop for editor
-
-require 'io/console'
-require_relative 'key_mappings'
-require_relative 'key_press'
-require_relative 'map_key'
-require_relative 'lib/edit_buffer'
-require_relative 'inserter'
-require_relative 'make_bindings'
-
+require_relative 'requires'
 @buffer = Buffer.new ''
 @proc_bindings = make_bindings
 

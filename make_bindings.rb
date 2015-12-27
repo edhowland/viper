@@ -13,7 +13,7 @@ def make_bindings
   result[:space] = inserter(' ')[1]
 
   [
-    [:asterisk, '*'], [:accent, '``'],
+    [:asterisk, '*'], [:accent, '``'], [:at, '@'],
     [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
     [:dollar, '$'], [:percent, '%'], [:caret, '^'],
     [:ampersand, '&'],
@@ -23,7 +23,7 @@ def make_bindings
     [:lbracket, '['], [:rbracket, ']'],
     [:lbrace, '{'], [:rbrace, '{'],
     [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
-  ].inject(result) {|i, j| i[j[0]] = j[1]; i }
+  ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
   result[:ctrl_l] = ->(b) { say b.line }

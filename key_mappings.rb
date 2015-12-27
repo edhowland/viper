@@ -21,7 +21,7 @@ def key_mappings
     '~' => :tilde,
     '`' => :accent,
     '@' => :at,
-    '#' => 'number',
+    '#' => :number,
    '$' => :dollar,
     '%' => :percent,
     '^' => :caret,
