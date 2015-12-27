@@ -2,6 +2,7 @@
 def key_mappings
     {
     "\003" => :ctrl_c,   
+    "\n" => :ctrl_j,
     "\f" => :ctrl_l,
     "\t" => :tab,
     "\u007F" => :backspace,

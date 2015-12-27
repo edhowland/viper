@@ -9,6 +9,7 @@ def make_bindings
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
   result[:ctrl_l] = ->(b) { say b.line }
+  result[:ctrl_j] = ->(b) { say b.at }
   result[:right] = ->(b) { b.fwd; say b.at}
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
