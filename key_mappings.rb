@@ -2,6 +2,7 @@
 def key_mappings
     {
     "\u0011" => :ctrl_q,
+    "\u0013" => :ctrl_s,
     "\003" => :ctrl_c,   
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,

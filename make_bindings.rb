@@ -9,6 +9,7 @@ def make_bindings
 
   # Control chars
   result[:ctrl_c] = ->(b) { say BELL}
+  result[:ctrl_s] = ->(b) { say "save not implemented" }
 
   # punctuation
   result[:colon] = insert_sym ':'
