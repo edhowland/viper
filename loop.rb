@@ -9,7 +9,7 @@ require_relative 'lib/edit_buffer'
 require_relative 'inserter'
 require_relative 'make_bindings'
 
-@buffer = Buffer.new(File.read('./spec/def.rb'))
+@buffer = Buffer.new ''
 @proc_bindings = make_bindings
 
 def perform key, buf=@buffer, bnd=@proc_bindings

@@ -26,7 +26,7 @@ def key_mappings
     '%' => :percent,
     '^' => :caret,
     '&' => :ampersand,
-    '*' => :asterik,
+    '*' => :asterisk,
     '(' => :lparen,
     ')' => :rparen,
     '-' => :hyphen,
