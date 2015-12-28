@@ -4,14 +4,22 @@ class Buffer
   def initialize string
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
+    @dirty = false
   end
+
+  def dirty?
+    @dirty
+  end
+
 
   def ins string
     @a_buff.push string
+    @dirty = true
   end
 
   def del
     raise OperationNotPermitted.new('Delete past beginning of buffer') if @a_buff.empty?
+    @dirty = true
     @a_buff.pop
   end
 
