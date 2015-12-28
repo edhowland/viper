@@ -54,9 +54,29 @@ class StringBuffer
     result
   end
 
+  def count_nl
+    index = @buffer.index("\n")
+    index || length
+  end
+
   def rcount_nl
     index = @buffer.rindex("\n") || 0
     @buffer.length - index
+  end
+
+  def last_line
+    return '' if @buffer[-1] == "\n"
+    return @buffer if rcount_nl == length
+    @buffer[-(rcount_nl - 1)..(-1)]
+  end
+
+  def first_line
+    @buffer[0..(count_nl)]
+  end
+
+
+  def length
+    @buffer.length
   end
 
   def to_s
