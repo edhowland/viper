@@ -54,6 +54,11 @@ class StringBuffer
     result
   end
 
+  def rcount_nl
+    index = @buffer.rindex("\n") || 0
+    @buffer.length - index
+  end
+
   def to_s
     @buffer
   end
