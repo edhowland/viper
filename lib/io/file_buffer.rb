@@ -9,4 +9,6 @@ class FileBuffer < Buffer
     super ''
   end
   end
+
+  attr_reader :fname
 end

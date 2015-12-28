@@ -20,10 +20,14 @@ end
 
 parser.parse!
 
-
 @fbuffer = FileBuffer.new(ARGV[0])
+puts "Editing #{@fbuffer.fname}"
+
+
+# Executes this block for each character typed in the console
+#   Exits whenever some exception is raised
  Viper::Control.loop do |worker|
   ch = worker.getch
-  p ch
-  raise ExitException.new
+  prc = worker.bound_proc_for ch
+  prc.call(@fbuffer)
 end
