@@ -11,4 +11,8 @@ class FileBuffer < Buffer
   end
 
   attr_reader :fname
+
+  def save
+    File.write(@fname, to_s)
+  end
 end

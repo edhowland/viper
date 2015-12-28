@@ -10,7 +10,7 @@ def make_bindings
   result[:ctrl_q] = ->(b) { raise ExitException.new}
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
-  result[:ctrl_s] = ->(b) { say "save not implemented" }
+  result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
 
   # punctuation
   result[:colon] = insert_sym ':'
