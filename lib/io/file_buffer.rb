@@ -14,5 +14,6 @@ class FileBuffer < Buffer
 
   def save
     File.write(@fname, to_s)
+    @dirty = false
   end
 end

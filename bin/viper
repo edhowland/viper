@@ -37,3 +37,7 @@ puts "Editing #{@fbuffer.fname}"
     say BELL
   end
 end
+
+if @fbuffer.dirty?
+  say "#{@fbuffer.fname} modified, not saved"
+end

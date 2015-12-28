@@ -22,3 +22,10 @@ describe 'dirty? true after del' do
 
   specify { subject.must_equal true }
 end
+
+describe 'dirty buffer now clean after .save' do
+  let(:buf) { FileBuffer.new 'dummy.txt' }
+  subject { buf.ins 'hello'; buf.save; buf.dirty? }
+
+  specify { subject.must_equal false }
+end
