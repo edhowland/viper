@@ -30,6 +30,10 @@ puts "Editing #{@fbuffer.fname}"
  Viper::Control.loop do |worker|
   ch = worker.getch
   prc = worker.bound_proc_for ch
-  result = prc.call(@fbuffer)
-  binding.pry if result == :debug
+  begin
+    result = prc.call(@fbuffer)
+    binding.pry if result == :debug
+  rescue BufferExceeded => err
+    say BELL
+  end
 end
