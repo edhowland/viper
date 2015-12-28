@@ -81,6 +81,14 @@ class Buffer
     fwd further
   end
 
+  def front_of_line
+    back @a_buff.rcount_nl
+  end
+
+  def back_of_line
+    fwd @b_buff.count_nl
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
