@@ -63,6 +63,7 @@ class Buffer
   end
 
   def up
+    raise BufferExceeded.new('Cannot move past first line') if @a_buff.lines.length <= 1
     c = col
     back c + 1
     until col == c

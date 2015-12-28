@@ -50,7 +50,7 @@ class StringBuffer
   def lines
     io = StringIO.new @buffer
     result = []
-    io.each_line {|l| result << l.chomp}
+    io.each_line {|l| result << l}
     result
   end
 
