@@ -72,6 +72,7 @@ class Buffer
   end
 
   def down
+    raise BufferExceeded.new('Cannot move past last line') if @b_buff.lines.length <= 1
       c = col
   fwd rline.length + 2 # skip over the newline
     until col == c
