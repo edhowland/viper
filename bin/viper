@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # viper - Main entry for Viper editor
 
+require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
@@ -29,5 +30,6 @@ puts "Editing #{@fbuffer.fname}"
  Viper::Control.loop do |worker|
   ch = worker.getch
   prc = worker.bound_proc_for ch
-  prc.call(@fbuffer)
+  result = prc.call(@fbuffer)
+  binding.pry if result == :debug
 end
