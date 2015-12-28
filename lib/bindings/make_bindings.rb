@@ -10,6 +10,8 @@ def make_bindings
   result[:ctrl_q] = ->(b) { raise ExitException.new}
   result[:ctrl_a] = ->(b) { b.front_of_line; say b.line }
   result[:ctrl_e] = ->(b) { b.back_of_line; say b.line }
+  result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
+  result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
   result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
