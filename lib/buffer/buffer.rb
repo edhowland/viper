@@ -104,7 +104,7 @@ class Buffer
   end
 
   def front_of_line
-    back @a_buff.rcount_nl
+    back @a_buff.rcount_nl - 1
   end
 
   def back_of_line

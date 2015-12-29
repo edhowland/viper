@@ -8,8 +8,8 @@ def make_bindings
 
   # Control characters
   result[:ctrl_q] = ->(b) { raise ExitException.new}
-  result[:ctrl_a] = ->(b) { b.front_of_line; say b.line }
-  result[:ctrl_e] = ->(b) { b.back_of_line; say b.line }
+  result[:ctrl_a] = ->(b) { b.front_of_line; say b.at }
+  result[:ctrl_e] = ->(b) { b.back_of_line; say b.at }
   result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
   result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
   result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
