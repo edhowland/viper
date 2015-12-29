@@ -1,7 +1,7 @@
 # viper.rb - requires for viper
 
-
 require 'stringio'
+require 'highline'
 
 require_relative 'viper/version'
 require_relative 'constants'

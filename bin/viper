@@ -39,5 +39,13 @@ puts "Editing #{@fbuffer.fname}"
 end
 
 if @fbuffer.dirty?
-  say "#{@fbuffer.fname} modified, not saved"
+  cli = HighLine.new
+  answer = cli.ask("#{@fbuffer.fname} not saved. Save? ") do |q|
+  q.default = 'n'
+    q.validate = /[YyNn]/
+  end
+  if answer =~ /[Yy]/
+    @fbuffer.save
+    say "#{@fbuffer.fname} saved"
+  end
 end
