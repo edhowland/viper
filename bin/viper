@@ -41,7 +41,6 @@ def swap buff1, buff2
   [buff2, buff1]
 end
 
-@prev_buffer = @hbuffer
 
 
 #puts "Editing #{@fbuffer.name}"
@@ -60,7 +59,7 @@ end
         binding.pry
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
-        @buffer, @prev_buffer = swap @buffer, @prev_buffer
+        @buffer, @hbuffer = swap @buffer, @hbuffer
         say "Buffer is now #{@buffer.name}"
     end
   rescue BufferExceeded => err
