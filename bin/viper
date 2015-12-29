@@ -43,12 +43,6 @@ end
 
 @prev_buffer = @hbuffer
 
-def old_swap_buffers
-  tmp = @buffer
-  @buffer = @prev_buffer
-  @prev_buffer = tmp
-  say "Buffer now is #{@buffer.name}"
-end  
 
 #puts "Editing #{@fbuffer.name}"
 
@@ -60,9 +54,15 @@ end
   prc = worker.bound_proc_for ch
   begin
     result = prc.call(@buffer)
-    binding.pry if result == :debug
-#    old_swap_buffers if result == :help
-    @buffer, @prev_buffer = swap @buffer, @prev_buffer if result == :help 
+    case result
+      when :debug
+        say 'Entering debug mode. Press Ctrl-D to exit'
+        binding.pry
+        say "Exited debug mode. Buffer is #{@buffer.name}"
+      when :help
+        @buffer, @prev_buffer = swap @buffer, @prev_buffer
+        say "Buffer is now #{@buffer.name}"
+    end
   rescue BufferExceeded => err
     say BELL
   end
