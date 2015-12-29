@@ -6,5 +6,10 @@ class SnippetBuffer < Buffer
   def save
     $snippets[@name] = @commands
   end
+
+  def clear
+    @name = ''
+    @commands = []
+  end
 end
 

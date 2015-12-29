@@ -7,7 +7,7 @@ def make_bindings
   ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
 
   # Control characters
-  result[:ctrl_q] = ->(b) { raise ExitException.new}
+  result[:ctrl_q] = ->(b) {:quit }
   result[:ctrl_a] = ->(b) { b.front_of_line; say b.at }
   result[:ctrl_e] = ->(b) { b.back_of_line; say b.at }
   result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
@@ -21,7 +21,7 @@ def make_bindings
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
-  result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
+  result[:ctrl_s] = ->(b) {:save }
 
   # punctuation
   result[:colon] = insert_sym ':'
@@ -56,7 +56,7 @@ def make_bindings
   result[:backspace] =->(b) { ch= b.del; say "delete #{ch}" }
 
   # Function keys
-  result[:fn_1] = ->(b) { say BELL }
+  result[:fn_1] = ->(b) { :snippet_record }
   result[:fn_2] = ->(b) { say BELL }
   result[:fn_3] = ->(b) { say BELL }
   result[:fn_4] = ->(b) { say BELL }

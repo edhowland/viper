@@ -54,6 +54,11 @@ end
   begin
     result = prc.call(@buffer)
     case result
+    when :quit
+      break
+    when :save
+      @buffer.save
+      say "Buffer #{@buffer.name} saved"
       when :debug
         say 'Entering debug mode. Press Ctrl-D to exit'
         binding.pry
@@ -61,9 +66,21 @@ end
       when :help
         @buffer, @hbuffer = swap @buffer, @hbuffer
         say "Buffer is now #{@buffer.name}"
+    when :snippet_record
+      if @sbuffer.kind_of? SnippetBuffer
+        @sbuffer.clear
+        @sbuffer.name = @buffer.lline
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Now recording snippet: #{@buffer.name}"
+      else
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Buffer now is #{@buffer.name}"
+      end
     end
   rescue BufferExceeded => err
     say BELL
+  rescue => err
+    say err.message
   end
 end
 
