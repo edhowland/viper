@@ -8,6 +8,7 @@ class FileBuffer < Buffer
     else
     super ''
   end
+    @name = @fname
   end
 
   attr_reader :fname

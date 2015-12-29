@@ -5,7 +5,10 @@ class Buffer
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
     @dirty = false
+    @name = 'unnamed'
   end
+
+  attr_accessor :name
 
   def dirty?
     @dirty
@@ -95,6 +98,10 @@ class Buffer
 
   def back_of_line
     fwd @b_buff.count_nl
+  end
+
+  def look_ahead
+    @b_buff.lines[0..9]
   end
 
   def to_s

@@ -8,8 +8,13 @@ def key_mappings
     "\002" => :ctrl_b,
     "\u0013" => :ctrl_s,
     "\003" => :ctrl_c,   
+    "\u000F" => :ctrl_o,
+    "\u0010" => :ctrl_p,
   "\004" => :ctrl_d,
     "\b" => :ctrl_h,
+# duplicated with tab key
+    #"\t" => :ctrl_i,
+    "\u0019" => :ctrl_y,
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
     "\f" => :ctrl_l,

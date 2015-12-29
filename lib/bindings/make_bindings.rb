@@ -12,6 +12,11 @@ def make_bindings
   result[:ctrl_e] = ->(b) { b.back_of_line; say b.line }
   result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
   result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
+  result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
+  result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
+  result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
+
+  # command controls
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
   result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
@@ -38,7 +43,7 @@ def make_bindings
   ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
-  result[:ctrl_h] = ->(b) { display_help }
+  result[:ctrl_h] = ->(b) {:help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
   result[:ctrl_l] = ->(b) { say b.line }
