@@ -70,6 +70,9 @@ end
       if @sbuffer.kind_of? SnippetBuffer
         @sbuffer.clear
         @sbuffer.name = @buffer.lline
+        unless $snippets[@sbuffer.name].nil?
+          playback @sbuffer, @sbuffer.name
+        end
         @buffer, @sbuffer = swap @buffer, @sbuffer
         say "Now recording snippet: #{@buffer.name}"
       else

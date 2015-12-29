@@ -121,6 +121,12 @@ class Buffer
     @b_buff.lines[0..9]
   end
 
+  def clear
+    @a_buff = StringBuffer.new ''
+    @b_buff = StringBuffer.new ''
+    @dirty = false
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end

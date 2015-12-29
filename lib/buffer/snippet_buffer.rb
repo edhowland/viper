@@ -8,6 +8,7 @@ class SnippetBuffer < Buffer
   end
 
   def clear
+    super
     @name = ''
     @commands = []
   end
