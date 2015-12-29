@@ -15,6 +15,7 @@ Ctrl-J: Display the character under or to the right of the cursor
 Ctrl-K: Display the current column
 Ctrl-L: Display the current line
 Ctrl-O: Opens a new line below the current line
+Ctrl-P: Display up to the next 10 lines of the buffer
 EOD
 
 

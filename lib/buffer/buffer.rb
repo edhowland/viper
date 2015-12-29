@@ -100,6 +100,10 @@ class Buffer
     fwd @b_buff.count_nl
   end
 
+  def look_ahead
+    @b_buff.lines[0..9]
+  end
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
