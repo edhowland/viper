@@ -13,6 +13,9 @@ def make_bindings
   result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
   result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
   result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
+  result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
+
+  # command controls
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
   result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
