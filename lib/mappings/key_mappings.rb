@@ -10,6 +10,9 @@ def key_mappings
     "\003" => :ctrl_c,   
   "\004" => :ctrl_d,
     "\b" => :ctrl_h,
+# duplicated with tab key
+    #"\t" => :ctrl_i,
+    "\u0019" => :ctrl_y,
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
     "\f" => :ctrl_l,

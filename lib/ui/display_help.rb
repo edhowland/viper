@@ -5,6 +5,7 @@ Control Character Commands
 
 Ctrl-Q: Quit editing
 Ctrl-H: Display this Help Text
+Ctrl-Y: Speak the name of the current buffer
 Ctrl-S: Save the current buffer
 Ctrl-A: Move to the beginning of the line
 Ctrl-E: Move to the end of the line
