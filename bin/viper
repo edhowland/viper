@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+# viper - Main entry for Viper editor
+
+require 'pry'
+require_relative '../lib/viper'
+require 'optparse'
+
+parser = OptionParser.new do |opt|
+  opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
+  opt.separator '-'
+  opt.on('-h', '--help', 'Displays this help') do
+    puts opt
+    exit
+  end
+  opt.on('-v', '--version', 'Displays the version of Viper') do
+    puts "Viper VIP Editor in Ruby"
+    puts "version #{Viper::VERSION}"
+    exit
+  end
+end
+
+parser.parse!
+
+@fbuffer = FileBuffer.new(ARGV[0])
+puts "Editing #{@fbuffer.fname}"
+
+
+# Executes this block for each character typed in the console
+#   Exits whenever some exception is raised
+ Viper::Control.loop do |worker|
+  ch = worker.getch
+  prc = worker.bound_proc_for ch
+  begin
+    result = prc.call(@fbuffer)
+    binding.pry if result == :debug
+  rescue BufferExceeded => err
+    say BELL
+  end
+end
+
+if @fbuffer.dirty?
+  cli = HighLine.new
+  answer = cli.ask("#{@fbuffer.fname} not saved. Save? ") do |q|
+  q.default = 'n'
+    q.validate = /[YyNn]/
+  end
+  if answer =~ /[Yy]/
+    @fbuffer.save
+    say "#{@fbuffer.fname} saved"
+  end
+end

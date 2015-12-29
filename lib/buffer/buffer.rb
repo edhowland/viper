@@ -4,14 +4,22 @@ class Buffer
   def initialize string
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
+    @dirty = false
   end
+
+  def dirty?
+    @dirty
+  end
+
 
   def ins string
     @a_buff.push string
+    @dirty = true
   end
 
   def del
     raise OperationNotPermitted.new('Delete past beginning of buffer') if @a_buff.empty?
+    @dirty = true
     @a_buff.pop
   end
 
@@ -47,11 +55,11 @@ class Buffer
   end
 
   def lline
-    or_empty(@a_buff.lines[-1])
+    @a_buff.last_line
   end
 
   def rline
-    or_empty(@b_buff.lines[0])
+    @b_buff.first_line
   end
 
   def line
@@ -63,19 +71,30 @@ class Buffer
   end
 
   def up
-    c = col
-    back c + 1
-    until col == c
-      back
-    end
+    count = @a_buff.rcount_nl
+    raise BufferExceeded.new('Cannot move past first line') if  count == @a_buff.length
+    back count
+    next_nl = @a_buff.rcount_nl
+    further = next_nl - count + 1
+    back(further) if further > 0
   end
 
   def down
-      c = col
-  fwd rline.length + 2 # skip over the newline
-    until col == c
-      fwd
-    end
+    rcount = @a_buff.rcount_nl
+    count = @b_buff.count_nl
+    raise BufferExceeded.new('Cannot move past last line') if@b_buff.length <= count
+    fwd count + 1
+    next_nl = @b_buff.count_nl
+    further = [next_nl, rcount].min
+    fwd further
+  end
+
+  def front_of_line
+    back @a_buff.rcount_nl
+  end
+
+  def back_of_line
+    fwd @b_buff.count_nl
   end
 
   def to_s

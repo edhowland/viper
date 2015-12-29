@@ -8,3 +8,18 @@ describe 'empty string' do
 
   specify { subject.length.must_equal 0 }
 end
+
+describe 'rcount_nl' do
+  let(:buf) { StringBuffer.new "line 1\nline 2" }
+  subject { buf.rcount_nl }
+
+  specify { subject.must_equal 7 }
+end
+describe 'rcount_nl with single line' do
+  let(:buf) { StringBuffer.new 'line 1' }
+  subject { buf.rcount_nl }
+
+  specify { subject.must_equal 6 }
+end
+
+
