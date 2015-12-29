@@ -14,3 +14,5 @@ require_relative 'mappings'
 require_relative 'bindings'
 require_relative 'io'
 require_relative 'control'
+
+require_relative 'snippets'
