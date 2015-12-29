@@ -76,6 +76,13 @@ end
         @buffer, @sbuffer = swap @buffer, @sbuffer
         say "Buffer now is #{@buffer.name}"
       end
+    when :snippet_playback
+      snip_key = @buffer.lline
+      if snip_key.empty?
+        say BELL
+      else
+        playback @buffer, snip_key
+      end
     end
   rescue BufferExceeded => err
     say BELL

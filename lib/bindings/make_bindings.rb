@@ -57,7 +57,7 @@ def make_bindings
 
   # Function keys
   result[:fn_1] = ->(b) { :snippet_record }
-  result[:fn_2] = ->(b) { say BELL }
+  result[:fn_2] = ->(b) { :snippet_playback }
   result[:fn_3] = ->(b) { say BELL }
   result[:fn_4] = ->(b) { say BELL }
   result
