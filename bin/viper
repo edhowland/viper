@@ -35,6 +35,7 @@ else
 end
 
 @buffer = @fbuffer
+@sbuffer = SnippetBuffer.new ''
 @prev_buffer = @hbuffer
 
 def swap_buffers
