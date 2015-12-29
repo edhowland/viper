@@ -3,6 +3,7 @@
 # Globals # FIXME
 $snippets = {}
 require 'stringio'
+require 'json'
 require 'highline'
 
 require_relative 'viper/version'

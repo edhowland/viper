@@ -1,5 +1,4 @@
 line 1
-require_relative 'highline'
 line 2
 line 3
 line 4

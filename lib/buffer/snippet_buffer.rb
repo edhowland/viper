@@ -5,6 +5,7 @@ class SnippetBuffer < Buffer
 
   def save
     $snippets[@name] = @commands
+    save_snippets
   end
 
   def clear
