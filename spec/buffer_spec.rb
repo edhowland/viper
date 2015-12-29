@@ -17,7 +17,7 @@ describe 'del' do
   let(:buf) { Buffer.new 'abcdef' }
   subject { buf.del }
 
-  specify { ->() { subject }.must_raise OperationNotPermitted }
+  specify { ->() { subject }.must_raise BufferExceeded }
 end
 
 describe 'fwd' do

@@ -44,7 +44,7 @@ def swap_buffers
   say "Buffer now is #{@buffer.name}"
 end  
 
-puts "Editing #{@fbuffer.name}"
+#puts "Editing #{@fbuffer.name}"
 
 
 # Executes this block for each character typed in the console

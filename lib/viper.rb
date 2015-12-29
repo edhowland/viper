@@ -1,5 +1,7 @@
 # viper.rb - requires for viper
 
+# Globals # FIXME
+$snippets = {}
 require 'stringio'
 require 'highline'
 
