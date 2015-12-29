@@ -84,6 +84,7 @@ end
       if snip_key.empty?
         say BELL
       else
+        @buffer.lline.length.times { @buffer.del }
         playback @buffer, snip_key
       end
     end
