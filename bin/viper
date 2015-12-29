@@ -5,8 +5,15 @@ require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
+
+options = {:read_only => false}
+
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
+  opt.separator '-'
+  opt.on('--ro', 'Treat file as Read-only') do
+    options[:read_only] = true
+  end
   opt.separator '-'
   opt.on('-h', '--help', 'Displays this help') do
     puts opt
@@ -21,7 +28,12 @@ end
 
 parser.parse!
 
-@fbuffer = FileBuffer.new(ARGV[0])
+if options[:read_only]
+  @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+else
+  @fbuffer = FileBuffer.new(ARGV[0])
+end
+
 @buffer = @fbuffer
 @prev_buffer = @hbuffer
 
@@ -32,7 +44,7 @@ def swap_buffers
   say "Buffer now is #{@buffer.name}"
 end  
 
-puts "Editing #{@fbuffer.fname}"
+puts "Editing #{@fbuffer.name}"
 
 
 # Executes this block for each character typed in the console

@@ -8,5 +8,9 @@ module NonWritable
   def del
     say BELL
   end
+
+  def name
+    "#{@name} (read only)"
+  end
 end
 
