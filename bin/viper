@@ -36,9 +36,14 @@ end
 
 @buffer = @fbuffer
 @sbuffer = SnippetBuffer.new ''
+
+def swap buff1, buff2
+  [buff2, buff1]
+end
+
 @prev_buffer = @hbuffer
 
-def swap_buffers
+def old_swap_buffers
   tmp = @buffer
   @buffer = @prev_buffer
   @prev_buffer = tmp
@@ -56,7 +61,8 @@ end
   begin
     result = prc.call(@buffer)
     binding.pry if result == :debug
-    swap_buffers if result == :help
+#    old_swap_buffers if result == :help
+    @buffer, @prev_buffer = swap @buffer, @prev_buffer if result == :help 
   rescue BufferExceeded => err
     say BELL
   end
