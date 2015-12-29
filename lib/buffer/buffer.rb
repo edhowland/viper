@@ -5,7 +5,10 @@ class Buffer
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
     @dirty = false
+    @name = 'unnamed'
   end
+
+  attr_accessor :name
 
   def dirty?
     @dirty

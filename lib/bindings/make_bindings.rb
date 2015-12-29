@@ -38,7 +38,7 @@ def make_bindings
   ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { b.ins '  '; say 'tab' }
-  result[:ctrl_h] = ->(b) { display_help }
+  result[:ctrl_h] = ->(b) {:help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
   result[:ctrl_l] = ->(b) { say b.line }

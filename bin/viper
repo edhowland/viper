@@ -22,6 +22,16 @@ end
 parser.parse!
 
 @fbuffer = FileBuffer.new(ARGV[0])
+@buffer = @fbuffer
+@prev_buffer = @hbuffer
+
+def swap_buffers
+  tmp = @buffer
+  @buffer = @prev_buffer
+  @prev_buffer = tmp
+  say "Buffer now is #{@buffer.name}"
+end  
+
 puts "Editing #{@fbuffer.fname}"
 
 
@@ -31,8 +41,9 @@ puts "Editing #{@fbuffer.fname}"
   ch = worker.getch
   prc = worker.bound_proc_for ch
   begin
-    result = prc.call(@fbuffer)
+    result = prc.call(@buffer)
     binding.pry if result == :debug
+    swap_buffers if result == :help
   rescue BufferExceeded => err
     say BELL
   end
