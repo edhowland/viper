@@ -14,6 +14,7 @@ Ctrl-B: Move to the bottom of the buffer
 Ctrl-J: Display the character under or to the right of the cursor
 Ctrl-K: Display the current column
 Ctrl-L: Display the current line
+Ctrl-O: Opens a new line below the current line
 EOD
 
 
