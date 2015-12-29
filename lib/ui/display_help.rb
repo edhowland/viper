@@ -16,6 +16,10 @@ Ctrl-K: Display the current column
 Ctrl-L: Display the current line
 Ctrl-O: Opens a new line below the current line
 Ctrl-P: Display up to the next 10 lines of the buffer
+
+Commands
+
+Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor session
 EOD
 
 

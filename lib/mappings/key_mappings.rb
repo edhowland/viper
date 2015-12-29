@@ -24,7 +24,13 @@ def key_mappings
   "\033[B" => :down,
   "\033[C" => :right,
   "\033[D" => :left, 
-  # punctuation
+
+    # Function keys
+    "\eOP" => :fn_1,
+    "\eOQ" => :fn_2,
+    "\eOR" => :fn_3,
+    "\eOS" => :fn_4,
+  # punctuation and other characters
     ';' => :semicolon,
     ':' => :colon,
     '.' => :period,

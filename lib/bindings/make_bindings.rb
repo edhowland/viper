@@ -52,5 +52,11 @@ def make_bindings
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
   result[:backspace] =->(b) { ch= b.del; say "delete #{ch}" }
+
+  # Function keys
+  result[:fn_1] = ->(b) { say BELL }
+  result[:fn_2] = ->(b) { say BELL }
+  result[:fn_3] = ->(b) { say BELL }
+  result[:fn_4] = ->(b) { say BELL }
   result
 end
