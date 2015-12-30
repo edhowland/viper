@@ -3,11 +3,11 @@
 Where do I start!
 
 1. (DONE) FIX moving past the beginning or end of the buffer
-2. Implement FileBuffer: subclass of Buffer 
-  initialize takes file name (from ARGV[0]
-  Implements save command
-  and rewind command - mapped to ctrl_r for now
+2. (DONE) Implement FileBuffer: subclass of Buffer 
+  (DONE) initialize takes file name (from ARGV[0]
+  (DONE) Implements save command
+  (IMPLEMENTED in REPL) and rewind command - mapped to ctrl_r for now
 3. (DONE) move source files to lib/utils or ??
 4. Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
-5. Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
+5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
 
