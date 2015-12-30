@@ -11,3 +11,5 @@ Where do I start!
 4. Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
 5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
 
+
+6. Concentrate on up/down line movements. Esp. write specs around many configures of possible buffer configs.
