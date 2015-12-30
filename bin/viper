@@ -7,6 +7,7 @@ require 'optparse'
 
 
 options = {:read_only => false}
+load_snippets # loads snippets from ./config/snippets.JSON file
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
@@ -35,16 +36,15 @@ else
 end
 
 @buffer = @fbuffer
-@prev_buffer = @hbuffer
+@sbuffer = SnippetBuffer.new ''
 
-def swap_buffers
-  tmp = @buffer
-  @buffer = @prev_buffer
-  @prev_buffer = tmp
-  say "Buffer now is #{@buffer.name}"
-end  
+def swap buff1, buff2
+  [buff2, buff1]
+end
 
-puts "Editing #{@fbuffer.name}"
+
+
+#puts "Editing #{@fbuffer.name}"
 
 
 # Executes this block for each character typed in the console
@@ -54,10 +54,46 @@ puts "Editing #{@fbuffer.name}"
   prc = worker.bound_proc_for ch
   begin
     result = prc.call(@buffer)
-    binding.pry if result == :debug
-    swap_buffers if result == :help
+    case result
+    when :quit
+      break
+    when :save
+      @buffer.save
+      say "Buffer #{@buffer.name} saved"
+      when :debug
+        say 'Entering debug mode. Press Ctrl-D to exit'
+        binding.pry
+        say "Exited debug mode. Buffer is #{@buffer.name}"
+      when :help
+        @buffer, @hbuffer = swap @buffer, @hbuffer
+        say "Buffer is now #{@buffer.name}"
+    when :snippet_record
+      if @sbuffer.kind_of? SnippetBuffer
+        @sbuffer.clear
+        @sbuffer.name = @buffer.lline
+        unless $snippets[@sbuffer.name].nil?
+          playback @sbuffer, @sbuffer.name
+        end
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Now recording snippet: #{@buffer.name}"
+      else
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Buffer now is #{@buffer.name}"
+      end
+    when :snippet_playback
+      snip_key = @buffer.lline
+      if snip_key.empty?
+        say BELL
+      else
+        @buffer.lline.length.times { @buffer.del }
+        playback @buffer, snip_key
+        say @buffer.line
+      end
+    end
   rescue BufferExceeded => err
     say BELL
+  rescue => err
+    say err.message
   end
 end
 

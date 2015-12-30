@@ -16,6 +16,19 @@ Ctrl-K: Display the current column
 Ctrl-L: Display the current line
 Ctrl-O: Opens a new line below the current line
 Ctrl-P: Display up to the next 10 lines of the buffer
+
+Commands
+
+Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor session
+
+
+Function Keys
+-
+Snippet Commands
+F1: Start recording snippet named for characters to left of cursor
+  Press Ctrl-S to save snippet
+  Press F1 again to return to current buffer
+F2: Playback snippet named for characters to left of cursor
 EOD
 
 

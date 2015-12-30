@@ -4,6 +4,8 @@ def key_mappings
     "\u0011" => :ctrl_q,
     "\001" => :ctrl_a,
     "\005" => :ctrl_e,
+    "\u0006" => :ctrl_f,
+    "\u0012" => :ctrl_r,
     "\u0014" => :ctrl_t,
     "\002" => :ctrl_b,
     "\u0013" => :ctrl_s,
@@ -24,7 +26,13 @@ def key_mappings
   "\033[B" => :down,
   "\033[C" => :right,
   "\033[D" => :left, 
-  # punctuation
+
+    # Function keys
+    "\eOP" => :fn_1,
+    "\eOQ" => :fn_2,
+    "\eOR" => :fn_3,
+    "\eOS" => :fn_4,
+  # punctuation and other characters
     ';' => :semicolon,
     ':' => :colon,
     '.' => :period,

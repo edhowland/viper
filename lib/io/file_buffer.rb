@@ -1,6 +1,7 @@
 # file_buffer.rb - class FileBuffer
 
 class FileBuffer < Buffer
+  include Recordable
   def initialize filename
     @fname = filename
     if File.exist? @fname

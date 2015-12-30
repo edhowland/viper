@@ -8,7 +8,7 @@ def key_press
   x = $stdin.getch
   if x == "\e"
     y = $stdin.getch
-    if y == "["
+    if y == "[" or y == "O"
       z = $stdin.getch
     end
   end

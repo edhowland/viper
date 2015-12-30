@@ -7,19 +7,21 @@ def make_bindings
   ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
 
   # Control characters
-  result[:ctrl_q] = ->(b) { raise ExitException.new}
-  result[:ctrl_a] = ->(b) { b.front_of_line; say b.line }
-  result[:ctrl_e] = ->(b) { b.back_of_line; say b.line }
+  result[:ctrl_q] = ->(b) {:quit }
+  result[:ctrl_a] = ->(b) { b.front_of_line; say b.at }
+  result[:ctrl_e] = ->(b) { b.back_of_line; say b.at }
   result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
   result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
   result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
+  result[:ctrl_f] = ->(b) { say BELL }
+  result[:ctrl_r] = ->(b) { say BELL }
 
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
   result[:ctrl_c] = ->(b) { say BELL}
-  result[:ctrl_s] = ->(b) {b.save;  say "#{b.fname} saved" }
+  result[:ctrl_s] = ->(b) {:save }
 
   # punctuation
   result[:colon] = insert_sym ':'
@@ -52,5 +54,11 @@ def make_bindings
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
   result[:backspace] =->(b) { ch= b.del; say "delete #{ch}" }
+
+  # Function keys
+  result[:fn_1] = ->(b) { :snippet_record }
+  result[:fn_2] = ->(b) { :snippet_playback }
+  result[:fn_3] = ->(b) { say BELL }
+  result[:fn_4] = ->(b) { say BELL }
   result
 end
