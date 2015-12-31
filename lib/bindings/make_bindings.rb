@@ -60,5 +60,9 @@ def make_bindings
   result[:fn_2] = ->(b) { :snippet_playback }
   result[:fn_3] = ->(b) { say BELL }
   result[:fn_4] = ->(b) { say BELL }
+  result[:shift_right] = ->(b) { say BELL }
+  result[:shift_left] = ->(b) { say BELL }
+  result[:shift_up] = ->(b) { say BELL }
+  result[:shift_down] = ->(b) { say BELL }
   result
 end

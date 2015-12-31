@@ -64,6 +64,11 @@ def key_mappings
     '[' => :lbracket,
     ']' => :rbracket,
     '{' => :lbrace,
-    '}' => :rbrace
+    '}' => :rbrace,
+    # Shift Arrow keys
+    "\e[1;2C" => :shift_right,
+    "\e[1;2D" => :shift_left #,
+    #"\e[A" => :shift_up,
+    #"\e[B" => :shift_down
   }
 end
