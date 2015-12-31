@@ -67,8 +67,12 @@ def key_mappings
     '}' => :rbrace,
     # Shift Arrow keys
     "\e[1;2C" => :shift_right,
-    "\e[1;2D" => :shift_left #,
+    "\e[1;2D" => :shift_left,
     #"\e[A" => :shift_up,
     #"\e[B" => :shift_down
+    "\e[H" => :shift_home,
+    "\e[F" => :shift_end,
+    "\e[5~" => :shift_pgup,
+"\e[6~" => :shift_pgdn
   }
 end

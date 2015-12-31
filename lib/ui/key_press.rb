@@ -11,6 +11,8 @@ def key_press
       z = $stdin.getch
     if z == '1'
       p = key_press; q = key_press; r = key_press
+    elsif z == '5' or z == '6'   # for shift+PgUp, Shift+PgDn
+      p = key_press
     end
     end
   end

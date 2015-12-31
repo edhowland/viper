@@ -8,10 +8,10 @@ def make_bindings
 
   # Control characters
   result[:ctrl_q] = ->(b) {:quit }
-  result[:ctrl_a] = ->(b) { b.front_of_line; say b.at }
-  result[:ctrl_e] = ->(b) { b.back_of_line; say b.at }
-  result[:ctrl_t] = ->(b) { b.beg; say "top of buffer" }
-  result[:ctrl_b] = ->(b) { b.fin; say "bottom of buffer" }
+  result[:shift_home] = ->(b) { b.front_of_line; say b.at }
+  result[:shift_end] = ->(b) { b.back_of_line; say b.at }
+  result[:shift_pgup] = ->(b) { b.beg; say "top of buffer" }
+  result[:shift_pgdn] = ->(b) { b.fin; say "bottom of buffer" }
   result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
