@@ -6,6 +6,7 @@ class Buffer
     @b_buff = StringBuffer.new string
     @dirty = false
     @name = 'unnamed'
+    @mark = 0
   end
 
   attr_accessor :name
@@ -126,6 +127,28 @@ class Buffer
     @b_buff = StringBuffer.new ''
     @dirty = false
   end
+
+  def copy_back
+    @mark += 1
+    back
+  end
+
+
+  def copy_fwd
+    @mark -= 1
+    fwd
+  end
+
+  def copy
+    if @mark < 0
+      value = @a_buff.copy(@mark)
+    else
+      value = @b_buff.copy(@mark)
+    end
+    @mark = 0
+    value
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
