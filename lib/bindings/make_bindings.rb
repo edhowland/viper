@@ -65,7 +65,7 @@ def make_bindings
   result[:ctrl_c] = ->(b) { $clipboard = b.copy; say 'copy' }
   result[:ctrl_v] = ->(b) { b.ins($clipboard); say 'paste' }
   result[:shift_right] = ->(b) {say "lit #{b.at}";   b.copy_fwd }
-  result[:shift_left] = ->(b) { say BELL }
+  result[:shift_left] = ->(b) { b.copy_back; say "lit #{b.at}" }
   result[:shift_up] = ->(b) { say BELL }
   result[:shift_down] = ->(b) { say BELL }
   result
