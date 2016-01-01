@@ -80,3 +80,9 @@ describe 'pop empty buffer raises BufferExceeded' do
 
   specify { ->() { subject }.must_raise BufferExceeded }
 end
+
+describe 'copy range' do
+  let(:buf) { StringBuffer.new('0123456789ABCDEF') }
+  subject { buf.copy(10) }
+  specify { subject.must_equal '0123456789' }
+end

@@ -79,6 +79,10 @@ class StringBuffer
     @buffer.length
   end
 
+  def copy limit
+    @buffer[0..(limit - 1)]
+  end
+
   def to_s
     @buffer
   end
