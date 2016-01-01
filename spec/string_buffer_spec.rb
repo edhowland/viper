@@ -86,3 +86,10 @@ describe 'copy range' do
   subject { buf.copy(10) }
   specify { subject.must_equal '0123456789' }
 end
+
+describe 'copy negative' do
+  let(:buf) { StringBuffer.new '012345ABCDE' }
+  subject { buf.copy(-5) }
+
+  specify { subject.must_equal 'ABCDE' }
+end
