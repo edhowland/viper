@@ -64,6 +64,8 @@ def make_bindings
   # copy and paste keys
   result[:ctrl_c] = ->(b) { $clipboard = b.copy; say 'copy' }
   result[:ctrl_v] = ->(b) { b.ins($clipboard); say 'paste' }
+  result[:ctrl_x] = ->(b) { $clipboard = b.cut; say 'cut' }
+
   result[:shift_right] = ->(b) {say "lit #{b.at}";   b.copy_fwd }
   result[:shift_left] = ->(b) { b.copy_back; say "lit #{b.at}" }
   result[:shift_up] = ->(b) { say BELL }
