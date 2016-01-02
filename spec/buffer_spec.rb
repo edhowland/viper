@@ -111,3 +111,11 @@ describe 'srch_back' do
   specify {  subject.must_equal 'g' }
 
 end
+
+describe 'srch_back for non-existant regex' do
+  let(:buf) { Buffer.new 'Now is the time for all good men' }
+  subject {  buf.fin; buf.srch_back 'xyzz'; buf.at }
+
+  specify {  subject.must_equal nil }
+
+end

@@ -103,7 +103,9 @@ class StringBuffer
   end
 
   def rindex regex
-    @buffer.rindex(regex) - @buffer.length
+    result = @buffer.rindex(regex) #- @buffer.length
+    return result - @buffer.length unless result.nil?
+    result
   end
 
 
