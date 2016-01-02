@@ -118,3 +118,11 @@ describe 'index' do
   specify {  subject.must_equal 11 }
 
 end
+
+describe 'rindex' do
+  let(:buf) { StringBuffer.new 'Now is the time for all men' }
+  subject {  buf.rindex 'all' }
+
+  specify {  subject.must_equal -7 }
+
+end

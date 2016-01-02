@@ -102,6 +102,11 @@ class StringBuffer
     @buffer.index regex
   end
 
+  def rindex regex
+    @buffer.rindex(regex) - @buffer.length
+  end
+
+
 
   def to_s
     @buffer
