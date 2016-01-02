@@ -8,8 +8,6 @@ Where do I start!
   (DONE) Implements save command
   (IMPLEMENTED in REPL) and rewind command - mapped to ctrl_r for now
 3. (DONE) move source files to lib/utils or ??
-4. Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
+4. (DONE) Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
 5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
-
-
 6. Concentrate on up/down line movements. Esp. write specs around many configures of possible buffer configs.
