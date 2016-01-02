@@ -72,3 +72,19 @@ describe 'copy_fwd and copy (reverses direction)' do
   specify { subject.must_equal 'AB' }
 
 end
+
+describe 'cut fwd' do
+  let(:buf) {Buffer.new '01234ABCDE' }
+  subject {  buf.fwd 3; buf.copy_fwd; buf.copy_fwd; buf.cut }
+
+  specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
+
+end
+
+describe 'cut back' do
+  let(:buf) {Buffer.new '01234ABCDE' }
+  subject { buf.fwd 5; buf.copy_back; buf.copy_back; buf.cut }
+
+  specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
+
+end

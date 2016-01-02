@@ -149,6 +149,16 @@ class Buffer
     value
   end
 
+  def cut
+    if @mark < 1
+   value = @a_buff.cut(@mark)
+    else
+      value = @b_buff.cut(@mark)
+    end
+    @mark = 0
+    value   
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
