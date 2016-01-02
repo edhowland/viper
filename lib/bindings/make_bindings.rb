@@ -15,8 +15,8 @@ def make_bindings
   result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}" }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
-  result[:ctrl_f] = ->(b) { say BELL }
-  result[:ctrl_r] = ->(b) { say BELL }
+  result[:ctrl_f] = ->(b) { :srch_fwd }
+  result[:ctrl_r] = ->(b) { :srch_back }
 
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
