@@ -98,6 +98,11 @@ class StringBuffer
     value
   end
 
+  def index regex
+    @buffer.index regex
+  end
+
+
   def to_s
     @buffer
   end

@@ -110,3 +110,11 @@ describe 'cut: back' do
 
  specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
 end
+
+describe 'index' do
+  let(:buf) { StringBuffer.new 'now is the time for all good men' }
+  subject {  buf.index 'time' }
+
+  specify {  subject.must_equal 11 }
+
+end
