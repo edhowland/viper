@@ -10,6 +10,8 @@ def key_mappings
     "\002" => :ctrl_b,
     "\u0013" => :ctrl_s,
     "\003" => :ctrl_c,   
+    "\u0016" => :ctrl_v,
+"\u0018" => :ctrl_x,
     "\u000F" => :ctrl_o,
     "\u0010" => :ctrl_p,
   "\004" => :ctrl_d,
@@ -64,6 +66,15 @@ def key_mappings
     '[' => :lbracket,
     ']' => :rbracket,
     '{' => :lbrace,
-    '}' => :rbrace
+    '}' => :rbrace,
+    # Shift Arrow keys
+    "\e[1;2C" => :shift_right,
+    "\e[1;2D" => :shift_left,
+    #"\e[A" => :shift_up,
+    #"\e[B" => :shift_down
+    "\e[H" => :shift_home,
+    "\e[F" => :shift_end,
+    "\e[5~" => :shift_pgup,
+"\e[6~" => :shift_pgdn
   }
 end

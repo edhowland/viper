@@ -2,6 +2,7 @@
 
 # Globals # FIXME
 $snippets = {}
+$clipboard = ''
 require 'stringio'
 require 'json'
 require 'highline'

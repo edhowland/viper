@@ -80,3 +80,33 @@ describe 'pop empty buffer raises BufferExceeded' do
 
   specify { ->() { subject }.must_raise BufferExceeded }
 end
+
+describe 'copy range' do
+  let(:buf) { StringBuffer.new('0123456789ABCDEF') }
+  subject { buf.copy(10) }
+  specify { subject.must_equal '0123456789' }
+end
+
+describe 'copy negative' do
+  let(:buf) { StringBuffer.new '012345ABCDE' }
+  subject { buf.copy(-5) }
+
+  specify { subject.must_equal 'ABCDE' }
+end
+
+describe 'cut:fwd' do
+  let(:buf) { StringBuffer.new '01234ABCDE' }
+  subject { buf.cut 5}
+
+  specify { subject.must_equal '01234' }
+  specify { subject; buf.to_s.must_equal 'ABCDE' }
+#  specify {buf.to_s.must_equal '012345CDE'  }
+end
+
+
+describe 'cut: back' do
+  let(:buf) { StringBuffer.new '01234ABCDE'}
+  subject { buf.cut -5 }
+
+ specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
+end

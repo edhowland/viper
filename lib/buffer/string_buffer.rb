@@ -79,6 +79,25 @@ class StringBuffer
     @buffer.length
   end
 
+
+  def calc_range limit
+    (limit < 0 ? limit..(-1)  : 0..(limit - 1) )
+  end
+
+  def copy limit
+    @buffer[calc_range(limit)]
+  end
+
+  def cut limit
+    value = copy(limit)
+    if limit < 0
+      @buffer = @buffer[0..(limit - 1)]
+    else
+      @buffer = @buffer[limit..(-1)]
+    end
+    value
+  end
+
   def to_s
     @buffer
   end
