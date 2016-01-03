@@ -1,6 +1,5 @@
 # TODO list for edit_buffer
 
-Where do I start!
 
 1. (DONE) FIX moving past the beginning or end of the buffer
 2. (DONE) Implement FileBuffer: subclass of Buffer 
@@ -11,3 +10,6 @@ Where do I start!
 4. (DONE) Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
 5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
 6. Concentrate on up/down line movements. Esp. write specs around many configures of possible buffer configs.
+7. (DONE) Implement Search and Reverse-Search.
+8. Implement Undo/Redo. Use type of CommandBuffer like Buffer (gap buffer)
+

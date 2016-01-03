@@ -98,6 +98,18 @@ class StringBuffer
     value
   end
 
+  def index regex
+    @buffer.index regex
+  end
+
+  def rindex regex
+    result = @buffer.rindex(regex) #- @buffer.length
+    return result - @buffer.length unless result.nil?
+    result
+  end
+
+
+
   def to_s
     @buffer
   end

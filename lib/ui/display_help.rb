@@ -15,6 +15,12 @@ Ctrl-J: Display the character under or to the right of the cursor
 Ctrl-K: Display the current column
 Ctrl-L: Display the current line
 Ctrl-O: Opens a new line below the current line
+
+Searching
+-
+Ctrl-F: Enter text to be searched forward for. Ctrl-F again to begin the search.
+Ctrl-R: Enter text to be searched backward for. Ctrl-R again to begin the search.
+
 Ctrl-P: Display up to the next 10 lines of the buffer
 
 Cut, Copy and Paste Commands

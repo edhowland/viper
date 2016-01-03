@@ -24,5 +24,8 @@ Ctrl-H: Displays help text describing more actions
 
 Snippets - Ability to record and playback short snippets of commonly used texts.
 Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste.
+Search and Reverse Search. (Ctrl-F. Ctrl-R).
+  Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
+  text to be search to be for.
 Debug mode: For debugging the editor itself.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.

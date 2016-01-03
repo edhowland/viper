@@ -37,6 +37,8 @@ end
 
 @buffer = @fbuffer
 @sbuffer = SnippetBuffer.new ''
+@search_buffer = Buffer.new ''
+@search_buffer.name = 'Search buffer'
 
 def swap buff1, buff2
   [buff2, buff1]
@@ -89,6 +91,25 @@ end
         playback @buffer, snip_key
         say @buffer.line
       end
+    when :srch_fwd
+      @buffer, @search_buffer = swap(@buffer, @search_buffer)
+      if @buffer.name == 'Search buffer'
+      say 'search forward'
+      else
+        @buffer.srch_fwd(@search_buffer.to_s)
+        say @buffer.at
+      end
+
+    when :srch_back
+      @buffer, @search_buffer = swap(@buffer, @search_buffer)
+      if @buffer.name == 'Search buffer'
+        say 'Search backward'
+      else
+        @buffer.srch_back(@search_buffer.to_s)
+        say @buffer.at
+      end
+
+      
     end
   rescue BufferExceeded => err
     say BELL
