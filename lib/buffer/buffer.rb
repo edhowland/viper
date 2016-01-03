@@ -34,8 +34,9 @@ class Buffer
   def del
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
     @dirty = true
-    record :del
-    @a_buff.pop
+    value = @a_buff.pop
+    record :del, value
+    value
   end
 
   def fwd count=1
