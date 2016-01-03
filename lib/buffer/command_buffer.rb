@@ -17,6 +17,13 @@ class CommandBuffer
     value
   end
 
+  def fwd
+    value = @b_buff.shift
+    @a_buff.push value
+    value
+  end
+
+
 
 
 end

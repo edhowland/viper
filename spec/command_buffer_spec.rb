@@ -9,3 +9,11 @@ describe '<<' do
   specify {  subject; buf.back.must_equal [:ins, 'i'] }
 
 end
+
+describe 'fwd after back' do
+  let(:buf) { CommandBuffer.new }
+  subject {  buf << [:ins, 'i']; buf << [:del]; buf.back; buf.fwd} 
+
+  specify { subject.must_equal [:del]  }
+
+end
