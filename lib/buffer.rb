@@ -1,7 +1,8 @@
 # buffer.rb - requires for buffer/
 
-require_relative 'buffer/recordable'
 require_relative 'buffer/command_buffer'
+
+require_relative 'buffer/recordable'
 require_relative 'buffer/string_buffer'
 require_relative 'buffer/buffer'
 require_relative 'buffer/non_writable'

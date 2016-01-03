@@ -7,4 +7,16 @@ class CommandBuffer
     @name = 'Command Buffer'
   end
 
+  def <<(command)
+    @a_buff.push command
+  end
+
+  def back
+    value = @a_buff.pop
+    @b_buff.unshift value
+    value
+  end
+
+
+
 end
