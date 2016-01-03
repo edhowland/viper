@@ -96,6 +96,7 @@ end
       if @buffer.name == 'Search buffer'
       say 'search forward'
       else
+        @buffer.fwd
         @buffer.srch_fwd(@search_buffer.to_s)
         say @buffer.at
       end
@@ -105,6 +106,7 @@ end
       if @buffer.name == 'Search buffer'
         say 'Search backward'
       else
+        @buffer.back
         @buffer.srch_back(@search_buffer.to_s)
         say @buffer.at
       end
