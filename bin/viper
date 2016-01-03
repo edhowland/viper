@@ -100,6 +100,14 @@ end
         say @buffer.at
       end
 
+    when :srch_back
+      @buffer, @search_buffer = swap(@buffer, @search_buffer)
+      if @buffer.name == 'Search buffer'
+        say 'Search backward'
+      else
+        @buffer.srch_back(@search_buffer.to_s)
+        say @buffer.at
+      end
 
       
     end
