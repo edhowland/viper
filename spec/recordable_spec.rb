@@ -39,3 +39,11 @@ describe 'invert :back' do
   specify {  subject.must_equal [:fwd, 1] }
 
 end
+
+describe 'invert :unk' do
+  let(:buf) { MyBuffer.new '' }
+  subject {  buf.invert([:unk, nil]) }
+
+  specify {  subject.must_equal [nil, nil] }
+
+end
