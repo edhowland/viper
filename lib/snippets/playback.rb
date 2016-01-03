@@ -5,6 +5,6 @@ def playback buffer, key
   unless snippet.nil?
     snippet.each {|cmd| buffer.send cmd[0], *cmd[1] }
   else
-    sayBELL
+    say BELL
   end
 end

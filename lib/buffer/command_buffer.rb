@@ -24,6 +24,8 @@ class CommandBuffer
   end
 
 
-
+  def to_a
+    @a_buff + @b_buff
+  end
 
 end
