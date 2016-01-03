@@ -2,7 +2,7 @@
 
 module Recordable
   def record method, *args
-    @commands ||= []
+    @commands ||= CommandBuffer.new
     @commands << [method, *args]
     end
 end
