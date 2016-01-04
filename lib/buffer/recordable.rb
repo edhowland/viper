@@ -12,5 +12,16 @@ module Recordable
     [@reverse_commands[command[0]], command[1]]
   end
 
+  def undo
+    last_command = @commands.back
+    unless last_command.nil?
+      command = invert(last_command)
+      unless command[0] == nil
+          self.send(command[0], *command[1])
+      end
+    end
+  end
+
+
 
 end

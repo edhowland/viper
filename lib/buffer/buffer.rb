@@ -31,10 +31,10 @@ class Buffer
     record :ins, string
   end
 
-  def del
+  def del string=' '
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
     @dirty = true
-    value = @a_buff.pop
+    value = @a_buff.cut(string.length * (-1))
     record :del, value
     value
   end

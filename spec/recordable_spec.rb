@@ -47,3 +47,11 @@ describe 'invert :unk' do
   specify {  subject.must_equal [nil, nil] }
 
 end
+
+describe 'undo' do
+  let(:buf) { MyBuffer.new '' }
+  subject {  buf.ins 'Now is the'; buf.undo; buf.to_s }
+
+  specify {  subject.must_equal '' }
+
+end
