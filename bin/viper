@@ -1,0 +1,133 @@
+#!/usr/bin/env ruby
+# viper - Main entry for Viper editor
+
+require 'pry'
+require_relative '../lib/viper'
+require 'optparse'
+
+
+options = {:read_only => false}
+load_snippets # loads snippets from ./config/snippets.JSON file
+
+parser = OptionParser.new do |opt|
+  opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
+  opt.separator '-'
+  opt.on('--ro', 'Treat file as Read-only') do
+    options[:read_only] = true
+  end
+  opt.separator '-'
+  opt.on('-h', '--help', 'Displays this help') do
+    puts opt
+    exit
+  end
+  opt.on('-v', '--version', 'Displays the version of Viper') do
+    puts "Viper VIP Editor in Ruby"
+    puts "version #{Viper::VERSION}"
+    exit
+  end
+end
+
+parser.parse!
+
+if options[:read_only]
+  @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+else
+  @fbuffer = FileBuffer.new(ARGV[0])
+end
+
+@buffer = @fbuffer
+@sbuffer = SnippetBuffer.new ''
+@search_buffer = Buffer.new ''
+@search_buffer.name = 'Search buffer'
+
+def swap buff1, buff2
+  [buff2, buff1]
+end
+
+
+
+#puts "Editing #{@fbuffer.name}"
+
+
+# Executes this block for each character typed in the console
+#   Exits whenever some exception is raised
+ Viper::Control.loop do |worker|
+  ch = worker.getch
+  prc = worker.bound_proc_for ch
+  begin
+    result = prc.call(@buffer)
+    case result
+    when :quit
+      break
+    when :save
+      @buffer.save
+      say "Buffer #{@buffer.name} saved"
+      when :debug
+        say 'Entering debug mode. Press Ctrl-D to exit'
+        binding.pry
+        say "Exited debug mode. Buffer is #{@buffer.name}"
+      when :help
+        @buffer, @hbuffer = swap @buffer, @hbuffer
+        say "Buffer is now #{@buffer.name}"
+    when :snippet_record
+      if @sbuffer.kind_of? SnippetBuffer
+        @sbuffer.clear
+        @sbuffer.name = @buffer.lline
+        unless $snippets[@sbuffer.name].nil?
+          playback @sbuffer, @sbuffer.name
+        end
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Now recording snippet: #{@buffer.name}"
+      else
+        @buffer, @sbuffer = swap @buffer, @sbuffer
+        say "Buffer now is #{@buffer.name}"
+      end
+    when :snippet_playback
+      snip_key = @buffer.lline
+      if snip_key.empty?
+        say BELL
+      else
+        @buffer.lline.length.times { @buffer.del }
+        playback @buffer, snip_key
+        say @buffer.line
+      end
+    when :srch_fwd
+      @buffer, @search_buffer = swap(@buffer, @search_buffer)
+      if @buffer.name == 'Search buffer'
+      say 'search forward'
+      else
+        @buffer.fwd
+        @buffer.srch_fwd(@search_buffer.to_s)
+        say @buffer.at
+      end
+
+    when :srch_back
+      @buffer, @search_buffer = swap(@buffer, @search_buffer)
+      if @buffer.name == 'Search buffer'
+        say 'Search backward'
+      else
+        @buffer.back
+        @buffer.srch_back(@search_buffer.to_s)
+        say @buffer.at
+      end
+
+      
+    end
+  rescue BufferExceeded => err
+    say BELL
+  rescue => err
+    say err.message
+  end
+end
+
+if @fbuffer.dirty?
+  cli = HighLine.new
+  answer = cli.ask("#{@fbuffer.fname} not saved. Save? ") do |q|
+  q.default = 'n'
+    q.validate = /[YyNn]/
+  end
+  if answer =~ /[Yy]/
+    @fbuffer.save
+    say "#{@fbuffer.fname} saved"
+  end
+end
