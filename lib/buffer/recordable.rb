@@ -34,8 +34,16 @@ module Recordable
         end
       end
     end
+
+  def redo
+    suppress do
+      command = @commands.fwd
+      unless command.nil?
+        self.send(command[0], *command[1])
+      end
+    end
   end
 
-
+  end
 
 end
