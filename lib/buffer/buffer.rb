@@ -171,7 +171,9 @@ class Buffer
   end
 
 
-
+  def position
+    @a_buff.length
+  end
 
   def to_s
     @a_buff.to_s + @b_buff.to_s

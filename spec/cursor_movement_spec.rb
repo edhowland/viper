@@ -30,6 +30,14 @@ describe '2 lines first line, empty line' do
   let(:buf) { Buffer.new "line 1\n\n" }
   subject {  buf.down; buf.at }
 
-  specify {  subject.must_equal "\n" }
+  specify {  subject.must_equal "\n"; buf.position.must_equal  7 }
+
+end
+
+describe '2 empty lines' do
+  let(:buf) { Buffer.new "\n\n" }
+  subject {  buf.down; buf.position }
+
+  specify {  subject.must_equal 1 }
 
 end
