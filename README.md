@@ -27,5 +27,6 @@ Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X an
 Search and Reverse Search. (Ctrl-F. Ctrl-R).
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.
+Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed.
 Debug mode: For debugging the editor itself.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
