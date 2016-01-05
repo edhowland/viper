@@ -4,7 +4,7 @@ class SnippetBuffer < Buffer
   include Recordable
 
   def save
-    $snippets[@name] = @commands
+    $snippets[@name] = @commands.to_a
     save_snippets
   end
 

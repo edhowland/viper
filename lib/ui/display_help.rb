@@ -30,6 +30,10 @@ Shift+Left: Highlight and move left one character
 Ctrl-C: Copy highlighted text to clipboard
 Ctrl-X: Cut highlighted text to clipboard
 Ctrl-V: Paste clipboard text into current buffer at cursor
+ Undo/Redo
+-
+Ctrl-Z: Undo the last action
+Ctrl-U: Redo the last action undone (from last Ctrl-Z)
 Commands
 
 Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor session

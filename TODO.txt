@@ -11,5 +11,5 @@
 5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
 6. Concentrate on up/down line movements. Esp. write specs around many configures of possible buffer configs.
 7. (DONE) Implement Search and Reverse-Search.
-8. Implement Undo/Redo. Use type of CommandBuffer like Buffer (gap buffer)
+8. (DONE) Implement Undo/Redo. Use type of CommandBuffer like Buffer (gap buffer)
 

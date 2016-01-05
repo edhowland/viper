@@ -119,3 +119,11 @@ describe 'srch_back for non-existant regex' do
   specify {  subject.must_equal nil }
 
 end
+
+describe 'del a lot of content' do
+  let(:buf) { Buffer.new '' }
+  subject {  buf.ins 'abcde'; buf.del 'abcde' }
+
+  specify { subject.must_equal 'abcde'; buf.to_s.must_equal '' }
+
+end

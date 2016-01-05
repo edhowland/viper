@@ -12,6 +12,8 @@ def key_mappings
     "\003" => :ctrl_c,   
     "\u0016" => :ctrl_v,
 "\u0018" => :ctrl_x,
+    "\u001A" => :ctrl_z,
+"\u0015" => :ctrl_u,
     "\u000F" => :ctrl_o,
     "\u0010" => :ctrl_p,
   "\004" => :ctrl_d,
