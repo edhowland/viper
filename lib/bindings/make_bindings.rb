@@ -17,6 +17,8 @@ def make_bindings
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
   result[:ctrl_f] = ->(b) { :srch_fwd }
   result[:ctrl_r] = ->(b) { :srch_back }
+  result[:ctrl_z] = ->(b) { b.undo; say 'Undone' }
+  result[:ctrl_u] = ->(b) { b.redo; say 'Redone' }
 
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
