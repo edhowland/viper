@@ -55,3 +55,10 @@ describe 'undo' do
   specify {  subject.must_equal '' }
 
 end
+
+describe 'undo complicated stuff' do
+  let(:buf) {MyBuffer.new 'good times' }
+  subject {  buf.fwd 4; buf.del 'good'; buf.undo; buf.undo; buf.at }
+
+  specify {  subject.must_equal 'g'; buf.to_s.must_equal 'good times' }
+end

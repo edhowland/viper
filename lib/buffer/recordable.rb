@@ -1,10 +1,22 @@
 # recordable.rb - module Recordable
 
 module Recordable
-  def record method, *args
+
+  def suppress &blk
+    @recordings_suppressed = true
+    yield
+    @recordings_suppressed = false
+  end
+
+  def record_action method, *args
     @commands ||= CommandBuffer.new
     @commands << [method, *args]
     end
+
+  def record method, *args
+    record_action(method, *args) unless @recordings_suppressed
+  end
+
   def invert command
     @reverse_commands = {
       :del => :ins, :ins => :del,  :fwd => :back, :back => :fwd
@@ -13,11 +25,13 @@ module Recordable
   end
 
   def undo
-    last_command = @commands.back
-    unless last_command.nil?
-      command = invert(last_command)
-      unless command[0] == nil
+    suppress do
+      last_command = @commands.back
+      unless last_command.nil?
+        command = invert(last_command)
+        unless command[0] == nil
           self.send(command[0], *command[1])
+        end
       end
     end
   end
