@@ -175,6 +175,16 @@ class Buffer
     @a_buff.length
   end
 
+  def dn
+    pos = col
+    until at.nil? or at == "\n"
+      fwd
+    end
+    fwd if at == "\n"
+    fwd [line.length, pos].min
+  end
+
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end

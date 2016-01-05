@@ -57,3 +57,19 @@ describe '3 empty lines, 2 downs' do
   specify {  subject.must_equal 2; buf.at.must_equal "\n" }
 
 end
+
+describe 'empty line, line, at l' do
+  let(:buf) { Buffer.new "\nline 1\n" }
+  subject { buf.down; buf.at }
+
+  specify {  subject.must_equal 'l' }
+
+end
+
+describe '3 lines, correct column' do
+  let(:buf) { Buffer.new "abcd\nefgh\nijkl\n" }
+  subject {  buf.down; buf.down; buf.at }
+
+  specify {  subject.must_equal 'i' }
+
+end
