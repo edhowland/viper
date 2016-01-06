@@ -79,3 +79,18 @@ describe '3 lines, correct column' do
   specify {  subject.must_equal 'i' }
 
 end
+
+describe 'up empty buffer' do
+  let(:buf) { Buffer.new '' }
+  subject {  buf.up }
+
+  specify {  -> { subject }.must_raise BufferExceeded }
+
+end
+
+describe 'up single line' do
+  let(:buf) { Buffer.new 'line 1' }
+  subject {  buf.fin; buf.up; buf.at }
+
+  specify {  subject.must_equal 'l' }
+end
