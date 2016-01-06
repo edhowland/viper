@@ -15,7 +15,13 @@ describe 'simple single line' do
   subject {  buf.down }
 
   specify {  subject  }
+end
 
+describe 'single line and 2 downs, exception raised' do
+  let(:buf) { Buffer.new 'ine 1' }
+  subject { buf.down; buf.down }
+
+  specify { -> { subject }.must_raise BufferExceeded }
 end
 
 describe 'single line with newline' do
