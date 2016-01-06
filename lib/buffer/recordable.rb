@@ -2,11 +2,6 @@
 
 module Recordable
 
-  def suppress &blk
-    @recordings_suppressed = true
-    yield
-    @recordings_suppressed = false
-  end
 
   def record_action method, *args
     @commands ||= CommandBuffer.new

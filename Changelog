@@ -1,0 +1,7 @@
+fda0d4e6cb41754c25db6871ab888de3d802e318 \'removed old_down, up methods from buffer.rb\'
+Revision: 0.6.2
+Fixes: Improved up, down methods in Buffer to not skip ahead or back columns.
+Suppress recording fwd, back movements within up, down.
+Added more tests to cursor_movement_spec.rb
+
+
