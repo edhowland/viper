@@ -94,3 +94,26 @@ describe 'up single line' do
 
   specify {  subject.must_equal 'l' }
 end
+
+describe 'up single line w/newline' do
+  let(:buf) { Buffer.new "line 1\n" }
+  subject {  buf.fin; buf.up; buf.at }
+
+  specify {  subject.must_equal 'l' }
+
+end
+
+describe '3 empty lines' do
+  let(:buf) { Buffer.new "\n\n\n" }
+  subject {  buf.fin; buf.up; buf.position }
+
+  specify {  subject.must_equal 2 }
+
+end
+
+describe 'up correct col after 2 ups' do
+  let(:buf) { Buffer.new "0123\n0123\n0123\n" }
+  subject {  buf.fin; buf.back 3; buf.up; buf.up; buf.at }
+
+  specify { subject.must_equal '2'; buf.position.must_equal 2 }
+end
