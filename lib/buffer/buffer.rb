@@ -11,6 +11,12 @@ class Buffer
 
   attr_accessor :name
 
+  def suppress &blk
+    @recordings_suppressed = true
+    yield
+    @recordings_suppressed = false
+  end
+
   def dirty?
     @dirty
   end
@@ -90,26 +96,22 @@ class Buffer
     lline.length
   end
 
+
   def up
-    count = @a_buff.rcount_nl
-    raise BufferExceeded.new('Cannot move past first line') if  count == @a_buff.length
-    back count
-    next_nl = @a_buff.rcount_nl
-    further = next_nl - count + 1
-    back(further) if further > 0
+    raise BufferExceeded if position == 0
+    suppress do
+      pos = col
+      back
+      until at == "\n" or position == 0
+        back
+      end
+      until col <= pos or position == 0
+        back
+      end
+    end
     record :up
   end
 
-  def down
-    rcount = @a_buff.rcount_nl
-    count = @b_buff.count_nl
-    raise BufferExceeded.new('Cannot move past last line') if@b_buff.length <= count
-    fwd count + 1
-    next_nl = @b_buff.count_nl
-    further = [next_nl, rcount].min
-    fwd further
-    record :down
-  end
 
   def front_of_line
     back @a_buff.rcount_nl - 1
@@ -171,6 +173,22 @@ class Buffer
   end
 
 
+  def position
+    @a_buff.length
+  end
+
+  def down
+    raise BufferExceeded if at.nil?
+    suppress do
+      pos = col
+      until at.nil? or at == "\n"
+        fwd
+      end
+      fwd if at == "\n"
+      fwd [line.chomp.length, pos].min
+    end
+    record :down
+  end
 
 
   def to_s
