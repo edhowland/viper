@@ -14,7 +14,7 @@ describe 'simple single line' do
   let(:buf) { Buffer.new 'line 1' }
   subject {  buf.down }
 
-  specify {  ->{ subject }.must_raise BufferExceeded }
+  specify {  subject  }
 
 end
 
