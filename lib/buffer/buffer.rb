@@ -11,6 +11,12 @@ class Buffer
 
   attr_accessor :name
 
+  def suppress &blk
+    @recordings_suppressed = true
+    yield
+    @recordings_suppressed = false
+  end
+
   def dirty?
     @dirty
   end
@@ -102,14 +108,17 @@ class Buffer
 
   def up
     raise BufferExceeded if position == 0
-    pos = col
-    back
-    until at == "\n" or position == 0
+    suppress do
+      pos = col
       back
+      until at == "\n" or position == 0
+        back
+      end
+      until col <= pos or position == 0
+        back
+      end
     end
-    until col <= pos or position == 0
-      back
-    end
+    record :up
   end
 
   def old_down
@@ -189,12 +198,15 @@ class Buffer
 
   def down
     raise BufferExceeded if at.nil?
-    pos = col
-    until at.nil? or at == "\n"
-      fwd
+    suppress do
+      pos = col
+      until at.nil? or at == "\n"
+        fwd
+      end
+      fwd if at == "\n"
+      fwd [line.chomp.length, pos].min
     end
-    fwd if at == "\n"
-    fwd [line.chomp.length, pos].min
+    record :down
   end
 
 
