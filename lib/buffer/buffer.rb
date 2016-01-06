@@ -90,7 +90,7 @@ class Buffer
     lline.length
   end
 
-  def up
+  def old_up
     count = @a_buff.rcount_nl
     raise BufferExceeded.new('Cannot move past first line') if  count == @a_buff.length
     back count
@@ -98,6 +98,18 @@ class Buffer
     further = next_nl - count + 1
     back(further) if further > 0
     record :up
+  end
+
+  def up
+    raise BufferExceeded if position == 0
+    pos = col
+    back
+    until at == "\n" or position == 0
+      back
+    end
+    until col <= pos or position == 0
+      back
+    end
   end
 
   def old_down
