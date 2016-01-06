@@ -7,9 +7,25 @@ class Buffer
     @dirty = false
     @name = 'unnamed'
     @mark = 0
+    @mark_position = nil
   end
 
   attr_accessor :name
+
+
+  def set_mark
+    @mark_position = position
+  end
+
+  def unset_mark
+    @mark_position = nil
+  end
+
+
+  def mark_set?
+   !@mark_position.nil?
+  end
+
 
   def suppress &blk
     @recordings_suppressed = true
