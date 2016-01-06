@@ -96,15 +96,6 @@ class Buffer
     lline.length
   end
 
-  def old_up
-    count = @a_buff.rcount_nl
-    raise BufferExceeded.new('Cannot move past first line') if  count == @a_buff.length
-    back count
-    next_nl = @a_buff.rcount_nl
-    further = next_nl - count + 1
-    back(further) if further > 0
-    record :up
-  end
 
   def up
     raise BufferExceeded if position == 0
@@ -121,16 +112,6 @@ class Buffer
     record :up
   end
 
-  def old_down
-    rcount = @a_buff.rcount_nl
-    count = @b_buff.count_nl
-    raise BufferExceeded.new('Cannot move past last line') if@b_buff.length <= count
-    fwd count + 1
-    next_nl = @b_buff.count_nl
-    further = [next_nl, rcount].min
-    fwd further
-    record :down
-  end
 
   def front_of_line
     back @a_buff.rcount_nl - 1
