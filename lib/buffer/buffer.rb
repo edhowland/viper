@@ -100,7 +100,7 @@ class Buffer
     record :up
   end
 
-  def down
+  def old_down
     rcount = @a_buff.rcount_nl
     count = @b_buff.count_nl
     raise BufferExceeded.new('Cannot move past last line') if@b_buff.length <= count
@@ -175,13 +175,14 @@ class Buffer
     @a_buff.length
   end
 
-  def dn
+  def down
+    raise BufferExceeded if at.nil?
     pos = col
     until at.nil? or at == "\n"
       fwd
     end
     fwd if at == "\n"
-    fwd [line.length, pos].min
+    fwd [line.chomp.length, pos].min
   end
 
 
