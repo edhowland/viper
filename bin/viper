@@ -67,6 +67,7 @@ end
         next_key = map_key(key_press)
         case next_key
         when :key_d
+          @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
           say 'line deleted'
         when :shift_end
           say 'delete to end of line'
