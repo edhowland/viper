@@ -89,5 +89,8 @@ def make_bindings
   result[:ctrl_a] = ->(b) { b.beg; b.set_mark; b.fin; say 'select all' }
   result[:shift_up] = ->(b) { say BELL }
   result[:shift_down] = ->(b) { say BELL }
+
+  # Meta Command sequences
+  result[:meta_d] = ->(b) { :meta }
   result
 end

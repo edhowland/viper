@@ -62,6 +62,24 @@ end
     when :save
       @buffer.save
       say "Buffer #{@buffer.name} saved"
+      when :meta
+        say 'meta'
+        next_key = map_key(key_press)
+        case next_key
+        when :key_d
+          say 'line deleted'
+        when :shift_end
+          say 'delete to end of line'
+        when :shift_home
+          say 'delete to start of line'
+        when :shift_pgup
+          say 'delete to top of buffer'
+        when :shift_pgdn
+          say 'delete to bottom of buffer'
+        else
+        say next_key.to_s
+        end
+
       when :debug
         say 'Entering debug mode. Press Ctrl-D to exit'
         binding.pry
