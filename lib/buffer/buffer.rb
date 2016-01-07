@@ -16,6 +16,11 @@ class Buffer
     @mark_position = position
   end
 
+  def set_if_not_set
+    set_mark unless mark_set?
+  end
+
+
   def unset_mark
     @mark_position = nil
   end
@@ -166,22 +171,25 @@ class Buffer
   end
 
   def copy
+    raise MarkNotSet unless mark_set?
     if mark < 0
       value = @a_buff.copy(mark)
     else
       value = @b_buff.copy(mark)
     end
-    mark = 0
+    unset_mark
+    unset_mark
     value
   end
 
   def cut
+    raise MarkNotSet unless mark_set?
     if mark < 1
    value = @a_buff.cut(mark)
     else
       value = @b_buff.cut(mark)
     end
-    mark = 0
+    unset_mark
     value   
   end
 

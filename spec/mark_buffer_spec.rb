@@ -25,3 +25,24 @@ describe 'unset mark' do
   specify {  subject.must_equal false }
 
 end
+
+describe 'set_if_not_set' do
+  let(:buf) {Buffer.new '0123abcd' }
+  subject {buf.set_if_not_set; buf.mark_set?  }
+
+  specify {  subject.must_equal true }
+end
+
+describe 'set_if_not_set after set_mark' do
+  let(:buf) {Buffer.new 'abcd' }
+  subject {  buf.set_mark; buf.set_if_not_set; buf.mark_set? }
+
+  specify {  subject.must_equal true }
+
+end
+
+describe 'set_if_not_set after unset_mark' do
+  let(:buf) {Buffer.new '0123' }
+  subject { buf.unset_mark; buf.set_if_not_set; buf.mark_set? }
+  specify { subject.must_equal true }
+end
