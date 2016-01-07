@@ -46,3 +46,11 @@ describe 'set_if_not_set after unset_mark' do
   subject { buf.unset_mark; buf.set_if_not_set; buf.mark_set? }
   specify { subject.must_equal true }
 end
+
+describe 'buffer is dirty after cut' do
+  let(:buf) {Buffer.new '0123abcd' }
+  subject {  buf.set_mark; buf.fwd 4; buf.cut; buf.dirty? }
+
+  specify {  subject.must_equal true }
+
+end

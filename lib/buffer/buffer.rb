@@ -177,6 +177,7 @@ class Buffer
       value = @b_buff.cut(mark)
     end
     unset_mark
+    @dirty = true
     value   
   end
 
