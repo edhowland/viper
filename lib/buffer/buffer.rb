@@ -12,7 +12,6 @@ class Buffer
 
   attr_accessor :name
 
-
   def set_mark
     @mark_position = position
   end
@@ -21,10 +20,19 @@ class Buffer
     @mark_position = nil
   end
 
-
   def mark_set?
    !@mark_position.nil?
   end
+
+  def mark
+    @mark_position - position
+  end
+
+  def mark= arg
+    @mark = arg
+  end
+
+
 
 
   def suppress &blk
@@ -152,29 +160,28 @@ class Buffer
     back
   end
 
-
   def copy_fwd
     @mark -= 1
     fwd
   end
 
   def copy
-    if @mark < 0
-      value = @a_buff.copy(@mark)
+    if mark < 0
+      value = @a_buff.copy(mark)
     else
-      value = @b_buff.copy(@mark)
+      value = @b_buff.copy(mark)
     end
-    @mark = 0
+    mark = 0
     value
   end
 
   def cut
-    if @mark < 1
-   value = @a_buff.cut(@mark)
+    if mark < 1
+   value = @a_buff.cut(mark)
     else
-      value = @b_buff.cut(@mark)
+      value = @b_buff.cut(mark)
     end
-    @mark = 0
+    mark = 0
     value   
   end
 
