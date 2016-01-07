@@ -55,7 +55,13 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
-  result[:backspace] =->(b) { ch= b.del; say "delete #{ch}" }
+  result[:backspace] =->(b) { 
+    if b.mark_set?
+      $clipboard = b.cut; say 'selection deleted'
+    else
+  ch= b.del; say "delete #{ch}" 
+    end
+  }
 
   # Function keys
   result[:fn_1] = ->(b) { :snippet_record }
