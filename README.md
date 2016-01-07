@@ -28,6 +28,9 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 
 Snippets - Ability to record and playback short snippets of commonly used texts.
 Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste.
+  Use Fn_4 to set/unset a mark position to begin/stop highlighting text.
+  Any cursor movements selects text starting from the last mark set.
+  Includes: beginning/end of line/buffer.
 Search and Reverse Search. (Ctrl-F. Ctrl-R).
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.

@@ -55,7 +55,13 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
-  result[:backspace] =->(b) { ch= b.del; say "delete #{ch}" }
+  result[:backspace] =->(b) { 
+    if b.mark_set?
+      $clipboard = b.cut; say 'selection deleted'
+    else
+  ch= b.del; say "delete #{ch}" 
+    end
+  }
 
   # Function keys
   result[:fn_1] = ->(b) { :snippet_record }
@@ -68,8 +74,18 @@ def make_bindings
   result[:ctrl_v] = ->(b) { b.ins($clipboard); say 'paste' }
   result[:ctrl_x] = ->(b) { $clipboard = b.cut; say 'cut' }
 
-  result[:shift_right] = ->(b) {say "lit #{b.at}";   b.copy_fwd }
-  result[:shift_left] = ->(b) { b.copy_back; say "lit #{b.at}" }
+  result[:shift_right] = ->(b) {say "lit #{b.at}"; b.set_if_not_set;  b.fwd }
+  result[:shift_left] = ->(b) { b.set_if_not_set; b.back;   say "lit #{b.at}" }
+  # mark set FN key
+  result[:fn_4] = ->(b) {
+    if b.mark_set?
+      b.unset_mark
+      say 'mark unset'
+    else
+      b.set_mark
+      say 'mark set'
+    end
+  }
   result[:shift_up] = ->(b) { say BELL }
   result[:shift_down] = ->(b) { say BELL }
   result

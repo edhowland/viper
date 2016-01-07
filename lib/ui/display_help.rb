@@ -2,7 +2,7 @@
 
 @hbuffer = ReadOnlyBuffer.new <<EOD
 Control Character Commands
-
+-
 Ctrl-Q: Quit editing
 Ctrl-H: Display this Help Text
 Ctrl-Y: Speak the name of the current buffer
@@ -27,6 +27,7 @@ Cut, Copy and Paste Commands
 -
 Shift+Right: Highlight and move right one character
 Shift+Left: Highlight and move left one character
+Fn4: Set/Unset mark to begin/stop highlighting text
 Ctrl-C: Copy highlighted text to clipboard
 Ctrl-X: Cut highlighted text to clipboard
 Ctrl-V: Paste clipboard text into current buffer at cursor
@@ -37,7 +38,6 @@ Ctrl-U: Redo the last action undone (from last Ctrl-Z)
 Commands
 
 Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor session
-
 
 Function Keys
 -

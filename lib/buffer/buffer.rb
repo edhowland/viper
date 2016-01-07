@@ -6,10 +6,35 @@ class Buffer
     @b_buff = StringBuffer.new string
     @dirty = false
     @name = 'unnamed'
-    @mark = 0
+    @mark_position = nil
   end
 
   attr_accessor :name
+
+  def set_mark
+    @mark_position = position
+  end
+
+  def set_if_not_set
+    set_mark unless mark_set?
+  end
+
+
+  def unset_mark
+    @mark_position = nil
+  end
+
+  def mark_set?
+   !@mark_position.nil?
+  end
+
+  def mark
+    @mark_position - position
+  end
+
+
+
+
 
   def suppress &blk
     @recordings_suppressed = true
@@ -131,34 +156,28 @@ class Buffer
     @dirty = false
   end
 
-  def copy_back
-    @mark += 1
-    back
-  end
-
-
-  def copy_fwd
-    @mark -= 1
-    fwd
-  end
 
   def copy
-    if @mark < 0
-      value = @a_buff.copy(@mark)
+    raise MarkNotSet unless mark_set?
+    if mark < 0
+      value = @a_buff.copy(mark)
     else
-      value = @b_buff.copy(@mark)
+      value = @b_buff.copy(mark)
     end
-    @mark = 0
+    unset_mark
+    unset_mark
     value
   end
 
   def cut
-    if @mark < 1
-   value = @a_buff.cut(@mark)
+    raise MarkNotSet unless mark_set?
+    if mark < 1
+   value = @a_buff.cut(mark)
     else
-      value = @b_buff.cut(@mark)
+      value = @b_buff.cut(mark)
     end
-    @mark = 0
+    unset_mark
+    @dirty = true
     value   
   end
 
