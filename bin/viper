@@ -70,8 +70,10 @@ end
           @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
           say 'line deleted'
         when :shift_end
+          @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
           say 'delete to end of line'
         when :shift_home
+          @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
           say 'delete to start of line'
         when :shift_pgup
           say 'delete to top of buffer'
