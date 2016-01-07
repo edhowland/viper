@@ -70,6 +70,16 @@ def make_bindings
 
   result[:shift_right] = ->(b) {say "lit #{b.at}"; b.set_if_not_set;  b.fwd }
   result[:shift_left] = ->(b) { b.set_if_not_set; b.back;   say "lit #{b.at}" }
+  # mark set FN key
+  result[:fn_4] = ->(b) {
+    if b.mark_set?
+      b.unset_mark
+      say 'mark unset'
+    else
+      b.set_mark
+      say 'mark set'
+    end
+  }
   result[:shift_up] = ->(b) { say BELL }
   result[:shift_down] = ->(b) { say BELL }
   result
