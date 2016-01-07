@@ -6,7 +6,6 @@ class Buffer
     @b_buff = StringBuffer.new string
     @dirty = false
     @name = 'unnamed'
-    @mark = 0
     @mark_position = nil
   end
 
@@ -33,9 +32,6 @@ class Buffer
     @mark_position - position
   end
 
-  def mark= arg
-    @mark = arg
-  end
 
 
 
@@ -160,15 +156,6 @@ class Buffer
     @dirty = false
   end
 
-  def copy_back
-    @mark += 1
-    back
-  end
-
-  def copy_fwd
-    @mark -= 1
-    fwd
-  end
 
   def copy
     raise MarkNotSet unless mark_set?
