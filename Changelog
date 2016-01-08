@@ -1,3 +1,13 @@
+20499fb Merge tag '0.6.4' into develop
+Revision 0.6.4
+Added:
+Ctrl-A: Select all (of buffer)
+Option+D/Alt+D: Meta
+   d: Delete line
+  shift_home: Delete to start of line
+  shift_end: Delete to end of line
+  shift_pgup:  Delete to top of buffer
+  shift_pgdn: Delete to end of buffer
 fda0d4e6cb41754c25db6871ab888de3d802e318 \'removed old_down, up methods from buffer.rb\'
 Revision: 0.6.2
 Fixes: Improved up, down methods in Buffer to not skip ahead or back columns.
