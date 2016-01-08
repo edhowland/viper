@@ -35,8 +35,16 @@ Ctrl-V: Paste clipboard text into current buffer at cursor
 -
 Ctrl-Z: Undo the last action
 Ctrl-U: Redo the last action undone (from last Ctrl-Z)
-Commands
 
+Multi-deletion commands
+Option/Alt+D: Starts Meta commands
+d: Delete current line
+shift_home: Delete to front of line
+shift_end: Delete to end of line
+shift_pgup: Delete to top of buffer
+shift_pgdn: Delete to bottom of buffer
+Commands
+-
 Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor session
 
 Function Keys

@@ -14,9 +14,9 @@
 9. Implement Keyboard Help. Use a special buffer that just speaks the actions.
 
 Misc. 
-Single command to delete the current line (and cut to clipboard)
-Command to delete to end of line (copies to clipboard)
-Command to select the entire buffer. 
+(DONE) Single command to delete the current line (and cut to clipboard)
+(DONE) Command to delete to end of line (copies to clipboard)
+(DONE) Command to select the entire buffer. 
 
 Command to delete from current line to bottom of buffer:
   [beg_of_line, set_mark, fin, cut]
