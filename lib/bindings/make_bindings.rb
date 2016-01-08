@@ -67,7 +67,7 @@ def make_bindings
   result[:fn_1] = ->(b) { :snippet_record }
   result[:fn_2] = ->(b) { :snippet_playback }
   result[:fn_3] = ->(b) { say BELL }
-  result[:fn_4] = ->(b) { say BELL }
+  #result[:fn_4] = ->(b) { say BELL }
 
   # copy and paste keys
   result[:ctrl_c] = ->(b) { $clipboard = b.copy; say 'copy' }
@@ -86,7 +86,11 @@ def make_bindings
       say 'mark set'
     end
   }
+  result[:ctrl_a] = ->(b) { b.beg; b.set_mark; b.fin; say 'select all' }
   result[:shift_up] = ->(b) { say BELL }
   result[:shift_down] = ->(b) { say BELL }
+
+  # Meta Command sequences
+  result[:meta_d] = ->(b) { :meta }
   result
 end

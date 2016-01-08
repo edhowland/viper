@@ -139,7 +139,8 @@ class Buffer
 
 
   def front_of_line
-    back @a_buff.rcount_nl - 1
+    back @a_buff.rcount_nl
+    fwd if at == NL
   end
 
   def back_of_line

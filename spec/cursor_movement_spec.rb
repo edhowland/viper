@@ -117,3 +117,19 @@ describe 'up correct col after 2 ups' do
 
   specify { subject.must_equal '2'; buf.position.must_equal 2 }
 end
+
+describe 'front of line' do
+  let(:buf) { Buffer.new '0123abcd' }
+  subject { buf.back_of_line; buf.front_of_line; buf.position }
+
+  specify { subject.must_equal 0 }
+
+end
+
+describe 'front_of_line 2nd line' do
+  let(:buf) {Buffer.new "0123\nabcd\n" }
+  subject { buf.fwd; buf.down; buf.fwd; buf.front_of_line; buf.at }
+
+  specify { subject.must_equal 'a' }
+
+end
