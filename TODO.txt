@@ -4,7 +4,6 @@
 2. (DONE) Implement FileBuffer: subclass of Buffer 
   (DONE) initialize takes file name (from ARGV[0]
   (DONE) Implements save command
-  (IMPLEMENTED in REPL) and rewind command - mapped  for now
 3. (DONE) move source files to lib/utils or ??
 4. (DONE) Figure out cut, copy and paste map to ctrl_x, ctrl_c and ctrl_v
 5. (DONE) Implement rudimentary snippet engine hash of keys to array of procs taking Buffer
@@ -20,3 +19,11 @@ Misc.
 
 Command to delete from current line to bottom of buffer:
   [beg_of_line, set_mark, fin, cut]
+  (IMPLEMENTED in REPL) and rewind command - mapped  for now
+Implement MultiLineBuffer. up/down moves buffers across gap.
+ins/del defer to @a_buff.ins/del
+Same for fwd/back, delete to end of line, etc.
+When :return, does not insert \n into buffer, returns to command interpreter passing current contents of @a_buff Buffer
+Up moves previous buffer into focus, putting the cursor at .fin
+Down, moves next buffer (if any, into focus, putting cursor at .beg
+
