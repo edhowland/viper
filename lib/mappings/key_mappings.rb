@@ -77,6 +77,10 @@ def key_mappings
     "\e[H" => :shift_home,
     "\e[F" => :shift_end,
     "\e[5~" => :shift_pgup,
-"\e[6~" => :shift_pgdn
+"\e[6~" => :shift_pgdn,
+
+    # Meta characters
+"∂" => :meta_d
+    
   }
 end
