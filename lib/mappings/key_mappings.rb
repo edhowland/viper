@@ -43,6 +43,9 @@ def key_mappings
     "\e[17~" => :fn_6,
     "\e[18~" => :fn_7,
     "\e[19~" => :fn_8,
+"\e[20~" => :fn_9,
+    "\e[21~" => :fn_10,
+    "\e[24~" => :fn_12,
   # punctuation and other characters
     ';' => :semicolon,
     ':' => :colon,
