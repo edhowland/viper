@@ -43,7 +43,7 @@ class MultiLineBuffer
   end
 
   def up
-      raise BufferExceeded if @a_buff.empty?
+      raise BufferExceeded if @a_buff.length <= 1
     @b_buff.unshift(@a_buff.pop)
     back_of_line
   end
@@ -81,6 +81,11 @@ class MultiLineBuffer
   def to_a
     @a_buff + @b_buff
   end
+
+  def beg
+    current.beg
+  end
+
 
   def fin
     @a_buff = to_a
