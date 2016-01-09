@@ -39,6 +39,10 @@ def key_mappings
     "\eOQ" => :fn_2,
     "\eOR" => :fn_3,
     "\eOS" => :fn_4,
+    "\e[15~" => :fn_5,
+    "\e[17~" => :fn_6,
+    "\e[18~" => :fn_7,
+    "\e[19~" => :fn_8,
   # punctuation and other characters
     ';' => :semicolon,
     ':' => :colon,
