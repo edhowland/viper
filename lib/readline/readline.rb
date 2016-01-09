@@ -10,7 +10,7 @@ module Viper
       @buffer.fin   # sets up next blank line
       Viper::Control.loop do |worker|
         key = worker.getch
-        return @buffer.line if key == :return
+        break if key == :return
         bound_p = worker.bound_proc_for key
         next if bound_p.nil?
         begin
@@ -22,7 +22,9 @@ module Viper
         end
       end
 
+      result = @buffer.line
       @buffer.new_line
+      return result
     end
   end
 end
