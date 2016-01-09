@@ -91,7 +91,8 @@ def key_mappings
 "\e[6~" => :shift_pgdn,
 
     # Meta characters
-"∂" => :meta_d
+"∂" => :meta_d,
+    "…" => :meta_colon
     
   }
 end
