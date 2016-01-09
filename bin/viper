@@ -38,6 +38,7 @@ end
 @buffer = @fbuffer
 @sbuffer = SnippetBuffer.new ''
 @search_buffer = Buffer.new ''
+@search_line = Viper::Readline.new
 @search_buffer.name = 'Search buffer'
 
 def swap buff1, buff2
@@ -115,26 +116,23 @@ end
         say @buffer.line
       end
     when :srch_fwd
-      @buffer, @search_buffer = swap(@buffer, @search_buffer)
-      if @buffer.name == 'Search buffer'
-      say 'search forward'
-      else
-        @buffer.fwd
-        @buffer.srch_fwd(@search_buffer.to_s)
-        say @buffer.at
-      end
+      say'search forward'
+      pattern = @search_line.readline
+      @buffer.srch_fwd(pattern)
+      say @buffer.line
 
     when :srch_back
-      @buffer, @search_buffer = swap(@buffer, @search_buffer)
-      if @buffer.name == 'Search buffer'
-        say 'Search backward'
-      else
-        @buffer.back
-        @buffer.srch_back(@search_buffer.to_s)
-        say @buffer.at
-      end
+      say 'search back'
+      pattern = @search_line.readline
+      @buffer.srch_back(pattern)
+      say @buffer.line
 
-      
+    when :srch_next
+      pattern = @search_line.last_line
+      @buffer.fwd
+      @buffer.srch_fwd(pattern)
+      say @buffer.line
+
     end
   rescue BufferExceeded => err
     say BELL
