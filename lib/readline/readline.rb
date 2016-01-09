@@ -25,9 +25,12 @@ module Viper
         end
       end
 
-      @last_line = @buffer.line
-      @buffer.new_line
-      return @last_line
+      result = @buffer.line
+      unless result.empty?
+        @last_line = @buffer.line
+        @buffer.new_line
+      end
+      return result
     end
   end
 end
