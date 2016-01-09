@@ -33,6 +33,16 @@ Ctrl-G to continue searching in the last direction of the last search.
   text to be search to be for.
 Also, up and down arrows work like in Bash readline to recover the last thing you searched for.
 Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed.
+
+Ctrl-A: Selects the entire buffer.
+Fn4: Sets/Unsets a mark. Cursor movements from there selects and highlights text.
+The Meta key is Alt or Option depending on your keyboard layout.
+Meta+D - Starts a Delete sequence:
++ 'd' - Deletes the current line.
++ Shift+Home - Deletes to the front of the current line.
++ Shift+End - Deletes to end of the current line.
++ Shift+PgUp - Deletes to the top of the buffer.
++ Shift+PgDn - Deletes to the bottom of the buffer.
 Debug mode: For debugging the editor itself.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
 }
