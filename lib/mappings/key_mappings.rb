@@ -45,6 +45,7 @@ def key_mappings
     "\e[19~" => :fn_8,
 "\e[20~" => :fn_9,
     "\e[21~" => :fn_10,
+    # FN_11 is not accessable
     "\e[24~" => :fn_12,
   # punctuation and other characters
     ';' => :semicolon,
