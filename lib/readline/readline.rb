@@ -4,7 +4,10 @@ module Viper
   class Readline
     def initialize
       @buffer = MultiLineBuffer.new
+      @last_line = ''
     end
+
+    attr_reader :last_line
 
     def readline
       @buffer.fin   # sets up next blank line
@@ -22,9 +25,9 @@ module Viper
         end
       end
 
-      result = @buffer.line
+      @last_line = @buffer.line
       @buffer.new_line
-      return result
+      return @last_line
     end
   end
 end
