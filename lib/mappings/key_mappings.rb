@@ -4,6 +4,7 @@ def key_mappings
     "\u0011" => :ctrl_q,
     "\001" => :ctrl_a,
     "\005" => :ctrl_e,
+    "\u0017" => :ctrl_w,
     "\u0006" => :ctrl_f,
     "\u0012" => :ctrl_r,
     "\u0014" => :ctrl_t,
@@ -17,6 +18,7 @@ def key_mappings
     "\u000F" => :ctrl_o,
     "\u0010" => :ctrl_p,
   "\004" => :ctrl_d,
+    "\a" => :ctrl_g,
     "\b" => :ctrl_h,
 # duplicated with tab key
     #"\t" => :ctrl_i,
@@ -24,6 +26,7 @@ def key_mappings
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
     "\f" => :ctrl_l,
+    "\u000E" => :ctrl_n,
     "\t" => :tab,
     "\u007F" => :backspace,
   "\033[A" => :up,
