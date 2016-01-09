@@ -18,3 +18,4 @@ require_relative 'io'
 require_relative 'control'
 
 require_relative 'snippets'
+require_relative 'readline'
