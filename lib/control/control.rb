@@ -2,8 +2,8 @@
 
 module Viper
   class Control
-    def initialize
-      @proc_bindings = make_bindings
+    def initialize proc_bindings=nil
+      @proc_bindings = proc_bindings || make_bindings
     end
 
     attr_accessor :proc_bindings
