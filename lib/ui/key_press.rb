@@ -10,9 +10,9 @@ def key_press
     if y == "[" or y == "O"
       z = $stdin.getch
     if z == '1'
-      p = key_press; q = key_press; r = key_press
+      p =$stdin.getch; q = $stdin.getch; r = $stdin.getch
     elsif z == '5' or z == '6'   # for shift+PgUp, Shift+PgDn
-      p = key_press
+      p = $stdin.getch
     end
     end
   end
