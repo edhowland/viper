@@ -7,6 +7,7 @@ module Viper
     end
 
     def readline
+      @buffer.fin   # sets up next blank line
       Viper::Control.loop do |worker|
         key = worker.getch
         return @buffer.line if key == :return
@@ -20,6 +21,8 @@ module Viper
           say err.message
         end
       end
+
+      @buffer.new_line
     end
   end
 end
