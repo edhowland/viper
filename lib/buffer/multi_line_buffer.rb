@@ -22,7 +22,7 @@ class MultiLineBuffer
     current.ins string
   end
 
-  def del string=''
+  def del string=' '
     current.del string
   end
 
@@ -55,4 +55,27 @@ class MultiLineBuffer
   def new_line
     @a_buff << Buffer.new('')
   end
+
+  def set_mark
+    current.set_mark
+  end
+
+  def mark_set?
+    current.mark_set?
+  end
+
+  def set_if_not_set
+    current.set_if_not_set
+  end
+
+  def cut
+    current.cut
+  end
+
+  def copy
+    current.copy
+  end
+
+
+
 end
