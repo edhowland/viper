@@ -18,8 +18,9 @@ Ctrl-O: Opens a new line below the current line
 
 Searching
 -
-Ctrl-F: Enter text to be searched forward for. Ctrl-F again to begin the search.
-Ctrl-R: Enter text to be searched backward for. Ctrl-R again to begin the search.
+Ctrl-F: Enter text to be searched forward for. 
+Ctrl-R: Enter text to be searched backward for. 
+Ctrl-G: Continue searching in the last direction
 
 Ctrl-P: Display up to the next 10 lines of the buffer
 
