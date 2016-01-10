@@ -148,14 +148,8 @@ end
   end
 end
 
-if @fbuffer.dirty?
-  cli = HighLine.new
-  answer = cli.ask("#{@fbuffer.fname} not saved. Save? ") do |q|
-  q.default = 'n'
-    q.validate = /[YyNn]/
-  end
-  if answer =~ /[Yy]/
-    @fbuffer.save
-    say "#{@fbuffer.fname} saved"
-  end
+# possibly save dirty buffer
+if @fbuffer.dirty? and confirm?("Save #{@fbuffer.name}? ")
+  @fbuffer.save 
+  say "#{@fbuffer.name} saved"
 end

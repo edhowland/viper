@@ -5,7 +5,6 @@ $snippets = {}
 $clipboard = ''
 require 'stringio'
 require 'json'
-require 'highline'
 
 require_relative 'viper/version'
 require_relative 'constants'
