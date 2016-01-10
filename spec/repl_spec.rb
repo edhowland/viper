@@ -14,3 +14,10 @@ describe 'will execute command if it exists passing 1 arg' do
 
   specify { subject.must_equal 'ABCD' }
 end
+
+describe 'parse_execute babel fish' do
+  before { $commands[:babel] = ->(b, *args) { args[0] } }
+  subject { parse_execute nil, 'babel fish' }
+
+  specify { subject.must_equal 'fish' }
+end
