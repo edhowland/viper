@@ -140,7 +140,11 @@ end
       end
       say @buffer.line
 
-    end
+    when :command
+      say 'command '
+      command_s = Viper::Readline.new.readline
+      quitting = parse_execute @buffer, command_s    end
+      break if quitting == :quit
   rescue BufferExceeded => err
     say BELL
   rescue => err
