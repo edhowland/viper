@@ -1,3 +1,10 @@
+419dc66 Merge branch 'feature/multiline.buffer' into develop
+Revision 0.7.0
+Created Viper::Readline for single line dialogs.
+Has Bash:readline-like functionality, like Up/Down arrow movements through search history.
+Search forward/back now takes a single Return key to terminate and begin searching.
+Ctrl-G will repeat the last search in the last search direction.
+
 20499fb Merge tag '0.6.4' into develop
 Revision 0.6.4
 Added:
