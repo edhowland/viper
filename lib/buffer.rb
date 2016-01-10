@@ -9,3 +9,4 @@ require_relative 'buffer/non_writable'
 require_relative 'buffer/read_only_buffer'
 
 require_relative 'buffer/snippet_buffer'
+require_relative 'buffer/multi_line_buffer'
