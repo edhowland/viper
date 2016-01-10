@@ -21,3 +21,10 @@ describe 'parse_execute babel fish' do
 
   specify { subject.must_equal 'fish' }
 end
+
+describe 'parse_execute command (only)' do
+before { $commands[:babel] = ->(b, *args) { 'ok' } }
+  subject { parse_execute nil, 'babel' }
+
+  specify { subject.must_equal 'ok' }
+end
