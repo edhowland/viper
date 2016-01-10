@@ -18,4 +18,11 @@ class FileBuffer < Buffer
     File.write(@fname, to_s)
     @dirty = false
   end
+
+  def restore
+    @a_buff = StringBuffer.new ''
+    @b_buff = StringBuffer.new(File.read(@name))
+    @dirty = false
+  end
+
 end

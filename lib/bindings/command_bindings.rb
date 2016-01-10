@@ -12,6 +12,7 @@ def command_bindings
         File.write(args[0], b.to_s)
       end
 },
-    :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit }
+    :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit },
+    :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"}
   }
 end
