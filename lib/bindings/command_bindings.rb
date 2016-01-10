@@ -13,6 +13,13 @@ def command_bindings
       end
 },
     :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit },
-    :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"}
+    :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"},
+    :r => ->(b, *args) {
+        if File.exist?(args[0])
+            b.ins(File.read(args[0]))
+        else
+            say "#{args[0]} does not exist"
+        end
+      }
   }
 end
