@@ -21,6 +21,7 @@ def command_bindings
             say "#{args[0]} does not exist"
         end
       },
-    :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" }
+    :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
+    :g => ->(b, *args) { b.goto(args[0].to_i); say b.line }
   }
 end
