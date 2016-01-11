@@ -11,12 +11,19 @@
 7. (DONE) Implement Search and Reverse-Search.
 8. (DONE) Implement Undo/Redo. Use type of CommandBuffer like Buffer (gap buffer)
 9. Implement Keyboard Help. Use a special buffer that just speaks the actions.
+10.(DONE) Implement Command REPL (aka vim)
 
 Misc. 
-(DONE) Single command to delete the current line (and cut to clipboard)
-(DONE) Command to delete to end of line (copies to clipboard)
-(DONE) Command to select the entire buffer. 
 
-(DONE) Command to delete from current line to bottom of buffer:
-  IMPLEMENTED in REPL) and rewind command - mapped  for now and map to Option/Alt + ';'
-(DONE) Implement MultiLineBuffer. up/down moves buffers across gap.
+Command REPL:
+Use Viper::Readline, since takes one command at a time.
+Parse single, multi-char commands:
+  w <file name>: Writes Filename
+  r <file name>: Reads a file into the current buffer at the cursor position.
+  o <filename> Opens a new file into a new buffer
+  rew, rew!: reads the file back into the buffer (creates a new FileBuffer)
+  m: Do something with marked text
+    m!<shell command>: send marked text to shell command stdin.
+    
+  r!<shell command>: inject stdout of shell command into current cursor in current buffer.
+  :<line no>: Goto this line (or nearest if past end of buffer)

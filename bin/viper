@@ -39,6 +39,7 @@ end
 @sbuffer = SnippetBuffer.new ''
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
+@command_line = Viper::Readline.new
 @search_direction = :srch_fwd  # or :srch_back
 @search_buffer.name = 'Search buffer'
 
@@ -140,7 +141,11 @@ end
       end
       say @buffer.line
 
-    end
+    when :command
+      say 'command '
+      command_s = @command_line.readline
+      quitting = parse_execute @buffer, command_s    end
+      break if quitting == :quit
   rescue BufferExceeded => err
     say BELL
   rescue => err
