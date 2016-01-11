@@ -66,6 +66,7 @@ Meta+; enters command mode.
 Available commands are:
 w  - writes (saves) the current buffer
 w filename  - writes the current buffer to a file in filename. Does not change the current buffer/file.
+s  - Save As. Saves the current  buffer as a new file name.
 q  - Exits the current editor loop.
 q!  - Exits the editor without saving any unsaved changes.
 wq  - Writes and saves the current buffer and exits the editor.

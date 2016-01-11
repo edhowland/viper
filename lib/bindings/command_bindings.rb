@@ -20,6 +20,7 @@ def command_bindings
         else
             say "#{args[0]} does not exist"
         end
-      }
+      },
+    :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" }
   }
 end

@@ -28,10 +28,14 @@ end
 
 parser.parse!
 
-if options[:read_only]
-  @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+if ARGV.length == 0
+  @fbuffer = FileBuffer.new('Unnamed')
 else
-  @fbuffer = FileBuffer.new(ARGV[0])
+  if options[:read_only]
+    @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+  else
+    @fbuffer = FileBuffer.new(ARGV[0])
+  end
 end
 
 @buffer = @fbuffer
