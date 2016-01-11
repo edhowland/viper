@@ -14,6 +14,9 @@ parser = OptionParser.new do |opt|
   opt.on('--ro', 'Treat file as Read-only') do
     options[:read_only] = true
   end
+  opt.on('-l lineno', '--line lineno', Integer, 'Gotos the lineno in the file') do |lineno|
+    options[:line] = lineno
+  end
   opt.separator '-'
   opt.on('-h', '--help', 'Displays this help') do
     puts opt
@@ -52,8 +55,10 @@ end
 
 
 
-#puts "Editing #{@fbuffer.name}"
-
+# possibly jump to a specific line in the file
+unless options[:line].nil?
+  @fbuffer.goto options[:line]
+end
 
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
