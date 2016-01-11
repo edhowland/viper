@@ -72,6 +72,7 @@ q!  - Exits the editor without saving any unsaved changes.
 wq  - Writes and saves the current buffer and exits the editor.
 rew!  - Re-reads the current file into the current buffer, overwriting the contents, if changed.
 r filename  - reads the contents of the filename into the current buffer at the current cursor position.
+g <line> - Goto a specific line in the current buffer
 EOD
 
 
