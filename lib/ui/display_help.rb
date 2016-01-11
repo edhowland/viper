@@ -1,6 +1,9 @@
 # display_help.rb - say Help text
 
 @hbuffer = ReadOnlyBuffer.new <<EOD
+VIPER - Audible editor
+Version #{Viper::VERSION}
+
 Control Character Commands
 -
 Ctrl-Q: Quit editing
