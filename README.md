@@ -48,3 +48,12 @@ Debug mode: For debugging the editor itself.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
 
 
+## Command Entry
+
+
+Option/Alt+';' enters command mode where you can run some some editor functions.
+These are very vim-like in form and syntax.
+E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
+into the current buffer, overwriting any changes. See Ctrl-H for more available commands.
+
+

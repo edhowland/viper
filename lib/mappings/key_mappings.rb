@@ -2,6 +2,7 @@
 def key_mappings
     {
     "\u0011" => :ctrl_q,
+    "\eZZ" => :shift_zz,
     "\001" => :ctrl_a,
     "\005" => :ctrl_e,
     "\u0017" => :ctrl_w,
