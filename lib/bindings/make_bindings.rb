@@ -8,6 +8,7 @@ def make_bindings
 
   # Control characters
   result[:ctrl_q] = ->(b) {:quit }
+  result[:shift_zz] = ->(b) { b.save; exit }
   result[:shift_home] = ->(b) { b.front_of_line; say b.at }
   result[:shift_end] = ->(b) { b.back_of_line; say b.at }
   result[:shift_pgup] = ->(b) { b.beg; say "top of buffer" }
@@ -93,5 +94,6 @@ def make_bindings
 
   # Meta Command sequences
   result[:meta_d] = ->(b) { :meta }
+  result[:meta_colon] = ->(b) { :command }
   result
 end

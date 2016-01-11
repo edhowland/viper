@@ -1,3 +1,8 @@
+e27edb5
+Release 0.8.0
+Added Option+; to enter Command mode.
+Commands are parsed and executes against (possibly) the current buffer.
+Future plans more complete list of commands
 419dc66 Merge branch 'feature/multiline.buffer' into develop
 Revision 0.7.0
 Created Viper::Readline for single line dialogs.

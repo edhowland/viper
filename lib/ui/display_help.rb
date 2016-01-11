@@ -1,12 +1,16 @@
 # display_help.rb - say Help text
 
 @hbuffer = ReadOnlyBuffer.new <<EOD
+VIPER - Audible editor
+Version #{Viper::VERSION}
+
 Control Character Commands
 -
 Ctrl-Q: Quit editing
 Ctrl-H: Display this Help Text
 Ctrl-Y: Speak the name of the current buffer
 Ctrl-S: Save the current buffer
+Esc+ZZ: Write (save) the current buffer and exit the editor.
 Shift+Home: Move to the beginning of the line
 Shift+End: Move to the end of the line
 Shift+PgUp: Move to the top of the buffer
@@ -55,6 +59,18 @@ F1: Start recording snippet named for characters to left of cursor
   Press Ctrl-S to save snippet
   Press F1 again to return to current buffer
 F2: Playback snippet named for characters to left of cursor
+
+Command Entry
+-
+Meta+; enters command mode.
+Available commands are:
+w  - writes (saves) the current buffer
+w filename  - writes the current buffer to a file in filename. Does not change the current buffer/file.
+q  - Exits the current editor loop.
+q!  - Exits the editor without saving any unsaved changes.
+wq  - Writes and saves the current buffer and exits the editor.
+rew!  - Re-reads the current file into the current buffer, overwriting the contents, if changed.
+r filename  - reads the contents of the filename into the current buffer at the current cursor position.
 EOD
 
 
