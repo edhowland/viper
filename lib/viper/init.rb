@@ -2,5 +2,6 @@
 
 # init globals and other misc.
 def init
+load_snippets # loads snippets from ./config/snippets.JSON file
   $commands = command_bindings
 end
