@@ -210,6 +210,12 @@ class Buffer
     record :down
   end
 
+  def goto line_no
+    beg
+    max_lines = @b_buff.lines.length
+    ([max_lines, line_no].min - 1).times { down }
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
