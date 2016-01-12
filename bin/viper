@@ -115,7 +115,7 @@ end
         binding.pry
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
-        say "Buffer is now #{@buffer.name}"
+        say "Use Option semicolon and help to invoke help"
     when :snippet_record
       if @sbuffer.kind_of? SnippetBuffer
         @sbuffer.clear
