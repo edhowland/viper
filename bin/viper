@@ -33,20 +33,20 @@ parser.parse!
 
 
 # set up the buffer ring
-@buffer_ring = []
+#@buffer_ring = []
 if ARGV.length == 0
-  @buffer_ring <<  FileBuffer.new('Unnamed')
+  $buffer_ring <<  FileBuffer.new('Unnamed')
 else
   if options[:read_only]
-    @buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
+    $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
   else
-    @buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
+    $buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
   end
 end
 
 # return the head of the @buffer_ring
 def fbuffer
-  @buffer_ring.first
+ $buffer_ring.first
 end
 
 
@@ -81,7 +81,7 @@ end
       break
 
     when :rotate_buffer
-      @buffer_ring.rotate!
+      $buffer_ring.rotate!
       @buffer = fbuffer
       say "Buffer is now #{@buffer.name}"
     when :save

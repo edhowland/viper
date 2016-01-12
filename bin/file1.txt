@@ -1,3 +1,5 @@
 this is some test
 and some text
-
+line 1
+line 2
+line 3
