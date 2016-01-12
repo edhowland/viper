@@ -115,7 +115,6 @@ end
         binding.pry
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
-        @buffer, @hbuffer = swap @buffer, @hbuffer
         say "Buffer is now #{@buffer.name}"
     when :snippet_record
       if @sbuffer.kind_of? SnippetBuffer

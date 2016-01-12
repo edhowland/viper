@@ -1,6 +1,7 @@
 # display_help.rb - say Help text
 
-@hbuffer = ReadOnlyBuffer.new <<EOD
+def help_buffer
+  hbuffer = ReadOnlyBuffer.new <<EOD
 VIPER - Audible editor
 Version #{Viper::VERSION}
 
@@ -75,5 +76,6 @@ r filename  - reads the contents of the filename into the current buffer at the 
 g <line> - Goto a specific line in the current buffer
 EOD
 
-
-@hbuffer.name = 'Help Buffer'
+  hbuffer.name = 'Help Buffer'
+  hbuffer
+end

@@ -26,6 +26,9 @@ def command_bindings
     :n => ->(b, *args) { $buffer_ring.rotate!; say "Buffer is now #{$buffer_ring[0].name}" },
     :p => ->(b, *args) { $buffer_ring.rotate!(-1); say "Buffer is now #{$buffer_ring[0].name}" },
     :o => ->(b, *args) { $buffer_ring.unshift(FileBuffer.new(args[0])); say "Open file #{$buffer_ring[0].name}" },
-    :k! => ->(b, *args) { killed = $buffer_ring.shift; say "#{killed.name} destroyed" }
+    :k! => ->(b, *args) { killed = $buffer_ring.shift; say "#{killed.name} destroyed" },
+
+    # start of :help commands
+    :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" }
   }
 end
