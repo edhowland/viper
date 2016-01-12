@@ -31,19 +31,22 @@ end
 
 parser.parse!
 
+
+# set up the buffer ring
+@buffer_ring = []
 if ARGV.length == 0
-  @fbuffer = FileBuffer.new('Unnamed')
+  @buffer_ring <<  FileBuffer.new('Unnamed')
 else
   if options[:read_only]
-    @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+    @buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
   else
-    @fbuffer = FileBuffer.new(ARGV[0])
+    @buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
   end
 end
 
 # return the head of the @buffer_ring
 def fbuffer
-  @fbuffer
+  @buffer_ring.first
 end
 
 
@@ -63,7 +66,7 @@ end
 
 # possibly jump to a specific line in the file
 unless options[:line].nil?
-  @fbuffer.goto options[:line]
+  fbuffer.goto options[:line]
 end
 
 # Executes this block for each character typed in the console
@@ -168,7 +171,7 @@ end
 end
 
 # possibly save dirty buffer
-if fbuffer.dirty? and confirm?("Save #{@fbuffer.name}? ")
- @fbuffer.save 
+if fbuffer.dirty? and confirm?("Save #{fbuffer.name}? ")
+ fbuffer.save 
   say "#{fbuffer.name} saved"
 end
