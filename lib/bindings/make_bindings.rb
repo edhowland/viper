@@ -95,5 +95,8 @@ def make_bindings
   # Meta Command sequences
   result[:meta_d] = ->(b) { :meta }
   result[:meta_colon] = ->(b) { :command }
+
+  # rotate the buffer ring
+  result[:ctrl_t] = ->(b) { :rotate_buffer }
   result
 end
