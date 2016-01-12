@@ -168,6 +168,7 @@ end
       command_s = @command_line.readline
       quitting = parse_execute @buffer, command_s    end
       break if quitting == :quit
+      @buffer = fbuffer # restore the @buffer pointer
   rescue BufferExceeded => err
     say BELL
   rescue => err
