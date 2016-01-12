@@ -24,6 +24,7 @@ def command_bindings
     :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
     :g => ->(b, *args) { b.goto(args[0].to_i); say b.line },
     :n => ->(b, *args) { $buffer_ring.rotate!; say "Buffer is now #{$buffer_ring[0].name}" },
-    :p => ->(b, *args) { $buffer_ring.rotate!(-1); say "Buffer is now #{$buffer_ring[0].name}" }
+    :p => ->(b, *args) { $buffer_ring.rotate!(-1); say "Buffer is now #{$buffer_ring[0].name}" },
+    :o => ->(b, *args) { $buffer_ring.unshift(FileBuffer.new(args[0])); say "Open file #{$buffer_ring[0].name}" }
   }
 end
