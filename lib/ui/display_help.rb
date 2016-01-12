@@ -8,7 +8,6 @@ Version #{Viper::VERSION}
 Control Character Commands
 -
 Ctrl-Q: Quit editing
-Ctrl-H: Display this Help Text
 Ctrl-Y: Speak the name of the current buffer
 Ctrl-S: Save the current buffer
 Esc+ZZ: Write (save) the current buffer and exit the editor.
@@ -74,6 +73,13 @@ wq  - Writes and saves the current buffer and exits the editor.
 rew!  - Re-reads the current file into the current buffer, overwriting the contents, if changed.
 r filename  - reads the contents of the filename into the current buffer at the current cursor position.
 g <line> - Goto a specific line in the current buffer
+o filename - open a new file 
+k! - Kill (delete) the current buffer
+n - Rotate to the next buffer
+p - Rotate to the previous buffer
+
+Help Commands
+help - Displays this help
 EOD
 
   hbuffer.name = 'Help Buffer'
