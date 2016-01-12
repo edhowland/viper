@@ -1,5 +1,5 @@
 # version.rb -module Viper::VERSION
 
 module Viper
-  VERSION = '0.9.0'
+  VERSION = '0.9.1'
 end 
