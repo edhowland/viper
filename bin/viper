@@ -7,13 +7,15 @@ require 'optparse'
 
 
 options = {:read_only => false}
-load_snippets # loads snippets from ./config/snippets.JSON file
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
   opt.on('--ro', 'Treat file as Read-only') do
     options[:read_only] = true
+  end
+  opt.on('-l lineno', '--line lineno', Integer, 'Gotos the lineno in the file') do |lineno|
+    options[:line] = lineno
   end
   opt.separator '-'
   opt.on('-h', '--help', 'Displays this help') do
@@ -29,13 +31,26 @@ end
 
 parser.parse!
 
-if options[:read_only]
-  @fbuffer = ReadOnlyFileBuffer.new(ARGV[0])
+
+# set up the buffer ring
+#@buffer_ring = []
+if ARGV.length == 0
+  $buffer_ring <<  FileBuffer.new('Unnamed')
 else
-  @fbuffer = FileBuffer.new(ARGV[0])
+  if options[:read_only]
+    $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
+  else
+    $buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
+  end
 end
 
-@buffer = @fbuffer
+# return the head of the @buffer_ring
+def fbuffer
+ $buffer_ring.first
+end
+
+
+@buffer = fbuffer
 @sbuffer = SnippetBuffer.new ''
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
@@ -49,8 +64,10 @@ end
 
 
 
-#puts "Editing #{@fbuffer.name}"
-
+# possibly jump to a specific line in the file
+unless options[:line].nil?
+  fbuffer.goto options[:line]
+end
 
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
@@ -62,6 +79,11 @@ end
     case result
     when :quit
       break
+
+    when :rotate_buffer
+      $buffer_ring.rotate!
+      @buffer = fbuffer
+      say "Buffer is now #{@buffer.name}"
     when :save
       @buffer.save
       say "Buffer #{@buffer.name} saved"
@@ -93,8 +115,7 @@ end
         binding.pry
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
-        @buffer, @hbuffer = swap @buffer, @hbuffer
-        say "Buffer is now #{@buffer.name}"
+        say "Use Option semicolon and help to invoke help"
     when :snippet_record
       if @sbuffer.kind_of? SnippetBuffer
         @sbuffer.clear
@@ -146,6 +167,7 @@ end
       command_s = @command_line.readline
       quitting = parse_execute @buffer, command_s    end
       break if quitting == :quit
+      @buffer = fbuffer # restore the @buffer pointer
   rescue BufferExceeded => err
     say BELL
   rescue => err
@@ -154,7 +176,7 @@ end
 end
 
 # possibly save dirty buffer
-if @fbuffer.dirty? and confirm?("Save #{@fbuffer.name}? ")
-  @fbuffer.save 
-  say "#{@fbuffer.name} saved"
+if fbuffer.dirty? and confirm?("Save #{fbuffer.name}? ")
+ fbuffer.save 
+  say "#{fbuffer.name} saved"
 end

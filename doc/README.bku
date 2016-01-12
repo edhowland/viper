@@ -1,6 +1,9 @@
+require '../lib/viper/version'
 h1 'VIPER'
 
 h2 "Visually Impaired Programmer's Editor in Ruby"
+
+h3 "Version #{Viper::VERSION}"
 
 h2 'Abstract'
 
@@ -20,7 +23,7 @@ h3 'Use the following control characters for some actions:'
 
 bullets 'Ctrl-S: Saves the current buffer.',
 'Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi',
-'Ctrl-H: Displays help text describing more actions'
+'Option/Alt+; help - Brings up Help text'
 
 h2 'Features:'
 
@@ -54,5 +57,11 @@ para %q{
 Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
-into the current buffer, overwriting any changes. See Ctrl-H for more available commands.
+into the current buffer, overwriting any changes.
+}
+h2 'Help'
+
+para %q{
+Meta help brings up a help buffer. You can
+return to the previous buffer with either Ctrl-T or meta+n, meta+p to rotate through buffers.
 }

@@ -1,3 +1,13 @@
+6089f50
+Revision 0.9.0
+Added buffer ring to handle many input files.
+Added many more commands to deal with buffer ring.
+Can now open a file with o filename command.
+Can save as a buffer into a new file
+Mapped Ctrl-T to rotate the buffer ring.
+Removed Ctrl-H and moved functionali to meta :help
+Can kill current buffer with meta k!
+
 e27edb5
 Release 0.8.0
 Added Option+; to enter Command mode.

@@ -9,3 +9,7 @@ vp ()
     ~/src/viper/bin/viper $@;
     ruby -c $1
 }
+vb () 
+{ 
+    vp ../lib/buffer/$1
+}

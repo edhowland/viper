@@ -4,6 +4,7 @@
 $snippets = {}
 $commands = {}
 $clipboard = ''
+$buffer_ring = []
 require 'stringio'
 require 'json'
 
