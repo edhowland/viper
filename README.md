@@ -2,6 +2,8 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
+### Version 0.8.1
+
 ## Abstract
 
 This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
@@ -21,7 +23,7 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 
 - Ctrl-S: Saves the current buffer.
 - Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi
-- Ctrl-H: Displays help text describing more actions
+- Option/Alt+; help - Brings up Help text
 
 ## Features:
 
@@ -54,6 +56,13 @@ Debug mode: For debugging the editor itself.
 Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
-into the current buffer, overwriting any changes. See Ctrl-H for more available commands.
+into the current buffer, overwriting any changes.
+
+
+## Help
+
+
+Meta help brings up a help buffer. You can
+return to the previous buffer with either Ctrl-T or meta+n, meta+p to rotate through buffers.
 
 
