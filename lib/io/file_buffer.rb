@@ -14,6 +14,12 @@ class FileBuffer < Buffer
 
   attr_reader :fname
 
+  def fname= name
+    @fname = name
+    @name = @fname
+  end
+
+
   def save
     File.write(@fname, to_s)
     @dirty = false
