@@ -6,8 +6,7 @@ vl ()
 alias irl='irb -r ./load_path.rb'
 vp () 
 { 
-    ~/src/viper/bin/viper $@;
-    ruby -c $1
+    ~/src/viper/bin/viper -c $@;
 }
 vb () 
 { 

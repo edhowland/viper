@@ -78,6 +78,9 @@ k! - Kill (delete) the current buffer
 n - Rotate to the next buffer
 p - Rotate to the previous buffer
 
+System calls
+check - Checks Ruby syntax of current buffer
+
 Help Commands
 help - Displays this help
 EOD

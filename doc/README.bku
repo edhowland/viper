@@ -58,7 +58,11 @@ Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
 into the current buffer, overwriting any changes.
+check - performs a Ruby syntax check on the current buffer.
+
 }
+
+h6 'Note: -c, --check-syntax performs the same function on editor exit'
 h2 'Help'
 
 para %q{
