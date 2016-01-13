@@ -40,3 +40,10 @@ def pipe! buffer, *command
   buffer.overwrite! output
 
 end
+
+
+def insert_shell buffer, *command
+  command = command.join(' ')
+  output, error = shell(command)
+  buffer.ins output
+end

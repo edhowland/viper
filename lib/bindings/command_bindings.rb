@@ -21,6 +21,7 @@ def command_bindings
             say "#{args[0]} does not exist"
         end
       },
+    :r! => ->(b, *args) { insert_shell(b, *args) },
     :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
     :g => ->(b, *args) { b.goto(args[0].to_i); say b.line },
     :n => ->(b, *args) { $buffer_ring.rotate!; say "Buffer is now #{$buffer_ring[0].name}" },
