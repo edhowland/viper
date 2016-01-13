@@ -5,8 +5,11 @@ $snippets = {}
 $commands = {}
 $clipboard = ''
 $buffer_ring = []
+
+# std requires
 require 'stringio'
 require 'json'
+require 'open3'
 
 require_relative 'viper/version'
 require_relative 'viper/init'
@@ -20,6 +23,7 @@ require_relative 'io'
 require_relative 'control'
 require_relative 'snippets'
 require_relative 'readline'
+require_relative 'system'
 require_relative 'repl'
 
 

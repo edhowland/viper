@@ -6,11 +6,14 @@ require_relative '../lib/viper'
 require 'optparse'
 
 
-options = {:read_only => false}
+options = {:read_only => false, :check_syntax => false}
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
+  opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
+    options[:check_syntax] = true
+  end
   opt.on('--ro', 'Treat file as Read-only') do
     options[:read_only] = true
   end
@@ -180,3 +183,6 @@ if fbuffer.dirty? and confirm?("Save #{fbuffer.name}? ")
  fbuffer.save 
   say "#{fbuffer.name} saved"
 end
+
+# possibly check syntax of buffer
+check_ruby_syntax(fbuffer) if options[:check_syntax]

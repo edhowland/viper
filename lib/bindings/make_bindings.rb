@@ -98,5 +98,6 @@ def make_bindings
 
   # rotate the buffer ring
   result[:ctrl_t] = ->(b) { :rotate_buffer }
+  result[:delete_at] = ->(b) { c=b.del_at; say "delete #{c}" }
   result
 end
