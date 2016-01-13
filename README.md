@@ -2,12 +2,27 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.1
+### Version 0.9.2
 
 ## Abstract
 
 This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
 in Mac OS/X. 
+Viper only attempts an audible interface. Sighted users of the programwill only see confusing giberish on the screen.
+
+
+## System requirements
+
+
+Viper has been tested with Ubuntu 14.04, Ruby 2.2 and the terminal type: xterm-256color.
+
+
+## Installation
+
+
+Clone this repository. Change to the viper directory.
+Then run bundle.
+
 
 ## Usage:
 
@@ -57,12 +72,18 @@ Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
 into the current buffer, overwriting any changes.
+check - performs a Ruby syntax check on the current buffer.
 
+
+
+###### Note: -c, --check-syntax performs the same function on editor exit
 
 ## Help
 
 
 Meta help brings up a help buffer. You can
 return to the previous buffer with either Ctrl-T or meta+n, meta+p to rotate through buffers.
+k! will delete the current buffer without saving it first. This is
+like Close Tab in a browser.
 
 
