@@ -5,7 +5,7 @@ def shell command, &blk
   output, error = ''
   begin
   stdin, stdout, stderr = Open3.popen3(command)
-  yield stdin
+  yield stdin if block_given?
   stdin.close
   output = stdout.read
   error = stderr.read
