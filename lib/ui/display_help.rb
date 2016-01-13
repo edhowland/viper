@@ -41,6 +41,7 @@ Ctrl-V: Paste clipboard text into current buffer at cursor
 Ctrl-Z: Undo the last action
 Ctrl-U: Redo the last action undone (from last Ctrl-Z)
 
+Del: Deletes the character under the cursor
 Multi-deletion commands
 Option/Alt+D: Starts Meta commands
 d: Delete current line

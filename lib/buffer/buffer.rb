@@ -216,6 +216,10 @@ class Buffer
     ([max_lines, line_no].min - 1).times { down }
   end
 
+  def del_at
+    @b_buff.shift
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
