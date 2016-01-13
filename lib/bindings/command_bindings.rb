@@ -29,6 +29,9 @@ def command_bindings
     :k! => ->(b, *args) { killed = $buffer_ring.shift; say "#{killed.name} destroyed" },
 
     # start of :help commands
-    :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" }
+    :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" },
+
+    # check syntax, lint etc.
+    :check => ->(b, *args) { check_ruby_syntax(b) }
   }
 end
