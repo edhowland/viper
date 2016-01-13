@@ -126,3 +126,11 @@ describe 'del a lot of content' do
   specify { subject.must_equal 'abcde'; buf.to_s.must_equal '' }
 
 end
+
+describe 'del_at' do
+  let(:buf) {Buffer.new 'abcd' }
+  subject { buf.fwd; buf.del_at }
+
+  specify { subject.must_equal 'b'; buf.to_s.must_equal 'acd' }
+
+end

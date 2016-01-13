@@ -93,7 +93,7 @@ def key_mappings
 
     # Meta characters
 "∂" => :meta_d,
-    "…" => :meta_colon
-    
+    "…" => :meta_colon,
+    "\e[3~" => :delete_at    
   }
 end
