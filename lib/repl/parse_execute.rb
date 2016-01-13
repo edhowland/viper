@@ -2,7 +2,7 @@
 
 # parse_execute acommand string on a buffer
 def parse_execute buffer, string
-  command, args = string.split(' ')
+  command, *args = string.split(' ')
   command = command.to_sym
-  exec_cmd command, buffer, args
+  exec_cmd command, buffer, *args
 end

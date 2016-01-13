@@ -16,3 +16,14 @@ def shell command, &blk
 
   [output, error]
 end
+
+
+def pipe buffer, *command
+  command = command.join(' ')
+  output, error = shell(command) do |input|
+    input.write(buffer.to_s)
+  end
+
+  say output
+  say error
+end

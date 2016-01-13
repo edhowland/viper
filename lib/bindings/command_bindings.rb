@@ -32,6 +32,9 @@ def command_bindings
     :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" },
 
     # check syntax, lint etc.
-    :check => ->(b, *args) { check_ruby_syntax(b) }
+    :check => ->(b, *args) { check_ruby_syntax(b) },
+    :pipe => ->(b, *args) { pipe(b, *args) },
+    # NOP: just repeat the args
+    :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
 end
