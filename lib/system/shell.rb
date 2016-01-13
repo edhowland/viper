@@ -27,3 +27,16 @@ def pipe buffer, *command
   say output
   say error
 end
+
+
+
+# pipe contents through command, replacing contents with stdout
+def pipe! buffer, *command
+  command = command.join(' ')
+  output, error = shell(command) do |input|
+    input.write(buffer.to_s)
+  end
+
+  buffer.overwrite! output
+
+end

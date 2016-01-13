@@ -220,6 +220,11 @@ class Buffer
     @b_buff.shift
   end
 
+  def overwrite! string
+    @a_buff = StringBuffer.new ''
+    @b_buff = StringBuffer.new string
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
