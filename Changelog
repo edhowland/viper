@@ -1,3 +1,8 @@
+dd09b4b
+Release 0.9.2
+Added Forward delete with Del key.
+Added syntax checking with :check command.
+Added -c, --check-syntax at exit options.
 6089f50
 Revision 0.9.0
 Added buffer ring to handle many input files.
