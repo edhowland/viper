@@ -108,7 +108,7 @@ describe 'cut: back' do
   let(:buf) { StringBuffer.new '01234ABCDE'}
   subject { buf.cut -5 }
 
- specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
+  specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
 end
 
 describe 'index' do

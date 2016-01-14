@@ -5,7 +5,7 @@ def shell command, &blk
   output, error = ''
   begin
   stdin, stdout, stderr = Open3.popen3(command)
-  yield stdin
+  yield stdin if block_given?
   stdin.close
   output = stdout.read
   error = stderr.read
@@ -15,4 +15,35 @@ def shell command, &blk
   end
 
   [output, error]
+end
+
+
+def pipe buffer, *command
+  command = command.join(' ')
+  output, error = shell(command) do |input|
+    input.write(buffer.to_s)
+  end
+
+  say output
+  say error
+end
+
+
+
+# pipe contents through command, replacing contents with stdout
+def pipe! buffer, *command
+  command = command.join(' ')
+  output, error = shell(command) do |input|
+    input.write(buffer.to_s)
+  end
+
+  buffer.overwrite! output
+
+end
+
+
+def insert_shell buffer, *command
+  command = command.join(' ')
+  output, error = shell(command)
+  buffer.ins output
 end

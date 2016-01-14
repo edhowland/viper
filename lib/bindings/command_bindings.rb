@@ -21,6 +21,7 @@ def command_bindings
             say "#{args[0]} does not exist"
         end
       },
+    :r! => ->(b, *args) { insert_shell(b, *args) },
     :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
     :g => ->(b, *args) { b.goto(args[0].to_i); say b.line },
     :n => ->(b, *args) { $buffer_ring.rotate!; say "Buffer is now #{$buffer_ring[0].name}" },
@@ -32,6 +33,11 @@ def command_bindings
     :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" },
 
     # check syntax, lint etc.
-    :check => ->(b, *args) { check_ruby_syntax(b) }
+    :check => ->(b, *args) { check_ruby_syntax(b) },
+    :pipe => ->(b, *args) { pipe(b, *args) },
+    :pipe! => ->(b, *args) { pipe!(b, *args) },
+    :lint => ->(b, *args) { lint(b).each {|e| puts e} },
+    # NOP: just repeat the args
+    :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
 end

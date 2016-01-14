@@ -29,3 +29,4 @@ require_relative 'repl'
 
 # init some stuff
 init
+require_relative 'tools'
