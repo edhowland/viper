@@ -1,3 +1,5 @@
+Revision 0.9.3
+Added :lint command which finds lines with odd number of spacespreceeding content of line
 dd09b4b
 Release 0.9.2
 Added Forward delete with Del key.

@@ -134,3 +134,11 @@ describe 'del_at' do
   specify { subject.must_equal 'b'; buf.to_s.must_equal 'acd' }
 
 end
+
+describe 'overwrite!' do
+  let(:buf) {Buffer.new 'abcd' }
+  subject { buf.overwrite! '0123'; buf.to_s }
+
+  specify { subject.must_equal '0123' }
+
+end
