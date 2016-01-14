@@ -36,6 +36,7 @@ def command_bindings
     :check => ->(b, *args) { check_ruby_syntax(b) },
     :pipe => ->(b, *args) { pipe(b, *args) },
     :pipe! => ->(b, *args) { pipe!(b, *args) },
+    :lint => ->(b, *args) { lint(b).each {|e| puts e} },
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
