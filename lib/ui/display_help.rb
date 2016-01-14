@@ -81,6 +81,7 @@ p - Rotate to the previous buffer
 
 System calls
 check - Checks Ruby syntax of current buffer
+lint - lints current buffer for odd number of preceeding spaces
 
 Help Commands
 help - Displays this help
