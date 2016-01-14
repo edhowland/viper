@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.2
+### Version 0.9.3
 
 ## Abstract
 
@@ -73,6 +73,7 @@ These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
 into the current buffer, overwriting any changes.
 check - performs a Ruby syntax check on the current buffer.
+lint - performs limited lint on current buffer. Ensures every line is indented with an even number of spaces.
 
 
 
