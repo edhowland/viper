@@ -142,3 +142,11 @@ describe 'overwrite!' do
   specify { subject.must_equal '0123' }
 
 end
+
+describe 'should_save?' do
+  let(:buf) {Buffer.new 'line 1' }
+  subject { buf.should_save? }
+
+  specify { subject.must_equal false }
+
+end

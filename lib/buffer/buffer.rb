@@ -225,6 +225,15 @@ class Buffer
     @b_buff = StringBuffer.new string
   end
 
+    # is this buffer able to be saved?
+  def savable?
+    false
+  end
+
+  def should_save?
+    savable? and dirty?
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s

@@ -3,6 +3,8 @@
 require_relative 'spec_helper'
 
 describe 'name: Scratch 1' do
+  before { $buffer_ring.clear }
+
   let(:buf) {ScratchBuffer.new  }
   subject { buf.name }
 
@@ -12,6 +14,8 @@ end
 
 
 describe 'name : 2 -after two buffers' do
+  before { $buffer_ring.clear }
+
   let(:buf) {ScratchBuffer.new }
   let(:buf2) {ScratchBuffer.new }
   subject {$buffer_ring << buf;  buf2.name }
