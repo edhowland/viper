@@ -7,7 +7,6 @@ describe '<<' do
   subject { buf << [:ins, 'i'] }
 
   specify {  subject; buf.back.must_equal [:ins, 'i'] }
-
 end
 
 describe 'fwd after back' do
@@ -15,5 +14,4 @@ describe 'fwd after back' do
   subject {  buf << [:ins, 'i']; buf << [:del]; buf.back; buf.fwd} 
 
   specify { subject.must_equal [:del]  }
-
 end
