@@ -179,9 +179,11 @@ end
 end
 
 # possibly save dirty buffer
-if fbuffer.dirty? and confirm?("Save #{fbuffer.name}? ")
- fbuffer.save 
-  say "#{fbuffer.name} saved"
+$buffer_ring.select {|b| b.should_save? }.map do |buf|
+if confirm?("Save #{buf.name}? ")
+ buf.save 
+  say "#{buf.name} saved"
+end
 end
 
 # possibly check syntax of buffer

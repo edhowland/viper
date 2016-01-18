@@ -65,6 +65,9 @@ Command Entry
 -
 Meta+; enters command mode.
 Available commands are:
+
+Buffer commands
+-
 w  - writes (saves) the current buffer
 w filename  - writes the current buffer to a file in filename. Does not change the current buffer/file.
 s  - Save As. Saves the current  buffer as a new file name.
@@ -78,6 +81,7 @@ o filename - open a new file
 k! - Kill (delete) the current buffer
 n - Rotate to the next buffer
 p - Rotate to the previous buffer
+new -Opens a new scratch buffer
 
 System calls
 check - Checks Ruby syntax of current buffer
