@@ -166,3 +166,29 @@ describe 'goto_position backwards' do
   specify { subject.must_equal 5 }
 
 end
+
+describe 'remember' do
+  let(:buf) {Buffer.new "line 1\n" }
+  subject { buf.remember do |b|
+      b.fin
+      b.ins "line 2\n"
+    end 
+      buf.line
+  }
+
+
+  specify { subject.must_equal "line 1\n" }
+
+end
+
+describe 'remember absolute position' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.goto_position(5); 
+    buf.remember do |b|
+       b.ins('xxxxx') 
+    end
+buf.position 
+  }
+
+  specify { subject.must_equal 5 }
+end

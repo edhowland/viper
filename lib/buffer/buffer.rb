@@ -222,6 +222,13 @@ class Buffer
     self.send(method, offset.abs) unless method.nil?
   end
 
+  def remember &blk
+    saved = position
+    yield self
+    goto_position saved
+  end
+
+
 
   def del_at
     @b_buff.shift
