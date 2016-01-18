@@ -1,7 +1,11 @@
 # recordable.rb - module Recordable
 module Recordable
-  def record_action method, *args
+  def init_commands
     @commands ||= CommandBuffer.new
+  end
+
+  def record_action method, *args
+    init_commands
     @commands << [method, *args]
     end
 
@@ -17,6 +21,7 @@ module Recordable
   end
 
   def undo
+    init_commands
     suppress do
       last_command = @commands.back
       unless last_command.nil?
@@ -27,7 +32,11 @@ module Recordable
       end
     end
 
+
+  end
+
   def redo
+    init_commands
     suppress do
       command = @commands.fwd
       unless command.nil?
@@ -35,7 +44,4 @@ module Recordable
       end
     end
   end
-
-  end
-
 end
