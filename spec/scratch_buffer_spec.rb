@@ -29,5 +29,12 @@ describe 'empty: redo' do
   subject { buf.redo }
 
   specify { subject }
+end
+
+describe 'empty: undo' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.undo }
+
+  specify { subject }
 
 end
