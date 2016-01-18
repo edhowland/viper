@@ -216,6 +216,13 @@ class Buffer
     ([max_lines, line_no].min - 1).times { down }
   end
 
+  def goto_position pos
+    offset = pos - position
+    method = [nil, :fwd, :back][(offset <=> 0)]
+    self.send(method, offset.abs) unless method.nil?
+  end
+
+
   def del_at
     @b_buff.shift
   end

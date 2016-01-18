@@ -150,3 +150,19 @@ describe 'should_save?' do
   specify { subject.must_equal false }
 
 end
+
+describe 'goto_position' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.goto_position 5; buf.position }
+
+  specify { subject.must_equal 5 }
+
+end
+
+describe 'goto_position backwards' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.fin; buf.goto_position 5; buf.position }
+
+  specify { subject.must_equal 5 }
+
+end
