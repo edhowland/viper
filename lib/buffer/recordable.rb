@@ -1,8 +1,5 @@
 # recordable.rb - module Recordable
-
 module Recordable
-
-
   def record_action method, *args
     @commands ||= CommandBuffer.new
     @commands << [method, *args]

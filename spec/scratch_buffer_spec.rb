@@ -22,3 +22,12 @@ describe 'name : 2 -after two buffers' do
 
   specify { subject.must_equal 'Scratch 2' }
 end
+
+# specs around redo, undo at beginning/end of CommandBuffer
+describe 'empty: redo' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.redo }
+
+  specify { subject }
+
+end
