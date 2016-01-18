@@ -23,9 +23,16 @@ class CommandBuffer
     value
   end
 
-
   def to_a
     @a_buff + @b_buff
+  end
+
+  def at_start?
+    @a_buff.empty?
+  end
+
+  def at_end?
+    @b_buff.empty?
   end
 
 end

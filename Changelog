@@ -1,3 +1,10 @@
+
+4b76c0d
+
+Revision 0.9.4
+Fixed undo/redo when buffer had no actual actions associated yet
+Added :new command to create new ScratchBuffer
+<missing commit>
 Revision 0.9.3
 Added :lint command which finds lines with odd number of spacespreceeding content of line
 dd09b4b

@@ -2,6 +2,7 @@
 
 class FileBuffer < Buffer
   include Recordable
+  include Savable
   def initialize filename
     @fname = filename
     if File.exist? @fname

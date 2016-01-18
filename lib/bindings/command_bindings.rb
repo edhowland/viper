@@ -37,6 +37,7 @@ def command_bindings
     :pipe => ->(b, *args) { pipe(b, *args) },
     :pipe! => ->(b, *args) { pipe!(b, *args) },
     :lint => ->(b, *args) { lint(b).each {|e| puts e} },
+    :new => ->(b, *args) { $buffer_ring.unshift  ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
