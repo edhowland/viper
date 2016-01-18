@@ -38,3 +38,44 @@ describe 'empty: undo' do
   specify { subject }
 
 end
+
+describe 'can_undo? on empty buffer is false' do
+  let(:buf) {ScratchBuffer.new }
+
+  specify { buf.can_undo?.must_equal false }
+  specify { buf.can_redo?.must_equal false }
+
+
+end
+
+describe 'can undo after ins' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.ins 'i'; buf.can_undo? }
+
+  specify { subject.must_equal true }
+
+end
+
+describe 'can redo after ins, undo' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.ins 'i'; buf.undo; buf.can_redo? }
+
+  specify { subject.must_equal true }
+
+end
+
+describe 'cannot redo after ins, undo, redo' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.ins 'i'; buf.undo; buf.redo; buf.can_redo? }
+
+  specify { subject.must_equal false }
+
+end
+
+describe 'cannot undo after ins, undo' do
+  let(:buf) {ScratchBuffer.new }
+  subject { buf.ins 'i'; buf.undo; buf.can_undo? }
+
+  specify { subject.must_equal false }
+
+end

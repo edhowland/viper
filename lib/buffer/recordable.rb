@@ -44,4 +44,14 @@ module Recordable
       end
     end
   end
+
+  def can_undo?
+    init_commands
+    !@commands.at_start?
+  end
+
+  def can_redo?
+    init_commands
+    !@commands.at_end?
+  end
 end
