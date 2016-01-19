@@ -10,11 +10,6 @@ def apply_snippet cascade, name, buffer
     b.ins snip
   end
 
-  pos = buffer.position
-  buffer.srch_fwd('^.')
-  if buffer.at == '^'
-    buffer.del_at('^.') 
-  else
-    buffer.goto_position pos
-  end
+  proceed_tab_pt buffer
+
 end
