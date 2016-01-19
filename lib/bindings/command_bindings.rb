@@ -42,12 +42,19 @@ def command_bindings
 
     # snippet commands
     :snip => ->(b, *args) {
-      name = args[0].to_sym
+      name = eval(args[0]).to_sym
       snippet = eval(args[1])
       raise SnippetCollectionNotFound if snippet.nil? or !snippet.instance_of? Hash
       snippet[name] = b.to_s
       say "Saved buffer to snippet: #{name} in collection #{args[1]}"
     },
+    :apply => ->(b, *args) {
+        snip = eval(args[0]).to_sym
+        cascade = eval(args[1])
+        raise SnippetCollectionNotFound if cascade.nil? or !cascade.instance_of? Hash
+      apply_snippet b, snip, cascade
+      say b.line
+      },
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
