@@ -34,6 +34,11 @@ end
 
 parser.parse!
 
+# possibly open ~/.viperrc and process any commands found there
+tmp_buff = ScratchBuffer.new
+load_rc do |l|
+  parse_execute tmp_buff, l
+end
 
 # set up the buffer ring
 #@buffer_ring = []
@@ -168,7 +173,8 @@ end
     when :command
       say 'command '
       command_s = @command_line.readline
-      quitting = parse_execute @buffer, command_s    end
+      quitting = parse_execute @buffer, command_s
+      end
       break if quitting == :quit
       @buffer = fbuffer # restore the @buffer pointer
   rescue BufferExceeded => err

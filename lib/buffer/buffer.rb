@@ -230,8 +230,12 @@ class Buffer
 
 
 
-  def del_at
-    @b_buff.shift
+  def del_at string=' '
+    raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
+    @dirty = true
+    value = @b_buff.cut(string.length)
+    record :del_at, value
+    value
   end
 
   def overwrite! string

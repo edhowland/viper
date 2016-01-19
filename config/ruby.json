@@ -1,1 +1,1 @@
-{"rr":"require_relative ''\n"}
+{"rr":"require_relative '^.'\n","re":"require '^.'\n"}

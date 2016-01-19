@@ -30,3 +30,4 @@ require_relative 'repl'
 # init some stuff
 init
 require_relative 'tools'
+require_relative 'viper/load_rc'

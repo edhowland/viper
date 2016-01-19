@@ -9,4 +9,12 @@ def apply_snippet cascade, name, buffer
   buffer.remember do |b|
     b.ins snip
   end
+
+  pos = buffer.position
+  buffer.srch_fwd('^.')
+  if buffer.at == '^'
+    buffer.del_at('^.') 
+  else
+    buffer.goto_position pos
+  end
 end
