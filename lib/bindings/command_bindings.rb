@@ -39,6 +39,15 @@ def command_bindings
     :pipe! => ->(b, *args) { pipe!(b, *args) },
     :lint => ->(b, *args) { lint(b).each {|e| puts e} },
     :new => ->(b, *args) { $buffer_ring.unshift  ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
+
+    # snippet commands
+    :snip => ->(b, *args) {
+      name = args[0].to_sym
+      snippet = eval(args[1])
+      raise SnippetCollectionNotFound if snippet.nil? or !snippet.instance_of? Hash
+      snippet[name] = b.to_s
+      say "Saved buffer to snippet: #{name} in collection #{args[1]}"
+    },
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
