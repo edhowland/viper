@@ -87,6 +87,15 @@ System calls
 check - Checks Ruby syntax of current buffer
 lint - lints current buffer for odd number of preceeding spaces
 
+Snippet commands
+-
+load file collection - Loads a file.json into a snippet collection. E.g. "load ruby ruby"
+apply snip collection - Applies the snippet named snip from collection into current buffer. E.g. "apply def ruby"
+snip name collection - Creates a new snippet named name (or overwrites one) from the current buffer into the collection. E.g. "snip def ruby"
+  - Note: Use with new command to create a scratch buffer
+    You can kill the scratch buffer with k! command.
+dump file collection - Dumps the collection into file file.json. E.g. "dump ruby ruby"
+
 Help Commands
 help - Displays this help
 EOD
