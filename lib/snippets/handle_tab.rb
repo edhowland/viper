@@ -13,5 +13,6 @@ def handle_tab buffer, cascade=:ruby
     say buffer.line
   else
     buffer.ins '  '
+    say 'tab'
   end
 end
