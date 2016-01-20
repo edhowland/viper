@@ -3,7 +3,7 @@
 def handle_tab buffer
   cascade = $snippet_associations[:default]
   snippets = $snippet_cascades[cascade]
-  snip = buffer.line
+  snip = buffer.word_back
   possible = snippets[snip]
 
   if !possible.nil?
@@ -11,7 +11,7 @@ def handle_tab buffer
     apply_snippet cascade, snip, buffer
     say buffer.line
   elsif proceed_tab_pt(buffer) == true
-    say buffer.line
+    say buffer.at
   else
     buffer.ins '  '
     say 'tab'

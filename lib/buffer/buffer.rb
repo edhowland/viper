@@ -252,6 +252,10 @@ class Buffer
     savable? and dirty?
   end
 
+  def word_back
+    @a_buff.rword_index
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s

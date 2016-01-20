@@ -192,3 +192,10 @@ buf.position
 
   specify { subject.must_equal 5 }
 end
+describe 'word_back' do
+  let(:buf) {Buffer.new "ABCD\n  EFGH" }
+  subject { buf.fin; buf.word_back }
+
+  specify { subject.must_equal 'EFGH' }
+
+end

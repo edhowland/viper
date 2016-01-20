@@ -126,3 +126,25 @@ describe 'rindex' do
   specify {  subject.must_equal -7 }
 
 end
+
+describe 'rword_index' do
+  let(:buf) {StringBuffer.new 'ABCD' }
+  subject { buf.rword_index }
+
+  specify { subject.must_equal 'ABCD' }
+
+end
+describe 'rword_index on new line' do
+  let(:buf) {StringBuffer.new "ABCD\nEFGH" }
+  subject { buf.rword_index }
+
+  specify { subject.must_equal 'EFGH' }
+
+end
+describe 'rword_index' do
+  let(:buf) {StringBuffer.new '' }
+  subject { buf.rword_index }
+
+  specify { subject.must_equal '' }
+
+end
