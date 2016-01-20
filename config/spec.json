@@ -1,1 +1,1 @@
-{"des":"describe '^.' do\n  ^.\nend\n","let":"  let(:^.) { ^. }\n"}
+{"des":"describe '^.' do\n  ^.\nend\n","let":"  let(:^.) { ^. }\n","sub":"  subject { ^. }\n","spe":"  specify { ^. }\n","bef":"  before { ^. }\n"}
