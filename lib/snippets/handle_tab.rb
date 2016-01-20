@@ -1,6 +1,7 @@
 # handle_tab.rb - method handle_tab
 
-def handle_tab buffer, cascade=:ruby
+def handle_tab buffer
+  cascade = $snippet_associations[:default]
   snippets = $snippet_cascades[cascade]
   snip = buffer.line
   possible = snippets[snip]

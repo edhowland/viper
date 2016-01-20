@@ -66,6 +66,12 @@ def command_bindings
       load_snippets cascade, path
       say "Snippets #{cascade} loaded from #{path}.json"
     },
+    :assoc => ->(b, *args) { 
+      ext = args[0].to_sym
+      cascade = args[1].to_sym
+      assoc_cascade ext, cascade
+      say "Extension #{ext} is now associated with #{cascade}"
+    },
 
     :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args
