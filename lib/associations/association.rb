@@ -15,7 +15,14 @@ class Association
     @ext_lits[lit] = sym
   end
 
-
+    def match_ext_regex string
+    found_a = @ext_regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
+    unless found_a.empty?
+      regex = found_a.first.regexp
+      return @ext_regexs[regex]
+    end
+    return nil
+  end
 
 end
 
