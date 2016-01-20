@@ -66,6 +66,8 @@ def command_bindings
       load_snippets cascade, path
       say "Snippets #{cascade} loaded from #{path}.json"
     },
+
+    :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
   }
