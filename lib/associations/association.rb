@@ -24,5 +24,13 @@ class Association
     return nil
   end
 
+    def match_ext_lit string
+    @ext_lits[string]
+  end
+
+    def match_ext string
+    (match_ext_lit(string) || match_ext_regex(string))
+  end
 end
+
 
