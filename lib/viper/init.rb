@@ -8,6 +8,7 @@ load_snippets # loads snippets from ./config/snippets.JSON file
   $commands = command_bindings
   $buffer_ring = []
 
+  $audio_suppressed = false
 
   # REMOVEME
   $ruby = {}
