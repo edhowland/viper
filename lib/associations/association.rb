@@ -5,6 +5,10 @@ class Association
     def initialize 
     @ext_regexs = {}
     @ext_lits = {}
+    @file_regexs = {}
+    @file_lits = {}
+    @dir_regexs = {}
+    @dir_lits = {}
   end
 
     def ext_regex regex, sym
@@ -31,6 +35,36 @@ class Association
     def match_ext string
     (match_ext_lit(string) || match_ext_regex(string))
   end
+
+    def file_regex regex, sym
+    @file_regexs[regex] = sym
+  end
+
+  def file_lit lit, sym
+    @file_lits[lit] = sym
+  end
+
+  def match_file_regex string
+    found_a = @file_regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
+    unless found_a.empty?
+      regex = found_a.first.regexp
+      return @file_regexs[regex]
+    end
+    return nil
+  end
+
+  def match_file_lit string
+    @file_lits[string]
+  end
+
+  def match_file string
+    (match_file_lit(string) || match_file_regex(string))
+  end
+
+
+
+
+
 end
 
 

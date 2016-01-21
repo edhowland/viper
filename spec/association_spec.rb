@@ -63,3 +63,22 @@ describe 'match_ext' do
   specify { subject.must_equal :r2 }
 end
 
+
+describe 'match_file_regex' do
+  let(:ass) { Association.new }
+  before { ass.file_regex %r{.+_spec\.rb}, :spec; ass.file_regex %r{.+_rspec\.rb}, :rspec }
+  subject { ass.match_file_regex 'myfile_spec.rb' }
+
+  specify { subject.must_equal :spec }
+end
+
+describe 'match_file' do
+  let(:ass) { Association.new }
+    before { ass.file_regex %r{.+_spec\.rb}, :spec; ass.file_lit 'myfile_spec.rb', :myfile }
+  subject { ass.match_file 'myfile_spec.rb' }
+
+  specify { subject.must_equal :myfile }
+
+
+
+end
