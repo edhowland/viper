@@ -39,6 +39,7 @@ def command_bindings
     :pipe! => ->(b, *args) { pipe!(b, *args) },
     :lint => ->(b, *args) { lint(b).each {|e| puts e} },
     :new => ->(b, *args) { $buffer_ring.unshift  ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
+    :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
     # snippet commands
     :snip => ->(b, *args) {
