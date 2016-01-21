@@ -100,3 +100,82 @@ k! will delete the current buffer without saving it first. This is
 like Close Tab in a browser.
 
 
+
+
+
+## Managing Snippets
+
+
+Initially, there are no snippets loaded, but there is a default snippet collection. Viper ships with a number of snippet collections: ruby, spec and markdown.
+These collections are stored in ./config/*.json. You can create new snippets and play them back using the command interface which is invoked with Option/Alt+; .
+Snippet collections can be automatically associated with path/file/ext patterns. E.g. '.rb' can be associated with the ruby collection.
+These associations can be either file part literals or regular expressions. E.g. /.+_spec.rb/ can be associated with the spec collection.
+The most specific association wins in any constest between loaded associations. For example, in the above association, if it was loaded along with the ruby association, myfile_spec.rb would be associated with the spec collection, not the ruby collection.
+But any other file.rb would still be associated with ruby.
+
+
+
+Here is an example session with creating a snippet, saving it and using it in a file.
+
+
+
+```
+load markdown markdown
+assocx .md markdown
+# now create a new snippet: the h6 heading
+new
+# enter: \n###### ^.\n
+snip h6 markdown
+dump markdown markdown
+# Ctrl-T to return to previous buffer with Markdown content
+h6TAB
+# snippet h6 is played back and cursor is positioned at start of typing
+```
+
+
+In the above session, we loaded the ./config/markdown.json and loaded into the markdown collection.
+Then we associated it with the '.md' file extension. Next, we created a new scratch buffer with the :new command.
+After creating our snippet, we saved it with the 'h6' abbreviation name into the markdown collection with the :snip command.
+Next, we saved our current markdown collection back to the ./config/markdown.json file.
+Lastly, we returned to our previous file buffer and invoked the snippet with the h6+TAB combination.
+
+That's all there is to it!
+
+
+### Editing an existing snippet:
+
+
+Use the :sedit command to load an existing snippet into a buffer to edit it. Use the :snip when done editing it to return it to the collection. You can return to your previous buffer
+to test it out. When satisfied, remember to dump it back into the .json file.
+
+
+
+
+Here is a sample editing session:
+
+
+
+```
+new
+sedit h6 markdown
+# Now edit the snippet's contents.
+snip h6 markdown
+k!
+# You are now in your previous buffer. Try out the new h6 snippet with: 
+h6TAB
+# It works! Now save it
+dump markdown markdown
+```
+
+
+### Tab points
+
+Within the contents of the snippet, you can set Tab points (stops) with the '^.' combination. You can set as many of these as you need. For example, ifelif might have 5 of these for the if condition, the 
+if stanza, the elsif condition, the elsif stanza and the else stanza.
+
+### Automating the load and association of Snippet Collections
+
+Viper will check for a ~/.viperrc file. If it exists, it will attempt to execute commands contained within, one per line.
+You can also create a .viperrc file in any directory. It will be loaded last. You should only put any commands there that do not require a buffer to operate. Also, any quiting commands with not operate. Also, you will not hear any output in audio, so do not put list, reporting commands there.
+
+

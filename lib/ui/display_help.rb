@@ -98,6 +98,10 @@ apply snip collection - Applies the snippet named snip from collection into curr
 snip name collection - Creates a new snippet named name (or overwrites one) from the current buffer into the collection. E.g. "snip def ruby"
   - Note: Use with new command to create a scratch buffer
     You can kill the scratch buffer with k! command.
+sedit snip collection - Edits the named snip from the collection into the current buffer.
+  Warning: This will first clear the contents of the current buffer.
+  Use :new first to create a new scratch buffer.
+  When done, use :snip name collection to save it.
 dump file collection - Dumps the collection into file file.json. E.g. "dump ruby ruby"
 
 Help Commands
