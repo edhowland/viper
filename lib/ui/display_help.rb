@@ -55,11 +55,6 @@ Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor 
 
 Function Keys
 -
-Snippet Commands
-F1: Start recording snippet named for characters to left of cursor
-  Press Ctrl-S to save snippet
-  Press F1 again to return to current buffer
-F2: Playback snippet named for characters to left of cursor
 
 Command Entry
 -
@@ -83,13 +78,22 @@ n - Rotate to the next buffer
 p - Rotate to the previous buffer
 new -Opens a new scratch buffer
 
+Reporting commands:
+-
+report - Speaks the name of the current buffer, its position and associated snippet collection.
+
 System calls
 check - Checks Ruby syntax of current buffer
 lint - lints current buffer for odd number of preceeding spaces
 
 Snippet commands
 -
+slist - List loaded snippet collections
+list collection - List available snippets in collection.
 load file collection - Loads a file.json into a snippet collection. E.g. "load ruby ruby"
+assocx pattern collection - Associates the extension pattern with the collection. E.g. assocx .rb ruby
+assocfpattern  collection - Associates the file pattern with collection. E.g. assocf /.+_spec\.rb/ spec
+assocd pattern collection - Associates the Directory pattern with the collection. E.g. assocd /home/edh/src default
 apply snip collection - Applies the snippet named snip from collection into current buffer. E.g. "apply def ruby"
 snip name collection - Creates a new snippet named name (or overwrites one) from the current buffer into the collection. E.g. "snip def ruby"
   - Note: Use with new command to create a scratch buffer
