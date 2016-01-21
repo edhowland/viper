@@ -130,28 +130,7 @@ end
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
         say "Use Option semicolon and help to invoke help"
-    when :snippet_record
-      if @sbuffer.kind_of? SnippetBuffer
-        @sbuffer.clear
-        @sbuffer.name = @buffer.lline
-        unless $snippets[@sbuffer.name].nil?
-          playback @sbuffer, @sbuffer.name
-        end
-        @buffer, @sbuffer = swap @buffer, @sbuffer
-        say "Now recording snippet: #{@buffer.name}"
-      else
-        @buffer, @sbuffer = swap @buffer, @sbuffer
-        say "Buffer now is #{@buffer.name}"
-      end
-    when :snippet_playback
-      snip_key = @buffer.lline
-      if snip_key.empty?
-        say BELL
-      else
-        @buffer.lline.length.times { @buffer.del }
-        playback @buffer, snip_key
-        say @buffer.line
-      end
+
     when :srch_fwd
       @search_direction = :srch_fwd
       say'search forward'
