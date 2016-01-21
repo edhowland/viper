@@ -42,7 +42,7 @@ def command_bindings
     :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
     # snippet commands
-    :slist => ->(b, *args) {say "Available Snippet Collections are:\n"; $snippet_cascades.keys.each {|k| say "#{k}\n" } }, 
+    :slist => ->(b, *args) {say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each {|k| say "#{k}\n" } }, 
     :list => ->(b, *args) { say "Available snippets for #{args[0]}\n";  $snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } }, 
     :snip => ->(b, *args) {
       name = args[0]
