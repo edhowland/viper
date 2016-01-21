@@ -260,4 +260,10 @@ class Buffer
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
+
+  # file associations: just return :default, but subclassed in FileBuffer
+  def association
+    :default
+  end
+
 end
