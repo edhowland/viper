@@ -78,7 +78,13 @@ class Association
     (match_dir_lit(string) || match_dir_regex(string))
   end
 
+  def associate fname
+    dir = fname.pathmap('%d')
+    file = fname.pathmap('%f')
+    ext = fname.pathmap('%x')
 
+    (match_file(file) || match_ext(ext) || match_dir(dir) || :default)
+  end
 
 end
 
