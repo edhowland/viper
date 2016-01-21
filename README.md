@@ -4,6 +4,10 @@
 
 ### Version 0.9.4
 
+
+Note: This version changes the snippet UI dramatically. Read below for information on how to load and create, store snippets.
+
+
 ## Abstract
 
 This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 

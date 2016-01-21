@@ -42,6 +42,7 @@ def command_bindings
     :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
     # snippet commands
+    :list => ->(b, *args) {$snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } }, 
     :snip => ->(b, *args) {
       name = args[0]
         cascade = args[1].to_sym
@@ -67,13 +68,15 @@ def command_bindings
       load_snippets cascade, path
       say "Snippets #{cascade} loaded from #{path}.json"
     },
-    :assoc => ->(b, *args) { 
-      ext = args[0].to_sym
-      cascade = args[1].to_sym
-      assoc_cascade ext, cascade
-      say "Extension #{ext} is now associated with #{cascade}"
-    },
-
+#    :assoc => ->(b, *args) { 
+#      ext = args[0].to_sym
+#      cascade = args[1].to_sym
+#      assoc_cascade ext, cascade
+#      say "Extension #{ext} is now associated with #{cascade}"
+#    },
+    :assocx => ->(b, *args) { $file_associations.ext args[0], args[1].to_sym; say "Extension saved for association #{args[1]}" },
+    :assocf => ->(b, *args) { $file_associations.file args[0], args[1].to_sym; say "File association saved for #args[1]}" },
+    :assocd => ->(b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args
     :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }

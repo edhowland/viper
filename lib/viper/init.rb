@@ -13,8 +13,8 @@ def init
   $file_associations = Association.new
 
   # FIXME: figure out some way to do this in .viperrc
-  $file_associations.ext_lit '.rb', :ruby
-  $file_associations.file_regex %r{.+_spec\.rb}, :spec
+#  $file_associations.ext_lit '.rb', :ruby
+#  $file_associations.file_regex %r{.+_spec\.rb}, :spec
 
   # REMOVEME
   $ruby = {}
