@@ -19,6 +19,17 @@ class Association
     @ext_lits[lit] = sym
   end
 
+  def ext pattern, sym
+    regex = %r{/(.*)/}
+    m = regex.match(pattern)
+    unless m.nil?
+      s_regex = Regexp.new(m[1])
+      ext_regex s_regex, sym
+    else
+      ext_lit pattern, sym
+    end
+  end
+
   def match_regex regexs, string
     found_a = regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
     unless found_a.empty?
@@ -47,6 +58,18 @@ class Association
   def file_lit lit, sym
     @file_lits[lit] = sym
   end
+
+  def file pattern, sym
+        regex = %r{/(.*)/}
+    m = regex.match(pattern)
+    unless m.nil?
+      s_regex = Regexp.new(m[1])
+      file_regex s_regex, sym
+    else
+      file_lit pattern, sym
+    end
+  end
+
 
   def match_file_regex string
     match_regex @file_regexs, string

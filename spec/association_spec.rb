@@ -106,3 +106,22 @@ describe 'assoc_file' do
     let(:ass) { Association.new }
 
 end
+
+describe 'ext' do
+    let(:ass) { Association.new }
+  before { ass.ext '.rb', :ruby; ass.ext '/\.r./', :rex }
+  subject { ass.associate 'file.rb' }
+
+  specify { subject.must_equal :ruby }
+  specify { ass.associate('file.rx').must_equal :rex }
+end
+
+describe 'file' do
+    let(:ass) { Association.new }
+  before { ass.file '/.+_spec\.rb/', :spec; ass.file 'myfile_spec.rb', :nop; ass.ext '.rb', :ruby }
+  subject { ass.associate 'my_spec.rb' }
+
+  specify { subject.must_equal :spec }
+  specify { ass.associate('file.rb').must_equal :ruby }
+  specify { ass.associate('myfile_spec.rb').must_equal :nop }
+end
