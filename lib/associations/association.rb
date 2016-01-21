@@ -19,13 +19,17 @@ class Association
     @ext_lits[lit] = sym
   end
 
-    def match_ext_regex string
-    found_a = @ext_regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
+  def match_regex regexs, string
+    found_a = regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
     unless found_a.empty?
       regex = found_a.first.regexp
-      return @ext_regexs[regex]
+      return regexs[regex]
     end
-    return nil
+    return nil    
+  end
+
+    def match_ext_regex string
+    match_regex @ext_regexs, string
   end
 
     def match_ext_lit string
@@ -45,12 +49,7 @@ class Association
   end
 
   def match_file_regex string
-    found_a = @file_regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
-    unless found_a.empty?
-      regex = found_a.first.regexp
-      return @file_regexs[regex]
-    end
-    return nil
+    match_regex @file_regexs, string
   end
 
   def match_file_lit string
