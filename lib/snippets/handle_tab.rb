@@ -1,14 +1,14 @@
 # handle_tab.rb - method handle_tab
 
 def handle_tab buffer
-  cascade = $snippet_associations[:default]
-  snippets = $snippet_cascades[cascade]
+  association = buffer.association
+  snippets = $snippet_cascades[association]
   snip = buffer.word_back
   possible = snippets[snip]
 
   if !possible.nil?
     buffer.del(snip)
-    apply_snippet cascade, snip, buffer
+    apply_snippet association, snip, buffer
     say buffer.line
   elsif proceed_tab_pt(buffer) == true
     say buffer.at

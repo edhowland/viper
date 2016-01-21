@@ -32,4 +32,8 @@ class FileBuffer < Buffer
     @dirty = false
   end
 
+  def association
+    $file_associations.associate @fname
+  end
+
 end
