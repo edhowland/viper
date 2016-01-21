@@ -44,6 +44,14 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 - Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi
 - Option/Alt+; help - Brings up Help text
 
+## Command line options
+
+
+```
+./bin/viper --help
+```
+
+
 ## Features:
 
 
