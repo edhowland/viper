@@ -59,8 +59,24 @@ class Association
   def match_file string
     (match_file_lit(string) || match_file_regex(string))
   end
+  def dir_regex regex, sym
+    @dir_regexs[regex] = sym
+  end
 
+  def dir_lit lit, sym
+    @dir_lits[lit] = sym
+  end
+  def match_dir_regex string
+    match_regex @dir_regexs, string
+  end
 
+  def match_dir_lit string
+    @dir_lits[string]
+  end
+
+  def match_dir string
+    (match_dir_lit(string) || match_dir_regex(string))
+  end
 
 
 

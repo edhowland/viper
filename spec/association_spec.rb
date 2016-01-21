@@ -82,3 +82,16 @@ describe 'match_file' do
 
 
 end
+
+
+describe 'match_dir' do
+    let(:ass) { Association.new }
+  before { ass.dir_regex %r{/h/b/.+\.rb}, :ruby; ass.dir_lit '/h/b/src', :source }
+  subject { ass.match_dir '/h/b/src' }
+
+  specify { subject.must_equal :source }
+
+
+
+
+end
