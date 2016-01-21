@@ -125,3 +125,19 @@ describe 'file' do
   specify { ass.associate('file.rb').must_equal :ruby }
   specify { ass.associate('myfile_spec.rb').must_equal :nop }
 end
+
+describe 'dir' do
+    let(:ass) { Association.new }
+  before { ass.dir '/h/b/src/viper/spec', :spec  }
+  subject { ass.associate '/h/b/src/viper/spec' }
+
+  specify { subject.must_equal :spec }
+end
+
+describe 'dir regex' do
+    let(:ass) { Association.new }
+  before { ass.dir '/.*/xxx/', :rex }
+  subject { ass.associate '/h/b/src/viper/xxx/file.rb' }
+
+  specify { subject.must_equal :rex }
+end

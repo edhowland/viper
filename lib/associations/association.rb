@@ -96,6 +96,18 @@ class Association
   def dir_lit lit, sym
     @dir_lits[lit] = sym
   end
+
+  def dir pattern, sym
+        regex = %r{/(.*)/}
+    m = regex.match(pattern)
+    unless m.nil?
+      s_regex = Regexp.new(m[1])
+      dir_regex s_regex, sym
+    else
+      dir_lit pattern, sym
+    end
+  end
+
   def match_dir_regex string
     match_regex @dir_regexs, string
   end
