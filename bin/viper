@@ -65,7 +65,6 @@ end
 
 
 @buffer = fbuffer
-@sbuffer = SnippetBuffer.new ''
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new

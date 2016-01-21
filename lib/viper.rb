@@ -1,7 +1,6 @@
 # viper.rb - requires for viper
 
 # Globals # FIXME
-$snippets = {}
 $commands = {}
 $clipboard = ''
 $buffer_ring = []
