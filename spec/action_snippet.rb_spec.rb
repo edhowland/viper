@@ -5,13 +5,7 @@ require_relative 'spec_helper'
 def expanded_path
   File.dirname(File.expand_path(__FILE__)) + '../config/' 
 end
-describe 'load_snippet' do
-  before { $snippets = {} }
-  subject { load_snippets; $snippets }
 
-  specify { subject.wont_be_empty }
-
-end
 
 describe 'create_snippet' do
   let(:buf) {Buffer.new 'xyzzy'}

@@ -101,3 +101,8 @@ describe 'associate' do
   specify { subject.must_equal :spec }
   specify { ass.associate('file.rb').must_equal :ruby }
 end
+
+describe 'assoc_file' do
+    let(:ass) { Association.new }
+
+end
