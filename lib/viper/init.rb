@@ -10,6 +10,9 @@ load_snippets # loads snippets from ./config/snippets.JSON file
 
   $audio_suppressed = false
 
+  # file associations are for FileBuffer's use
+  $file_associations = Association.new
+
   # REMOVEME
   $ruby = {}
   $spec = {}
