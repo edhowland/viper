@@ -90,8 +90,14 @@ describe 'match_dir' do
   subject { ass.match_dir '/h/b/src' }
 
   specify { subject.must_equal :source }
+end
 
 
+describe 'associate' do
+    let(:ass) { Association.new }
+  before { ass.ext_lit '.rb', :ruby; ass.file_regex %r{.+_spec\.rb}, :spec }
+  subject { ass.associate '/h/b/src/spec/my_spec.rb' }
 
-
+  specify { subject.must_equal :spec }
+  specify { ass.associate('file.rb').must_equal :ruby }
 end
