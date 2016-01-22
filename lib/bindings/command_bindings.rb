@@ -40,7 +40,7 @@ def command_bindings
     :check => ->(b, *args) { check_ruby_syntax(b) },
     :pipe => ->(b, *args) { pipe(b, *args) },
     :pipe! => ->(b, *args) { pipe!(b, *args) },
-    :lint => ->(b, *args) { lint(b).each {|e| puts e} },
+    :lint => ->(b, *args) { lint(b) },
     :new => ->(b, *args) { $buffer_ring.unshift  ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
     :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
