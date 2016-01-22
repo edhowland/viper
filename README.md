@@ -55,14 +55,18 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 ## Features:
 
 
-Snippets - Ability to record and playback short snippets of commonly used texts.
-Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste.
-Search and Reverse Search. (Ctrl-F. Ctrl-R).
-Ctrl-G to continue searching in the last direction of the last search.
+-Snippets - Ability to record and playback short snippets of commonly used texts. 
+-Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
+-Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
+-Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+
+
+
+
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.
 Also, up and down arrows work like in Bash readline to recover the last thing you searched for.
-Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed.
+
 
 Ctrl-A: Selects the entire buffer.
 Ctrl-Y - Yanks the current line into the clipboard.
