@@ -25,7 +25,11 @@ end
 
 describe 'dirty buffer now clean after .save' do
   let(:buf) { FileBuffer.new 'dummy.txt' }
-  subject { buf.ins 'hello'; buf.save; buf.dirty? }
+  subject {
+    File.stub(:write, nil, ['dummy.txt', '']) do
+      buf.ins 'hello'; buf.save; buf.dirty? 
+    end
+  }
 
   specify { subject.must_equal false }
 end

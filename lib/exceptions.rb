@@ -7,3 +7,5 @@ require_relative 'exceptions/exit_exception'
 require_relative 'exceptions/binding_not_found'
 
 require_relative 'exceptions/command_not_found'
+require_relative 'exceptions/snippet_collection_not_found'
+require_relative 'exceptions/snippet_not_found'

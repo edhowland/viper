@@ -216,8 +216,26 @@ class Buffer
     ([max_lines, line_no].min - 1).times { down }
   end
 
-  def del_at
-    @b_buff.shift
+  def goto_position pos
+    offset = pos - position
+    method = [nil, :fwd, :back][(offset <=> 0)]
+    self.send(method, offset.abs) unless method.nil?
+  end
+
+  def remember &blk
+    saved = position
+    yield self
+    goto_position saved
+  end
+
+
+
+  def del_at string=' '
+    raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
+    @dirty = true
+    value = @b_buff.cut(string.length)
+    record :del_at, value
+    value
   end
 
   def overwrite! string
@@ -234,8 +252,18 @@ class Buffer
     savable? and dirty?
   end
 
+  def word_back
+    @a_buff.rword_index
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end
+
+  # file associations: just return :default, but subclassed in FileBuffer
+  def association
+    :default
+  end
+
 end
