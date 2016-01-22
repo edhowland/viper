@@ -1,7 +1,6 @@
 # viper.rb - requires for viper
 
 # Globals # FIXME
-$snippets = {}
 $commands = {}
 $clipboard = ''
 $buffer_ring = []
@@ -10,6 +9,8 @@ $buffer_ring = []
 require 'stringio'
 require 'json'
 require 'open3'
+require 'rake'
+
 
 require_relative 'viper/version'
 require_relative 'viper/init'
@@ -19,6 +20,8 @@ require_relative 'buffer'
 require_relative 'ui'
 require_relative 'mappings'
 require_relative 'bindings'
+require_relative 'associations'
+
 require_relative 'io'
 require_relative 'control'
 require_relative 'snippets'
@@ -30,3 +33,4 @@ require_relative 'repl'
 # init some stuff
 init
 require_relative 'tools'
+require_relative 'viper/load_rc'

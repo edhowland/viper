@@ -34,7 +34,18 @@ end
 
 parser.parse!
 
+# possibly open ~/.viperrc and process any commands found there
+tmp_buff = ScratchBuffer.new
+suppress_audio do
+  load_rc do |l|
+    parse_execute tmp_buff, l
+  end
+end
 
+# possibly load ./.viperrc
+load_rc './.viperrc', :silent => true do |l|
+  parse_execute tmp_buff, l
+end
 # set up the buffer ring
 #@buffer_ring = []
 if ARGV.length == 0
@@ -54,7 +65,6 @@ end
 
 
 @buffer = fbuffer
-@sbuffer = SnippetBuffer.new ''
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
@@ -79,6 +89,10 @@ end
   prc = worker.bound_proc_for ch
   begin
     result = prc.call(@buffer)
+    if result.to_s =~ /^cmd_/
+    command = convert_cmd result
+    exec_cmd command, @buffer
+    end
     case result
     when :quit
       break
@@ -119,28 +133,7 @@ end
         say "Exited debug mode. Buffer is #{@buffer.name}"
       when :help
         say "Use Option semicolon and help to invoke help"
-    when :snippet_record
-      if @sbuffer.kind_of? SnippetBuffer
-        @sbuffer.clear
-        @sbuffer.name = @buffer.lline
-        unless $snippets[@sbuffer.name].nil?
-          playback @sbuffer, @sbuffer.name
-        end
-        @buffer, @sbuffer = swap @buffer, @sbuffer
-        say "Now recording snippet: #{@buffer.name}"
-      else
-        @buffer, @sbuffer = swap @buffer, @sbuffer
-        say "Buffer now is #{@buffer.name}"
-      end
-    when :snippet_playback
-      snip_key = @buffer.lline
-      if snip_key.empty?
-        say BELL
-      else
-        @buffer.lline.length.times { @buffer.del }
-        playback @buffer, snip_key
-        say @buffer.line
-      end
+
     when :srch_fwd
       @search_direction = :srch_fwd
       say'search forward'
@@ -168,7 +161,8 @@ end
     when :command
       say 'command '
       command_s = @command_line.readline
-      quitting = parse_execute @buffer, command_s    end
+      quitting = parse_execute @buffer, command_s
+      end
       break if quitting == :quit
       @buffer = fbuffer # restore the @buffer pointer
   rescue BufferExceeded => err

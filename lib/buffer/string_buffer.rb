@@ -108,6 +108,13 @@ class StringBuffer
     result
   end
 
+  def rword_index
+    offset = @buffer.rindex /\s|\n/
+    if offset.nil?
+      offset = @buffer.rindex /^\w/
+    end
+    (offset.nil? ? '' : @buffer[offset..(-1)].lstrip)
+  end
 
 
   def to_s

@@ -150,3 +150,52 @@ describe 'should_save?' do
   specify { subject.must_equal false }
 
 end
+
+describe 'goto_position' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.goto_position 5; buf.position }
+
+  specify { subject.must_equal 5 }
+
+end
+
+describe 'goto_position backwards' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.fin; buf.goto_position 5; buf.position }
+
+  specify { subject.must_equal 5 }
+
+end
+
+describe 'remember' do
+  let(:buf) {Buffer.new "line 1\n" }
+  subject { buf.remember do |b|
+      b.fin
+      b.ins "line 2\n"
+    end 
+      buf.line
+  }
+
+
+  specify { subject.must_equal "line 1\n" }
+
+end
+
+describe 'remember absolute position' do
+  let(:buf) {Buffer.new 'hello world' }
+  subject { buf.goto_position(5); 
+    buf.remember do |b|
+       b.ins('xxxxx') 
+    end
+buf.position 
+  }
+
+  specify { subject.must_equal 5 }
+end
+describe 'word_back' do
+  let(:buf) {Buffer.new "ABCD\n  EFGH" }
+  subject { buf.fin; buf.word_back }
+
+  specify { subject.must_equal 'EFGH' }
+
+end
