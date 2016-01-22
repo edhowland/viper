@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.4
+### Version 0.9.5
 
 
 Note: This version changes the snippet UI dramatically. Read below for information on how to load and create, store snippets.
