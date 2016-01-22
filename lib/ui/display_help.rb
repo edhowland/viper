@@ -37,7 +37,7 @@ Ctrl-C: Copy highlighted text to clipboard
 Ctrl-X: Cut highlighted text to clipboard
 Ctrl-V: Paste clipboard text into current buffer at cursor
 :yank  - Yanks one line into the clipboard (preceed with Command meta key)
- Undo/Redo
+Undo/Redo
 -
 Ctrl-Z: Undo the last action
 Ctrl-U: Redo the last action undone (from last Ctrl-Z)

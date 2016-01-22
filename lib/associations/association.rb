@@ -29,11 +29,11 @@ class Association
 #    add(pattern, sym) {|r, l| (r.nil? ? ext_lit(l, sym) : ext_regex(r, sym)) }
     regex = %r{/(.*)/}
     m = regex.match(pattern)
-   unless m.nil?
+    unless m.nil?
       s_regex = Regexp.new(m[1])
-     ext_regex s_regex, sym
+    ext_regex s_regex, sym
   else
-   ext_lit pattern, sym
+    ext_lit pattern, sym
     end
   end
 

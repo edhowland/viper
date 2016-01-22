@@ -1,7 +1,7 @@
 # inserter.rb - method inserter returns a [:sym, Proc}
 
 def insert_sym value
-   ->(b) { b.ins value; say value }
+  ->(b) { b.ins value; say value }
 end
 
 def inserter value

@@ -25,7 +25,7 @@ class Buffer
   end
 
   def mark_set?
-   !@mark_position.nil?
+    !@mark_position.nil?
   end
 
   def mark
@@ -173,7 +173,7 @@ class Buffer
   def cut
     raise MarkNotSet unless mark_set?
     if mark < 1
-   value = @a_buff.cut(mark)
+      value = @a_buff.cut(mark)
     else
       value = @b_buff.cut(mark)
     end

@@ -12,8 +12,8 @@ def key_press
     if z == '1' or z == '2' or z == '3'
       p =$stdin.getch
     unless p == '~'
- q = $stdin.getch
-         r = $stdin.getch unless q == '~'
+      q = $stdin.getch
+      r = $stdin.getch unless q == '~'
     end
     elsif z == '5' or z == '6'   # for shift+PgUp, Shift+PgDn
       p = $stdin.getch

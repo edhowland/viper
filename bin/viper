@@ -60,7 +60,7 @@ end
 
 # return the head of the @buffer_ring
 def fbuffer
- $buffer_ring.first
+  $buffer_ring.first
 end
 
 
@@ -84,7 +84,7 @@ end
 
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
- Viper::Control.loop do |worker|
+Viper::Control.loop do |worker|
   ch = worker.getch
   prc = worker.bound_proc_for ch
   begin
@@ -175,7 +175,7 @@ end
 # possibly save dirty buffer
 $buffer_ring.select {|b| b.should_save? }.map do |buf|
 if confirm?("Save #{buf.name}? ")
- buf.save 
+  buf.save 
   say "#{buf.name} saved"
 end
 end

@@ -10,8 +10,4 @@ def init
 
   # file associations are for FileBuffer's use
   $file_associations = Association.new
-
-  # REMOVEME
-  $ruby = {}
-  $spec = {}
 end

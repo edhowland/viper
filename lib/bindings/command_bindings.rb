@@ -6,7 +6,7 @@ def command_bindings
     :q! => ->(b, *args) { exit },
     :w => ->(b, *args) {
       if args.empty?
- b.save; say "#{b.name} saved" 
+        b.save; say "#{b.name} saved" 
       else
         say "saving to #{args[0]}"
         File.write(args[0], b.to_s)
