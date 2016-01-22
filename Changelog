@@ -1,3 +1,13 @@
+7f4177e
+Revision 0.9.5
+Major overhaul to snippet loading, editing, and application with Tab using Tab Points. See README.md for details.
+Snippets are now able to be associated with dir/file/ext patterns or literals. E.g. '.rb' associated with :ruby snippets.
+Viper now looks for ~/.viperrc or ./.viperrc files and executes any commands found there silently.
+Fixed some minor bugs: Accent key was duplicating accents when inserted in the buffer.
+Changed F1 to bring up help.
+F2 to report on the name and type of buffer. Also :report command does this.
+Ctrl-Y and :yank yanks a line to clipboard.
+Restored Ctrl-h to bring up help.
 
 4b76c0d
 
