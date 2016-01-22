@@ -42,7 +42,7 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 
 - Ctrl-S: Saves the current buffer.
 - Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi
-- Option/Alt+; help - Brings up Help text
+- Ctrl-H - Brings up Help text
 
 ## Command line options
 
@@ -65,6 +65,7 @@ Also, up and down arrows work like in Bash readline to recover the last thing yo
 Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed.
 
 Ctrl-A: Selects the entire buffer.
+Ctrl-Y - Yanks the current line into the clipboard.
 Fn4: Sets/Unsets a mark. Cursor movements from there selects and highlights text.
 The Meta key is Alt or Option depending on your keyboard layout.
 Meta+D - Starts a Delete sequence:
@@ -73,6 +74,8 @@ Meta+D - Starts a Delete sequence:
 + Shift+End - Deletes to end of the current line.
 + Shift+PgUp - Deletes to the top of the buffer.
 + Shift+PgDn - Deletes to the bottom of the buffer.
+
+
 Debug mode: For debugging the editor itself.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
 
@@ -98,9 +101,6 @@ Meta help brings up a help buffer. You can
 return to the previous buffer with either Ctrl-T or meta+n, meta+p to rotate through buffers.
 k! will delete the current buffer without saving it first. This is
 like Close Tab in a browser.
-
-
-
 
 
 ## Managing Snippets
@@ -172,6 +172,15 @@ dump markdown markdown
 
 Within the contents of the snippet, you can set Tab points (stops) with the '^.' combination. You can set as many of these as you need. For example, ifelif might have 5 of these for the if condition, the 
 if stanza, the elsif condition, the elsif stanza and the else stanza.
+When a snippet is first invoked, the buffer will automatically advance to the first tab point, if any.
+
+
+Note: Remember to make sure to keeping hittingthe tab key to advance to any subsequent tab points. Tab will first erase the '^.' in the buffer so you can start typing from the tab point.
+If you forget to clear all the tab points, you might get a syntax error in your code.
+You can find any left over tab points by Ctrl-F and entering ^.Return
+
+
+
 
 ### Automating the load and association of Snippet Collections
 

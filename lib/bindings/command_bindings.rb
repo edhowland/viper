@@ -30,6 +30,9 @@ def command_bindings
     :o => ->(b, *args) { $buffer_ring.unshift(FileBuffer.new(args[0])); say "Open file #{$buffer_ring[0].name}" },
     :k! => ->(b, *args) { killed = $buffer_ring.shift; say "#{killed.name} destroyed" },
 
+    # clipboard commands
+    :yank => ->(b, *args) { $clipboard = b.line; say '1 line yanked' },
+
     # start of :help commands
     :help => ->(b, *args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" },
 

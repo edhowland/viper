@@ -89,6 +89,10 @@ end
   prc = worker.bound_proc_for ch
   begin
     result = prc.call(@buffer)
+    if result.to_s =~ /^cmd_/
+    command = convert_cmd result
+    exec_cmd command, @buffer
+    end
     case result
     when :quit
       break

@@ -13,7 +13,8 @@ def make_bindings
   result[:shift_end] = ->(b) { b.back_of_line; say b.at }
   result[:shift_pgup] = ->(b) { b.beg; say "top of buffer" }
   result[:shift_pgdn] = ->(b) { b.fin; say "bottom of buffer" }
-  result[:ctrl_y] = ->(b) { say "buffer is: #{b.name}: #{b.position}" }
+  result[:ctrl_y] = ->(b) { :cmd_yank }
+  result[:ctrl_w] = ->(b) { say BELL }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
   result[:ctrl_f] = ->(b) { :srch_fwd }
@@ -63,7 +64,7 @@ def make_bindings
   ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
-  result[:ctrl_h] = ->(b) {:help }
+  result[:ctrl_h] = ->(b) {:cmd_help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
   result[:ctrl_l] = ->(b) { say b.line }
@@ -80,8 +81,8 @@ def make_bindings
   }
 
   # Function keys
-  result[:fn_1] = ->(b) { say BELL }
-  result[:fn_2] = ->(b) { say BELL }
+  result[:fn_1] = ->(b) { :cmd_help }
+  result[:fn_2] = ->(b) { :cmd_report }
   result[:fn_3] = ->(b) { say BELL }
   #result[:fn_4] = ->(b) { say BELL }
 

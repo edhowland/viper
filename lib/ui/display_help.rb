@@ -8,7 +8,7 @@ Version #{Viper::VERSION}
 Control Character Commands
 -
 Ctrl-Q: Quit editing
-Ctrl-Y: Speak the name of the current buffer
+Ctrl-Y: Yanks a line into the clipboard
 Ctrl-S: Save the current buffer
 Esc+ZZ: Write (save) the current buffer and exit the editor.
 Shift+Home: Move to the beginning of the line
@@ -36,6 +36,7 @@ Fn4: Set/Unset mark to begin/stop highlighting text
 Ctrl-C: Copy highlighted text to clipboard
 Ctrl-X: Cut highlighted text to clipboard
 Ctrl-V: Paste clipboard text into current buffer at cursor
+:yank  - Yanks one line into the clipboard (preceed with Command meta key)
  Undo/Redo
 -
 Ctrl-Z: Undo the last action
@@ -72,11 +73,13 @@ wq  - Writes and saves the current buffer and exits the editor.
 rew!  - Re-reads the current file into the current buffer, overwriting the contents, if changed.
 r filename  - reads the contents of the filename into the current buffer at the current cursor position.
 g <line> - Goto a specific line in the current buffer
+goto position - Jumps to specific position (offset from beginning of buffer).
 o filename - open a new file 
 k! - Kill (delete) the current buffer
 n - Rotate to the next buffer
 p - Rotate to the previous buffer
 new -Opens a new scratch buffer
+yank - Yanks the current line into the current clipboard.
 
 Reporting commands:
 -
