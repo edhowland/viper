@@ -50,7 +50,7 @@ def make_bindings
 
   [
   [:apostrophe, "'"], [:quote, '"'], 
-    [:asterisk, '*'], [:accent, '``'], [:at, '@'],
+    [:asterisk, '*'], [:accent, '`'], [:at, '@'],
     [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
     [:dollar, '$'], [:percent, '%'], [:caret, '^'],
     [:ampersand, '&'],
