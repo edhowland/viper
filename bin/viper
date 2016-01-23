@@ -40,12 +40,13 @@ suppress_audio do
   load_rc do |l|
     parse_execute tmp_buff, l
   end
-end
 
 # possibly load ./.viperrc
 load_rc './.viperrc', :silent => true do |l|
   parse_execute tmp_buff, l
 end
+end
+
 # set up the buffer ring
 #@buffer_ring = []
 if ARGV.length == 0
