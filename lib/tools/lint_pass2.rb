@@ -1,7 +1,8 @@
 # lint_pass2.rb - method lint_pass2
 
 def get_indent line
-  line.index(/[^ ]./)
+  result = line.index(/[^ ]./)
+  (result || 0)
 
 end
 

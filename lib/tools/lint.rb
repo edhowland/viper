@@ -6,8 +6,11 @@ def lint buffer
   @blackboard.unshift 'Lint pass 1 (Even indents) failed'  unless @blackboard.empty?
 
   # Pass 2 - Check for consistant indenting/outdenting
-  # @blackboard.unshift lint_pass2(buffer)
-  # @blackboard.unshift 'Lint pass 2 (Consistant indent/outdents) failed' unless @blackboard.empty?
+  pass2 = lint_pass2(buffer)
+  unless pass2.empty?
+    pass2.unshift "Pass 2 failed: Inconsisant indentation: Indents vs. Outdents"
+    @blackboard += pass2
+  end
 
   if @blackboard.empty?
     say 'Lint OK'
