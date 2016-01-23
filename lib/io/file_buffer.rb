@@ -9,7 +9,7 @@ class FileBuffer < Buffer
     super(File.read(@fname))
     else
     super ''
-  end
+    end
     @name = @fname
   end
 

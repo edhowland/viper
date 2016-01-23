@@ -23,10 +23,10 @@ def make_bindings
   result[:ctrl_z] = ->(b) {
     if b.can_undo?
       b.undo
-        say 'Undone' 
-      else
-        say BELL
-      end
+      say 'Undone' 
+    else
+      say BELL
+    end
   }
   result[:ctrl_u] = ->(b) {
     if b.can_redo?
