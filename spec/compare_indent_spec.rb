@@ -33,4 +33,44 @@ end
 
 end
 
+  describe 'eq' do
+    subject { cmp.eq 2,2 }
+
+      specify { subject.must_equal nil }
+
+
+end
+  describe 'compare <' do
+    subject { cmp.cmp 0, 4 }
+
+    specify { subject.must_equal [0, 4] }
+  end
+
+  describe 'compare ==' do
+    subject { cmp.cmp 2, 2 }
+
+      specify { subject.must_equal nil }
+end
+
+  describe 'compare >' do
+    subject { cmp.cmp 18, 0 }
+
+      specify { subject.must_equal [18, 0] }
+end
+
+  describe 'cmp 4,2' do
+    subject { cmp.cmp 4,2 }
+
+      specify { subject.must_equal nil }
+end
+
+  describe 'cmp 8,6' do
+    subject { cmp.cmp 8, 6 }
+
+      specify { subject.must_equal nil }
+
+
+end
+
+
 end
