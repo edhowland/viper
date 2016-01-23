@@ -1,8 +1,6 @@
 # snippets.rb - requires for snippets/
 
 require_relative 'snippets/create_snippet'
-
-
 require_relative 'snippets/load_snippets'
 require_relative 'snippets/snippet_cascade'
 require_relative 'snippets/proceed_tab_pt'

@@ -11,7 +11,6 @@ require 'json'
 require 'open3'
 require 'rake'
 
-
 require_relative 'viper/version'
 require_relative 'viper/init'
 require_relative 'constants'
@@ -28,7 +27,6 @@ require_relative 'snippets'
 require_relative 'readline'
 require_relative 'system'
 require_relative 'repl'
-
 
 # init some stuff
 init
