@@ -28,7 +28,7 @@ describe 'dump_snippets' do
     File.stub(:write, nil, [expanded_path + 'xyzzy.json', '']) do
       dump_snippets :xyzzy, 'xyzzy'
     end
- }
+  }
 
 
   specify { subject }

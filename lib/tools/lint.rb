@@ -20,7 +20,7 @@ def lint buffer
     lint_buffer = $buffer_ring.first
     lint_buffer.ins @blackboard.join("\n")
     lint_buffer.beg
-    lint_buffer.name = 'Lint results'
+    lint_buffer.name = "Lint results for #{buffer.name}"
     say lint_buffer.line
   end
 end
