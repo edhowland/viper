@@ -133,7 +133,7 @@ Viper::Control.loop do |worker|
 
       when :srch_fwd
       @search_direction = :srch_fwd
-      say'search forward'
+      say 'search forward'
       pattern = @search_line.readline
       @buffer.srch_fwd(pattern)
       say @buffer.line

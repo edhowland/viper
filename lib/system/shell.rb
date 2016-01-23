@@ -1,7 +1,7 @@
 # shell.rb - method shell runs a command returning stdout, stderr
 
 # run command piping value from block to stdin, return stdout, stderr
-def shell command, &blk
+def shell command, &_blk
   output, error = ''
   begin
   stdin, stdout, stderr = Open3.popen3(command)

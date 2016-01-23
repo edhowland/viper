@@ -19,12 +19,6 @@ class Association
     @ext_lits[lit] = sym
   end
 
-  def add pattern, sym, &blk
-    regex = %r{/(.*)/}
-    m = regex.match(pattern)
-    yield (m.nil? ? nil : m[1]), pattern if block_given?
-  end
-
   def ext pattern, sym
     regex = %r{/(.*)/}
     m = regex.match(pattern)

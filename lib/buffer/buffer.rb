@@ -31,7 +31,7 @@ class Buffer
     @mark_position - position
   end
 
-  def suppress &blk
+  def suppress &_blk
     @recordings_suppressed = true
     yield
     @recordings_suppressed = false
@@ -42,7 +42,7 @@ class Buffer
   end
 
   # dummy method. does nothing overriden in Recordable module
-  def record method, *args
+  def record _method, *_args
   end
 
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
@@ -212,7 +212,7 @@ class Buffer
     self.send(method, offset.abs) unless method.nil?
   end
 
-  def remember &blk
+  def remember &_blk
     saved = position
     yield self
     goto_position saved

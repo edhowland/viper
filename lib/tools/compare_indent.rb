@@ -9,7 +9,7 @@ class CompareIndent
     return [indent, previous] if indent > previous + 2
   end
 
-  def eq indent, previous
+  def eq _indent, _previous
     nil
   end
 

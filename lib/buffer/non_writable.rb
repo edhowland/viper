@@ -1,7 +1,7 @@
 # non_writable.rb - module NonWritable
 
 module NonWritable
-  def ins string
+  def ins _string
     say BELL
   end
 
