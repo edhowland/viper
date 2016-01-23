@@ -11,11 +11,11 @@ class Association
     @dir_lits = {}
   end
 
-    def ext_regex regex, sym
+  def ext_regex regex, sym
     @ext_regexs[regex] = sym
   end
 
-    def ext_lit lit, sym
+  def ext_lit lit, sym
     @ext_lits[lit] = sym
   end
 
@@ -45,19 +45,19 @@ class Association
     return nil    
   end
 
-    def match_ext_regex string
+  def match_ext_regex string
     match_regex @ext_regexs, string
   end
 
-    def match_ext_lit string
+  def match_ext_lit string
     @ext_lits[string]
   end
 
-    def match_ext string
+  def match_ext string
     (match_ext_lit(string) || match_ext_regex(string))
   end
 
-    def file_regex regex, sym
+  def file_regex regex, sym
     @file_regexs[regex] = sym
   end
 

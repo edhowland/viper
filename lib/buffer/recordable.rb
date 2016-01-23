@@ -7,7 +7,7 @@ module Recordable
   def record_action method, *args
     init_commands
     @commands << [method, *args]
-    end
+  end
 
   def record method, *args
     record_action(method, *args) unless @recordings_suppressed
