@@ -103,7 +103,6 @@ describe 'cut:fwd' do
 #  specify {buf.to_s.must_equal '012345CDE'  }
 end
 
-
 describe 'cut: back' do
   let(:buf) { StringBuffer.new '01234ABCDE'}
   subject { buf.cut -5 }

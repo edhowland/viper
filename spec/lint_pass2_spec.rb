@@ -7,9 +7,6 @@ describe 'lint_pass2' do
   subject { lint_pass2 buf }
 
   specify { subject.wont_be_empty }
-
-
-
 end
 
 describe 'lint_pass2 OK' do
@@ -17,7 +14,4 @@ describe 'lint_pass2 OK' do
   subject { lint_pass2 buf }
 
   specify { subject.must_be_empty }
-
-
-
 end

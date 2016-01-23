@@ -9,7 +9,6 @@ describe 'up on empty buffer' do
   specify { ->() { subject}.must_raise BufferExceeded; buf.col.must_equal 0}
 end
 
-
 describe 'simple single line' do
   let(:buf) { Buffer.new 'line 1' }
   subject {  buf.down }

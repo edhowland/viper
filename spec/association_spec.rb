@@ -13,11 +13,7 @@ describe 'ext_lit' do
   let(:ass) { Association.new }
   subject { ass.ext_lit 'rb', :ruby }
 
-
-
-
-    specify { subject }
-  
+  specify { subject }
 end
 
 describe 'match_ext_regex' do
@@ -28,8 +24,6 @@ describe 'match_ext_regex' do
 
   specify { subject.must_equal :ruby }
 end
-
-
 
 describe 'match_ext_regex' do
   let(:ass) { Association.new }
@@ -45,24 +39,16 @@ describe 'match_ext' do
   before { ass.ext_regex %r{r.?}, :r2; ass.ext_lit 'rb', :ruby  }
   subject { ass.match_ext 'rb' }
 
-
   specify { subject.must_equal :ruby }
-
-
-
 end
-
-
 
 describe 'match_ext' do
   let(:ass) { Association.new }
   before { ass.ext_regex %r{r.?}, :r2; ass.ext_lit 'rb', :ruby  }
   subject { ass.match_ext 'rc' }
 
-
   specify { subject.must_equal :r2 }
 end
-
 
 describe 'match_file_regex' do
   let(:ass) { Association.new }
@@ -78,11 +64,7 @@ describe 'match_file' do
   subject { ass.match_file 'myfile_spec.rb' }
 
   specify { subject.must_equal :myfile }
-
-
-
 end
-
 
 describe 'match_dir' do
   let(:ass) { Association.new }
@@ -91,7 +73,6 @@ describe 'match_dir' do
 
   specify { subject.must_equal :source }
 end
-
 
 describe 'associate' do
   let(:ass) { Association.new }

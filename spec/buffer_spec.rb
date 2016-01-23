@@ -33,7 +33,6 @@ describe 'fwd then del' do
 
   specify { subject; buf.to_s.must_equal 'bcdef' }
 end
-  
 
 describe 'fwd then ins' do
   let(:buf) { Buffer.new 'the brown fox' }
@@ -55,7 +54,6 @@ describe 'at' do
 
   specify { subject.must_equal 'c' }
 end
-
 
 describe 'copy' do
   let(:buf) { Buffer.new '01234ABCDE' }
@@ -176,7 +174,6 @@ describe 'remember' do
     end 
     buf.line
   }
-
 
   specify { subject.must_equal "line 1\n" }
 end

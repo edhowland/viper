@@ -1,4 +1,4 @@
-
+# scratch_buffer_spec.rb - specs for scratch_buffer
 
 require_relative 'spec_helper'
 
@@ -9,9 +9,7 @@ describe 'name: Scratch 1' do
   subject { buf.name }
 
   specify { subject.must_equal 'Scratch 1' }
-
 end
-
 
 describe 'name : 2 -after two buffers' do
   before { $buffer_ring.clear }
@@ -44,8 +42,6 @@ describe 'can_undo? on empty buffer is false' do
 
   specify { buf.can_undo?.must_equal false }
   specify { buf.can_redo?.must_equal false }
-
-
 end
 
 describe 'can undo after ins' do

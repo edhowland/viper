@@ -10,7 +10,6 @@ describe 'single hash' do
 
 end
 
-
 describe '<< new_hash' do
   let(:snip_h) {{:a => 1} }
   let(:snip_h2) {{:a => 2} }

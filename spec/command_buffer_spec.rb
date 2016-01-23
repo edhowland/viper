@@ -55,7 +55,6 @@ describe 'after <<, back' do
 
 end
 
-
 describe 'after <<, back, fwd: at_start? false' do
   let(:buf) {CommandBuffer.new }
   subject { buf << [:fwd, 1]; buf.back; buf.fwd; buf.at_start? }

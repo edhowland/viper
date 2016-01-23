@@ -7,7 +7,4 @@ describe 'convert_cmd :cmd_yank' do
     subject { convert_cmd :cmd_yank  }
 
   specify { subject.must_equal :yank }
-
-
-
 end
