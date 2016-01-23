@@ -20,7 +20,7 @@ def command_bindings
       else
         say "#{args[0]} does not exist"
       end
-      },
+    },
     :r! => ->(b, *args) { insert_shell(b, *args) },
     :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
     :g => ->(b, *args) { b.goto(args[0].to_i); say b.line },
@@ -59,7 +59,7 @@ def command_bindings
         cascade = args[1].to_sym
       apply_snippet cascade, snip, b
       say b.line
-      },
+    },
     :dump => ->(b, *args) {
       cascade = args[1].to_sym
       path = args[0]

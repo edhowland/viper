@@ -27,7 +27,7 @@ def make_bindings
       else
         say BELL
       end
-    }
+  }
   result[:ctrl_u] = ->(b) {
     if b.can_redo?
       b.redo
@@ -35,7 +35,7 @@ def make_bindings
     else
       say BELL
     end
-    }
+  }
 
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
