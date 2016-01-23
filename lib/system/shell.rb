@@ -17,7 +17,6 @@ def shell command, &blk
   [output, error]
 end
 
-
 def pipe buffer, *command
   command = command.join(' ')
   output, error = shell(command) do |input|
@@ -27,8 +26,6 @@ def pipe buffer, *command
   say output
   say error
 end
-
-
 
 # pipe contents through command, replacing contents with stdout
 def pipe! buffer, *command
@@ -40,7 +37,6 @@ def pipe! buffer, *command
   buffer.overwrite! output
 
 end
-
 
 def insert_shell buffer, *command
   command = command.join(' ')

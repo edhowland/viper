@@ -11,15 +11,15 @@ def command_bindings
         say "saving to #{args[0]}"
         File.write(args[0], b.to_s)
       end
-},
+    },
     :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit },
     :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"},
     :r => ->(b, *args) {
-        if File.exist?(args[0])
-            b.ins(File.read(args[0]))
-        else
-            say "#{args[0]} does not exist"
-        end
+      if File.exist?(args[0])
+        b.ins(File.read(args[0]))
+      else
+        say "#{args[0]} does not exist"
+      end
       },
     :r! => ->(b, *args) { insert_shell(b, *args) },
     :s => ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
@@ -55,7 +55,7 @@ def command_bindings
       say "Saved buffer to snippet: #{name} in collection #{args[1]}"
     },
     :apply => ->(b, *args) {
-        snip = args[0]
+      snip = args[0]
         cascade = args[1].to_sym
       apply_snippet cascade, snip, b
       say b.line

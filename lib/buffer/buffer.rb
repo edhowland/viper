@@ -19,7 +19,6 @@ class Buffer
     set_mark unless mark_set?
   end
 
-
   def unset_mark
     @mark_position = nil
   end
@@ -32,10 +31,6 @@ class Buffer
     @mark_position - position
   end
 
-
-
-
-
   def suppress &blk
     @recordings_suppressed = true
     yield
@@ -45,7 +40,6 @@ class Buffer
   def dirty?
     @dirty
   end
-
 
   # dummy method. does nothing overriden in Recordable module
   def record method, *args
@@ -121,7 +115,6 @@ class Buffer
     lline.length
   end
 
-
   def up
     raise BufferExceeded if position == 0
     suppress do
@@ -136,7 +129,6 @@ class Buffer
     end
     record :up
   end
-
 
   def front_of_line
     back @a_buff.rcount_nl
@@ -156,7 +148,6 @@ class Buffer
     @b_buff = StringBuffer.new ''
     @dirty = false
   end
-
 
   def copy
     raise MarkNotSet unless mark_set?
@@ -191,7 +182,6 @@ class Buffer
     amount = @a_buff.rindex(regex)
     back(amount * (-1)) unless amount.nil?
   end
-
 
   def position
     @a_buff.length
@@ -228,8 +218,6 @@ class Buffer
     goto_position saved
   end
 
-
-
   def del_at string=' '
     raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
     @dirty = true
@@ -255,7 +243,6 @@ class Buffer
   def word_back
     @a_buff.rword_index
   end
-
 
   def to_s
     @a_buff.to_s + @b_buff.to_s

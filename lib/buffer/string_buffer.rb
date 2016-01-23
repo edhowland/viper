@@ -79,7 +79,6 @@ class StringBuffer
     @buffer.length
   end
 
-
   def calc_range limit
     (limit < 0 ? limit..(-1)  : 0..(limit - 1) )
   end
@@ -115,7 +114,6 @@ class StringBuffer
     end
     (offset.nil? ? '' : @buffer[offset..(-1)].lstrip)
   end
-
 
   def to_s
     @buffer

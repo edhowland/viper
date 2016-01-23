@@ -21,20 +21,20 @@ def make_bindings
   result[:ctrl_r] = ->(b) { :srch_back }
   result[:ctrl_g] = ->(b) { :srch_next }
   result[:ctrl_z] = ->(b) {
-      if b.can_undo?
-        b.undo
+    if b.can_undo?
+      b.undo
         say 'Undone' 
       else
         say BELL
       end
-      }
+    }
   result[:ctrl_u] = ->(b) {
-      if b.can_redo?
-        b.redo
-        say 'Redone' 
-      else
-        say BELL
-      end
+    if b.can_redo?
+      b.redo
+      say 'Redone' 
+    else
+      say BELL
+    end
     }
 
   # command controls

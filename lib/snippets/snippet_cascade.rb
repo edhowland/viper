@@ -12,6 +12,4 @@ class SnippetCascade
   def <<(arg_h)
     @cascade.unshift arg_h
   end
-
-
 end

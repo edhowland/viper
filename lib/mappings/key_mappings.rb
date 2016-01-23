@@ -1,6 +1,6 @@
 # key_mappings.rb - method key_mappings returns a hash of keys to syms
 def key_mappings
-    {
+  {
     "\u0011" => :ctrl_q,
     "\eZZ" => :shift_zz,
     "\001" => :ctrl_a,
@@ -13,15 +13,15 @@ def key_mappings
     "\u0013" => :ctrl_s,
     "\003" => :ctrl_c,   
     "\u0016" => :ctrl_v,
-"\u0018" => :ctrl_x,
+    "\u0018" => :ctrl_x,
     "\u001A" => :ctrl_z,
-"\u0015" => :ctrl_u,
+    "\u0015" => :ctrl_u,
     "\u000F" => :ctrl_o,
     "\u0010" => :ctrl_p,
   "\004" => :ctrl_d,
     "\a" => :ctrl_g,
     "\b" => :ctrl_h,
-# duplicated with tab key
+    # duplicated with tab key
     #"\t" => :ctrl_i,
     "\u0019" => :ctrl_y,
     "\n" => :ctrl_j,
@@ -44,7 +44,7 @@ def key_mappings
     "\e[17~" => :fn_6,
     "\e[18~" => :fn_7,
     "\e[19~" => :fn_8,
-"\e[20~" => :fn_9,
+    "\e[20~" => :fn_9,
     "\e[21~" => :fn_10,
     # FN_11 is not accessable
     "\e[24~" => :fn_12,
@@ -89,7 +89,7 @@ def key_mappings
     "\e[H" => :shift_home,
     "\e[F" => :shift_end,
     "\e[5~" => :shift_pgup,
-"\e[6~" => :shift_pgdn,
+    "\e[6~" => :shift_pgdn,
 
     # Meta characters
 "∂" => :meta_d,

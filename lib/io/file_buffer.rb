@@ -20,7 +20,6 @@ class FileBuffer < Buffer
     @name = @fname
   end
 
-
   def save
     File.write(@fname, to_s)
     @dirty = false

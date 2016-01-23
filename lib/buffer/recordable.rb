@@ -31,8 +31,6 @@ module Recordable
         end
       end
     end
-
-
   end
 
   def redo

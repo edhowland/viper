@@ -2,7 +2,7 @@
 
 # Associations map to a given symbol according to the most specific match
 class Association
-    def initialize 
+  def initialize 
     @ext_regexs = {}
     @ext_lits = {}
     @file_regexs = {}
@@ -20,13 +20,12 @@ class Association
   end
 
   def add pattern, sym, &blk
-        regex = %r{/(.*)/}
+    regex = %r{/(.*)/}
     m = regex.match(pattern)
     yield (m.nil? ? nil : m[1]), pattern if block_given?
   end
 
   def ext pattern, sym
-#    add(pattern, sym) {|r, l| (r.nil? ? ext_lit(l, sym) : ext_regex(r, sym)) }
     regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
@@ -67,7 +66,7 @@ class Association
   end
 
   def file pattern, sym
-        regex = %r{/(.*)/}
+    regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
       s_regex = Regexp.new(m[1])
@@ -76,7 +75,6 @@ class Association
       file_lit pattern, sym
     end
   end
-
 
   def match_file_regex string
     match_regex @file_regexs, string
@@ -98,7 +96,7 @@ class Association
   end
 
   def dir pattern, sym
-        regex = %r{/(.*)/}
+    regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
       s_regex = Regexp.new(m[1])
@@ -129,5 +127,3 @@ class Association
   end
 
 end
-
-
