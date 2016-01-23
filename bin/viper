@@ -5,7 +5,6 @@ require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
-
 options = {:read_only => false, :check_syntax => false}
 
 parser = OptionParser.new do |opt|
@@ -64,7 +63,6 @@ def fbuffer
   $buffer_ring.first
 end
 
-
 @buffer = fbuffer
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
@@ -75,8 +73,6 @@ end
 def swap buff1, buff2
   [buff2, buff1]
 end
-
-
 
 # possibly jump to a specific line in the file
 unless options[:line].nil?
@@ -135,7 +131,7 @@ Viper::Control.loop do |worker|
       when :help
         say "Use Option semicolon and help to invoke help"
 
-    when :srch_fwd
+      when :srch_fwd
       @search_direction = :srch_fwd
       say'search forward'
       pattern = @search_line.readline
@@ -163,9 +159,9 @@ Viper::Control.loop do |worker|
       say 'command '
       command_s = @command_line.readline
       quitting = parse_execute @buffer, command_s
-      end
-      break if quitting == :quit
-      @buffer = fbuffer # restore the @buffer pointer
+    end
+    break if quitting == :quit
+    @buffer = fbuffer # restore the @buffer pointer
   rescue BufferExceeded => err
     say BELL
   rescue => err
