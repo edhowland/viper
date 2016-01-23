@@ -6,7 +6,6 @@ def expanded_path
   File.dirname(File.expand_path(__FILE__)) + '../config/' 
 end
 
-
 describe 'create_snippet' do
   let(:buf) {Buffer.new 'xyzzy'}
   subject { create_snippet :ruby, 'def', buf; $snippet_cascades[:ruby] }
@@ -29,7 +28,6 @@ describe 'dump_snippets' do
       dump_snippets :xyzzy, 'xyzzy'
     end
   }
-
 
   specify { subject }
 end

@@ -12,6 +12,13 @@ def lint buffer
     @blackboard += pass2
   end
 
+  # Pass3 Excessive blank lineage
+  pass3 = lint_pass3(buffer)
+  unless pass3.empty?
+    pass3.unshift "Pass 3 failed: Excessive blank lineage"
+    @blackboard += pass3
+  end
+
   if @blackboard.empty?
     say 'Lint OK'
   else
