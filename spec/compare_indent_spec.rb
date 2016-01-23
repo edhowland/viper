@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 
 describe CompareIndent do
-    let(:cmp) { CompareIndent.new }
+  let(:cmp) { CompareIndent.new }
   describe 'lt' do
     subject { cmp.lt 2, 6 }
 

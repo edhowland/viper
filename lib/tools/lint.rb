@@ -15,8 +15,13 @@ def lint buffer
   if @blackboard.empty?
     say 'Lint OK'
   else
+    suppress_audio { exec_cmd :new, buffer} 
     say "lint failed\n"
-    @blackboard.each {|log| say "#{log}\n" }
+    lint_buffer = $buffer_ring.first
+    lint_buffer.ins @blackboard.join("\n")
+    lint_buffer.beg
+    lint_buffer.name = 'Lint results'
+    say lint_buffer.line
   end
 end
 
