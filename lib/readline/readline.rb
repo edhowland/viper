@@ -1,6 +1,7 @@
 # readline.rb - module Viper::Readline
 
 module Viper
+  # TODO: Class documentation
   class Readline
     def initialize
       @buffer = MultiLineBuffer.new

@@ -2,6 +2,7 @@
 
 require_relative 'spec_helper'
 
+# TODO: Class documentation
 class MyBuffer < Buffer
   include Recordable
 

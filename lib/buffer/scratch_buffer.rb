@@ -1,5 +1,6 @@
 # scratch_buffer.rb - class ScratchBuffer : just Recordable Buffer
 
+# TODO: Class documentation
 class ScratchBuffer < Buffer
   include Recordable
 

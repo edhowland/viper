@@ -1,6 +1,8 @@
 # control.rb - module Viper::Control
 
 module Viper
+
+  # TODO: Class documentation
   class Control
     def initialize proc_bindings=nil
       @proc_bindings = proc_bindings || make_bindings

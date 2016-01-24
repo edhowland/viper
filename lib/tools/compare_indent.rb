@@ -1,5 +1,6 @@
 # compare_indent - classCompareIndent
 
+# TODO: Class documentation
 class CompareIndent
   def lt indent, previous
     return [indent, previous] if indent < (previous - 2)

@@ -130,7 +130,7 @@ Style/CommentIndentation:
 
 # Offense count: 18
 Style/Documentation:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 4
 Style/EachWithObject:

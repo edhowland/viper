@@ -1,4 +1,6 @@
 # recordable.rb - module Recordable
+
+# TODO: Module documentation
 module Recordable
   def init_commands
     @commands ||= CommandBuffer.new

@@ -1,5 +1,6 @@
 # mult_line_buffer.rb - class MultiLineBuffer
 
+# TODO: Class documentation
 class MultiLineBuffer
   def initialize 
     @a_buff = [Buffer.new('')]

@@ -1,5 +1,6 @@
 # file_buffer.rb - class FileBuffer
 
+# TODO: Class documentation
 class FileBuffer < Buffer
   include Recordable
   include Savable

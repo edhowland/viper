@@ -1,5 +1,6 @@
 # snippet_cascade.rb - class SnippetCascade
 
+# TODO: Class documentation
 class SnippetCascade
   def initialize snippets
     @cascade = [snippets]
