@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 
 describe 'single hash' do
-  let(:snip) {SnippetCascade.new({:a => 1, :b => 2}) }
+  let(:snip) { SnippetCascade.new(:a => 1, :b => 2) }
   subject { snip[:a] }
 
   specify { subject.must_equal 1 }

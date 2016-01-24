@@ -23,11 +23,11 @@ end
 
 describe 'dump_snippets' do
   before { create_snippet :xyzzy, :my, 'you' }
-  subject { 
+  subject do 
     File.stub(:write, nil, [expanded_path + 'xyzzy.json', '']) do
       dump_snippets :xyzzy, 'xyzzy'
     end
-  }
+  end
 
   specify { subject }
 end
