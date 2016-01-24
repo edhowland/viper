@@ -1,5 +1,6 @@
 # control.rb - module Viper::Control
-
+# Style/Documentation: Enabled: false
+# TODO: Module documentation
 module Viper
 
   # TODO: Class documentation

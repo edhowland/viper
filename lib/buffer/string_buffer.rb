@@ -1,5 +1,5 @@
 # string_buffer.rb - class StringBuffer
-
+# TODO: Class documentation
 class StringBuffer
   def initialize string
     @buffer = string
