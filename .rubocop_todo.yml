@@ -57,7 +57,7 @@ Metrics/ClassLength:
 # Class Buffer is REALLY BIG. Ok for now
 # Offense count: 1
 Metrics/CyclomaticComplexity:
-  Max: 8
+  Max: 6
 
 # Offense count: 31
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
