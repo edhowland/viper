@@ -44,7 +44,7 @@ Lint/UselessAssignment:
     - 'bin/viper'
     - 'lib/control/control.rb'
     - 'lib/system/shell.rb'
-    - 'lib/ui/key_press.rb'
+#    - 'lib/ui/key_press.rb'
 
 # Offense count: 9
 Metrics/AbcSize:
@@ -54,7 +54,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 202
-
+# Class Buffer is REALLY BIG. Ok for now
 # Offense count: 1
 Metrics/CyclomaticComplexity:
   Max: 8
