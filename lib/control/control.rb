@@ -18,6 +18,7 @@ module Viper
           yield this
         rescue => err
           exception_raised = true
+          say "Unhandled exception: #{err.class.name}: #{err.message}"
         end
       end
     end

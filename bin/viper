@@ -162,7 +162,7 @@ Viper::Control.loop do |worker|
     end
     break if quitting == :quit
     @buffer = fbuffer # restore the @buffer pointer
-  rescue BufferExceeded => err
+  rescue BufferExceeded
     say BELL
   rescue => err
     say err.message

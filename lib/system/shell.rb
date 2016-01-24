@@ -30,7 +30,9 @@ end
 # pipe contents through command, replacing contents with stdout
 def pipe! buffer, *command
   command = command.join(' ')
-  output, error = shell(command) do |input|
+
+  # FIXME: Should send _error to own scratch buffer, then remove leading underscore '_'
+  output, _error = shell(command) do |input|
     input.write(buffer.to_s)
   end
 
@@ -40,6 +42,7 @@ end
 
 def insert_shell buffer, *command
   command = command.join(' ')
-  output, error = shell(command)
+  # FIXME: ... see the above comment: FIXME
+  output, _error = shell(command)
   buffer.ins output
 end

@@ -41,9 +41,9 @@ Lint/UnusedBlockArgument:
 # Offense count: 11
 Lint/UselessAssignment:
   Exclude:
-    - 'bin/viper'
-    - 'lib/control/control.rb'
-    - 'lib/system/shell.rb'
+#    - 'bin/viper'
+#    - 'lib/control/control.rb'
+#    - 'lib/system/shell.rb'
 #    - 'lib/ui/key_press.rb'
 
 # Offense count: 9
