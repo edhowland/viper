@@ -36,7 +36,7 @@ Lint/UnusedBlockArgument:
   Exclude:
     - 'lib/bindings/command_bindings.rb'
     - 'lib/bindings/make_bindings.rb'
-    - 'spec/repl_spec.rb'
+#    - 'spec/repl_spec.rb'
 
 # Offense count: 11
 Lint/UselessAssignment:
