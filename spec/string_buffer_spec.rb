@@ -100,7 +100,6 @@ describe 'cut:fwd' do
 
   specify { subject.must_equal '01234' }
   specify { subject; buf.to_s.must_equal 'ABCDE' }
-#  specify {buf.to_s.must_equal '012345CDE'  }
 end
 
 describe 'cut: back' do

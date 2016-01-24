@@ -231,7 +231,7 @@ class Buffer
     @b_buff = StringBuffer.new string
   end
 
-    # is this buffer able to be saved?
+  # is this buffer able to be saved?
   def savable?
     false
   end

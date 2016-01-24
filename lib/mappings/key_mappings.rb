@@ -48,7 +48,7 @@ def key_mappings
     "\e[21~" => :fn_10,
     # FN_11 is not accessable
     "\e[24~" => :fn_12,
-  # punctuation and other characters
+    # punctuation and other characters
     ';' => :semicolon,
     ':' => :colon,
     '.' => :period,
@@ -92,7 +92,7 @@ def key_mappings
     "\e[6~" => :shift_pgdn,
 
     # Meta characters
-"∂" => :meta_d,
+    "∂" => :meta_d,
     "…" => :meta_colon,
     "\e[3~" => :delete_at    
   }

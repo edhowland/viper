@@ -126,7 +126,7 @@ Style/CaseIndentation:
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/CommentIndentation:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 18
 Style/Documentation:
