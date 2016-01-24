@@ -46,7 +46,10 @@ def command_bindings
 
     # snippet commands
     :slist => ->(b, *args) {say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each {|k| say "#{k}\n" } }, 
-    :list => ->(b, *args) { say "Available snippets for #{args[0]}\n";  $snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } }, 
+    :list => ->(b, *args) {
+      say "Available snippets for #{args[0]}\n"
+      $snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } 
+    }, 
     :sedit => ->(b, *args) { b.clear; b.ins $snippet_cascades[args[1].to_sym][args[0]]; b.beg; say b.line },
     :snip => ->(b, *args) {
       name = args[0]
