@@ -122,11 +122,11 @@ Viper::Control.loop do |worker|
           say 'delete to bottom of buffer'
         else
         say next_key.to_s
-      end
+        end
 
     when :debug
       say 'Entering debug mode. Press Ctrl-D to exit'
-        binding.pry
+      binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
     when :help
       say "Use Option semicolon and help to invoke help"
