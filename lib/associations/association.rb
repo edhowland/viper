@@ -24,9 +24,9 @@ class Association
     m = regex.match(pattern)
     unless m.nil?
       s_regex = Regexp.new(m[1])
-    ext_regex s_regex, sym
-  else
-    ext_lit pattern, sym
+      ext_regex s_regex, sym
+    else
+      ext_lit pattern, sym
     end
   end
 

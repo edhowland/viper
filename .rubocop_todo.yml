@@ -144,7 +144,7 @@ Style/EachWithObject:
 # Cop supports --auto-correct.
 Style/ElseAlignment:
   Exclude:
-    - 'lib/associations/association.rb'
+#    - 'lib/associations/association.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
