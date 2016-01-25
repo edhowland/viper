@@ -227,8 +227,8 @@ Style/IfInsideElse:
 Style/IfUnlessModifier:
   Exclude:
     - 'bin/viper'
-    - 'lib/buffer/recordable.rb'
-    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/buffer/recordable.rb'
+#    - 'lib/buffer/string_buffer.rb'
 #    - 'lib/tools/lint_pass1.rb'
 #GOT
 # Offense count: 1

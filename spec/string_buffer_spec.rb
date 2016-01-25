@@ -43,7 +43,7 @@ describe 'pop' do
 
   specify { subject.must_equal 'f' }
 end
-  
+
 describe 'after pop' do
   let(:buf) { StringBuffer.new 'abcdef' }
   subject { buf.pop }
@@ -114,7 +114,6 @@ describe 'index' do
   subject {  buf.index 'time' }
 
   specify {  subject.must_equal 11 }
-
 end
 
 describe 'rindex' do
@@ -122,7 +121,6 @@ describe 'rindex' do
   subject {  buf.rindex 'all' }
 
   specify {  subject.must_equal -7 }
-
 end
 
 describe 'rword_index' do
@@ -130,19 +128,18 @@ describe 'rword_index' do
   subject { buf.rword_index }
 
   specify { subject.must_equal 'ABCD' }
-
 end
+
 describe 'rword_index on new line' do
   let(:buf) {StringBuffer.new "ABCD\nEFGH" }
   subject { buf.rword_index }
 
   specify { subject.must_equal 'EFGH' }
-
 end
+
 describe 'rword_index' do
   let(:buf) {StringBuffer.new '' }
   subject { buf.rword_index }
 
   specify { subject.must_equal '' }
-
 end

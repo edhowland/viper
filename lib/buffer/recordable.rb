@@ -28,9 +28,8 @@ module Recordable
       last_command = @commands.back
       unless last_command.nil?
         command = invert(last_command)
-        unless command[0] == nil
-          self.send(command[0], *command[1])
-        end
+
+        self.send(command[0], *command[1]) unless command[0] == nil
       end
     end
   end
@@ -39,9 +38,8 @@ module Recordable
     init_commands
     suppress do
       command = @commands.fwd
-      unless command.nil?
-        self.send(command[0], *command[1])
-      end
+
+      self.send(command[0], *command[1]) unless command.nil?
     end
   end
 
