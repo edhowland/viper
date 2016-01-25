@@ -10,6 +10,7 @@ end
 describe 'ins' do
   let(:buf) { Buffer.new 'quick brown fox' }
   subject { buf.ins 'the ' }
+
   specify { subject; buf.to_s.must_equal 'the quick brown fox' }
 end
 
@@ -43,7 +44,7 @@ end
 
 describe 'back' do
   let(:buf) { Buffer.new 'abcdef' }
-  subject { buf.fwd; buf.fwd; buf.back;  buf.ins '1' }
+  subject { buf.fwd; buf.fwd; buf.back; buf.ins '1' }
 
   specify { subject; buf.to_s.must_equal 'a1bcdef' }
 end
@@ -57,9 +58,9 @@ end
 
 describe 'copy' do
   let(:buf) { Buffer.new '01234ABCDE' }
-  subject { buf.fwd(5); buf.set_mark; buf.back(2);  buf.copy }
+  subject { buf.fwd(5); buf.set_mark; buf.back(2); buf.copy }
 
-  specify {  subject.must_equal '34' }
+  specify { subject.must_equal '34' }
 end
 
 describe 'set mark and copy (reverses direction)' do
@@ -72,7 +73,7 @@ end
 
 describe 'cut fwd' do
   let(:buf) {Buffer.new '01234ABCDE' }
-  subject { buf.fwd 3; buf.set_mark;  buf.fwd; buf.fwd; buf.cut }
+  subject { buf.fwd 3; buf.set_mark; buf.fwd; buf.fwd; buf.cut }
 
   specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
 
@@ -80,7 +81,7 @@ end
 
 describe 'cut back' do
   let(:buf) {Buffer.new '01234ABCDE' }
-  subject { buf.fwd 5; buf.set_mark;  buf.back; buf.back; buf.cut }
+  subject { buf.fwd 5; buf.set_mark; buf.back; buf.back; buf.cut }
 
   specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
 
@@ -88,38 +89,39 @@ end
 
 describe 'srch_fwd' do
   let(:buf) { Buffer.new 'Now is the time for all good men' }
-  subject {  buf.srch_fwd 'good'; buf.at }
+  subject { buf.srch_fwd 'good'; buf.at }
 
-  specify {  subject.must_equal 'g' }
+  specify { subject.must_equal 'g' }
 
 end
 
 describe 'srch_fwd for non-existing string' do
   let(:buf) { Buffer.new 'Now is the time fo all good men' }
-  subject {  buf.srch_fwd 'xyzzy'; buf.at }
+  subject { buf.srch_fwd 'xyzzy'; buf.at }
 
-  specify {  subject.must_equal 'N' }
+  specify { subject.must_equal 'N' }
 
 end
 
 describe 'srch_back' do
   let(:buf) { Buffer.new 'Now is the time for good men' }
-  subject {  buf.fin; buf.srch_back('good'); buf.at }
-  specify {  subject.must_equal 'g' }
+  subject { buf.fin; buf.srch_back('good'); buf.at }
+
+  specify { subject.must_equal 'g' }
 
 end
 
 describe 'srch_back for non-existant regex' do
   let(:buf) { Buffer.new 'Now is the time for all good men' }
-  subject {  buf.fin; buf.srch_back 'xyzz'; buf.at }
+  subject { buf.fin; buf.srch_back 'xyzz'; buf.at }
 
-  specify {  subject.must_equal nil }
+  specify { subject.must_equal nil }
 
 end
 
 describe 'del a lot of content' do
   let(:buf) { Buffer.new '' }
-  subject {  buf.ins 'abcde'; buf.del 'abcde' }
+  subject { buf.ins 'abcde'; buf.del 'abcde' }
 
   specify { subject.must_equal 'abcde'; buf.to_s.must_equal '' }
 

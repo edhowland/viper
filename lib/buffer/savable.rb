@@ -5,5 +5,4 @@ module Savable
   def savable?
     true
   end
-
 end

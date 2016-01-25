@@ -2,7 +2,6 @@
 # Style/Documentation: Enabled: false
 # TODO: Module documentation
 module Viper
-
   # TODO: Class documentation
   class Control
     def initialize proc_bindings=nil
@@ -10,7 +9,7 @@ module Viper
     end
 
     attr_accessor :proc_bindings
-    def self.loop(_p_bindings=make_bindings,  &_blk)
+    def self.loop(_p_bindings=make_bindings, &_blk)
       this = self.new
       exception_raised = false
       until exception_raised

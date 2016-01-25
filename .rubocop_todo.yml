@@ -186,21 +186,21 @@ Style/EmptyLinesAroundMethodBody:
 #    - 'lib/snippets/apply_snippet.rb'
 #    - 'lib/system/shell.rb'
 #    - 'lib/tools/lint_pass2.rb'
-#GOT
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, no_empty_lines
 Style/EmptyLinesAroundModuleBody:
   Exclude:
-    - 'lib/buffer/savable.rb'
-    - 'lib/control/control.rb'
+#    - 'lib/buffer/savable.rb'
+#    - 'lib/control/control.rb'
 
 # Offense count: 34
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
 Style/ExtraSpacing:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 63
 # Configuration parameters: AllowedVariables.

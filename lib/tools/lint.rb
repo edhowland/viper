@@ -3,7 +3,7 @@
 def lint buffer
   @blackboard = []
   @blackboard += lint_pass1(buffer)
-  @blackboard.unshift 'Lint pass 1 (Even indents) failed'  unless @blackboard.empty?
+  @blackboard.unshift 'Lint pass 1 (Even indents) failed' unless @blackboard.empty?
 
   # Pass 2 - Check for consistant indenting/outdenting
   pass2 = lint_pass2(buffer)

@@ -49,7 +49,7 @@ end
 # set up the buffer ring
 #@buffer_ring = []
 if ARGV.length == 0
-  $buffer_ring <<  FileBuffer.new('Unnamed')
+  $buffer_ring << FileBuffer.new('Unnamed')
 else
   if options[:read_only]
     $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
@@ -67,7 +67,7 @@ end
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-@search_direction = :srch_fwd  # or :srch_back
+@search_direction = :srch_fwd # or :srch_back
 @search_buffer.name = 'Search buffer'
 
 def swap buff1, buff2

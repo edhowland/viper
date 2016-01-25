@@ -41,7 +41,7 @@ def command_bindings
     :pipe => ->(b, *args) { pipe(b, *args) },
     :pipe! => ->(b, *args) { pipe!(b, *args) },
     :lint => ->(b, *args) { lint(b) },
-    :new => ->(b, *args) { $buffer_ring.unshift  ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
+    :new => ->(b, *args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
     :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
     # snippet commands
@@ -82,6 +82,6 @@ def command_bindings
     :assocd => ->(b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args
-    :nop => ->(b, *args) {puts 'you said';  args.each {|e| puts e} }
+    :nop => ->(b, *args) { puts 'you said'; args.each {|e| puts e} }
   }
 end

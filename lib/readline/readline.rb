@@ -14,7 +14,7 @@ module Viper
     attr_reader :last_line
 
     def readline
-      @buffer.fin   # sets up next blank line
+      @buffer.fin # sets up next blank line
       Viper::Control.loop do |worker|
         key = worker.getch
         break if key == :return
