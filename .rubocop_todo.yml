@@ -226,17 +226,16 @@ Style/IfInsideElse:
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Exclude:
-    - 'bin/viper'
+#    - 'bin/viper'
 #    - 'lib/buffer/recordable.rb'
 #    - 'lib/buffer/string_buffer.rb'
 #    - 'lib/tools/lint_pass1.rb'
-#GOT
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
 Style/IndentArray:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 22
 # Cop supports --auto-correct.

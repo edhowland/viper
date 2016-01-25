@@ -73,9 +73,8 @@ def swap buff1, buff2
 end
 
 # possibly jump to a specific line in the file
-unless options[:line].nil?
-  fbuffer.goto options[:line]
-end
+
+fbuffer.goto options[:line] unless options[:line].nil?
 
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
