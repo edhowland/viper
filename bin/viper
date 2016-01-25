@@ -50,12 +50,10 @@ end
 #@buffer_ring = []
 if ARGV.length == 0
   $buffer_ring << FileBuffer.new('Unnamed')
+elsif options[:read_only]
+  $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
 else
-  if options[:read_only]
-    $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
-  else
-    $buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
-  end
+  $buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
 end
 
 # return the head of the @buffer_ring

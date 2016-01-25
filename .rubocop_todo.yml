@@ -206,6 +206,7 @@ Style/ExtraSpacing:
 # Configuration parameters: AllowedVariables.
 Style/GlobalVars:
   Enabled: false
+# Note: Restructure architecture to remove dependence on globals
 
 # Offense count: 49
 # Cop supports --auto-correct.
@@ -213,11 +214,12 @@ Style/GlobalVars:
 # SupportedStyles: ruby19, ruby19_no_mixed_keys, hash_rockets
 Style/HashSyntax:
   Enabled: false
+# Note: TODO: possibly use autocorrect feature on this
 
 # Offense count: 1
 Style/IfInsideElse:
   Exclude:
-    - 'bin/viper'
+#    - 'bin/viper'
 
 # Offense count: 5
 # Cop supports --auto-correct.
