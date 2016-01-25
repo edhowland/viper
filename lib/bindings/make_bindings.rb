@@ -1,5 +1,6 @@
 # make_bindings.rb - returns hash of key bindings to procs
 
+# Metrics/MethodLength: Enabled: false
 def make_bindings
   result = {}
 ('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
