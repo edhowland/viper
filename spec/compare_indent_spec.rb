@@ -21,7 +21,6 @@ describe CompareIndent do
 
     specify { subject.must_equal [6, 2] }
 
-
   end
   describe 'gt OK' do
     subject { cmp.gt 6, 4 }
@@ -33,8 +32,6 @@ describe CompareIndent do
     subject { cmp.eq 2,2 }
 
     specify { subject.must_equal nil }
-
-
   end
   describe 'compare <' do
     subject { cmp.cmp 0, 4 }
@@ -64,9 +61,5 @@ describe CompareIndent do
     subject { cmp.cmp 8, 6 }
 
     specify { subject.must_equal nil }
-
-
   end
-
-
 end

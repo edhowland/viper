@@ -37,7 +37,6 @@ def pipe! buffer, *command
   end
 
   buffer.overwrite! output
-
 end
 
 def insert_shell buffer, *command

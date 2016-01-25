@@ -253,5 +253,4 @@ class Buffer
   def association
     :default
   end
-
 end

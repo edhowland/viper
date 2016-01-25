@@ -3,7 +3,6 @@
 def get_indent line
   result = line.index(/[^ ]/)
   (result || 0)
-
 end
 
 # Lint Pass 2 - compare indent levels between adjacent non-empty lines

@@ -81,6 +81,7 @@ class Association
   def match_file string
     (match_file_lit(string) || match_file_regex(string))
   end
+
   def dir_regex regex, sym
     @dir_regexs[regex] = sym
   end
@@ -119,5 +120,4 @@ class Association
 
     (match_file(file) || match_ext(ext) || match_dir(dir) || :default)
   end
-
 end

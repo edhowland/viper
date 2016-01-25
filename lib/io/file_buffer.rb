@@ -35,5 +35,4 @@ class FileBuffer < Buffer
   def association
     $file_associations.associate @fname
   end
-
 end

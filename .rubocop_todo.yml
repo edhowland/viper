@@ -151,36 +151,23 @@ Style/ElseAlignment:
 # Configuration parameters: AllowAdjacentOneLineDefs.
 Style/EmptyLineBetweenDefs:
   Exclude:
-    - 'lib/associations/association.rb'
-    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/associations/association.rb'
+#    - 'lib/buffer/string_buffer.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.
 Style/EmptyLines:
   Exclude:
-    - 'lib/buffer/string_buffer.rb'
-    - 'lib/ui/key_press.rb'
-    - 'spec/compare_indent_spec.rb'
-
+#    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/ui/key_press.rb'
+#    - 'spec/compare_indent_spec.rb'
 # Offense count: 65
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, no_empty_lines
 Style/EmptyLinesAroundBlockBody:
   Exclude:
-    - 'spec/association_spec.rb'
-    - 'spec/buffer_spec.rb'
-    - 'spec/command_buffer_spec.rb'
-    - 'spec/compare_indent_spec.rb'
-    - 'spec/cursor_movement_spec.rb'
-    - 'spec/file_buffer_spec.rb'
-    - 'spec/lines_buffer_spec.rb'
-    - 'spec/mark_buffer_spec.rb'
-    - 'spec/multi_line_buffer_spec.rb'
-    - 'spec/recordable_spec.rb'
-    - 'spec/scratch_buffer_spec.rb'
-    - 'spec/snippet_cascade_spec.rb'
-    - 'spec/string_buffer_spec.rb'
+    - 'spec/**/*'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -188,19 +175,18 @@ Style/EmptyLinesAroundBlockBody:
 # SupportedStyles: empty_lines, no_empty_lines
 Style/EmptyLinesAroundClassBody:
   Exclude:
-    - 'lib/associations/association.rb'
-    - 'lib/buffer/buffer.rb'
-    - 'lib/buffer/command_buffer.rb'
-    - 'lib/io/file_buffer.rb'
-
+#    - 'lib/associations/association.rb'
+#    - 'lib/buffer/buffer.rb'
+#    - 'lib/buffer/command_buffer.rb'
+#    - 'lib/io/file_buffer.rb'
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/EmptyLinesAroundMethodBody:
   Exclude:
-    - 'lib/snippets/apply_snippet.rb'
-    - 'lib/system/shell.rb'
-    - 'lib/tools/lint_pass2.rb'
-
+#    - 'lib/snippets/apply_snippet.rb'
+#    - 'lib/system/shell.rb'
+#    - 'lib/tools/lint_pass2.rb'
+#GOT
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

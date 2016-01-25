@@ -16,6 +16,7 @@ class StringBuffer
     @buffer = string + @buffer
     @buffer
   end
+
   def push string
     @buffer << string
   end
@@ -73,7 +74,6 @@ class StringBuffer
   def first_line
     @buffer[0..(count_nl)]
   end
-
 
   def length
     @buffer.length

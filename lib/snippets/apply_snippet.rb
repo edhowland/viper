@@ -11,5 +11,4 @@ def apply_snippet cascade, name, buffer
   end
 
   proceed_tab_pt buffer
-
 end

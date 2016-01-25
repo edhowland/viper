@@ -35,5 +35,4 @@ class CommandBuffer
   def at_end?
     @b_buff.empty?
   end
-
 end
