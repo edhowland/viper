@@ -21,7 +21,7 @@ end
 
 def handle_esc
   y = $stdin.getch
-  y += handle_lbrkt if y == "[" or y == "O" or y == 'Z'
+  y += handle_lbrkt if %w([ O Z).member? y
   y
 end
 

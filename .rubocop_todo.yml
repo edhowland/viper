@@ -103,7 +103,7 @@ Style/AlignHash:
 Style/AndOr:
   Exclude:
     - 'lib/buffer/buffer.rb'
-    - 'lib/ui/key_press.rb'
+# Note: use of or is preferred here
 
 # Offense count: 10
 # Cop supports --auto-correct.
@@ -133,11 +133,12 @@ Style/Documentation:
     - 'test/**/*'
     - 'lib/control/control.rb'
     - 'lib/readline/readline.rb'
+# Note: The above files are classes within module declarations, possibly change to Module::Class style instead
 
 # Offense count: 4
 Style/EachWithObject:
   Exclude:
-    - 'lib/bindings/make_bindings.rb'
+#    - 'lib/bindings/make_bindings.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
