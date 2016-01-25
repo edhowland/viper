@@ -229,8 +229,8 @@ Style/IfUnlessModifier:
     - 'bin/viper'
     - 'lib/buffer/recordable.rb'
     - 'lib/buffer/string_buffer.rb'
-    - 'lib/tools/lint_pass1.rb'
-
+#    - 'lib/tools/lint_pass1.rb'
+#GOT
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
