@@ -1,11 +1,18 @@
 # make_bindings.rb - returns hash of key bindings to procs
 
-# Metrics/MethodLength: Enabled: false
+def key_inserter_proc bind_h, set
+  set.each_with_object(bind_h) {|e, h| s, p =  inserter(e); h[s] = p}
+end
+
+def special_inserter_proc bind_h, set
+  set.each_with_object(bind_h) {|e, h| _s, p = inserter(e[1]); h[e[0]] = p }
+end
+
 def make_bindings
   result = {}
-('a'..'z').inject(result) {|i,j| s,p=inserter(j); i[s] = p; i}
-  ('A'..'Z').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
-  ('0'..'9').inject(result) {|i, j| s,p = inserter(j); i[s] = p; i}
+  key_inserter_proc(result, ('a'..'z'))
+  key_inserter_proc(result, ('A'..'Z'))
+  key_inserter_proc(result, ('0'..'9'))
 
   # Control characters
   result[:ctrl_q] = ->(b) {:quit }
@@ -50,7 +57,7 @@ def make_bindings
   result[:comma] = insert_sym ','
   result[:space] = inserter(' ')[1]
 
-  [
+  special_inserter_proc(result, [
   [:apostrophe, "'"], [:quote, '"'], 
     [:asterisk, '*'], [:accent, '`'], [:at, '@'],
     [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
@@ -62,7 +69,7 @@ def make_bindings
     [:lbracket, '['], [:rbracket, ']'],
     [:lbrace, '{'], [:rbrace, '}'],
     [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
-  ].inject(result) {|i, j| i[j[0]] = insert_sym(j[1]); i }
+  ])
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
   result[:ctrl_h] = ->(b) {:cmd_help }
