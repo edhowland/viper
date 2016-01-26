@@ -1,10 +1,10 @@
 # make_bindings.rb - returns hash of key bindings to procs
 
-def key_inserter_proc bind_h, set
+def key_inserter_proc(bind_h, set)
   set.each_with_object(bind_h) {|e, h| s, p =  inserter(e); h[s] = p}
 end
 
-def special_inserter_proc bind_h, set
+def special_inserter_proc(bind_h, set)
   set.each_with_object(bind_h) {|e, h| _s, p = inserter(e[1]); h[e[0]] = p }
 end
 

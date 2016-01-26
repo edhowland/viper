@@ -1,6 +1,6 @@
 # apply_snippet.rb - method apply_snippet
 
-def apply_snippet cascade, name, buffer
+def apply_snippet(cascade, name, buffer)
   snippets = $snippet_cascades[cascade]
   raise SnippetCollectionNotFound if snippets.nil?
   snip = snippets[name]

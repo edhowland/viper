@@ -19,19 +19,19 @@ class MultiLineBuffer
     current.at
   end
 
-  def ins string
+  def ins(string)
     current.ins string
   end
 
-  def del string=' '
+  def del(string=' ')
     current.del string
   end
 
-  def fwd count=1
+  def fwd(count=1)
     current.fwd count
   end
 
-  def back count = 1
+  def back(count = 1)
     current.back count
   end
 

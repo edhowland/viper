@@ -68,7 +68,7 @@ end
 @search_direction = :srch_fwd # or :srch_back
 @search_buffer.name = 'Search buffer'
 
-def swap buff1, buff2
+def swap(buff1, buff2)
   [buff2, buff1]
 end
 

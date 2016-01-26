@@ -4,7 +4,7 @@
 class FileBuffer < Buffer
   include Recordable
   include Savable
-  def initialize filename
+  def initialize(filename)
     @fname = filename
     if File.exist? @fname
       super(File.read(@fname))
@@ -16,7 +16,7 @@ class FileBuffer < Buffer
 
   attr_reader :fname
 
-  def fname= name
+  def fname=(name)
     @fname = name
     @name = @fname
   end

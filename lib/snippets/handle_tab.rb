@@ -1,6 +1,6 @@
 # handle_tab.rb - method handle_tab
 
-def handle_tab buffer
+def handle_tab(buffer)
   association = buffer.association
   snippets = $snippet_cascades[association]
   snip = buffer.word_back

@@ -11,15 +11,15 @@ class Association
     @dir_lits = {}
   end
 
-  def ext_regex regex, sym
+  def ext_regex(regex, sym)
     @ext_regexs[regex] = sym
   end
 
-  def ext_lit lit, sym
+  def ext_lit(lit, sym)
     @ext_lits[lit] = sym
   end
 
-  def ext pattern, sym
+  def ext(pattern, sym)
     regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
@@ -30,7 +30,7 @@ class Association
     end
   end
 
-  def match_regex regexs, string
+  def match_regex(regexs, string)
     found_a = regexs.keys.map {|r| r.match(string) }.reject {|m| m.nil? }.sort {|a,b| b.to_s.length <=> a.to_s.length }
     unless found_a.empty?
       regex = found_a.first.regexp
@@ -39,27 +39,27 @@ class Association
     return nil    
   end
 
-  def match_ext_regex string
+  def match_ext_regex(string)
     match_regex @ext_regexs, string
   end
 
-  def match_ext_lit string
+  def match_ext_lit(string)
     @ext_lits[string]
   end
 
-  def match_ext string
+  def match_ext(string)
     (match_ext_lit(string) || match_ext_regex(string))
   end
 
-  def file_regex regex, sym
+  def file_regex(regex, sym)
     @file_regexs[regex] = sym
   end
 
-  def file_lit lit, sym
+  def file_lit(lit, sym)
     @file_lits[lit] = sym
   end
 
-  def file pattern, sym
+  def file(pattern, sym)
     regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
@@ -70,27 +70,27 @@ class Association
     end
   end
 
-  def match_file_regex string
+  def match_file_regex(string)
     match_regex @file_regexs, string
   end
 
-  def match_file_lit string
+  def match_file_lit(string)
     @file_lits[string]
   end
 
-  def match_file string
+  def match_file(string)
     (match_file_lit(string) || match_file_regex(string))
   end
 
-  def dir_regex regex, sym
+  def dir_regex(regex, sym)
     @dir_regexs[regex] = sym
   end
 
-  def dir_lit lit, sym
+  def dir_lit(lit, sym)
     @dir_lits[lit] = sym
   end
 
-  def dir pattern, sym
+  def dir(pattern, sym)
     regex = %r{/(.*)/}
     m = regex.match(pattern)
     unless m.nil?
@@ -101,19 +101,19 @@ class Association
     end
   end
 
-  def match_dir_regex string
+  def match_dir_regex(string)
     match_regex @dir_regexs, string
   end
 
-  def match_dir_lit string
+  def match_dir_lit(string)
     @dir_lits[string]
   end
 
-  def match_dir string
+  def match_dir(string)
     (match_dir_lit(string) || match_dir_regex(string))
   end
 
-  def associate fname
+  def associate(fname)
     dir = fname.pathmap('%d')
     file = fname.pathmap('%f')
     ext = fname.pathmap('%x')

@@ -1,7 +1,7 @@
 # string_buffer.rb - class StringBuffer
 # TODO: Class documentation
 class StringBuffer
-  def initialize string
+  def initialize(string)
     @buffer = string
   end
 
@@ -12,12 +12,12 @@ class StringBuffer
     result
   end
 
-  def unshift string
+  def unshift(string)
     @buffer = string + @buffer
     @buffer
   end
 
-  def push string
+  def push(string)
     @buffer << string
   end
 
@@ -36,13 +36,13 @@ class StringBuffer
     @buffer[index]
   end
 
-  def srch regex
+  def srch(regex)
     m = regex.match @buffer
     return @buffer if m.nil?
     m.to_s
   end
 
-  def rsrch regexp
+  def rsrch(regexp)
     m=regexp.match @buffer
     return '' if m.nil?
     m[-1]
@@ -79,15 +79,15 @@ class StringBuffer
     @buffer.length
   end
 
-  def calc_range limit
+  def calc_range(limit)
     (limit < 0 ? limit..(-1) : 0..(limit - 1) )
   end
 
-  def copy limit
+  def copy(limit)
     @buffer[calc_range(limit)]
   end
 
-  def cut limit
+  def cut(limit)
     value = copy(limit)
     if limit < 0
       @buffer = @buffer[0..(limit - 1)]
@@ -97,11 +97,11 @@ class StringBuffer
     value
   end
 
-  def index regex
+  def index(regex)
     @buffer.index regex
   end
 
-  def rindex regex
+  def rindex(regex)
     result = @buffer.rindex(regex) #- @buffer.length
     return result - @buffer.length unless result.nil?
     result

@@ -282,14 +282,14 @@ Style/LeadingCommentSpace:
 #    - 'bin/viper'
 #    - 'lib/bindings/make_bindings.rb'
 #    - 'lib/mappings/key_mappings.rb'
-#GOT
 
 # Offense count: 91
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
 Style/MethodDefParentheses:
-  Enabled: false
+  Enabled: true
+#GOT
 
 # Offense count: 4
 # Cop supports --auto-correct.

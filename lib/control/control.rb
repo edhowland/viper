@@ -4,7 +4,7 @@
 module Viper
   # TODO: Class documentation
   class Control
-    def initialize proc_bindings=nil
+    def initialize(proc_bindings=nil)
       @proc_bindings = proc_bindings || make_bindings
     end
 
@@ -26,7 +26,7 @@ module Viper
       map_key(key_press)
     end
 
-    def bound_proc_for key
+    def bound_proc_for(key)
       result = @proc_bindings[key]
       raise BindingNotFound.new "No binding found for #{key}" if result.nil?
       result

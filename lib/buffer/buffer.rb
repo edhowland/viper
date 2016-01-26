@@ -2,7 +2,7 @@
 
 # TODO: Class documentation
 class Buffer
-  def initialize string
+  def initialize(string)
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
     @dirty = false
@@ -32,7 +32,7 @@ class Buffer
     @mark_position - position
   end
 
-  def suppress &_blk
+  def suppress(&_blk)
     @recordings_suppressed = true
     yield
     @recordings_suppressed = false
@@ -43,7 +43,7 @@ class Buffer
   end
 
   # dummy method. does nothing overriden in Recordable module
-  def record _method, *_args
+  def record(_method, *_args)
   end
 
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
@@ -51,13 +51,13 @@ class Buffer
   def save
   end
 
-  def ins string
+  def ins(string)
     @a_buff.push string
     @dirty = true
     record :ins, string
   end
 
-  def del string=' '
+  def del(string=' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
     @dirty = true
     value = @a_buff.cut(string.length * (-1))
@@ -65,12 +65,12 @@ class Buffer
     value
   end
 
-  def fwd count=1
+  def fwd(count=1)
     record :fwd, count
     count.times {@a_buff.push(@b_buff.shift)}
   end
 
-  def back count=1
+  def back(count=1)
     record :back, count
     count.times {@b_buff.unshift(@a_buff.pop)}
   end
@@ -91,12 +91,12 @@ class Buffer
     @b_buff = StringBuffer.new ''
   end
 
-  def rchomp string
+  def rchomp(string)
     return string [1..(-1)] if string[0] == "\n"
     string
   end
 
-  def or_empty element
+  def or_empty(element)
     (element || '')
   end
 
@@ -174,12 +174,12 @@ class Buffer
     value   
   end
 
-  def srch_fwd regex
+  def srch_fwd(regex)
     amount = @b_buff.index(regex)
     fwd(amount) unless amount.nil?
   end
 
-  def srch_back regex
+  def srch_back(regex)
     amount = @a_buff.rindex(regex)
     back(amount * (-1)) unless amount.nil?
   end
@@ -201,25 +201,25 @@ class Buffer
     record :down
   end
 
-  def goto line_no
+  def goto(line_no)
     beg
     max_lines = @b_buff.lines.length
     ([max_lines, line_no].min - 1).times { down }
   end
 
-  def goto_position pos
+  def goto_position(pos)
     offset = pos - position
     method = [nil, :fwd, :back][(offset <=> 0)]
     self.send(method, offset.abs) unless method.nil?
   end
 
-  def remember &_blk
+  def remember(&_blk)
     saved = position
     yield self
     goto_position saved
   end
 
-  def del_at string=' '
+  def del_at(string=' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
     @dirty = true
     value = @b_buff.cut(string.length)
@@ -227,7 +227,7 @@ class Buffer
     value
   end
 
-  def overwrite! string
+  def overwrite!(string)
     @a_buff = StringBuffer.new ''
     @b_buff = StringBuffer.new string
   end

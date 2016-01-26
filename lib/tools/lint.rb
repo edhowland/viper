@@ -1,6 +1,6 @@
 # lint.rb - method lint - performs passes on buffer
 
-def lint buffer
+def lint(buffer)
   @blackboard = []
   @blackboard += lint_pass1(buffer)
   @blackboard.unshift 'Lint pass 1 (Even indents) failed' unless @blackboard.empty?

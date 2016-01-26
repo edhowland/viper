@@ -2,7 +2,7 @@
 
 # TODO: Module documentation
 module NonWritable
-  def ins _string
+  def ins(_string)
     say BELL
   end
 

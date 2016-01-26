@@ -2,7 +2,7 @@
 
 # TODO: Class documentation
 class SnippetCascade
-  def initialize snippets
+  def initialize(snippets)
     @cascade = [snippets]
   end
 

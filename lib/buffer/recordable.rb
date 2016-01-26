@@ -6,16 +6,16 @@ module Recordable
     @commands ||= CommandBuffer.new
   end
 
-  def record_action method, *args
+  def record_action(method, *args)
     init_commands
     @commands << [method, *args]
   end
 
-  def record method, *args
+  def record(method, *args)
     record_action(method, *args) unless @recordings_suppressed
   end
 
-  def invert command
+  def invert(command)
     @reverse_commands = {
       :del => :ins, :ins => :del, :fwd => :back, :back => :fwd
     }
