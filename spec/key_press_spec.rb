@@ -6,8 +6,9 @@ describe 'All possible key strings' do
 
   @map.each_pair do |k,v|
     describe "key : #{k} value #{v}" do
-        before { $stdin = StringIO.new k }
+      before { $stdin = StringIO.new k }
       subject { map_key(key_press) }
+
       specify { subject.must_equal v }
     end
   end
