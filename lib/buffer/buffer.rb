@@ -148,11 +148,11 @@ class Buffer
 
   def copy
     raise MarkNotSet unless mark_set?
-    if mark < 0
-      value = @a_buff.copy(mark)
-    else
-      value = @b_buff.copy(mark)
-    end
+    value = if mark < 0
+              @a_buff.copy(mark)
+            else
+              @b_buff.copy(mark)
+            end
     unset_mark
     unset_mark
     value
@@ -160,11 +160,11 @@ class Buffer
 
   def cut
     raise MarkNotSet unless mark_set?
-    if mark < 1
-      value = @a_buff.cut(mark)
-    else
-      value = @b_buff.cut(mark)
-    end
+    value = if mark < 1
+              @a_buff.cut(mark)
+            else
+              @b_buff.cut(mark)
+            end
     unset_mark
     @dirty = true
     value

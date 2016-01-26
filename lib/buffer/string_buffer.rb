@@ -89,11 +89,11 @@ class StringBuffer
 
   def cut(limit)
     value = copy(limit)
-    if limit < 0
-      @buffer = @buffer[0..(limit - 1)]
-    else
-      @buffer = @buffer[limit..-1]
-    end
+    @buffer = if limit < 0
+                @buffer[0..(limit - 1)]
+              else
+                @buffer[limit..-1]
+              end
     value
   end
 

@@ -96,7 +96,6 @@ Style/AlignArray:
 Style/AlignHash:
   Exclude:
 #    - 'lib/mappings/key_mappings.rb'
-# GOT
 
 # Offense count: 9
 # Cop supports --auto-correct.
@@ -107,6 +106,7 @@ Style/AndOr:
     - 'lib/buffer/buffer.rb'
 # Note: use of or is preferred here
 
+# arrow style prefferred for lib/bindings procs (supported style below)
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
@@ -124,9 +124,10 @@ Style/BlockDelimiters:
 # Configuration parameters: SingleLineConditionsOnly.
 Style/ConditionalAssignment:
   Exclude:
-    - 'bin/viper'
-    - 'lib/buffer/buffer.rb'
-    - 'lib/buffer/string_buffer.rb'
+#    - 'bin/viper'
+#    - 'lib/buffer/buffer.rb'
+#    - 'lib/buffer/string_buffer.rb'
+# GOT
 
 # Offense count: 2
 Style/Documentation:
