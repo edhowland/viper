@@ -15,7 +15,7 @@ end
 
 describe 'apply_snippet' do
   let(:buf) { Buffer.new '' }
-  before { $snippet_cascades[:xyzzy] = { :my => 'you' } }
+  before { $snippet_cascades[:xyzzy] = { my: 'you' } }
   subject { apply_snippet :xyzzy, :my, buf; buf.to_s }
 
   specify { subject.must_equal 'you' }

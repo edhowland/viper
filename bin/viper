@@ -5,7 +5,7 @@ require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
-options = { :read_only => false, :check_syntax => false }
+options = { read_only: false, check_syntax: false }
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
@@ -41,7 +41,7 @@ suppress_audio do
   end
 
   # possibly load ./.viperrc
-  load_rc './.viperrc', :silent => true do |l|
+  load_rc './.viperrc', silent: true do |l|
     parse_execute tmp_buff, l
   end
 end

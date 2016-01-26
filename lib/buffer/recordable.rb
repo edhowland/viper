@@ -17,7 +17,7 @@ module Recordable
 
   def invert(command)
     @reverse_commands = {
-      :del => :ins, :ins => :del, :fwd => :back, :back => :fwd
+      del: :ins, ins: :del, fwd: :back, back: :fwd
     }
     [@reverse_commands[command[0]], command[1]]
   end

@@ -127,8 +127,8 @@ Style/ConditionalAssignment:
 #    - 'bin/viper'
 #    - 'lib/buffer/buffer.rb'
 #    - 'lib/buffer/string_buffer.rb'
-# GOT
 
+# Note:  files are classes within module declarations, possibly change to Module::Class style instead
 # Offense count: 2
 Style/Documentation:
   Exclude:
@@ -136,7 +136,6 @@ Style/Documentation:
     - 'test/**/*'
     - 'lib/control/control.rb'
     - 'lib/readline/readline.rb'
-# Note: The above files are classes within module declarations, possibly change to Module::Class style instead
 
 # Offense count: 4
 Style/EachWithObject:
@@ -164,6 +163,8 @@ Style/EmptyLines:
 #    - 'lib/buffer/string_buffer.rb'
 #    - 'lib/ui/key_press.rb'
 #    - 'spec/compare_indent_spec.rb'
+
+# Intentional style for describe/let/subject/specify blocks in specs
 # Offense count: 65
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -182,6 +183,7 @@ Style/EmptyLinesAroundClassBody:
 #    - 'lib/buffer/buffer.rb'
 #    - 'lib/buffer/command_buffer.rb'
 #    - 'lib/io/file_buffer.rb'
+
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/EmptyLinesAroundMethodBody:
@@ -205,19 +207,20 @@ Style/EmptyLinesAroundModuleBody:
 Style/ExtraSpacing:
   Enabled: true
 
+# Need to re-architect entire code base to remove globals
 # Offense count: 63
 # Configuration parameters: AllowedVariables.
 Style/GlobalVars:
   Enabled: false
-# Note: Restructure architecture to remove dependence on globals
 
 # Offense count: 49
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.
 # SupportedStyles: ruby19, ruby19_no_mixed_keys, hash_rockets
 Style/HashSyntax:
-  Enabled: false
+  Enabled: true
 # Note: TODO: possibly use autocorrect feature on this
+# GOT
 
 # Offense count: 1
 Style/IfInsideElse:

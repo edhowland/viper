@@ -2,7 +2,7 @@
 
 # init globals and other misc.
 def init
-  $snippet_cascades = { :default => {} }
+  $snippet_cascades = { default: {} }
   $commands = command_bindings
   $buffer_ring = []
 
