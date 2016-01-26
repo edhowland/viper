@@ -5,7 +5,7 @@ require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
-options = {:read_only => false, :check_syntax => false}
+options = { :read_only => false, :check_syntax => false }
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
@@ -25,7 +25,7 @@ parser = OptionParser.new do |opt|
     exit
   end
   opt.on('-v', '--version', 'Displays the version of Viper') do
-    puts "Viper VIP Editor in Ruby"
+    puts 'Viper VIP Editor in Ruby'
     puts "version #{Viper::VERSION}"
     exit
   end
@@ -126,7 +126,7 @@ Viper::Control.loop do |worker|
       binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
     when :help
-      say "Use Option semicolon and help to invoke help"
+      say 'Use Option semicolon and help to invoke help'
 
     when :srch_fwd
       @search_direction = :srch_fwd
@@ -167,7 +167,7 @@ Viper::Control.loop do |worker|
 end
 
 # possibly save dirty buffer
-$buffer_ring.select { |b| b.should_save? }.map do |buf|
+$buffer_ring.select(&:should_save?).map do |buf|
   if confirm?("Save #{buf.name}? ")
     buf.save 
     say "#{buf.name} saved"

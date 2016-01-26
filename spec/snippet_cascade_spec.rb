@@ -11,8 +11,8 @@ describe 'single hash' do
 end
 
 describe '<< new_hash' do
-  let(:snip_h) { {:a => 1} }
-  let(:snip_h2) { {:a => 2} }
+  let(:snip_h) { { :a => 1 } }
+  let(:snip_h2) { { :a => 2 } }
   let(:snip) { SnippetCascade.new(snip_h) }
   subject { snip << snip_h2 }
 
@@ -20,8 +20,8 @@ describe '<< new_hash' do
 end
 
 describe 'shadows earlier key' do
-  let(:snip_h) { {:a => 1} }
-  let(:snip_h2) { {:a => 2} }
+  let(:snip_h) { { :a => 1 } }
+  let(:snip_h2) { { :a => 2 } }
   let(:snip) { SnippetCascade.new(snip_h) }
   subject { snip << snip_h2; snip[:a] }
 

@@ -78,7 +78,7 @@ def command_bindings
     },
 
     :assocx => ->(b, *args) { $file_associations.ext args[0], args[1].to_sym; say "Extension saved for association #{args[1]}" },
-    :assocf => ->(b, *args) { $file_associations.file args[0], args[1].to_sym; say "File association saved for #args[1]}" },
+    :assocf => ->(b, *args) { $file_associations.file args[0], args[1].to_sym; say 'File association saved for #args[1]}' },
     :assocd => ->(b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args

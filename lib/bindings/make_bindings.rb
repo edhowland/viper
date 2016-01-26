@@ -19,8 +19,8 @@ def make_bindings
   result[:shift_zz] = ->(b) { b.save; exit }
   result[:shift_home] = ->(b) { b.front_of_line; say b.at }
   result[:shift_end] = ->(b) { b.back_of_line; say b.at }
-  result[:shift_pgup] = ->(b) { b.beg; say "top of buffer" }
-  result[:shift_pgdn] = ->(b) { b.fin; say "bottom of buffer" }
+  result[:shift_pgup] = ->(b) { b.beg; say 'top of buffer' }
+  result[:shift_pgdn] = ->(b) { b.fin; say 'bottom of buffer' }
   result[:ctrl_y] = ->(b) { :cmd_yank }
   result[:ctrl_w] = ->(b) { say BELL }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }

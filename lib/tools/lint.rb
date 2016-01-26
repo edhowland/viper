@@ -8,14 +8,14 @@ def lint(buffer)
   # Pass 2 - Check for consistant indenting/outdenting
   pass2 = lint_pass2(buffer)
   unless pass2.empty?
-    pass2.unshift "Pass 2 failed: Inconsisant indentation: Indents vs. Outdents"
+    pass2.unshift 'Pass 2 failed: Inconsisant indentation: Indents vs. Outdents'
     @blackboard += pass2
   end
 
   # Pass3 Excessive blank lineage
   pass3 = lint_pass3(buffer)
   unless pass3.empty?
-    pass3.unshift "Pass 3 failed: Excessive blank lineage"
+    pass3.unshift 'Pass 3 failed: Excessive blank lineage'
     @blackboard += pass3
   end
 

@@ -422,27 +422,26 @@ Style/SpaceBeforeSemicolon:
 # SupportedStyles: space, no_space
 Style/SpaceInsideBlockBraces:
   Enabled: true
-#GOT
 
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
 # SupportedStyles: space, no_space
 Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/SpaceInsideParens:
   Exclude:
-    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/buffer/string_buffer.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -450,8 +449,9 @@ Style/StringLiterals:
 # IgnoredMethods: respond_to
 Style/SymbolProc:
   Exclude:
-    - 'bin/viper'
-    - 'lib/associations/association.rb'
+#    - 'bin/viper'
+#    - 'lib/associations/association.rb'
+#GOT
 
 # Offense count: 13
 # Cop supports --auto-correct.

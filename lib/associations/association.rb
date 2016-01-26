@@ -31,7 +31,7 @@ class Association
   end
 
   def match_regex(regexs, string)
-    found_a = regexs.keys.map { |r| r.match(string) }.reject { |m| m.nil? }.sort { |a, b| b.to_s.length <=> a.to_s.length }
+    found_a = regexs.keys.map { |r| r.match(string) }.reject(&:nil?).sort { |a, b| b.to_s.length <=> a.to_s.length }
     unless found_a.empty?
       regex = found_a.first.regexp
       return regexs[regex]

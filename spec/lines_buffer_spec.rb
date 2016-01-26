@@ -10,7 +10,7 @@ describe 'goto line 4' do
 end
 
 describe 'cannot jump past end of buffer' do
-  let(:buf) { Buffer.new "line 1" }
+  let(:buf) { Buffer.new 'line 1' }
   subject { buf.goto 99; buf.line }
 
   specify { subject.must_equal 'line 1' }
