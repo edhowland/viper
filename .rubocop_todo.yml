@@ -220,7 +220,6 @@ Style/GlobalVars:
 Style/HashSyntax:
   Enabled: true
 # Note: TODO: possibly use autocorrect feature on this
-# GOT
 
 # Offense count: 1
 Style/IfInsideElse:
@@ -236,6 +235,7 @@ Style/IfUnlessModifier:
 #    - 'lib/buffer/recordable.rb'
 #    - 'lib/buffer/string_buffer.rb'
 #    - 'lib/tools/lint_pass1.rb'
+
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
