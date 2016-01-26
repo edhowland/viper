@@ -60,7 +60,7 @@ class Buffer
   def del(string=' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
     @dirty = true
-    value = @a_buff.cut(string.length * (-1))
+    value = @a_buff.cut(string.length * -1)
     record :del, value
     value
   end
@@ -92,7 +92,7 @@ class Buffer
   end
 
   def rchomp(string)
-    return string [1..(-1)] if string[0] == "\n"
+    return string [1..-1] if string[0] == "\n"
     string
   end
 
@@ -181,7 +181,7 @@ class Buffer
 
   def srch_back(regex)
     amount = @a_buff.rindex(regex)
-    back(amount * (-1)) unless amount.nil?
+    back(amount * -1) unless amount.nil?
   end
 
   def position

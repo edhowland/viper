@@ -3,6 +3,6 @@
 
 def convert_cmd(sym)
   s = sym.to_s
-  (s[4..(-1)]).to_sym
+  (s[4..-1]).to_sym
 end
 

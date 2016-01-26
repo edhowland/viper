@@ -302,7 +302,6 @@ Style/MutableConstant:
 Style/NilComparison:
   Exclude:
 #    - 'lib/buffer/recordable.rb'
-#GOT
 
 # Offense count: 6
 # Configuration parameters: SupportedStyles.
@@ -314,9 +313,10 @@ Style/RaiseArgs:
 # Cop supports --auto-correct.
 Style/RedundantParentheses:
   Exclude:
-    - 'lib/buffer/buffer.rb'
-    - 'lib/buffer/string_buffer.rb'
-    - 'lib/repl/convert_cmd.rb'
+#    - 'lib/buffer/buffer.rb'
+#    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/repl/convert_cmd.rb'
+#GOT
 
 # Offense count: 3
 # Cop supports --auto-correct.

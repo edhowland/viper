@@ -8,7 +8,7 @@ class StringBuffer
   def shift
     raise BufferExceeded.new('Exceeded front') if @buffer.empty?
     result = @buffer[0]
-    @buffer = @buffer[1..(-1)]
+    @buffer = @buffer[1..-1]
     result
   end
 
@@ -24,7 +24,7 @@ class StringBuffer
   def pop
     raise BufferExceeded.new('Exceeded back') if @buffer.empty?
     result = @buffer[-1]
-    @buffer = @buffer[0..(-2)]
+    @buffer = @buffer[0..-2]
     result
   end
 
@@ -68,7 +68,7 @@ class StringBuffer
   def last_line
     return '' if @buffer[-1] == "\n"
     return @buffer if rcount_nl == length
-    @buffer[-(rcount_nl - 1)..(-1)]
+    @buffer[-(rcount_nl - 1)..-1]
   end
 
   def first_line
@@ -80,7 +80,7 @@ class StringBuffer
   end
 
   def calc_range(limit)
-    (limit < 0 ? limit..(-1) : 0..(limit - 1) )
+    (limit < 0 ? limit..-1 : 0..(limit - 1) )
   end
 
   def copy(limit)
@@ -92,7 +92,7 @@ class StringBuffer
     if limit < 0
       @buffer = @buffer[0..(limit - 1)]
     else
-      @buffer = @buffer[limit..(-1)]
+      @buffer = @buffer[limit..-1]
     end
     value
   end
@@ -111,7 +111,7 @@ class StringBuffer
     offset = @buffer.rindex /\s|\n/
 
     offset = @buffer.rindex /^\w/ if offset.nil?
-    (offset.nil? ? '' : @buffer[offset..(-1)].lstrip)
+    (offset.nil? ? '' : @buffer[offset..-1].lstrip)
   end
 
   def to_s
