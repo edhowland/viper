@@ -15,19 +15,19 @@ def make_bindings
   key_inserter_proc(result, ('0'..'9'))
 
   # Control characters
-  result[:ctrl_q] = ->(b) { :quit }
+  result[:ctrl_q] = ->(_b) { :quit }
   result[:shift_zz] = ->(b) { b.save; exit }
   result[:shift_home] = ->(b) { b.front_of_line; say b.at }
   result[:shift_end] = ->(b) { b.back_of_line; say b.at }
   result[:shift_pgup] = ->(b) { b.beg; say 'top of buffer' }
   result[:shift_pgdn] = ->(b) { b.fin; say 'bottom of buffer' }
-  result[:ctrl_y] = ->(b) { :cmd_yank }
-  result[:ctrl_w] = ->(b) { say BELL }
+  result[:ctrl_y] = ->(_b) { :cmd_yank }
+  result[:ctrl_w] = ->(_b) { say BELL }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
-  result[:ctrl_f] = ->(b) { :srch_fwd }
-  result[:ctrl_r] = ->(b) { :srch_back }
-  result[:ctrl_g] = ->(b) { :srch_next }
+  result[:ctrl_f] = ->(_b) { :srch_fwd }
+  result[:ctrl_r] = ->(_b) { :srch_back }
+  result[:ctrl_g] = ->(_b) { :srch_next }
   result[:ctrl_z] = lambda { |b|
     if b.can_undo?
       b.undo
@@ -46,9 +46,9 @@ def make_bindings
   }
 
   # command controls
-  result[:ctrl_d] = ->(b) { :debug }
-  result[:ctrl_c] = ->(b) { say BELL }
-  result[:ctrl_s] = ->(b) { :save }
+  result[:ctrl_d] = ->(_b) { :debug }
+  result[:ctrl_c] = ->(_b) { say BELL }
+  result[:ctrl_s] = ->(_b) { :save }
 
   # punctuation
   result[:colon] = insert_sym ':'
@@ -72,7 +72,7 @@ def make_bindings
                         ])
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
-  result[:ctrl_h] = ->(b) { :cmd_help }
+  result[:ctrl_h] = ->(_b) { :cmd_help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
   result[:ctrl_l] = ->(b) { say b.line }
@@ -89,9 +89,9 @@ def make_bindings
   }
 
   # Function keys
-  result[:fn_1] = ->(b) { :cmd_help }
-  result[:fn_2] = ->(b) { :cmd_report }
-  result[:fn_3] = ->(b) { say BELL }
+  result[:fn_1] = ->(_b) { :cmd_help }
+  result[:fn_2] = ->(_b) { :cmd_report }
+  result[:fn_3] = ->(_b) { say BELL }
   # result[:fn_4] = ->(b) { say BELL }
 
   # copy and paste keys
@@ -112,15 +112,15 @@ def make_bindings
     end
   }
   result[:ctrl_a] = ->(b) { b.beg; b.set_mark; b.fin; say 'select all' }
-  result[:shift_up] = ->(b) { say BELL }
-  result[:shift_down] = ->(b) { say BELL }
+  result[:shift_up] = ->(_b) { say BELL }
+  result[:shift_down] = ->(_b) { say BELL }
 
   # Meta Command sequences
-  result[:meta_d] = ->(b) { :meta }
-  result[:meta_colon] = ->(b) { :command }
+  result[:meta_d] = ->(_b) { :meta }
+  result[:meta_colon] = ->(_b) { :command }
 
   # rotate the buffer ring
-  result[:ctrl_t] = ->(b) { :rotate_buffer }
+  result[:ctrl_t] = ->(_b) { :rotate_buffer }
   result[:delete_at] = ->(b) { c = b.del_at; say "delete #{c}" }
   result
 end

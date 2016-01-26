@@ -15,8 +15,8 @@ Lint/AmbiguousOperator:
 Lint/AmbiguousRegexpLiteral:
   Exclude:
 #    - 'lib/buffer/string_buffer.rb'
-# GOT
 
+# Use of binding.pry is intential until version 1.0
 # Offense count: 1
 # Cop supports --auto-correct.
 Lint/Debugger:
@@ -35,9 +35,10 @@ Lint/EndAlignment:
 # Configuration parameters: IgnoreEmptyBlocks.
 Lint/UnusedBlockArgument:
   Exclude:
-    - 'lib/bindings/command_bindings.rb'
-    - 'lib/bindings/make_bindings.rb'
+#    - 'lib/bindings/command_bindings.rb'
+#    - 'lib/bindings/make_bindings.rb'
 #    - 'spec/repl_spec.rb'
+# GOT
 
 # Offense count: 11
 Lint/UselessAssignment:
