@@ -47,7 +47,7 @@ suppress_audio do
 end
 
 # set up the buffer ring
-#@buffer_ring = []
+# @buffer_ring = []
 if ARGV.length == 0
   $buffer_ring << FileBuffer.new('Unnamed')
 elsif options[:read_only]

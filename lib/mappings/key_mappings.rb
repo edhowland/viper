@@ -22,7 +22,7 @@ def key_mappings
     "\a" => :ctrl_g,
     "\b" => :ctrl_h,
     # duplicated with tab key
-    #"\t" => :ctrl_i,
+    # "\t" => :ctrl_i,
     "\u0019" => :ctrl_y,
     "\n" => :ctrl_j,
     "\v" => :ctrl_k,
@@ -84,8 +84,8 @@ def key_mappings
     # Shift Arrow keys
     "\e[1;2C" => :shift_right,
     "\e[1;2D" => :shift_left,
-    #"\e[A" => :shift_up,
-    #"\e[B" => :shift_down
+    # "\e[A" => :shift_up,
+    # "\e[B" => :shift_down
     "\e[H" => :shift_home,
     "\e[F" => :shift_end,
     "\e[5~" => :shift_pgup,

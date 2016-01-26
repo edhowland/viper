@@ -274,15 +274,15 @@ Style/Lambda:
   Exclude:
 #    - 'lib/bindings/command_bindings.rb'
 #    - 'lib/bindings/make_bindings.rb'
-#GOT
 
 # Offense count: 5
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:
   Exclude:
-    - 'bin/viper'
-    - 'lib/bindings/make_bindings.rb'
-    - 'lib/mappings/key_mappings.rb'
+#    - 'bin/viper'
+#    - 'lib/bindings/make_bindings.rb'
+#    - 'lib/mappings/key_mappings.rb'
+#GOT
 
 # Offense count: 91
 # Cop supports --auto-correct.

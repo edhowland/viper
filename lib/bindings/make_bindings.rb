@@ -92,7 +92,7 @@ def make_bindings
   result[:fn_1] = ->(b) { :cmd_help }
   result[:fn_2] = ->(b) { :cmd_report }
   result[:fn_3] = ->(b) { say BELL }
-  #result[:fn_4] = ->(b) { say BELL }
+  # result[:fn_4] = ->(b) { say BELL }
 
   # copy and paste keys
   result[:ctrl_c] = ->(b) { $clipboard = b.copy; say 'copy' }
