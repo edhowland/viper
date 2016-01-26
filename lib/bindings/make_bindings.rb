@@ -84,7 +84,7 @@ def make_bindings
     if b.mark_set?
       $clipboard = b.cut; say 'selection deleted'
     else
-  ch= b.del; say "delete #{ch}" 
+      ch= b.del; say "delete #{ch}" 
     end
   }
 

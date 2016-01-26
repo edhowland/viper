@@ -254,19 +254,20 @@ Style/IndentationConsistency:
 #    - 'spec/convert_cmd_spec.rb'
 #    - 'spec/key_press_spec.rb'
 #    - 'spec/repl_spec.rb'
-#GOT
+
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: Width.
 Style/IndentationWidth:
   Exclude:
-    - 'bin/viper'
-    - 'lib/bindings/make_bindings.rb'
-    - 'lib/io/file_buffer.rb'
-    - 'lib/system/shell.rb'
-    - 'lib/ui/key_press.rb'
-    - 'spec/key_press_spec.rb'
-    - 'spec/repl_spec.rb'
+#    - 'bin/viper'
+#    - 'lib/bindings/make_bindings.rb'
+#    - 'lib/io/file_buffer.rb'
+#    - 'lib/system/shell.rb'
+#    - 'lib/ui/key_press.rb'
+#    - 'spec/key_press_spec.rb'
+#    - 'spec/repl_spec.rb'
+#GOT
 
 # Offense count: 10
 # Cop supports --auto-correct.

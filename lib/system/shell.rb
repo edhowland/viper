@@ -4,11 +4,11 @@
 def shell command, &_blk
   output, error = ''
   begin
-  stdin, stdout, stderr = Open3.popen3(command)
-  yield stdin if block_given?
-  stdin.close
-  output = stdout.read
-  error = stderr.read
+    stdin, stdout, stderr = Open3.popen3(command)
+    yield stdin if block_given?
+    stdin.close
+    output = stdout.read
+    error = stderr.read
   ensure
     stdout.close
     stderr.close

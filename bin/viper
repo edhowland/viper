@@ -84,8 +84,8 @@ Viper::Control.loop do |worker|
   begin
     result = prc.call(@buffer)
     if result.to_s =~ /^cmd_/
-    command = convert_cmd result
-    exec_cmd command, @buffer
+      command = convert_cmd result
+      exec_cmd command, @buffer
     end
     case result
     when :quit
@@ -118,7 +118,7 @@ Viper::Control.loop do |worker|
         @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
         say 'delete to bottom of buffer'
       else
-      say next_key.to_s
+        say next_key.to_s
       end
 
     when :debug
@@ -168,10 +168,10 @@ end
 
 # possibly save dirty buffer
 $buffer_ring.select {|b| b.should_save? }.map do |buf|
-if confirm?("Save #{buf.name}? ")
-  buf.save 
-  say "#{buf.name} saved"
-end
+  if confirm?("Save #{buf.name}? ")
+    buf.save 
+    say "#{buf.name} saved"
+  end
 end
 
 # possibly check syntax of buffer

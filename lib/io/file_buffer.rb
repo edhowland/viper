@@ -7,9 +7,9 @@ class FileBuffer < Buffer
   def initialize filename
     @fname = filename
     if File.exist? @fname
-    super(File.read(@fname))
+      super(File.read(@fname))
     else
-    super ''
+      super ''
     end
     @name = @fname
   end
