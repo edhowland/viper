@@ -64,7 +64,7 @@ describe 'copy' do
 end
 
 describe 'set mark and copy (reverses direction)' do
-  let(:buf) {Buffer.new '01234ABCDEF' }
+  let(:buf) { Buffer.new '01234ABCDEF' }
   subject { buf.fwd 5; buf.set_mark; buf.fwd; buf.fwd; buf.copy }
 
   specify { subject.must_equal 'AB' }
@@ -72,7 +72,7 @@ describe 'set mark and copy (reverses direction)' do
 end
 
 describe 'cut fwd' do
-  let(:buf) {Buffer.new '01234ABCDE' }
+  let(:buf) { Buffer.new '01234ABCDE' }
   subject { buf.fwd 3; buf.set_mark; buf.fwd; buf.fwd; buf.cut }
 
   specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
@@ -80,7 +80,7 @@ describe 'cut fwd' do
 end
 
 describe 'cut back' do
-  let(:buf) {Buffer.new '01234ABCDE' }
+  let(:buf) { Buffer.new '01234ABCDE' }
   subject { buf.fwd 5; buf.set_mark; buf.back; buf.back; buf.cut }
 
   specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
@@ -128,7 +128,7 @@ describe 'del a lot of content' do
 end
 
 describe 'del_at' do
-  let(:buf) {Buffer.new 'abcd' }
+  let(:buf) { Buffer.new 'abcd' }
   subject { buf.fwd; buf.del_at }
 
   specify { subject.must_equal 'b'; buf.to_s.must_equal 'acd' }
@@ -136,7 +136,7 @@ describe 'del_at' do
 end
 
 describe 'overwrite!' do
-  let(:buf) {Buffer.new 'abcd' }
+  let(:buf) { Buffer.new 'abcd' }
   subject { buf.overwrite! '0123'; buf.to_s }
 
   specify { subject.must_equal '0123' }
@@ -144,7 +144,7 @@ describe 'overwrite!' do
 end
 
 describe 'should_save?' do
-  let(:buf) {Buffer.new 'line 1' }
+  let(:buf) { Buffer.new 'line 1' }
   subject { buf.should_save? }
 
   specify { subject.must_equal false }
@@ -152,7 +152,7 @@ describe 'should_save?' do
 end
 
 describe 'goto_position' do
-  let(:buf) {Buffer.new 'hello world' }
+  let(:buf) { Buffer.new 'hello world' }
   subject { buf.goto_position 5; buf.position }
 
   specify { subject.must_equal 5 }
@@ -160,7 +160,7 @@ describe 'goto_position' do
 end
 
 describe 'goto_position backwards' do
-  let(:buf) {Buffer.new 'hello world' }
+  let(:buf) { Buffer.new 'hello world' }
   subject { buf.fin; buf.goto_position 5; buf.position }
 
   specify { subject.must_equal 5 }
@@ -168,7 +168,7 @@ describe 'goto_position backwards' do
 end
 
 describe 'remember' do
-  let(:buf) {Buffer.new "line 1\n" }
+  let(:buf) { Buffer.new "line 1\n" }
   subject do
     buf.remember do |b|
       b.fin
@@ -181,7 +181,7 @@ describe 'remember' do
 end
 
 describe 'remember absolute position' do
-  let(:buf) {Buffer.new 'hello world' }
+  let(:buf) { Buffer.new 'hello world' }
   subject do
     buf.goto_position(5); 
     buf.remember do |b|
@@ -193,7 +193,7 @@ describe 'remember absolute position' do
   specify { subject.must_equal 5 }
 end
 describe 'word_back' do
-  let(:buf) {Buffer.new "ABCD\n  EFGH" }
+  let(:buf) { Buffer.new "ABCD\n  EFGH" }
   subject { buf.fin; buf.word_back }
 
   specify { subject.must_equal 'EFGH' }

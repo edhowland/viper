@@ -1,11 +1,11 @@
 # make_bindings.rb - returns hash of key bindings to procs
 
 def key_inserter_proc(bind_h, set)
-  set.each_with_object(bind_h) {|e, h| s, p =  inserter(e); h[s] = p}
+  set.each_with_object(bind_h) { |e, h| s, p =  inserter(e); h[s] = p }
 end
 
 def special_inserter_proc(bind_h, set)
-  set.each_with_object(bind_h) {|e, h| _s, p = inserter(e[1]); h[e[0]] = p }
+  set.each_with_object(bind_h) { |e, h| _s, p = inserter(e[1]); h[e[0]] = p }
 end
 
 def make_bindings
@@ -15,7 +15,7 @@ def make_bindings
   key_inserter_proc(result, ('0'..'9'))
 
   # Control characters
-  result[:ctrl_q] = ->(b) {:quit }
+  result[:ctrl_q] = ->(b) { :quit }
   result[:shift_zz] = ->(b) { b.save; exit }
   result[:shift_home] = ->(b) { b.front_of_line; say b.at }
   result[:shift_end] = ->(b) { b.back_of_line; say b.at }
@@ -47,8 +47,8 @@ def make_bindings
 
   # command controls
   result[:ctrl_d] = ->(b) { :debug }
-  result[:ctrl_c] = ->(b) { say BELL}
-  result[:ctrl_s] = ->(b) {:save }
+  result[:ctrl_c] = ->(b) { say BELL }
+  result[:ctrl_s] = ->(b) { :save }
 
   # punctuation
   result[:colon] = insert_sym ':'
@@ -72,12 +72,12 @@ def make_bindings
                         ])
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
-  result[:ctrl_h] = ->(b) {:cmd_help }
+  result[:ctrl_h] = ->(b) { :cmd_help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
   result[:ctrl_l] = ->(b) { say b.line }
-  result[:right] = ->(b) { b.fwd; say b.at}
-  result[:left] = ->(b) { b.back; say b.at}
+  result[:right] = ->(b) { b.fwd; say b.at }
+  result[:left] = ->(b) { b.back; say b.at }
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
   result[:backspace] = lambda { |b| 

@@ -17,7 +17,7 @@ describe 'fwd after back' do
 end
 
 describe 'at_start?' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf.at_start? }
 
   specify { subject.must_equal true }
@@ -25,7 +25,7 @@ describe 'at_start?' do
 end
 
 describe 'at_end?' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf.at_end? }
 
   specify { subject.must_equal true }
@@ -33,7 +33,7 @@ describe 'at_end?' do
 end
 
 describe 'after << at_start? false' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf << [:fwd, 1]; buf.at_start? }
 
   specify { subject.must_equal false }
@@ -41,14 +41,14 @@ describe 'after << at_start? false' do
 end
 
 describe 'after <<, at_end? true' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf << [:fwd, 1]; buf.at_end? }
 
   specify { subject.must_equal true }
 end
 
 describe 'after <<, back' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf << [:fwd, 1]; buf.back; buf.at_end? }
 
   specify { subject.must_equal false }
@@ -56,7 +56,7 @@ describe 'after <<, back' do
 end
 
 describe 'after <<, back, fwd: at_start? false' do
-  let(:buf) {CommandBuffer.new }
+  let(:buf) { CommandBuffer.new }
   subject { buf << [:fwd, 1]; buf.back; buf.fwd; buf.at_start? }
 
   specify { subject.must_equal false }

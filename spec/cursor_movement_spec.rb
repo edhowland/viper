@@ -6,7 +6,7 @@ describe 'up on empty buffer' do
   let(:buf) { Buffer.new '' }
   subject { buf.up }
 
-  specify { ->() { subject}.must_raise BufferExceeded; buf.col.must_equal 0 }
+  specify { ->() { subject }.must_raise BufferExceeded; buf.col.must_equal 0 }
 end
 
 describe 'simple single line' do
@@ -126,7 +126,7 @@ describe 'front of line' do
 end
 
 describe 'front_of_line 2nd line' do
-  let(:buf) {Buffer.new "0123\nabcd\n" }
+  let(:buf) { Buffer.new "0123\nabcd\n" }
   subject { buf.fwd; buf.down; buf.fwd; buf.front_of_line; buf.at }
 
   specify { subject.must_equal 'a' }

@@ -96,14 +96,14 @@ end
 
 describe 'cut:fwd' do
   let(:buf) { StringBuffer.new '01234ABCDE' }
-  subject { buf.cut 5}
+  subject { buf.cut 5 }
 
   specify { subject.must_equal '01234' }
   specify { subject; buf.to_s.must_equal 'ABCDE' }
 end
 
 describe 'cut: back' do
-  let(:buf) { StringBuffer.new '01234ABCDE'}
+  let(:buf) { StringBuffer.new '01234ABCDE' }
   subject { buf.cut -5 }
 
   specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
@@ -124,21 +124,21 @@ describe 'rindex' do
 end
 
 describe 'rword_index' do
-  let(:buf) {StringBuffer.new 'ABCD' }
+  let(:buf) { StringBuffer.new 'ABCD' }
   subject { buf.rword_index }
 
   specify { subject.must_equal 'ABCD' }
 end
 
 describe 'rword_index on new line' do
-  let(:buf) {StringBuffer.new "ABCD\nEFGH" }
+  let(:buf) { StringBuffer.new "ABCD\nEFGH" }
   subject { buf.rword_index }
 
   specify { subject.must_equal 'EFGH' }
 end
 
 describe 'rword_index' do
-  let(:buf) {StringBuffer.new '' }
+  let(:buf) { StringBuffer.new '' }
   subject { buf.rword_index }
 
   specify { subject.must_equal '' }

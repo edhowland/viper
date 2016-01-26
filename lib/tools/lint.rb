@@ -22,7 +22,7 @@ def lint(buffer)
   if @blackboard.empty?
     say 'Lint OK'
   else
-    suppress_audio { exec_cmd :new, buffer} 
+    suppress_audio { exec_cmd :new, buffer } 
     say "lint failed\n"
     lint_buffer = $buffer_ring.first
     lint_buffer.ins @blackboard.join("\n")

@@ -7,14 +7,14 @@ def expanded_path
 end
 
 describe 'create_snippet' do
-  let(:buf) {Buffer.new 'xyzzy'}
+  let(:buf) { Buffer.new 'xyzzy' }
   subject { create_snippet :ruby, 'def', buf; $snippet_cascades[:ruby] }
 
   specify { subject.wont_be_empty } 
 end
 
 describe 'apply_snippet' do
-  let(:buf) {Buffer.new '' }
+  let(:buf) { Buffer.new '' }
   before { $snippet_cascades[:xyzzy] = {:my => 'you'} }
   subject { apply_snippet :xyzzy, :my, buf; buf.to_s }
 

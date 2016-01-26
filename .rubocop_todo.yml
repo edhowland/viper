@@ -415,14 +415,14 @@ Style/SpaceBeforeFirstArg:
 Style/SpaceBeforeSemicolon:
   Exclude:
 #    - 'spec/buffer_spec.rb'
-#GOT
 
 # Offense count: 97
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
 # SupportedStyles: space, no_space
 Style/SpaceInsideBlockBraces:
-  Enabled: false
+  Enabled: true
+#GOT
 
 # Offense count: 14
 # Cop supports --auto-correct.

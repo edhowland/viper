@@ -13,7 +13,7 @@ def command_bindings
       end
     },
     :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit },
-    :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"},
+    :rew! => ->(b, *args) { b.restore; say "#{b.name} restored" },
     :r => lambda { |b, *args|
       if File.exist?(args[0])
         b.ins(File.read(args[0]))
@@ -41,14 +41,14 @@ def command_bindings
     :pipe => ->(b, *args) { pipe(b, *args) },
     :pipe! => ->(b, *args) { pipe!(b, *args) },
     :lint => ->(b, *args) { lint(b) },
-    :new => ->(b, *args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}"},
+    :new => ->(b, *args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
     :report => ->(b, *args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
 
     # snippet commands
-    :slist => ->(b, *args) {say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each {|k| say "#{k}\n" } }, 
+    :slist => ->(b, *args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } }, 
     :list => lambda { |b, *args|
       say "Available snippets for #{args[0]}\n"
-      $snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } 
+      $snippet_cascades[args[0].to_sym].keys.each { |k| say "#{k}\n" } 
     }, 
     :sedit => ->(b, *args) { b.clear; b.ins $snippet_cascades[args[1].to_sym][args[0]]; b.beg; say b.line },
     :snip => lambda { |b, *args|
@@ -82,6 +82,6 @@ def command_bindings
     :assocd => ->(b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     :tab => ->(b, *args) { handle_tab(b) },
     # NOP: just repeat the args
-    :nop => ->(b, *args) { puts 'you said'; args.each {|e| puts e} }
+    :nop => ->(b, *args) { puts 'you said'; args.each { |e| puts e } }
   }
 end
