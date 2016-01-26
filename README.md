@@ -2,10 +2,9 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.5
+### Version 0.9.6
 
 
-Note: This version changes the snippet UI dramatically. Read below for information on how to load and create, store snippets.
 
 
 ## Abstract
@@ -59,6 +58,7 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 -Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
 -Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
 -Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Little Linter :(Use Rubocop! rather than rely on this.)
 
 
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 

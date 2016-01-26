@@ -1,3 +1,7 @@
+e19dd1c
+Revision 0.9.6
+Major overhaul of source code to comply with Ruby style guide. 
+Uses rubocop to enforce compliance
 7f4177e
 Revision 0.9.5
 Major overhaul to snippet loading, editing, and application with Tab using Tab Points. See README.md for details.
