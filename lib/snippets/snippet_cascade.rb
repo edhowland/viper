@@ -7,7 +7,7 @@ class SnippetCascade
   end
 
   def [](key)
-    @cascade.reduce(nil) {|i, j| i || j[key] }
+    @cascade.reduce(nil) {|a, e| a || e[key] }
   end
 
   def <<(arg_h)

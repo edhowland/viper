@@ -334,8 +334,8 @@ Style/RedundantSelf:
     - 'lib/buffer/recordable.rb'
 #    - 'lib/control/control.rb'
 #    - 'lib/tools/compare_indent.rb'
-#GOT
 
+# Preferred use of %r{} style of regexps here
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
@@ -344,6 +344,7 @@ Style/RegexpLiteral:
   Exclude:
     - 'spec/association_spec.rb'
 
+# Viper style guide supports small procs with semicolons for multiple statements
 # Offense count: 150
 # Cop supports --auto-correct.
 # Configuration parameters: AllowAsExpressionSeparator.
@@ -370,7 +371,8 @@ Style/SignalException:
 Style/SingleLineBlockParams:
   Exclude:
     - 'lib/bindings/make_bindings.rb'
-    - 'lib/snippets/snippet_cascade.rb'
+#    - 'lib/snippets/snippet_cascade.rb'
+#GOT
 
 # Offense count: 10
 # Cop supports --auto-correct.
