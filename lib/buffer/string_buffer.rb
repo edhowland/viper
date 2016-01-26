@@ -108,9 +108,9 @@ class StringBuffer
   end
 
   def rword_index
-    offset = @buffer.rindex /\s|\n/
+    offset = @buffer.rindex(/\s|\n/)
 
-    offset = @buffer.rindex /^\w/ if offset.nil?
+    offset = @buffer.rindex(/^\w/) if offset.nil?
     (offset.nil? ? '' : @buffer[offset..-1].lstrip)
   end
 

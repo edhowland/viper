@@ -6,15 +6,16 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
+# attempting to correct this for -7 to (-7) results in another warning
 # Offense count: 2
 Lint/AmbiguousOperator:
   Exclude:
     - 'spec/string_buffer_spec.rb'
-
 # Offense count: 2
 Lint/AmbiguousRegexpLiteral:
   Exclude:
-    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/buffer/string_buffer.rb'
+# GOT
 
 # Offense count: 1
 # Cop supports --auto-correct.
