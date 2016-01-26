@@ -4,7 +4,7 @@
 class ScratchBuffer < Buffer
   include Recordable
 
-  def initialize 
+  def initialize
     super ''
     count = $buffer_ring.count { |b| b.instance_of? ScratchBuffer }
     @name = "Scratch #{count + 1}"

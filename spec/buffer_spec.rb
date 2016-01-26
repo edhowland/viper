@@ -173,7 +173,7 @@ describe 'remember' do
     buf.remember do |b|
       b.fin
       b.ins "line 2\n"
-    end 
+    end
     buf.line
   end
 
@@ -183,11 +183,11 @@ end
 describe 'remember absolute position' do
   let(:buf) { Buffer.new 'hello world' }
   subject do
-    buf.goto_position(5); 
+    buf.goto_position(5);
     buf.remember do |b|
-      b.ins('xxxxx') 
+      b.ins('xxxxx')
     end
-    buf.position 
+    buf.position
   end
 
   specify { subject.must_equal 5 }

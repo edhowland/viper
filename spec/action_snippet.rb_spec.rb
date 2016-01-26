@@ -3,14 +3,14 @@
 require_relative 'spec_helper'
 
 def expanded_path
-  File.dirname(File.expand_path(__FILE__)) + '../config/' 
+  File.dirname(File.expand_path(__FILE__)) + '../config/'
 end
 
 describe 'create_snippet' do
   let(:buf) { Buffer.new 'xyzzy' }
   subject { create_snippet :ruby, 'def', buf; $snippet_cascades[:ruby] }
 
-  specify { subject.wont_be_empty } 
+  specify { subject.wont_be_empty }
 end
 
 describe 'apply_snippet' do
@@ -23,7 +23,7 @@ end
 
 describe 'dump_snippets' do
   before { create_snippet :xyzzy, :my, 'you' }
-  subject do 
+  subject do
     File.stub(:write, nil, [expanded_path + 'xyzzy.json', '']) do
       dump_snippets :xyzzy, 'xyzzy'
     end

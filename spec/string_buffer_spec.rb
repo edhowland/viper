@@ -20,7 +20,7 @@ describe 'after shift' do
   let(:buf) { StringBuffer.new 'abcdef' }
   subject { buf.shift }
 
-  specify { subject;  buf.to_s.must_equal 'bcdef' }  
+  specify { subject;  buf.to_s.must_equal 'bcdef' }
 end
 
 describe 'unshift' do
@@ -60,7 +60,7 @@ end
 
 describe '[]' do
   let(:buf) { StringBuffer.new 'abcdef' }
-  
+
   specify { buf[0].must_equal 'a' }
   specify { buf[2].must_equal 'c' }
   specify { buf[-1].must_equal 'f' }

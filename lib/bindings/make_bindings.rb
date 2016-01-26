@@ -31,7 +31,7 @@ def make_bindings
   result[:ctrl_z] = lambda { |b|
     if b.can_undo?
       b.undo
-      say 'Undone' 
+      say 'Undone'
     else
       say BELL
     end
@@ -39,7 +39,7 @@ def make_bindings
   result[:ctrl_u] = lambda { |b|
     if b.can_redo?
       b.redo
-      say 'Redone' 
+      say 'Redone'
     else
       say BELL
     end
@@ -58,7 +58,7 @@ def make_bindings
   result[:space] = inserter(' ')[1]
 
   special_inserter_proc(result, [
-                          [:apostrophe, "'"], [:quote, '"'], 
+                          [:apostrophe, "'"], [:quote, '"'],
                           [:asterisk, '*'], [:accent, '`'], [:at, '@'],
                           [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
                           [:dollar, '$'], [:percent, '%'], [:caret, '^'],
@@ -80,11 +80,11 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at }
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
-  result[:backspace] = lambda { |b| 
+  result[:backspace] = lambda { |b|
     if b.mark_set?
       $clipboard = b.cut; say 'selection deleted'
     else
-      ch = b.del; say "delete #{ch}" 
+      ch = b.del; say "delete #{ch}"
     end
   }
 

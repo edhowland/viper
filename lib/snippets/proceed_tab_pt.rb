@@ -5,7 +5,7 @@ def proceed_tab_pt(buffer)
   pos = buffer.position
   buffer.srch_fwd('^.')
   if buffer.at == '^'
-    buffer.del_at('^.') 
+    buffer.del_at('^.')
     result = true
   else
     buffer.goto_position pos

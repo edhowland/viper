@@ -2,7 +2,7 @@
 
 # TODO: Class documentation
 class MultiLineBuffer
-  def initialize 
+  def initialize
     @a_buff = [Buffer.new('')]
     @b_buff = []
   end

@@ -27,7 +27,7 @@ describe 'dirty buffer now clean after .save' do
   let(:buf) { FileBuffer.new 'dummy.txt' }
   subject do
     File.stub(:write, nil, ['dummy.txt', '']) do
-      buf.ins 'hello'; buf.save; buf.dirty? 
+      buf.ins 'hello'; buf.save; buf.dirty?
     end
   end
 

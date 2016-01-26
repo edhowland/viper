@@ -2,7 +2,7 @@
 
 # Associations map to a given symbol according to the most specific match
 class Association
-  def initialize 
+  def initialize
     @ext_regexs = {}
     @ext_lits = {}
     @file_regexs = {}
@@ -36,7 +36,7 @@ class Association
       regex = found_a.first.regexp
       return regexs[regex]
     end
-    nil    
+    nil
   end
 
   def match_ext_regex(string)

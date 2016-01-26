@@ -471,12 +471,12 @@ Style/TrailingBlankLines:
 #    - 'lib/tools/lint_pass2.rb'
 #    - 'lib/tools/lint_pass3.rb'
 #    - 'lib/viper.rb'
-#GOT
 
 # Offense count: 39
 # Cop supports --auto-correct.
 Style/TrailingWhitespace:
-  Enabled: false
+  Enabled: true
+#GOT
 
 # Offense count: 1
 # Cop supports --auto-correct.

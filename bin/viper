@@ -169,7 +169,7 @@ end
 # possibly save dirty buffer
 $buffer_ring.select(&:should_save?).map do |buf|
   if confirm?("Save #{buf.name}? ")
-    buf.save 
+    buf.save
     say "#{buf.name} saved"
   end
 end

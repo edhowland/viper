@@ -171,7 +171,7 @@ class Buffer
     end
     unset_mark
     @dirty = true
-    value   
+    value
   end
 
   def srch_fwd(regex)

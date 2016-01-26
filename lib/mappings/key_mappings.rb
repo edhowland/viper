@@ -11,7 +11,7 @@ def key_mappings
     "\u0014" => :ctrl_t,
     "\002" => :ctrl_b,
     "\u0013" => :ctrl_s,
-    "\003" => :ctrl_c,   
+    "\003" => :ctrl_c,
     "\u0016" => :ctrl_v,
     "\u0018" => :ctrl_x,
     "\u001A" => :ctrl_z,
@@ -33,7 +33,7 @@ def key_mappings
   "\033[A" => :up,
   "\033[B" => :down,
   "\033[C" => :right,
-  "\033[D" => :left, 
+  "\033[D" => :left,
 
     # Function keys
     "\eOP" => :fn_1,
@@ -94,6 +94,6 @@ def key_mappings
     # Meta characters
     "∂" => :meta_d,
     "…" => :meta_colon,
-    "\e[3~" => :delete_at    
+    "\e[3~" => :delete_at
   }
 end
