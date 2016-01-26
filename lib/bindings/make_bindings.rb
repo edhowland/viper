@@ -58,18 +58,18 @@ def make_bindings
   result[:space] = inserter(' ')[1]
 
   special_inserter_proc(result, [
-  [:apostrophe, "'"], [:quote, '"'], 
-    [:asterisk, '*'], [:accent, '`'], [:at, '@'],
-    [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
-    [:dollar, '$'], [:percent, '%'], [:caret, '^'],
-    [:ampersand, '&'],
-    [:lparen, '('], [:rparen, ')'], [:hyphen, '-'],
-    [:underline, '_'], [:plus, '+'], [:equals, '='],
-    [:backslash, '\\'], [:pipe, '|'],
-    [:lbracket, '['], [:rbracket, ']'],
-    [:lbrace, '{'], [:rbrace, '}'],
-    [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
-  ])
+                          [:apostrophe, "'"], [:quote, '"'], 
+                          [:asterisk, '*'], [:accent, '`'], [:at, '@'],
+                          [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
+                          [:dollar, '$'], [:percent, '%'], [:caret, '^'],
+                            [:ampersand, '&'],
+                          [:lparen, '('], [:rparen, ')'], [:hyphen, '-'],
+                          [:underline, '_'], [:plus, '+'], [:equals, '='],
+                          [:backslash, '\\'], [:pipe, '|'],
+                          [:lbracket, '['], [:rbracket, ']'],
+                          [:lbrace, '{'], [:rbrace, '}'],
+                          [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
+                        ])
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
   result[:ctrl_h] = ->(b) {:cmd_help }

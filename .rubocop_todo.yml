@@ -236,7 +236,7 @@ Style/IfUnlessModifier:
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
 Style/IndentArray:
   Enabled: true
-
+#GOT
 # Offense count: 22
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
