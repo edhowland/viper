@@ -25,17 +25,17 @@ end
 
 describe 'dirty buffer now clean after .save' do
   let(:buf) { FileBuffer.new 'dummy.txt' }
-  subject {
+  subject do
     File.stub(:write, nil, ['dummy.txt', '']) do
-      buf.ins 'hello'; buf.save; buf.dirty? 
+      buf.ins 'hello'; buf.save; buf.dirty?
     end
-  }
+  end
 
   specify { subject.must_equal false }
 end
 
 describe 'should_save?' do
-  let(:buf) {FileBuffer.new 'spec_helper.rb' }
+  let(:buf) { FileBuffer.new 'spec_helper.rb' }
   subject { buf.should_save? }
 
   specify { subject.must_equal false }
@@ -43,7 +43,7 @@ describe 'should_save?' do
 end
 
 describe 'should_save? should be true' do
-  let(:buf) {FileBuffer.new 'xyzzy.txt' }
+  let(:buf) { FileBuffer.new 'xyzzy.txt' }
   subject { buf.ins 'line 1'; buf.should_save? }
 
   specify { subject.must_equal true }

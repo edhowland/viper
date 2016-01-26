@@ -9,21 +9,21 @@ describe 'non-existant command raises CommandNotFound' do
 end
 
 describe 'will execute command if it exists passing 1 arg' do
-  before { $commands[:babel] = ->(b, *args) { args[0] } }
+  before { $commands[:babel] = ->(_b, *args) { args[0] } }
   subject { exec_cmd :babel, nil, 'ABCD' }
 
   specify { subject.must_equal 'ABCD' }
 end
 
 describe 'parse_execute babel fish' do
-  before { $commands[:babel] = ->(b, *args) { args[0] } }
+  before { $commands[:babel] = ->(_b, *args) { args[0] } }
   subject { parse_execute nil, 'babel fish' }
 
   specify { subject.must_equal 'fish' }
 end
 
 describe 'parse_execute command (only)' do
-before { $commands[:babel] = ->(b, *args) { 'ok' } }
+  before { $commands[:babel] = ->(_b, *_args) { 'ok' } }
   subject { parse_execute nil, 'babel' }
 
   specify { subject.must_equal 'ok' }

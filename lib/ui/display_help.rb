@@ -22,8 +22,8 @@ Ctrl-O: Opens a new line below the current line
 
 Searching
 -
-Ctrl-F: Enter text to be searched forward for. 
-Ctrl-R: Enter text to be searched backward for. 
+Ctrl-F: Enter text to be searched forward for.
+Ctrl-R: Enter text to be searched backward for.
 Ctrl-G: Continue searching in the last direction
 
 Ctrl-P: Display up to the next 10 lines of the buffer
@@ -37,7 +37,7 @@ Ctrl-C: Copy highlighted text to clipboard
 Ctrl-X: Cut highlighted text to clipboard
 Ctrl-V: Paste clipboard text into current buffer at cursor
 :yank  - Yanks one line into the clipboard (preceed with Command meta key)
- Undo/Redo
+Undo/Redo
 -
 Ctrl-Z: Undo the last action
 Ctrl-U: Redo the last action undone (from last Ctrl-Z)
@@ -74,7 +74,7 @@ rew!  - Re-reads the current file into the current buffer, overwriting the conte
 r filename  - reads the contents of the filename into the current buffer at the current cursor position.
 g <line> - Goto a specific line in the current buffer
 goto position - Jumps to specific position (offset from beginning of buffer).
-o filename - open a new file 
+o filename - open a new file
 k! - Kill (delete) the current buffer
 n - Rotate to the next buffer
 p - Rotate to the previous buffer

@@ -21,5 +21,3 @@ describe 'rcount_nl with single line' do
 
   specify { subject.must_equal 6 }
 end
-
-

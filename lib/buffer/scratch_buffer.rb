@@ -1,11 +1,12 @@
 # scratch_buffer.rb - class ScratchBuffer : just Recordable Buffer
 
+# TODO: Class documentation
 class ScratchBuffer < Buffer
   include Recordable
 
-  def initialize 
+  def initialize
     super ''
-    count = $buffer_ring.select {|b| b.instance_of? ScratchBuffer }.length
+    count = $buffer_ring.count { |b| b.instance_of? ScratchBuffer }
     @name = "Scratch #{count + 1}"
   end
 end

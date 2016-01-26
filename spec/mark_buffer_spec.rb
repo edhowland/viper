@@ -4,37 +4,37 @@ require_relative 'spec_helper'
 
 describe 'mark initially unset' do
   let(:buf) { Buffer.new 'good times' }
-  subject {  buf.mark_set? }
+  subject { buf.mark_set? }
 
-  specify {  subject.must_equal false }
+  specify { subject.must_equal false }
 
 end
 
 describe 'set mark' do
   let(:buf) { Buffer.new 'good times' }
-  subject {  buf.set_mark; buf.mark_set? }
+  subject { buf.set_mark; buf.mark_set? }
 
-  specify {  subject.must_equal true }
+  specify { subject.must_equal true }
 
 end
 
 describe 'unset mark' do
   let(:buf) { Buffer.new 'good times' }
-  subject {  buf.set_mark; buf.unset_mark; buf.mark_set? }
+  subject { buf.set_mark; buf.unset_mark; buf.mark_set? }
 
-  specify {  subject.must_equal false }
+  specify { subject.must_equal false }
 
 end
 
 describe 'set_if_not_set' do
-  let(:buf) {Buffer.new '0123abcd' }
-  subject {buf.set_if_not_set; buf.mark_set?  }
+  let(:buf) { Buffer.new '0123abcd' }
+  subject { buf.set_if_not_set; buf.mark_set? }
 
-  specify {  subject.must_equal true }
+  specify { subject.must_equal true }
 end
 
 describe 'set_if_not_set after set_mark' do
-  let(:buf) {Buffer.new 'abcd' }
+  let(:buf) { Buffer.new 'abcd' }
   subject {  buf.set_mark; buf.set_if_not_set; buf.mark_set? }
 
   specify {  subject.must_equal true }
@@ -42,13 +42,13 @@ describe 'set_if_not_set after set_mark' do
 end
 
 describe 'set_if_not_set after unset_mark' do
-  let(:buf) {Buffer.new '0123' }
+  let(:buf) { Buffer.new '0123' }
   subject { buf.unset_mark; buf.set_if_not_set; buf.mark_set? }
   specify { subject.must_equal true }
 end
 
 describe 'buffer is dirty after cut' do
-  let(:buf) {Buffer.new '0123abcd' }
+  let(:buf) { Buffer.new '0123abcd' }
   subject {  buf.set_mark; buf.fwd 4; buf.cut; buf.dirty? }
 
   specify {  subject.must_equal true }

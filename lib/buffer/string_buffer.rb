@@ -1,29 +1,30 @@
 # string_buffer.rb - class StringBuffer
-
+# TODO: Class documentation
 class StringBuffer
-  def initialize string
+  def initialize(string)
     @buffer = string
   end
 
   def shift
     raise BufferExceeded.new('Exceeded front') if @buffer.empty?
     result = @buffer[0]
-    @buffer = @buffer[1..(-1)]
+    @buffer = @buffer[1..-1]
     result
   end
 
-  def unshift string
+  def unshift(string)
     @buffer = string + @buffer
     @buffer
   end
-  def push string
+
+  def push(string)
     @buffer << string
   end
 
   def pop
     raise BufferExceeded.new('Exceeded back') if @buffer.empty?
     result = @buffer[-1]
-    @buffer = @buffer[0..(-2)]
+    @buffer = @buffer[0..-2]
     result
   end
 
@@ -31,18 +32,18 @@ class StringBuffer
     @buffer.empty?
   end
 
-  def  [](index)
+  def [](index)
     @buffer[index]
   end
 
-  def srch regex
+  def srch(regex)
     m = regex.match @buffer
     return @buffer if m.nil?
     m.to_s
   end
 
-  def rsrch regexp
-    m=regexp.match @buffer
+  def rsrch(regexp)
+    m = regexp.match @buffer
     return '' if m.nil?
     m[-1]
   end
@@ -50,7 +51,7 @@ class StringBuffer
   def lines
     io = StringIO.new @buffer
     result = []
-    io.each_line {|l| result << l}
+    io.each_line { |l| result << l }
     result
   end
 
@@ -67,55 +68,51 @@ class StringBuffer
   def last_line
     return '' if @buffer[-1] == "\n"
     return @buffer if rcount_nl == length
-    @buffer[-(rcount_nl - 1)..(-1)]
+    @buffer[-(rcount_nl - 1)..-1]
   end
 
   def first_line
     @buffer[0..(count_nl)]
   end
 
-
   def length
     @buffer.length
   end
 
-
-  def calc_range limit
-    (limit < 0 ? limit..(-1)  : 0..(limit - 1) )
+  def calc_range(limit)
+    (limit < 0 ? limit..-1 : 0..(limit - 1))
   end
 
-  def copy limit
+  def copy(limit)
     @buffer[calc_range(limit)]
   end
 
-  def cut limit
+  def cut(limit)
     value = copy(limit)
-    if limit < 0
-      @buffer = @buffer[0..(limit - 1)]
-    else
-      @buffer = @buffer[limit..(-1)]
-    end
+    @buffer = if limit < 0
+                @buffer[0..(limit - 1)]
+              else
+                @buffer[limit..-1]
+              end
     value
   end
 
-  def index regex
+  def index(regex)
     @buffer.index regex
   end
 
-  def rindex regex
+  def rindex(regex)
     result = @buffer.rindex(regex) #- @buffer.length
     return result - @buffer.length unless result.nil?
     result
   end
 
   def rword_index
-    offset = @buffer.rindex /\s|\n/
-    if offset.nil?
-      offset = @buffer.rindex /^\w/
-    end
-    (offset.nil? ? '' : @buffer[offset..(-1)].lstrip)
-  end
+    offset = @buffer.rindex(/\s|\n/)
 
+    offset = @buffer.rindex(/^\w/) if offset.nil?
+    (offset.nil? ? '' : @buffer[offset..-1].lstrip)
+  end
 
   def to_s
     @buffer

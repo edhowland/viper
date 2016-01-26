@@ -1,6 +1,6 @@
 # dump_snippets.rb - method dump_snippets
 
-def dump_snippets cascade, path
+def dump_snippets(cascade, path)
   snippets_file = File.dirname(File.expand_path(__FILE__)) + '/../../config/' + path + '.json'
   snippets = $snippet_cascades[cascade]
   raise SnippetCollectionNotFound if snippets.nil?

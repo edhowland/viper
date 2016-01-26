@@ -1,24 +1,34 @@
 # key_press.rb - method key_press
 require 'io/console'
 
+def handle_numeric
+  p = $stdin.getch
+  return p if p == '~'
+  q = $stdin.getch
+  return p + q if q == '~'
+  r = $stdin.getch
+
+  p + q + r
+end
+
+def handle_lbrkt
+  # p = q = r = ''
+  z = $stdin.getch
+  z += handle_numeric if %w(1 2 3 5 6).member? z
+
+  z
+end
+
+def handle_esc
+  y = $stdin.getch
+  y += handle_lbrkt if %w([ O Z).member? y
+  y
+end
+
 # read console input one keypress. If Escape sequence, keep consuming until done
 def key_press
-  x = y = z = p = q = r = ''
   x = $stdin.getch
-  if x == "\e"
-    y = $stdin.getch
-    if y == "[" or y == "O" or y == 'Z'
-      z = $stdin.getch
-    if z == '1' or z == '2' or z == '3'
-      p =$stdin.getch
-    unless p == '~'
- q = $stdin.getch
-         r = $stdin.getch unless q == '~'
-    end
-    elsif z == '5' or z == '6'   # for shift+PgUp, Shift+PgDn
-      p = $stdin.getch
-    end
-    end
-  end
-  x + y + z + p + q +r
+  x += handle_esc if x == "\e"
+
+  x
 end

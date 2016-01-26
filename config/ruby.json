@@ -1,1 +1,1 @@
-{"rr":"require_relative '^.'\n","re":"require '^.'\n","def":"def ^.\n  ^.\nend\n","cla":"class ^.\n  ^.\nend\n","cinit":"  def initialize ^.\n    ^.\n  end\n","cdef":"  def ^.\n    ^.\n  end\n"}
+{"rr":"require_relative '^.'\n","re":"require '^.'\n","def":"def ^.\n  ^.\nend\n","cla":"class ^.\n  ^.\nend\n","cinit":"  def initialize ^.\n    ^.\n  end\n","cdef":"  def ^.\n    ^.\n  end\n","ife":"if ^.\n  ^.\nelse\n  ^.\nend\n","cdoc":"# TODO: Class documentation","mdoc":"# TODO: Module documentation"}
