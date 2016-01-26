@@ -4,4 +4,3 @@
 class ReadOnlyBuffer < Buffer
   include NonWritable
 end
-

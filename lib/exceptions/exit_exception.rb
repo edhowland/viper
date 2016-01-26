@@ -6,4 +6,3 @@ class ExitException < RuntimeError
     super 'Exiting ...'
   end
 end
-

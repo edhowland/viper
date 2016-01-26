@@ -14,4 +14,3 @@ module NonWritable
     "#{@name} (read only)"
   end
 end
-

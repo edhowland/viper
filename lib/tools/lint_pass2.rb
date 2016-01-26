@@ -24,4 +24,3 @@ def lint_pass2(buffer)
   end
   blacklog
 end
-

@@ -31,4 +31,3 @@ def lint(buffer)
     say lint_buffer.line
   end
 end
-

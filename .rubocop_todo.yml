@@ -451,7 +451,6 @@ Style/SymbolProc:
   Exclude:
 #    - 'bin/viper'
 #    - 'lib/associations/association.rb'
-#GOT
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -459,19 +458,20 @@ Style/SymbolProc:
 # SupportedStyles: final_newline, final_blank_line
 Style/TrailingBlankLines:
   Exclude:
-    - 'lib/associations.rb'
-    - 'lib/bindings.rb'
-    - 'lib/buffer/non_writable.rb'
-    - 'lib/buffer/read_only_buffer.rb'
-    - 'lib/exceptions/exit_exception.rb'
-    - 'lib/readline.rb'
-    - 'lib/repl/convert_cmd.rb'
-    - 'lib/snippets.rb'
-    - 'lib/system.rb'
-    - 'lib/tools/lint.rb'
-    - 'lib/tools/lint_pass2.rb'
-    - 'lib/tools/lint_pass3.rb'
-    - 'lib/viper.rb'
+#    - 'lib/associations.rb'
+#    - 'lib/bindings.rb'
+#    - 'lib/buffer/non_writable.rb'
+#    - 'lib/buffer/read_only_buffer.rb'
+#    - 'lib/exceptions/exit_exception.rb'
+#    - 'lib/readline.rb'
+#    - 'lib/repl/convert_cmd.rb'
+#    - 'lib/snippets.rb'
+#    - 'lib/system.rb'
+#    - 'lib/tools/lint.rb'
+#    - 'lib/tools/lint_pass2.rb'
+#    - 'lib/tools/lint_pass3.rb'
+#    - 'lib/viper.rb'
+#GOT
 
 # Offense count: 39
 # Cop supports --auto-correct.
