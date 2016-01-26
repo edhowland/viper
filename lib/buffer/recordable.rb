@@ -29,7 +29,7 @@ module Recordable
       unless last_command.nil?
         command = invert(last_command)
 
-        self.send(command[0], *command[1]) unless command[0] == nil
+        self.send(command[0], *command[1]) unless command[0].nil?
       end
     end
   end

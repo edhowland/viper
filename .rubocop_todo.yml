@@ -289,20 +289,20 @@ Style/LeadingCommentSpace:
 # SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
 Style/MethodDefParentheses:
   Enabled: true
-#GOT
 
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
-    - 'lib/constants.rb'
-    - 'lib/viper/version.rb'
+#    - 'lib/constants.rb'
+#    - 'lib/viper/version.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/NilComparison:
   Exclude:
-    - 'lib/buffer/recordable.rb'
+#    - 'lib/buffer/recordable.rb'
+#GOT
 
 # Offense count: 6
 # Configuration parameters: SupportedStyles.
