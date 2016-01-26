@@ -15,6 +15,6 @@ class CompareIndent
   end
 
   def cmp(indent, previous)
-    self.send([:eq, :gt, :lt][(indent <=> previous)], indent, previous)
+    send([:eq, :gt, :lt][(indent <=> previous)], indent, previous)
   end
 end

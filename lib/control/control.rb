@@ -10,7 +10,7 @@ module Viper
 
     attr_accessor :proc_bindings
     def self.loop(_p_bindings=make_bindings, &_blk)
-      this = self.new
+      this = new
       exception_raised = false
       until exception_raised
         begin

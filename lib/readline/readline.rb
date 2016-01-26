@@ -34,7 +34,7 @@ module Viper
         @last_line = @buffer.line
         @buffer.new_line
       end
-      return result
+      result
     end
   end
 end

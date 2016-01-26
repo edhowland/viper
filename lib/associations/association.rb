@@ -36,7 +36,7 @@ class Association
       regex = found_a.first.regexp
       return regexs[regex]
     end
-    return nil    
+    nil    
   end
 
   def match_ext_regex(string)

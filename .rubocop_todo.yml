@@ -316,25 +316,25 @@ Style/RedundantParentheses:
 #    - 'lib/buffer/buffer.rb'
 #    - 'lib/buffer/string_buffer.rb'
 #    - 'lib/repl/convert_cmd.rb'
-#GOT
 
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
 Style/RedundantReturn:
   Exclude:
-    - 'lib/associations/association.rb'
-    - 'lib/readline/confirm.rb'
-    - 'lib/readline/readline.rb'
+#    - 'lib/associations/association.rb'
+#    - 'lib/readline/confirm.rb'
+#    - 'lib/readline/readline.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - 'lib/buffer/buffer.rb'
+#    - 'lib/buffer/buffer.rb'
     - 'lib/buffer/recordable.rb'
-    - 'lib/control/control.rb'
-    - 'lib/tools/compare_indent.rb'
+#    - 'lib/control/control.rb'
+#    - 'lib/tools/compare_indent.rb'
+#GOT
 
 # Offense count: 11
 # Cop supports --auto-correct.

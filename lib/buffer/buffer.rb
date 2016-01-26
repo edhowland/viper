@@ -210,7 +210,7 @@ class Buffer
   def goto_position(pos)
     offset = pos - position
     method = [nil, :fwd, :back][(offset <=> 0)]
-    self.send(method, offset.abs) unless method.nil?
+    send(method, offset.abs) unless method.nil?
   end
 
   def remember(&_blk)
