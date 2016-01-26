@@ -1,20 +1,23 @@
 # control.rb - module Viper::Control
-
+# Style/Documentation: Enabled: false
+# TODO: Module documentation
 module Viper
+  # TODO: Class documentation
   class Control
-    def initialize proc_bindings=nil
+    def initialize(proc_bindings = nil)
       @proc_bindings = proc_bindings || make_bindings
     end
 
     attr_accessor :proc_bindings
-    def self.loop(p_bindings=make_bindings,  &blk)
-      this = self.new
+    def self.loop(_p_bindings = make_bindings, &_blk)
+      this = new
       exception_raised = false
       until exception_raised
         begin
           yield this
         rescue => err
           exception_raised = true
+          say "Unhandled exception: #{err.class.name}: #{err.message}"
         end
       end
     end
@@ -23,7 +26,7 @@ module Viper
       map_key(key_press)
     end
 
-    def bound_proc_for key
+    def bound_proc_for(key)
       result = @proc_bindings[key]
       raise BindingNotFound.new "No binding found for #{key}" if result.nil?
       result

@@ -1,7 +1,8 @@
 # mult_line_buffer.rb - class MultiLineBuffer
 
+# TODO: Class documentation
 class MultiLineBuffer
-  def initialize 
+  def initialize
     @a_buff = [Buffer.new('')]
     @b_buff = []
   end
@@ -18,19 +19,19 @@ class MultiLineBuffer
     current.at
   end
 
-  def ins string
+  def ins(string)
     current.ins string
   end
 
-  def del string=' '
+  def del(string = ' ')
     current.del string
   end
 
-  def fwd count=1
+  def fwd(count = 1)
     current.fwd count
   end
 
-  def back count = 1
+  def back(count = 1)
     current.back count
   end
 
@@ -43,13 +44,13 @@ class MultiLineBuffer
   end
 
   def up
-      raise BufferExceeded if @a_buff.length <= 1
+    raise BufferExceeded if @a_buff.length <= 1
     @b_buff.unshift(@a_buff.pop)
     back_of_line
   end
 
   def down
-      raise BufferExceeded if @b_buff.empty?
+    raise BufferExceeded if @b_buff.empty?
     @a_buff.push(@b_buff.shift)
     front_of_line
   end
@@ -86,11 +87,8 @@ class MultiLineBuffer
     current.beg
   end
 
-
   def fin
     @a_buff = to_a
     @b_buff = []
   end
-
-
 end

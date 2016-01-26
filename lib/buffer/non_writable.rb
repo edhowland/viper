@@ -1,7 +1,8 @@
 # non_writable.rb - module NonWritable
 
+# TODO: Module documentation
 module NonWritable
-  def ins string
+  def ins(_string)
     say BELL
   end
 
@@ -13,4 +14,3 @@ module NonWritable
     "#{@name} (read only)"
   end
 end
-

@@ -1,6 +1,10 @@
 # readline.rb - module Viper::Readline
 
+# Style/Documentation: Enabled: false
+# Metrics/LineLength: Enabled: false
+# TODO: Module documentation
 module Viper
+  # TODO: Class documentation
   class Readline
     def initialize
       @buffer = MultiLineBuffer.new
@@ -10,7 +14,7 @@ module Viper
     attr_reader :last_line
 
     def readline
-      @buffer.fin   # sets up next blank line
+      @buffer.fin # sets up next blank line
       Viper::Control.loop do |worker|
         key = worker.getch
         break if key == :return
@@ -30,7 +34,7 @@ module Viper
         @last_line = @buffer.line
         @buffer.new_line
       end
-      return result
+      result
     end
   end
 end

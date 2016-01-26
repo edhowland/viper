@@ -5,8 +5,7 @@ require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
-
-options = {:read_only => false, :check_syntax => false}
+options = { read_only: false, check_syntax: false }
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
@@ -26,7 +25,7 @@ parser = OptionParser.new do |opt|
     exit
   end
   opt.on('-v', '--version', 'Displays the version of Viper') do
-    puts "Viper VIP Editor in Ruby"
+    puts 'Viper VIP Editor in Ruby'
     puts "version #{Viper::VERSION}"
     exit
   end
@@ -40,58 +39,53 @@ suppress_audio do
   load_rc do |l|
     parse_execute tmp_buff, l
   end
+
+  # possibly load ./.viperrc
+  load_rc './.viperrc', silent: true do |l|
+    parse_execute tmp_buff, l
+  end
 end
 
-# possibly load ./.viperrc
-load_rc './.viperrc', :silent => true do |l|
-  parse_execute tmp_buff, l
-end
 # set up the buffer ring
-#@buffer_ring = []
+# @buffer_ring = []
 if ARGV.length == 0
-  $buffer_ring <<  FileBuffer.new('Unnamed')
+  $buffer_ring << FileBuffer.new('Unnamed')
+elsif options[:read_only]
+  $buffer_ring = ARGV.map { |f| ReadOnlyFileBuffer.new(f) }
 else
-  if options[:read_only]
-    $buffer_ring = ARGV.map {|f| ReadOnlyFileBuffer.new(f) }
-  else
-    $buffer_ring = ARGV.map {|f| FileBuffer.new(f) }
-  end
+  $buffer_ring = ARGV.map { |f| FileBuffer.new(f) }
 end
 
 # return the head of the @buffer_ring
 def fbuffer
- $buffer_ring.first
+  $buffer_ring.first
 end
-
 
 @buffer = fbuffer
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-@search_direction = :srch_fwd  # or :srch_back
+@search_direction = :srch_fwd # or :srch_back
 @search_buffer.name = 'Search buffer'
 
-def swap buff1, buff2
+def swap(buff1, buff2)
   [buff2, buff1]
 end
 
-
-
 # possibly jump to a specific line in the file
-unless options[:line].nil?
-  fbuffer.goto options[:line]
-end
+
+fbuffer.goto options[:line] unless options[:line].nil?
 
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
- Viper::Control.loop do |worker|
+Viper::Control.loop do |worker|
   ch = worker.getch
   prc = worker.bound_proc_for ch
   begin
     result = prc.call(@buffer)
     if result.to_s =~ /^cmd_/
-    command = convert_cmd result
-    exec_cmd command, @buffer
+      command = convert_cmd result
+      exec_cmd command, @buffer
     end
     case result
     when :quit
@@ -104,39 +98,39 @@ end
     when :save
       @buffer.save
       say "Buffer #{@buffer.name} saved"
-      when :meta
-        say 'meta'
-        next_key = map_key(key_press)
-        case next_key
-        when :key_d
-          @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
-          say 'line deleted'
-        when :shift_end
-          @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
-          say 'delete to end of line'
-        when :shift_home
-          @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
-          say 'delete to start of line'
-        when :shift_pgup
-          @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
-          say 'delete to top of buffer'
-        when :shift_pgdn
-          @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
-          say 'delete to bottom of buffer'
-        else
+    when :meta
+      say 'meta'
+      next_key = map_key(key_press)
+      case next_key
+      when :key_d
+        @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
+        say 'line deleted'
+      when :shift_end
+        @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
+        say 'delete to end of line'
+      when :shift_home
+        @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
+        say 'delete to start of line'
+      when :shift_pgup
+        @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
+        say 'delete to top of buffer'
+      when :shift_pgdn
+        @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
+        say 'delete to bottom of buffer'
+      else
         say next_key.to_s
-        end
+      end
 
-      when :debug
-        say 'Entering debug mode. Press Ctrl-D to exit'
-        binding.pry
-        say "Exited debug mode. Buffer is #{@buffer.name}"
-      when :help
-        say "Use Option semicolon and help to invoke help"
+    when :debug
+      say 'Entering debug mode. Press Ctrl-D to exit'
+      binding.pry
+      say "Exited debug mode. Buffer is #{@buffer.name}"
+    when :help
+      say 'Use Option semicolon and help to invoke help'
 
     when :srch_fwd
       @search_direction = :srch_fwd
-      say'search forward'
+      say 'search forward'
       pattern = @search_line.readline
       @buffer.srch_fwd(pattern)
       say @buffer.line
@@ -162,10 +156,10 @@ end
       say 'command '
       command_s = @command_line.readline
       quitting = parse_execute @buffer, command_s
-      end
-      break if quitting == :quit
-      @buffer = fbuffer # restore the @buffer pointer
-  rescue BufferExceeded => err
+    end
+    break if quitting == :quit
+    @buffer = fbuffer # restore the @buffer pointer
+  rescue BufferExceeded
     say BELL
   rescue => err
     say err.message
@@ -173,11 +167,11 @@ end
 end
 
 # possibly save dirty buffer
-$buffer_ring.select {|b| b.should_save? }.map do |buf|
-if confirm?("Save #{buf.name}? ")
- buf.save 
-  say "#{buf.name} saved"
-end
+$buffer_ring.select(&:should_save?).map do |buf|
+  if confirm?("Save #{buf.name}? ")
+    buf.save
+    say "#{buf.name} saved"
+  end
 end
 
 # possibly check syntax of buffer

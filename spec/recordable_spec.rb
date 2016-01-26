@@ -2,6 +2,7 @@
 
 require_relative 'spec_helper'
 
+# TODO: Class documentation
 class MyBuffer < Buffer
   include Recordable
 
@@ -33,7 +34,7 @@ describe 'invert :fwd' do
 end
 
 describe 'invert :back' do
-  let(:buf) { MyBuffer.new 'now'  }
+  let(:buf) { MyBuffer.new 'now' }
   subject {  buf.fwd; buf.fwd; buf.back; buf.invert(buf.commands.back) }
 
   specify {  subject.must_equal [:fwd, 1] }
@@ -57,7 +58,7 @@ describe 'undo' do
 end
 
 describe 'undo complicated stuff' do
-  let(:buf) {MyBuffer.new 'good times' }
+  let(:buf) { MyBuffer.new 'good times' }
   subject {  buf.fwd 4; buf.del 'good'; buf.undo; buf.undo; buf.at }
 
   specify {  subject.must_equal 'g'; buf.to_s.must_equal 'good times' }

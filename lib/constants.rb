@@ -1,5 +1,5 @@
 # constants.rb - various constants
 
-BELL = "\a"
-NL = "\n"
-RUBY_SYNTAX = '/usr/bin/env ruby -c'
+BELL = "\a".freeze
+NL = "\n".freeze
+RUBY_SYNTAX = '/usr/bin/env ruby -c'.freeze

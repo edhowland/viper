@@ -1,14 +1,14 @@
 # shell.rb - method shell runs a command returning stdout, stderr
 
 # run command piping value from block to stdin, return stdout, stderr
-def shell command, &blk
+def shell(command, &_blk)
   output, error = ''
   begin
-  stdin, stdout, stderr = Open3.popen3(command)
-  yield stdin if block_given?
-  stdin.close
-  output = stdout.read
-  error = stderr.read
+    stdin, stdout, stderr = Open3.popen3(command)
+    yield stdin if block_given?
+    stdin.close
+    output = stdout.read
+    error = stderr.read
   ensure
     stdout.close
     stderr.close
@@ -17,8 +17,7 @@ def shell command, &blk
   [output, error]
 end
 
-
-def pipe buffer, *command
+def pipe(buffer, *command)
   command = command.join(' ')
   output, error = shell(command) do |input|
     input.write(buffer.to_s)
@@ -28,22 +27,21 @@ def pipe buffer, *command
   say error
 end
 
-
-
 # pipe contents through command, replacing contents with stdout
-def pipe! buffer, *command
+def pipe!(buffer, *command)
   command = command.join(' ')
-  output, error = shell(command) do |input|
+
+  # FIXME: Should send _error to own scratch buffer, then remove leading underscore '_'
+  output, _error = shell(command) do |input|
     input.write(buffer.to_s)
   end
 
   buffer.overwrite! output
-
 end
 
-
-def insert_shell buffer, *command
+def insert_shell(buffer, *command)
   command = command.join(' ')
-  output, error = shell(command)
+  # FIXME: ... see the above comment: FIXME
+  output, _error = shell(command)
   buffer.ins output
 end

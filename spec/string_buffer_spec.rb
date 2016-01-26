@@ -20,7 +20,7 @@ describe 'after shift' do
   let(:buf) { StringBuffer.new 'abcdef' }
   subject { buf.shift }
 
-  specify { subject;  buf.to_s.must_equal 'bcdef' }  
+  specify { subject;  buf.to_s.must_equal 'bcdef' }
 end
 
 describe 'unshift' do
@@ -32,7 +32,7 @@ end
 
 describe 'push' do
   let(:buf) { StringBuffer.new 'abcde' }
-  subject { buf.push'f' }
+  subject { buf.push 'f' }
 
   specify { subject; buf.to_s.must_equal 'abcdef' }
 end
@@ -43,7 +43,7 @@ describe 'pop' do
 
   specify { subject.must_equal 'f' }
 end
-  
+
 describe 'after pop' do
   let(:buf) { StringBuffer.new 'abcdef' }
   subject { buf.pop }
@@ -60,7 +60,7 @@ end
 
 describe '[]' do
   let(:buf) { StringBuffer.new 'abcdef' }
-  
+
   specify { buf[0].must_equal 'a' }
   specify { buf[2].must_equal 'c' }
   specify { buf[-1].must_equal 'f' }
@@ -96,16 +96,14 @@ end
 
 describe 'cut:fwd' do
   let(:buf) { StringBuffer.new '01234ABCDE' }
-  subject { buf.cut 5}
+  subject { buf.cut 5 }
 
   specify { subject.must_equal '01234' }
   specify { subject; buf.to_s.must_equal 'ABCDE' }
-#  specify {buf.to_s.must_equal '012345CDE'  }
 end
 
-
 describe 'cut: back' do
-  let(:buf) { StringBuffer.new '01234ABCDE'}
+  let(:buf) { StringBuffer.new '01234ABCDE' }
   subject { buf.cut -5 }
 
   specify { subject.must_equal 'ABCDE'; buf.to_s.must_equal '01234' }
@@ -116,7 +114,6 @@ describe 'index' do
   subject {  buf.index 'time' }
 
   specify {  subject.must_equal 11 }
-
 end
 
 describe 'rindex' do
@@ -124,27 +121,25 @@ describe 'rindex' do
   subject {  buf.rindex 'all' }
 
   specify {  subject.must_equal -7 }
-
 end
 
 describe 'rword_index' do
-  let(:buf) {StringBuffer.new 'ABCD' }
+  let(:buf) { StringBuffer.new 'ABCD' }
   subject { buf.rword_index }
 
   specify { subject.must_equal 'ABCD' }
-
 end
+
 describe 'rword_index on new line' do
-  let(:buf) {StringBuffer.new "ABCD\nEFGH" }
+  let(:buf) { StringBuffer.new "ABCD\nEFGH" }
   subject { buf.rword_index }
 
   specify { subject.must_equal 'EFGH' }
-
 end
+
 describe 'rword_index' do
-  let(:buf) {StringBuffer.new '' }
+  let(:buf) { StringBuffer.new '' }
   subject { buf.rword_index }
 
   specify { subject.must_equal '' }
-
 end
