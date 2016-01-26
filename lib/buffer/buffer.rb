@@ -121,12 +121,8 @@ class Buffer
     suppress do
       pos = col
       back
-      until at == "\n" or position == 0
-        back
-      end
-      until col <= pos or position == 0
-        back
-      end
+      back until at == "\n" or position == 0
+      back until col <= pos or position == 0
     end
     record :up
   end
@@ -192,9 +188,7 @@ class Buffer
     raise BufferExceeded if at.nil?
     suppress do
       pos = col
-      until at.nil? or at == "\n"
-        fwd
-      end
+      fwd until at.nil? or at == "\n"
       fwd if at == "\n"
       fwd [line.chomp.length, pos].min
     end

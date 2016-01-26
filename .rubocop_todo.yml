@@ -476,8 +476,8 @@ Style/TrailingBlankLines:
 # Cop supports --auto-correct.
 Style/TrailingWhitespace:
   Enabled: true
-#GOT
 
+# def dirty? cannot be converted into attr_reader since @dirty cannot have ? as final part of variable name
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, Whitelist.
@@ -486,6 +486,7 @@ Style/TrivialAccessors:
   Exclude:
     - 'lib/buffer/buffer.rb'
 
+# unless makes sense here with .nil? or .empty? instead of if !nil?
 # Offense count: 4
 Style/UnlessElse:
   Exclude:
@@ -497,4 +498,4 @@ Style/UnlessElse:
 # Configuration parameters: MaxLineLength.
 Style/WhileUntilModifier:
   Exclude:
-    - 'lib/buffer/buffer.rb'
+#    - 'lib/buffer/buffer.rb'
