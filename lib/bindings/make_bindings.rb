@@ -80,11 +80,11 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
-  result[:backspace] =lambda { |b| 
+  result[:backspace] = lambda { |b| 
     if b.mark_set?
       $clipboard = b.cut; say 'selection deleted'
     else
-      ch= b.del; say "delete #{ch}" 
+      ch = b.del; say "delete #{ch}" 
     end
   }
 
@@ -121,6 +121,6 @@ def make_bindings
 
   # rotate the buffer ring
   result[:ctrl_t] = ->(b) { :rotate_buffer }
-  result[:delete_at] = ->(b) { c=b.del_at; say "delete #{c}" }
+  result[:delete_at] = ->(b) { c = b.del_at; say "delete #{c}" }
   result
 end

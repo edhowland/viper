@@ -43,7 +43,7 @@ class StringBuffer
   end
 
   def rsrch(regexp)
-    m=regexp.match @buffer
+    m = regexp.match @buffer
     return '' if m.nil?
     m[-1]
   end

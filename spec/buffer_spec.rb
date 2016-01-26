@@ -65,7 +65,7 @@ end
 
 describe 'set mark and copy (reverses direction)' do
   let(:buf) {Buffer.new '01234ABCDEF' }
-  subject { buf.fwd 5; buf.set_mark; buf.fwd; ; buf.fwd; buf.copy }
+  subject { buf.fwd 5; buf.set_mark; buf.fwd; buf.fwd; buf.copy }
 
   specify { subject.must_equal 'AB' }
 

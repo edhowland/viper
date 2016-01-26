@@ -3,7 +3,7 @@
 def blank?(line)
   line = line.chomp
   result = line =~ /^ +$/
-  (line.empty? ||!result.nil?)
+  (line.empty? || !result.nil?)
 end
 
 def lint_pass3(buffer)
@@ -11,7 +11,7 @@ def lint_pass3(buffer)
   count = 0
   buffer.to_s.lines.each_with_index do |l, n|
     count += 1 if blank?(l)
-    blacklog << "Starting at line #{n+1}" if count > 1
+    blacklog << "Starting at line #{n + 1}" if count > 1
     count = 0 unless blank?(l)
   end
   blacklog

@@ -5,7 +5,7 @@ def lint_pass1(buffer)
   buffer.to_s.lines.each_with_index do |s, l|
     indent = s.index(/[^ ]./)
 
-    arr << "line #{l+1}: offset: #{indent}" unless indent.nil? || indent.even?
+    arr << "line #{l + 1}: offset: #{indent}" unless indent.nil? || indent.even?
   end
   arr
 end

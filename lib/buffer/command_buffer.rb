@@ -4,7 +4,7 @@
 class CommandBuffer
   def initialize
     @a_buff = []
-    @b_buff= []
+    @b_buff = []
     @name = 'Command Buffer'
   end
 

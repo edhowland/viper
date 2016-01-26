@@ -388,34 +388,34 @@ Style/SpaceAfterComma:
 # SupportedStyles: space, no_space
 Style/SpaceAroundEqualsInParameterDefault:
   Enabled: true
-#GOT
 
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
 Style/SpaceAroundOperators:
   Exclude:
-    - 'bin/viper'
-    - 'lib/bindings/make_bindings.rb'
-    - 'lib/buffer/command_buffer.rb'
-    - 'lib/buffer/string_buffer.rb'
-    - 'lib/tools/lint_pass1.rb'
-    - 'lib/tools/lint_pass3.rb'
-    - 'lib/ui/key_press.rb'
+#    - 'bin/viper'
+#    - 'lib/bindings/make_bindings.rb'
+#    - 'lib/buffer/command_buffer.rb'
+#    - 'lib/buffer/string_buffer.rb'
+#    - 'lib/tools/lint_pass1.rb'
+#    - 'lib/tools/lint_pass3.rb'
+#    - 'lib/ui/key_press.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
 Style/SpaceBeforeFirstArg:
   Exclude:
-    - 'lib/bindings/command_bindings.rb'
-    - 'spec/cursor_movement_spec.rb'
+#    - 'lib/bindings/command_bindings.rb'
+#    - 'spec/cursor_movement_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/SpaceBeforeSemicolon:
   Exclude:
-    - 'spec/buffer_spec.rb'
+#    - 'spec/buffer_spec.rb'
+#GOT
 
 # Offense count: 97
 # Cop supports --auto-correct.
