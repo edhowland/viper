@@ -82,7 +82,7 @@ class Buffer
   def beg
     record :beg
     @b_buff = StringBuffer.new(to_s)
-  @a_buff = StringBuffer.new ''
+    @a_buff = StringBuffer.new ''
   end
 
   def fin

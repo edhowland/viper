@@ -53,13 +53,13 @@ def command_bindings
     :sedit => ->(b, *args) { b.clear; b.ins $snippet_cascades[args[1].to_sym][args[0]]; b.beg; say b.line },
     :snip => ->(b, *args) {
       name = args[0]
-        cascade = args[1].to_sym
-        create_snippet(cascade, name, b)
+      cascade = args[1].to_sym
+      create_snippet(cascade, name, b)
       say "Saved buffer to snippet: #{name} in collection #{args[1]}"
     },
     :apply => ->(b, *args) {
       snip = args[0]
-        cascade = args[1].to_sym
+      cascade = args[1].to_sym
       apply_snippet cascade, snip, b
       say b.line
     },

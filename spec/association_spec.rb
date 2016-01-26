@@ -60,7 +60,7 @@ end
 
 describe 'match_file' do
   let(:ass) { Association.new }
-    before { ass.file_regex %r{.+_spec\.rb}, :spec; ass.file_lit 'myfile_spec.rb', :myfile }
+  before { ass.file_regex %r{.+_spec\.rb}, :spec; ass.file_lit 'myfile_spec.rb', :myfile }
   subject { ass.match_file 'myfile_spec.rb' }
 
   specify { subject.must_equal :myfile }
