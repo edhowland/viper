@@ -236,14 +236,14 @@ Style/IfUnlessModifier:
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
 Style/IndentArray:
   Enabled: true
-#GOT
+
 # Offense count: 22
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: normal, rails
 Style/IndentationConsistency:
   Exclude:
-    - 'bin/viper'
+#    - 'bin/viper'
     - 'lib/associations/association.rb'
     - 'lib/bindings/command_bindings.rb'
     - 'lib/bindings/make_bindings.rb'
@@ -254,7 +254,7 @@ Style/IndentationConsistency:
     - 'spec/convert_cmd_spec.rb'
     - 'spec/key_press_spec.rb'
     - 'spec/repl_spec.rb'
-
+#GOT
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: Width.

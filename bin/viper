@@ -40,10 +40,10 @@ suppress_audio do
     parse_execute tmp_buff, l
   end
 
-# possibly load ./.viperrc
-load_rc './.viperrc', :silent => true do |l|
-  parse_execute tmp_buff, l
-end
+  # possibly load ./.viperrc
+  load_rc './.viperrc', :silent => true do |l|
+    parse_execute tmp_buff, l
+  end
 end
 
 # set up the buffer ring
@@ -100,26 +100,26 @@ Viper::Control.loop do |worker|
       say "Buffer #{@buffer.name} saved"
     when :meta
       say 'meta'
-        next_key = map_key(key_press)
-        case next_key
-        when :key_d
-          @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
-          say 'line deleted'
-        when :shift_end
-          @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
-          say 'delete to end of line'
-        when :shift_home
-          @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
-          say 'delete to start of line'
-        when :shift_pgup
-          @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
-          say 'delete to top of buffer'
-        when :shift_pgdn
-          @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
-          say 'delete to bottom of buffer'
-        else
-        say next_key.to_s
-        end
+      next_key = map_key(key_press)
+      case next_key
+      when :key_d
+        @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
+        say 'line deleted'
+      when :shift_end
+        @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
+        say 'delete to end of line'
+      when :shift_home
+        @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
+        say 'delete to start of line'
+      when :shift_pgup
+        @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
+        say 'delete to top of buffer'
+      when :shift_pgdn
+        @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
+        say 'delete to bottom of buffer'
+      else
+      say next_key.to_s
+      end
 
     when :debug
       say 'Entering debug mode. Press Ctrl-D to exit'
