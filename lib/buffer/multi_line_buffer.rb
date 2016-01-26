@@ -23,11 +23,11 @@ class MultiLineBuffer
     current.ins string
   end
 
-  def del(string=' ')
+  def del(string = ' ')
     current.del string
   end
 
-  def fwd(count=1)
+  def fwd(count = 1)
     current.fwd count
   end
 

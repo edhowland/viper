@@ -381,14 +381,14 @@ Style/SpaceAfterComma:
 #    - 'lib/bindings/make_bindings.rb'
 #    - 'spec/compare_indent_spec.rb'
 #    - 'spec/key_press_spec.rb'
-#GOT
 
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: space, no_space
 Style/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
+  Enabled: true
+#GOT
 
 # Offense count: 12
 # Cop supports --auto-correct.

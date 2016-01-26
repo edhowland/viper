@@ -57,7 +57,7 @@ class Buffer
     record :ins, string
   end
 
-  def del(string=' ')
+  def del(string = ' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
     @dirty = true
     value = @a_buff.cut(string.length * -1)
@@ -65,12 +65,12 @@ class Buffer
     value
   end
 
-  def fwd(count=1)
+  def fwd(count = 1)
     record :fwd, count
     count.times {@a_buff.push(@b_buff.shift)}
   end
 
-  def back(count=1)
+  def back(count = 1)
     record :back, count
     count.times {@b_buff.unshift(@a_buff.pop)}
   end
@@ -219,7 +219,7 @@ class Buffer
     goto_position saved
   end
 
-  def del_at(string=' ')
+  def del_at(string = ' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
     @dirty = true
     value = @b_buff.cut(string.length)
