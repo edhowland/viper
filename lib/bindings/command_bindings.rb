@@ -4,7 +4,7 @@ def command_bindings
   {
     :q => ->(b, *args) { :quit },
     :q! => ->(b, *args) { exit },
-    :w => ->(b, *args) {
+    :w => lambda { |b, *args|
       if args.empty?
         b.save; say "#{b.name} saved" 
       else
@@ -14,7 +14,7 @@ def command_bindings
     },
     :wq => ->(b, *args) { b.save; say "#{b.name} saved"; exit },
     :rew! => ->(b, *args) { b.restore; say "#{b.name} restored"},
-    :r => ->(b, *args) {
+    :r => lambda { |b, *args|
       if File.exist?(args[0])
         b.ins(File.read(args[0]))
       else
@@ -46,31 +46,31 @@ def command_bindings
 
     # snippet commands
     :slist => ->(b, *args) {say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each {|k| say "#{k}\n" } }, 
-    :list => ->(b, *args) {
+    :list => lambda { |b, *args|
       say "Available snippets for #{args[0]}\n"
       $snippet_cascades[args[0].to_sym].keys.each {|k| say "#{k}\n" } 
     }, 
     :sedit => ->(b, *args) { b.clear; b.ins $snippet_cascades[args[1].to_sym][args[0]]; b.beg; say b.line },
-    :snip => ->(b, *args) {
+    :snip => lambda { |b, *args|
       name = args[0]
       cascade = args[1].to_sym
       create_snippet(cascade, name, b)
       say "Saved buffer to snippet: #{name} in collection #{args[1]}"
     },
-    :apply => ->(b, *args) {
+    :apply => lambda { |b, *args|
       snip = args[0]
       cascade = args[1].to_sym
       apply_snippet cascade, snip, b
       say b.line
     },
-    :dump => ->(b, *args) {
+    :dump => lambda { |b, *args|
       cascade = args[1].to_sym
       path = args[0]
       dump_snippets cascade, path
       say "Snippets: #{cascade} saved to #{path}.json"
     },
 
-    :load => ->(b, *args) {
+    :load => lambda { |b, *args|
       cascade = args[1].to_sym
       path = args[0]
       load_snippets cascade, path

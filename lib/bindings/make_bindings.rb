@@ -28,7 +28,7 @@ def make_bindings
   result[:ctrl_f] = ->(b) { :srch_fwd }
   result[:ctrl_r] = ->(b) { :srch_back }
   result[:ctrl_g] = ->(b) { :srch_next }
-  result[:ctrl_z] = ->(b) {
+  result[:ctrl_z] = lambda { |b|
     if b.can_undo?
       b.undo
       say 'Undone' 
@@ -36,7 +36,7 @@ def make_bindings
       say BELL
     end
   }
-  result[:ctrl_u] = ->(b) {
+  result[:ctrl_u] = lambda { |b|
     if b.can_redo?
       b.redo
       say 'Redone' 
@@ -80,7 +80,7 @@ def make_bindings
   result[:left] = ->(b) { b.back; say b.at}
   result[:up] = ->(b) { b.up; say b.line }
   result[:down] = ->(b) { b.down; say b.line }
-  result[:backspace] =->(b) { 
+  result[:backspace] =lambda { |b| 
     if b.mark_set?
       $clipboard = b.cut; say 'selection deleted'
     else
@@ -102,7 +102,7 @@ def make_bindings
   result[:shift_right] = ->(b) { say "lit #{b.at}"; b.set_if_not_set; b.fwd }
   result[:shift_left] = ->(b) { b.set_if_not_set; b.back; say "lit #{b.at}" }
   # mark set FN key
-  result[:fn_4] = ->(b) {
+  result[:fn_4] = lambda { |b|
     if b.mark_set?
       b.unset_mark
       say 'mark unset'
