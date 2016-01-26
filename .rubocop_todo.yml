@@ -38,7 +38,6 @@ Lint/UnusedBlockArgument:
 #    - 'lib/bindings/command_bindings.rb'
 #    - 'lib/bindings/make_bindings.rb'
 #    - 'spec/repl_spec.rb'
-# GOT
 
 # Offense count: 11
 Lint/UselessAssignment:
@@ -96,7 +95,8 @@ Style/AlignArray:
 # SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
 Style/AlignHash:
   Exclude:
-    - 'lib/mappings/key_mappings.rb'
+#    - 'lib/mappings/key_mappings.rb'
+# GOT
 
 # Offense count: 9
 # Cop supports --auto-correct.
