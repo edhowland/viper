@@ -7,11 +7,11 @@ describe CompareIndent do
   describe 'lt' do
     subject { cmp.lt 2, 6 }
 
-    specify { subject.must_equal [2,6] }
+    specify { subject.must_equal [2, 6] }
   end
 
   describe 'lt OK' do
-    subject { cmp.lt 2,4 }
+    subject { cmp.lt 2, 4 }
 
     specify { subject.must_equal nil }
   end
@@ -29,7 +29,7 @@ describe CompareIndent do
   end
 
   describe 'eq' do
-    subject { cmp.eq 2,2 }
+    subject { cmp.eq 2, 2 }
 
     specify { subject.must_equal nil }
   end
@@ -52,7 +52,7 @@ describe CompareIndent do
   end
 
   describe 'cmp 4,2' do
-    subject { cmp.cmp 4,2 }
+    subject { cmp.cmp 4, 2 }
 
     specify { subject.must_equal nil }
   end
