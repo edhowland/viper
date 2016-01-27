@@ -122,3 +122,13 @@ describe 'dir regex' do
 
   specify { subject.must_equal :rex }
 end
+
+
+describe 'dir() with literal' do
+  let(:ass) { Association.new }
+    before { ass.dir('/xxx/yyy/zzz', :xxx) }
+  subject { ass.associate('/xxx/yyy/zzz/file.rb') }
+
+  specify { subject.must_equal :xxx }
+end
+
