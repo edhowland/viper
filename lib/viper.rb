@@ -12,6 +12,8 @@ require 'open3'
 require 'rake'
 
 require_relative 'viper/version'
+require_relative 'session'
+
 require_relative 'viper/init'
 require_relative 'constants'
 require_relative 'exceptions'

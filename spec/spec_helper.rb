@@ -5,9 +5,10 @@ SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start do
   add_filter '/spec/'
   add_filter '/config/'
-end
+end if ENV['COV'] == '1'
 
 
-#SimpleCov.start
 require_relative 'load_path'
 require 'minitest/autorun'
+
+SRC_ROOT = File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/..')
