@@ -199,3 +199,38 @@ describe 'word_back' do
   specify { subject.must_equal 'EFGH' }
 
 end
+
+describe 'rchomp string w/o beginning newline' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.rchomp "line\n" }
+
+  specify { subject.must_equal "line\n" }
+end
+
+describe 'rchomp with leading newline' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.rchomp "\nline" }
+
+  specify { subject.must_equal 'line' }
+end
+
+describe 'look_ahead' do
+  let(:buf) { Buffer.new "line 1\nline \nline 3\nline 4\n" }
+  subject { buf.look_ahead }
+
+  specify { subject.wont_be_empty }
+end
+
+describe 'clear' do
+  let(:buf) { Buffer.new 'lineline' }
+  subject { buf.clear; buf.to_s }
+
+  specify { subject.must_equal '' }
+end
+
+describe 'association' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.association }
+
+  specify { subject.must_equal :default }
+end

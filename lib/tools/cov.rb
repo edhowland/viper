@@ -17,7 +17,7 @@ def cov buffer, pathname
   report = Viper::Session[:coverage]['files'].select {|e| e['filename'] == expanded }
   raise FileNotReportedInCoverage.new(expanded) if report.empty?
 
-  # storage[expanded] into buffer
+  buffer.ins "Coverage: #{report[0]['covered_percent']}\n"
   report[0]['coverage'].each_with_index do |e, n|
     buffer.ins "line #{n + 1}: hits: #{e}\n" unless e.nil?
   end

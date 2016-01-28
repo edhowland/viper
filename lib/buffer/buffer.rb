@@ -92,12 +92,8 @@ class Buffer
   end
 
   def rchomp(string)
-    return string [1..-1] if string[0] == "\n"
+    return string[1..-1] if string[0] == "\n"
     string
-  end
-
-  def or_empty(element)
-    (element || '')
   end
 
   def lline
