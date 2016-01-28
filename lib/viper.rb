@@ -11,6 +11,9 @@ require 'json'
 require 'open3'
 require 'rake'
 
+# library requires
+require_relative 'utils'
+
 require_relative 'viper/version'
 require_relative 'session'
 

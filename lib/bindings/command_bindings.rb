@@ -85,6 +85,7 @@ def command_bindings
     # Code Coverage support from simplecov
 load_cov: ->(_b, *args) {load_cov args[0]; say "Coverage repor #{args[0]} loaded" },    
     cov: ->(b, *_args) {sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line }, 
+    cov_report: ->(b, *args) { cov_report; say "#{$buffer_ring[0].name}" },
 
     # NOP: just repeat the args
     nop: ->(_b, *args) { puts 'you said'; args.each { |e| puts e } }

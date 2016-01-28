@@ -5,6 +5,7 @@ SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start do
   add_filter '/spec/'
   add_filter '/config/'
+  add_filter '/bin/'
 end if ENV['COV'] == '1'
 
 

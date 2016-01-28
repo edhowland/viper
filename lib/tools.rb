@@ -7,5 +7,4 @@ require_relative 'tools/lint_pass3'
 require_relative 'tools/lint'
 require_relative 'tools/load_cov'
 require_relative 'tools/cov'
-
-
+require_relative 'tools/cov_report'

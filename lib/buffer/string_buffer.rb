@@ -36,6 +36,7 @@ class StringBuffer
     @buffer[index]
   end
 
+  # REMOVEME
 #  def srch(regex)
 #    m = regex.match @buffer
 #    return @buffer if m.nil?
