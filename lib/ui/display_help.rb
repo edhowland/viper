@@ -87,7 +87,9 @@ report - Speaks the name of the current buffer, its position and associated snip
 
 System calls
 check - Checks Ruby syntax of current buffer
-lint - lints current buffer for odd number of preceeding spaces
+lint - Little Linter: Use Rubocop. 3-Pass lint checker
+load_cov path_to_coverage.json - Loads JSON report from simplecov
+cov - Coverage report of file in current buffer
 
 Snippet commands
 -
