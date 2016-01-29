@@ -10,7 +10,7 @@ describe 'cov_report' do
 end
 
 describe 'cov_report with specific files, pcts' do
-    before { Viper::Session[:coverage] = {'files': [{'filename': 'file1.rb', 'covered_percent': 100.0}, {'filename': 'file2.rb', 'covered_percent': 79.0} ]} }
+    before { load_cov SRC_ROOT + '/coverage/coverage.json' }
   subject { cov_report; $buffer_ring[0].to_s }
 
   specify { subject.wont_be_empty }
