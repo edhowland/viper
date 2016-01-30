@@ -75,3 +75,32 @@ describe 'cannot undo after ins, undo' do
   specify { subject.must_equal false }
 
 end
+
+describe 'Readonly also cannot undo' do
+  let(:buf) { ReadOnlyBuffer.new '' }
+  subject { buf.ins 'xxx'; buf.can_undo? }
+
+  specify { subject.must_equal false  } 
+end
+
+describe 'NonRecordable also cannot redo' do
+  let(:buf) { ReadOnlyBuffer.new 'xxx' }
+  subject { buf.del_at; buf.undo; buf.can_redo? }
+
+  specify { subject.must_equal false }
+end
+
+describe 'NonRecordable cannot record' do
+  let(:buf) { ReadOnlyBuffer.new 'x' }
+  subject { buf.record :del }
+
+  specify { subject }
+end
+
+
+describe 'NonRecordable nop for undo/redo' do
+  let(:buf) { ReadOnlyBuffer.new "line\nline\nline\n" }
+  subject { buf.down; buf.undo; buf.redo; buf.position }
+
+  specify { subject.must_equal 5 }
+end
