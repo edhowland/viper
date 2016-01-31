@@ -142,18 +142,18 @@ end
 
 
 describe 'pipe' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { Buffer.new 'puts "hello world!"' }
+  subject { parse_execute buf, "pipe ruby -c" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
 
 
 describe 'pipe!' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { Buffer.new 'puts 1' }
+  subject { parse_execute buf, "pipe! ruby -c" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; buf.to_s.must_equal "Syntax OK\n" }
 end
 
 
