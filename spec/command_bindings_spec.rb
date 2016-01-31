@@ -2,21 +2,6 @@
 
 require_relative 'spec_helper'
 
-describe 'nop' do
-  let(:buf) { ScratchBuffer.new }
-  let(:bind) { command_bindings }
-  let(:prc) { bind[:nop] }
-  subject { prc.call(buf) }
-
-  specify { subject }
-end
-
-
-describe '#{key}' do
-  specify { skip 'not yet implemented' }
-end
-
-
 describe 'q' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf,  "q" }
@@ -29,23 +14,21 @@ describe 'q!' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf,  "q!" }
 
-  specify { subject.must_equal :quit }
+  specify { -> { subject }.must_raise SystemExit }
 end
-
 
 describe 'w' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "w" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
-
 
 describe 'wq' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "wq" }
 
-  specify { skip 'not yet implemented' }
+  specify { ->{ subject }.must_raise SystemExit }
 end
 
 
