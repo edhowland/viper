@@ -24,6 +24,13 @@ describe 'w' do
   specify { subject }
 end
 
+describe 'w c.rb' do
+  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec/c.rb" }
+  subject { buf.ins 'xxx'; parse_execute buf, "w #{SRC_ROOT}/spec/d.rb" }
+
+  specify { subject; File.exist?("#{SRC_ROOT}/spec/c.rb").wont_equal true; File.exist?("#{SRC_ROOT}/spec/d.rb").must_equal true }
+end
+
 describe 'wq' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "wq" }
@@ -55,18 +62,10 @@ end
 
 
 describe 'r!' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { Buffer.new 'xxxx' }
+  subject { parse_execute buf, "r! date" }
 
-  specify { skip 'not yet implemented' }
-end
-
-
-describe 's' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
-
-  specify { skip 'not yet implemented' }
+  specify { subject; buf.to_s.length.must_equal 33 }
 end
 
 
@@ -135,10 +134,10 @@ end
 
 
 describe 'check' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
+  subject { parse_execute buf, "check" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
 
 
