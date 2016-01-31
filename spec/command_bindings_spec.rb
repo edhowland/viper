@@ -27,15 +27,15 @@ end
 
 describe 'q!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf,  "q!" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal :quit }
 end
 
 
 describe 'w' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -43,7 +43,7 @@ end
 
 describe 'wq' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -51,7 +51,7 @@ end
 
 describe 'rew!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -59,7 +59,7 @@ end
 
 describe 'r' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -67,7 +67,7 @@ end
 
 describe 'r!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -75,7 +75,7 @@ end
 
 describe 's' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -83,7 +83,7 @@ end
 
 describe 'g' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -91,7 +91,7 @@ end
 
 describe 'goto' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -99,7 +99,7 @@ end
 
 describe 'n' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -107,7 +107,7 @@ end
 
 describe 'p' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -115,7 +115,7 @@ end
 
 describe 'o' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -123,7 +123,7 @@ end
 
 describe 'k!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -131,7 +131,7 @@ end
 
 describe 'yank' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -139,7 +139,7 @@ end
 
 describe 'help' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -147,7 +147,7 @@ end
 
 describe 'check' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -155,7 +155,7 @@ end
 
 describe 'pipe' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -163,7 +163,7 @@ end
 
 describe 'pipe!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -171,7 +171,7 @@ end
 
 describe 'lint' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -179,7 +179,7 @@ end
 
 describe 'new' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -187,7 +187,7 @@ end
 
 describe 'report' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -195,7 +195,7 @@ end
 
 describe 'slist' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -203,7 +203,7 @@ end
 
 describe 'list' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -211,7 +211,7 @@ end
 
 describe 'sedit' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -219,7 +219,7 @@ end
 
 describe 'snip' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -227,7 +227,7 @@ end
 
 describe 'apply' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -235,7 +235,7 @@ end
 
 describe 'dump' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -243,7 +243,7 @@ end
 
 describe 'load' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -251,7 +251,7 @@ end
 
 describe 'assocx' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -259,7 +259,7 @@ end
 
 describe 'assocf' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -267,7 +267,7 @@ end
 
 describe 'assocd' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -275,7 +275,7 @@ end
 
 describe 'tab' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -283,7 +283,7 @@ end
 
 describe 'load_cov' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -291,7 +291,7 @@ end
 
 describe 'cov' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -299,7 +299,7 @@ end
 
 describe 'cov_report' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
@@ -307,7 +307,7 @@ end
 
 describe 'nop' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute "" }
+  subject { parse_execute buf, "" }
 
   specify { skip 'not yet implemented' }
 end
