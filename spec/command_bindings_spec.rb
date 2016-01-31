@@ -102,37 +102,38 @@ describe 'p' do
   specify { subject.must_equal 'Scratch 1' }
 end
 
-describe 'o' do
+describe 'o spec_helper.rb' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { $buffer_ring.clear }
+  subject { parse_execute buf, "o #{SRC_ROOT}/spec/spec_helper.rb" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; $buffer_ring.length.must_equal 1 }
 end
 
 
 describe 'k!' do
+    before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "new"; parse_execute buf, "k!" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; $buffer_ring.length.must_equal 0 }
 end
 
 
 describe 'yank' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { Buffer.new 'xyzzy' }
+  subject {buf.beg; buf.set_mark; buf.fin;  parse_execute buf, "yank"; $clipboard }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal 'xyzzy' }
 end
-
 
 describe 'help' do
+    before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "help" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; $buffer_ring.first.name.must_equal 'Help Buffer (read only)' }
 end
-
 
 describe 'check' do
   let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
@@ -167,10 +168,11 @@ end
 
 
 describe 'new' do
+    before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "new" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; $buffer_ring.length.must_equal 1 }
 end
 
 
