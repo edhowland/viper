@@ -42,7 +42,7 @@ def command_bindings
     pipe!: ->(b, *args) { pipe!(b, *args) },
     lint: ->(b, *_args) { lint(b) },
     new: ->(_b, *_args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
-    report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
+    report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
     # snippet commands
     slist: ->(_b, *_args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } },

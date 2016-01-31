@@ -244,6 +244,10 @@ class Buffer
     :default
   end
 
+  def line_number
+    @a_buff.lines.length + 1
+  end
+
   def restore
     raise NonRestorableException.new self.class.name
   end

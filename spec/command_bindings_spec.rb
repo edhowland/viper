@@ -69,27 +69,27 @@ describe 'r!' do
 end
 
 
-describe 'g' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+describe 'g 14' do
+  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
+  subject { parse_execute buf, "g 14 " }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; buf.line_number.must_equal 14 }
 end
 
-
 describe 'goto' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { Buffer.new 'abcdef' }
+  subject { parse_execute buf, "goto 4" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; buf.at.must_equal 'e' }
 end
 
 
 describe 'n' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { parse_execute buf, 'new'; parse_execute buf, 'new' }
+  subject { parse_execute buf, "n"; $buffer_ring.first.name }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal "Scratch 1" }
 end
 
 
@@ -158,10 +158,10 @@ end
 
 
 describe 'lint' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
+  subject { parse_execute buf, "lint" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
 
 
@@ -175,9 +175,9 @@ end
 
 describe 'report' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "report" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
 
 
@@ -295,7 +295,7 @@ end
 
 describe 'nop' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "nop I said" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
