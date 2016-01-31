@@ -86,7 +86,7 @@ end
 
 describe 'n' do
   let(:buf) { Buffer.new '' }
-    before { parse_execute buf, 'new'; parse_execute buf, 'new' }
+    before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
   subject { parse_execute buf, "n"; $buffer_ring.first.name }
 
   specify { subject.must_equal "Scratch 1" }
@@ -95,11 +95,12 @@ end
 
 describe 'p' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
+  subject { parse_execute buf, "p"; $buffer_ring.first.name }
 
-  specify { skip 'not yet implemented' }
+  specify { $buffer_ring.length.must_equal 2 }
+  specify { subject.must_equal 'Scratch 1' }
 end
-
 
 describe 'o' do
   let(:buf) { Buffer.new '' }
