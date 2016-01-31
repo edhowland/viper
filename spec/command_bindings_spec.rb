@@ -34,17 +34,23 @@ end
 
 describe 'rew!' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "rew!" }
 
-  specify { skip 'not yet implemented' }
+  specify {-> { subject }.must_raise NonRestorableException  }
 end
-
 
 describe 'r' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "r #{SRC_ROOT}/spec_helper.rb" }
 
-  specify { skip 'not yet implemented' }
+  specify {subject; buf.to_s.must_be_empty  }
+end
+
+describe 'r' do
+  let(:buf) { Buffer.new '' }
+  subject { parse_execute buf, "r #{SRC_ROOT}/spec/spec_helper.rb" }
+
+  specify {subject; buf.to_s.wont_be_empty  }
 end
 
 

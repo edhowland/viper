@@ -243,4 +243,9 @@ class Buffer
   def association
     :default
   end
+
+  def restore
+    raise NonRestorableException.new self.class.name
+  end
+
 end

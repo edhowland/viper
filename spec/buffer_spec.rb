@@ -234,3 +234,10 @@ describe 'association' do
 
   specify { subject.must_equal :default }
 end
+
+describe 'cannot restore non-fileBuffers' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.restore }
+
+  specify { ->{ subject }.must_raise NonRestorableException }
+end

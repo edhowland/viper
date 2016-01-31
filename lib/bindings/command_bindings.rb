@@ -17,6 +17,7 @@ def command_bindings
     r: lambda { |b, *args|
       if File.exist?(args[0])
         b.ins(File.read(args[0]))
+        say "Contents of #{args[0]} inserted at cursor"
       else
         say "#{args[0]} does not exist"
       end
