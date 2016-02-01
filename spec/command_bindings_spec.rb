@@ -212,9 +212,10 @@ end
 
 describe 'snip' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { parse_execute buf, "load ruby ruby"; parse_execute buf, "new"; $buffer_ring.first.ins 'my' }
+  subject { parse_execute $buffer_ring.first, "snip my ruby" }
 
-  specify { skip 'not yet implemented' }
+  specify {subject;  $snippet_cascades[:ruby]['my'].must_equal 'my' }
 end
 
 
