@@ -205,9 +205,9 @@ end
 describe 'sedit' do
   let(:buf) { Buffer.new '' }
     before { $buffer_ring.clear; parse_execute buf, "new"; parse_execute buf, "load ruby ruby" }
-  subject { parse_execute buf, "sedit def ruby" }
+  subject { parse_execute $buffer_ring.first, "sedit def ruby" }
 
-  specify { subject; $buffer_ring.first.to_s[0..2].must_equal 'def' }
+  specify { subject;  $buffer_ring.first.to_s[0..2].must_equal 'def' }
 end
 
 describe 'snip' do
