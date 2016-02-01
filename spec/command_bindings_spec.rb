@@ -285,18 +285,19 @@ describe 'load_cov' do
 end
 
 describe 'cov' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+  let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
+  subject { $buffer_ring.unshift buf; parse_execute buf, "cov"; $buffer_ring.first.to_s[0..7] }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal 'Coverage' }
 end
 
-
 describe 'cov_report' do
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "cov_report"; $buffer_ring.first.to_s[0..6] }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal 'Created' }
 end
 
 
