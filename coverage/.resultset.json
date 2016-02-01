@@ -73,6 +73,7 @@
         null,
         1,
         1,
+        1,
         null,
         1,
         2,
@@ -84,6 +85,7 @@
         null,
         1,
         10,
+        null,
         null,
         null
       ],
@@ -707,6 +709,7 @@
       "/home/vagrant/src/viper/lib/buffer/non_recordable.rb": [
         null,
         null,
+        null,
         1,
         1,
         2,
@@ -844,7 +847,7 @@
         null,
         1,
         35,
-        74,
+        70,
         35,
         null,
         null
@@ -861,7 +864,7 @@
         null,
         null,
         1,
-        99,
+        98,
         null
       ],
       "/home/vagrant/src/viper/lib/ui/key_press.rb": [
@@ -1342,7 +1345,7 @@
         1,
         null,
         null,
-        3,
+        2,
         null,
         1,
         11,
@@ -2033,7 +2036,9 @@
       "/home/vagrant/src/viper/lib/tools/cov.rb": [
         null,
         null,
+        null,
         1,
+        null,
         null,
         null,
         1,
@@ -2104,6 +2109,6 @@
         null
       ]
     },
-    "timestamp": 1454359720
+    "timestamp": 1454361688
   }
 }
