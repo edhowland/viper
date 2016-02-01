@@ -54,10 +54,10 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 ## Features:
 
 
--Snippets - Ability to record and playback short snippets of commonly used texts. 
--Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
--Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
--Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Snippets - Ability to record and playback short snippets of commonly used texts. 
+- Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
+- Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
+- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
 - Little Linter :(Use Rubocop! rather than rely on this.)
 
 
