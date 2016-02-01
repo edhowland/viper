@@ -110,6 +110,13 @@ sedit snip collection - Edits the named snip from the collection into the curren
   When done, use :snip name collection to save it.
 dump file collection - Dumps the collection into file file.json. E.g. "dump ruby ruby"
 
+Coverage Support
+-
+# To use this feature you should run code through 'simplecov' gem and use the JSON formatter gem with it.
+load_cov /path/to/coverage/coverage.json - Loads the JSON results. Must do this first.
+cov_report - Opens new buffer with results of coverage report sorted numerically by coverage percentage.
+cov - Loads a specific coverage report on the file loaded in the current buffer.
+
 Help Commands
 help - Displays this help
 EOD
