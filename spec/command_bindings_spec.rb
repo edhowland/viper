@@ -12,7 +12,6 @@ describe 'q' do
   specify {subject.must_equal :quit }
 end
 
-
 describe 'q!' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf,  "q!" }
@@ -42,7 +41,6 @@ describe 'wq' do
   specify { ->{ subject }.must_raise SystemExit }
 end
 
-
 describe 'rew!' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "rew!" }
@@ -64,14 +62,12 @@ describe 'r' do
   specify {subject; buf.to_s.wont_be_empty  }
 end
 
-
 describe 'r!' do
   let(:buf) { Buffer.new 'xxxx' }
   subject { parse_execute buf, "r! date" }
 
   specify { subject; buf.to_s.length.must_equal 33 }
 end
-
 
 describe 'g 14' do
   let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
@@ -87,19 +83,17 @@ describe 'goto' do
   specify { subject; buf.at.must_equal 'e' }
 end
 
-
 describe 'n' do
   let(:buf) { Buffer.new '' }
-    before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
+  before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
   subject { parse_execute buf, "n"; $buffer_ring.first.name }
 
   specify { subject.must_equal "Scratch 1" }
 end
 
-
 describe 'p' do
   let(:buf) { Buffer.new '' }
-    before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
+  before {$buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
   subject { parse_execute buf, "p"; $buffer_ring.first.name }
 
   specify { $buffer_ring.length.must_equal 2 }
@@ -108,21 +102,19 @@ end
 
 describe 'o spec_helper.rb' do
   let(:buf) { Buffer.new '' }
-    before { $buffer_ring.clear }
+  before { $buffer_ring.clear }
   subject { parse_execute buf, "o #{SRC_ROOT}/spec/spec_helper.rb" }
 
   specify { subject; $buffer_ring.length.must_equal 1 }
 end
 
-
 describe 'k!' do
-    before { $buffer_ring.clear }
+  before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "new"; parse_execute buf, "k!" }
 
   specify { subject; $buffer_ring.length.must_equal 0 }
 end
-
 
 describe 'yank' do
   let(:buf) { Buffer.new 'xyzzy' }
@@ -132,7 +124,7 @@ describe 'yank' do
 end
 
 describe 'help' do
-    before { $buffer_ring.clear }
+  before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "help" }
 
@@ -146,14 +138,12 @@ describe 'check' do
   specify { subject }
 end
 
-
 describe 'pipe' do
   let(:buf) { Buffer.new 'puts "hello world!"' }
   subject { parse_execute buf, "pipe ruby -c" }
 
   specify { subject }
 end
-
 
 describe 'pipe!' do
   let(:buf) { Buffer.new 'puts 1' }
@@ -162,7 +152,6 @@ describe 'pipe!' do
   specify { subject; buf.to_s.must_equal "Syntax OK\n" }
 end
 
-
 describe 'lint' do
   let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
   subject { parse_execute buf, "lint" }
@@ -170,15 +159,13 @@ describe 'lint' do
   specify { subject }
 end
 
-
 describe 'new' do
-    before { $buffer_ring.clear }
+  before { $buffer_ring.clear }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "new" }
 
   specify { subject; $buffer_ring.length.must_equal 1 }
 end
-
 
 describe 'report' do
   let(:buf) { Buffer.new '' }
@@ -186,7 +173,6 @@ describe 'report' do
 
   specify { subject }
 end
-
 
 describe 'slist' do
   let(:buf) { Buffer.new '' }
@@ -197,7 +183,7 @@ end
 
 describe 'list' do
   let(:buf) { Buffer.new '' }
-    before { parse_execute buf, "load ruby ruby" }
+  before { parse_execute buf, "load ruby ruby" }
   subject { parse_execute buf, "list ruby" }
 
   specify { subject }
@@ -205,7 +191,7 @@ end
 
 describe 'sedit' do
   let(:buf) { Buffer.new '' }
-    before { $buffer_ring.clear; parse_execute buf, "new"; parse_execute buf, "load ruby ruby" }
+  before { $buffer_ring.clear; parse_execute buf, "new"; parse_execute buf, "load ruby ruby" }
   subject { parse_execute $buffer_ring.first, "sedit def ruby" }
 
   specify { subject;  $buffer_ring.first.to_s[0..2].must_equal 'def' }
@@ -213,15 +199,14 @@ end
 
 describe 'snip' do
   let(:buf) { Buffer.new '' }
-    before { parse_execute buf, "load ruby ruby"; parse_execute buf, "new"; $buffer_ring.first.ins 'my' }
+  before { parse_execute buf, "load ruby ruby"; parse_execute buf, "new"; $buffer_ring.first.ins 'my' }
   subject { parse_execute $buffer_ring.first, "snip my ruby" }
 
   specify {subject;  $snippet_cascades[:ruby]['my'].must_equal 'my' }
 end
 
-
 describe 'apply' do
-    before {$snippet_cascades.clear;  parse_execute buf, "load ruby ruby" }
+  before {$snippet_cascades.clear;  parse_execute buf, "load ruby ruby" }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "apply def ruby"; buf.to_s[0..2] }
 
@@ -234,7 +219,7 @@ end
 
 describe 'dump' do
   let(:buf) { Buffer.new '' }
-    before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
+  before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
   subject {buf.ins 'my'; parse_execute buf, "snip my my";  parse_execute buf, "dump my my"; File.exist?(cfg_path('my.json')) }
 
   specify { subject.must_equal true }
@@ -243,14 +228,12 @@ end
 
 # load not checked since it is used in previous tests
 
-
 describe 'assocx' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "assocx .rb ruby"; FileBuffer.new('file.rb').association }
 
   specify { subject.must_equal :ruby }
 end
-
 
 describe 'assocf' do
   let(:buf) { Buffer.new '' }
@@ -259,7 +242,6 @@ describe 'assocf' do
   specify { subject.must_equal :spec }
 end
 
-
 describe 'assocd' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "assocd /h/b/ markdown"; FileBuffer.new('/h/b/file.md').association }
@@ -267,15 +249,13 @@ describe 'assocd' do
   specify { subject.must_equal :markdown  }
 end
 
-
 describe 'tab' do
-    before { $snippet_cascades[:default] = {} }
+  before { $snippet_cascades[:default] = {} }
   let(:buf) { Buffer.new 'def ' }
   subject { buf.fin; parse_execute buf, "tab"; buf.to_s }
 
   specify { subject.must_equal 'def   ' }
 end
-
 
 describe 'load_cov' do
   let(:buf) { Buffer.new '' }
@@ -285,7 +265,7 @@ describe 'load_cov' do
 end
 
 describe 'cov' do
-    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
   let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
   subject { $buffer_ring.unshift buf; parse_execute buf, "cov"; $buffer_ring.first.to_s[0..7] }
 
@@ -293,13 +273,12 @@ describe 'cov' do
 end
 
 describe 'cov_report' do
-    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, "cov_report"; $buffer_ring.first.to_s[0..6] }
 
   specify { subject.must_equal 'Created' }
 end
-
 
 describe 'nop' do
   let(:buf) { Buffer.new '' }
