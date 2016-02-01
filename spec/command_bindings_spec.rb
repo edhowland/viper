@@ -241,36 +241,30 @@ describe 'dump' do
   after { File.unlink(cfg_path('my.json')) }
 end
 
-
-describe 'load' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
-
-  specify { skip 'not yet implemented' }
-end
+# load not checked since it is used in previous tests
 
 
 describe 'assocx' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "assocx .rb ruby"; FileBuffer.new('file.rb').association }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal :ruby }
 end
 
 
 describe 'assocf' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "assocf /.+_spec\.rb/ spec"; FileBuffer.new('my_spec.rb').association }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal :spec }
 end
 
 
 describe 'assocd' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "assocd /h/b/ markdown"; FileBuffer.new('/h/b/file.md').association }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal :markdown  }
 end
 
 
