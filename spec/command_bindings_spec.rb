@@ -279,11 +279,10 @@ end
 
 describe 'load_cov' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json"; Viper::Session[:coverage] }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.wont_equal nil }
 end
-
 
 describe 'cov' do
   let(:buf) { Buffer.new '' }
