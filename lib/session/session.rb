@@ -1,16 +1,18 @@
 # session - module Viper::Session
-module Viper::Session
-  @storage = {} # stores various misc. variables, undefined
+module Viper
+  module Session
+    @storage = {} # stores various misc. variables, undefined
 
-  def self.clear
-    @storage = {}
-  end
+    def self.clear
+      @storage = {}
+    end
 
-  def self.[](key)
-    @storage[key]
-  end
+    def self.[](key)
+      @storage[key]
+    end
 
-  def self.[]=(key, value)
-    @storage[key] = value
+    def self.[]=(key, value)
+      @storage[key] = value
+    end
   end
 end

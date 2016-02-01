@@ -1,12 +1,14 @@
 # cov.rb - method cov - load results for given pathname into buffer from JSON loaded via load_cov
 
+# TODO: top level documentation
 class CoverageJSONNotLoaded < RuntimeError
 end
 
+# TODO: Top level documentation
 class FileNotReportedInCoverage < RuntimeError
   def initialize(fname)
     super "File #{fname} was not checked for coverage"
-end
+  end
 end
 
 def cov(buffer, pathname)

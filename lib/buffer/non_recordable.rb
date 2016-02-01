@@ -1,5 +1,6 @@
 # non_recordable.rb - module NonRecordable
 
+# TODO: Top level documentation
 module NonRecordable
   def can_undo?
     false
