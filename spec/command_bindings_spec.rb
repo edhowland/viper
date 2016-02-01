@@ -221,18 +221,24 @@ end
 
 
 describe 'apply' do
+    before {$snippet_cascades.clear;  parse_execute buf, "load ruby ruby" }
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "apply def ruby"; buf.to_s[0..2] }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal 'def' }
 end
 
+def cfg_path fname
+  "#{SRC_ROOT}/config/#{fname}"
+end
 
 describe 'dump' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
+  subject {buf.ins 'my'; parse_execute buf, "snip my my";  parse_execute buf, "dump my my"; File.exist?(cfg_path('my.json')) }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal true }
+  after { File.unlink(cfg_path('my.json')) }
 end
 
 
