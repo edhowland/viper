@@ -269,10 +269,11 @@ end
 
 
 describe 'tab' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { $snippet_cascades[:default] = {} }
+  let(:buf) { Buffer.new 'def ' }
+  subject { buf.fin; parse_execute buf, "tab"; buf.to_s }
 
-  specify { skip 'not yet implemented' }
+  specify { subject.must_equal 'def   ' }
 end
 
 
