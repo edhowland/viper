@@ -8,7 +8,6 @@ SimpleCov.start do
   add_filter '/bin/'
 end if ENV['COV'] == '1'
 
-
 require_relative 'load_path'
 require 'minitest/autorun'
 

@@ -2,6 +2,9 @@
 
 require_relative 'spec_helper'
 
+# supress any audio from say command
+$audio_suppressed = true
+
 describe 'q' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf,  "q" }
@@ -186,27 +189,26 @@ end
 
 describe 'slist' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+  subject { parse_execute buf, "slist" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
-
 
 describe 'list' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { parse_execute buf, "load ruby ruby" }
+  subject { parse_execute buf, "list ruby" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject }
 end
-
 
 describe 'sedit' do
   let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "" }
+    before { $buffer_ring.clear; parse_execute buf, "new"; parse_execute buf, "load ruby ruby" }
+  subject { parse_execute buf, "sedit def ruby" }
 
-  specify { skip 'not yet implemented' }
+  specify { subject; $buffer_ring.first.to_s[0..2].must_equal 'def' }
 end
-
 
 describe 'snip' do
   let(:buf) { Buffer.new '' }
