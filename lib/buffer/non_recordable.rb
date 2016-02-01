@@ -9,18 +9,15 @@ module NonRecordable
     false
   end
 
-  def record method, *args
+  def record(method, *args)
     # nop
   end
 
   def undo
-    #nop
+    # nop
   end
 
   def redo
     # nop
   end
-
-
-
 end

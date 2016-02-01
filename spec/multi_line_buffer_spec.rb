@@ -40,7 +40,6 @@ describe 'back 2' do
   let(:buf) { MultiLineBuffer.new }
   subject { buf.ins 'line'; buf.back_of_line; buf.back 2; buf.at }
 
-
   specify { subject.must_equal 'n' }
 end
 
@@ -60,15 +59,14 @@ end
 
 describe 'copy' do
   let(:buf) { MultiLineBuffer.new }
-  subject { buf.ins 'some word'; buf.front_of_line;  buf.fwd 5; buf.set_if_not_set; buf.back_of_line; buf.copy }
+  subject { buf.ins 'some word'; buf.front_of_line; buf.fwd 5; buf.set_if_not_set; buf.back_of_line; buf.copy }
 
   specify { subject.must_equal 'word' }
 end
 
-
 describe 'cut' do
   let(:buf) { MultiLineBuffer.new }
-  subject { buf.ins 'some word'; buf.front_of_line;  buf.fwd 5; buf.set_if_not_set; buf.back_of_line; buf.cut }
+  subject { buf.ins 'some word'; buf.front_of_line; buf.fwd 5; buf.set_if_not_set; buf.back_of_line; buf.cut }
 
   specify { subject.must_equal 'word'; buf.line.must_equal 'some ' }
 end
@@ -86,7 +84,6 @@ describe 'beg' do
 
   specify { subject.must_equal 'line 1' }
 end
-
 
 describe 'fin' do
   let(:buf) { MultiLineBuffer.new }

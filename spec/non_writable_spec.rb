@@ -6,7 +6,6 @@ class CannotWriteMe < Buffer
   include NonWritable
 end
 
-
 describe 'NonWritable' do
   let(:buf) { CannotWriteMe.new '' }
   subject { buf.ins 'xxx'; buf.dirty? }

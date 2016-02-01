@@ -17,10 +17,10 @@ module Viper
       @buffer.fin # sets up next blank line
       Viper::Control.loop do |worker|
         begin
-        key = worker.getch
-        break if key == :return
-        bound_p = worker.bound_proc_for key
-        next if bound_p.nil?
+          key = worker.getch
+          break if key == :return
+          bound_p = worker.bound_proc_for key
+          next if bound_p.nil?
           bound_p.call(@buffer)
         rescue BufferExceeded
           say BELL

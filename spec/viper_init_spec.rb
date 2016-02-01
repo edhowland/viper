@@ -8,11 +8,10 @@ describe 'load_rc' do
   specify { subject }
 end
 
-
 describe 'with block raising exception' do
   subject do
-    load_rc do |l|
-      raise RuntimeError.new "Expected Exception"
+    load_rc do |_l|
+      fail RuntimeError.new 'Expected Exception'
     end
   end
 

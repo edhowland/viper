@@ -84,7 +84,7 @@ class MultiLineBuffer
   end
 
   def beg
-  @b_buff = to_a
+    @b_buff = to_a
     @a_buff.push(@b_buff.shift)
   end
 

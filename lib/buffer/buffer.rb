@@ -251,5 +251,4 @@ class Buffer
   def restore
     raise NonRestorableException.new self.class.name
   end
-
 end

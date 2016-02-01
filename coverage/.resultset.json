@@ -50,7 +50,6 @@
       "/home/vagrant/src/viper/lib/utils/path_shortener.rb": [
         null,
         null,
-        null,
         1,
         226,
         226,
@@ -68,8 +67,7 @@
       "/home/vagrant/src/viper/lib/session.rb": [
         null,
         null,
-        1,
-        null
+        1
       ],
       "/home/vagrant/src/viper/lib/session/session.rb": [
         null,
@@ -80,14 +78,12 @@
         2,
         null,
         null,
-        null,
         1,
         17,
         null,
         null,
         1,
         10,
-        null,
         null,
         null
       ],
@@ -184,7 +180,6 @@
         1,
         1,
         2,
-        null,
         null,
         null
       ],
@@ -689,7 +684,6 @@
         1,
         2,
         null,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/buffer/non_writable.rb": [
@@ -731,9 +725,6 @@
         null,
         null,
         1,
-        null,
-        null,
-        null,
         null,
         null,
         null
@@ -853,7 +844,7 @@
         null,
         1,
         35,
-        83,
+        74,
         35,
         null,
         null
@@ -870,7 +861,7 @@
         null,
         null,
         1,
-        98,
+        99,
         null
       ],
       "/home/vagrant/src/viper/lib/ui/key_press.rb": [
@@ -1351,7 +1342,7 @@
         1,
         null,
         null,
-        2,
+        3,
         null,
         1,
         11,
@@ -1437,7 +1428,7 @@
         null,
         null,
         1,
-        46,
+        44,
         26,
         9,
         9,
@@ -2037,7 +2028,6 @@
         null,
         1,
         8,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/tools/cov.rb": [
@@ -2052,7 +2042,6 @@
         null,
         null,
         null,
-        null,
         1,
         4,
         null,
@@ -2063,7 +2052,6 @@
         2,
         2,
         162,
-        null,
         null,
         null
       ],
@@ -2090,7 +2078,7 @@
         3,
         225,
         null,
-        666,
+        663,
         null,
         3,
         3,
@@ -2116,6 +2104,6 @@
         null
       ]
     },
-    "timestamp": 1454354713
+    "timestamp": 1454359720
   }
 }

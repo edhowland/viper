@@ -239,7 +239,7 @@ describe 'cannot restore non-fileBuffers' do
   let(:buf) { Buffer.new '' }
   subject { buf.restore }
 
-  specify { ->{ subject }.must_raise NonRestorableException }
+  specify { -> { subject }.must_raise NonRestorableException }
 end
 
 describe 'line_number' do

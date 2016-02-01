@@ -1,4 +1,4 @@
-# session - module Viper::Session 
+# session - module Viper::Session
 module Viper::Session
   @storage = {} # stores various misc. variables, undefined
 
@@ -6,13 +6,11 @@ module Viper::Session
     @storage = {}
   end
 
-
-  def self.[] key
+  def self.[](key)
     @storage[key]
   end
 
-  def self.[]= key, value
+  def self.[]=(key, value)
     @storage[key] = value
   end
 end
-

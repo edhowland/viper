@@ -7,7 +7,6 @@ describe 'suppress_audio' do
     suppress_audio { say 'hi' }
   end
 
-
   specify { subject }
 end
 

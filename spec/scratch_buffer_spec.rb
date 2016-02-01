@@ -80,7 +80,7 @@ describe 'Readonly also cannot undo' do
   let(:buf) { ReadOnlyBuffer.new '' }
   subject { buf.ins 'xxx'; buf.can_undo? }
 
-  specify { subject.must_equal false  } 
+  specify { subject.must_equal false }
 end
 
 describe 'NonRecordable also cannot redo' do
@@ -96,7 +96,6 @@ describe 'NonRecordable cannot record' do
 
   specify { subject }
 end
-
 
 describe 'NonRecordable nop for undo/redo' do
   let(:buf) { ReadOnlyBuffer.new "line\nline\nline\n" }

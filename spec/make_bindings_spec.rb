@@ -82,7 +82,7 @@ describe 'backspace if mark set' do
   let(:buf) { ScratchBuffer.new }
   let(:bind) { make_bindings }
   let(:prc) { bind[:backspace] }
-  subject {buf.ins 'xxxxx'; buf.beg;  buf.set_mark; buf.fwd 3; prc.call(buf); $clipboard }
+  subject { buf.ins 'xxxxx'; buf.beg; buf.set_mark; buf.fwd 3; prc.call(buf); $clipboard }
 
   specify { subject.must_equal 'xxx' }
 end
@@ -109,7 +109,7 @@ describe 'fn_4 unsets mark when set' do
   let(:buf) { ScratchBuffer.new }
   let(:bind) { make_bindings }
   let(:prc) { bind[:fn_4] }
-  subject { buf.ins 'zzz';buf.beg; buf.set_mark; buf.fwd; prc.call(buf); buf.mark_set? }
+  subject { buf.ins 'zzz'; buf.beg; buf.set_mark; buf.fwd; prc.call(buf); buf.mark_set? }
 
   specify { subject.must_equal false }
 end

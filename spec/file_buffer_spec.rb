@@ -58,7 +58,7 @@ describe 'ReadOnlyFileBuffer' do
 end
 
 describe 'existing file' do
-  let(:buf) { FileBuffer.new  SRC_ROOT + '/spec/spec_helper.rb' }
+  let(:buf) { FileBuffer.new SRC_ROOT + '/spec/spec_helper.rb' }
   subject { buf.name.pathmap('%f') }
 
   specify { subject.must_equal 'spec_helper.rb' }
