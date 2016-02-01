@@ -32,6 +32,7 @@ describe 'w c.rb' do
   subject { buf.ins 'xxx'; parse_execute buf, "w #{SRC_ROOT}/spec/d.rb" }
 
   specify { subject; File.exist?("#{SRC_ROOT}/spec/c.rb").wont_equal true; File.exist?("#{SRC_ROOT}/spec/d.rb").must_equal true }
+  after { File.unlink "#{SRC_ROOT}/spec/d.rb" }
 end
 
 describe 'wq' do
