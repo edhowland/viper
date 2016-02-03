@@ -1,23 +1,23 @@
 # parse_execute.rb - method parse_execute string, buffer
 
 # strip any comments to end of line
-def strip_comment string
-  offset = string.index /#.*$/
+def strip_comment(string)
+  offset = string.index(/#.*$/)
   return string if offset.nil?
   return '' if offset.zero?
   string[0..offset - 1]
 end
 
 # preprocess string returning ignore if empty
-def preprocess_command string
+def preprocess_command(string)
   string = strip_comment(string)
   return 'ignore' if string.empty?
   string
 end
 
 # parse bit
-def parse_command string
-    command, *args = string.split(' ')
+def parse_command(string)
+  command, *args = string.split(' ')
   [command.to_sym, args]
 end
 

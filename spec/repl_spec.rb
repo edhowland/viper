@@ -48,7 +48,6 @@ describe 'strip_comment' do
   specify { subject.must_equal 'no comment here' }
 end
 
-
 describe 'strip_comment real comment' do
   subject { strip_comment '# real comment' }
 
