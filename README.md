@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.6
+### Version 0.9.7
 
 
 
@@ -54,11 +54,12 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 ## Features:
 
 
--Snippets - Ability to record and playback short snippets of commonly used texts. 
--Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
--Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
--Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Snippets - Ability to record and playback short snippets of commonly used texts. 
+- Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
+- Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
+- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
 - Little Linter :(Use Rubocop! rather than rely on this.)
+- SimpleCov support: Can parse simplecov JSON reports for the entire body of code or an individual file.
 
 
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
@@ -188,5 +189,26 @@ You can find any left over tab points by Ctrl-F and entering ^.Return
 
 Viper will check for a ~/.viperrc file. If it exists, it will attempt to execute commands contained within, one per line.
 You can also create a .viperrc file in any directory. It will be loaded last. You should only put any commands there that do not require a buffer to operate. Also, any quiting commands with not operate. Also, you will not hear any output in audio, so do not put list, reporting commands there.
+
+
+## Code Coverage
+
+You can use the 'load_cov coverage/coverage.json' command to load a JSON file
+generated with the simplecov gem. You should put this in a local .viperrc file so it will be available to the program whenever you generate the coverage report.
+Once loaded, use the 'cov_report' command to get an overall report of the project coverage. The file list in this new buffer
+is sorted in ascended numerical order by code coverage percent. Search forward for 100.0 to get the first file that was covered completely. Then work backward from there.
+Once you have determined a file that needs to be covered, load that file with the 'o filepath' command. Next, run the 'cov' command. This will open another buffer with the individual
+file report. Search forward for 'hits: 0' to find the lines you should address.
+
+
+
+## Contributing
+
+
+Please see the file CONTRIBUTING.md for information on contributing to the Viper project. 
+I am looking forward to your support and welcome any help. Together, we can make Viper a great project
+for all visually impaired or blind programmers.  I am especially requesting help from programmers in other programming languages like Python, Golang, Javascript, etc.
+
+
 
 

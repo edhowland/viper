@@ -3,4 +3,5 @@
 # TODO: Class documentation
 class ReadOnlyBuffer < Buffer
   include NonWritable
+  include NonRecordable
 end

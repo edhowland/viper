@@ -17,12 +17,12 @@ def command_bindings
     r: lambda { |b, *args|
       if File.exist?(args[0])
         b.ins(File.read(args[0]))
+        say "Contents of #{args[0]} inserted at cursor"
       else
         say "#{args[0]} does not exist"
       end
     },
     r!: ->(b, *args) { insert_shell(b, *args) },
-    s: ->(b, *args) { b.fname = args[0]; b.save; say "#{b.name} saved. Buffer is now #{b.name}" },
     g: ->(b, *args) { b.goto(args[0].to_i); say b.line },
     goto: ->(b, *args) { offset = args[0].to_i; b.goto_position(offset); say b.line },
     n: ->(_b, *_args) { $buffer_ring.rotate!; say "Buffer is now #{$buffer_ring[0].name}" },
@@ -42,7 +42,7 @@ def command_bindings
     pipe!: ->(b, *args) { pipe!(b, *args) },
     lint: ->(b, *_args) { lint(b) },
     new: ->(_b, *_args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
-    report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position} association #{b.association}" },
+    report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
     # snippet commands
     slist: ->(_b, *_args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } },
@@ -81,6 +81,12 @@ def command_bindings
     assocf: ->(_b, *args) { $file_associations.file args[0], args[1].to_sym; say 'File association saved for #args[1]}' },
     assocd: ->(_b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     tab: ->(b, *_args) { handle_tab(b) },
+
+    # Code Coverage support from simplecov
+    load_cov: ->(_b, *args) { load_cov args[0]; say "Coverage repor #{args[0]} loaded" },
+    cov: ->(b, *_args) { sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line },
+    cov_report: ->(_b, *_args) { cov_report; say $buffer_ring[0].name.to_s },
+
     # NOP: just repeat the args
     nop: ->(_b, *args) { puts 'you said'; args.each { |e| puts e } }
   }

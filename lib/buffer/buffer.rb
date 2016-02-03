@@ -92,12 +92,8 @@ class Buffer
   end
 
   def rchomp(string)
-    return string [1..-1] if string[0] == "\n"
+    return string[1..-1] if string[0] == "\n"
     string
-  end
-
-  def or_empty(element)
-    (element || '')
   end
 
   def lline
@@ -246,5 +242,13 @@ class Buffer
   # file associations: just return :default, but subclassed in FileBuffer
   def association
     :default
+  end
+
+  def line_number
+    @a_buff.lines.length + 1
+  end
+
+  def restore
+    raise NonRestorableException.new self.class.name
   end
 end

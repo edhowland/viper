@@ -79,9 +79,9 @@ fbuffer.goto options[:line] unless options[:line].nil?
 # Executes this block for each character typed in the console
 #   Exits whenever some exception is raised
 Viper::Control.loop do |worker|
-  ch = worker.getch
-  prc = worker.bound_proc_for ch
   begin
+    ch = worker.getch
+    prc = worker.bound_proc_for ch
     result = prc.call(@buffer)
     if result.to_s =~ /^cmd_/
       command = convert_cmd result

@@ -36,17 +36,18 @@ class StringBuffer
     @buffer[index]
   end
 
-  def srch(regex)
-    m = regex.match @buffer
-    return @buffer if m.nil?
-    m.to_s
-  end
+  # REMOVEME
+  #  def srch(regex)
+  #    m = regex.match @buffer
+  #    return @buffer if m.nil?
+  #    m.to_s
+  #  end
 
-  def rsrch(regexp)
-    m = regexp.match @buffer
-    return '' if m.nil?
-    m[-1]
-  end
+  #  def rsrch(regexp)
+  #    m = regexp.match @buffer
+  #    return '' if m.nil?
+  #    m[-1]
+  #  end
 
   def lines
     io = StringIO.new @buffer

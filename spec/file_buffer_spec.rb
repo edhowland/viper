@@ -49,3 +49,31 @@ describe 'should_save? should be true' do
   specify { subject.must_equal true }
 
 end
+
+describe 'ReadOnlyFileBuffer' do
+  let(:buf) { ReadOnlyFileBuffer.new 'file.rb' }
+  subject { buf.save }
+
+  specify { subject }
+end
+
+describe 'existing file' do
+  let(:buf) { FileBuffer.new SRC_ROOT + '/spec/spec_helper.rb' }
+  subject { buf.name.pathmap('%f') }
+
+  specify { subject.must_equal 'spec_helper.rb' }
+end
+
+describe 'restore' do
+  let(:buf) { FileBuffer.new SRC_ROOT + '/spec/dummy.rb' }
+  subject { buf.ins "# this is a comment\n"; buf.restore; buf.dirty? }
+
+  specify { subject.must_equal false }
+end
+
+describe 'name=' do
+  let(:buf) { FileBuffer.new 'file.rb' }
+  subject { buf.fname = 'myfile.rb'; buf.fname }
+
+  specify { subject.must_equal 'myfile.rb' }
+end

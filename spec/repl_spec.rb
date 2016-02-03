@@ -28,3 +28,34 @@ describe 'parse_execute command (only)' do
 
   specify { subject.must_equal 'ok' }
 end
+
+describe 'parse_execute empty string' do
+  let(:buf) { Buffer.new '' }
+  subject { parse_execute buf, '' }
+
+  specify { subject }
+end
+
+describe 'preprocess_command' do
+  subject { preprocess_command '' }
+
+  specify { subject.must_equal 'ignore' }
+end
+
+describe 'strip_comment' do
+  subject { strip_comment 'no comment here' }
+
+  specify { subject.must_equal 'no comment here' }
+end
+
+describe 'strip_comment real comment' do
+  subject { strip_comment '# real comment' }
+
+  specify { subject.must_equal '' }
+end
+
+describe 'strip_comment partial command and comment' do
+  subject { strip_comment 'command here # comment' }
+
+  specify { subject.must_equal 'command here ' }
+end

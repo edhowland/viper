@@ -15,3 +15,10 @@ describe 'lint_pass2 OK' do
 
   specify { subject.must_be_empty }
 end
+
+describe 'blank lines in the mix' do
+  let(:buf) { Buffer.new "line\nline\n  line\n\n\nline\n  line\n    line\n" }
+  subject { lint_pass2 buf }
+
+  specify { subject.must_be_empty }
+end

@@ -91,7 +91,7 @@ class Association
   end
 
   def dir(pattern, sym)
-    regex = %r{/(.*)/}
+    regex = /%r{(.*)}/
     m = regex.match(pattern)
     unless m.nil?
       s_regex = Regexp.new(m[1])
@@ -114,7 +114,7 @@ class Association
   end
 
   def associate(fname)
-    dir = fname.pathmap('%d')
+    dir = fname.pathmap('%d/')
     file = fname.pathmap('%f')
     ext = fname.pathmap('%x')
 

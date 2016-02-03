@@ -99,8 +99,8 @@ end
 
 describe 'file' do
   let(:ass) { Association.new }
-  before { ass.file '/.+_spec\.rb/', :spec; ass.file 'myfile_spec.rb', :nop; ass.ext '.rb', :ruby }
-  subject { ass.associate 'my_spec.rb' }
+  before { ass.file '/.*_spec\.rb/', :spec; ass.file 'myfile_spec.rb', :nop; ass.ext '.rb', :ruby }
+  subject { ass.associate '/h/b/my_spec.rb' }
 
   specify { subject.must_equal :spec }
   specify { ass.associate('file.rb').must_equal :ruby }
@@ -109,16 +109,24 @@ end
 
 describe 'dir' do
   let(:ass) { Association.new }
-  before { ass.dir '/h/b/src/viper/spec', :spec }
-  subject { ass.associate '/h/b/src/viper/spec' }
+  before { ass.dir '/h/b/src/viper/spec/', :spec }
+  subject { ass.associate '/h/b/src/viper/spec/file.rb' }
 
   specify { subject.must_equal :spec }
 end
 
 describe 'dir regex' do
   let(:ass) { Association.new }
-  before { ass.dir '/.*/xxx/', :rex }
+  before { ass.dir '%r{.*/xxx}', :rex }
   subject { ass.associate '/h/b/src/viper/xxx/file.rb' }
 
   specify { subject.must_equal :rex }
+end
+
+describe 'dir() with literal' do
+  let(:ass) { Association.new }
+  before { ass.dir('/xxx/yyy/zzz/', :xxx) }
+  subject { ass.associate('/xxx/yyy/zzz/file.rb') }
+
+  specify { subject.must_equal :xxx }
 end
