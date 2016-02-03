@@ -1,1 +1,2 @@
+# Loads the SimpleCov coverage report in ./coverage/coverage.json
 load_cov coverage/coverage.json

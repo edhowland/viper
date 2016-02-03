@@ -41,3 +41,22 @@ describe 'preprocess_command' do
 
   specify { subject.must_equal 'ignore' }
 end
+
+describe 'strip_comment' do
+  subject { strip_comment 'no comment here' }
+
+  specify { subject.must_equal 'no comment here' }
+end
+
+
+describe 'strip_comment real comment' do
+  subject { strip_comment '# real comment' }
+
+  specify { subject.must_equal '' }
+end
+
+describe 'strip_comment partial command and comment' do
+  subject { strip_comment 'command here # comment' }
+
+  specify { subject.must_equal 'command here ' }
+end
