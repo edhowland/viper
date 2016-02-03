@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.6
+### Version 0.9.7
 
 
 
@@ -199,4 +199,16 @@ Once loaded, use the 'cov_report' command to get an overall report of the projec
 is sorted in ascended numerical order by code coverage percent. Search forward for 100.0 to get the first file that was covered completely. Then work backward from there.
 Once you have determined a file that needs to be covered, load that file with the 'o filepath' command. Next, run the 'cov' command. This will open another buffer with the individual
 file report. Search forward for 'hits: 0' to find the lines you should address.
+
+
+
+## Contributing
+
+
+Please see the file CONTRIBUTING.md for information on contributing to the Viper project. 
+I am looking forward to your support and welcome any help. Together, we can make Viper a great project
+for all visually impaired or blind programmers.  I am especially requesting help from programmers in other programming languages like Python, Golang, Javascript, etc.
+
+
+
 
