@@ -87,7 +87,9 @@ report - Speaks the name of the current buffer, its position and associated snip
 
 System calls
 check - Checks Ruby syntax of current buffer
-lint - lints current buffer for odd number of preceeding spaces
+lint - Little Linter: Use Rubocop. 3-Pass lint checker
+load_cov path_to_coverage.json - Loads JSON report from simplecov
+cov - Coverage report of file in current buffer
 
 Snippet commands
 -
@@ -95,8 +97,9 @@ slist - List loaded snippet collections
 list collection - List available snippets in collection.
 load file collection - Loads a file.json into a snippet collection. E.g. "load ruby ruby"
 assocx pattern collection - Associates the extension pattern with the collection. E.g. assocx .rb ruby
-assocfpattern  collection - Associates the file pattern with collection. E.g. assocf /.+_spec\.rb/ spec
+assocf pattern collection - Associates the file pattern with collection. E.g. assocf /.+_spec\.rb/ spec
 assocd pattern collection - Associates the Directory pattern with the collection. E.g. assocd /home/edh/src default
+  To use a Regex with assocd, use %r{} syntax. E.g. assocd %r{/path/to/.*/spec/} spec
 apply snip collection - Applies the snippet named snip from collection into current buffer. E.g. "apply def ruby"
 snip name collection - Creates a new snippet named name (or overwrites one) from the current buffer into the collection. E.g. "snip def ruby"
   - Note: Use with new command to create a scratch buffer
@@ -106,6 +109,13 @@ sedit snip collection - Edits the named snip from the collection into the curren
   Use :new first to create a new scratch buffer.
   When done, use :snip name collection to save it.
 dump file collection - Dumps the collection into file file.json. E.g. "dump ruby ruby"
+
+Coverage Support
+-
+# To use this feature you should run code through 'simplecov' gem and use the JSON formatter gem with it.
+load_cov /path/to/coverage/coverage.json - Loads the JSON results. Must do this first.
+cov_report - Opens new buffer with results of coverage report sorted numerically by coverage percentage.
+cov - Loads a specific coverage report on the file loaded in the current buffer.
 
 Help Commands
 help - Displays this help

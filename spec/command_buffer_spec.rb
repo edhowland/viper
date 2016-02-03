@@ -60,5 +60,11 @@ describe 'after <<, back, fwd: at_start? false' do
   subject { buf << [:fwd, 1]; buf.back; buf.fwd; buf.at_start? }
 
   specify { subject.must_equal false }
+end
 
+describe 'to_a' do
+  let(:buf) { CommandBuffer.new }
+  subject { buf << [:fwd, 1]; buf.back; buf.fwd; buf.to_a }
+
+  specify { subject.must_equal [[:fwd, 1]] }
 end

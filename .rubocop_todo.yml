@@ -50,6 +50,9 @@ Lint/UselessAssignment:
 # Offense count: 9
 Metrics/AbcSize:
   Max: 177
+  Exclude:
+    - 'lib/bindings/command_bindings.rb'
+
 
 # Offense count: 1
 # Configuration parameters: CountComments.
@@ -134,7 +137,10 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
+    - 'lib/exceptions/**/*'
+    - 'lib/session/session.rb'
     - 'lib/control/control.rb'
+    - 'lib/tools/cov.rb'
     - 'lib/readline/readline.rb'
 
 # Offense count: 4

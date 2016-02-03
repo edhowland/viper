@@ -5,3 +5,6 @@
 - expand :help to include subcommands:
   :help keys - implements this special buffer
   :help commands - display only available commands
+
+
+0.9.7 - use rcov to check Ruby code coverage
