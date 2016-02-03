@@ -8,3 +8,26 @@ describe ':key_s' do
 
   specify { subject.must_equal 's' }
 end
+
+describe ':key_5' do
+  let(:bind) { help_bindings }
+  subject { bind[:key_5] }
+
+  specify { subject.must_equal '5' }
+end
+
+describe ':key_G' do
+  let(:bind) { help_bindings }
+  subject { bind[:key_G] }
+
+  specify { subject.must_equal 'G' }
+end
+
+# puction, other chars
+
+describe ':space' do
+  let(:bind) {punctuation_help} 
+  subject { bind[:space] }
+
+  specify { subject.must_equal 'space' }
+end
