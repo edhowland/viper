@@ -34,11 +34,15 @@ def control_help
   ctrl_keys[:ctrl_x] = 'cuts the selected text to the clipboard'
   ctrl_keys[:ctrl_c] = 'copies the selected text to the clipboard'
   ctrl_keys[:ctrl_v] = 'pastes the contents of the clipboard at the current cursor position'
+  ctrl_keys[:ctrl_d] = 'starts pry debug session inside editor loop. press control d again to return to the editor session'
   ctrl_keys
 end
 
 def meta_help
-  [:meta_d, :meta_colon].each_with_object({}) {|c, h| h[c] = c.to_s }
+  meta_keys = [:meta_d, :meta_colon].each_with_object({}) {|c, h| h[c] = c.to_s }
+  meta_keys[:meta_d] = 'starts larger delete action. availablenext keys are: d, shift home, shift end, shift page up and shift page down'
+  meta_keys[:meta_colon] = 'starts command entry. press return after a command to perform command'
+  meta_keys
 end
 
 def function_help
@@ -47,6 +51,7 @@ def function_help
   fkeys.merge!(decade_keys)
   fkeys[:fn_1] = 'opens help buffer. press control t to return to the last editing buffer'
   fkeys[:fn_2] = 'reports the name and status of the current buffer'
+  fkeys[:fn_3] = 'starts keyboard help. press control q to return to editor session'
   fkeys[:fn_4] = 'sets or unsets the buffer mark. cursor movement causes selected text to be ready for cut, copy or deletion'
   fkeys
 end

@@ -35,6 +35,7 @@ def command_bindings
 
     # start of :help commands
     help: ->(_b, *_args) { $buffer_ring.unshift(help_buffer); say "Buffer is now #{$buffer_ring[0].name}" },
+    keys: ->(b, *args) { help_keys },
 
     # check syntax, lint etc.
     check: ->(b, *_args) { check_ruby_syntax(b) },
