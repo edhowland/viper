@@ -26,14 +26,14 @@ end
 # puction, other chars
 
 describe ':space' do
-  let(:bind) {punctuation_help} 
+  let(:bind) { punctuation_help }
   subject { bind[:space] }
 
   specify { subject.must_equal 'space' }
 end
 
 describe ':return' do
-  let(:bind) {punctuation_help} 
+  let(:bind) { punctuation_help }
   subject { bind[:return] }
 
   specify { subject.must_equal 'return' }
@@ -50,5 +50,5 @@ describe ':ctrl_z' do
   let(:bind) { help_bindings }
   subject { bind[:ctrl_z] }
 
-  specify { subject.must_equal 'control z' }
+  specify { subject.wont_be_empty }
 end

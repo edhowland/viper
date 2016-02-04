@@ -1,20 +1,20 @@
 # help_bindings.rb - method help_bindings - help bindings for help keys command
 
-def identity_bindings range
-  range.each_with_object({}) {|e, h| h["key_#{e}".to_sym] = e }
+def identity_bindings(range)
+  range.each_with_object({}) { |e, h| h["key_#{e}".to_sym] = e }
 end
 
 def punctuation_help
   [:space, :return, :tab, :period, :comma, :slash, :accent, :tilde, :exclamation, :at, :number, :dollar, :percent, :caret, :ampersand,
-    :asterisk,:lparen, :rparen, :hyphen,
-    :underline, :equals, :plus, :backslash, :pipe,
-  :lbracket, :rbracket,:lbrace, :rbrace, 
-    :less, :greater, :question
-  ].each_with_object({}) {|k, h| h[k] = k.to_s }
+   :asterisk, :lparen, :rparen, :hyphen,
+   :underline, :equals, :plus, :backslash, :pipe,
+   :lbracket, :rbracket, :lbrace, :rbrace,
+   :less, :greater, :question
+  ].each_with_object({}) { |k, h| h[k] = k.to_s }
 end
 
 def control_help
-  ctrl_keys = ('a'..'z').each_with_object({}) {|c, h| h["ctrl_#{c}".to_sym] = "control #{c}" }
+  ctrl_keys = ('a'..'z').each_with_object({}) { |c, h| h["ctrl_#{c}".to_sym] = "control #{c}" }
   ctrl_keys[:ctrl_a] = 'selects the entirebuffer'
   ctrl_keys[:ctrl_h] = 'opens help in new buffer. hit control t to return to last buffer'
   ctrl_keys[:ctrl_s] = 'saves the buffer'
@@ -39,15 +39,15 @@ def control_help
 end
 
 def meta_help
-  meta_keys = [:meta_d, :meta_colon].each_with_object({}) {|c, h| h[c] = c.to_s }
+  meta_keys = [:meta_d, :meta_colon].each_with_object({}) { |c, h| h[c] = c.to_s }
   meta_keys[:meta_d] = 'starts larger delete action. availablenext keys are: d, shift home, shift end, shift page up and shift page down'
   meta_keys[:meta_colon] = 'starts command entry. press return after a command to perform command'
   meta_keys
 end
 
 def function_help
-  fkeys = ('1'..'9').each_with_object({}) {|f, h| h["fn_#{f}".to_sym] = "f #{f}" }
-  decade_keys = ["10", "11", "12", "13", "14", "15"].each_with_object({}) {|f, h| h["fn_#{f}".to_sym] = "f #{f}" }
+  fkeys = ('1'..'9').each_with_object({}) { |f, h| h["fn_#{f}".to_sym] = "f #{f}" }
+  decade_keys = %w(10 11 12 13 14 15).each_with_object({}) { |f, h| h["fn_#{f}".to_sym] = "f #{f}" }
   fkeys.merge!(decade_keys)
   fkeys[:fn_1] = 'opens help buffer. press control t to return to the last editing buffer'
   fkeys[:fn_2] = 'reports the name and status of the current buffer'
@@ -55,7 +55,6 @@ def function_help
   fkeys[:fn_4] = 'sets or unsets the buffer mark. cursor movement causes selected text to be ready for cut, copy or deletion'
   fkeys
 end
-
 
 def arrow_help
   {
@@ -79,9 +78,7 @@ def special_help
   }
 end
 
-
 def help_bindings
-  chars = ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
+  chars = ['a'..'z', 'A'..'Z', '0'..'9'].map { |r| identity_bindings(r) }.reduce({}) { |a, e| a.merge(e) }
   chars.merge(punctuation_help).merge(control_help).merge(meta_help).merge(arrow_help).merge(function_help).merge(special_help)
 end
-

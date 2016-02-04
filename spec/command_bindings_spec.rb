@@ -289,7 +289,7 @@ end
 
 describe 'keys - keyboard help' do
   before { $stdin = StringIO.new "\u0011" }
-  let(:buf) { Buffer.new ''} 
+  let(:buf) { Buffer.new '' }
   subject { parse_execute buf, 'keys' }
 
   specify { subject }
