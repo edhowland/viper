@@ -5,10 +5,15 @@ def identity_bindings range
 end
 
 def punctuation_help
-  [:space].each_with_object({}) {|k, h| h[k] = k.to_s }
+  [:space, :return, :tab, :period, :comma, :slash, :accent, :tilde, :exclamation, :at, :number, :dollar, :percent, :caret, :ampersand,
+    :asterisk,:lparen, :rparen, :hyphen,
+    :underline, :equals, :plus, :backslash, :pipe,
+  :lbracket, :rbracket,:lbrace, :rbrace, 
+    :less, :greater, :question].each_with_object({}) {|k, h| h[k] = k.to_s }
 end
 
 def help_bindings
-  ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
+  chars = ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
+  chars.merge(punctuation_help)
 end
 

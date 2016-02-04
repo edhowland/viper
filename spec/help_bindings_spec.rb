@@ -31,3 +31,17 @@ describe ':space' do
 
   specify { subject.must_equal 'space' }
 end
+
+describe ':return' do
+  let(:bind) {punctuation_help} 
+  subject { bind[:return] }
+
+  specify { subject.must_equal 'return' }
+end
+
+describe '#' do
+  let(:bind) { help_bindings }
+  subject { bind[:number] }
+
+  specify { subject.must_equal 'number' }
+end
