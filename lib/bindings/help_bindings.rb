@@ -12,8 +12,12 @@ def punctuation_help
     :less, :greater, :question].each_with_object({}) {|k, h| h[k] = k.to_s }
 end
 
+def control_keys
+  ('a'..'z').each_with_object({}) {|c, h| h["ctrl_#{c}".to_sym] = "control #{c}" }
+end
+
 def help_bindings
   chars = ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
-  chars.merge(punctuation_help)
+  chars.merge(punctuation_help).merge(control_keys)
 end
 

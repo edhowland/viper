@@ -45,3 +45,10 @@ describe '#' do
 
   specify { subject.must_equal 'number' }
 end
+
+describe ':ctrl_z' do
+  let(:bind) { help_bindings }
+  subject { bind[:ctrl_z] }
+
+  specify { subject.must_equal 'control z' }
+end
