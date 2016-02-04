@@ -56,7 +56,10 @@ Ctrl-D: Enter editor debug mode (pry session). Ctrl-d again to return to editor 
 
 Function Keys
 -
-
+Fn1 - Opens help buffer. (This buffer). Control t to return to last editor buffer.
+Fn2 - Reports the name and information about the current buffer.
+Fn3 - Starts keyboard help. Press control q to return to editor session.
+Fn4 - Sets or unsets mark position. Cursor movements from set mark selects text for cut, copy or deletion
 Command Entry
 -
 Meta+; enters command mode.
@@ -119,6 +122,7 @@ cov - Loads a specific coverage report on the file loaded in the current buffer.
 
 Help Commands
 help - Displays this help
+keys - Starts keyboard help. Press control q to return to editor session
 EOD
 
   hbuffer.name = 'Help Buffer'
