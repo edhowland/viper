@@ -40,6 +40,7 @@ end
 def special_help
   {
     backspace: 'deletes one character to the left of the cursor',
+    delete_at: 'deletes the character to right of the cursor',
     shift_home: 'moves to the front of the line',
     shift_end: 'moves to the end of the line',
     shift_pgup: 'moves to the top of the buffer',
