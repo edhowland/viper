@@ -37,8 +37,19 @@ def arrow_help
   }
 end
 
+def special_help
+  {
+    backspace: 'deletes one character to the left of the cursor',
+    shift_home: 'moves to the front of the line',
+    shift_end: 'moves to the end of the line',
+    shift_pgup: 'moves to the top of the buffer',
+    shift_pgdn: 'moves to the bottom of the buffer'
+  }
+end
+
+
 def help_bindings
   chars = ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
-  chars.merge(punctuation_help).merge(control_keys).merge(meta_help).merge(arrow_help).merge(function_help)
+  chars.merge(punctuation_help).merge(control_keys).merge(meta_help).merge(arrow_help).merge(function_help).merge(special_help)
 end
 
