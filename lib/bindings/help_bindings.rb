@@ -33,7 +33,9 @@ def arrow_help
     up: 'Moves up one line',
     down: 'moves down one line',
     left: 'moves one character to left',
-    right: 'moves one character to the right'
+    right: 'moves one character to the right',
+    shift_left: 'highlights one character to the left',
+    shift_right: 'highlights one character to the right'
   }
 end
 
