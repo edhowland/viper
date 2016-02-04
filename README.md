@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.7-p-gemfile
+### Version 0.9.8
 
 
 
