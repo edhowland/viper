@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.7-p-gemfile
+### Version 0.9.8
 
 
 
@@ -42,6 +42,7 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 - Ctrl-S: Saves the current buffer.
 - Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi
 - Ctrl-H - Brings up Help text
+F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the editor session.
 
 ## Command line options
 
@@ -58,6 +59,7 @@ This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
 - Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
 - Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
 - Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Help system, including keyboard help(like VO+k in Mac VoiceOver)
 - Little Linter :(Use Rubocop! rather than rely on this.)
 - SimpleCov support: Can parse simplecov JSON reports for the entire body of code or an individual file.
 

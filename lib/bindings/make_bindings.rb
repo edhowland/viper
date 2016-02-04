@@ -91,7 +91,7 @@ def make_bindings
   # Function keys
   result[:fn_1] = ->(_b) { :cmd_help }
   result[:fn_2] = ->(_b) { :cmd_report }
-  result[:fn_3] = ->(_b) { say BELL }
+  result[:fn_3] = ->(_b) { :cmd_keys }
   # result[:fn_4] = ->(b) { say BELL }
 
   # copy and paste keys
