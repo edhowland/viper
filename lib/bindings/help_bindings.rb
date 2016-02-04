@@ -21,6 +21,13 @@ def meta_help
   [:meta_d, :meta_colon].each_with_object({}) {|c, h| h[c] = c.to_s }
 end
 
+def function_help
+  fkeys = ('1'..'9').each_with_object({}) {|f, h| h["fn_#{f}".to_sym] = "f #{f}" }
+  decade_keys = ["10", "11", "12", "13", "14", "15"].each_with_object({}) {|f, h| h["fn_#{f}".to_sym] = "f #{f}" }
+  fkeys.merge(decade_keys)
+end
+
+
 def arrow_help
   {
     up: 'Moves up one line',
@@ -32,6 +39,6 @@ end
 
 def help_bindings
   chars = ['a'..'z', 'A'..'Z', '0'..'9'].map {|r|identity_bindings(r) }.reduce({}) {|h, i| h.merge(i) } 
-  chars.merge(punctuation_help).merge(control_keys).merge(meta_help).merge(arrow_help)
+  chars.merge(punctuation_help).merge(control_keys).merge(meta_help).merge(arrow_help).merge(function_help)
 end
 
