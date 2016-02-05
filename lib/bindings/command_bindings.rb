@@ -51,7 +51,7 @@ def command_bindings
       say "Available snippets for #{args[0]}\n"
       $snippet_cascades[args[0].to_sym].keys.each { |k| say "#{k}\n" }
     },
-    sedit: ->(b, *args) { b.clear; b.ins $snippet_cascades[args[1].to_sym][args[0]]; b.beg; say b.line },
+    sedit: ->(b, *args) {edit_snippet args[1].to_sym, args[0], b;   b.beg; say b.line },
     snip: lambda { |b, *args|
       name = args[0]
       cascade = args[1].to_sym
