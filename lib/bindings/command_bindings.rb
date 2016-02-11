@@ -2,6 +2,9 @@
 
 def command_bindings
   {
+    # command commands
+    alias: ->(b, *args) { save_alias args[0], *args[1..(-1)]; say "alias #{args[0]} saved" },
+    # editor commands
     q: ->(_b, *_args) { :quit },
     q!: ->(_b, *_args) { exit },
     w: lambda { |b, *args|
