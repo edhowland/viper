@@ -12,6 +12,8 @@ def expand_commands commands
 end
 
 def command command_s, &blk
-  yield command_s if block_given?
+  expand_commands(command_s).each do |cmd|
+    yield cmd if block_given?
+  end
 end
 
