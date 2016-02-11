@@ -99,24 +99,24 @@ Viper::Control.loop do |worker|
       @buffer.save
       say "Buffer #{@buffer.name} saved"
     when :meta
-      say 'meta'
+      say 'delete'
       next_key = map_key(key_press)
       case next_key
       when :key_d
         @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
-        say 'line deleted'
+        say 'line'
       when :shift_end
         @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
-        say 'delete to end of line'
+        say 'to end of line'
       when :shift_home
         @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
-        say 'delete to start of line'
+        say 'to start of line'
       when :shift_pgup
         @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
-        say 'delete to top of buffer'
+        say 'to top of buffer'
       when :shift_pgdn
         @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
-        say 'delete to bottom of buffer'
+        say 'to bottom of buffer'
       else
         say next_key.to_s
       end
