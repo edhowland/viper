@@ -66,3 +66,13 @@ end
 
   specify { subject.must_equal ['oof', 'rab'] }
 end
+
+describe 'expand_commands "foo; bar" => ["oof", "baz", "bar"]' do
+  before do
+  clear_alias
+    save_alias 'foo', 'oof; baz'
+end
+  subject { expand_commands 'foo; bar' }
+
+  specify { subject.must_equal ['oof', 'baz', 'bar'] }
+end
