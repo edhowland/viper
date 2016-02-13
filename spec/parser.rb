@@ -37,7 +37,7 @@ def match_semicolon buffer, &blk
 end
 
 def match_nonwhitespace buffer, &blk
-  match_thing(buffer, /^([^\s;]+)/, &blk)
+  match_thing(buffer, /^([^\s';]+)/, &blk)
 end
 
 def match_string buffer, &blk
@@ -61,15 +61,24 @@ end
 # non terminals
 
 def nonterm_arg buffer, &blk
-  match_nonwhitespace(buffer) || match_string(b)
+  match_nonwhitespace(buffer) || match_string(buffer)
 end
 
 def nonterm_expr(buffer, &blk)
-  match_word(buffer) && star { match_whitespace(buffer) && match_word(buffer) }
+  match_word(buffer) && star { match_whitespace(buffer) && nonterm_arg(buffer) }
 end
 
 # root 
 
 def nonterm_command(buffer, &blk)
   nonterm_expr(buffer) && star { match_semicolon(buffer) && nonterm_expr(buffer) }
+end
+
+# util fns
+
+def syntax_ok? buffer
+  result = nonterm_command(buffer)
+  raise CommandSyntaxError.new "at position #{buffer.position}" unless result
+  raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
+  result && buffer.eob?
 end
