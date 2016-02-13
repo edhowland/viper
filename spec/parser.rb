@@ -37,7 +37,7 @@ def match_semicolon buffer, &blk
 end
 
 def match_nonwhitespace buffer, &blk
-  match_thing(buffer, /^([^\s]+)/, &blk)
+  match_thing(buffer, /^([^\s;]+)/, &blk)
 end
 
 def match_string buffer, &blk
@@ -59,6 +59,10 @@ def plus &blk
 end
 
 # non terminals
+
+def nonterm_arg buffer, &blk
+  match_nonwhitespace(buffer) || match_string(b)
+end
 
 def nonterm_expr(buffer, &blk)
   match_word(buffer) && star { match_whitespace(buffer) && match_word(buffer) }
