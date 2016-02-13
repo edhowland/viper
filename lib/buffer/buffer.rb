@@ -235,6 +235,16 @@ class Buffer
     @a_buff.rword_index
   end
 
+    def match regex
+    m = @b_buff.to_s.match(regex)
+    return m[1] unless m.nil?    
+  end
+
+  def word_fwd
+  match /^(\w+)/
+  end
+
+
   def to_s
     @a_buff.to_s + @b_buff.to_s
   end

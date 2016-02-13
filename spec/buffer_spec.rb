@@ -248,3 +248,17 @@ describe 'line_number' do
 
   specify { subject.must_equal 3 }
 end
+
+describe 'word_fwd' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { buf.word_fwd }
+
+  specify { subject.must_equal 'hello' }
+end
+
+describe 'word_fwd - no match' do
+  let(:buf) { Buffer.new '  ' }
+  subject { buf.word_fwd }
+
+  specify { subject.must_equal nil }
+end
