@@ -36,6 +36,16 @@ def match_semicolon buffer, &blk
   match_thing(buffer, /^(;)/, &blk)
 end
 
+def match_nonwhitespace buffer, &blk
+  match_thing(buffer, /^([^\s]+)/, &blk)
+end
+
+def match_string buffer, &blk
+  result = match_thing(buffer, /^'([^']+)'/, &blk)
+  buffer.fwd(2) if result # consume the quotes
+  result
+end
+
 
 # recursion fns
 
