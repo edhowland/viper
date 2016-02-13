@@ -262,3 +262,23 @@ describe 'word_fwd - no match' do
 
   specify { subject.must_equal nil }
 end
+
+describe 'eob?' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.eob? }
+
+  specify { subject.must_equal true }
+end
+
+describe 'eob? front is false' do
+  let(:buf) { Buffer.new '0123' }
+  subject { buf.eob? }
+  specify { subject.must_equal false }
+end
+
+describe 'eob? after move to end' do
+  let(:buf) { Buffer.new '0123' }
+  subject { buf.fwd 4; buf.eob? }
+
+  specify { subject.must_equal true }
+end

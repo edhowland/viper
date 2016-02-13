@@ -244,6 +244,10 @@ class Buffer
   match /^(\w+)/
   end
 
+  def eob?
+    @b_buff.length.zero?
+  end
+
 
   def to_s
     @a_buff.to_s + @b_buff.to_s
