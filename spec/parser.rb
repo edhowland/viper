@@ -46,6 +46,13 @@ def match_string buffer, &blk
   result
 end
 
+def match_octothorpe buffer, &blk
+  match_thing(buffer, /^(#)/, &blk)
+end
+
+def match_anything buffer, &blk
+  match_thing(buffer, /^(.+)/, &blk)
+end
 
 # recursion fns
 
@@ -59,6 +66,11 @@ def plus &blk
 end
 
 # non terminals
+
+def nonterm_comment buffer, &blk
+  match_octothorpe(buffer) && star { match_anything(buffer) } && match_end(buffer)
+end
+
 
 def nonterm_arg buffer, &blk
   match_nonwhitespace(buffer) || match_string(buffer)
