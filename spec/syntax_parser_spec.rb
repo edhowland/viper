@@ -24,3 +24,10 @@ describe 'question - 0 or 1 - two is false' do
 
   specify { subject.must_equal false }
 end
+
+describe 'complex multi-expr command with comment - ok' do
+  let(:buf) { Buffer.new "say 'hellow world';com arg;nop# this is a comment" }
+  subject { syntax_ok? buf }
+
+  specify { subject }
+end

@@ -88,7 +88,7 @@ end
 # root 
 
 def nonterm_command(buffer, &blk)
-  nonterm_expr(buffer) && star { match_semicolon(buffer) && nonterm_expr(buffer) }
+  nonterm_expr(buffer) && star { match_semicolon(buffer) && nonterm_expr(buffer) } && question { nonterm_comment(buffer) }
 end
 
 # util fns
