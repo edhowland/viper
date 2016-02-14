@@ -56,6 +56,11 @@ end
 
 # recursion fns
 
+def question &blk
+  !yield || !yield
+end
+
+
 def star &blk
   star(&blk) if yield
   true
@@ -93,4 +98,9 @@ def syntax_ok? buffer
   raise CommandSyntaxError.new "at position #{buffer.position}" unless result
   raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
   result && buffer.eob?
+end
+
+###### TESTING
+def n string
+  Buffer.new string
 end
