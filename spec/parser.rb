@@ -114,6 +114,13 @@ def syntax_ok? buffer
   result && buffer.eob?
 end
 
+def parse! string
+  buffer = Buffer.new string.strip
+  sexps = []
+  nonterm_command(buffer) {|s| sexps = s }
+  sexps
+end
+
 ###### TESTING
 def n string
   Buffer.new string
