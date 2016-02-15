@@ -78,19 +78,29 @@ end
 
 
 def nonterm_arg buffer, &blk
-  match_nonwhitespace(buffer) || match_string(buffer)
+  arg = ''
+  result = match_nonwhitespace(buffer) {|w| arg = w } || match_string(buffer) {|w| arg = w }
+  yield arg if block_given? && result
+  result
 end
 
-def nonterm_expr(buffer, &blk)
-  match_word(buffer) && star { match_whitespace(buffer) && nonterm_arg(buffer) }
+def nonterm_expr(buffer, sexp=[], &blk)
+  args = []
+  sym = :nop
+  result = match_word(buffer) {|w| sym = w.to_sym } && star { match_whitespace(buffer) && nonterm_arg(buffer) {|a| args << a } }
+  yield [ sym, args ] if block_given? && result
+  result
 end
 
 # root 
 
 def nonterm_command(buffer, &blk)
-  match_end(buffer) ||
+  sexps = []
+  result = match_end(buffer) ||
   nonterm_comment(buffer) ||
-  nonterm_expr(buffer) && star { match_semicolon(buffer) && nonterm_expr(buffer) } && question { nonterm_comment(buffer) }
+  nonterm_expr(buffer) {|sexp| sexps << sexp } && star { match_semicolon(buffer) && nonterm_expr(buffer) {|sexp| sexps << sexp } } && question { nonterm_comment(buffer) }
+  yield sexps if block_given? && result
+  result
 end
 
 # util fns
