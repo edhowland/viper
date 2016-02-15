@@ -10,6 +10,20 @@ describe 'question - zero or one - zero' do
   specify { subject.must_equal true }
 end
 
+describe 'match_string single quotes' do
+  let(:buf) { Buffer.new "'string'" }
+  subject { match_string buf }
+
+  specify { subject.must_equal true }
+end
+
+describe 'match_string double quotes' do
+  let(:buf) { Buffer.new '"hello world"' }
+  subject { match_string(buf) }
+
+  specify { subject.must_equal true }
+end
+
 describe 'question 0 or 1 - one' do
   let(:buf) { Buffer.new '  command'  }
   subject { question { match_whitespace(buf)} }
@@ -31,8 +45,15 @@ describe 'complex multi-expr command with comment - ok' do
   specify { subject }
 end
 
-describe 'syntax_ok? ''' do
+describe 'syntax_ok? empty string' do
   let(:buf) { Buffer.new '' }
+  subject { syntax_ok? buf }
+
+  specify { subject.must_equal true }
+end
+
+describe 'syntax_ok? double quotes' do
+  let(:buf) { Buffer.new 'say "hello"' }
   subject { syntax_ok? buf }
 
   specify { subject.must_equal true }

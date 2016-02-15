@@ -68,3 +68,11 @@ describe 'repl :quit' do
 
   specify { subject.must_equal :quit }
 end
+
+describe 'repl nop returning dequoted string' do
+  before { $stdin = StringIO.new 'nop "hello world"' }
+  let(:buf) { Buffer.new '' }
+  subject { repl { buf } }
+
+  specify { subject.must_equal 'hello world' }
+end

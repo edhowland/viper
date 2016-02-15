@@ -72,6 +72,25 @@ end
 
 # non terminals
 
+def nonterm_quote buffer, &blk
+  string = ''
+  result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) {|w| string = w } && match_thing(buffer, /^(')/)
+  yield string if result
+  result
+end
+
+def nonterm_dblquote buffer, &blk
+  string = ''
+  result =match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) {|w| string = w } && match_thing(buffer, /^(")/) 
+  yield string if result
+  result
+end
+
+def nonterm_string(buffer, &blk)
+  nonterm_quote(buffer, &blk) || nonterm_dblquote(buffer, &blk)
+end
+
+
 def nonterm_comment buffer, &blk
   match_octothorpe(buffer) && star { match_anything(buffer) } && match_end(buffer)
 end

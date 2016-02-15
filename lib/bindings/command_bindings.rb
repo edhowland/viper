@@ -96,6 +96,6 @@ def command_bindings
     # UI stuff:
     say: ->(b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args
-    nop: ->(_b, *args) { puts 'you said'; args.each { |e| puts e } }
+    nop: ->(_b, *args) { (args.length == 1 ? args[0] : args) }
   }
 end
