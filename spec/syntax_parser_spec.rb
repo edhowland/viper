@@ -31,3 +31,10 @@ describe 'complex multi-expr command with comment - ok' do
 
   specify { subject }
 end
+
+describe 'syntax_ok? ''' do
+  let(:buf) { Buffer.new '' }
+  subject { syntax_ok? buf }
+
+  specify { subject.must_equal true }
+end

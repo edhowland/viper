@@ -33,7 +33,7 @@ def match_end buffer
 end
 
 def match_semicolon buffer, &blk
-  match_thing(buffer, /^(;)/, &blk)
+  match_thing(buffer, /^(\s*;\s*)/, &blk)
 end
 
 def match_nonwhitespace buffer, &blk
@@ -88,12 +88,16 @@ end
 # root 
 
 def nonterm_command(buffer, &blk)
+  match_end(buffer) ||
+  nonterm_comment(buffer) ||
   nonterm_expr(buffer) && star { match_semicolon(buffer) && nonterm_expr(buffer) } && question { nonterm_comment(buffer) }
 end
 
 # util fns
 
 def syntax_ok? buffer
+  st = buffer.to_s.strip
+  buffer = Buffer.new(st)
   result = nonterm_command(buffer)
   raise CommandSyntaxError.new "at position #{buffer.position}" unless result
   raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
@@ -103,4 +107,16 @@ end
 ###### TESTING
 def n string
   Buffer.new string
+end
+
+
+def read_command
+  rl = Viper::Readline.new
+  loop do
+    say 'command'
+  cmd = rl.readline
+    buf = Buffer.new cmd
+  break if cmd == 'q'
+    say 'syntax ok' if syntax_ok?(buf)
+  end
 end
