@@ -17,7 +17,7 @@ def match_thing buffer, regex, &blk
 end
 
 def match_word buffer, &blk
-  match_thing buffer, /^(\w+)/, &blk
+  match_thing buffer, /^([\w_!]+)/, &blk
 end
 
 def match_whitespace buffer, &blk
