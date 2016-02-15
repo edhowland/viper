@@ -2,10 +2,12 @@
 
 def iterate_commands sexps, &blk
   raise CommandBlockExpected.new unless block_given?
-
+  result = nil
   sexps.each do |s|
     cmd, args = s
-  exec_cmd cmd, yield, *args
+    result = exec_cmd cmd, yield, *args
   end
+
+  result
 end
 

@@ -59,3 +59,12 @@ describe 'strip_comment partial command and comment' do
 
   specify { subject.must_equal 'command here ' }
 end
+
+# actual functional test of repl
+describe 'repl :quit' do
+  before { $stdin = StringIO.new 'q' }
+  let(:buf) { Buffer.new '' }
+  subject { repl { buf } }
+
+  specify { subject.must_equal :quit }
+end
