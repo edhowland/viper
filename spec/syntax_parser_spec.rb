@@ -1,7 +1,6 @@
 # syntax_parser_spec.rb - specs for syntax_parser
 
 require_relative 'spec_helper'
-require './parser'
 
 
 describe 'question - zero or one - zero' do

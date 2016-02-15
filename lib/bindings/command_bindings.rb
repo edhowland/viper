@@ -32,6 +32,7 @@ def command_bindings
     p: ->(_b, *_args) { $buffer_ring.rotate!(-1); say "Buffer is now #{$buffer_ring[0].name}" },
     o: ->(_b, *args) { $buffer_ring.unshift(FileBuffer.new(args[0])); say "Open file #{$buffer_ring[0].name}" },
     k!: ->(_b, *_args) { killed = $buffer_ring.shift; say "#{killed.name} destroyed" },
+    name: ->(b, *args) { b.name = args[0] },
 
     # clipboard commands
     yank: ->(b, *_args) { $clipboard = b.line; say '1 line yanked' },
