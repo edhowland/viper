@@ -155,10 +155,11 @@ Viper::Control.loop do |worker|
     when :command
       say 'command '
       quitting = false
-      command_s = @command_line.readline
-      command command_s do |cmd|
-        quitting = parse_execute fbuffer, cmd
-      end
+      quitting = repl(@command_line) { fbuffer }
+#      command_s = @command_line.readline
+#      command command_s do |cmd|
+#        quitting = parse_execute fbuffer, cmd
+#      end
     end
     break if quitting == :quit
     @buffer = fbuffer # restore the @buffer pointer
