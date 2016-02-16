@@ -1,15 +1,15 @@
 # dealias.rb - method dealias given sym, finds alias, expands via parse!
 
-def dealias sexp, &blk
+def dealias sexp, seen=[], &blk
   cmd, args = sexp
-  return [ sexp ] if Viper::Session[:alias].nil?
+  return [ sexp ] if Viper::Session[:alias].nil? || seen.member?(cmd)
   found = Viper::Session[:alias][cmd]
   unless found.nil?
     expanded = parse!(found)
     last = expanded[-1]
     last[1] = last[1] + args
     expanded[-1] = last
-    yield if block_given?
+    yield(cmd) if block_given?
     expanded
   else
     [ sexp ]
@@ -17,9 +17,9 @@ def dealias sexp, &blk
 end
 
 
-def dealias_sexps sexps
+def dealias_sexps sexps, seen=[]
   exp = false
-  result = sexps.inject([]) {|i, j| i + dealias(j) { exp = true } }
-  result = dealias_sexps(result) if exp
+  result = sexps.inject([]) {|i, j| i + dealias(j, seen) {|al| exp = true; seen << al } }
+  result = dealias_sexps(result, seen) if exp
   result
 end
