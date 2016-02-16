@@ -10,16 +10,16 @@ describe 'question - zero or one - zero' do
   specify { subject.must_equal true }
 end
 
-describe 'match_string single quotes' do
+describe 'nonterm_string single quotes' do
   let(:buf) { Buffer.new "'string'" }
-  subject { match_string buf }
+  subject { nonterm_string buf }
 
   specify { subject.must_equal true }
 end
 
-describe 'match_string double quotes' do
+describe 'nonterm_string double quotes' do
   let(:buf) { Buffer.new '"hello world"' }
-  subject { match_string(buf) }
+  subject { nonterm_string(buf) }
 
   specify { subject.must_equal true }
 end

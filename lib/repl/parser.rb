@@ -37,14 +37,9 @@ def match_semicolon buffer, &blk
 end
 
 def match_nonwhitespace buffer, &blk
-  match_thing(buffer, /^([^\s';]+)/, &blk)
+  match_thing(buffer, /^([^\s"';]+)/, &blk)
 end
 
-def match_string buffer, &blk
-  result = match_thing(buffer, /^'([^']+)'/, &blk)
-  buffer.fwd(2) if result # consume the quotes
-  result
-end
 
 def match_octothorpe buffer, &blk
   match_thing(buffer, /^(#)/, &blk)
@@ -75,14 +70,14 @@ end
 def nonterm_quote buffer, &blk
   string = ''
   result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) {|w| string = w } && match_thing(buffer, /^(')/)
-  yield string if result
+  yield string if block_given? && result
   result
 end
 
 def nonterm_dblquote buffer, &blk
   string = ''
   result =match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) {|w| string = w } && match_thing(buffer, /^(")/) 
-  yield string if result
+  yield string if block_given? && result
   result
 end
 
@@ -98,7 +93,7 @@ end
 
 def nonterm_arg buffer, &blk
   arg = ''
-  result = match_nonwhitespace(buffer) {|w| arg = w } || match_string(buffer) {|w| arg = w }
+  result = match_nonwhitespace(buffer) {|w| arg = w } || nonterm_string(buffer) {|w| arg = w }
   yield arg if block_given? && result
   result
 end
@@ -136,7 +131,10 @@ end
 def parse! string
   buffer = Buffer.new string.strip
   sexps = []
-  nonterm_command(buffer) {|s| sexps = s }
+  result = nonterm_command(buffer) {|s| sexps = s }
+  raise CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
+  raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
+
   sexps
 end
 
