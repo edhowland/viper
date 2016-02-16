@@ -41,12 +41,12 @@ unless options[:safe]
 tmp_buff = ScratchBuffer.new
 suppress_audio do
   load_rc do |l|
-    parse_execute tmp_buff, l
+    perform!(l) { tmp_buff }
   end
 
   # possibly load ./.viperrc
   load_rc './.viperrc', silent: true do |l|
-    parse_execute tmp_buff, l
+    perform!(l) { tmp_buff }
   end
 end
 end
