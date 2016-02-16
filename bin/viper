@@ -40,6 +40,12 @@ parser.parse!
 unless options[:safe]
 tmp_buff = ScratchBuffer.new
 suppress_audio do
+    # load system-wide commands here
+    load_rc(config_path + 'viperrc') do |l|
+      perform!(l) { tmp_buff }
+    end
+
+    # load user's possible ~/.viperrc
   load_rc do |l|
     perform!(l) { tmp_buff }
   end
