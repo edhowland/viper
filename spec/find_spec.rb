@@ -8,3 +8,10 @@ describe 'find pattern' do
 
   specify { subject.must_equal 6 }
 end
+
+describe 'rev_find' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { buf.fin; rev_find buf, /hello/; buf.position }
+
+  specify { subject.must_equal 0 }
+end

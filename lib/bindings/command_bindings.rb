@@ -57,6 +57,10 @@ def command_bindings
     new: ->(_b, *_args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
     report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
+    # find and replace
+    find: ->(b, *args) { find(b, args[0]); say b.line},
+    rev_find: ->(b, *args) { rev_find b, args[0]; say b.line },
+
     # snippet commands
     slist: ->(_b, *_args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } },
     list: lambda { |_b, *args|
