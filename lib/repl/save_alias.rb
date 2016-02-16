@@ -17,5 +17,5 @@ end
 
 def delete_alias name
   return nil if Viper::Session[:alias].nil?
-  Viper::Session[:alias].delete name
+  Viper::Session[:alias].delete name.to_sym
 end

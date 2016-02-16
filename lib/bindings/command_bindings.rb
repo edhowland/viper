@@ -11,6 +11,7 @@ def command_bindings
         say "alias #{args[0]} saved" 
       end
     },
+    unalias: ->(b, *args) { delete_alias args[0]; say "alias #{args[0]} removed" },
     # editor commands
     q: ->(_b, *_args) { :quit },
     q!: ->(_b, *_args) { exit },
