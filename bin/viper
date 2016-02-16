@@ -167,6 +167,9 @@ Viper::Control.loop do |worker|
       say 'command '
       quitting = false
       quitting = repl(@command_line) { fbuffer }
+
+
+# REMOVEME
 #      command_s = @command_line.readline
 #      command command_s do |cmd|
 #        quitting = parse_execute fbuffer, cmd
