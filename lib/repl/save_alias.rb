@@ -3,6 +3,7 @@
 def save_alias alias_s, *args
   key = alias_s.to_sym
   value = args.join(' ')
+  return false unless syntax_ok? Buffer.new(value)
   Viper::Session[:alias] = {} if Viper::Session[:alias].nil?
   Viper::Session[:alias][key] = value
 end

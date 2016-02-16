@@ -123,7 +123,7 @@ def syntax_ok? buffer
   st = buffer.to_s.strip
   buffer = Buffer.new(st)
   result = nonterm_command(buffer)
-  raise CommandSyntaxError.new "at position #{buffer.position}" unless result
+  raise CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
   raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
   result && buffer.eob?
 end
