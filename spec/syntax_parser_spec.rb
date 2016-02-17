@@ -10,6 +10,34 @@ describe 'question - zero or one - zero' do
   specify { subject.must_equal true }
 end
 
+describe 'nonterm_quote' do
+  let(:buf) { Buffer.new "'hello world'" }
+  subject { nonterm_quote(buf) }
+
+  specify { subject.must_equal true }
+end
+
+describe 'nonterm_quote unterminated string' do
+  let(:buf) { Buffer.new "'hello" }
+  subject { nonterm_quote(buf) }
+
+  specify { subject.must_equal false }
+end
+
+describe 'nonterm_dblquote' do
+  let(:buf) { Buffer.new '"hello world "' }
+  subject { nonterm_dblquote(buf) }
+
+  specify { subject.must_equal true }
+end
+
+describe 'nonterm_dblquote - unterminated string' do
+  let(:buf) { Buffer.new '"hello' }
+  subject { nonterm_dblquote(buf) }
+
+  specify { subject.must_equal false }
+end
+
 describe 'nonterm_string single quotes' do
   let(:buf) { Buffer.new "'string'" }
   subject { nonterm_string buf }
