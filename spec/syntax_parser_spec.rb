@@ -21,7 +21,7 @@ describe 'nonterm_quote unterminated string' do
   let(:buf) { Buffer.new "'hello" }
   subject { nonterm_quote(buf) }
 
-  specify { subject.must_equal false }
+  specify { -> { subject }.must_raise CommandSyntaxError }
 end
 
 describe 'nonterm_dblquote' do
@@ -35,7 +35,7 @@ describe 'nonterm_dblquote - unterminated string' do
   let(:buf) { Buffer.new '"hello' }
   subject { nonterm_dblquote(buf) }
 
-  specify { subject.must_equal false }
+  specify { -> { subject }.must_raise CommandSyntaxError }
 end
 
 describe 'nonterm_string single quotes' do

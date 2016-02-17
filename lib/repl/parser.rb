@@ -74,16 +74,23 @@ end
 
 # non terminals
 
+# FIXME - replace nonterm_quote with nt_quote
+def nt_quote(buffer, &blk)
+  match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) && (match_thing(buffer, /^(')/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) })
+end
+
+
 def nonterm_quote buffer, &blk
   string = ''
-  result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) {|w| string = w } && match_thing(buffer, /^(')/)
+  result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) {|w| string = w } &&(match_thing(buffer, /^(')/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) }) 
   yield string if block_given? && result
   result
 end
 
 def nonterm_dblquote buffer, &blk
   string = ''
-  result =match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) {|w| string = w } && match_thing(buffer, /^(")/) 
+  result =match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) {|w| string = w } &&(match_thing(buffer, /^(")/)  || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) }) 
+#match_thing(buffer, /^(")/) 
   yield string if block_given? && result
   result
 end
