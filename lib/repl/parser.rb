@@ -74,10 +74,6 @@ end
 
 # non terminals
 
-# FIXME - replace nonterm_quote with nt_quote
-def nt_quote(buffer, &blk)
-  match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) && (match_thing(buffer, /^(')/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) })
-end
 
 
 def nonterm_quote buffer, &blk
