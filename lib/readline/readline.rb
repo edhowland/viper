@@ -1,7 +1,5 @@
 # readline.rb - module Viper::Readline
 
-# Style/Documentation: Enabled: false
-# Metrics/LineLength: Enabled: false
 # TODO: Module documentation
 module Viper
   # TODO: Class documentation

@@ -27,7 +27,7 @@ def make_bindings
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
   result[:ctrl_f] = ->(_b) { :srch_fwd }
   result[:ctrl_r] = ->(_b) { :srch_back }
-  result[:ctrl_g] = ->(_b) { :srch_next }
+  result[:ctrl_g] = ->(_b) { :cmd_again }
   result[:ctrl_z] = lambda { |b|
     if b.can_undo?
       b.undo
