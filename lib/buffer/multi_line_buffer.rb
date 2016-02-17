@@ -2,8 +2,8 @@
 
 # TODO: Class documentation
 class MultiLineBuffer
-  def initialize
-    @a_buff = [Buffer.new('')]
+  def initialize buffers=nil
+    @a_buff = buffers || [Buffer.new('')]
     @b_buff = []
   end
 
