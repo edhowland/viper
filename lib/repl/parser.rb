@@ -65,8 +65,11 @@ def plus &blk
   yield && star(&blk)
 end
 
-def error &blk
-  ! yield
+def error exception=nil, &blk
+  result = ! yield
+
+  raise exception if !result && !exception.nil?
+  result
 end
 
 # non terminals
