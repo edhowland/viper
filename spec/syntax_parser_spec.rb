@@ -58,3 +58,15 @@ describe 'syntax_ok? double quotes' do
 
   specify { subject.must_equal true }
 end
+
+describe 'errorfails with true' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { error { match_end(buf) } }
+
+  specify { subject.must_equal true }
+end
+
+describe 'error returns false for true expression' do
+  let(:buf) { Buffer.new '' }
+  subject { error { match_end(buf) } }
+end

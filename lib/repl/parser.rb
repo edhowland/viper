@@ -65,6 +65,10 @@ def plus &blk
   yield && star(&blk)
 end
 
+def error &blk
+  ! yield
+end
+
 # non terminals
 
 def nonterm_quote buffer, &blk
