@@ -4,8 +4,7 @@
 class SearchLineBuffer 
   def initialize 
     Viper::Session[:searches] ||= []
-    # FIXME: add above searches into this buffer
-    @buffer = Buffer.new Viper::Session[:searches].join("\n") + "\n"
+    @buffer = Buffer.new Viper::Session[:searches].join("\n") + (Viper::Session[:searches].empty? ? '' : "\n")
     @buffer.fin
   end
 
