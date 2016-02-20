@@ -8,9 +8,11 @@ class Buffer
     @dirty = false
     @name = 'unnamed'
     @mark_position = nil
+    @match_data = nil
   end
 
   attr_accessor :name
+  attr_reader :match_data
 
   def set_mark
     @mark_position = position
@@ -236,8 +238,8 @@ class Buffer
   end
 
     def match regex
-    m = @b_buff.to_s.match(regex)
-    return m[1] unless m.nil?    
+    @match_data = @b_buff.to_s.match(regex)
+    return @match_data[1] unless @match_data.nil?
   end
 
   def word_fwd
