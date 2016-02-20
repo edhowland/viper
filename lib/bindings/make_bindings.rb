@@ -25,8 +25,8 @@ def make_bindings
   result[:ctrl_w] = ->(_b) { say BELL }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
-  result[:ctrl_f] = ->(_b) { :srch_fwd }
-  result[:ctrl_r] = ->(_b) { :srch_back }
+  result[:ctrl_f] = ->(_b) { :cmd_ifind }
+  result[:ctrl_r] = ->(_b) { :cmd_irev_find }
   result[:ctrl_g] = ->(_b) { :cmd_again }
   result[:ctrl_z] = lambda { |b|
     if b.can_undo?
