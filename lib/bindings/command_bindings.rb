@@ -62,6 +62,7 @@ def command_bindings
     rev_find: ->(b, *args) { rev_find b, args[0]; say b.line },
     ifind: ->(b, *args) { ifind(b); say b.line },
     irev_find: ->(b, *args) { irev_find(b); say b.line },
+    replace: ->(b, *args) { result = replace b, args[0], args[1]; say 'Replaced' if result },
     again: ->(b, *args) { again(b); say b.line },
     # snippet commands
     slist: ->(_b, *_args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } },
