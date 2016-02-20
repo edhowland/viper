@@ -20,7 +20,7 @@ def search_bindings
   end
 
   # punctuation
-  [:period, :comma, :colon, :semicolon, :accent, :ampersand, :asterick, :dollar, :number, :at, :caret, :percent, :question].each do |key|
+  punctuation_syms.each do |key|
     result[key] = existing[key]
   end
   result
