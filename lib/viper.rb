@@ -27,6 +27,8 @@ require_relative 'io'
 require_relative 'control'
 require_relative 'snippets'
 require_relative 'readline'
+require_relative 'chords'
+
 require_relative 'find_and_replace'
 
 require_relative 'system'
