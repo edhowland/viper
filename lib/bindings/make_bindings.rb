@@ -116,7 +116,7 @@ def make_bindings
   result[:shift_down] = ->(_b) { say BELL }
 
   # Meta Command sequences
-  result[:meta_d] = ->(_b) { :meta }
+  result[:meta_d] = ->(b) { play_chord(b, :meta_d) }
   result[:meta_colon] = ->(_b) { :command }
 
   # rotate the buffer ring
