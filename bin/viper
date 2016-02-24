@@ -136,32 +136,32 @@ Viper::Control.loop do |worker|
       say 'Entering debug mode. Press Ctrl-D to exit'
       binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
-    when :help
-      say 'Use Option semicolon and help to invoke help'
+#    when :help
+ #     say 'Use Option semicolon and help to invoke help'
 
-    when :srch_fwd
-      @search_direction = :srch_fwd
-      say 'search forward'
-      pattern = @search_line.readline
-      @buffer.srch_fwd(pattern)
-      say @buffer.line
+#    when :srch_fwd
+ #     @search_direction = :srch_fwd
+#      say 'search forward'
+#      pattern = @search_line.readline
+#      @buffer.srch_fwd(pattern)
+#      say @buffer.line
 
-    when :srch_back
-      @search_direction = :srch_back
-      say 'search back'
-      pattern = @search_line.readline
-      @buffer.srch_back(pattern)
-      say @buffer.line
+#    when :srch_back
+#      @search_direction = :srch_back
+#      say 'search back'
+#      pattern = @search_line.readline
+#      @buffer.srch_back(pattern)
+#      say @buffer.line
 
-    when :srch_next
-      pattern = @search_line.last_line
-      if @search_direction == :srch_fwd
-        @buffer.fwd
-        @buffer.srch_fwd(pattern)
-      else
-        @buffer.srch_back(pattern)
-      end
-      say @buffer.line
+#    when :srch_next
+ #     pattern = @search_line.last_line
+#      if @search_direction == :srch_fwd
+#        @buffer.fwd
+#        @buffer.srch_fwd(pattern)
+#      else
+#        @buffer.srch_back(pattern)
+#      end
+#      say @buffer.line
 
     when :command
       say 'command '
