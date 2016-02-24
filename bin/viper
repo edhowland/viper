@@ -109,28 +109,28 @@ Viper::Control.loop do |worker|
     when :save
       @buffer.save
       say "Buffer #{@buffer.name} saved"
-    when :meta
-      say 'delete'
-      next_key = map_key(key_press)
-      case next_key
-      when :key_d
-        @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
-        say 'line'
-      when :shift_end
-        @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
-        say 'to end of line'
-      when :shift_home
-        @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
-        say 'to start of line'
-      when :shift_pgup
-        @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
-        say 'to top of buffer'
-      when :shift_pgdn
-        @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
-        say 'to bottom of buffer'
-      else
-        say next_key.to_s
-      end
+#    when :meta
+#      say 'delete'
+#      next_key = map_key(key_press)
+#      case next_key
+#      when :key_d
+#        @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
+#        say 'line'
+#      when :shift_end
+#        @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
+#        say 'to end of line'
+#      when :shift_home
+#        @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
+#        say 'to start of line'
+#      when :shift_pgup
+#        @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
+#        say 'to top of buffer'
+#      when :shift_pgdn
+#        @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
+#        say 'to bottom of buffer'
+#      else
+#        say next_key.to_s
+#      end
 
     when :debug
       say 'Entering debug mode. Press Ctrl-D to exit'
