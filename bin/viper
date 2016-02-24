@@ -103,9 +103,6 @@ Viper::Control.loop do |worker|
       break
 
 
-    when :save
-      @buffer.save
-      say "Buffer #{@buffer.name} saved"
 
     when :debug
       say 'Entering debug mode. Press Ctrl-D to exit'

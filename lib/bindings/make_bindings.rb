@@ -48,7 +48,7 @@ def make_bindings
   # command controls
   result[:ctrl_d] = ->(_b) { :debug }
   result[:ctrl_c] = ->(_b) { say BELL }
-  result[:ctrl_s] = ->(_b) { :save }
+  result[:ctrl_s] = ->(_b) { :cmd_w }
 
   # punctuation
   result[:colon] = insert_sym ':'
