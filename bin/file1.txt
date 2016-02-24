@@ -1,4 +1,4 @@
-this is some test
+this is some text
 and some text
 line 1
 line 2

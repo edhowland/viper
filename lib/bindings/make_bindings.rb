@@ -120,7 +120,7 @@ def make_bindings
   result[:meta_colon] = ->(_b) { :command }
 
   # rotate the buffer ring
-  result[:ctrl_t] = ->(_b) { :rotate_buffer }
+  result[:ctrl_t] = ->(_b) { :cmd_n }
   result[:delete_at] = ->(b) { c = b.del_at; say "delete #{c}" }
   result
 end

@@ -102,10 +102,7 @@ Viper::Control.loop do |worker|
     when :quit
       break
 
-    when :rotate_buffer
-      $buffer_ring.rotate!
-      @buffer = fbuffer
-      say "Buffer is now #{@buffer.name}"
+
     when :save
       @buffer.save
       say "Buffer #{@buffer.name} saved"
