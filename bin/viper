@@ -115,12 +115,10 @@ Viper::Control.loop do |worker|
       binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
 
-
     when :command
       say 'command '
       quitting = false
       quitting = repl(@command_line) { fbuffer }
-
 
     end
     break if quitting == :quit
