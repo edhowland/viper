@@ -44,3 +44,11 @@ describe 'rev_find returns true if fount' do
 
   specify { subject.must_equal true }
 end
+
+describe 'again' do
+  let(:buf) { Buffer.new "line 1\nline 2\nline 3\n" }
+  before { find buf, 'line' }
+  subject { again buf }
+
+  specify { subject; buf.position.must_equal 7 }
+end

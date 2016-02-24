@@ -17,3 +17,11 @@ describe 'irev_find' do
 
   specify { subject.must_equal true; buf.position.must_equal 2 }
 end
+
+describe 'ifind - rings bell if at end of search line buffer' do
+  let(:buf) {  SearchLineBuffer.new  }
+  before { $stdin = StringIO.new "\e[B" + "\r" }
+  subject { buf.readline }
+
+  specify { subject }
+end

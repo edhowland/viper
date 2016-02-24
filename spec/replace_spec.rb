@@ -8,3 +8,10 @@ describe 'replace' do
 
   specify { subject; buf.to_s.must_equal 'hello cosmos' }
 end
+
+describe 'replace fails to find pattern first' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { replace buf, 'cosmos', 'world' }
+
+  specify { subject.must_equal false; buf.to_s.must_equal 'hello world' }
+end
