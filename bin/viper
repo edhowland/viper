@@ -114,8 +114,6 @@ Viper::Control.loop do |worker|
       say 'Entering debug mode. Press Ctrl-D to exit'
       binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
-#    when :help
- #     say 'Use Option semicolon and help to invoke help'
 
 
     when :command
@@ -124,11 +122,6 @@ Viper::Control.loop do |worker|
       quitting = repl(@command_line) { fbuffer }
 
 
-# REMOVEME
-#      command_s = @command_line.readline
-#      command command_s do |cmd|
-#        quitting = parse_execute fbuffer, cmd
-#      end
     end
     break if quitting == :quit
     @buffer = fbuffer # restore the @buffer pointer
