@@ -52,3 +52,7 @@ describe 'again' do
 
   specify { subject; buf.position.must_equal 7 }
 end
+
+describe 'command find' do
+  let(:buf) { Buffer.new 'hello world' }
+end

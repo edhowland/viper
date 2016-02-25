@@ -98,3 +98,10 @@ describe 'error returns false for true expression' do
   let(:buf) { Buffer.new '' }
   subject { error { match_end(buf) } }
 end
+
+describe 'plus' do
+  before { @count = 0 }
+  subject { plus { @count += 1; @count == 2 } }
+
+  specify { subject; @count.must_equal 1 }
+end

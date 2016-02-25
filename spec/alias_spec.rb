@@ -27,3 +27,30 @@ describe 'delete_alias foo' do
 
   specify { subject.must_be_nil }
 end
+
+describe 'command proc :alias' do
+  let(:buf) { Buffer.new '' }
+  before { Viper::Session[:alias] = {} }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:alias]; prc.call(buf, 'ns', 'new'); Viper::Session[:alias][:ns] }
+
+  specify { subject.must_equal 'new' }
+end
+
+describe 'report alias' do
+  let(:buf) { Buffer.new '' }
+  before { clear; save_alias :zoolander, 'new' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:alias]; prc.call buf, 'zoolander' }
+
+  specify { subject.must_equal 'new' }
+end
+
+describe 'command unalias' do
+  let(:buf) { Buffer.new '' }
+  before { clear; save_alias :ragnarok, 'thor' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:unalias]; prc.call buf, 'ragnarok'; report_alias :ragnarok }
+
+  specify { subject.must_equal nil }
+end

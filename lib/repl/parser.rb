@@ -1,13 +1,5 @@
-#!/usr/bin/env ruby
 # parser.rb - methods  for parsing command strings with multiple commands
 
-# restore position of buffer if expression is false
-def _r buffer, &blk
-  saved = buffer.position
-  result = yield
-  buffer.goto_position(saved) unless result
-  result 
-end
 
 def match_thing buffer, regex, &blk
   result = buffer.match  regex
@@ -24,9 +16,9 @@ def match_whitespace buffer, &blk
   match_thing buffer, /^(\s+)/, &blk
 end
 
-def match_digit buffer, &blk
-  match_thing buffer, /^(\d)/, &blk
-end
+#def match_digit buffer, &blk
+#  match_thing buffer, /^(\d)/, &blk
+#end
 
 def match_end buffer
   buffer.eob?
@@ -146,22 +138,4 @@ def parse! string
   raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
 
   sexps
-end
-
-# REMOVEME
-###### TESTING
-def n string
-  Buffer.new string
-end
-
-
-def read_command
-  rl = Viper::Readline.new
-  loop do
-    say 'command'
-  cmd = rl.readline
-    buf = Buffer.new cmd
-  break if cmd == 'q'
-    say 'syntax ok' if syntax_ok?(buf)
-  end
 end

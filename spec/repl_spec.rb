@@ -76,3 +76,26 @@ describe 'repl nop returning dequoted string' do
 
   specify { subject.must_equal 'hello world' }
 end
+
+describe 'command_verfied? false' do
+  let(:sexp) { [[:xxx, []]] }
+  subject { command_verified? sexp }
+
+  specify { subject.must_equal false }
+end
+
+describe 'command_verified? true' do
+  let(:sexp) { [[:nop, ['1', '2']]] }
+  subject { command_verified? sexp }
+
+  specify { subject.must_equal true }
+end
+
+describe 'repl with unknown command raises exception' do
+  let(:buf) { Buffer.new '' }
+  let(:combuf) { Viper::Readline.new }
+  before { $stdin = StringIO.new 'xxx' + "\r" }
+  subject { repl(combuf) { buf } }
+
+  specify { -> { subject }.must_raise CommandNotVerified }
+end
