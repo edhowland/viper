@@ -64,7 +64,6 @@
         null,
         1,
         1,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/viper/version.rb": [
@@ -90,11 +89,11 @@
         null,
         null,
         1,
-        157,
+        158,
         null,
         null,
         1,
-        49,
+        50,
         null,
         null,
         null
@@ -204,7 +203,6 @@
         1,
         2,
         null,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/exceptions/command_not_verified.rb": [
@@ -214,17 +212,14 @@
         1,
         1,
         null,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/exceptions/command_block_expected.rb": [
         null,
         null,
         1,
-        null,
         1,
         1,
-        null,
         null,
         null
       ],
@@ -397,13 +392,6 @@
         null,
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         1,
         8,
         8,
@@ -417,14 +405,14 @@
         null,
         null,
         1,
-        90,
-        90,
+        91,
+        91,
         null,
         null,
         1,
         132,
         76,
-        8,
+        9,
         null,
         null,
         1,
@@ -524,7 +512,6 @@
         null,
         null,
         1,
-        null,
         null,
         null,
         null,
@@ -728,7 +715,6 @@
         94,
         null,
         null,
-        null,
         1,
         135,
         null,
@@ -906,7 +892,7 @@
         null,
         1,
         37,
-        83,
+        76,
         37,
         null,
         null
@@ -924,7 +910,7 @@
         null,
         null,
         1,
-        179,
+        180,
         null
       ],
       "/home/vagrant/src/viper/lib/ui/key_press.rb": [
@@ -1460,7 +1446,7 @@
         1,
         1,
         null,
-        2,
+        3,
         null,
         1,
         11,
@@ -1501,7 +1487,6 @@
         3,
         1,
         1,
-        null,
         null,
         null,
         1,
@@ -1846,8 +1831,7 @@
         1,
         1,
         1,
-        1,
-        null
+        1
       ],
       "/home/vagrant/src/viper/lib/snippets/create_snippet.rb": [
         null,
@@ -1960,7 +1944,6 @@
         null,
         1,
         1,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/readline.rb": [
@@ -2038,7 +2021,6 @@
         1,
         1,
         5,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/chords/play_chord.rb": [
@@ -2057,7 +2039,6 @@
         5,
         5,
         5,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/find_and_replace.rb": [
@@ -2131,8 +2112,6 @@
         null,
         5,
         null,
-        null,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/find_and_replace/search_bindings.rb": [
@@ -2162,7 +2141,6 @@
         160,
         null,
         5,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/find_and_replace/ifind.rb": [
@@ -2172,7 +2150,6 @@
         2,
         2,
         2,
-        null,
         null,
         null,
         1,
@@ -2199,7 +2176,6 @@
         null,
         1,
         1,
-        null,
         null,
         null
       ],
@@ -2343,7 +2319,6 @@
         14,
         null,
         null,
-        null,
         1,
         4,
         4,
@@ -2356,7 +2331,6 @@
         null
       ],
       "/home/vagrant/src/viper/lib/repl/parser.rb": [
-        null,
         null,
         null,
         1,
@@ -2390,7 +2364,6 @@
         6,
         null,
         null,
-        null,
         1,
         71,
         null,
@@ -2405,7 +2378,6 @@
         37,
         null,
         null,
-        null,
         1,
         85,
         85,
@@ -2420,8 +2392,6 @@
         null,
         3,
         1,
-        null,
-        null,
         null,
         null,
         null,
@@ -2445,10 +2415,8 @@
         7,
         null,
         null,
-        null,
         1,
         71,
-        null,
         null,
         null,
         1,
@@ -2504,17 +2472,16 @@
         1,
         19,
         19,
-        15,
-        15,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
+        16,
+        16,
+        11,
         null,
-        10,
-        null,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
         null,
         null,
         null,
@@ -2530,7 +2497,6 @@
         null,
         1,
         10,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/repl/iterate_commands.rb": [
@@ -2545,7 +2511,6 @@
         null,
         null,
         4,
-        null,
         null
       ],
       "/home/vagrant/src/viper/lib/repl/repl.rb": [
@@ -2776,6 +2741,6 @@
         null
       ]
     },
-    "timestamp": 1456418439
+    "timestamp": 1456433530
   }
 }
