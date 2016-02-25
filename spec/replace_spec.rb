@@ -15,3 +15,11 @@ describe 'replace fails to find pattern first' do
 
   specify { subject.must_equal false; buf.to_s.must_equal 'hello world' }
 end
+
+describe 'command replace' do
+  let(:buf) { Buffer.new 'hello world' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:replace]; prc.call buf, 'world', 'cosmos'; buf.to_s }
+
+  specify { subject.must_equal 'hello cosmos' }
+end

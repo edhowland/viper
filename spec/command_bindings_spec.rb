@@ -311,3 +311,19 @@ describe 'keys - keyboard help' do
 
   specify { subject }
 end
+
+describe 'say' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:say]; prc.call buf }
+
+  specify { subject }
+end
+
+describe 'nop' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:nop]; prc.call buf, 1, 2 }
+
+  specify { subject }
+end

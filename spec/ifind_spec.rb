@@ -25,3 +25,21 @@ describe 'ifind - rings bell if at end of search line buffer' do
 
   specify { subject }
 end
+
+describe 'command ifind' do
+  let(:buf) { Buffer.new 'hello world' }
+  let(:bind) { command_bindings }
+  before { $stdin = StringIO.new "wor\r" }
+  subject { prc = bind[:ifind]; prc.call buf; buf.at }
+
+  specify { subject.must_equal 'w' }
+end
+
+describe 'irev_find' do
+  let(:buf) { Buffer.new 'hello world' }
+  let(:bind) { command_bindings }
+  before { $stdin = StringIO.new "hell\r"; buf.fin }
+  subject { prc = bind[:irev_find]; prc.call buf; buf.position }
+
+  specify { subject.must_equal 0 }
+end

@@ -69,3 +69,12 @@ describe 'rev_find' do
 
   specify { subject.must_equal 0 }
 end
+
+describe 'command again' do
+  let(:buf) { Buffer.new "line 1\nline2\nline 3\n" }
+  let(:bind) { command_bindings }
+  before { buf.fwd; find buf, 'line' }
+  subject { prc = bind[:again]; prc.call buf; buf.line }
+
+  specify { subject.must_equal "line 3\n" }
+end
