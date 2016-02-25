@@ -49,7 +49,6 @@ class Buffer
   end
 
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
-  # buffers. # FIXME (should be able to switch key bindings on a per buffer basis)
   def save
   end
 
