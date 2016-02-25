@@ -55,4 +55,17 @@ end
 
 describe 'command find' do
   let(:buf) { Buffer.new 'hello world' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:find]; prc.call(buf, 'wor'); buf.at }
+
+  specify { subject.must_equal 'w' }
+end
+
+describe 'rev_find' do
+  let(:buf) { Buffer.new 'hello world' }
+  let(:bind) { command_bindings }
+  before { buf.fin }
+  subject { prc = bind[:rev_find]; prc.call(buf, 'hel'); buf.position }
+
+  specify { subject.must_equal 0 }
 end
