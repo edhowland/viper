@@ -1,84 +1,79 @@
 # parser.rb - methods  for parsing command strings with multiple commands
 
-
-def match_thing buffer, regex, &blk
+def match_thing(buffer, regex, &_blk)
   result = buffer.match  regex
   yield result if result && block_given?
   buffer.fwd(result.length) if result
   !result.nil?
 end
 
-def match_word buffer, &blk
+def match_word(buffer, &blk)
   match_thing buffer, /^([\w_!]+)/, &blk
 end
 
-def match_whitespace buffer, &blk
+def match_whitespace(buffer, &blk)
   match_thing buffer, /^(\s+)/, &blk
 end
 
-#def match_digit buffer, &blk
+# def match_digit buffer, &blk
 #  match_thing buffer, /^(\d)/, &blk
-#end
+# end
 
-def match_end buffer
+def match_end(buffer)
   buffer.eob?
 end
 
-def match_semicolon buffer, &blk
+def match_semicolon(buffer, &blk)
   match_thing(buffer, /^(\s*;\s*)/, &blk)
 end
 
-def match_nonwhitespace buffer, &blk
+def match_nonwhitespace(buffer, &blk)
   match_thing(buffer, /^([^\s"';]+)/, &blk)
 end
 
-
-def match_octothorpe buffer, &blk
+def match_octothorpe(buffer, &blk)
   match_thing(buffer, /^(#)/, &blk)
 end
 
-def match_anything buffer, &blk
+def match_anything(buffer, &blk)
   match_thing(buffer, /^(.+)/, &blk)
 end
 
 # recursion fns
 
-def question &blk
+def question(&_blk)
   !yield || !yield
 end
 
-
-def star &blk
+def star(&blk)
   star(&blk) if yield
   true
 end
 
-def plus &blk
+def plus(&blk)
   yield && star(&blk)
 end
 
-def error exception=nil, &blk
-  result = ! yield
+def error(exception = nil, &_blk)
+  result = !yield
 
-  raise exception if !result && !exception.nil?
+  fail exception if !result && !exception.nil?
   result
 end
 
 # non terminals
 
-
-
-def nonterm_quote buffer, &blk
+def nonterm_quote(buffer, &_blk)
   string = ''
-  result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) {|w| string = w } &&(match_thing(buffer, /^(')/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) }) 
+  result = match_thing(buffer, /^(')/) && match_thing(buffer, /^([^']*)/) { |w| string = w } && (match_thing(buffer, /^(')/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) })
   yield string if block_given? && result
   result
 end
 
-def nonterm_dblquote buffer, &blk
+def nonterm_dblquote(buffer, &_blk)
   string = ''
-  result =match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) {|w| string = w } &&(match_thing(buffer, /^(")/)  || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) }) 
-#match_thing(buffer, /^(")/) 
+  result = match_thing(buffer, /^(")/) && match_thing(buffer, /^([^"]*)/) { |w| string = w } && (match_thing(buffer, /^(")/) || error(CommandSyntaxError.new('Unterminated string')) { match_end(buffer) })
+  # match_thing(buffer, /^(")/)
   yield string if block_given? && result
   result
 end
@@ -87,55 +82,53 @@ def nonterm_string(buffer, &blk)
   nonterm_quote(buffer, &blk) || nonterm_dblquote(buffer, &blk)
 end
 
-
-def nonterm_comment buffer, &blk
+def nonterm_comment(buffer, &_blk)
   match_octothorpe(buffer) && star { match_anything(buffer) } && match_end(buffer)
 end
 
-
-def nonterm_arg buffer, &blk
+def nonterm_arg(buffer, &_blk)
   arg = ''
-  result = match_nonwhitespace(buffer) {|w| arg = w } || nonterm_string(buffer) {|w| arg = w }
+  result = match_nonwhitespace(buffer) { |w| arg = w } || nonterm_string(buffer) { |w| arg = w }
   yield arg if block_given? && result
   result
 end
 
-def nonterm_expr(buffer, sexp=[], &blk)
+def nonterm_expr(buffer, _sexp = [], &_blk)
   args = []
   sym = :nop
-  result = match_word(buffer) {|w| sym = w.to_sym } && star { match_whitespace(buffer) && nonterm_arg(buffer) {|a| args << a } }
-  yield [ sym, args ] if block_given? && result
+  result = match_word(buffer) { |w| sym = w.to_sym } && star { match_whitespace(buffer) && nonterm_arg(buffer) { |a| args << a } }
+  yield [sym, args] if block_given? && result
   result
 end
 
-# root 
+# root
 
-def nonterm_command(buffer, &blk)
+def nonterm_command(buffer, &_blk)
   sexps = []
   result = match_end(buffer) ||
-  nonterm_comment(buffer) ||
-  nonterm_expr(buffer) {|sexp| sexps << sexp } && star { match_semicolon(buffer) && nonterm_expr(buffer) {|sexp| sexps << sexp } } && question { nonterm_comment(buffer) }
+           nonterm_comment(buffer) ||
+           nonterm_expr(buffer) { |sexp| sexps << sexp } && star { match_semicolon(buffer) && nonterm_expr(buffer) { |sexp| sexps << sexp } } && question { nonterm_comment(buffer) }
   yield sexps if block_given? && result
   result
 end
 
 # util fns
 
-def syntax_ok? buffer
+def syntax_ok?(buffer)
   st = buffer.to_s.strip
   buffer = Buffer.new(st)
   result = nonterm_command(buffer)
-  raise CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
-  raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
+  fail CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
+  fail CommandSyntaxError.new 'Unexpected end of input' unless buffer.eob?
   result && buffer.eob?
 end
 
-def parse! string
+def parse!(string)
   buffer = Buffer.new string.strip
   sexps = []
-  result = nonterm_command(buffer) {|s| sexps = s }
-  raise CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
-  raise CommandSyntaxError.new "Unexpected end of input" unless buffer.eob?
+  result = nonterm_command(buffer) { |s| sexps = s }
+  fail CommandSyntaxError.new "Syntax error at position #{buffer.position}" unless result
+  fail CommandSyntaxError.new 'Unexpected end of input' unless buffer.eob?
 
   sexps
 end

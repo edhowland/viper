@@ -6,7 +6,6 @@ def clear
   Viper::Session[:alias] = {}
 end
 
-
 describe 'save_alias' do
   before { clear }
   subject { save_alias :foo, 'bar'; Viper::Session[:alias][:foo] }

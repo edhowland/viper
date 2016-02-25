@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 
 def clear
-  Viper::Session[:alias] = {} 
+  Viper::Session[:alias] = {}
 end
 
 describe 'no alias set' do
@@ -24,12 +24,11 @@ end
 
 describe 'block shows command passed if alias found' do
   before { clear; save_alias :com, 'xxx'; @found = nil }
-let(:sexp) { parse! 'com' }
-  subject { dealias(sexp[0]) {|w| @found = w }  }
+  let(:sexp) { parse! 'com' }
+  subject { dealias(sexp[0]) { |w| @found = w } }
 
   specify { subject; @found.must_equal :com }
 end
-
 
 describe 'self-referenced alias' do
   before { clear; save_alias :com, 'moc'; save_alias :moc, 'com' }

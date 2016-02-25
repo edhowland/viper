@@ -3,4 +3,3 @@
 def config_path
   File.expand_path(File.dirname(File.expand_path(__FILE__)) + '../../../config') + '/'
 end
-

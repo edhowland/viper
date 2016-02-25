@@ -8,4 +8,3 @@ require_relative 'snippets/apply_snippet'
 require_relative 'snippets/dump_snippets'
 require_relative 'snippets/handle_tab'
 require_relative 'snippets/edit_snippet'
-

@@ -57,11 +57,11 @@ Metrics/AbcSize:
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 202
+  Max: 212
 # Class Buffer is REALLY BIG. Ok for now
 # Offense count: 1
 Metrics/CyclomaticComplexity:
-  Max: 6
+  Max: 9
 
 # Offense count: 31
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
@@ -84,6 +84,8 @@ Metrics/PerceivedComplexity:
   Max: 6
   Exclude:
     - 'lib/bindings/make_bindings.rb'
+    - 'lib/bindings/command_bindings.rb'
+    - 'lib/repl/parser.rb'
 
 
 # Offense count: 10
@@ -511,3 +513,8 @@ Style/UnlessElse:
 Style/WhileUntilModifier:
   Exclude:
 #    - 'lib/buffer/buffer.rb'
+
+Performance/RedundantMatch:
+  Exclude:
+     - 'spec/buffer_spec.rb'
+  

@@ -285,7 +285,7 @@ end
 
 describe 'match sets match_data' do
   let(:buf) { Buffer.new 'hello world' }
-  subject { buf.match /wor/; buf.match_data }
+  subject { buf.match(/wor/); buf.match_data }
 
   specify { subject.must_be_instance_of MatchData }
 end

@@ -4,7 +4,7 @@ require_relative 'spec_helper'
 
 describe 'ifind' do
   let(:buf) { Buffer.new 'hello world' }
-  before { $stdin = StringIO.new "wor" + "\r" }
+  before { $stdin = StringIO.new 'wor' + "\r" }
   subject { ifind buf }
 
   specify { subject.must_equal true; buf.position.must_equal 6 }
@@ -19,7 +19,7 @@ describe 'irev_find' do
 end
 
 describe 'ifind - rings bell if at end of search line buffer' do
-  let(:buf) {  SearchLineBuffer.new  }
+  let(:buf) { SearchLineBuffer.new }
   before { $stdin = StringIO.new "\e[B" + "\r" }
   subject { buf.readline }
 

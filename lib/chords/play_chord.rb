@@ -6,12 +6,11 @@ def stanzas
   }
 end
 
-def play_chord buffer, first
+def play_chord(buffer, first)
   stanza = stanzas[first]
   say stanza
   second = map_key(key_press)
   prc = chord_bindings[[first, second]]
-  raise BindingNotFound if prc.nil?
+  fail BindingNotFound if prc.nil?
   prc.call(buffer)
 end
-

@@ -28,7 +28,7 @@ end
 
 describe 'play_chord meta_d, shift_pgup' do
   let(:buf) { Buffer.new '0123456789' }
-  before { $stdin = StringIO.new"\e[5~"; buf.fin; buf.back  }
+  before { $stdin = StringIO.new"\e[5~"; buf.fin; buf.back }
   subject { play_chord buf, :meta_d }
 
   specify { subject; buf.line.must_equal '9' }

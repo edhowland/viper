@@ -4,7 +4,7 @@
 module Viper
   # TODO: Class documentation
   class Readline
-    def initialize buffers=nil
+    def initialize(buffers = nil)
       @buffer = MultiLineBuffer.new buffers
       @last_line = ''
     end

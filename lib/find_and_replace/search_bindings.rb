@@ -9,7 +9,7 @@ def search_bindings
   # get old bindings from make_bindings
   existing = make_bindings
 
-    # copy selected key bindings into our result
+  # copy selected key bindings into our result
   [:backspace, :space, :del_at, :up, :down, :left, :right, :ctrl_a, :shift_pgup, :shift_pgdn, :shift_home, :shift_end, :ctrl_c, :ctrl_x, :ctrl_v].each do |key|
     result[key] = existing[key]
   end
@@ -25,4 +25,3 @@ def search_bindings
   end
   result
 end
-

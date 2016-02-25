@@ -3,15 +3,15 @@
 def command_bindings
   {
     # command commands
-    alias: ->(b, *args) { 
+    alias: lambda { |_b, *args|
       if args[1].nil?
         report_alias args[0].to_sym
       else
-        save_alias args[0], *args[1..(-1)]
-        say "alias #{args[0]} saved" 
+        save_alias args[0], *args[1..-1]
+        say "alias #{args[0]} saved"
       end
     },
-    unalias: ->(b, *args) { delete_alias args[0]; say "alias #{args[0]} removed" },
+    unalias: ->(_b, *args) { delete_alias args[0]; say "alias #{args[0]} removed" },
     # editor commands
     q: ->(_b, *_args) { :quit },
     q!: ->(_b, *_args) { exit },
@@ -58,19 +58,19 @@ def command_bindings
     report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
     # find and replace
-    find: ->(b, *args) { find(b, args[0]); say b.line},
+    find: ->(b, *args) { find(b, args[0]); say b.line },
     rev_find: ->(b, *args) { rev_find b, args[0]; say b.line },
-    ifind: ->(b, *args) { ifind(b); say b.line },
-    irev_find: ->(b, *args) { irev_find(b); say b.line },
+    ifind: ->(b, *_args) { ifind(b); say b.line },
+    irev_find: ->(b, *_args) { irev_find(b); say b.line },
     replace: ->(b, *args) { result = replace b, args[0], args[1]; say 'Replaced' if result },
-    again: ->(b, *args) { again(b); say b.line },
+    again: ->(b, *_args) { again(b); say b.line },
     # snippet commands
     slist: ->(_b, *_args) { say "Loaded Snippet Collections are:\n"; $snippet_cascades.keys.each { |k| say "#{k}\n" } },
     list: lambda { |_b, *args|
       say "Available snippets for #{args[0]}\n"
       $snippet_cascades[args[0].to_sym].keys.each { |k| say "#{k}\n" }
     },
-    sedit: ->(b, *args) {edit_snippet args[1].to_sym, args[0], b;   b.beg; say b.line },
+    sedit: ->(b, *args) { edit_snippet args[1].to_sym, args[0], b; b.beg; say b.line },
     snip: lambda { |b, *args|
       name = args[0]
       cascade = args[1].to_sym
@@ -107,9 +107,8 @@ def command_bindings
     cov: ->(b, *_args) { sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line },
     cov_report: ->(_b, *_args) { cov_report; say $buffer_ring[0].name.to_s },
 
-
     # UI stuff:
-    say: ->(b, *args) { say(args.join(' ')) },
+    say: ->(_b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args
     nop: ->(_b, *args) { (args.length == 1 ? args[0] : args) }
   }

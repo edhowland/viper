@@ -2,7 +2,6 @@
 
 require_relative 'spec_helper'
 
-
 describe 'question - zero or one - zero' do
   let(:buf) { Buffer.new '  word' }
   subject { question { match_word(buf) } }
@@ -53,8 +52,8 @@ describe 'nonterm_string double quotes' do
 end
 
 describe 'question 0 or 1 - one' do
-  let(:buf) { Buffer.new '  command'  }
-  subject { question { match_whitespace(buf)} }
+  let(:buf) { Buffer.new '  command' }
+  subject { question { match_whitespace(buf) } }
 
   specify { subject.must_equal true }
 end

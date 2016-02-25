@@ -10,7 +10,7 @@ options = { read_only: false, check_syntax: false, safe: false }
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
-  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do 
+  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do
     options[:safe] = true
   end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
@@ -38,23 +38,23 @@ parser.parse!
 
 # possibly open ~/.viperrc and process any commands found there
 unless options[:safe]
-tmp_buff = ScratchBuffer.new
-suppress_audio do
+  tmp_buff = ScratchBuffer.new
+  suppress_audio do
     # load system-wide commands here
     load_rc(config_path + 'viperrc') do |l|
       perform!(l) { tmp_buff }
     end
 
     # load user's possible ~/.viperrc
-  load_rc do |l|
-    perform!(l) { tmp_buff }
-  end
+    load_rc do |l|
+      perform!(l) { tmp_buff }
+    end
 
-  # possibly load ./.viperrc
-  load_rc './.viperrc', silent: true do |l|
-    perform!(l) { tmp_buff }
+    # possibly load ./.viperrc
+    load_rc './.viperrc', silent: true do |l|
+      perform!(l) { tmp_buff }
+    end
   end
-end
 end
 
 # set up the buffer ring
@@ -76,7 +76,7 @@ end
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-#@search_direction = :srch_fwd # or :srch_back
+# @search_direction = :srch_fwd # or :srch_back
 @search_buffer.name = 'Search buffer'
 
 def swap(buff1, buff2)
@@ -102,8 +102,6 @@ Viper::Control.loop do |worker|
     when :quit
       break
 
-
-
     when :debug
       say 'Entering debug mode. Press Ctrl-D to exit'
       binding.pry
@@ -111,7 +109,6 @@ Viper::Control.loop do |worker|
 
     when :command
       say 'command '
-      quitting = false
       quitting = repl(@command_line) { fbuffer }
 
     end

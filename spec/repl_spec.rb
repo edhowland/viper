@@ -77,7 +77,7 @@ describe 'repl nop returning dequoted string' do
   specify { subject.must_equal 'hello world' }
 end
 
-describe 'command_verfied? false' do
+describe 'command_verified? false' do
   let(:sexp) { [[:xxx, []]] }
   subject { command_verified? sexp }
 
@@ -85,7 +85,7 @@ describe 'command_verfied? false' do
 end
 
 describe 'command_verified? true' do
-  let(:sexp) { [[:nop, ['1', '2']]] }
+  let(:sexp) { [[:nop, %w(1 2)]] }
   subject { command_verified? sexp }
 
   specify { subject.must_equal true }

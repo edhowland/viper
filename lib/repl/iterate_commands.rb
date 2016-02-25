@@ -1,7 +1,7 @@
 # iterate_commands.rb - method iterate_commands
 
-def iterate_commands sexps, &blk
-  raise CommandBlockExpected.new unless block_given?
+def iterate_commands(sexps, &_blk)
+  fail CommandBlockExpected.new unless block_given?
   result = nil
   sexps.each do |s|
     cmd, args = s
@@ -10,4 +10,3 @@ def iterate_commands sexps, &blk
 
   result
 end
-

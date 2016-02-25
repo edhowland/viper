@@ -16,7 +16,6 @@ describe 'rev_find' do
   specify { subject.must_equal 0 }
 end
 
-
 describe 'find returns false if not found' do
   let(:buf) { Buffer.new 'hello world' }
   subject { find(buf, 'good') }

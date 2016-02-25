@@ -206,13 +206,12 @@ describe 'sedit - snippet not found' do
 end
 
 describe 'sedit - collection not found' do
-    let(:buf) { Buffer.new '' }
+  let(:buf) { Buffer.new '' }
   before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
   subject { parse_execute $buffer_ring.first, 'sedit xxx yyy' }
 
   specify { -> { subject }.must_raise SnippetCollectionNotFound }
 end
-
 
 describe 'snip' do
   let(:buf) { Buffer.new '' }
