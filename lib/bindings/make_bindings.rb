@@ -22,7 +22,7 @@ def make_bindings
   result[:shift_pgup] = ->(b) { b.beg; say 'top of buffer' }
   result[:shift_pgdn] = ->(b) { b.fin; say 'bottom of buffer' }
   result[:ctrl_y] = ->(_b) { :cmd_yank }
-  result[:ctrl_w] = ->(_b) { say BELL }
+  result[:ctrl_w] = ->(b) { word = b.word_fwd; b.fwd(word.length); b.srch_fwd /\w+/; say word }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
   result[:ctrl_f] = ->(_b) { :cmd_ifind }
