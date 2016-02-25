@@ -76,7 +76,7 @@ end
 @search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-@search_direction = :srch_fwd # or :srch_back
+#@search_direction = :srch_fwd # or :srch_back
 @search_buffer.name = 'Search buffer'
 
 def swap(buff1, buff2)
