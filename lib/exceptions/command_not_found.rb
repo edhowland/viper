@@ -1,6 +1,6 @@
 # command_not_found.rb - exception CommandNotFound
 
-# TODO: Class documentation
+# CommandNotFound raised when a command was attempted, but did not exist.
 class CommandNotFound < RuntimeError
   def initialize(command)
     super "Command #{command} not found"

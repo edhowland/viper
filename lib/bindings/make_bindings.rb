@@ -22,12 +22,12 @@ def make_bindings
   result[:shift_pgup] = ->(b) { b.beg; say 'top of buffer' }
   result[:shift_pgdn] = ->(b) { b.fin; say 'bottom of buffer' }
   result[:ctrl_y] = ->(_b) { :cmd_yank }
-  result[:ctrl_w] = ->(_b) { say BELL }
+  result[:ctrl_w] = ->(b) { word = b.word_fwd; b.fwd(word.length); b.srch_fwd(/\w+/); say word }
   result[:ctrl_o] = ->(b) { b.back_of_line; b.ins "\n"; say b.at }
   result[:ctrl_p] = ->(b) { say b.look_ahead.join("\n") }
-  result[:ctrl_f] = ->(_b) { :srch_fwd }
-  result[:ctrl_r] = ->(_b) { :srch_back }
-  result[:ctrl_g] = ->(_b) { :srch_next }
+  result[:ctrl_f] = ->(_b) { :cmd_ifind }
+  result[:ctrl_r] = ->(_b) { :cmd_irev_find }
+  result[:ctrl_g] = ->(_b) { :cmd_again }
   result[:ctrl_z] = lambda { |b|
     if b.can_undo?
       b.undo
@@ -48,7 +48,7 @@ def make_bindings
   # command controls
   result[:ctrl_d] = ->(_b) { :debug }
   result[:ctrl_c] = ->(_b) { say BELL }
-  result[:ctrl_s] = ->(_b) { :save }
+  result[:ctrl_s] = ->(_b) { :cmd_w }
 
   # punctuation
   result[:colon] = insert_sym ':'
@@ -116,11 +116,11 @@ def make_bindings
   result[:shift_down] = ->(_b) { say BELL }
 
   # Meta Command sequences
-  result[:meta_d] = ->(_b) { :meta }
+  result[:meta_d] = ->(b) { play_chord(b, :meta_d) }
   result[:meta_colon] = ->(_b) { :command }
 
   # rotate the buffer ring
-  result[:ctrl_t] = ->(_b) { :rotate_buffer }
+  result[:ctrl_t] = ->(_b) { :cmd_n }
   result[:delete_at] = ->(b) { c = b.del_at; say "delete #{c}" }
   result
 end

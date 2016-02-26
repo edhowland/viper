@@ -1,6 +1,6 @@
 # file_buffer.rb - class FileBuffer
 
-# TODO: Class documentation
+# FileBuffer subclass of Buffer to store contents of file.
 class FileBuffer < Buffer
   include Recordable
   include Savable

@@ -1,5 +1,5 @@
 # string_buffer.rb - class StringBuffer
-# TODO: Class documentation
+# StringBuffer - internal class for Buffer. Wrapps String class and makes it look like an Array with push, pop, shift and unshift methods.
 class StringBuffer
   def initialize(string)
     @buffer = string
@@ -35,13 +35,6 @@ class StringBuffer
   def [](index)
     @buffer[index]
   end
-
-  # REMOVEME
-  #  def srch(regex)
-  #    m = regex.match @buffer
-  #    return @buffer if m.nil?
-  #    m.to_s
-  #  end
 
   #  def rsrch(regexp)
   #    m = regexp.match @buffer

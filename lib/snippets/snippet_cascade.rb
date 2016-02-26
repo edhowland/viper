@@ -1,6 +1,6 @@
 # snippet_cascade.rb - class SnippetCascade
 
-# TODO: Class documentation
+# SnippetCascade class wraps Hash for snippets. Resolves key if multiple associations are in effect.
 class SnippetCascade
   def initialize(snippets)
     @cascade = [snippets]

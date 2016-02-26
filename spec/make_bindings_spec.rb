@@ -113,3 +113,12 @@ describe 'fn_4 unsets mark when set' do
 
   specify { subject.must_equal false }
 end
+
+describe 'ctrl_w move word fwd' do
+  let(:buf) { Buffer.new '0123 4567' }
+  let(:bind) { make_bindings }
+  let(:prc) { bind[:ctrl_w] }
+  subject { prc.call buf; buf.word_fwd }
+
+  specify { subject.must_equal '4567' }
+end

@@ -30,7 +30,7 @@ This document borrows heavily from the CONTRIBUTING.md for the Atom editor on Gi
 ### Code of Conduct
 
 
-Please read the COD-OF-CONDUCT.txt before proceeding.
+Please read the [Code of Conduct](CODE_OF_CONDUCT). before proceeding.
 
 
 

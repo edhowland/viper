@@ -1,6 +1,6 @@
 # command_buffer.rb - class CommandBuffer track commands for undo/redo
 
-# TODO: Class documentation
+# CommandBuffer class is used for the interactive command shell. Invoked with meta_semicolon.
 class CommandBuffer
   def initialize
     @a_buff = []
