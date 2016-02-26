@@ -1,6 +1,6 @@
 # search_line_buffer.rb - class SearchLineBuffer - preloads Viper::Readline with Viper::Session[:searches]
 
-# TODO: class documentation
+# SearchLineBuffer ifind, irev_find interactive buffer, with search history.
 class SearchLineBuffer
   def initialize
     Viper::Session[:searches] ||= []

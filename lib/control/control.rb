@@ -1,8 +1,8 @@
 # control.rb - module Viper::Control
-# Style/Documentation: Enabled: false
-# TODO: Module documentation
+
+# Viper root namespace for Viper editor.
 module Viper
-  # TODO: Class documentation
+  # Control main control loop fro Viper editor.
   class Control
     def initialize(proc_bindings = nil)
       @proc_bindings = proc_bindings || make_bindings
