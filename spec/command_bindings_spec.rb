@@ -279,7 +279,7 @@ describe 'load_cov' do
 
   specify { subject.wont_equal nil }
 end
-
+if $simplecov_loaded
 describe 'cov' do
   before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
   let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
@@ -295,7 +295,7 @@ describe 'cov_report' do
 
   specify { subject.must_equal 'Created' }
 end
-
+end
 describe 'nop' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, 'nop I said' }
