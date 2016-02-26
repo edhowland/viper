@@ -280,21 +280,21 @@ describe 'load_cov' do
   specify { subject.wont_equal nil }
 end
 if $simplecov_loaded
-describe 'cov' do
-  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
-  subject { $buffer_ring.unshift buf; parse_execute buf, 'cov'; $buffer_ring.first.to_s[0..7] }
+  describe 'cov' do
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+    let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
+    subject { $buffer_ring.unshift buf; parse_execute buf, 'cov'; $buffer_ring.first.to_s[0..7] }
 
-  specify { subject.must_equal 'Coverage' }
-end
+    specify { subject.must_equal 'Coverage' }
+  end
 
-describe 'cov_report' do
-  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'cov_report'; $buffer_ring.first.to_s[0..6] }
+  describe 'cov_report' do
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'cov_report'; $buffer_ring.first.to_s[0..6] }
 
-  specify { subject.must_equal 'Created' }
-end
+    specify { subject.must_equal 'Created' }
+  end
 end
 describe 'nop' do
   let(:buf) { Buffer.new '' }

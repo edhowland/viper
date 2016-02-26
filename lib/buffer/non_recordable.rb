@@ -1,6 +1,6 @@
 # non_recordable.rb - module NonRecordable
 
-#NonRecordable module is included in Buffer subclasses which can not be recorded via record method. These buffers cannot be undone or redone. 
+# NonRecordable module is included in Buffer subclasses which can not be recorded via record method. These buffers cannot be undone or redone.
 module NonRecordable
   def can_undo?
     false

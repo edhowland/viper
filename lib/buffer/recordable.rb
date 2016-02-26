@@ -1,6 +1,6 @@
 # recordable.rb - module Recordable
 
-#Recordable module included in Buffer subclasses  which can be undone, redone. 
+# Recordable module included in Buffer subclasses  which can be undone, redone.
 module Recordable
   def init_commands
     @commands ||= CommandBuffer.new

@@ -8,5 +8,4 @@ SimpleCov.start do
   add_filter '/bin/'
 end if ENV['COV'] == '1'
 
-
 $simplecov_loaded = true

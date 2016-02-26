@@ -6,7 +6,7 @@ def my_path
   File.dirname(File.expand_path(__FILE__))
 end
 
-def make_path dir
+def make_path(dir)
   File.expand_path(my_path + '/' + dir) + '/'
 end
 

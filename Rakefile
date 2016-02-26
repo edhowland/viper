@@ -9,5 +9,5 @@ end
 task default: [:test]
 
 task :yard do
-  sh "yardoc -o ./doc"
+  sh 'yardoc -o ./doc'
 end
