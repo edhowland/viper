@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-# TODO: Class documentation
+# MyBuffer Sample Buffer that is Recordable and exposes the commands arrary.
 class MyBuffer < Buffer
   include Recordable
 

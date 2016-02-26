@@ -1,15 +1,20 @@
 #!/usr/bin/env ruby
 # viper - Main entry for Viper editor
 
-require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
-options = { read_only: false, check_syntax: false }
+options = { read_only: false, check_syntax: false, safe: false }
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
+  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do
+    options[:safe] = true
+  end
+  opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
+    require lib
+  end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
     options[:check_syntax] = true
   end
@@ -34,15 +39,23 @@ end
 parser.parse!
 
 # possibly open ~/.viperrc and process any commands found there
-tmp_buff = ScratchBuffer.new
-suppress_audio do
-  load_rc do |l|
-    parse_execute tmp_buff, l
-  end
+unless options[:safe]
+  tmp_buff = ScratchBuffer.new
+  suppress_audio do
+    # load system-wide commands here
+    load_rc(config_path + 'viperrc') do |l|
+      perform!(l) { tmp_buff }
+    end
 
-  # possibly load ./.viperrc
-  load_rc './.viperrc', silent: true do |l|
-    parse_execute tmp_buff, l
+    # load user's possible ~/.viperrc
+    load_rc do |l|
+      perform!(l) { tmp_buff }
+    end
+
+    # possibly load ./.viperrc
+    load_rc './.viperrc', silent: true do |l|
+      perform!(l) { tmp_buff }
+    end
   end
 end
 
@@ -62,22 +75,14 @@ def fbuffer
 end
 
 @buffer = fbuffer
-@search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-@search_direction = :srch_fwd # or :srch_back
-@search_buffer.name = 'Search buffer'
-
-def swap(buff1, buff2)
-  [buff2, buff1]
-end
 
 # possibly jump to a specific line in the file
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
 # Executes this block for each character typed in the console
-#   Exits whenever some exception is raised
 Viper::Control.loop do |worker|
   begin
     ch = worker.getch
@@ -91,71 +96,19 @@ Viper::Control.loop do |worker|
     when :quit
       break
 
-    when :rotate_buffer
-      $buffer_ring.rotate!
-      @buffer = fbuffer
-      say "Buffer is now #{@buffer.name}"
-    when :save
-      @buffer.save
-      say "Buffer #{@buffer.name} saved"
-    when :meta
-      say 'meta'
-      next_key = map_key(key_press)
-      case next_key
-      when :key_d
-        @buffer.front_of_line; @buffer.set_mark; @buffer.down; $clipboard = @buffer.cut
-        say 'line deleted'
-      when :shift_end
-        @buffer.set_mark; @buffer.back_of_line; $clipboard = @buffer.cut
-        say 'delete to end of line'
-      when :shift_home
-        @buffer.set_mark; @buffer.front_of_line; $clipboard = @buffer.cut
-        say 'delete to start of line'
-      when :shift_pgup
-        @buffer.set_mark; @buffer.beg; $clipboard = @buffer.cut
-        say 'delete to top of buffer'
-      when :shift_pgdn
-        @buffer.set_mark; @buffer.fin; $clipboard = @buffer.cut
-        say 'delete to bottom of buffer'
-      else
-        say next_key.to_s
-      end
-
     when :debug
-      say 'Entering debug mode. Press Ctrl-D to exit'
-      binding.pry
-      say "Exited debug mode. Buffer is #{@buffer.name}"
-    when :help
-      say 'Use Option semicolon and help to invoke help'
-
-    when :srch_fwd
-      @search_direction = :srch_fwd
-      say 'search forward'
-      pattern = @search_line.readline
-      @buffer.srch_fwd(pattern)
-      say @buffer.line
-
-    when :srch_back
-      @search_direction = :srch_back
-      say 'search back'
-      pattern = @search_line.readline
-      @buffer.srch_back(pattern)
-      say @buffer.line
-
-    when :srch_next
-      pattern = @search_line.last_line
-      if @search_direction == :srch_fwd
-        @buffer.fwd
-        @buffer.srch_fwd(pattern)
+      if defined? Pry
+        say 'Entering debug mode. Press Ctrl-D to exit'
+        binding.pry
+        say "Exited debug mode. Buffer is #{@buffer.name}"
       else
-        @buffer.srch_back(pattern)
+        say 'Require pry first to aid in debugging Viper'
       end
-      say @buffer.line
 
     when :command
       say 'command '
-      command_s = @command_line.readline
-      quitting = parse_execute @buffer, command_s
+      quitting = repl(@command_line) { fbuffer }
+
     end
     break if quitting == :quit
     @buffer = fbuffer # restore the @buffer pointer

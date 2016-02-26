@@ -248,3 +248,44 @@ describe 'line_number' do
 
   specify { subject.must_equal 3 }
 end
+
+describe 'word_fwd' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { buf.word_fwd }
+
+  specify { subject.must_equal 'hello' }
+end
+
+describe 'word_fwd - no match' do
+  let(:buf) { Buffer.new '  ' }
+  subject { buf.word_fwd }
+
+  specify { subject.must_equal nil }
+end
+
+describe 'eob?' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.eob? }
+
+  specify { subject.must_equal true }
+end
+
+describe 'eob? front is false' do
+  let(:buf) { Buffer.new '0123' }
+  subject { buf.eob? }
+  specify { subject.must_equal false }
+end
+
+describe 'eob? after move to end' do
+  let(:buf) { Buffer.new '0123' }
+  subject { buf.fwd 4; buf.eob? }
+
+  specify { subject.must_equal true }
+end
+
+describe 'match sets match_data' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { buf.match(/wor/); buf.match_data }
+
+  specify { subject.must_be_instance_of MatchData }
+end

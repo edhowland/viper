@@ -23,8 +23,8 @@ Viper has been tested with Ubuntu 14.04, Ruby 2.2 and the terminal type: xterm-2
 ## Installation
 
 
-Clone this repository. Change to the viper directory.
-Then run bundle.
+Clone this repository. Possibly add 'viper/bin' to your PATH
+or alias viper to your cloned path 'bin/viper'. 
 
 
 ## Usage:
@@ -82,6 +82,7 @@ Meta+D - Starts a Delete sequence:
 
 
 Debug mode: For debugging the editor itself.
+Note: First use -r, --require pry on command line to load Pry debugger and interactive shell.
   Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
 
 

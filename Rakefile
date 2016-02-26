@@ -7,3 +7,7 @@ Rake::TestTask.new do |t|
 end
 
 task default: [:test]
+
+task :yard do
+  sh 'yardoc -o ./doc'
+end

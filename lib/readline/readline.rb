@@ -1,13 +1,11 @@
 # readline.rb - module Viper::Readline
 
-# Style/Documentation: Enabled: false
-# Metrics/LineLength: Enabled: false
-# TODO: Module documentation
+# Viper root namespace for Viper editor.
 module Viper
-  # TODO: Class documentation
+  # Readline GNU readline-like functionality using Buffers.
   class Readline
-    def initialize
-      @buffer = MultiLineBuffer.new
+    def initialize(buffers = nil)
+      @buffer = MultiLineBuffer.new buffers
       @last_line = ''
     end
 

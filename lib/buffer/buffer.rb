@@ -1,6 +1,6 @@
 # buffer.rb - class Buffer
 
-# TODO: Class documentation
+# Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
 class Buffer
   def initialize(string)
     @a_buff = StringBuffer.new ''
@@ -8,9 +8,11 @@ class Buffer
     @dirty = false
     @name = 'unnamed'
     @mark_position = nil
+    @match_data = nil
   end
 
   attr_accessor :name
+  attr_reader :match_data
 
   def set_mark
     @mark_position = position
@@ -47,7 +49,6 @@ class Buffer
   end
 
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
-  # buffers. # FIXME (should be able to switch key bindings on a per buffer basis)
   def save
   end
 
@@ -233,6 +234,19 @@ class Buffer
 
   def word_back
     @a_buff.rword_index
+  end
+
+  def match(regex)
+    @match_data = @b_buff.to_s.match(regex)
+    return @match_data[1] unless @match_data.nil?
+  end
+
+  def word_fwd
+    match(/^(\w+)/)
+  end
+
+  def eob?
+    @b_buff.length.zero?
   end
 
   def to_s

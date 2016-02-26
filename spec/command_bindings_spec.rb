@@ -69,11 +69,11 @@ describe 'r!' do
   specify { subject; buf.to_s.length.must_equal 33 }
 end
 
-describe 'g 14' do
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
-  subject { parse_execute buf, 'g 14 ' }
+describe 'g 9' do
+  let(:buf) { Buffer.new "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\n" }
+  subject { parse_execute buf, 'g 9' }
 
-  specify { subject; buf.line_number.must_equal 14 }
+  specify { subject; buf.line_number.must_equal 9 }
 end
 
 describe 'goto' do
@@ -197,6 +197,22 @@ describe 'sedit' do
   specify { subject; $buffer_ring.first.to_s[0..2].must_equal 'def' }
 end
 
+describe 'sedit - snippet not found' do
+  let(:buf) { Buffer.new '' }
+  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
+  subject { parse_execute $buffer_ring.first, 'sedit xxx ruby' }
+
+  specify { -> { subject }.must_raise SnippetNotFound }
+end
+
+describe 'sedit - collection not found' do
+  let(:buf) { Buffer.new '' }
+  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
+  subject { parse_execute $buffer_ring.first, 'sedit xxx yyy' }
+
+  specify { -> { subject }.must_raise SnippetCollectionNotFound }
+end
+
 describe 'snip' do
   let(:buf) { Buffer.new '' }
   before { parse_execute buf, 'load ruby ruby'; parse_execute buf, 'new'; $buffer_ring.first.ins 'my' }
@@ -263,23 +279,23 @@ describe 'load_cov' do
 
   specify { subject.wont_equal nil }
 end
+if $simplecov_loaded
+  describe 'cov' do
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+    let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
+    subject { $buffer_ring.unshift buf; parse_execute buf, 'cov'; $buffer_ring.first.to_s[0..7] }
 
-describe 'cov' do
-  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/lib/viper.rb" }
-  subject { $buffer_ring.unshift buf; parse_execute buf, 'cov'; $buffer_ring.first.to_s[0..7] }
+    specify { subject.must_equal 'Coverage' }
+  end
 
-  specify { subject.must_equal 'Coverage' }
+  describe 'cov_report' do
+    before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'cov_report'; $buffer_ring.first.to_s[0..6] }
+
+    specify { subject.must_equal 'Created' }
+  end
 end
-
-describe 'cov_report' do
-  before { parse_execute buf, "load_cov #{SRC_ROOT}/coverage/coverage.json" }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'cov_report'; $buffer_ring.first.to_s[0..6] }
-
-  specify { subject.must_equal 'Created' }
-end
-
 describe 'nop' do
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, 'nop I said' }
@@ -291,6 +307,22 @@ describe 'keys - keyboard help' do
   before { $stdin = StringIO.new "\u0011" }
   let(:buf) { Buffer.new '' }
   subject { parse_execute buf, 'keys' }
+
+  specify { subject }
+end
+
+describe 'say' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:say]; prc.call buf }
+
+  specify { subject }
+end
+
+describe 'nop' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject { prc = bind[:nop]; prc.call buf, 1, 2 }
 
   specify { subject }
 end

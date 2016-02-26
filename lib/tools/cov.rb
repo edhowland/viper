@@ -1,10 +1,10 @@
 # cov.rb - method cov - load results for given pathname into buffer from JSON loaded via load_cov
 
-# TODO: top level documentation
+# CoverageJSONNotLoaded raised when JSON coverage file was not loaded.
 class CoverageJSONNotLoaded < RuntimeError
 end
 
-# TODO: Top level documentation
+# FileNotReportedInCoverage raised when a the cov command was asked for on a FileBuffer that was not covered in coverage report JSON.
 class FileNotReportedInCoverage < RuntimeError
   def initialize(fname)
     super "File #{fname} was not checked for coverage"
