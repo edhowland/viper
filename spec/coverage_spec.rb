@@ -1,7 +1,7 @@
 # coverage_spec.rb - specs for coverage
 
 require_relative 'spec_helper'
-
+if $simplecov_loaded
 describe 'load_coverage' do
   before { load_cov SRC_ROOT + '/coverage/coverage.json' }
   subject { Viper::Session[:coverage] }
@@ -31,4 +31,6 @@ describe 'cov with unknown file raises FileNotReportedInCoverage' do
   subject { cov buf, 'xxyyz.rb' }
 
   specify { -> { subject }.must_raise FileNotReportedInCoverage }
+end
+
 end
