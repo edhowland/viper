@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # viper - Main entry for Viper editor
 
-require 'pry'
 require_relative '../lib/viper'
 require 'optparse'
 
@@ -12,6 +11,9 @@ parser = OptionParser.new do |opt|
   opt.separator '-'
   opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do
     options[:safe] = true
+  end
+  opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
+    require lib
   end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
     options[:check_syntax] = true
@@ -103,9 +105,13 @@ Viper::Control.loop do |worker|
       break
 
     when :debug
+      if defined? Pry
       say 'Entering debug mode. Press Ctrl-D to exit'
       binding.pry
       say "Exited debug mode. Buffer is #{@buffer.name}"
+      else
+        say 'Require pry first to aid in debugging Viper'
+      end
 
     when :command
       say 'command '
