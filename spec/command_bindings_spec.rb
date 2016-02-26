@@ -69,11 +69,11 @@ describe 'r!' do
   specify { subject; buf.to_s.length.must_equal 33 }
 end
 
-describe 'g 14' do
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
-  subject { parse_execute buf, 'g 14 ' }
+describe 'g 9' do
+  let(:buf) { Buffer.new "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\n" }
+  subject { parse_execute buf, 'g 9' }
 
-  specify { subject; buf.line_number.must_equal 14 }
+  specify { subject; buf.line_number.must_equal 9 }
 end
 
 describe 'goto' do
