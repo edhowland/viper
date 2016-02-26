@@ -1,8 +1,8 @@
 # readline.rb - module Viper::Readline
 
-# TODO: Module documentation
+# Viper root namespace for Viper editor.
 module Viper
-  # TODO: Class documentation
+  # Readline GNU readline-like functionality using Buffers.
   class Readline
     def initialize(buffers = nil)
       @buffer = MultiLineBuffer.new buffers

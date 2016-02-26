@@ -1,6 +1,6 @@
 # compare_indent - classCompareIndent
 
-# TODO: Class documentation
+# CompareIndent compares two lines for indentation levels. farther apart than 2 spaces.
 class CompareIndent
   def lt(indent, previous)
     return [indent, previous] if indent < (previous - 2)
