@@ -36,7 +36,7 @@ lib/io/file_buffer.rb fca42ef237293d3ea4f2b13fad03a9210a7269b4
 lib/tools/load_cov.rb 9f61df81ee3ce3e976476a464ec111d70f26b3a4
 lib/control/control.rb a7e1755483d1a5ad302465693471d0d2a424309a
 lib/repl/save_alias.rb f5d422ac8dfe50a043d440ab16891d826096c029
-lib/session/session.rb ea9376ab635082ff8be039973e7bbdbe316adccc
+lib/session/session.rb c39841c1abce3a451111b1fa8e1c2f3af49e3bdd
 lib/ui/display_help.rb 7ff73c5ff16f1343189c02e047650b18e9fdd951
 lib/find_and_replace.rb 76d2334e0b8847e38e211a663cca62c21941bba3
 lib/mappings/map_key.rb cdd26656a14c1f07fa709aa1f028a13bfd37d9ae
