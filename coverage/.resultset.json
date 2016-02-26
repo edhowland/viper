@@ -80,7 +80,10 @@
       ],
       "/home/vagrant/src/viper/lib/session/session.rb": [
         null,
+        null,
+        null,
         1,
+        null,
         1,
         1,
         null,
@@ -89,7 +92,7 @@
         null,
         null,
         1,
-        158,
+        157,
         null,
         null,
         1,
@@ -197,6 +200,7 @@
         null
       ],
       "/home/vagrant/src/viper/lib/exceptions/command_syntax_error.rb": [
+        null,
         null,
         null,
         1,
@@ -405,14 +409,14 @@
         null,
         null,
         1,
-        89,
-        89,
+        88,
+        88,
         null,
         null,
         1,
         122,
         75,
-        8,
+        7,
         null,
         null,
         1,
@@ -892,7 +896,7 @@
         null,
         1,
         37,
-        83,
+        71,
         37,
         null,
         null
@@ -910,7 +914,7 @@
         null,
         null,
         1,
-        179,
+        181,
         null
       ],
       "/home/vagrant/src/viper/lib/ui/key_press.rb": [
@@ -1446,7 +1450,7 @@
         1,
         1,
         null,
-        2,
+        4,
         null,
         1,
         11,
@@ -1620,7 +1624,7 @@
         null,
         null,
         1,
-        42,
+        44,
         26,
         9,
         9,
@@ -2472,9 +2476,9 @@
         1,
         19,
         19,
-        16,
-        16,
-        11,
+        15,
+        15,
+        10,
         null,
         5,
         5,
@@ -2741,6 +2745,6 @@
         null
       ]
     },
-    "timestamp": 1456450489
+    "timestamp": 1456525588
   }
 }
