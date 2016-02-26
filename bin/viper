@@ -75,22 +75,14 @@ def fbuffer
 end
 
 @buffer = fbuffer
-@search_buffer = Buffer.new ''
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
-# @search_direction = :srch_fwd # or :srch_back
-@search_buffer.name = 'Search buffer'
-
-def swap(buff1, buff2)
-  [buff2, buff1]
-end
 
 # possibly jump to a specific line in the file
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
 # Executes this block for each character typed in the console
-#   Exits whenever some exception is raised
 Viper::Control.loop do |worker|
   begin
     ch = worker.getch
@@ -106,9 +98,9 @@ Viper::Control.loop do |worker|
 
     when :debug
       if defined? Pry
-      say 'Entering debug mode. Press Ctrl-D to exit'
-      binding.pry
-      say "Exited debug mode. Buffer is #{@buffer.name}"
+        say 'Entering debug mode. Press Ctrl-D to exit'
+        binding.pry
+        say "Exited debug mode. Buffer is #{@buffer.name}"
       else
         say 'Require pry first to aid in debugging Viper'
       end
