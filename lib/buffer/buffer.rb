@@ -1,6 +1,6 @@
 # buffer.rb - class Buffer
 
-# TODO: Class documentation
+# Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
 class Buffer
   def initialize(string)
     @a_buff = StringBuffer.new ''

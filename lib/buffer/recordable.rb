@@ -1,6 +1,6 @@
 # recordable.rb - module Recordable
 
-# TODO: Module documentation
+#Recordable module included in Buffer subclasses  which can be undone, redone. 
 module Recordable
   def init_commands
     @commands ||= CommandBuffer.new

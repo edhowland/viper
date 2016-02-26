@@ -1,6 +1,6 @@
 # scratch_buffer.rb - class ScratchBuffer : just Recordable Buffer
 
-# TODO: Class documentation
+#ScratchBuffer subclass of Buffer used for temp activity. Created with the new command. 
 class ScratchBuffer < Buffer
   include Recordable
 

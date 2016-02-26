@@ -1,6 +1,6 @@
 # non_writable.rb - module NonWritable
 
-# TODO: Module documentation
+# NonWritable module included in Buffers which are not savable. 
 module NonWritable
   def ins(_string)
     say BELL

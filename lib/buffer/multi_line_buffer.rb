@@ -1,6 +1,6 @@
 # mult_line_buffer.rb - class MultiLineBuffer
 
-# TODO: Class documentation
+#MultiLineBuffer  allows for many lines, each of which is itself a Buffer.
 class MultiLineBuffer
   def initialize(buffers = nil)
     @a_buff = buffers || [Buffer.new('')]
