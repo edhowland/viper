@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 0.9.8
+### Version 1.0.0
 
 
 
