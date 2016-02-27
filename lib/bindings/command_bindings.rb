@@ -107,6 +107,9 @@ def command_bindings
     cov: ->(b, *_args) { sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line },
     cov_report: ->(_b, *_args) { cov_report; say $buffer_ring[0].name.to_s },
 
+    # Package stuff
+    require: ->(b, *args) { require args[0] },
+
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args
