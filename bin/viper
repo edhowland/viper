@@ -114,14 +114,6 @@ Viper::Control.loop(make_bindings, my_hooks) do |worker|
     when :quit
       break
 
-    when :debug_old
-      if defined? Pry
-        say 'Entering debug mode. Press Ctrl-D to exit'
-        binding.pry
-        say "Exited debug mode. Buffer is #{@buffer.name}"
-      else
-        say 'Require pry first to aid in debugging Viper'
-      end
 
     when :command
       say 'command '
