@@ -38,3 +38,4 @@ require_relative 'repl'
 init
 require_relative 'tools'
 require_relative 'viper/load_rc'
+require_relative 'packages'
