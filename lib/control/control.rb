@@ -4,13 +4,15 @@
 module Viper
   # Control main control loop fro Viper editor.
   class Control
-    def initialize(proc_bindings = nil)
+    def initialize(proc_bindings = nil, intra_hooks=[])
       @proc_bindings = proc_bindings || make_bindings
+    @intra_hooks = intra_hooks
     end
 
-    attr_accessor :proc_bindings
-    def self.loop(p_bindings = make_bindings, &_blk)
-      this = new p_bindings
+    attr_accessor :proc_bindings, :intra_hooks
+
+    def self.loop(p_bindings = make_bindings,hooks=[], &_blk)
+      this = new(p_bindings, hooks)
       exception_raised = false
       until exception_raised
         begin
@@ -22,6 +24,14 @@ module Viper
       end
     end
 
+  # Possibly called once within loop block above. Use cases include calling binding.pry
+  def intra_hook(that_binding, key, value)
+    # put possible hooks here that will be called once per loop
+    @intra_hooks.each {|e| e.call(that_binding, key, value) }
+  end
+
+
+  # Gets mapped keystroke as symbol.
     def getch
       map_key(key_press)
     end

@@ -82,12 +82,30 @@ end
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
+# Inject a hook into control hook for pry debugging
+my_hooks = [
+  ->(bind, key, value) { 
+    if key == :ctrl_d && value == :debug
+    if defined?(Pry) 
+      say 'Entering Pry debugger. Press Ctrl-d to return to editor'
+      bind.pry
+      say 'Exiting Pry debugger.'
+    else
+    say 'Use --require pry option to enable Pry debugger for editor'
+    end
+    end
+  }
+]
+
 # Executes this block for each character typed in the console
-Viper::Control.loop do |worker|
+Viper::Control.loop(make_bindings, my_hooks) do |worker|
   begin
     ch = worker.getch
     prc = worker.bound_proc_for ch
     result = prc.call(@buffer)
+    # Give external packages a way to hook into this loop
+    worker.intra_hook(binding, ch, result)
+
     if result.to_s =~ /^cmd_/
       command = convert_cmd result
       exec_cmd command, @buffer
@@ -96,7 +114,7 @@ Viper::Control.loop do |worker|
     when :quit
       break
 
-    when :debug
+    when :debug_old
       if defined? Pry
         say 'Entering debug mode. Press Ctrl-D to exit'
         binding.pry
