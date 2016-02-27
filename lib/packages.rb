@@ -2,3 +2,4 @@
 
 require_relative 'packages/package'
 
+require_relative 'packages/packages'
