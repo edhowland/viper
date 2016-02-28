@@ -9,7 +9,7 @@ options = { read_only: false, check_syntax: false, safe: false }
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
-  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do
+  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files or packages') do
     options[:safe] = true
   end
   opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
