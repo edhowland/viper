@@ -13,6 +13,8 @@ def init
 
   # Session stuff
   Viper::Session[:intra_hooks] = [] # Procs called inside Viper::Control.loop block
+  Viper::Session[:key_bindings] = make_bindings
+  Viper::Session[:variables] = {} # Possible storage for command entry variables E.g. %ts
 
   # Package stuff
   Viper::Packages.init # instantantiates Viper::Packages::PACKAGE_PATH

@@ -11,7 +11,7 @@ module Viper
 
     attr_accessor :proc_bindings, :intra_hooks
 
-    def self.loop(p_bindings = make_bindings,hooks=Viper::Session[:intra_hooks], &_blk)
+    def self.loop(p_bindings = Viper::Session[:key_bindings],hooks=Viper::Session[:intra_hooks], &_blk)
       this = new(p_bindings, hooks)
       exception_raised = false
       until exception_raised
