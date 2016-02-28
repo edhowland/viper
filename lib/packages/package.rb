@@ -12,6 +12,8 @@ module Viper
 
     attr_reader :name, :path
 
+    def viper_path fname
+      "#{@path}#{fname}.viper"
+    end
   end
 end
-
