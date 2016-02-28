@@ -56,9 +56,11 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 
 
 - Snippets - Ability to record and playback short snippets of commonly used texts. 
-- Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
+- Copy and Paste: Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
 - Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
+- Replace Replace text in conjunction with search.
 - Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
 - Help system, including keyboard help(like VO+k in Mac VoiceOver)
 - Little Linter :(Use Rubocop! rather than rely on this.)
 - SimpleCov support: Can parse simplecov JSON reports for the entire body of code or an individual file.
