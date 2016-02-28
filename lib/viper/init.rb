@@ -11,6 +11,9 @@ def init
   # file associations are for FileBuffer's use
   $file_associations = Association.new
 
+  # Session stuff
+  Viper::Session[:intra_hooks] = [] # Procs called inside Viper::Control.loop block
+
   # Package stuff
   Viper::Packages.init # instantantiates Viper::Packages::PACKAGE_PATH
 end
