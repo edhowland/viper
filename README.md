@@ -83,9 +83,6 @@ Meta+D - Starts a Delete sequence:
 + Shift+PgDn - Deletes to the bottom of the buffer.
 
 
-Debug mode: For debugging the editor itself.
-Note: First use -r, --require pry on command line to load Pry debugger and interactive shell.
-  Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.
 
 
 ## Command Entry
