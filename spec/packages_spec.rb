@@ -45,3 +45,10 @@ describe 'load' do
 
   specify { subject }
 end
+
+describe 'lib_path' do
+  let(:pkg) { Viper::Package.new 'debug' }
+  subject { pkg.lib_path }
+
+  specify { subject.must_equal home_pkg_path('debug', 'lib/') }
+end
