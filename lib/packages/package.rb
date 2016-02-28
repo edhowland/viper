@@ -15,5 +15,13 @@ module Viper
     def viper_path fname
       "#{@path}#{fname}.viper"
     end
+
+    def load
+      # raise Viper::Packages::LoadFileNotFound unless File.exist? viper_path('load')
+      tmp_buffer = Buffer.new ''
+      load_rc(viper_path('load')) do |line|
+        perform!(line) { tmp_buffer }
+      end
+    end
   end
 end

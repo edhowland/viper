@@ -15,6 +15,13 @@ parser = OptionParser.new do |opt|
   opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
     require lib
   end
+
+  opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
+    package = Viper::Package.new pkg
+    suppress_audio do
+      package.load
+    end
+  end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
     options[:check_syntax] = true
   end
