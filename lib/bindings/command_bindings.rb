@@ -102,10 +102,6 @@ def command_bindings
     assocd: ->(_b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     tab: ->(b, *_args) { handle_tab(b) },
 
-    # Code Coverage support from simplecov
-#    load_cov: ->(_b, *args) { load_cov args[0]; say "Coverage repor #{args[0]} loaded" },
-    cov: ->(b, *_args) { sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line },
-    cov_report: ->(_b, *_args) { cov_report; say $buffer_ring[0].name.to_s },
 
     # Package stuff
     require: ->(b, *args) { require args[0] },
