@@ -63,8 +63,12 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 - Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
 - Help system, including keyboard help(like VO+k in Mac VoiceOver)
 - Little Linter :(Use Rubocop! rather than rely on this.)
-- SimpleCov support: Can parse simplecov JSON reports for the entire body of code or an individual file.
 
+Note: SimpleCov support has been moved to viper_simplecov Viper package. No changes were made to the load_cov, cov or cov_report commands.
+The only new requirement is to load the viper_simplecov package either with the 'package viper_simplecov' command
+or use the --package viper_simplecov option to the viper command.
+
+^.
 
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.

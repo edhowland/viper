@@ -4,6 +4,11 @@
 require_relative '../lib/viper'
 require 'optparse'
 
+def lib_path
+  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../lib/')
+end
+
+
 options = { read_only: false, check_syntax: false, safe: false }
 
 parser = OptionParser.new do |opt|
@@ -21,6 +26,20 @@ parser = OptionParser.new do |opt|
     suppress_audio do
       package.load
     end
+  end
+
+  opt.on('--lib-path', 'Print the Viper library path and exit. Useful for setting $LOAD_PATH') do
+    puts lib_path 
+    exit
+  end
+
+  opt.on('--load-viper', 'Prints the load path for Viper library and exits. Useful for -r require in Ruby programs like Pry and IRB') do
+    puts lib_path + '/viper.rb'
+    exit
+  end
+
+  opt.on('--ok', 'Exits with zero status. Useful for checking if viper is installed properly.') do
+    exit(0)
   end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
     options[:check_syntax] = true
