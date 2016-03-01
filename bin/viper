@@ -38,6 +38,16 @@ parser = OptionParser.new do |opt|
     exit
   end
 
+  opt.on('--bin-path-rb', 'Outputs Ruby file with method viper_bin_path to stdout, then exits.') do
+     puts <<-EOC  # Ruby code for bin/viper executable
+# viper_bin_path.rb - method viper_bin_path path to viper executable
+def viper_bin_path
+  "#{File.expand_path(__FILE__)}"
+end
+EOC
+    exit
+  end
+
   opt.on('--ok', 'Exits with zero status. Useful for checking if viper is installed properly.') do
     exit(0)
   end
