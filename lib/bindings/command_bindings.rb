@@ -50,7 +50,7 @@ def command_bindings
     keys: ->(_b, *_args) { help_keys },
 
     # check syntax, lint etc.
-    check: ->(b, *_args) { check_ruby_syntax(b) },
+    check: ->(b, *_args) { check_lang_syntax(b) },
     pipe: ->(b, *args) { pipe(b, *args) },
     pipe!: ->(b, *args) { pipe!(b, *args) },
     lint: ->(b, *_args) { lint(b) },
