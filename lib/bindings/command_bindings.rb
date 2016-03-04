@@ -106,6 +106,7 @@ def command_bindings
     # Package stuff
     require: ->(b, *args) { require args[0] },
     package: ->(b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
+    package_info: ->(b, *args) { say package_info args[0] },
 
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },
