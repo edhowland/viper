@@ -161,4 +161,4 @@ $buffer_ring.select(&:should_save?).map do |buf|
 end
 
 # possibly check syntax of buffer
-check_ruby_syntax(fbuffer) if options[:check_syntax]
+check_lang_syntax(fbuffer) if options[:check_syntax]
