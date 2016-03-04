@@ -52,3 +52,18 @@ describe 'lib_path' do
 
   specify { subject.must_equal home_pkg_path('viper_debug', 'lib/') }
 end
+
+describe 'version_const_string' do
+  let(:pkg) { Viper::Package.new 'viper_ruby' }
+  subject { pkg.const_string }
+
+  specify { subject.must_equal 'Viper::Packages::ViperRuby' }
+end
+
+describe 'version' do
+  let(:pkg) { Viper::Package.new 'viper_ruby' }
+  before { pkg.load }
+  subject { pkg.version }
+
+  specify { subject.must_equal '0.1.0' }
+end

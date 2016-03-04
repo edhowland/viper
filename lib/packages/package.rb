@@ -8,6 +8,7 @@ module Viper
       pkg_locs = Viper::Packages::PACKAGE_PATH.map {|e| e.pathmap("%p#{@name}/")}.select {|e| File.exist?(e) }
       # raise Viper::Packages::PackageNotFound if pkg_locs.empty?
       @path = pkg_locs.first
+      Viper::Packages << self # make ourself avaiable for reference
     end
 
     attr_reader :name, :path
@@ -28,5 +29,16 @@ module Viper
         perform!(line) { tmp_buffer }
       end
     end
+
+    def const_string
+      canon = canonical(@name)
+      'Viper::Packages::' + canon
+    end
+
+    def version
+      Viper::Packages.const_get(const_string + '::VERSION')
+    end
+
+
   end
 end
