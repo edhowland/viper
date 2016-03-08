@@ -132,13 +132,6 @@ describe 'help' do
   specify { subject; $buffer_ring.first.name.must_equal 'Help Buffer (read only)' }
 end
 
-describe 'check' do
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
-  subject { parse_execute buf, 'check' }
-
-  specify { subject }
-end
-
 describe 'pipe' do
   let(:buf) { Buffer.new 'puts "hello world!"' }
   subject { parse_execute buf, 'pipe ruby -c' }
@@ -151,13 +144,6 @@ describe 'pipe!' do
   subject { parse_execute buf, 'pipe! ruby -c' }
 
   specify { subject; buf.to_s.must_equal "Syntax OK\n" }
-end
-
-describe 'lint' do
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec_helper.rb" }
-  subject { parse_execute buf, 'lint' }
-
-  specify { subject }
 end
 
 describe 'new' do
