@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 
 def my_path path
-  "/home/vagrant/src/viper/config/#{path}"
+  File.expand_path(File.dirname(File.expand_path(__FILE__)) + "/../config/#{path}")
 end
 
 
