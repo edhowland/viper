@@ -62,13 +62,20 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 - Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
 - Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
 - Help system, including keyboard help(like VO+k in Mac VoiceOver)
-- Little Linter :(Use Rubocop! rather than rely on this.)
 
 Note: SimpleCov support has been moved to viper_simplecov Viper package. No changes were made to the load_cov, cov or cov_report commands.
 The only new requirement is to load the viper_simplecov package either with the 'package viper_simplecov' command
 or use the --package viper_simplecov option to the viper command.
 
-^.
+Note: Ruby syntax checking and the Little Linter have been moved to the viper_ruby
+package. [https://github.com/edhowland/viper_ruby](https://github.com/edhowland/viper_ruby)
+
+
+Note: The only actual programming language Viper knows how to syntax check is its own .viper or .viperrc files out of the box.
+In order to support other programming languages, you will need to install the appropriate Viper package in your local packages folder. E.g. '~/.viper/packages'.
+So far, only one of these exist: viper_ruby. This package can be used for Ruby language and MiniTest _spec files.
+
+
 
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.
