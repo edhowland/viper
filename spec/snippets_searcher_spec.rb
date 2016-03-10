@@ -8,7 +8,7 @@ end
 
 
 describe 'locate' do
-  subject { Viper::Snippets::Searcher.locate 'default' }
+  subject { Viper::Snippets::Searcher.config_path 'default' }
 
   specify { subject.must_equal my_path('default.json') }
 end
