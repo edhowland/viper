@@ -7,8 +7,19 @@ def my_path path
 end
 
 
-describe 'locate' do
+def tilde_path path
+  File.expand_path("~/.viper/snippets/#{path}")
+end
+
+
+describe 'config_path' do
   subject { Viper::Snippets::Searcher.config_path 'default' }
 
   specify { subject.must_equal my_path('default.json') }
+end
+
+describe 'home_path' do
+  subject { Viper::Snippets::Searcher.home_path 'default' }
+
+  specify { subject.must_equal tilde_path('default.json')  }
 end
