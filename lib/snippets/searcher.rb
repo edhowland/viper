@@ -7,7 +7,9 @@ module Viper
     # TODO: class documentation
     class Searcher
       class << self
-
+        def packages_paths path
+          Viper::Packages.store.map { |e| "#{e.path}/snippets/#{path}.json" }
+        end
         def home_path path
           File.expand_path("~/.viper/snippets/#{path}.json")
         end
@@ -16,7 +18,7 @@ module Viper
           File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../../config/' + path + '.json')
         end
         def locate path
-          result = [home_path(path), config_path(path)].select { |e| File.exist?(e) }
+          result = (packages_paths(path) + [home_path(path), config_path(path)]).select { |e| File.exist?(e) }
           raise RuntimeError.new("Snippet #{path}.json could not be found in search path") if result.empty?
           result.first
         end
