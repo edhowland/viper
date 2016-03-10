@@ -75,7 +75,14 @@ Note: The only actual programming language Viper knows how to syntax check is it
 In order to support other programming languages, you will need to install the appropriate Viper package in your local packages folder. E.g. '~/.viper/packages'.
 So far, only one of these exist: viper_ruby. This package can be used for Ruby language and MiniTest _spec files.
 
+Note: Language snippet support have been moved to Viper language packages.
+This means that default snippets for a given language will be found in the installed package for that language. 
+E.g. Ruby and MiniSpec snippets can be found in ~/.viper/packages/viper_ruby/snippets.
+This creates a snippets load order in the following manner:
 
+1. Loaded packages in ~/.viper/packages/<pkg name>/snippets
+2. In ~/.viper/snippets
+3. In Viper's config directory: <viper install path>/config/
 
   Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
   text to be search to be for.
@@ -140,7 +147,7 @@ load markdown markdown
 assocx .md markdown
 # now create a new snippet: the h6 heading
 new
-# enter: \n###### ^.\n
+# enter: \n###### \n
 snip h6 markdown
 dump markdown markdown
 # Ctrl-T to return to previous buffer with Markdown content
