@@ -20,6 +20,10 @@ parser = OptionParser.new do |opt|
     require lib
   end
 
+  opt.on('-e expr', '--evaluate expr', String, 'Evaluate expression as a command string') do |expr|
+
+  end
+
   opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
     package = Viper::Package.new pkg
     suppress_audio do

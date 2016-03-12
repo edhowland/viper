@@ -4,7 +4,7 @@
 module Viper
   # Packages namespace. Root of all external Viper editor packages
   module Packages
-    PACKAGE_PATH = [] 
+    PACKAGE_PATH = []
     @store = []
 
     def self.init

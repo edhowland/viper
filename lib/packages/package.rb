@@ -1,7 +1,7 @@
 # package.rb - class Viper::Package
-# TODO module documentation
+# Viper namespace
 module Viper
-  # TODO: class documentation
+  # class Package instance of a loaded package. Probably loaded with the package command.
   class Package
     def initialize(name)
       @name = name

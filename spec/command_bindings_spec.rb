@@ -221,10 +221,10 @@ describe 'command_bindings' do
   end
 
   describe 'dump' do
-  let(:bind) { command_bindings }
-  subject { bind[:dump] }
+    let(:bind) { command_bindings }
+    subject { bind[:dump] }
 
-  specify { subject.must_be_instance_of Proc }
+    specify { subject.must_be_instance_of Proc }
   end
 
   # load not checked since it is used in previous tests
