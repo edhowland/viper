@@ -221,12 +221,10 @@ describe 'command_bindings' do
   end
 
   describe 'dump' do
-    let(:buf) { Buffer.new '' }
-    before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
-    subject { buf.ins 'my'; parse_execute buf, 'snip my my'; parse_execute buf, 'dump my my'; File.exist?(cfg_path('my.json')) }
+  let(:bind) { command_bindings }
+  subject { bind[:dump] }
 
-    specify { subject.must_equal true }
-    after { File.unlink(cfg_path('my.json')) }
+  specify { subject.must_be_instance_of Proc }
   end
 
   # load not checked since it is used in previous tests

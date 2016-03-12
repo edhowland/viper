@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-def my_path(path)
+def our_config_path(path)
   File.expand_path(File.dirname(File.expand_path(__FILE__)) + "/../config/#{path}")
 end
 
@@ -13,7 +13,7 @@ end
 describe 'config_path' do
   subject { Viper::Snippets::Searcher.config_path 'default' }
 
-  specify { subject.must_equal my_path('default.json') }
+  specify { subject.must_equal our_config_path('default.json') }
 end
 
 describe 'home_path' do
