@@ -8,7 +8,6 @@ def lib_path
   File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../lib/')
 end
 
-
 options = { read_only: false, check_syntax: false, safe: false }
 
 parser = OptionParser.new do |opt|
@@ -29,7 +28,7 @@ parser = OptionParser.new do |opt|
   end
 
   opt.on('--lib-path', 'Print the Viper library path and exit. Useful for setting $LOAD_PATH') do
-    puts lib_path 
+    puts lib_path
     exit
   end
 
@@ -39,7 +38,7 @@ parser = OptionParser.new do |opt|
   end
 
   opt.on('--bin-path-rb', 'Outputs Ruby file with method viper_bin_path to stdout, then exits.') do
-     puts <<-EOC  # Ruby code for bin/viper executable
+    puts <<-EOC  # Ruby code for bin/viper executable
 # viper_bin_path.rb - method viper_bin_path path to viper executable
 def viper_bin_path
   "#{File.expand_path(__FILE__)}"
@@ -136,7 +135,6 @@ Viper::Control.loop do |worker|
     case result
     when :quit
       break
-
 
     when :command
       say 'command '

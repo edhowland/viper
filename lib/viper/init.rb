@@ -4,7 +4,7 @@
 def init
   $snippet_cascades = { default: {} }
   $commands = command_bindings
-  Viper::Session[:commands] =command_bindings 
+  Viper::Session[:commands] = command_bindings
   $buffer_ring = []
 
   $audio_suppressed = false

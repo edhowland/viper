@@ -102,11 +102,10 @@ def command_bindings
     assocd: ->(_b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     tab: ->(b, *_args) { handle_tab(b) },
 
-
     # Package stuff
-    require: ->(b, *args) { require args[0] },
-    package: ->(b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
-    package_info: ->(b, *args) { say package_info args[0] },
+    require: ->(_b, *args) { require args[0] },
+    package: ->(_b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
+    package_info: ->(_b, *args) { say package_info args[0] },
 
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },

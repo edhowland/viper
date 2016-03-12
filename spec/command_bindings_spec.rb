@@ -5,291 +5,290 @@ require_relative 'spec_helper'
 # supress any audio from say command
 $audio_suppressed = true
 describe 'command_bindings' do
-  before { Viper::Session[:commands] = command_bindings } 
-describe 'q' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'q' }
+  before { Viper::Session[:commands] = command_bindings }
+  describe 'q' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'q' }
 
-  specify { subject.must_equal :quit }
-end
+    specify { subject.must_equal :quit }
+  end
 
-describe 'q!' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'q!' }
+  describe 'q!' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'q!' }
 
-  specify { -> { subject }.must_raise SystemExit }
-end
+    specify { -> { subject }.must_raise SystemExit }
+  end
 
-describe 'w' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'w' }
+  describe 'w' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'w' }
 
-  specify { subject }
-end
+    specify { subject }
+  end
 
-describe 'w c.rb' do
-  let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec/c.rb" }
-  subject { buf.ins 'xxx'; parse_execute buf, "w #{SRC_ROOT}/spec/d.rb" }
+  describe 'w c.rb' do
+    let(:buf) { FileBuffer.new "#{SRC_ROOT}/spec/spec/c.rb" }
+    subject { buf.ins 'xxx'; parse_execute buf, "w #{SRC_ROOT}/spec/d.rb" }
 
-  specify { subject; File.exist?("#{SRC_ROOT}/spec/c.rb").wont_equal true; File.exist?("#{SRC_ROOT}/spec/d.rb").must_equal true }
-  after { File.unlink "#{SRC_ROOT}/spec/d.rb" }
-end
+    specify { subject; File.exist?("#{SRC_ROOT}/spec/c.rb").wont_equal true; File.exist?("#{SRC_ROOT}/spec/d.rb").must_equal true }
+    after { File.unlink "#{SRC_ROOT}/spec/d.rb" }
+  end
 
-describe 'wq' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'wq' }
+  describe 'wq' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'wq' }
 
-  specify { -> { subject }.must_raise SystemExit }
-end
+    specify { -> { subject }.must_raise SystemExit }
+  end
 
-describe 'rew!' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'rew!' }
+  describe 'rew!' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'rew!' }
 
-  specify { -> { subject }.must_raise NonRestorableException }
-end
+    specify { -> { subject }.must_raise NonRestorableException }
+  end
 
-describe 'r' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "r #{SRC_ROOT}/spec_helper.rb" }
+  describe 'r' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, "r #{SRC_ROOT}/spec_helper.rb" }
 
-  specify { subject; buf.to_s.must_be_empty }
-end
+    specify { subject; buf.to_s.must_be_empty }
+  end
 
-describe 'r' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, "r #{SRC_ROOT}/spec/spec_helper.rb" }
+  describe 'r' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, "r #{SRC_ROOT}/spec/spec_helper.rb" }
 
-  specify { subject; buf.to_s.wont_be_empty }
-end
+    specify { subject; buf.to_s.wont_be_empty }
+  end
 
-describe 'r!' do
-  let(:buf) { Buffer.new 'xxxx' }
-  subject { parse_execute buf, 'r! date' }
+  describe 'r!' do
+    let(:buf) { Buffer.new 'xxxx' }
+    subject { parse_execute buf, 'r! date' }
 
-  specify { subject; buf.to_s.length.must_equal 33 }
-end
+    specify { subject; buf.to_s.length.must_equal 33 }
+  end
 
-describe 'g 9' do
-  let(:buf) { Buffer.new "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\n" }
-  subject { parse_execute buf, 'g 9' }
+  describe 'g 9' do
+    let(:buf) { Buffer.new "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\n" }
+    subject { parse_execute buf, 'g 9' }
 
-  specify { subject; buf.line_number.must_equal 9 }
-end
+    specify { subject; buf.line_number.must_equal 9 }
+  end
 
-describe 'goto' do
-  let(:buf) { Buffer.new 'abcdef' }
-  subject { parse_execute buf, 'goto 4' }
+  describe 'goto' do
+    let(:buf) { Buffer.new 'abcdef' }
+    subject { parse_execute buf, 'goto 4' }
 
-  specify { subject; buf.at.must_equal 'e' }
-end
+    specify { subject; buf.at.must_equal 'e' }
+  end
 
-describe 'n' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'new' }
-  subject { parse_execute buf, 'n'; $buffer_ring.first.name }
+  describe 'n' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'new' }
+    subject { parse_execute buf, 'n'; $buffer_ring.first.name }
 
-  specify { subject.must_equal 'Scratch 1' }
-end
+    specify { subject.must_equal 'Scratch 1' }
+  end
 
-describe 'p' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
-  subject { parse_execute buf, 'p'; $buffer_ring.first.name }
+  describe 'p' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear;  parse_execute buf, 'new'; parse_execute buf, 'new' }
+    subject { parse_execute buf, 'p'; $buffer_ring.first.name }
 
-  specify { $buffer_ring.length.must_equal 2 }
-  specify { subject.must_equal 'Scratch 1' }
-end
+    specify { $buffer_ring.length.must_equal 2 }
+    specify { subject.must_equal 'Scratch 1' }
+  end
 
-describe 'o spec_helper.rb' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear }
-  subject { parse_execute buf, "o #{SRC_ROOT}/spec/spec_helper.rb" }
+  describe 'o spec_helper.rb' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear }
+    subject { parse_execute buf, "o #{SRC_ROOT}/spec/spec_helper.rb" }
 
-  specify { subject; $buffer_ring.length.must_equal 1 }
-end
+    specify { subject; $buffer_ring.length.must_equal 1 }
+  end
 
-describe 'k!' do
-  before { $buffer_ring.clear }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'new'; parse_execute buf, 'k!' }
+  describe 'k!' do
+    before { $buffer_ring.clear }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'new'; parse_execute buf, 'k!' }
 
-  specify { subject; $buffer_ring.length.must_equal 0 }
-end
+    specify { subject; $buffer_ring.length.must_equal 0 }
+  end
 
-describe 'yank' do
-  let(:buf) { Buffer.new 'xyzzy' }
-  subject { buf.beg; buf.set_mark; buf.fin; parse_execute buf, 'yank'; $clipboard }
+  describe 'yank' do
+    let(:buf) { Buffer.new 'xyzzy' }
+    subject { buf.beg; buf.set_mark; buf.fin; parse_execute buf, 'yank'; $clipboard }
 
-  specify { subject.must_equal 'xyzzy' }
-end
+    specify { subject.must_equal 'xyzzy' }
+  end
 
-describe 'help' do
-  before { $buffer_ring.clear }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'help' }
+  describe 'help' do
+    before { $buffer_ring.clear }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'help' }
 
-  specify { subject; $buffer_ring.first.name.must_equal 'Help Buffer (read only)' }
-end
+    specify { subject; $buffer_ring.first.name.must_equal 'Help Buffer (read only)' }
+  end
 
-describe 'pipe' do
-  let(:buf) { Buffer.new 'puts "hello world!"' }
-  subject { parse_execute buf, 'pipe ruby -c' }
+  describe 'pipe' do
+    let(:buf) { Buffer.new 'puts "hello world!"' }
+    subject { parse_execute buf, 'pipe ruby -c' }
 
-  specify { subject }
-end
+    specify { subject }
+  end
 
-describe 'pipe!' do
-  let(:buf) { Buffer.new 'puts 1' }
-  subject { parse_execute buf, 'pipe! ruby -c' }
+  describe 'pipe!' do
+    let(:buf) { Buffer.new 'puts 1' }
+    subject { parse_execute buf, 'pipe! ruby -c' }
 
-  specify { subject; buf.to_s.must_equal "Syntax OK\n" }
-end
+    specify { subject; buf.to_s.must_equal "Syntax OK\n" }
+  end
 
-describe 'new' do
-  before { $buffer_ring.clear }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'new' }
+  describe 'new' do
+    before { $buffer_ring.clear }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'new' }
 
-  specify { subject; $buffer_ring.length.must_equal 1 }
-end
+    specify { subject; $buffer_ring.length.must_equal 1 }
+  end
 
-describe 'report' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'report' }
+  describe 'report' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'report' }
 
-  specify { subject }
-end
+    specify { subject }
+  end
 
-describe 'slist' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'slist' }
+  describe 'slist' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'slist' }
 
-  specify { subject }
-end
+    specify { subject }
+  end
 
-describe 'list' do
-  let(:buf) { Buffer.new '' }
-  before { parse_execute buf, 'load ruby ruby' }
-  subject { parse_execute buf, 'list ruby' }
+  describe 'list' do
+    let(:buf) { Buffer.new '' }
+    before { parse_execute buf, 'load ruby ruby' }
+    subject { parse_execute buf, 'list ruby' }
 
-  specify { subject }
-end
+    specify { subject }
+  end
 
-describe 'sedit' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
-  subject { parse_execute $buffer_ring.first, 'sedit def ruby' }
+  describe 'sedit' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
+    subject { parse_execute $buffer_ring.first, 'sedit def ruby' }
 
-  specify { subject; $buffer_ring.first.to_s[0..2].must_equal 'def' }
-end
+    specify { subject; $buffer_ring.first.to_s[0..2].must_equal 'def' }
+  end
 
-describe 'sedit - snippet not found' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
-  subject { parse_execute $buffer_ring.first, 'sedit xxx ruby' }
+  describe 'sedit - snippet not found' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
+    subject { parse_execute $buffer_ring.first, 'sedit xxx ruby' }
 
-  specify { -> { subject }.must_raise SnippetNotFound }
-end
+    specify { -> { subject }.must_raise SnippetNotFound }
+  end
 
-describe 'sedit - collection not found' do
-  let(:buf) { Buffer.new '' }
-  before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
-  subject { parse_execute $buffer_ring.first, 'sedit xxx yyy' }
+  describe 'sedit - collection not found' do
+    let(:buf) { Buffer.new '' }
+    before { $buffer_ring.clear; parse_execute buf, 'new'; parse_execute buf, 'load ruby ruby' }
+    subject { parse_execute $buffer_ring.first, 'sedit xxx yyy' }
 
-  specify { -> { subject }.must_raise SnippetCollectionNotFound }
-end
+    specify { -> { subject }.must_raise SnippetCollectionNotFound }
+  end
 
-describe 'snip' do
-  let(:buf) { Buffer.new '' }
-  before { parse_execute buf, 'load ruby ruby'; parse_execute buf, 'new'; $buffer_ring.first.ins 'my' }
-  subject { parse_execute $buffer_ring.first, 'snip my ruby' }
+  describe 'snip' do
+    let(:buf) { Buffer.new '' }
+    before { parse_execute buf, 'load ruby ruby'; parse_execute buf, 'new'; $buffer_ring.first.ins 'my' }
+    subject { parse_execute $buffer_ring.first, 'snip my ruby' }
 
-  specify { subject; $snippet_cascades[:ruby]['my'].must_equal 'my' }
-end
+    specify { subject; $snippet_cascades[:ruby]['my'].must_equal 'my' }
+  end
 
-describe 'apply' do
-  before { $snippet_cascades.clear; parse_execute buf, 'load ruby ruby' }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'apply def ruby'; buf.to_s[0..2] }
+  describe 'apply' do
+    before { $snippet_cascades.clear; parse_execute buf, 'load ruby ruby' }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'apply def ruby'; buf.to_s[0..2] }
 
-  specify { subject.must_equal 'def' }
-end
+    specify { subject.must_equal 'def' }
+  end
 
-def cfg_path(fname)
-  "#{SRC_ROOT}/config/#{fname}"
-end
+  def cfg_path(fname)
+    "#{SRC_ROOT}/config/#{fname}"
+  end
 
-describe 'dump' do
-  let(:buf) { Buffer.new '' }
-  before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
-  subject { buf.ins 'my'; parse_execute buf, 'snip my my'; parse_execute buf, 'dump my my'; File.exist?(cfg_path('my.json')) }
+  describe 'dump' do
+    let(:buf) { Buffer.new '' }
+    before { File.unlink(cfg_path('my.json')) if File.exist?(cfg_path('my.json')); $snippet_cascades.clear }
+    subject { buf.ins 'my'; parse_execute buf, 'snip my my'; parse_execute buf, 'dump my my'; File.exist?(cfg_path('my.json')) }
 
-  specify { subject.must_equal true }
-  after { File.unlink(cfg_path('my.json')) }
-end
+    specify { subject.must_equal true }
+    after { File.unlink(cfg_path('my.json')) }
+  end
 
-# load not checked since it is used in previous tests
+  # load not checked since it is used in previous tests
 
-describe 'assocx' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'assocx .rb ruby'; FileBuffer.new('file.rb').association }
+  describe 'assocx' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'assocx .rb ruby'; FileBuffer.new('file.rb').association }
 
-  specify { subject.must_equal :ruby }
-end
+    specify { subject.must_equal :ruby }
+  end
 
-describe 'assocf' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'assocf /.+_spec.rb/ spec'; FileBuffer.new('my_spec.rb').association }
+  describe 'assocf' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'assocf /.+_spec.rb/ spec'; FileBuffer.new('my_spec.rb').association }
 
-  specify { subject.must_equal :spec }
-end
+    specify { subject.must_equal :spec }
+  end
 
-describe 'assocd' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'assocd /h/b/ markdown'; FileBuffer.new('/h/b/file.md').association }
+  describe 'assocd' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'assocd /h/b/ markdown'; FileBuffer.new('/h/b/file.md').association }
 
-  specify { subject.must_equal :markdown  }
-end
+    specify { subject.must_equal :markdown  }
+  end
 
-describe 'tab' do
-  before { $snippet_cascades[:default] = {} }
-  let(:buf) { Buffer.new 'def ' }
-  subject { buf.fin; parse_execute buf, 'tab'; buf.to_s }
+  describe 'tab' do
+    before { $snippet_cascades[:default] = {} }
+    let(:buf) { Buffer.new 'def ' }
+    subject { buf.fin; parse_execute buf, 'tab'; buf.to_s }
 
-  specify { subject.must_equal 'def   ' }
-end
+    specify { subject.must_equal 'def   ' }
+  end
 
+  describe 'nop' do
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'nop I said' }
 
-describe 'nop' do
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'nop I said' }
+    specify { subject }
+  end
 
-  specify { subject }
-end
+  describe 'keys - keyboard help' do
+    before { $stdin = StringIO.new "\u0011" }
+    let(:buf) { Buffer.new '' }
+    subject { parse_execute buf, 'keys' }
 
-describe 'keys - keyboard help' do
-  before { $stdin = StringIO.new "\u0011" }
-  let(:buf) { Buffer.new '' }
-  subject { parse_execute buf, 'keys' }
+    specify { subject }
+  end
 
-  specify { subject }
-end
+  describe 'say' do
+    let(:buf) { Buffer.new '' }
+    let(:bind) { command_bindings }
+    subject { prc = bind[:say]; prc.call buf }
 
-describe 'say' do
-  let(:buf) { Buffer.new '' }
-  let(:bind) { command_bindings }
-  subject { prc = bind[:say]; prc.call buf }
+    specify { subject }
+  end
 
-  specify { subject }
-end
+  describe 'nop' do
+    let(:buf) { Buffer.new '' }
+    let(:bind) { command_bindings }
+    subject { prc = bind[:nop]; prc.call buf, 1, 2 }
 
-describe 'nop' do
-  let(:buf) { Buffer.new '' }
-  let(:bind) { command_bindings }
-  subject { prc = bind[:nop]; prc.call buf, 1, 2 }
+    specify { subject }
+  end
 
-  specify { subject }
-end
-
-end #top level describe 'command_bindings' do 
+end # top level describe 'command_bindings' do

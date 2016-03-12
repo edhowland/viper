@@ -1,5 +1,5 @@
 # check_viper_syntax.rb - method check_viper_syntax.rb
-def check_viper_syntax buffer
+def check_viper_syntax(buffer)
   result = syntax_ok?(buffer)
   if result
     say 'Syntax OK'

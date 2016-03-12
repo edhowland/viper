@@ -7,4 +7,3 @@ module Viper
     ROOT = File.expand_path('~')
   end
 end
-

@@ -2,15 +2,13 @@
 
 require_relative 'spec_helper'
 
-def home_path path
-  File.expand_path("~").pathmap("%p/#{path}")
+def home_path(path)
+  File.expand_path('~').pathmap("%p/#{path}")
 end
 
-def home_pkg_path pkg, fname
+def home_pkg_path(pkg, fname)
   home_path ".viper/packages/#{pkg}/#{fname}"
 end
-
-
 
 describe 'package init resolves name' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
@@ -65,5 +63,6 @@ describe 'version' do
   before { pkg.load }
   subject { pkg.version }
 
-  specify { subject.must_equal '0.1.0' }
+  specify { subject.wont_be_nil }
+  specify { subject.wont_be_empty }
 end

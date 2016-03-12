@@ -3,9 +3,9 @@
 module Viper
   # TODO: class documentation
   class Package
-    def initialize name
+    def initialize(name)
       @name = name
-      pkg_locs = Viper::Packages::PACKAGE_PATH.map {|e| e.pathmap("%p#{@name}/")}.select {|e| File.exist?(e) }
+      pkg_locs = Viper::Packages::PACKAGE_PATH.map { |e| e.pathmap("%p#{@name}/") }.select { |e| File.exist?(e) }
       # raise Viper::Packages::PackageNotFound if pkg_locs.empty?
       @path = pkg_locs.first
       Viper::Packages << self # make ourself avaiable for reference
@@ -13,7 +13,7 @@ module Viper
 
     attr_reader :name, :path
 
-    def viper_path fname
+    def viper_path(fname)
       "#{@path}#{fname}.viper"
     end
 
@@ -38,7 +38,5 @@ module Viper
     def version
       Viper::Packages.const_get(const_string + '::VERSION')
     end
-
-
   end
 end

@@ -1,6 +1,6 @@
 # check_lang_syntax.rb - method check_lang_syntax check syntax of buffer's association
 
-def check_lang_syntax buffer
+def check_lang_syntax(buffer)
   lang = buffer.association
   syntax_checker = "check_#{lang}_syntax"
   begin
@@ -11,4 +11,3 @@ def check_lang_syntax buffer
     say err.message
   end
 end
-
