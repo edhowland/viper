@@ -117,7 +117,6 @@ def fbuffer
   $buffer_ring.first
 end
 
-@buffer = fbuffer
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
 
@@ -139,6 +138,9 @@ suppress_audio do
 end
 # Inject a hook into control hook for pry debugging
 
+
+# setup the @buffer for below
+@buffer = fbuffer
 # Executes this block for each character typed in the console
 Viper::Control.loop do |worker|
   begin
