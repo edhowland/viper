@@ -1,4 +1,0 @@
-# Init the viper_simplecov package
-package viper_simplecov
-# Loads the SimpleCov coverage report in ./coverage/coverage.json
-load_cov coverage/coverage.json
