@@ -21,7 +21,7 @@ parser = OptionParser.new do |opt|
   end
 
   opt.on('-e expr', '--evaluate expr', String, 'Evaluate expression as a command string') do |expr|
-
+    options[:evaluate] = expr
   end
 
   opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
@@ -121,6 +121,9 @@ end
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
+if options[:evaluate]
+  perform! options[:evaluate] { fbuffer }
+end
 # Inject a hook into control hook for pry debugging
 
 # Executes this block for each character typed in the console
