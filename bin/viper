@@ -24,6 +24,10 @@ parser = OptionParser.new do |opt|
     options[:evaluate] = expr
   end
 
+  opt.on('-m file', '--command file', String, 'Execute commandsin a .viper file. Runs after file buffers loaded and .viper syntax check') do |file|
+    options[:command_file] = file
+  end
+
   opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
     package = Viper::Package.new pkg
     suppress_audio do
@@ -121,7 +125,18 @@ end
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
-perform! options[:evaluate] { fbuffer } if options[:evaluate]
+# run any .viper file used from the --command file.viper option here
+if options[:command_file]
+  suppress_audio do
+    load_rc(options[:command_file], silent: true) do |l|
+      perform!(l) { fbuffer }
+    end
+  end
+end
+# run any --evaluate strings as a command expression here
+suppress_audio do
+  perform! options[:evaluate] { fbuffer } if options[:evaluate]
+end
 # Inject a hook into control hook for pry debugging
 
 # Executes this block for each character typed in the console
