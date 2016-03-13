@@ -20,7 +20,7 @@ module Viper
         end
 
         # Attempt to locate path.json in packages_path, home_path or config_path. If not found, raise RuntimeError unless opts[:ignore_missing] is true
-        def locate(path, opts={})
+        def locate(path, opts = {})
           result = (packages_paths(path) + [home_path(path), config_path(path)]).select { |e| File.exist?(e) }
           fail RuntimeError.new("Snippet #{path}.json could not be found in search path") if result.empty? && !opts[:ignore_missing]
           result.first

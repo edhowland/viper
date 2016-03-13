@@ -12,7 +12,7 @@ def lint(buffer)
   lint_method = "check_#{lang}_lint".to_sym
   begin
     send lint_method, buffer
-  rescue => err
+  rescue NameError => _err
     raise LintCheckerNotFoundForAssociation.new lang
   end
 end
