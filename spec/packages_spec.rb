@@ -66,3 +66,9 @@ describe 'version' do
   specify { subject.wont_be_nil }
   specify { subject.wont_be_empty }
 end
+
+describe 'package_info' do
+  subject { package_info 'xyzzy' }
+
+  specify { ->{ subject }.must_raise Viper::Packages::PackageNotFound  }
+end
