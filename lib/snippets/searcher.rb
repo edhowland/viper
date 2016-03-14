@@ -12,7 +12,7 @@ module Viper
         end
 
         def home_path(path)
-          File.expand_path("~/.viper/snippets/#{path}.json")
+          File.expand_path("#{Viper::Local::ROOT}/.viper/snippets/#{path}.json")
         end
 
         def config_path(path)
