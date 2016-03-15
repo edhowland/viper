@@ -221,10 +221,15 @@ describe 'command_bindings' do
   end
 
   describe 'dump' do
+  let(:buf) { Buffer.new '' }
     let(:bind) { command_bindings }
-    subject { bind[:dump] }
+    subject do
+    self.stub(:dump_snippets, nil) do
+    bind[:dump].call(buf, 'ruby', 'ruby')
+    end
+    end
 
-    specify { subject.must_be_instance_of Proc }
+    specify { subject }
   end
 
   # load not checked since it is used in previous tests
@@ -290,3 +295,33 @@ describe 'command_bindings' do
   end
 
 end # top level describe 'command_bindings' do
+
+describe 'package' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  let(:mock) { MiniTest::Mock.new }
+  before do
+    mock.expect(:load, nil)
+#    mock.expect(:name, 'xyzzy')
+  end
+
+  subject do
+    Viper::Package.stub(:new, mock) do
+      bind[:package].call(buf, 'xyzzy')
+    end
+  end
+
+  specify { subject; mock.verify }
+end
+
+describe 'package_info' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject do
+    self.stub(:package_info, '') do
+      bind[:package_info].call(buf, 'viper_debug')
+    end
+  end
+
+  specify { subject }
+end
