@@ -39,3 +39,10 @@ describe 'bad syntax for viper command file' do
 
   specify { subject }
 end
+
+describe 'lint no checker for association' do
+  let(:buf) { Buffer.new '' }
+  subject { lint buf }
+
+  specify { -> { subject }.must_raise LintCheckerNotFoundForAssociation  }
+end

@@ -12,6 +12,7 @@ end
 
 describe 'package init resolves name' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear }
   subject { pkg.name }
 
   specify { subject.must_equal 'viper_debug' }
@@ -19,6 +20,7 @@ end
 
 describe 'package init resolves full path from Viper::Packages::PATH_NAME' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear }
   subject { pkg.path }
 
   specify { subject.must_equal home_path('.viper/packages/viper_debug/') }
@@ -32,6 +34,7 @@ end
 
 describe 'load_viper_path debug' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear }
   subject { pkg.viper_path 'load' }
 
   specify { subject.must_equal home_pkg_path('viper_debug', 'load.viper') }
@@ -39,6 +42,8 @@ end
 
 describe 'load' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear }
+
   subject { pkg.load }
 
   specify { subject }
@@ -46,6 +51,8 @@ end
 
 describe 'lib_path' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear }
+
   subject { pkg.lib_path }
 
   specify { subject.must_equal home_pkg_path('viper_debug', 'lib/') }
@@ -53,6 +60,8 @@ end
 
 describe 'version_const_string' do
   let(:pkg) { Viper::Package.new 'viper_ruby' }
+  before { Viper::Packages.store.clear }
+
   subject { pkg.const_string }
 
   specify { subject.must_equal 'Viper::Packages::ViperRuby' }
@@ -60,7 +69,7 @@ end
 
 describe 'version' do
   let(:pkg) { Viper::Package.new 'viper_ruby' }
-  before { pkg.load }
+  before {Viper::Packages.store.clear;  pkg.load }
   subject { pkg.version }
 
   specify { subject.wont_be_nil }
@@ -71,4 +80,13 @@ describe 'package_info' do
   subject { package_info 'xyzzy' }
 
   specify { ->{ subject }.must_raise Viper::Packages::PackageNotFound  }
+end
+
+describe 'package_info viper_debug' do
+  let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear; pkg.load  }
+  subject { package_info 'viper_debug' }
+
+  specify {  subject.must_equal 'Package name: viper_debug version: 0.1.0' }
+  specify { Viper::Packages.store.length.must_equal 1 }
 end

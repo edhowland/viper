@@ -1,6 +1,6 @@
 # lint.rb - method lint - performs passes on buffer
 
-# TODO: class documentation
+# Exception Lint checker not found for association. Given a Buffer's association, no lint checker could be found for it.
 class LintCheckerNotFoundForAssociation < RuntimeError
   def initialize(lang)
     super "No lint checker found for association #{lang}"
