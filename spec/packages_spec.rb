@@ -90,3 +90,20 @@ describe 'package_info viper_debug' do
   specify {  subject.must_equal 'Package name: viper_debug version: 0.1.0' }
   specify { Viper::Packages.store.length.must_equal 1 }
 end
+
+describe 'Viper::Packages[0]' do
+    let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear; pkg }
+  subject { Viper::Packages[0] }
+
+  specify { subject.must_be_instance_of Viper::Package }
+
+end
+
+describe 'Viper::Packages[0]=' do
+  let(:pkg) { Viper::Package.new 'viper_debug' }
+  before { Viper::Packages.store.clear; pkg }
+  subject { Viper::Packages[1] = pkg }
+
+  specify { subject }
+end

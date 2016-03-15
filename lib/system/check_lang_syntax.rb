@@ -7,7 +7,5 @@ def check_lang_syntax(buffer)
     send syntax_checker.to_sym, buffer
   rescue NameError => _err
     say"No syntax check method for buffer #{buffer.name} with association #{buffer.association}"
-  rescue => err
-    say err.message
   end
 end
