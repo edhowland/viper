@@ -308,6 +308,7 @@ Style/MethodDefParentheses:
 # Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
+    - 'lib/packages/packages.rb'
 #    - 'lib/constants.rb'
 #    - 'lib/viper/version.rb'
 

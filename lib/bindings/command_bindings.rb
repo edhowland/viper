@@ -50,10 +50,10 @@ def command_bindings
     keys: ->(_b, *_args) { help_keys },
 
     # check syntax, lint etc.
-    check: ->(b, *_args) { check_ruby_syntax(b) },
+    check: ->(b, *_args) { check_lang_syntax(b) },
     pipe: ->(b, *args) { pipe(b, *args) },
     pipe!: ->(b, *args) { pipe!(b, *args) },
-    lint: ->(b, *_args) { lint(b) },
+    lint: ->(b, *_args) { check_lang_lint(b) },
     new: ->(_b, *_args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
     report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
@@ -102,10 +102,10 @@ def command_bindings
     assocd: ->(_b, *args) { $file_associations.dir args[0], args[1].to_sym; say "Directory saved for association #{args[1]}" },
     tab: ->(b, *_args) { handle_tab(b) },
 
-    # Code Coverage support from simplecov
-    load_cov: ->(_b, *args) { load_cov args[0]; say "Coverage repor #{args[0]} loaded" },
-    cov: ->(b, *_args) { sc = ScratchBuffer.new; sc.name = "Coverage report for #{b.name}"; cov(sc, b.name); $buffer_ring.unshift sc; sc.beg; say sc.name; say sc.line },
-    cov_report: ->(_b, *_args) { cov_report; say $buffer_ring[0].name.to_s },
+    # Package stuff
+    require: ->(_b, *args) { require args[0] },
+    package: ->(_b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
+    package_info: ->(_b, *args) { say package_info args[0] },
 
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },

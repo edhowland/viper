@@ -23,7 +23,7 @@ def control_help
   ctrl_keys[:ctrl_l] = 'speaks the current line'
   ctrl_keys[:ctrl_f] = 'enters search buffer. hit return to search forward in the vuffer'
   ctrl_keys[:ctrl_r] = 'enters search buffer. hit return to search backward in the buffer'
-  ctrl_keys[:ctrl_g] = 'search again in the last direction'
+  ctrl_keys[:ctrl_g] = 'search or replace  again in the last direction'
   ctrl_keys[:ctrl_q] = 'exits the editor session'
   ctrl_keys[:ctrl_t] = 'switches to next buffer (or the last one)'
   ctrl_keys[:ctrl_y] = 'yanks the current line to the clipboard'
@@ -34,7 +34,7 @@ def control_help
   ctrl_keys[:ctrl_x] = 'cuts the selected text to the clipboard'
   ctrl_keys[:ctrl_c] = 'copies the selected text to the clipboard'
   ctrl_keys[:ctrl_v] = 'pastes the contents of the clipboard at the current cursor position'
-  ctrl_keys[:ctrl_d] = 'starts pry debug session inside editor loop. press control d again to return to the editor session'
+  ctrl_keys[:ctrl_w] = 'Moves one word forward'
   ctrl_keys
 end
 

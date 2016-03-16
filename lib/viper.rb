@@ -15,6 +15,8 @@ require 'rake'
 require_relative 'utils'
 require_relative 'viper/version'
 require_relative 'session'
+require_relative 'viper/local'
+
 require_relative 'viper/init'
 require_relative 'constants'
 require_relative 'exceptions'
@@ -34,7 +36,10 @@ require_relative 'find_and_replace'
 require_relative 'system'
 require_relative 'repl'
 
+# Packages stuff
+
+require_relative 'packages'
+
 # init some stuff
 init
-require_relative 'tools'
 require_relative 'viper/load_rc'

@@ -16,6 +16,7 @@ describe 'iterate_commands no exception raised with block' do
 end
 
 describe 'iterate_commands name a buffer' do
+  before { Viper::Session[:commands] = command_bindings }
   let(:buf) { Buffer.new '' }
   let(:sexps) { parse!("name 'foo bar'") }
   subject { iterate_commands(sexps) { buf } }
