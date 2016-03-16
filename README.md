@@ -18,7 +18,7 @@ Viper only attempts an audible interface. Sighted users of the programwill only 
 
 
 Viper has been tested with Ubuntu 14.04, Ruby 2.2 and the terminal type: xterm-256color.
-
+Some limited testing has been done on the Mac's OS/X Terminal.app. YMMV!
 
 ## Installation
 
