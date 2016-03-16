@@ -2,7 +2,7 @@
 
 ## Visually Impaired Programmer's Editor in Ruby
 
-### Version 1.0.0
+### Version 1.1.0
 
 
 
@@ -11,7 +11,7 @@
 
 This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
 in Mac OS/X. 
-Viper only attempts an audible interface. Sighted users of the programwill only see confusing giberish on the screen.
+Viper only attempts an audible interface. Sighted users of the programwill only see confusing gibberish on the screen.
 
 
 ## System requirements
