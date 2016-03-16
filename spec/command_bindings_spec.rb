@@ -15,14 +15,14 @@ describe 'command_bindings' do
 
   describe 'q!' do
     let(:buf) { Buffer.new '' }
-    subject { perform!( 'q!') { buf } }
+    subject { perform!('q!') { buf } }
 
     specify { -> { subject }.must_raise SystemExit }
   end
 
   describe 'w' do
     let(:buf) { Buffer.new '' }
-    subject { perform!( 'w')  { buf }}
+    subject { perform!('w') { buf } }
 
     specify { subject }
   end
@@ -187,7 +187,7 @@ describe 'command_bindings' do
   describe 'sedit - snippet not found' do
     let(:buf) { Buffer.new '' }
     before { $buffer_ring.clear; perform!('new') { buf }; perform!('load ruby ruby') { buf } }
-    subject {perform!('sedit xxx ruby') {  $buffer_ring.first } }
+    subject { perform!('sedit xxx ruby') { $buffer_ring.first } }
 
     specify { -> { subject }.must_raise SnippetNotFound }
   end
@@ -195,7 +195,7 @@ describe 'command_bindings' do
   describe 'sedit - collection not found' do
     let(:buf) { Buffer.new '' }
     before { $buffer_ring.clear; perform!('new') { buf }; perform!('load ruby ruby') { buf } }
-    subject {perform!('sedit xxx yyy') { $buffer_ring.first } }
+    subject { perform!('sedit xxx yyy') { $buffer_ring.first } }
 
     specify { -> { subject }.must_raise SnippetCollectionNotFound }
   end
@@ -203,7 +203,7 @@ describe 'command_bindings' do
   describe 'snip' do
     let(:buf) { Buffer.new '' }
     before { perform!('load ruby ruby') { buf }; perform!('new') { buf }; $buffer_ring.first.ins 'my' }
-    subject {perform!('snip my ruby') { $buffer_ring.first } }
+    subject { perform!('snip my ruby') { $buffer_ring.first } }
 
     specify { subject; $snippet_cascades[:ruby]['my'].must_equal 'my' }
   end
@@ -243,7 +243,7 @@ describe 'command_bindings' do
 
   describe 'assocf' do
     let(:buf) { Buffer.new '' }
-    subject { perform!('assocf /.+_spec.rb/ spec') { buf } ; FileBuffer.new('my_spec.rb').association }
+    subject { perform!('assocf /.+_spec.rb/ spec') { buf }; FileBuffer.new('my_spec.rb').association }
 
     specify { subject.must_equal :spec }
   end
