@@ -302,7 +302,6 @@ describe 'package' do
   let(:mock) { MiniTest::Mock.new }
   before do
     mock.expect(:load, nil)
-#    mock.expect(:name, 'xyzzy')
   end
 
   subject do
@@ -320,6 +319,30 @@ describe 'package_info' do
   subject do
     self.stub(:package_info, '') do
       bind[:package_info].call(buf, 'viper_debug')
+    end
+  end
+
+  specify { subject }
+end
+
+describe 'lint' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject do
+    self.stub(:check_lang_lint, true) do
+      bind[:lint].call(buf)
+    end
+  end
+
+  specify { subject }
+end
+
+describe 'check - syntax of buffer contents' do
+  let(:buf) { Buffer.new '' }
+  let(:bind) { command_bindings }
+  subject do
+    self.stub(:check_lang_syntax, true) do
+      bind[:check].call(buf)
     end
   end
 
