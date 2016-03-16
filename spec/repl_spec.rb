@@ -17,23 +17,23 @@ describe 'repl assertions' do
     specify { subject.must_equal 'ABCD' }
   end
 
-  describe 'parse_execute babel fish' do
+  describe 'perform! babel fish' do
     before { Viper::Session[:commands][:babel] = ->(_b, *args) { args[0] } }
-    subject { parse_execute nil, 'babel fish' }
+    subject { perform!('babel fish') { nil } }
 
     specify { subject.must_equal 'fish' }
   end
 
-  describe 'parse_execute command (only)' do
+  describe 'perform! command (only)' do
     before { Viper::Session[:commands][:babel] = ->(_b, *_args) { 'ok' } }
-    subject { parse_execute nil, 'babel' }
+    subject { perform!('babel') { nil } }
 
     specify { subject.must_equal 'ok' }
   end
 
-  describe 'parse_execute empty string' do
+  describe 'perform! empty string' do
     let(:buf) { Buffer.new '' }
-    subject { parse_execute buf, '' }
+    subject { perform!('') { buf } }
 
     specify { subject }
   end

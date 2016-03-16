@@ -22,7 +22,7 @@ def parse_command(string)
 end
 
 # parse_execute acommand string on a buffer
-def parse_execute(buffer, string)
+def _parse_execute(buffer, string)
   command, args = parse_command(preprocess_command(string))
   exec_cmd command, buffer, *args unless command == :ignore
 end
