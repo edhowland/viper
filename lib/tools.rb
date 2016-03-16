@@ -1,3 +1,3 @@
 # tools.rb - requires for tools/
 
-require_relative 'tools/lint'
+#require_relative 'tools/lint'
