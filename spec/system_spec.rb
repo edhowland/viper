@@ -42,7 +42,7 @@ end
 
 describe 'lint no checker for association' do
   let(:buf) { Buffer.new '' }
-  subject { lint buf }
+  subject { check_lang_lint buf }
 
   specify { -> { subject }.must_raise LintCheckerNotFoundForAssociation  }
 end

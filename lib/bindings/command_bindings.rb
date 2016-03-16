@@ -53,7 +53,7 @@ def command_bindings
     check: ->(b, *_args) { check_lang_syntax(b) },
     pipe: ->(b, *args) { pipe(b, *args) },
     pipe!: ->(b, *args) { pipe!(b, *args) },
-    lint: ->(b, *_args) { lint(b) },
+    lint: ->(b, *_args) { check_lang_lint(b) },
     new: ->(_b, *_args) { $buffer_ring.unshift ScratchBuffer.new; say "new buffer: #{$buffer_ring[0].name}" },
     report: ->(b, *_args) { say "Buffer: #{b.name} position: #{b.position}Line: #{b.line_number} association #{b.association}" },
 
