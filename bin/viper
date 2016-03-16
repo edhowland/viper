@@ -138,7 +138,6 @@ suppress_audio do
 end
 # Inject a hook into control hook for pry debugging
 
-
 # setup the @buffer for below
 @buffer = fbuffer
 # Executes this block for each character typed in the console

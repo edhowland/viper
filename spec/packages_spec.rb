@@ -69,7 +69,7 @@ end
 
 describe 'version' do
   let(:pkg) { Viper::Package.new 'viper_ruby' }
-  before {Viper::Packages.store.clear;  pkg.load }
+  before { Viper::Packages.store.clear; pkg.load }
   subject { pkg.version }
 
   specify { subject.wont_be_nil }
@@ -79,20 +79,20 @@ end
 describe 'package_info' do
   subject { package_info 'xyzzy' }
 
-  specify { ->{ subject }.must_raise Viper::Packages::PackageNotFound  }
+  specify { -> { subject }.must_raise Viper::Packages::PackageNotFound }
 end
 
 describe 'package_info viper_debug' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
-  before { Viper::Packages.store.clear; pkg.load  }
+  before { Viper::Packages.store.clear; pkg.load }
   subject { package_info 'viper_debug' }
 
-  specify {  subject.must_equal 'Package name: viper_debug version: 0.1.0' }
+  specify { subject.must_equal 'Package name: viper_debug version: 0.1.0' }
   specify { Viper::Packages.store.length.must_equal 1 }
 end
 
 describe 'Viper::Packages[0]' do
-    let(:pkg) { Viper::Package.new 'viper_debug' }
+  let(:pkg) { Viper::Package.new 'viper_debug' }
   before { Viper::Packages.store.clear; pkg }
   subject { Viper::Packages[0] }
 

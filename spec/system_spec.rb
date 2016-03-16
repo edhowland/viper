@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-# TODO module documentation
+# TODO: module documentation
 module AssociationViper
   def association
     :viper
@@ -44,5 +44,5 @@ describe 'lint no checker for association' do
   let(:buf) { Buffer.new '' }
   subject { check_lang_lint buf }
 
-  specify { -> { subject }.must_raise LintCheckerNotFoundForAssociation  }
+  specify { -> { subject }.must_raise LintCheckerNotFoundForAssociation }
 end

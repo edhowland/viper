@@ -13,10 +13,10 @@ describe 'gets exception' do
 end
 
 describe 'intra_hooks' do
-  before {@ranit = false;  Viper::Session[:intra_hooks] ||= [];  Viper::Session[:intra_hooks] <<   ->(bind, key, value){ @ranit = true }   }
+  before { @ranit = false; Viper::Session[:intra_hooks] ||= []; Viper::Session[:intra_hooks] << ->(_bind, _key, _value) { @ranit = true } }
   subject do
     Viper::Control.loop do |w|
-#      puts w.intra_hooks.inspect
+      #      puts w.intra_hooks.inspect
       w.intra_hook(binding, :key_i, '')
       break
     end

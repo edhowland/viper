@@ -2,8 +2,8 @@
 
 def check_viper_syntax(buffer)
   begin
-  result = true
-  syntax_ok?(buffer)
+    result = true
+    syntax_ok?(buffer)
   rescue => err
     result = false
     say err.message

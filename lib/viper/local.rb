@@ -4,6 +4,6 @@
 module Viper
   # Local namespace for user's home path
   module Local
-    ROOT = File.expand_path("#{ENV['HOME']}")
+    ROOT = File.expand_path((ENV['HOME']).to_s)
   end
 end

@@ -221,12 +221,12 @@ describe 'command_bindings' do
   end
 
   describe 'dump' do
-  let(:buf) { Buffer.new '' }
+    let(:buf) { Buffer.new '' }
     let(:bind) { command_bindings }
     subject do
-    self.stub(:dump_snippets, nil) do
-    bind[:dump].call(buf, 'ruby', 'ruby')
-    end
+      stub(:dump_snippets, nil) do
+        bind[:dump].call(buf, 'ruby', 'ruby')
+      end
     end
 
     specify { subject }
@@ -317,7 +317,7 @@ describe 'package_info' do
   let(:buf) { Buffer.new '' }
   let(:bind) { command_bindings }
   subject do
-    self.stub(:package_info, '') do
+    stub(:package_info, '') do
       bind[:package_info].call(buf, 'viper_debug')
     end
   end
@@ -329,7 +329,7 @@ describe 'lint' do
   let(:buf) { Buffer.new '' }
   let(:bind) { command_bindings }
   subject do
-    self.stub(:check_lang_lint, true) do
+    stub(:check_lang_lint, true) do
       bind[:lint].call(buf)
     end
   end
@@ -341,7 +341,7 @@ describe 'check - syntax of buffer contents' do
   let(:buf) { Buffer.new '' }
   let(:bind) { command_bindings }
   subject do
-    self.stub(:check_lang_syntax, true) do
+    stub(:check_lang_syntax, true) do
       bind[:check].call(buf)
     end
   end
