@@ -1,4 +1,4 @@
-alias vp="~/src/viper/bin/viper -c -r pry"
+alias vp="~/src/viper/bin/viper -c"
 vl () 
 { 
     vp "../lib/$1"

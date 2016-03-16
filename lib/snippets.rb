@@ -1,5 +1,7 @@
 # snippets.rb - requires for snippets/
 
+require_relative 'snippets/searcher'
+
 require_relative 'snippets/create_snippet'
 require_relative 'snippets/load_snippets'
 require_relative 'snippets/snippet_cascade'

@@ -4,16 +4,59 @@
 require_relative '../lib/viper'
 require 'optparse'
 
+def lib_path
+  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../lib/')
+end
+
 options = { read_only: false, check_syntax: false, safe: false }
 
 parser = OptionParser.new do |opt|
   opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
   opt.separator '-'
-  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files') do
+  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files or packages') do
     options[:safe] = true
   end
   opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
     require lib
+  end
+
+  opt.on('-e expr', '--evaluate expr', String, 'Evaluate expression as a command string') do |expr|
+    options[:evaluate] = expr
+  end
+
+  opt.on('-m file', '--command file', String, 'Execute commandsin a .viper file. Runs after file buffers loaded and .viper syntax check') do |file|
+    options[:command_file] = file
+  end
+
+  opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
+    package = Viper::Package.new pkg
+    suppress_audio do
+      package.load
+    end
+  end
+
+  opt.on('--lib-path', 'Print the Viper library path and exit. Useful for setting $LOAD_PATH') do
+    puts lib_path
+    exit
+  end
+
+  opt.on('--load-viper', 'Prints the load path for Viper library and exits. Useful for -r require in Ruby programs like Pry and IRB') do
+    puts lib_path + '/viper.rb'
+    exit
+  end
+
+  opt.on('--bin-path-rb', 'Outputs Ruby file with method viper_bin_path to stdout, then exits.') do
+    puts <<-EOC  # Ruby code for bin/viper executable
+# viper_bin_path.rb - method viper_bin_path path to viper executable
+def viper_bin_path
+  "#{File.expand_path(__FILE__)}"
+end
+EOC
+    exit
+  end
+
+  opt.on('--ok', 'Exits with zero status. Useful for checking if viper is installed properly.') do
+    exit(0)
   end
   opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
     options[:check_syntax] = true
@@ -74,7 +117,6 @@ def fbuffer
   $buffer_ring.first
 end
 
-@buffer = fbuffer
 @search_line = Viper::Readline.new
 @command_line = Viper::Readline.new
 
@@ -82,12 +124,31 @@ end
 
 fbuffer.goto options[:line] unless options[:line].nil?
 
+# run any .viper file used from the --command file.viper option here
+if options[:command_file]
+  suppress_audio do
+    load_rc(options[:command_file], silent: true) do |l|
+      perform!(l) { fbuffer }
+    end
+  end
+end
+# run any --evaluate strings as a command expression here
+suppress_audio do
+  perform! options[:evaluate] { fbuffer } if options[:evaluate]
+end
+# Inject a hook into control hook for pry debugging
+
+# setup the @buffer for below
+@buffer = fbuffer
 # Executes this block for each character typed in the console
 Viper::Control.loop do |worker|
   begin
     ch = worker.getch
     prc = worker.bound_proc_for ch
     result = prc.call(@buffer)
+    # Give external packages a way to hook into this loop
+    worker.intra_hook(binding, ch, result)
+
     if result.to_s =~ /^cmd_/
       command = convert_cmd result
       exec_cmd command, @buffer
@@ -95,15 +156,6 @@ Viper::Control.loop do |worker|
     case result
     when :quit
       break
-
-    when :debug
-      if defined? Pry
-        say 'Entering debug mode. Press Ctrl-D to exit'
-        binding.pry
-        say "Exited debug mode. Buffer is #{@buffer.name}"
-      else
-        say 'Require pry first to aid in debugging Viper'
-      end
 
     when :command
       say 'command '
@@ -128,4 +180,4 @@ $buffer_ring.select(&:should_save?).map do |buf|
 end
 
 # possibly check syntax of buffer
-check_ruby_syntax(fbuffer) if options[:check_syntax]
+check_lang_syntax(fbuffer) if options[:check_syntax]
