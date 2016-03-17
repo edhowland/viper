@@ -15,7 +15,7 @@ describe 'package init resolves name' do
   before { Viper::Packages.store.clear }
   subject do
     File.stub(:exist?, true) do
-      pkg.name 
+      pkg.name
     end
   end
 
@@ -27,7 +27,7 @@ describe 'package init resolves full path from Viper::Packages::PATH_NAME' do
   before { Viper::Packages.store.clear }
   subject do
     File.stub(:exist?, true) do
-    pkg.path 
+      pkg.path
     end
   end
 
@@ -45,7 +45,7 @@ describe 'load_viper_path debug' do
   before { Viper::Packages.store.clear }
   subject do
     File.stub(:exist?, true) do
-      pkg.viper_path 'load' 
+      pkg.viper_path 'load'
     end
   end
 
@@ -58,7 +58,7 @@ describe 'load' do
 
   subject do
     File.stub(:exist?, true) do
-      pkg.load 
+      pkg.load
     end
   end
 
@@ -70,7 +70,7 @@ describe 'lib_path' do
   before { Viper::Packages.store.clear }
   subject do
     File.stub(:exist?, true) do
-      pkg.lib_path 
+      pkg.lib_path
     end
   end
 
@@ -82,7 +82,7 @@ describe 'version_const_string' do
   before { Viper::Packages.store.clear }
   subject do
     File.stub(:exist?, true) do
-      pkg.const_string 
+      pkg.const_string
     end
   end
 
@@ -93,21 +93,20 @@ end
 module Viper
   module Packages
     module ViperRuby
-      VERSION = '0.1.0'
+      VERSION = '0.1.0'.freeze
     end
   end
 end
-
 
 describe 'version' do
   let(:pkg) { Viper::Package.new 'viper_ruby' }
   before do
     File.stub(:exist?, true) do
-      Viper::Packages.store.clear; pkg.load 
+      Viper::Packages.store.clear; pkg.load
     end
   end
-  subject do 
-      pkg.version 
+  subject do
+    pkg.version
   end
 
   specify { subject.wont_be_nil }
@@ -124,7 +123,7 @@ end
 module Viper
   module Packages
     module ViperDebug
-      VERSION = '0.1.0'
+      VERSION = '0.1.0'.freeze
     end
   end
 end
@@ -133,7 +132,7 @@ describe 'package_info viper_debug' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
   before do
     File.stub(:exist?, true) do
-      Viper::Packages.store.clear; pkg.load 
+      Viper::Packages.store.clear; pkg.load
     end
   end
   subject { package_info 'viper_debug' }
@@ -146,7 +145,7 @@ describe 'Viper::Packages[0]' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
   before do
     File.stub(:exist?, true) do
-      Viper::Packages.store.clear; pkg 
+      Viper::Packages.store.clear; pkg
     end
   end
   subject { Viper::Packages[0] }
@@ -159,7 +158,7 @@ describe 'Viper::Packages[0]=' do
   let(:pkg) { Viper::Package.new 'viper_debug' }
   before do
     File.stub(:exist?, true) do
-      Viper::Packages.store.clear; pkg 
+      Viper::Packages.store.clear; pkg
     end
   end
   subject { Viper::Packages[1] = pkg }
