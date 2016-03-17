@@ -6,7 +6,7 @@ module Viper
     def initialize(name)
       @name = name
       pkg_locs = Viper::Packages::PACKAGE_PATH.map { |e| e.pathmap("%p#{@name}/") }.select { |e| File.exist?(e) }
-      # raise Viper::Packages::PackageNotFound if pkg_locs.empty?
+       raise Viper::Packages::PackageNotFound.new(@name) if pkg_locs.empty?
       @path = pkg_locs.first
       Viper::Packages << self # make ourself avaiable for reference
     end
