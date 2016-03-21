@@ -107,6 +107,10 @@ def command_bindings
     package: ->(_b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
     package_info: ->(_b, *args) { say package_info args[0] },
 
+
+    # variable setting
+    set: ->(b, *args) { Viper::Variables.set(args[0], args[1]) },
+
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args

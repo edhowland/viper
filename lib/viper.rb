@@ -15,6 +15,8 @@ require 'rake'
 require_relative 'utils'
 require_relative 'viper/version'
 require_relative 'session'
+require_relative 'viper/variables'
+
 require_relative 'viper/local'
 
 require_relative 'viper/init'
