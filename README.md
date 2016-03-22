@@ -110,12 +110,12 @@ Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
 into the current buffer, overwriting any changes.
-check - performs a Ruby syntax check on the current buffer.
-lint - performs limited lint on current buffer. Ensures every line is indented with an even number of spaces.
+check - performs a  syntax check on the current buffer.
+lint - performs lint on the current buffer. This is specified by the language association for that buffer.
 
 
 
-###### Note: -c, --check-syntax performs the same function on editor exit
+###### Note: -c, --check-syntax performs the same function on  as the command: check for each buffer when the editor exits.
 
 ## Help
 
