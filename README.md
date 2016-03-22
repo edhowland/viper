@@ -9,7 +9,7 @@
 
 ## Abstract
 
-This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
+This is a simple editor in Ruby that works with screen readers, esp. like VoiceOver 
 in Mac OS/X. 
 Viper only attempts an audible interface. Sighted users of the programwill only see confusing gibberish on the screen.
 
