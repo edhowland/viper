@@ -59,7 +59,7 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 - Copy and Paste: Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
 - Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
 - Replace Replace text in conjunction with search.
-- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them if needed. 
 - Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
 - Help system, including keyboard help(like VO+k in Mac VoiceOver)
 
