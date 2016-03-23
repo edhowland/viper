@@ -1,3 +1,5 @@
 # Main viperrc - system-wide commands goe here
 assocx .viper viper
 assocf .viperrc viper
+# Some configs:
+set indent 2
