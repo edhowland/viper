@@ -25,16 +25,20 @@ end
 
 
     def self.[](key)
-      @storage[key]
+      @storage[key.to_sym]
     end
 
     def self.[]=(key, value)
-      @storage[key] = value
+      @storage[key.to_sym] = value
     end
 
     def self.set(key, value)
-  @storage[key] = cast(value)
+  @storage[key.to_sym] = cast(value)
 end
+
+    def self.storage
+      @storage
+    end
 
 end
 end
