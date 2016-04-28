@@ -111,6 +111,11 @@ def command_bindings
     # variable setting
     set: ->(b, *args) { Viper::Variables.set(args[0], args[1]) },
 
+    # buffer methods
+    ins: ->(b, *args) { b.ins(args[0]) },
+    delf: ->(b, *args) { b.del_at },
+    sol: ->(b, *args) { b.front_of_line },
+    eol: ->(b, *args) { b.back_of_line },
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args
