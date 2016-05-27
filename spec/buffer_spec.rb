@@ -317,3 +317,10 @@ describe '2 tabs should be 4 indent_level' do
 
   specify { subject.must_equal 4 }
 end
+
+describe 'only spaces still report 6' do
+  let(:buf) { Buffer.new '      ' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 6 }
+end

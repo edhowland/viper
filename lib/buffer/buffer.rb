@@ -110,6 +110,7 @@ class Buffer
   end
 
   def indent_level
+    return line.length if line =~ /^\s*$/
     result = line =~ /[^\s]/
     result.nil? ? 0 : result
   end
