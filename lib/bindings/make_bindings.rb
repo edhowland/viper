@@ -72,6 +72,7 @@ def make_bindings
                         ])
   result[:return] = ->(b) { b.ins "\n"; say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
+  result[:back_tab] = ->(b) { handle_back_tab(b) }
   result[:ctrl_h] = ->(_b) { :cmd_help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
