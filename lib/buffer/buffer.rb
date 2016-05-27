@@ -109,6 +109,11 @@ class Buffer
     lline + rline
   end
 
+  def indent_level
+    result = line =~ /[^\s]/
+    result.nil? ? 0 : result
+  end
+
   def col
     lline.length
   end
