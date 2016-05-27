@@ -29,6 +29,7 @@ def key_mappings
     "\f" => :ctrl_l,
     "\u000E" => :ctrl_n,
     "\t" => :tab,
+    "\e[Z" => :back_tab,
     "\u007F" => :backspace,
     "\033[A" => :up,
     "\033[B" => :down,
