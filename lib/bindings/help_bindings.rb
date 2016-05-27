@@ -5,11 +5,12 @@ def identity_bindings(range)
 end
 
 def punctuation_help
-  [:space, :return, :tab, :period, :comma, :slash, :accent, :tilde, :exclamation, :at, :number, :dollar, :percent, :caret, :ampersand,
+  [:space, :return, :tab, :back_tab, :period, :comma, :slash, :accent, :tilde,
+  :exclamation, :at, :number, :dollar, :percent, :caret, :ampersand,
    :asterisk, :lparen, :rparen, :hyphen,
    :underline, :equals, :plus, :backslash, :pipe,
    :lbracket, :rbracket, :lbrace, :rbrace,
-   :less, :greater, :question
+   :less, :greater, :question, :colon, :semicolon, :quote, :apostrophe
   ].each_with_object({}) { |k, h| h[k] = k.to_s }
 end
 
