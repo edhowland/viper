@@ -42,3 +42,10 @@ describe 'handle_tab: locates a snippet and applies it' do
 
   specify { subject.must_equal "def \n  ^.\nend\n" }
 end
+
+describe 'handle_back_tab' do
+  let(:buf) { Buffer.new '    ' }
+  subject { buf.fin; handle_back_tab(buf); buf.line }
+
+  specify { subject.must_equal '  ' }
+end
