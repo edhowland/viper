@@ -70,7 +70,7 @@ def make_bindings
                           [:lbrace, '{'], [:rbrace, '}'],
                           [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
                         ])
-  result[:return] = ->(b) { b.ins "\n"; say 'return' }
+  result[:return] = ->(b) { handle_return(b); say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
   result[:back_tab] = ->(b) { handle_back_tab(b) }
   result[:ctrl_h] = ->(_b) { :cmd_help }

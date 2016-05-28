@@ -49,3 +49,23 @@ describe 'handle_back_tab' do
 
   specify { subject.must_equal '  ' }
 end
+
+describe 'handle_return' do
+  let(:buf) { Buffer.new "  " }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "  \n  " }
+end
+
+describe 'handle_return when indented twice' do
+  let(:buf) { Buffer.new '    ' }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "    \n    " }
+end
+describe 'handle_return with no indentation' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "\n" }
+end
