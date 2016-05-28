@@ -71,7 +71,7 @@ describe 'handle_return with no indentation' do
 end
 
 describe 'convert_snip_to_keys' do
-  let(:snip) { "if ^.\n\t^.\n\bend" }
+  let(:snip) { "if ^.\r\t^.\r\bend" }
   subject { convert_snip_to_keys snip }
 
   specify { subject.must_be_instance_of Array }
@@ -83,18 +83,4 @@ describe 'convert_snip_to_keys' do
     subject.must_equal [:key_i, :key_f, :space, :caret, :period,
       :return,:tab, :caret, :period, :return, :back_tab, :key_e, :key_n, :key_d]
   end
-end
-
-describe 'slash_n2r' do
-  let(:snip) { "\n" }
-  subject { slash_n2r snip }
-
-  specify { subject.must_equal "\r" }
-end
-
-describe 'slash_n2r normal key returns key' do
-  let(:snip) { "i" }
-  subject { slash_n2r snip }
-
-  specify { subject.must_equal "i" }
 end
