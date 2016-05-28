@@ -69,3 +69,13 @@ describe 'handle_return with no indentation' do
 
   specify { subject.must_equal "\n" }
 end
+
+describe 'convert_snip_to_keys' do
+  let(:snip) { "if ^.\n  ^.\nend" }
+  subject { convert_snip_to_keys snip }
+  
+     specify { subject.must_be_instance_of Array }
+  it 'should have symbols as members' do
+    subject[0].must_equal :key_i
+  end
+end
