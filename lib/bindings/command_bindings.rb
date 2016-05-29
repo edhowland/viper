@@ -1,5 +1,17 @@
 # command_bindings.rb - method command_bindings returns hash of command procs
 
+ # transform some raw into another raw character
+ def xform_raw char
+  case char
+  when "\e[Z"
+    "\b"
+  else
+    char
+  end
+end
+
+ 
+ # returns hash of symbols representing commands and procs to handle them
 def command_bindings
   {
     # command commands
@@ -115,7 +127,9 @@ def command_bindings
     delf: ->(b, *args) { b.del_at },
     sol: ->(b, *args) { b.front_of_line },
     eol: ->(b, *args) { b.back_of_line },
+    raw: -> (b, *args) { say "enter raw character"; ch = key_press; b.ins(xform_raw(ch)); say map_key(ch) }, 
     level: ->(b, *args) { say b.indent_level },
+
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },
     # NOP: just repeat the args
