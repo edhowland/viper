@@ -19,6 +19,21 @@ describe RawBuffer do
       buf.at.must_equal 'return'
     end
   end
+
+  describe 'when given a tab' do
+    let(:buf) { RawBuffer.new "\t" }
+    it 'should report tab' do
+      buf.at.must_equal "tab"
+    end
+  end
+  
+  describe 'when given a backslash b' do
+    let(:buf) { RawBuffer.new "\b" }
+    it 'should report back tab' do
+      buf.at.must_equal "back tab"
+    end
+  end
+  
   
 end
 
