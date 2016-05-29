@@ -119,6 +119,7 @@ def make_bindings
   # Meta Command sequences
   result[:meta_d] = ->(b) { play_chord(b, :meta_d) }
   result[:meta_colon] = ->(_b) { :command }
+  result[:meta_v] = ->(b) { :cmd_raw }
 
   # rotate the buffer ring
   result[:ctrl_t] = ->(_b) { :cmd_n }

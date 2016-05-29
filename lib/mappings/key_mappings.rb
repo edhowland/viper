@@ -93,6 +93,7 @@ def key_mappings
     "\e[6~" => :shift_pgdn,
 
     # Meta characters
+    "√" => :meta_v,
     "∂" => :meta_d,
     "…" => :meta_colon,
     "\e[3~" => :delete_at
