@@ -37,3 +37,15 @@ describe RawBuffer do
   
 end
 
+  describe 'line' do
+    describe 'when given a line with backslash bs' do
+      let(:buf) { RawBuffer.new "0123\b456\b789" }
+      
+      it 'should report 0123back tab456back tab789' do
+        buf.line.must_equal "0123back tab456back tab789"
+      end
+    end
+    
+  end
+  
+

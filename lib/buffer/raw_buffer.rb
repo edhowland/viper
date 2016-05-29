@@ -15,5 +15,13 @@ class RawBuffer < Buffer
       value
     end
   end
+
+  def line
+    value = super
+    value.gsub! "\b", "back tab"
+    
+    value
+  end
+  
 end
  
