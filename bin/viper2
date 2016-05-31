@@ -4,7 +4,10 @@
 require_relative '../lib/viper'
 
 Viper::Packages::PACKAGE_PATH.unshift  Viper::Local::VIPER
-core = Viper::Package.new '/core'
-core.load
+# core = Viper::Package.new '/core'
+# core.load
+
+ # run bootstrapper
+vish_file Viper::Local::VIPER + '/bin/boot.viper'
 
 binding.pry
