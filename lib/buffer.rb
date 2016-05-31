@@ -13,4 +13,3 @@ require_relative 'buffer/read_only_buffer'
 require_relative 'buffer/multi_line_buffer'
 
 require_relative 'buffer/scratch_buffer'
-require_relative 'buffer/raw_buffer'
