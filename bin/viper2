@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# viper - Main entry for Viper editor
+
+require_relative '../lib/viper'
+
+Viper::Packages::PACKAGE_PATH.unshift  Viper::Local::VIPER
+core = Viper::Package.new '/core'
+core.load
+
+binding.pry
