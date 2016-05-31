@@ -9,9 +9,9 @@
 
 ## Abstract
 
-This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
+This is a simple editor in Ruby that works with screen readers, esp. like VoiceOver 
 in Mac OS/X. 
-Viper only attempts an audible interface. Sighted users of the programwill only see confusing gibberish on the screen.
+Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
 
 
 ## System requirements
@@ -35,7 +35,7 @@ or alias viper to your cloned path 'bin/viper'.
 
 ```
 
-This executes the main editor loop. To exit, hit Ctrl-Q at ant time.
+This executes the main editor loop. To exit, hit Ctrl-Q at any time.
 
 ### Use the following control characters for some actions:
 
@@ -59,7 +59,7 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 - Copy and Paste: Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
 - Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
 - Replace Replace text in conjunction with search.
-- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them if needed. 
 - Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
 - Help system, including keyboard help(like VO+k in Mac VoiceOver)
 
@@ -110,12 +110,12 @@ Option/Alt+';' enters command mode where you can run some some editor functions.
 These are very vim-like in form and syntax.
 E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
 into the current buffer, overwriting any changes.
-check - performs a Ruby syntax check on the current buffer.
-lint - performs limited lint on current buffer. Ensures every line is indented with an even number of spaces.
+check - performs a  syntax check on the current buffer.
+lint - performs lint on the current buffer. This is specified by the language association for that buffer.
 
 
 
-###### Note: -c, --check-syntax performs the same function on editor exit
+###### Note: -c, --check-syntax performs the same function on  as the command: check for each buffer when the editor exits.
 
 ## Help
 
@@ -198,7 +198,7 @@ if stanza, the elsif condition, the elsif stanza and the else stanza.
 When a snippet is first invoked, the buffer will automatically advance to the first tab point, if any.
 
 
-Note: Remember to make sure to keeping hittingthe tab key to advance to any subsequent tab points. Tab will first erase the '^.' in the buffer so you can start typing from the tab point.
+Note: Remember to make sure to keeping hitting the tab key to advance to any subsequent tab points. Tab will first erase the '^.' in the buffer so you can start typing from the tab point.
 If you forget to clear all the tab points, you might get a syntax error in your code.
 You can find any left over tab points by Ctrl-F and entering ^.Return
 

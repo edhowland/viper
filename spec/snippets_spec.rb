@@ -42,3 +42,45 @@ describe 'handle_tab: locates a snippet and applies it' do
 
   specify { subject.must_equal "def \n  ^.\nend\n" }
 end
+
+describe 'handle_back_tab' do
+  let(:buf) { Buffer.new '    ' }
+  subject { buf.fin; handle_back_tab(buf); buf.line }
+
+  specify { subject.must_equal '  ' }
+end
+
+describe 'handle_return' do
+  let(:buf) { Buffer.new "  " }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "  \n  " }
+end
+
+describe 'handle_return when indented twice' do
+  let(:buf) { Buffer.new '    ' }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "    \n    " }
+end
+describe 'handle_return with no indentation' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.fin; handle_return(buf); buf.to_s }
+
+  specify { subject.must_equal "\n" }
+end
+
+describe 'convert_snip_to_keys' do
+  let(:snip) { "if ^.\r\t^.\r\bend" }
+  subject { convert_snip_to_keys snip }
+
+  specify { subject.must_be_instance_of Array }
+  it 'should have symbols as members' do
+    subject[0].must_equal :key_i
+  end
+
+  it 'should be full set of symbols' do
+    subject.must_equal [:key_i, :key_f, :space, :caret, :period,
+      :return,:tab, :caret, :period, :return, :back_tab, :key_e, :key_n, :key_d]
+  end
+end

@@ -70,8 +70,9 @@ def make_bindings
                           [:lbrace, '{'], [:rbrace, '}'],
                           [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/']
                         ])
-  result[:return] = ->(b) { b.ins "\n"; say 'return' }
+  result[:return] = ->(b) { handle_return(b); say 'return' }
   result[:tab] = ->(b) { handle_tab(b) }
+  result[:back_tab] = ->(b) { handle_back_tab(b) }
   result[:ctrl_h] = ->(_b) { :cmd_help }
   result[:ctrl_j] = ->(b) { say b.at }
   result[:ctrl_k] = ->(b) { say b.col }
@@ -118,6 +119,7 @@ def make_bindings
   # Meta Command sequences
   result[:meta_d] = ->(b) { play_chord(b, :meta_d) }
   result[:meta_colon] = ->(_b) { :command }
+  result[:meta_v] = ->(b) { :cmd_raw }
 
   # rotate the buffer ring
   result[:ctrl_t] = ->(_b) { :cmd_n }

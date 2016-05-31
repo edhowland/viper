@@ -289,3 +289,38 @@ describe 'match sets match_data' do
 
   specify { subject.must_be_instance_of MatchData }
 end
+
+describe 'indent_level' do
+  let(:buf) { Buffer.new '  jq live' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 2 }
+end
+
+describe 'empty line indent_level is 0' do
+  let(:buf) { Buffer.new '' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 0 }
+end
+
+describe 'no indent_level should be 0' do
+  let(:buf) { Buffer.new 'hello world' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 0 }
+end
+
+describe '2 tabs should be 4 indent_level' do
+  let(:buf) { Buffer.new '    if poir' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 4 }
+end
+
+describe 'only spaces still report 6' do
+  let(:buf) { Buffer.new '      ' }
+  subject { buf.indent_level }
+
+  specify { subject.must_equal 6 }
+end

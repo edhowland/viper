@@ -1,5 +1,17 @@
 # command_bindings.rb - method command_bindings returns hash of command procs
 
+ # transform some raw into another raw character
+ def xform_raw char
+  case char
+  when "\e[Z"
+    "\b"
+  else
+    char
+  end
+end
+
+ 
+ # returns hash of symbols representing commands and procs to handle them
 def command_bindings
   {
     # command commands
@@ -106,6 +118,17 @@ def command_bindings
     require: ->(_b, *args) { require args[0] },
     package: ->(_b, *args) { pkg = Viper::Package.new args[0]; pkg.load; say "#{args[0]} loaded" },
     package_info: ->(_b, *args) { say package_info args[0] },
+
+    # variable setting
+    set: ->(b, *args) { Viper::Variables.set(args[0], args[1]) },
+
+    # buffer methods
+    ins: ->(b, *args) { b.ins(args[0]) },
+    delf: ->(b, *args) { b.del_at },
+    sol: ->(b, *args) { b.front_of_line },
+    eol: ->(b, *args) { b.back_of_line },
+    raw: -> (b, *args) { say "enter raw character"; ch = key_press; b.ins(xform_raw(ch)); say map_key(ch) }, 
+    level: ->(b, *args) { say b.indent_level },
 
     # UI stuff:
     say: ->(_b, *args) { say(args.join(' ')) },

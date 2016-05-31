@@ -29,6 +29,7 @@ def key_mappings
     "\f" => :ctrl_l,
     "\u000E" => :ctrl_n,
     "\t" => :tab,
+    "\e[Z" => :back_tab,
     "\u007F" => :backspace,
     "\033[A" => :up,
     "\033[B" => :down,
@@ -92,6 +93,7 @@ def key_mappings
     "\e[6~" => :shift_pgdn,
 
     # Meta characters
+    "√" => :meta_v,
     "∂" => :meta_d,
     "…" => :meta_colon,
     "\e[3~" => :delete_at

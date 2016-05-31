@@ -140,6 +140,9 @@ end
 
 # setup the @buffer for below
 @buffer = fbuffer
+
+# Prompt the user
+say 'Ready'
 # Executes this block for each character typed in the console
 Viper::Control.loop do |worker|
   begin

@@ -13,7 +13,8 @@ def handle_tab(buffer)
   elsif proceed_tab_pt(buffer) == true
     say buffer.at
   else
-    buffer.ins '  '
+    indent = Viper::Variables[:indent] || 2
+    buffer.ins(' ' * indent)
     say 'tab'
   end
 end
