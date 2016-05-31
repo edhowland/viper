@@ -1,4 +1,5 @@
 # core/load.viper - loads core package
+require core
 set core_loaded "ok"
 #
 # load app packages
