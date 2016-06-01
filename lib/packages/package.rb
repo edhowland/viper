@@ -24,10 +24,8 @@ module Viper
     def load
       # raise Viper::Packages::LoadFileNotFound unless File.exist? viper_path('load')
       $LOAD_PATH.push lib_path
-      tmp_buffer = Buffer.new ''
-      load_rc(viper_path('load')) do |line|
-        perform!(line) { tmp_buffer }
-      end
+      # tmp_buffer = Buffer.new ''
+      vish_file(viper_path('load'))
     end
 
     def const_string
