@@ -37,11 +37,14 @@ def vish! string
   result
 end
 
+# runs a file.viper thru vish interpreter
 def vish_file path
-  tmp_buff = ScratchBuffer.new
   load_rc path do |l|
-    # perform!(l) { tmp_buff }
     vish! l
   end
 end
 
+
+def vish
+  loop { puts(vish!($stdin.gets)) }
+end

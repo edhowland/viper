@@ -13,4 +13,7 @@ Viper::Packages::PACKAGE_PATH.unshift  Viper::Local::VIPER
  # run bootstrapper
 vish_file Viper::Local::VIPER + '/bin/boot.viper'
 
-binding.pry
+#binding.pry
+
+print 'vish> '
+vish
