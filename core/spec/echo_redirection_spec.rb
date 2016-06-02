@@ -30,3 +30,12 @@ describe 'sets things in given block' do
     @my_path.must_equal '/path/name'
   end
 end
+
+describe 'redirection both ways' do
+  let(:args) { ['<', '/input/file', '>', '/output/file'] }
+  subject { apply_redirects args }
+  
+  it 'should be empty' do
+    subject.must_equal []
+  end
+end
