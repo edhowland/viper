@@ -53,16 +53,21 @@ def vish! string
 
       args = apply_redirects(args) do |op, path|
         if op == '>'
-          enviro[:out] = File.open(path)
+          if File.exist? path
+            enviro[:out] = File.open(path)
+          else
+            enviro[:out] = File.new path, 'w'
+          end
         end
       end
 
     result = cmd_proc.call *args, env:enviro
 
     rescue => err
-      # TODO: do something here
+      puts err.message
     ensure
-      # TODO restore file descriptors and close any open file-type ones
+      enviro[:in].close if File=== enviro[:in] 
+      enviro[:out].close if File=== enviro[:out] 
     end
   Viper::Variables[:exit_status] = result
   end
