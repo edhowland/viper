@@ -53,11 +53,9 @@ def vish! string
 
       args = apply_redirects(args) do |op, path|
         if op == '>'
-          if File.exist? path
-            enviro[:out] = File.open(path)
-          else
-            enviro[:out] = File.new path, 'w'
-          end
+          enviro[:out] = File.open(path, 'w')
+        elsif op == '<'
+          enviro[:in] = File.open path
         end
       end
 
