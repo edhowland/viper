@@ -39,3 +39,13 @@ describe 'redirection both ways' do
     subject.must_equal []
   end
 end
+
+describe '2 redirects doing something in block yielded twice' do
+  let(:args) { ['<', '/input/file', '>', '/output/file'] }
+  before { @called = 0 }
+  subject { apply_redirects(args) {|op, path| @called += 1 } }
+  it 'should bhave been called 2 times' do
+    subject
+    @called.must_equal 2
+  end
+end
