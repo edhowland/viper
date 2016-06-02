@@ -16,11 +16,14 @@ module Viper
 end
 
 # chucks out any redirects from arguments
-def apply_redirects args
+# yields to the block with operator and pathname if in ops array
+def apply_redirects args, &blk
+  ops = ['<', '>', '>>']
   stack = []
   args.reverse.each do |e|
-    if e == '>'
-      stack.pop
+    if ops.member? e
+      path = stack.pop
+      yield e, path if block_given?
     else
       stack.push e
     end

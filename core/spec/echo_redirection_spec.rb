@@ -19,3 +19,14 @@ describe 'with no redirection' do
     subject.must_equal ['a0', 'a1', 'a3']
   end
 end
+
+describe 'sets things in given block' do
+  let(:args) { ['>>', '/path/name'] }
+  before { @my_path = '' }
+  subject { apply_redirects(args) {|op, path| @my_path = path } }
+
+  it 'should have set @my_path to /path/name' do
+       subject.must_equal []
+    @my_path.must_equal '/path/name'
+  end
+end
