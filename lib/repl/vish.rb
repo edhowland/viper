@@ -39,7 +39,7 @@ end
 # vish! parses and executes a single command
 def vish! string
   sexps = parse!(string)
-  Viper::Variables[:status] = true
+  Viper::Variables[:exit_status] = true
   sexps = dealias_sexps(sexps)
   #fail CommandNotVerified.new unless command_verified?(sexps)
   result = nil
@@ -48,9 +48,10 @@ def vish! string
     cmd_proc = resolve_cmd cmd
     fail "command #{cmd} not found" if cmd_proc.nil?
     args = args.map { |e| deref_variable(e) }
+    args = apply_redirects(args)
     enviro = {in: $stdin, out: $stdout}
     result = cmd_proc.call *args, env:enviro
-  Viper::Variables[:status] = result
+  Viper::Variables[:exit_status] = result
   end
 
   nil
