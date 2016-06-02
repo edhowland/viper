@@ -15,6 +15,19 @@ module Viper
   end
 end
 
+# chucks out any redirects from arguments
+def apply_redirects args
+  stack = []
+  args.reverse.each do |e|
+    if e == '>'
+      stack.pop
+    else
+      stack.push e
+    end
+  end
+  stack.reverse
+end
+
 # returns non-nil if command exists in CMD_PATH search space
 def resolve_cmd cmd
   Viper::Commands::CMD_PATH.reduce(nil) { |i, e| i || e[cmd] }
@@ -45,7 +58,6 @@ def vish_file path
     vish! l
   end
 end
-
 
 def vish
   loop { puts(vish!($stdin.gets)) }
