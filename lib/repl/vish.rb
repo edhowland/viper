@@ -48,9 +48,22 @@ def vish! string
     cmd_proc = resolve_cmd cmd
     fail "command #{cmd} not found" if cmd_proc.nil?
     args = args.map { |e| deref_variable(e) }
-    args = apply_redirects(args)
-    enviro = {in: $stdin, out: $stdout}
+    begin
+      enviro = {in: $stdin, out: $stdout}
+
+      args = apply_redirects(args) do |op, path|
+        if op == '>'
+          enviro[:out] = File.open(path)
+        end
+      end
+
     result = cmd_proc.call *args, env:enviro
+
+    rescue => err
+      # TODO: do something here
+    ensure
+      # TODO restore file descriptors and close any open file-type ones
+    end
   Viper::Variables[:exit_status] = result
   end
 
