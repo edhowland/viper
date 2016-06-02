@@ -31,7 +31,8 @@ def vish! string
     cmd_proc = resolve_cmd cmd
     fail "command #{cmd} not found" if cmd_proc.nil?
     args = args.map { |e| deref_variable(e) }
-    cmd_proc.call *args, env:{}
+    enviro = {in: $stdin, out: $stdout}
+    cmd_proc.call *args, env:enviro
     # result = exec_cmd cmd, *args
   end
 
