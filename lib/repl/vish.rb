@@ -7,10 +7,10 @@ module Viper
     # commandsearch path
     # preloaded with minimum commands
     CMD_PATH = [
-      exit: ->(*args) { exit },
-      package: ->(*args) { package_load args[0] },
-      require: ->(*args) { require args[0] },
-      set: ->(*args) { Viper::Variables.set(args[0], args[1]) }
+      exit: ->(*args, env:) { exit },
+      package: ->(*args, env:{}) { package_load args[0] },
+      require: ->(*args, env:{}) { require args[0] },
+      set: ->(*args, env:{}) { Viper::Variables.set(args[0], args[1]) }
     ]
   end
 end
@@ -31,7 +31,7 @@ def vish! string
     cmd_proc = resolve_cmd cmd
     fail "command #{cmd} not found" if cmd_proc.nil?
     args = args.map { |e| deref_variable(e) }
-    cmd_proc.call *args
+    cmd_proc.call *args, env:{}
     # result = exec_cmd cmd, *args
   end
 
