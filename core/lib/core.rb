@@ -6,3 +6,7 @@ commands = {
  }
 
 Viper::Commands::CMD_PATH.unshift commands
+
+ # setup Viper Virtual File System
+ require_relative 'vfs'
+require_relative 'debug'
