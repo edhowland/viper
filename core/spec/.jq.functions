@@ -1,0 +1,12 @@
+color () 
+{ 
+    ruby "$@" | ~/src/bin/jq -r .status.color
+}
+fails () 
+{ 
+    ruby "$@" | ~/src/bin/jq .fails
+}
+failsm () 
+{ 
+    ruby "$@" | ~/src/bin/jq .fails[].message
+}
