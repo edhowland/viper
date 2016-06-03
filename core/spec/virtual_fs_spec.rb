@@ -40,5 +40,12 @@ describe Viper::VFS do
       subject.must_equal 'spec_helper.rb'
     end
   end
+  describe 'resolve_path non-existant path' do
+    let(:path) { 'xyzzy' }
+    subject { Viper::VFS.resolve_path path }
+    it 'should raise non-existant path' do
+      ->{ subject }.must_raise RuntimeError
+    end
+  end
   
 end
