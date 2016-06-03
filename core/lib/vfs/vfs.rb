@@ -13,8 +13,14 @@ module Viper
       def path_to_value path
         parts = path.split '/'
         parts.shift
-#binding.pry
         parts.reduce(@storage) { |i, j| i[j] }
+      end
+      
+      def directory? path
+        File.directory? path
+      end
+      def resolve_path path
+        self.directory?(path) ? Dir[path + '/*'] : path
       end
     end
   end
