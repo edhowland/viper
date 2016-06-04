@@ -19,7 +19,7 @@ module Viper
       def directory? path
         File.directory? path
       end
-      def resolve_path path
+      def resolve_path path='.'
       fail "#{path}: no such file or directory" unless File.exist?(path)
         self.directory?(path) ? Dir[path + '/*'] : path
       end

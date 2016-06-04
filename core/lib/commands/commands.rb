@@ -2,5 +2,6 @@
 
 Viper::Commands::CMD_PATH.unshift({ 
   ls: ->(*args, env:{}){ ls(*args, out:env[:out]) },
-  pwd: ->(*args, env:{}) { _pwd(out:env[:out]) }
+  pwd: ->(*args, env:{}) { _pwd(out:env[:out]) },
+  cd: ->(*args, env:{}) { _cd args[0] }
 })
