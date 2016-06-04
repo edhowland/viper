@@ -9,4 +9,8 @@ class ScratchBuffer < Buffer
     count = $buffer_ring.count { |b| b.instance_of? ScratchBuffer }
     @name = "Scratch #{count + 1}"
   end
+  def inspect
+    @name
+  end
+  
 end
