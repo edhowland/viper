@@ -271,4 +271,13 @@ class Buffer
   def restore
     raise NonRestorableException.new self.class.name
   end
+  def read
+    to_s
+  end
+  def write contents
+        @a_buff = StringBuffer.new ''
+    @b_buff = StringBuffer.new contents
+  end
+  
+  
 end

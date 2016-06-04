@@ -48,4 +48,5 @@ require_relative 'viper/load_rc'
 
 
 # setup Viper virtual file system
+require_relative 'redirection'
 require_relative 'vfs'
