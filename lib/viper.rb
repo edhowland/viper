@@ -45,3 +45,7 @@ require_relative 'packages'
 # init some stuff
 init
 require_relative 'viper/load_rc'
+
+
+# setup Viper virtual file system
+require_relative 'vfs'
