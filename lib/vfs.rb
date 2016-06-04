@@ -2,3 +2,4 @@
 
 require_relative 'vfs/vfs'
 require_relative 'vfs/buf'
+require_relative 'vfs/clip'
