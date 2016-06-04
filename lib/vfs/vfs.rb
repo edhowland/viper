@@ -37,10 +37,18 @@ module Viper
       end
       end
       def open_for_read path
-        File.open path
+        if self.virtual? path
+          self.path_to_value path
+        else
+          File.open(path)
+        end
       end
       def open_for_write path
-        File.open(path, 'w')
+        if self.virtual? path
+          self.path_to_value path
+        else
+          File.open(path, 'w')
+        end
       end
     end
   end
