@@ -18,7 +18,7 @@ end
 # chucks out any redirects from arguments
 # yields to the block with operator and pathname if in ops array
 def apply_redirects args, &blk
-  ops = ['<', '>', '>>', '>+', '<-', '<.']
+  ops = ['<', '>', '>>', '>+', '<-', '<.', '<_']
   stack = []
   args.reverse.each do |e|
     if ops.member? e
@@ -62,6 +62,8 @@ def vish! string
           enviro[:in] = DeleterFacade.new(Viper::VFS.path_to_value(path))        
         elsif op == '<.'
           enviro[:in] = InspectorFacade.new(Viper::VFS.path_to_value(path))
+        elsif op == '<_'
+          enviro[:in] = LineInspectorFacade.new(Viper::VFS.path_to_value(path))
         end
       end
 
