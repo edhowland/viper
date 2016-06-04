@@ -24,8 +24,17 @@ module Viper
         @storage[parts[0]] != nil
       end
       def resolve_path path='.'
-      fail "#{path}: no such file or directory" unless File.exist?(path)
+      if self.virtual? path
+        item = self.path_to_value path
+        if item.instance_of? Hash
+          item.keys
+        else
+          item.inspect
+        end
+      else
+        fail "#{path}: no such file or directory" unless File.exist?(path)
         self.directory?(path) ? Dir[path + '/*'] : path
+      end
       end
     end
   end
