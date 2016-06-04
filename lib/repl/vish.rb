@@ -53,9 +53,9 @@ def vish! string
 
       args = apply_redirects(args) do |op, path|
         if op == '>'
-          enviro[:out] = File.open(path, 'w')
+          enviro[:out] = Viper::VFS.open_for_write(path)  # File.open(path, 'w')
         elsif op == '<'
-          enviro[:in] = File.open path
+          enviro[:in] = Viper::VFS.open_for_read(path)  # File.open path
         end
       end
 

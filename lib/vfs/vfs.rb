@@ -36,6 +36,12 @@ module Viper
         self.directory?(path) ? Dir[path + '/*'] : path
       end
       end
+      def open_for_read path
+        File.open path
+      end
+      def open_for_write path
+        File.open(path, 'w')
+      end
     end
   end
 end
