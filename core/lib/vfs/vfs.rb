@@ -15,9 +15,13 @@ module Viper
         parts.shift
         parts.reduce(@storage) { |i, j| i[j] }
       end
-      
       def directory? path
         File.directory? path
+      end
+      def virtual? path
+        parts = path.split '/'
+        parts.shift
+        @storage[parts[0]] != nil
       end
       def resolve_path path='.'
       fail "#{path}: no such file or directory" unless File.exist?(path)

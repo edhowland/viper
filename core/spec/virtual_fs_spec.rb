@@ -47,5 +47,23 @@ describe Viper::VFS do
       ->{ subject }.must_raise RuntimeError
     end
   end
-  
+  describe 'virtual? /buf' do
+    let(:path) { '/buf' }
+    before { Viper::VFS['buf'] = { '0' => 99 } }
+    subject { Viper::VFS.virtual? path }
+    it 'should be true' do
+      subject.must_equal true
+    end
+  end
+  describe 'virtual? /tmp' do
+    let(:path) { '/tmp' }
+    before { Viper::VFS['buf'] = { '0' => 99 } }
+    subject { Viper::VFS.virtual? path }
+    it 'should be false' do
+      subject.must_equal false
+    end
+    it 'should be true for directory?' do
+      Viper::VFS.directory?(path).must_equal true
+    end
+  end
 end
