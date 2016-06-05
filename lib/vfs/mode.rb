@@ -29,3 +29,10 @@ Viper::VFS["mode"]["vedit"]["speech"] = { "space" => "say space" }
 (('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a).each do |letter|
   Viper::VFS["mode"]["vedit"]["speech"]["key_#{letter}"] = "say \"#{letter}\""
 end
+
+
+# special case TODO: for now of ASCII chars values, like CR, etc.
+Viper::Variables[:cr] = "\n"
+
+Viper::VFS["mode"]["vedit"]["bind"]["return"] = "echo :cr >+ /buf/0"
+Viper::VFS["mode"]["vedit"]["speech"]["return"] = "say new line"
