@@ -12,7 +12,12 @@ class BlanketFacade
     end
   end
   def write contents
-    #do nothing nothing for now # TODO implement
+    case @item
+    when String
+      @item[0, @item.length] = contents
+    else
+      fail "Do not know how to write to #{@item.class.name}"
+    end
   end
 end
 

@@ -24,8 +24,11 @@ module Viper
       end
       def mknode path
         parent = self.path_to_parent path
-        item = path.pathmap('%f')
-        parent[item] = Buffer.new ''
+        parts = path.split('/')
+        item = parts[-1]
+        ppath = parts[1]
+        klass = @storage["viper"]["classes"][ppath]
+        parent[item] = klass.new
       end
       
       def directory? path
