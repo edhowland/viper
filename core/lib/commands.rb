@@ -4,3 +4,5 @@
 require_relative 'commands/pwd'
 require_relative 'commands/cd'
 require_relative 'commands/commands'
+
+require_relative 'commands/touch'

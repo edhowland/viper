@@ -10,11 +10,24 @@ module Viper
       @storage[key] = value
     end
     class << self
+      # splits path on /, reverses returns the first element of the tail of that
+      def path_to_parent path
+        parts = path.split('/')
+        head, *tail = parts.reverse
+        self.path_to_value tail.reverse.join('/')
+      end
+
       def path_to_value path
         parts = path.split '/'
         parts.shift
         parts.reduce(@storage) { |i, j| i[j] }
       end
+      def mknode path
+        parent = self.path_to_parent path
+        item = path.pathmap('%f')
+        parent[item] = Buffer.new ''
+      end
+      
       def directory? path
         File.directory? path
       end

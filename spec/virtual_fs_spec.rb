@@ -66,4 +66,18 @@ describe Viper::VFS do
       Viper::VFS.directory?(path).must_equal true
     end
   end
+  describe 'path_to_parent' do
+    let(:path) { '/buf/xyzzy' }
+    subject { Viper::VFS.path_to_parent path }
+    it 'should be a Hash' do
+      subject.must_be_instance_of Hash
+    end
+  end
+  describe 'mknode /buf/xyzzy' do
+    let(:path) { '/buf/xyzzy' }
+    subject { Viper::VFS.mknode path; Viper::VFS.path_to_value path }
+    it 'should be a Buffer' do
+      subject.must_be_instance_of Buffer
+    end
+  end
 end
