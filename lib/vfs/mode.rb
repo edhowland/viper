@@ -7,7 +7,7 @@ Viper::VFS["mode"] = {
       "key_j" => "echo j >+ /buf/0",
       "ctrl_q" => "exit",
       "ctrl_d" => "pry",
-      "meta_semicolon" => "vish"
+      "meta_colon" => "vish"
     }
     }
   }

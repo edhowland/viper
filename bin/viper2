@@ -21,7 +21,7 @@ loop do
   command = Viper::VFS.path_to_value "/mode/vedit/bind/#{event}"
 #binding.pry
   puts "binding for #{event} not found" if command.nil?
-  vish!command
+  vish!command unless command.nil?
 end
 
 # start mainline REPL
