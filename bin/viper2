@@ -22,6 +22,10 @@ loop do
 #binding.pry
   puts "binding for #{event} not found" if command.nil?
   vish!command unless command.nil?
+  # handle the view portion
+  speech = Viper::VFS.path_to_value "/mode/vedit/speech/#{event}"
+  puts "nothing to say about #{event}" if speech.nil?
+  vish! speech unless speech.nil?
 end
 
 # start mainline REPL
