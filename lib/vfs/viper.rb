@@ -5,6 +5,8 @@ Viper::VFS["viper"] = {
     "buf" => Buffer,
     "clip" => ScratchBuffer,
     "mode" => String
-  }
+  },
+  'variables' => Viper::Variables.storage
+
 }
 
