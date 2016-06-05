@@ -17,6 +17,7 @@ vish_file('./.viperrc') if File.exist?('./.viperrc')
 # Main event loop for now TODO: implement in new pkg
 say 'ready'
 loop do
+  begin
   event = map_key(key_press)
   command = Viper::VFS.path_to_value "/mode/vedit/bind/#{event}"
 #binding.pry
@@ -26,7 +27,6 @@ loop do
   speech = Viper::VFS.path_to_value "/mode/vedit/speech/#{event}"
   puts "nothing to say about #{event}" if speech.nil?
   vish! speech unless speech.nil?
+  rescue Viper::Commands::GracefulBreak
+  end
 end
-
-# start mainline REPL
-#vish

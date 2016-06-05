@@ -4,10 +4,17 @@
 module Viper
   # Command stuff
   module Commands
+  class GracefulBreak < RuntimeError
+    def initialize 
+      super "Exiting from vish"
+    end
+  end
+
     # commandsearch path
     # preloaded with minimum commands
     CMD_PATH = [
       exit: ->(*args, env:) { exit },
+      break: ->(*args, env:{}) { raise Viper::Commands::GracefulBreak.new },
       package: ->(*args, env:{}) { package_load args[0] },
       require: ->(*args, env:{}) { require args[0] },
       set: ->(*args, env:{}) { Viper::Variables.set(args[0], args[1]) }
@@ -68,7 +75,9 @@ def vish! string
       end
 
     result = cmd_proc.call *args, env:enviro
-
+    rescue Viper::Commands::GracefulBreak => berr
+      puts berr.message
+      raise berr
     rescue => err
       puts err.message
     ensure

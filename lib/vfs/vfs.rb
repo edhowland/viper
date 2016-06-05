@@ -66,7 +66,12 @@ module Viper
       end
       def open_for_write path
         if self.virtual? path
-          self.path_to_value path
+          value = self.path_to_value path
+                    unless value.class.method_defined? :read
+            BlanketFacade.new(value)
+          else
+            value
+          end
         else
           File.open(path, 'w')
         end
