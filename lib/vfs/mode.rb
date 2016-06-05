@@ -12,16 +12,16 @@ Viper::VFS["mode"] = {
 
 # add letters to /mode/vedit/bind
 (('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a).each do |letter|
-  Viper::VFS["mode"]["vedit"]["bind"]["key_#{letter}"] = "echo \"#{letter}\" >+ /buf/0"
+  Viper::VFS["mode"]["vedit"]["bind"]["key_#{letter}"] = "echo \"#{letter}\" >+ :_buf"
 end
 
 # add some punctuation characters
 def add_special_letter letter, value
-    Viper::VFS["mode"]["vedit"]["bind"]["#{letter}"] = "echo \"#{value}\" >+ /buf/0"
+    Viper::VFS["mode"]["vedit"]["bind"]["#{letter}"] = "echo \"#{value}\" >+ :_buf"
   end
 
   add_special_letter :space, ' '
-  
+
 
 # setup /mode/vedit/speech/*
 Viper::VFS["mode"]["vedit"]["speech"] = { "space" => "say space" }
