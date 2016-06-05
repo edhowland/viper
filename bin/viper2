@@ -10,8 +10,9 @@ Viper::Packages::PACKAGE_PATH.unshift  Viper::Local::VIPER
 
  # run bootstrapper
 vish_file Viper::Local::VIPER + '/bin/boot.viper'
+#This for possible debugging
+vish_file('./.viperrc') if File.exist?('./.viperrc')
 
-#binding.pry
 
-print 'vish> '
+# start mainline REPL
 vish

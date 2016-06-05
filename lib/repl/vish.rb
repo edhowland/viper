@@ -88,6 +88,7 @@ def vish_file path
   end
 end
 
+# The main REPL for vish
 def vish
-  loop { puts(vish!($stdin.gets)) }
+  loop {print (Viper::Variables[:prompt] || 'v>> ');  puts(vish!($stdin.gets)) }
 end
