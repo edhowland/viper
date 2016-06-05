@@ -14,5 +14,15 @@ vish_file Viper::Local::VIPER + '/bin/boot.viper'
 vish_file('./.viperrc') if File.exist?('./.viperrc')
 
 
+# Main event loop for now TODO: implement in new pkg
+say 'ready'
+loop do
+  event = map_key(key_press)
+  command = Viper::VFS.path_to_value "/mode/vedit/bind/#{event}"
+#binding.pry
+  puts "binding for #{event} not found" if command.nil?
+  vish!command
+end
+
 # start mainline REPL
-vish
+#vish
