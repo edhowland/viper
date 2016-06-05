@@ -92,3 +92,6 @@ end
 def vish
   loop {print (Viper::Variables[:prompt] || 'v>> ');  puts(vish!($stdin.gets)) }
 end
+
+# add vish command to mode/vedit # TODO: For now
+Viper::Commands::CMD_PATH.push({ vish: ->(*args, env:{}) { vish } })
