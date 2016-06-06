@@ -19,9 +19,9 @@ end
 
 # add puctuation, other chars
 [
-                          [:apostrophe, "'"], [:quote, '"'],
-                          [:asterisk, '*'], [:accent, '`'], [:at, '@'],
-                          [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
+                          [:apostrophe, "'"],
+  [:asterisk, '*', 'star'], [:accent, '`'], [:at, '@', '@'],
+  [:tilde, '~'], [:exclamation, '!', 'exclaim'], [:number, '#'],
                           [:dollar, '$'], [:percent, '%'], [:caret, '^'],
                             [:ampersand, '&'],
   [:lparen, '(', 'lap'], [:rparen, ')', 'rap'], [:hyphen, '-', 'dash'],
@@ -36,6 +36,10 @@ end
   Viper::VFS["mode"]["vedit"]["bind"]["#{k}"] = "echo \"#{v}\" >+ :_buf"
   Viper::VFS["mode"]["vedit"]["speech"]["#{k}"] = "say \"#{s || k}\""
 end
+
+# special case for escaped chars
+Viper::VFS["mode"]["vedit"]["bind"]["quote"] = "echo '\"' >+ :_buf"
+Viper::VFS["mode"]["vedit"]["speech"]["quote"] = 'say quote'
 
 
 # add some punctuation characters
