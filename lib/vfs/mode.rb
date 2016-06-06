@@ -9,10 +9,12 @@ Viper::VFS["mode"] = {
     }
     }
   }
+Viper::VFS["mode"]["vedit"]["speech"] = { "space" => "say space" }
 
 # add letters to /mode/vedit/bind
 (('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a).each do |letter|
   Viper::VFS["mode"]["vedit"]["bind"]["key_#{letter}"] = "echo \"#{letter}\" >+ :_buf"
+  Viper::VFS["mode"]["vedit"]["speech"]["key_#{letter}"] = "say \"#{letter}\""
 end
 
 # add some punctuation characters
@@ -22,13 +24,7 @@ def add_special_letter letter, value
 
   add_special_letter :space, ' '
 
-
 # setup /mode/vedit/speech/*
-Viper::VFS["mode"]["vedit"]["speech"] = { "space" => "say space" }
-
-(('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a).each do |letter|
-  Viper::VFS["mode"]["vedit"]["speech"]["key_#{letter}"] = "say \"#{letter}\""
-end
 
 
 # special case TODO: for now of ASCII chars values, like CR, etc.
