@@ -57,3 +57,6 @@ Viper::Variables[:cr] = "\n"
 
 Viper::VFS["mode"]["vedit"]["bind"]["return"] = "echo :cr >+ /buf/0"
 Viper::VFS["mode"]["vedit"]["speech"]["return"] = "say new line"
+# add special tab char - uses repeat primative - TODO: how to solve arch problem
+Viper::VFS["mode"]["vedit"]["bind"]["tab"] = "repeat :indent ' ' >+ :_buf"
+Viper::VFS["mode"]["vedit"]["speech"]["tab"] = "say tab"

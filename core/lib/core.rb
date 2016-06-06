@@ -11,4 +11,5 @@ commands = {
 Viper::Commands::CMD_PATH.unshift commands
 
 require_relative 'commands'
+require_relative 'editor'
 require_relative 'debug'
