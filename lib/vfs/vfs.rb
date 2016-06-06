@@ -20,7 +20,7 @@ module Viper
       def path_to_value path
         parts = path.split '/'
         parts.shift
-        parts.reduce(@storage) { |i, j| i[j] }
+        parts.reduce(@storage) { |i, j| i[j] || i[j.to_sym] }
       end
       def mknode path
         parent = self.path_to_parent path
