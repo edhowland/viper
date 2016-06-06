@@ -17,6 +17,28 @@ Viper::VFS["mode"]["vedit"]["speech"] = { "space" => "say space" }
   Viper::VFS["mode"]["vedit"]["speech"]["key_#{letter}"] = "say \"#{letter}\""
 end
 
+# add puctuation, other chars
+[
+                          [:apostrophe, "'"], [:quote, '"'],
+                          [:asterisk, '*'], [:accent, '`'], [:at, '@'],
+                          [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
+                          [:dollar, '$'], [:percent, '%'], [:caret, '^'],
+                            [:ampersand, '&'],
+                          [:lparen, '('], [:rparen, ')'], [:hyphen, '-'],
+                          [:underline, '_'], [:plus, '+'], [:equals, '='],
+                          [:backslash, '\\'], [:pipe, '|'],
+                          [:lbracket, '['], [:rbracket, ']'],
+                          [:lbrace, '{'], [:rbrace, '}'],
+                          [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/'],
+  [:period, '.'], [:comma, ',']
+].each do  |e|
+  k, v = e
+  # put in /mode/vedit/bind, speech
+  Viper::VFS["mode"]["vedit"]["bind"]["#{k}"] = "echo \"#{v}\" >+ :_buf"
+  Viper::VFS["mode"]["vedit"]["speech"]["#{k}"] = "say \"#{k}\""
+end
+
+
 # add some punctuation characters
 def add_special_letter letter, value
     Viper::VFS["mode"]["vedit"]["bind"]["#{letter}"] = "echo \"#{value}\" >+ :_buf"
