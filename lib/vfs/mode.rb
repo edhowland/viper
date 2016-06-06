@@ -24,18 +24,17 @@ end
                           [:tilde, '~'], [:exclamation, '!'], [:number, '#'],
                           [:dollar, '$'], [:percent, '%'], [:caret, '^'],
                             [:ampersand, '&'],
-                          [:lparen, '('], [:rparen, ')'], [:hyphen, '-'],
+  [:lparen, '(', 'lap'], [:rparen, ')', 'rap'], [:hyphen, '-', 'dash'],
                           [:underline, '_'], [:plus, '+'], [:equals, '='],
                           [:backslash, '\\'], [:pipe, '|'],
-                          [:lbracket, '['], [:rbracket, ']'],
-                          [:lbrace, '{'], [:rbrace, '}'],
-                          [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/'],
+  [:lbracket, '[', 'lack'], [:rbracket, ']', 'rack'],
+  [:lbrace, '{', 'lace'], [:rbrace, '}', 'race'],
+  [:less, '<'], [:greater, '>'], [:question, '?'], [:slash, '/'],
   [:period, '.'], [:comma, ',']
 ].each do  |e|
-  k, v = e
-  # put in /mode/vedit/bind, speech
+  k, v, s = e
   Viper::VFS["mode"]["vedit"]["bind"]["#{k}"] = "echo \"#{v}\" >+ :_buf"
-  Viper::VFS["mode"]["vedit"]["speech"]["#{k}"] = "say \"#{k}\""
+  Viper::VFS["mode"]["vedit"]["speech"]["#{k}"] = "say \"#{s || k}\""
 end
 
 
