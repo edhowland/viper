@@ -2,8 +2,8 @@
 
 def dealias(sexp, seen = [], &_blk)
   cmd, args = sexp
-  return [sexp] if Viper::Session[:alias].nil? || seen.member?(cmd)
-  found = Viper::Session[:alias][cmd]
+  return [sexp] if Viper::VFS["viper"]["alias"].nil? || seen.member?(cmd)
+  found = Viper::VFS["viper"]["alias"][cmd.to_s]
   if found.nil?
     [sexp]
   else

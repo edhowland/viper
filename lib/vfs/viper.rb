@@ -4,9 +4,10 @@ Viper::VFS["viper"] = {
   "classes" => {
     "buf" => Buffer,
     "clip" => ScratchBuffer,
-    "mode" => String
+    "mode" => String,
+    "viper" => String
   },
-  'variables' => Viper::Variables.storage
-
+  'variables' => Viper::Variables.storage,
+  "alias" => { "hello" => "say hello world" }
 }
 
