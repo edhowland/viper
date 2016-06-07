@@ -11,15 +11,13 @@ end
 end
 
 # given a string, derefs any variables therein
-def deref_variables string
+def deref_variables string, variables=Viper::VFS['viper']['variables']
   result = symbol_if_colon(string)
   if result.instance_of?(Symbol)
     Viper::Variables[result]
   else
-    #occurs = string.scan /:\{[_\w]+\}/
-    #expansions = occurs.map { |e| sym = decurly(e).to_sym;[sym, Viper::VFS["viper"]["variables"][sym]] }.to_h
     string.gsub(/:\{[_\w]+\}|:[_\w]+/) do |match|
-      Viper::VFS['viper']['variables'][decurly(match).to_sym]
+      variables[decurly(match).to_sym]
     end
     #result
   end
