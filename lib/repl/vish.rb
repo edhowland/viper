@@ -17,7 +17,8 @@ module Viper
       break: ->(*args, env:{}) { raise Viper::Commands::GracefulBreak.new },
       package: ->(*args, env:{}) { package_load args[0] },
       require: ->(*args, env:{}) { require args[0] },
-      set: ->(*args, env:{}) { Viper::Variables.set(args[0], args[1]) }
+      set: ->(*args, env:{}) { Viper::Variables.set(args[0], args[1]) },
+      alias: ->(*args, env:{}) { _alias args[0], args[1], out:env[:out] }
     ]
   end
 end
