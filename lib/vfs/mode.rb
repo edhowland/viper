@@ -68,3 +68,8 @@ bind["ctrl_l"] = "nop"
 speech["ctrl_l"] = "cat <_ :_buf"
 bind["ctrl_j"] = "nop"
 speech["ctrl_j"] = "cat <. :_buf"
+
+bind["shift_home"] = "sol :_buf"
+speech["shift_home"] = "cat <. :_buf"
+bind["shift_end"] = "eol :_buf"
+speech["shift_end"] = "cat <. :_buf"
