@@ -79,5 +79,19 @@ speech["shift_end"] = "cat <. :_buf"
  
  bind["shift_pgdn"] = "bottom :_buf"
  speech["shift_pgdn"] = "say 'bottom of buffer'"
- 
- 
+
+
+
+bind["right"] = "+ :_buf"
+speech["right"] = "cat <. :_buf"
+
+bind["left"] = "- :_buf"
+speech["left"] = "cat <. :_buf"
+
+bind["down"] = "down :_buf"
+speech["down"] = "cat <_ :_buf"
+
+bind["up"] = "up :_buf"
+speech["up"] = "cat <_ :_buf"
+
+

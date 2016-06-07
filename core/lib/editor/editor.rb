@@ -6,5 +6,9 @@ Viper::Commands::CMD_PATH.unshift({
   sol: ->(*args, env:{}) { sol args[0] },
   eol: ->(*args, env:{}) { eol args[0] },
   top: ->(*args, env:{}) { top args[0] },
-  bottom: ->(*args, env:{}) { bottom args[0] }
+  bottom: ->(*args, env:{}) { bottom args[0] },
+  :+ => ->(*args, env:{}) { plus args[0] },
+  :- => ->(*args, env:{}) { minus args[0] },
+  down:  ->(*args, env:{}) { plusplus args[0] },
+  up: ->(*args, env:{}) { minusminus args[0] }
 })

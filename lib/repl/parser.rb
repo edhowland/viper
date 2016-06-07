@@ -6,9 +6,9 @@ def match_thing(buffer, regex, &_blk)
   buffer.fwd(result.length) if result
   !result.nil?
 end
-
+# matches a word
 def match_word(buffer, &blk)
-  match_thing buffer, /^([\w_!]+)/, &blk
+  match_thing buffer, /^([\w_!\+\-]+)/, &blk
 end
 
 def match_whitespace(buffer, &blk)
@@ -31,6 +31,7 @@ def match_nonwhitespace(buffer, &blk)
   match_thing(buffer, /^([^\s"';]+)/, &blk)
 end
 
+# matches '#' - an octothorpe
 def match_octothorpe(buffer, &blk)
   match_thing(buffer, /^(#)/, &blk)
 end
@@ -40,16 +41,18 @@ def match_anything(buffer, &blk)
 end
 
 # recursion fns
-
+# matches 0 or one of something
 def question(&_blk)
   !yield || !yield
 end
 
+# matches 0 or more of somethings
 def star(&blk)
   star(&blk) if yield
   true
 end
 
+# matches one or more of things
 def plus(&blk)
   yield && star(&blk)
 end
@@ -92,7 +95,7 @@ def nonterm_arg(buffer, &_blk)
   yield arg if block_given? && result
   result
 end
-
+# match an expression - a word (cmd) some optional args and some whitespace
 def nonterm_expr(buffer, _sexp = [], &_blk)
   args = []
   sym = :nop
