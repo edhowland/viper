@@ -8,15 +8,6 @@ def symbol_if_colon string
   end
 end
 
-def deref_variable string
-  result = symbol_if_colon(string)
-  if result.instance_of?(Symbol)
-    Viper::Variables[result]
-  else
-    result
-  end
-end
-
 def exec_cmd(command, buffer, *args)
   args = args.map { |e| deref_variable(e) }
   command_p = Viper::Session[:commands][command]
