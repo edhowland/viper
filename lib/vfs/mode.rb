@@ -73,3 +73,11 @@ bind["shift_home"] = "sol :_buf"
 speech["shift_home"] = "cat <. :_buf"
 bind["shift_end"] = "eol :_buf"
 speech["shift_end"] = "cat <. :_buf"
+
+ bind["shift_pgup"] = "top :_buf"
+ speech["shift_pgup"] = "say 'top of buffer'"
+ 
+ bind["shift_pgdn"] = "bottom :_buf"
+ speech["shift_pgdn"] = "say 'bottom of buffer'"
+ 
+ 

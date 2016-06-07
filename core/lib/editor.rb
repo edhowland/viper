@@ -3,4 +3,6 @@
 
 require_relative 'editor/sol'
 require_relative 'editor/eol'
+require_relative 'editor/top'
+require_relative 'editor/bottom'
 require_relative 'editor/editor'
