@@ -1,0 +1,15 @@
+%% name = Vish
+
+%% {
+  attr_accessor :result
+}
+
+space = " "
+- = space*
+num = < /[1-9][0-9]*/ > { text.to_i }
+
+term = term:t1 - "+" - term:t2 { t1 + t2 }
+     | term:t1 - "-" - term:t2 { t1 - t2 }
+     | num
+
+root = term:t { @result = t }

@@ -1,0 +1,17 @@
+%% name = Calculator
+
+%% {
+  attr_accessor :result
+}
+
+space = " "
+- = space*
+num = < /[1-9][0-9]*/ > { text.to_i }
+
+term = term:t1 - "+" - term:t2 { t1 + t2 }
+     | term:t1 - "-" - term:t2 { t1 - t2 }
+     | fact
+fact = fact:f1 - "*" - fact:f2 { f1 * f2 }
+     | fact:f1 - "/" - fact:f2 { f1 / f2 }
+     | num
+root = term:t { @result = t }
