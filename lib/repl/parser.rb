@@ -12,7 +12,7 @@ def match_word(buffer, &blk)
 end
 
 def match_whitespace(buffer, &blk)
-  match_thing buffer, /^(\s+)/, &blk
+  match_thing buffer, /^( +)/, &blk
 end
 
 # def match_digit buffer, &blk
@@ -23,8 +23,16 @@ def match_end(buffer)
   buffer.eob?
 end
 
+def match_newline buffer, &blk
+  match_thing buffer, /^(\s*\n\s*)/, &blk
+end
+
 def match_semicolon(buffer, &blk)
   match_thing(buffer, /^(\s*;\s*)/, &blk)
+end
+
+def match_newline_or_semicolon(buffer, &blk)
+  match_newline(buffer, &blk) || match_semicolon(buffer, &blk)
 end
 
 def match_nonwhitespace(buffer, &blk)
@@ -110,7 +118,7 @@ def nonterm_command(buffer, &_blk)
   sexps = []
   result = match_end(buffer) ||
            nonterm_comment(buffer) ||
-           nonterm_expr(buffer) { |sexp| sexps << sexp } && star { match_semicolon(buffer) && nonterm_expr(buffer) { |sexp| sexps << sexp } } && question { nonterm_comment(buffer) }
+           nonterm_expr(buffer) { |sexp| sexps << sexp } && star { match_newline_or_semicolon(buffer) && nonterm_expr(buffer) { |sexp| sexps << sexp } } && question { nonterm_comment(buffer) }
   yield sexps if block_given? && result
   result
 end

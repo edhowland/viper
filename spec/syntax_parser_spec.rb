@@ -104,3 +104,45 @@ describe 'plus' do
 
   specify { subject; @count.must_equal 1 }
 end
+
+describe 'multiline commands' do
+  let(:str) { "say hi\nsay bye" }
+  subject { parse! str }
+  it 'should be a 2 element sexps array' do
+    subject.must_be_instance_of Array
+    subject.length.must_equal 2
+  end
+  it 'should be [:say "hi"][:say, "bye"]' do
+    subject[0].must_equal [:say, ['hi']]
+    subject[1].must_equal [:say, ['bye']]
+  end
+end
+
+describe 'match_newline' do
+  let(:buf) { Buffer.new "\n" }
+  subject { match_newline buf }
+  it 'should be true' do
+    subject.must_equal true
+  end
+end
+describe 'match_newline_or_semicolon' do
+  let(:buf) { Buffer.new "\n" }
+  subject { match_newline_or_semicolon buf }
+  it 'should be true' do
+    subject.must_equal true
+  end
+end
+describe 'match_newline_or_semicolon' do
+  let(:buf) { Buffer.new ';' }
+  subject { match_newline_or_semicolon buf }
+  it 'should be true' do
+    subject.must_equal true
+  end
+end
+describe 'match_newline_or_semicolon with non matching contents' do
+  let(:buf) { Buffer.new 'xyzzy' }
+  subject { match_newline_or_semicolon buf }
+  it 'should be false' do
+    subject.must_equal false
+  end
+end
