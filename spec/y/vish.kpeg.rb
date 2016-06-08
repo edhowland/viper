@@ -26,13 +26,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # num = < /[1-9][0-9]*/ > { text.to_i }
-  def _num
+  # word = < /[_A-Za-z0-9]*/ > { text }
+  def _word
 
     _save = self.pos
     while true # sequence
       _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[1-9][0-9]*)/)
+      _tmp = scan(/\A(?-mix:[_A-Za-z0-9]*)/)
       if _tmp
         text = get_text(_text_start)
       end
@@ -40,7 +40,7 @@ class Vish < KPeg::CompiledParser
         self.pos = _save
         break
       end
-      @result = begin;  text.to_i ; end
+      @result = begin;  text ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -48,11 +48,11 @@ class Vish < KPeg::CompiledParser
       break
     end # end sequence
 
-    set_failed_rule :_num unless _tmp
+    set_failed_rule :_word unless _tmp
     return _tmp
   end
 
-  # term = (term:t1 - "+" - term:t2 { t1 + t2 } | term:t1 - "-" - term:t2 { t1 - t2 } | num)
+  # term = (term:t1 - "&&" - term:t2 { t1 + t2 } | term:t1 - "||" - term:t2 { t1 + t2 } | word)
   def _term
 
     _save = self.pos
@@ -71,7 +71,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        _tmp = match_string("+")
+        _tmp = match_string("&&")
         unless _tmp
           self.pos = _save1
           break
@@ -111,7 +111,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        _tmp = match_string("-")
+        _tmp = match_string("||")
         unless _tmp
           self.pos = _save2
           break
@@ -127,7 +127,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  t1 - t2 ; end
+        @result = begin;  t1 + t2 ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -137,7 +137,7 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
-      _tmp = apply(:_num)
+      _tmp = apply(:_word)
       break if _tmp
       self.pos = _save
       break
@@ -173,8 +173,8 @@ class Vish < KPeg::CompiledParser
   Rules = {}
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
-  Rules[:_num] = rule_info("num", "< /[1-9][0-9]*/ > { text.to_i }")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"+\" - term:t2 { t1 + t2 } | term:t1 - \"-\" - term:t2 { t1 - t2 } | num)")
+  Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { t1 + t2 } | term:t1 - \"||\" - term:t2 { t1 + t2 } | word)")
   Rules[:_root] = rule_info("root", "term:t { @result = t }")
   # :startdoc:
 end

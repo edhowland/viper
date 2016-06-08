@@ -6,10 +6,10 @@
 
 space = " "
 - = space*
-num = < /[1-9][0-9]*/ > { text.to_i }
+word = < /[_A-Za-z0-9]*/ > { text }
 
-term = term:t1 - "+" - term:t2 { t1 + t2 }
-     | term:t1 - "-" - term:t2 { t1 - t2 }
-     | num
+term = term:t1 - "&&" - term:t2 { t1 + t2 }
+     | term:t1 - "||" - term:t2 { t1 + t2 }
+     | word
 
 root = term:t { @result = t }
