@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    kpeg (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  kpeg
+
+BUNDLED WITH
+   1.12.3
