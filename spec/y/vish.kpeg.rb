@@ -52,7 +52,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { t1 + t2 } | term:t1 - "||" - term:t2 { t1 + t2 } | word)
+  # term = (term:t1 - "&&" - term:t2 { t1 + t2 } | term:t1 - "||" - term:t2 { t1 + t2 } | term:t1 - "|" - term:t2 { t1 + t2 } | word)
   def _term
 
     _save = self.pos
@@ -137,6 +137,46 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = apply(:_term)
+        t1 = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = match_string("|")
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_term)
+        t2 = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  t1 + t2 ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       _tmp = apply(:_word)
       break if _tmp
       self.pos = _save
@@ -174,7 +214,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { t1 + t2 } | term:t1 - \"||\" - term:t2 { t1 + t2 } | word)")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { t1 + t2 } | term:t1 - \"||\" - term:t2 { t1 + t2 } | term:t1 - \"|\" - term:t2 { t1 + t2 } | word)")
   Rules[:_root] = rule_info("root", "term:t { @result = t }")
   # :startdoc:
 end
