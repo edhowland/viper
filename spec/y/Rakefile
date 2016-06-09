@@ -1,0 +1,8 @@
+# Rakefile - builds parser from grammar
+file 'vish.kpeg.rb' => 'vish.kpeg' do
+  sh 'kpeg -f vish.kpeg'
+end
+
+
+
+task :default => ['vish.kpeg.rb']

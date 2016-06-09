@@ -7,6 +7,8 @@ parser = Vish.new(ARGV[0])
 #p parser
 if parser.parse
   p parser.result
+  puts 'expanded'
+  puts parser.result
 else
   puts 'syntax error'
 end
