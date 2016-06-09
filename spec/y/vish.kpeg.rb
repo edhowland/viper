@@ -44,6 +44,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # nl = "\n"
+  def _nl
+    _tmp = match_string("\n")
+    set_failed_rule :_nl unless _tmp
+    return _tmp
+  end
+
   # word = < /[_A-Za-z0-9]*/ > { text }
   def _word
 
@@ -67,6 +74,61 @@ class Vish < KPeg::CompiledParser
     end # end sequence
 
     set_failed_rule :_word unless _tmp
+    return _tmp
+  end
+
+  # statement = (statement:s1 - ";" - statement:s2 { [s1, s2] } | term)
+  def _statement
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_statement)
+        s1 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = match_string(";")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_statement)
+        s2 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  [s1, s2] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      _tmp = apply(:_term)
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_statement unless _tmp
     return _tmp
   end
 
@@ -221,12 +283,12 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = term:t { @result = t }
+  # root = statement:t { @result = t }
   def _root
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_term)
+      _tmp = apply(:_statement)
       t = @result
       unless _tmp
         self.pos = _save
@@ -247,8 +309,10 @@ class Vish < KPeg::CompiledParser
   Rules = {}
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
+  Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
+  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { [s1, s2] } | term)")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | word:w {[ w ] })")
-  Rules[:_root] = rule_info("root", "term:t { @result = t }")
+  Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end
