@@ -3,14 +3,15 @@
 %% {
   attr_accessor :result
 }
+%% assign = ast Assignment(name, value)
 
 space = " "
 - = space*
 word = < /[_A-Za-z0-9]*/ > { text }
 
-term = term:t1 - "&&" - term:t2 { t1 + t2 }
-     | term:t1 - "||" - term:t2 { t1 + t2 }
-     | term:t1 - "|" - term:t2 { t1 + t2 }
-     | word
+term = term:t1 - "&&" - term:t2 { [:and, t1,  t2] }
+     | term:t1 - "||" - term:t2 { [:or, t1,  t2] }
+     | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
+     | word:w {[ w ] } 
 
 root = term:t { @result = t }

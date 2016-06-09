@@ -8,6 +8,24 @@ class Vish < KPeg::CompiledParser
 
   # :stopdoc:
 
+  module AST
+    class Node; end
+    class Assignment < Node
+      def initialize(name, value)
+        @name = name
+        @value = value
+      end
+      attr_reader :name
+      attr_reader :value
+    end
+  end
+  module ASTConstruction
+    def assign(name, value)
+      AST::Assignment.new(name, value)
+    end
+  end
+  include ASTConstruction
+
   # space = " "
   def _space
     _tmp = match_string(" ")
@@ -52,7 +70,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { t1 + t2 } | term:t1 - "||" - term:t2 { t1 + t2 } | term:t1 - "|" - term:t2 { t1 + t2 } | word)
+  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | word:w {[ w ] })
   def _term
 
     _save = self.pos
@@ -87,7 +105,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        @result = begin;  t1 + t2 ; end
+        @result = begin;  [:and, t1,  t2] ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -127,7 +145,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  t1 + t2 ; end
+        @result = begin;  [:or, t1,  t2] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -167,7 +185,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
           break
         end
-        @result = begin;  t1 + t2 ; end
+        @result = begin;  [:|, t1,  t2] ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
@@ -177,7 +195,23 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
-      _tmp = apply(:_word)
+
+      _save4 = self.pos
+      while true # sequence
+        _tmp = apply(:_word)
+        w = @result
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        @result = begin; [ w ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save4
+        end
+        break
+      end # end sequence
+
       break if _tmp
       self.pos = _save
       break
@@ -214,7 +248,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { t1 + t2 } | term:t1 - \"||\" - term:t2 { t1 + t2 } | term:t1 - \"|\" - term:t2 { t1 + t2 } | word)")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | word:w {[ w ] })")
   Rules[:_root] = rule_info("root", "term:t { @result = t }")
   # :startdoc:
 end
