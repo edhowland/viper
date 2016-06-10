@@ -250,6 +250,82 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # string = ("'" < /[^']*/ > "'" { text } | "\"" < /[^"]*/ > "\"" { text })
+  def _string
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = match_string("'")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix:[^']*)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = match_string("'")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  text ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string("\"")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix:[^"]*)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = match_string("\"")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  text ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_string unless _tmp
+    return _tmp
+  end
+
   # arg = < /:?[\/\.\-\*_0-9A-Za-z]+/ > { text }
   def _arg
 
@@ -777,6 +853,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
   Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] })")
+  Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_arg] = rule_info("arg", "< /:?[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text }")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
