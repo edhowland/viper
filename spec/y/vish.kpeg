@@ -24,6 +24,7 @@ args = args:a1 - args:a2 { a1 + a2 }
           | identifier:c { [ c ] }
 
  statement =  eol { [] }
+          | eol - statement:s { s }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }
           | term:t { [ t ] } 
