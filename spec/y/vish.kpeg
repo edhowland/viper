@@ -10,9 +10,9 @@ space = " "
 nl = "\n"
 not_nl = /[^\n]/
 
-comment = '#' not_nl* nl
+comment = - '#' not_nl* nl
 eol = comment
-          | nl
+          | - nl
 
 
 identifier = < /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }

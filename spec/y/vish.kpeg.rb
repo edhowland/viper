@@ -58,11 +58,16 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # comment = "#" not_nl* nl
+  # comment = - "#" not_nl* nl
   def _comment
 
     _save = self.pos
     while true # sequence
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
       _tmp = match_string("#")
       unless _tmp
         self.pos = _save
@@ -88,7 +93,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # eol = (comment | nl)
+  # eol = (comment | - nl)
   def _eol
 
     _save = self.pos
@@ -96,7 +101,21 @@ class Vish < KPeg::CompiledParser
       _tmp = apply(:_comment)
       break if _tmp
       self.pos = _save
-      _tmp = apply(:_nl)
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_nl)
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
       break if _tmp
       self.pos = _save
       break
@@ -440,8 +459,8 @@ class Vish < KPeg::CompiledParser
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
-  Rules[:_comment] = rule_info("comment", "\"\#\" not_nl* nl")
-  Rules[:_eol] = rule_info("eol", "(comment | nl)")
+  Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
+  Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })")
