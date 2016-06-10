@@ -41,8 +41,8 @@ args = args:a1 - args:a2 { a1 + a2 }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }
           | term:t { [ t ] } 
-term = term:t1 - "&&" - term:t2 { [:and, t1,  t2] }
-     | term:t1 - "||" - term:t2 { [:or, t1,  t2] }
+term = term:t1 - "&&" - term:t2 { [:_and, t1, t2] }
+     | term:t1 - "||" - term:t2 { [:_or, t1, t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
           | ':(' statement:s ')' { [:eval, s] } 
           | '(' statement ')'

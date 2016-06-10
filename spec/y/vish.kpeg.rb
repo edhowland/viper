@@ -646,7 +646,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | ":(" statement:s ")" { [:eval, s] } | "(" statement ")" | command)
+  # term = (term:t1 - "&&" - term:t2 { [:_and, t1, t2] } | term:t1 - "||" - term:t2 { [:_or, t1, t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | ":(" statement:s ")" { [:eval, s] } | "(" statement ")" | command)
   def _term
 
     _save = self.pos
@@ -681,7 +681,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        @result = begin;  [:and, t1,  t2] ; end
+        @result = begin;  [:_and, t1, t2] ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -721,7 +721,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  [:or, t1,  t2] ; end
+        @result = begin;  [:_or, t1, t2] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -869,7 +869,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \":(\" statement:s \")\" { [:eval, s] } | \"(\" statement \")\" | command)")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \":(\" statement:s \")\" { [:eval, s] } | \"(\" statement \")\" | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end
