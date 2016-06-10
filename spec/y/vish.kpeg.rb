@@ -51,13 +51,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # word = < /[_A-Za-z0-9]*/ > { text }
-  def _word
+  # identifier = < /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }
+  def _identifier
 
     _save = self.pos
     while true # sequence
       _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[_A-Za-z0-9]*)/)
+      _tmp = scan(/\A(?-mix:[_A-Za-z][_A-Za-z0-9]*)/)
       if _tmp
         text = get_text(_text_start)
       end
@@ -65,7 +65,7 @@ class Vish < KPeg::CompiledParser
         self.pos = _save
         break
       end
-      @result = begin;  text ; end
+      @result = begin;  text.to_sym ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -73,7 +73,7 @@ class Vish < KPeg::CompiledParser
       break
     end # end sequence
 
-    set_failed_rule :_word unless _tmp
+    set_failed_rule :_identifier unless _tmp
     return _tmp
   end
 
@@ -188,7 +188,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | word:w { [ w ] })
+  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })
   def _term
 
     _save = self.pos
@@ -316,13 +316,13 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = apply(:_word)
-        w = @result
+        _tmp = apply(:_identifier)
+        i = @result
         unless _tmp
           self.pos = _save4
           break
         end
-        @result = begin;  [ w ] ; end
+        @result = begin;  [ i ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save4
@@ -366,9 +366,9 @@ class Vish < KPeg::CompiledParser
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
-  Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
+  Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
   Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - nl - statement:s2 { s1 + s2 } | term:t { [ t ] })")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | word:w { [ w ] })")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end
