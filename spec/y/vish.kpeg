@@ -8,18 +8,18 @@
 space = " "
 - = space*
 nl = "\n"
+not_nl = /[^\n]/
 
-comment = '#' .* nl
+comment = '#' not_nl* nl
 eol = comment
           | nl
 
 
 identifier = < /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }
 
- statement = statement:s1 - ';' - statement:s2 { s1 + s2 }
+ statement =  eol { [] }
+          | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }
-          | .* comment { [] }
-          | eol { [] }
           | term:t { [ t ] } 
 term = term:t1 - "&&" - term:t2 { [:and, t1,  t2] }
      | term:t1 - "||" - term:t2 { [:or, t1,  t2] }

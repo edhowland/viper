@@ -51,7 +51,14 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # comment = "#" .* nl
+  # not_nl = /[^\n]/
+  def _not_nl
+    _tmp = scan(/\A(?-mix:[^\n])/)
+    set_failed_rule :_not_nl unless _tmp
+    return _tmp
+  end
+
+  # comment = "#" not_nl* nl
   def _comment
 
     _save = self.pos
@@ -62,7 +69,7 @@ class Vish < KPeg::CompiledParser
         break
       end
       while true
-        _tmp = get_byte
+        _tmp = apply(:_not_nl)
         break unless _tmp
       end
       _tmp = true
@@ -125,7 +132,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | .* comment { [] } | eol { [] } | term:t { [ t ] })
+  # statement = (eol { [] } | statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })
   def _statement
 
     _save = self.pos
@@ -133,34 +140,12 @@ class Vish < KPeg::CompiledParser
 
       _save1 = self.pos
       while true # sequence
-        _tmp = apply(:_statement)
-        s1 = @result
+        _tmp = apply(:_eol)
         unless _tmp
           self.pos = _save1
           break
         end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = match_string(";")
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_statement)
-        s2 = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        @result = begin;  s1 + s2 ; end
+        @result = begin;  [] ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -184,7 +169,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        _tmp = apply(:_eol)
+        _tmp = match_string(";")
         unless _tmp
           self.pos = _save2
           break
@@ -213,42 +198,37 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
-        while true
-          _tmp = get_byte
-          break unless _tmp
-        end
-        _tmp = true
+        _tmp = apply(:_statement)
+        s1 = @result
         unless _tmp
           self.pos = _save3
           break
         end
-        _tmp = apply(:_comment)
+        _tmp = apply(:__hyphen_)
         unless _tmp
           self.pos = _save3
           break
         end
-        @result = begin;  [] ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save3
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save5 = self.pos
-      while true # sequence
         _tmp = apply(:_eol)
         unless _tmp
-          self.pos = _save5
+          self.pos = _save3
           break
         end
-        @result = begin;  [] ; end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_statement)
+        s2 = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  s1 + s2 ; end
         _tmp = true
         unless _tmp
-          self.pos = _save5
+          self.pos = _save3
         end
         break
       end # end sequence
@@ -256,18 +236,18 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save6 = self.pos
+      _save4 = self.pos
       while true # sequence
         _tmp = apply(:_term)
         t = @result
         unless _tmp
-          self.pos = _save6
+          self.pos = _save4
           break
         end
         @result = begin;  [ t ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save6
+          self.pos = _save4
         end
         break
       end # end sequence
@@ -459,10 +439,11 @@ class Vish < KPeg::CompiledParser
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
-  Rules[:_comment] = rule_info("comment", "\"\#\" .* nl")
+  Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
+  Rules[:_comment] = rule_info("comment", "\"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
-  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | .* comment { [] } | eol { [] } | term:t { [ t ] })")
+  Rules[:_statement] = rule_info("statement", "(eol { [] } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
