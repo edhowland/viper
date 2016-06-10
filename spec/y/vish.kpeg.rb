@@ -77,7 +77,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (statement:s1 - ";" - statement:s2 { s1 + s2 } | term:t { [ t ] })
+  # statement = (statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - nl - statement:s2 { s1 + s2 } | term:t { [ t ] })
   def _statement
 
     _save = self.pos
@@ -125,16 +125,56 @@ class Vish < KPeg::CompiledParser
 
       _save2 = self.pos
       while true # sequence
+        _tmp = apply(:_statement)
+        s1 = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_nl)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_statement)
+        s2 = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  s1 + s2 ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
         _tmp = apply(:_term)
         t = @result
         unless _tmp
-          self.pos = _save2
+          self.pos = _save3
           break
         end
         @result = begin;  [ t ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save2
+          self.pos = _save3
         end
         break
       end # end sequence
@@ -327,7 +367,7 @@ class Vish < KPeg::CompiledParser
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_word] = rule_info("word", "< /[_A-Za-z0-9]*/ > { text }")
-  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | term:t { [ t ] })")
+  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - nl - statement:s2 { s1 + s2 } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | word:w { [ w ] })")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
