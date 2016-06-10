@@ -177,7 +177,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # args = (arg - args | arg)
+  # args = (args:a1 - args:a2 { a1 + a2 } | arg:a { [ a ] })
   def _args
 
     _save = self.pos
@@ -185,7 +185,8 @@ class Vish < KPeg::CompiledParser
 
       _save1 = self.pos
       while true # sequence
-        _tmp = apply(:_arg)
+        _tmp = apply(:_args)
+        a1 = @result
         unless _tmp
           self.pos = _save1
           break
@@ -196,6 +197,13 @@ class Vish < KPeg::CompiledParser
           break
         end
         _tmp = apply(:_args)
+        a2 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  a1 + a2 ; end
+        _tmp = true
         unless _tmp
           self.pos = _save1
         end
@@ -204,7 +212,23 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
-      _tmp = apply(:_arg)
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_arg)
+        a = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [ a ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
       break if _tmp
       self.pos = _save
       break
@@ -214,7 +238,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # command = (identifier:c - args { [ c ] } | identifier:c { [ c ] })
+  # command = (identifier:c - args:a { [c, a] } | identifier:c { [ c ] })
   def _command
 
     _save = self.pos
@@ -234,11 +258,12 @@ class Vish < KPeg::CompiledParser
           break
         end
         _tmp = apply(:_args)
+        a = @result
         unless _tmp
           self.pos = _save1
           break
         end
-        @result = begin;  [ c ] ; end
+        @result = begin;  [c, a] ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -570,8 +595,8 @@ class Vish < KPeg::CompiledParser
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
   Rules[:_arg] = rule_info("arg", "< /[_0-9A-Za-z]/ > { text }")
-  Rules[:_args] = rule_info("args", "(arg - args | arg)")
-  Rules[:_command] = rule_info("command", "(identifier:c - args { [ c ] } | identifier:c { [ c ] })")
+  Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | arg:a { [ a ] })")
+  Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
