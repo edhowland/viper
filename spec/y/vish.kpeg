@@ -17,7 +17,7 @@ eol = comment
 
 identifier = < /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }
 
- arg = < /:?[_0-9A-Za-z]+/ > { text }
+ arg = < /:?[\/\.\-\*_0-9A-Za-z]+/ > { text }
 args = args:a1 - args:a2 { a1 + a2 }
           | arg:a { [ a ] }
  command = identifier:c - args:a { [c, a] }
