@@ -403,7 +403,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })
+  # term = (term:t1 - "&&" - term:t2 { [:and, t1,  t2] } | term:t1 - "||" - term:t2 { [:or, t1,  t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | command)
   def _term
 
     _save = self.pos
@@ -528,23 +528,7 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
-
-      _save4 = self.pos
-      while true # sequence
-        _tmp = apply(:_identifier)
-        i = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        @result = begin;  [ i ] ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save4
-        end
-        break
-      end # end sequence
-
+      _tmp = apply(:_command)
       break if _tmp
       self.pos = _save
       break
@@ -589,7 +573,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_args] = rule_info("args", "(arg - args | arg)")
   Rules[:_command] = rule_info("command", "(identifier:c - args { [ c ] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end

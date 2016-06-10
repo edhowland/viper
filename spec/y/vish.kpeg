@@ -30,6 +30,6 @@ args = arg - args
 term = term:t1 - "&&" - term:t2 { [:and, t1,  t2] }
      | term:t1 - "||" - term:t2 { [:or, t1,  t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
-     | identifier:i { [ i ] } 
+     | command
 
 root = statement:t { @result = t }
