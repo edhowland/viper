@@ -27,6 +27,8 @@ redirector = '<' - arg:a  { [[:redirect_from, a]] }
           | '"' < /[^"]*/ > '"' { text }
 
  arg = < /:?[\/\.\-\*_0-9A-Za-z]+/ > { text }
+          | string
+
 args = args:a1 - args:a2 { a1 + a2 }
           | redirector
           | arg:a { [ a ] }

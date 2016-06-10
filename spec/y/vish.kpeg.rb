@@ -326,27 +326,38 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # arg = < /:?[\/\.\-\*_0-9A-Za-z]+/ > { text }
+  # arg = (< /:?[\/\.\-\*_0-9A-Za-z]+/ > { text } | string)
   def _arg
 
     _save = self.pos
-    while true # sequence
-      _text_start = self.pos
-      _tmp = scan(/\A(?-mix::?[\/\.\-\*_0-9A-Za-z]+)/)
-      if _tmp
-        text = get_text(_text_start)
-      end
-      unless _tmp
-        self.pos = _save
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix::?[\/\.\-\*_0-9A-Za-z]+)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  text ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
         break
-      end
-      @result = begin;  text ; end
-      _tmp = true
-      unless _tmp
-        self.pos = _save
-      end
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      _tmp = apply(:_string)
+      break if _tmp
+      self.pos = _save
       break
-    end # end sequence
+    end # end choice
 
     set_failed_rule :_arg unless _tmp
     return _tmp
@@ -854,7 +865,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
   Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] })")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
-  Rules[:_arg] = rule_info("arg", "< /:?[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text }")
+  Rules[:_arg] = rule_info("arg", "(< /:?[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string)")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
