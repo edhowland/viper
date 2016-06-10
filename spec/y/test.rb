@@ -20,7 +20,7 @@ opt_parser.parse!
 parser = Vish.new(str)
 #p parser
 if parser.parse
-  fail 'invalid result' unless parser.result.instance_of? Array
+  fail "invalid result: type: #{parser.result.class}, value: #{parser.result}" unless parser.result.instance_of? Array
   p parser.result
 if options[:expand]
   puts 'expanded'

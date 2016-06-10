@@ -125,7 +125,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })
+  # statement = (statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | .* comment { [] } | eol { [] } | term:t { [ t ] })
   def _statement
 
     _save = self.pos
@@ -213,16 +213,61 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
+        while true
+          _tmp = get_byte
+          break unless _tmp
+        end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_comment)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  [] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save5 = self.pos
+      while true # sequence
+        _tmp = apply(:_eol)
+        unless _tmp
+          self.pos = _save5
+          break
+        end
+        @result = begin;  [] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save5
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save6 = self.pos
+      while true # sequence
         _tmp = apply(:_term)
         t = @result
         unless _tmp
-          self.pos = _save3
+          self.pos = _save6
           break
         end
         @result = begin;  [ t ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save3
+          self.pos = _save6
         end
         break
       end # end sequence
@@ -417,7 +462,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_comment] = rule_info("comment", "\"\#\" .* nl")
   Rules[:_eol] = rule_info("eol", "(comment | nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
-  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
+  Rules[:_statement] = rule_info("statement", "(statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | .* comment { [] } | eol { [] } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:and, t1,  t2] } | term:t1 - \"||\" - term:t2 { [:or, t1,  t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | identifier:i { [ i ] })")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
