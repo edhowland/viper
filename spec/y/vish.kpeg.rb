@@ -151,13 +151,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # arg = < /[_0-9A-Za-z]/ > { text }
+  # arg = < /:?[_0-9A-Za-z]+/ > { text }
   def _arg
 
     _save = self.pos
     while true # sequence
       _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[_0-9A-Za-z])/)
+      _tmp = scan(/\A(?-mix::?[_0-9A-Za-z]+)/)
       if _tmp
         text = get_text(_text_start)
       end
@@ -674,7 +674,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }")
-  Rules[:_arg] = rule_info("arg", "< /[_0-9A-Za-z]/ > { text }")
+  Rules[:_arg] = rule_info("arg", "< /:?[_0-9A-Za-z]+/ > { text }")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | term:t { [ t ] })")
