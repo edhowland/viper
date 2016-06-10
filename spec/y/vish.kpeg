@@ -31,6 +31,7 @@ args = args:a1 - args:a2 { a1 + a2 }
 term = term:t1 - "&&" - term:t2 { [:and, t1,  t2] }
      | term:t1 - "||" - term:t2 { [:or, t1,  t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
+          | '(' statement ')'
      | command
 
 root = statement:t { @result = t }
