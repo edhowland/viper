@@ -1,1 +1,2 @@
 alias tx='./test.rb -x'
+alias tv='./test.rb'
