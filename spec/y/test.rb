@@ -2,7 +2,10 @@
 # test.rb - ...
 require 'optparse'
 require_relative 'vish.kpeg'
-options = {expand: false}
+require_relative 'executor'
+options = {expand: false,
+  execute: false
+}
  str = ''
  opt_parser = OptionParser.new do |opt|
    opt.on('-e string', '--eval string', 'Evaluate string') do |string|
@@ -13,6 +16,9 @@ options = {expand: false}
    end
   opt.on('-x', '--expand', 'Expand result') do
     options[:expand] = true
+  end
+  opt.on('-r', '--run', 'Runs the AST') do
+    options[:execute] = true
   end
 end
 opt_parser.parse!
@@ -42,5 +48,12 @@ if parser.parse
 end
 else
   puts 'syntax error'
+  exit(1)
+end
+
+if options[:execute]
+  puts 'Running AST'
+  ex = Executor.new
+  ex.execute! parser.result
 end
 
