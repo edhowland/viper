@@ -19,6 +19,11 @@ class ArgumentResolver
     @environment[:out] = File.open(args[0], 'w')
     nil
   end
+  def append_to *args
+    @environment[:out] = File.open(args[0], 'a')
+    nil
+  end
+  
   
   
   def method_missing name, *args
