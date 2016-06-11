@@ -2,6 +2,8 @@
 # test.rb - ...
 require 'optparse'
 require_relative 'vish.kpeg'
+require_relative 'variable_derefencer'
+require_relative 'argument_resolver'
 require_relative 'command'
 require_relative 'command_resolver'
 require_relative 'executor'

@@ -9,11 +9,9 @@ class Executor
     case arg
     when String
       arg
-    when Symbol
-      "symbol:-{#{arg}}-"
     when Array
       # do things like redirection or subshell invocation
-      "sub argument : #{arg.inspect}"
+      ArgumentResolver.new(@environment).resolve arg
     else
       fail "unexpected type of arg"
     end

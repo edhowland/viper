@@ -11,6 +11,16 @@ class ArgumentResolver
   def deref *args
     VariableDerefencer.new(@environment[:frames])[args[0]]
   end
+  def redirect_from *args
+    @environment[:in] = File.open(args[0])
+    nil # consume this arg
+  end
+  def redirect_to *args
+    @environment[:out] = File.open(args[0], 'w')
+    nil
+  end
+  
+  
   def method_missing name, *args
     @environment[:err].puts "Do not know how to resolve #{name}"
   end
