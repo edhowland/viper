@@ -3,21 +3,23 @@
 class Executor
   def initialize
     # possibly init variable frame stack here
+    @environment = {out: $stdout, in: $stdin, err: $stderr }
   end
   def expand_arg arg
     case arg
     when String
       arg
     when Symbol
-      "-{#{arg}}-"
+      "symbol:-{#{arg}}-"
     when Array
       # do things like redirection or subshell invocation
+      "sub argument : #{arg.inspect}"
     else
       fail "unexpected type of arg"
     end
   end
-  
   def eval_args args=[]
+
     args.map {|a| expand_arg a }.reject {|e| e.nil? }
   end
 
@@ -26,8 +28,8 @@ class Executor
       self.send obj[0], obj[1], obj[2]
     else
       cmd, *args = obj
-      print cmd
-      p self.eval_args(*args)
+      command = CommandResolver[cmd]
+      command.call(self.eval_args(*args), env:@environment)
     end
   end
   def execute! objs

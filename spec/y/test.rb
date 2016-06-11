@@ -2,6 +2,8 @@
 # test.rb - ...
 require 'optparse'
 require_relative 'vish.kpeg'
+require_relative 'command'
+require_relative 'command_resolver'
 require_relative 'executor'
 options = {expand: false,
   execute: false
@@ -52,6 +54,7 @@ else
 end
 
 if options[:execute]
+binding.pry
   puts 'Running AST'
   ex = Executor.new
   ex.execute! parser.result
