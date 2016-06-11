@@ -9,13 +9,14 @@ space = " "
 - = space*
 nl = "\n"
 not_nl = /[^\n]/
+valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 
 comment = - '#' not_nl* nl
 eol = comment
           | - nl
 
 
-identifier = < /[_A-Za-z][_A-Za-z0-9]*/ > { text.to_sym }
+identifier = <valid_id  > { text.to_sym }
 
 
 
@@ -26,8 +27,10 @@ redirector = '<' - arg:a  { [[:redirect_from, a]] }
  string = '\'' < /[^']*/ > '\'' { text }
           | '"' < /[^"]*/ > '"' { text }
 
- arg = < /:?[\/\.\-\*_0-9A-Za-z]+/ > { text }
+variable =  ':' < valid_id > { [:deref, text.to_sym] }
+ arg = < /[\/\.\-\*_0-9A-Za-z]+/ > { text }
           | string
+          | variable
 
 args = args:a1 - args:a2 { a1 + a2 }
           | redirector
@@ -41,6 +44,7 @@ args = args:a1 - args:a2 { a1 + a2 }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }
           | term:t { [ t ] } 
+
 term = term:t1 - "&&" - term:t2 { [:_and, t1, t2] }
      | term:t1 - "||" - term:t2 { [:_or, t1, t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }

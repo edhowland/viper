@@ -54,7 +54,7 @@ else
 end
 
 if options[:execute]
-binding.pry
+#binding.pry
   puts 'Running AST'
   ex = Executor.new
   ex.execute! parser.result

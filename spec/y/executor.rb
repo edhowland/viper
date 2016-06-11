@@ -3,7 +3,7 @@
 class Executor
   def initialize
     # possibly init variable frame stack here
-    @environment = {out: $stdout, in: $stdin, err: $stderr }
+    @environment = {out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
   end
   def expand_arg arg
     case arg
@@ -29,7 +29,8 @@ class Executor
     else
       cmd, *args = obj
       command = CommandResolver[cmd]
-      command.call(self.eval_args(*args), env:@environment)
+      enviro = @environment.clone
+      command.call(self.eval_args(*args), env:enviro)
     end
   end
   def execute! objs
