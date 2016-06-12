@@ -14,6 +14,11 @@ describe ArgumentResolver do
       subject
       env[:out].must_be_instance_of File
     end
+    it 'should mark :closers with :out' do
+      subject
+      env[:closers].wont_be_nil
+      env[:closers].must_equal [:out]
+    end
     after { env[:out].close if env[:out].instance_of?(File) }
   end
   describe 'redirect_from file' do
@@ -26,6 +31,11 @@ describe ArgumentResolver do
     it 'should set :in to File object' do
       subject
       env[:in].must_be_instance_of File
+    end
+    it 'should set :closers to :in' do
+      subject
+      env[:closers].wont_be_nil
+      env[:closers].must_equal [:in]
     end
     after { env[:in].close if env[:in].instance_of? File }
 
@@ -40,6 +50,11 @@ describe ArgumentResolver do
     it 'should be instance of file' do
       subject
       env[:out].must_be_instance_of File
+    end
+    it 'should set :closers to :out' do
+      subject
+      env[:closers].wont_be_nil
+      env[:closers].must_equal [:out]
     end
     after { env[:out].close if env[:out].instance_of?(File) }
   end
