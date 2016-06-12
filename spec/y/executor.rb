@@ -31,15 +31,19 @@ class Executor
     args.map {|a| expand_arg a, env:env }.reject {|e| e.nil? }
   end
   def eval obj, env:
-    if self.respond_to? obj[0]
-      self.send obj[0], obj[1], obj[2]
+    if obj[0].instance_of? Array
+      self.eval(obj[0], env:env)
     else
-      cmd, *args = obj
-      command = CommandResolver[cmd]
-      enviro = env.clone
-      @environment[:frames][-1][:exit_status] = command.call(self.eval_args(*args, env:enviro), env:enviro)
-      enviro[:closers].each {|f| enviro[f].close } unless enviro[:closers].nil?
-      @environment[:frames][-1][:exit_status]
+      if self.respond_to? obj[0]
+        self.send obj[0], obj[1], obj[2]
+      else
+        cmd, *args = obj
+        command = CommandResolver[cmd]
+        enviro = env.clone
+        @environment[:frames][-1][:exit_status] = command.call(self.eval_args(*args, env:enviro), env:enviro)
+        enviro[:closers].each {|f| enviro[f].close } unless enviro[:closers].nil?
+        @environment[:frames][-1][:exit_status]
+      end
     end
   end
   def execute! objs
