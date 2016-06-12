@@ -5,7 +5,7 @@ class Executor
     # possibly init variable frame stack here
     @environment = {out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
   end
-  def expand_arg arg
+  def expand_arg arg, env:
     case arg
     when String
       arg
@@ -13,24 +13,21 @@ class Executor
       # do things like redirection or subshell invocation
       # dereference variables
       if arg[0] == :deref
-        VariableDerefencer.new(@environment[:frames])[arg[1]]
+        VariableDerefencer.new(env[:frames])[arg[1]]
       elsif arg[1].instance_of?(Array) && arg[1][0] == :deref
-        arg = [arg[0], VariableDerefencer.new(@environment[:frames])[arg[1][1]] ]
-#binding.pry
+        arg = [arg[0], VariableDerefencer.new(env[:frames])[arg[1][1]] ]
 
-        ArgumentResolver.new(@environment).resolve arg
+        ArgumentResolver.new(env).resolve arg
       else
-        ArgumentResolver.new(@environment).resolve arg
+        ArgumentResolver.new(env).resolve arg
       end
     else
       fail "unexpected type of arg"
     end
   end
-  def eval_args args=[]
-
-    args.map {|a| expand_arg a }.reject {|e| e.nil? }
+  def eval_args args=[], env:
+    args.map {|a| expand_arg a, env:env }.reject {|e| e.nil? }
   end
-
   def eval obj
     if self.respond_to? obj[0]
       self.send obj[0], obj[1], obj[2]
@@ -38,7 +35,7 @@ class Executor
       cmd, *args = obj
       command = CommandResolver[cmd]
       enviro = @environment.clone
-      command.call(self.eval_args(*args), env:enviro)
+      command.call(self.eval_args(*args, env:enviro), env:enviro)
     end
   end
   def execute! objs
