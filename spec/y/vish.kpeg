@@ -27,7 +27,7 @@ redirector = '<' - arg:a  { [[:redirect_from, a]] }
           | '"' < /[^"]*/ > '"' { text }
 
 variable =  ':' < valid_id > { [:deref, text.to_sym] }
-assignment = var_name:v - '=' - var_name:e { [:eq, v, e] }
+assignment = var_name:v - '=' - arg:e { [:eq, v, e] }
  arg = < /[\/\.\-\*_0-9A-Za-z]+/ > { text }
           | string
           | variable
