@@ -11,7 +11,17 @@ class Executor
       arg
     when Array
       # do things like redirection or subshell invocation
-      ArgumentResolver.new(@environment).resolve arg
+      # dereference variables
+      if arg[0] == :deref
+        VariableDerefencer.new(@environment[:frames])[arg[1]]
+      elsif arg[1].instance_of?(Array) && arg[1][0] == :deref
+        arg = [arg[0], VariableDerefencer.new(@environment[:frames])[arg[1][1]] ]
+#binding.pry
+
+        ArgumentResolver.new(@environment).resolve arg
+      else
+        ArgumentResolver.new(@environment).resolve arg
+      end
     else
       fail "unexpected type of arg"
     end

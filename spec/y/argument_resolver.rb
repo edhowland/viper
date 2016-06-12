@@ -8,9 +8,6 @@ class ArgumentResolver
     action, *args = arg
     self.send action, *args
   end
-  def deref *args
-    VariableDerefencer.new(@environment[:frames])[args[0]]
-  end
   def redirect_from *args
     @environment[:in] = File.open(args[0])
     nil # consume this arg
