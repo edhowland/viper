@@ -8,10 +8,14 @@ require_relative 'command'
 require_relative 'command_resolver'
 require_relative 'executor'
 options = {expand: false,
-  execute: false
+  execute: false,
+  debug: false
 }
  str = ''
  opt_parser = OptionParser.new do |opt|
+  opt.on('-d', '--debug', 'Turn on debugging. Lists constructed S-expressions') do
+    options[:debug] = true
+  end
    opt.on('-e string', '--eval string', 'Evaluate string') do |string|
      str = string
    end
@@ -38,13 +42,13 @@ def expand element, level=0
   end
 end
 
-  
+
  # actually parse the arg string
 parser = Vish.new(str)
 #p parser
 if parser.parse
   fail "invalid result: type: #{parser.result.class}, value: #{parser.result}" unless parser.result.instance_of? Array
-  p parser.result
+  p parser.result if options[:debug]
   if options[:expand]
     puts 'expanded'
 #  parser.result.each {|e| p e }
