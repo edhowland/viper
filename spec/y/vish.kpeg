@@ -3,14 +3,13 @@
 %% {
   attr_accessor :result
 }
-%% assign = ast Assignment(name, value)
 
 space = " "
 - = space*
 nl = "\n"
 not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
-
+var_name = < valid_id > { text }
 comment = - '#' not_nl* nl
 eol = comment
           | - nl
@@ -28,6 +27,7 @@ redirector = '<' - arg:a  { [[:redirect_from, a]] }
           | '"' < /[^"]*/ > '"' { text }
 
 variable =  ':' < valid_id > { [:deref, text.to_sym] }
+assignment = var_name:v - '=' - var_name:e { [:eq, v, e] }
  arg = < /[\/\.\-\*_0-9A-Za-z]+/ > { text }
           | string
           | variable
@@ -43,6 +43,7 @@ args = args:a1 - args:a2 { a1 + a2 }
           | eol - statement:s { s }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }
+          | assignment:a { [ a ] }
           | term:t { [ t ] } 
 
 term = term:t1 - "&&" - term:t2 { [:_and, t1, t2] }

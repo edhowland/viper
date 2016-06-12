@@ -47,5 +47,9 @@ class Executor
     # set s into stdin
     self.eval(arg2)
   end
+  def eq variable, expression
+    @environment[:frames][-1][variable.to_sym] = expression
+  end
+  
 end
 
