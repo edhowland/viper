@@ -7,5 +7,6 @@ class Command
   def call *args, env:{}
     env[:out].puts "#{@command} called  with:"
     env[:out].puts args.inspect
+    true
   end
 end
