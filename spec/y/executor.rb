@@ -45,10 +45,10 @@ class Executor
     objs.each {|o| self.eval(o, env:@environment) }
   end
   def _and arg1, arg2
-    self.eval(arg1) && self.eval(arg2)
+    self.eval(arg1, env:@environment) && self.eval(arg2, env:@environment)
   end
   def _or arg1, arg2
-    self.eval(arg1) || self.eval(arg2)
+    self.eval(arg1, env:@environment) || self.eval(arg2, env:@environment)
   end
   def | arg1, arg2
     s = StringIO.new 'w'
