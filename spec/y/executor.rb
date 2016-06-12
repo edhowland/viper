@@ -37,8 +37,9 @@ class Executor
       cmd, *args = obj
       command = CommandResolver[cmd]
       enviro = env.clone
-      command.call(self.eval_args(*args, env:enviro), env:enviro)
+      @environment[:frames][-1][:exit_status] = command.call(self.eval_args(*args, env:enviro), env:enviro)
       enviro[:closers].each {|f| enviro[f].close } unless enviro[:closers].nil?
+      @environment[:frames][-1][:exit_status]
     end
   end
   def execute! objs

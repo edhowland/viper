@@ -2,14 +2,14 @@
 
 require_relative 'echo'
 require_relative 'cat'
-require_relative 'fail'
+require_relative 'bad'
 
 class CommandResolver
   class << self
   def [] cmd
     return Echo.new if cmd == :echo
     return Cat.new if cmd == :cat
-    return Fail.new if cmd == :fail
+    return Bad.new if cmd == :bad
     Command.new cmd
   end
   end
