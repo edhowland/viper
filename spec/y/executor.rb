@@ -18,18 +18,14 @@ class Executor
       end
   end
   def expand_arg arg, env:
-    case arg
-    when String
-      arg
-    when Array
-      # do things like redirection or subshell invocation
+      return arg if String === arg
       # dereference variables
-      arg = self.deref(arg, env) if arg[0] == :deref
+      arg = self.deref(arg, env:env) if arg[0] == :deref
+      return arg if String === arg
+      # do things like redirection or subshell invocation
         ArgumentResolver.new(env).resolve arg
-    else
-      fail "unexpected type of arg"
-    end
   end
+
   def eval_args args=[], env:
     args.map {|a| expand_arg a, env:env }.reject {|e| e.nil? }
   end
@@ -72,6 +68,7 @@ class Executor
     self.eval(arg2, env:e2)
   end
   def eq variable, expression
+  expression = self.deref(expression, env:@environment) if Array === expression && expression[0] == :deref
     @environment[:frames][-1][variable.to_sym] = expression
   end
   
