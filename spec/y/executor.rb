@@ -68,7 +68,7 @@ class Executor
     self.eval(arg2, env:e2)
   end
   def eq variable, expression
-  expression = self.deref(expression, env:@environment) if Array === expression && expression[0] == :deref
+  expression = self.expand_arg(expression, env:@environment)  #self.deref(expression, env:@environment) if Array === expression && expression[0] == :deref
     @environment[:frames][-1][variable.to_sym] = expression
   end
   
