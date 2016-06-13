@@ -7,6 +7,16 @@ class Executor
     # possibly init variable frame stack here
     @environment = {out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
   end
+  # returns arg with variables deref'ed or just arg
+  def deref arg, env:
+      if arg[0] == :deref
+            VariableDerefencer.new(env[:frames])[arg[1]]
+      elsif arg[1].instance_of?(Array) && arg[1][0] == :deref
+        [arg[0], VariableDerefencer.new(env[:frames])[arg[1][1]] ]
+      else
+        arg
+      end
+  end
   def expand_arg arg, env:
     case arg
     when String
@@ -14,15 +24,8 @@ class Executor
     when Array
       # do things like redirection or subshell invocation
       # dereference variables
-      if arg[0] == :deref
-        VariableDerefencer.new(env[:frames])[arg[1]]
-      elsif arg[1].instance_of?(Array) && arg[1][0] == :deref
-        arg = [arg[0], VariableDerefencer.new(env[:frames])[arg[1][1]] ]
-
+      arg = self.deref(arg, env) if arg[0] == :deref
         ArgumentResolver.new(env).resolve arg
-      else
-        ArgumentResolver.new(env).resolve arg
-      end
     else
       fail "unexpected type of arg"
     end
