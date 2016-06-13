@@ -24,9 +24,15 @@ class ArgumentResolver
     @environment[:closers] << :out
     nil
   end
+  def _eval statement
+    sio = StringIO.new 'w'
+    executor = Executor.new({in: $stdin, out: sio,  err: $stderr, frames: @environment[:frames] })
+    executor.execute! statement
+    sio.close_write
+    sio.string
+  end
   
-  
-  
+
   def method_missing name, *args
     @environment[:err].puts "Do not know how to resolve #{name}"
   end

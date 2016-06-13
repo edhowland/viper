@@ -31,6 +31,8 @@ assignment = var_name:v - '=' - arg:e { [:eq, v, e] }
  arg = < /[\/\.\-\*_0-9A-Za-z]+/ > { text }
           | string
           | variable
+          | ':(' - statement:s - ')' { [:_eval, s] }
+
 
 args = args:a1 - args:a2 { a1 + a2 }
           | redirector
@@ -49,7 +51,6 @@ args = args:a1 - args:a2 { a1 + a2 }
 term = term:t1 - "&&" - term:t2 { [:_and, t1, t2] }
      | term:t1 - "||" - term:t2 { [:_or, t1, t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
-          | ':(' statement:s ')' { [:eval, s] } 
           | '(' statement ')'
      | command
 

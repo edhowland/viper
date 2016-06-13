@@ -416,7 +416,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # arg = (< /[\/\.\-\*_0-9A-Za-z]+/ > { text } | string | variable)
+  # arg = (< /[\/\.\-\*_0-9A-Za-z]+/ > { text } | string | variable | ":(" - statement:s - ")" { [:_eval, s] })
   def _arg
 
     _save = self.pos
@@ -447,6 +447,45 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
       _tmp = apply(:_variable)
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string(":(")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_statement)
+        s = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = match_string(")")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [:_eval, s] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
       break if _tmp
       self.pos = _save
       break
@@ -758,7 +797,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { [:_and, t1, t2] } | term:t1 - "||" - term:t2 { [:_or, t1, t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | ":(" statement:s ")" { [:eval, s] } | "(" statement ")" | command)
+  # term = (term:t1 - "&&" - term:t2 { [:_and, t1, t2] } | term:t1 - "||" - term:t2 { [:_or, t1, t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | "(" statement ")" | command)
   def _term
 
     _save = self.pos
@@ -886,48 +925,19 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = match_string(":(")
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = apply(:_statement)
-        s = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = match_string(")")
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        @result = begin;  [:eval, s] ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save4
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save5 = self.pos
-      while true # sequence
         _tmp = match_string("(")
         unless _tmp
-          self.pos = _save5
+          self.pos = _save4
           break
         end
         _tmp = apply(:_statement)
         unless _tmp
-          self.pos = _save5
+          self.pos = _save4
           break
         end
         _tmp = match_string(")")
         unless _tmp
-          self.pos = _save5
+          self.pos = _save4
         end
         break
       end # end sequence
@@ -981,11 +991,11 @@ class Vish < KPeg::CompiledParser
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_variable] = rule_info("variable", "\":\" < valid_id > { [:deref, text.to_sym] }")
   Rules[:_assignment] = rule_info("assignment", "var_name:v - \"=\" - arg:e { [:eq, v, e] }")
-  Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string | variable)")
+  Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, s] })")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \":(\" statement:s \")\" { [:eval, s] } | \"(\" statement \")\" | command)")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \"(\" statement \")\" | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end

@@ -3,10 +3,10 @@
 require 'stringio'
 
 class Executor
-  def initialize
-    # possibly init variable frame stack here
-    @environment = {out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
+  def initialize enviro={out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
+    @environment =  enviro
   end
+  attr_reader :environment
   # returns arg with variables deref'ed or just arg
   def deref arg, env:
       if arg[0] == :deref
