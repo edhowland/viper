@@ -341,32 +341,72 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # variable = ":" < valid_id > { [:deref, text.to_sym] }
+  # variable = (":" < valid_id > { [:deref, text.to_sym] } | ":{" < valid_id > "}" { [:deref, text.to_sym] })
   def _variable
 
     _save = self.pos
-    while true # sequence
-      _tmp = match_string(":")
-      unless _tmp
-        self.pos = _save
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = match_string(":")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _text_start = self.pos
+        _tmp = apply(:_valid_id)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  [:deref, text.to_sym] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
         break
-      end
-      _text_start = self.pos
-      _tmp = apply(:_valid_id)
-      if _tmp
-        text = get_text(_text_start)
-      end
-      unless _tmp
-        self.pos = _save
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string(":{")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _text_start = self.pos
+        _tmp = apply(:_valid_id)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = match_string("}")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [:deref, text.to_sym] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
         break
-      end
-      @result = begin;  [:deref, text.to_sym] ; end
-      _tmp = true
-      unless _tmp
-        self.pos = _save
-      end
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       break
-    end # end sequence
+    end # end choice
 
     set_failed_rule :_variable unless _tmp
     return _tmp
@@ -989,7 +1029,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] })")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
-  Rules[:_variable] = rule_info("variable", "\":\" < valid_id > { [:deref, text.to_sym] }")
+  Rules[:_variable] = rule_info("variable", "(\":\" < valid_id > { [:deref, text.to_sym] } | \":{\" < valid_id > \"}\" { [:deref, text.to_sym] })")
   Rules[:_assignment] = rule_info("assignment", "var_name:v - \"=\" - arg:e { [:eq, v, e] }")
   Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, s] })")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")

@@ -7,6 +7,11 @@ class Executor
     @environment =  enviro
   end
   attr_reader :environment
+  # check if it is possible to deref variables within arg
+  def deref_possible? arg
+    Array === arg && (arg[0] == :deref || (Array === arg[1] && arg[1][0] == :deref))
+  end
+  
   # returns arg with variables deref'ed or just arg
   def deref arg, env:
       if arg[0] == :deref
@@ -20,9 +25,10 @@ class Executor
   def expand_arg arg, env:
       return arg if String === arg
       # dereference variables
-      arg = self.deref(arg, env:env) if arg[0] == :deref
+      arg = self.deref(arg, env:env) if self.deref_possible?(arg)
       return arg if String === arg
       # do things like redirection or subshell invocation
+
         ArgumentResolver.new(env).resolve arg
   end
 
