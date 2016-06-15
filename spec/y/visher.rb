@@ -10,3 +10,8 @@ class Visher
   end
 end
 
+
+def vepl
+  executor = Executor.new
+  loop { print 'vish> '; executor.execute!(Visher.parse!(gets.chomp)) }
+end

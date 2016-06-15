@@ -4,12 +4,14 @@ require_relative 'function'
 require_relative 'echo'
 require_relative 'cat'
 require_relative 'bad'
+require_relative 'bye'
 
 class CommandResolver
   @@storage = {}
   class << self
   def [] cmd
     return @@storage[cmd] if @@storage.has_key? cmd
+    return Bye.new if cmd == :bye
     return Echo.new if cmd == :echo
     return Cat.new if cmd == :cat
     return Bad.new if cmd == :bad
