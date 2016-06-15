@@ -29,32 +29,43 @@ class ArgumentResolver
   
   
   def resolve arg
-    action, *args = arg
-    self.send action, *args
+    self.stacker arg
+    self.unstacker
   end
-  def redirect_from *args
-    @environment[:in] = File.open(args[0])
+
+  # start of redirection methods
+  def redirect_from arg
+    @environment[:in] = File.open(arg)
     @environment[:closers] << :in
     nil # consume this arg
   end
-  def redirect_to *args
-    @environment[:out] = File.open(args[0], 'w')
+  def redirect_to arg
+    @environment[:out] = File.open(arg, 'w')
     @environment[:closers] << :out
     nil
   end
-  def append_to *args
-    @environment[:out] = File.open(args[0], 'a')
+  def append_to arg
+    @environment[:out] = File.open(arg, 'a')
     @environment[:closers] << :out
     nil
   end
-  def _eval statement
+  
+  # evaluate subshell expansion by calling a new Executor.new and .execute!
+  # takes a Statement object - constructed by parser
+  def _eval statement_obj
+    statement = statement_obj.statement
     sio = StringIO.new 'w'
     executor = Executor.new({in: $stdin, out: sio,  err: $stderr, frames: @environment[:frames] })
     executor.execute! statement
     sio.close_write
     sio.string
   end
+  def respond_to? obj
+    return false unless Symbol === obj || String === obj
+    super
+  end
   
+
 
   def method_missing name, *args
     @environment[:err].puts "Do not know how to resolve #{name}"

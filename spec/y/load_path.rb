@@ -1,5 +1,6 @@
 # load_path.rb - sets up environment for testing, specs or pry
 
+ require_relative 'statement'
  require_relative 'vish.kpeg'
 require_relative 'variable_derefencer'
 require_relative 'argument_resolver'

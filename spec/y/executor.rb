@@ -23,13 +23,7 @@ class Executor
       end
   end
   def expand_arg arg, env:
-      return arg if String === arg
-      # dereference variables
-      arg = self.deref(arg, env:env) if self.deref_possible?(arg)
-      return arg if String === arg
-      # do things like redirection or subshell invocation
-
-        ArgumentResolver.new(env).resolve arg
+    ArgumentResolver.new(env).resolve arg
   end
 
   def eval_args args=[], env:
