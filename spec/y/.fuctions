@@ -10,3 +10,8 @@ failsm ()
 { 
     ruby $1 | ~/src/bin/jq .fails[].message
 }
+stats()
+{
+  ruby $1 | jq .statistics
+}
+ 

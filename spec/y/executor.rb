@@ -7,21 +7,7 @@ class Executor
     @environment =  enviro
   end
   attr_reader :environment
-  # check if it is possible to deref variables within arg
-  def deref_possible? arg
-    Array === arg && (arg[0] == :deref || (Array === arg[1] && arg[1][0] == :deref))
-  end
-  
-  # returns arg with variables deref'ed or just arg
-  def deref arg, env:
-      if arg[0] == :deref
-            VariableDerefencer.new(env[:frames])[arg[1]]
-      elsif arg[1].instance_of?(Array) && arg[1][0] == :deref
-        [arg[0], VariableDerefencer.new(env[:frames])[arg[1][1]] ]
-      else
-        arg
-      end
-  end
+
   def expand_arg arg, env:
     ArgumentResolver.new(env).resolve arg
   end
@@ -67,10 +53,10 @@ class Executor
     e2[:in] = s
     self.eval(arg2, env:e2)
   end
+
   def eq variable, expression
-  expression = self.expand_arg(expression, env:@environment)  #self.deref(expression, env:@environment) if Array === expression && expression[0] == :deref
+  expression = self.expand_arg(expression, env:@environment)
     @environment[:frames][-1][variable.to_sym] = expression
   end
-  
 end
 
