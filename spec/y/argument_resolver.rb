@@ -4,7 +4,30 @@ class ArgumentResolver
   def initialize environment
     @environment = environment
     @environment[:closers] = []
+    @stack = []
   end
+  attr_accessor :stack
+  def stacker arg
+    if Array === arg
+      arg.flatten.reverse.each {|e| @stack.push e }
+    else
+      @stack.push arg
+    end
+  end
+  def unstacker
+    expr = @stack.pop
+    if self.respond_to? expr
+      self.send(expr, unstacker)
+    else
+      expr
+    end
+  end
+  def deref arg
+    @environment[:frames][-1][arg]
+  end
+  
+  
+  
   def resolve arg
     action, *args = arg
     self.send action, *args
