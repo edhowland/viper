@@ -10,6 +10,9 @@ nl = "\n"
 not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 var_name = < valid_id > { text }
+arg_list = arg_list:a1 - ',' - arg_list:a2 { a1 + a2 }
+          | var_name:v { [ v ] } 
+function_definition = 'function' space+ identifier:i '()' - '{' - statement:s - '}' { [:fn, Function.new(i, [], s)] }
 comment = - '#' not_nl* nl
 eol = comment
           | - nl
@@ -42,7 +45,8 @@ args = args:a1 - args:a2 { a1 + a2 }
  command = identifier:c - args:a { [c, a] }
           | identifier:c { [ c ] }
 
- statement =  eol { [] }
+ statement =  function_definition:f { [ f ] } 
+          | eol { [] }
           | eol - statement:s { s }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
           | statement:s1 - eol - statement:s2 { s1 + s2 }

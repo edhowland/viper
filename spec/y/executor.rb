@@ -59,8 +59,9 @@ class Executor
   expression = self.expand_arg(expression, env:@environment)
     @environment[:frames][-1][variable.to_sym] = expression
   end
-  def fn 
-    
+  def fn functor
+    CommandResolver[functor.name] = functor
+    @environment[:frames][-1][:exit_status] = true
   end
   
 end
