@@ -32,7 +32,7 @@ assignment = var_name:v - '=' - arg:e { [:eq, v, e] }
  arg = < /[\/\.\-\*_0-9A-Za-z]+/ > { text }
           | string
           | variable
-          | ':(' - statement:s - ')' { [:_eval, s] }
+          | ':(' - statement:s - ')' { [:_eval, Statement.new(s)] }
 
 
 args = args:a1 - args:a2 { a1 + a2 }

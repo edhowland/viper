@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # test.rb - ...
 require 'optparse'
+require_relative 'statement'
 require_relative 'vish.kpeg'
 require_relative 'variable_derefencer'
 require_relative 'argument_resolver'

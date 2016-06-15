@@ -456,7 +456,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # arg = (< /[\/\.\-\*_0-9A-Za-z]+/ > { text } | string | variable | ":(" - statement:s - ")" { [:_eval, s] })
+  # arg = (< /[\/\.\-\*_0-9A-Za-z]+/ > { text } | string | variable | ":(" - statement:s - ")" { [:_eval, Statement.new(s)] })
   def _arg
 
     _save = self.pos
@@ -518,7 +518,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  [:_eval, s] ; end
+        @result = begin;  [:_eval, Statement.new(s)] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -1031,7 +1031,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_variable] = rule_info("variable", "(\":\" < valid_id > { [:deref, text.to_sym] } | \":{\" < valid_id > \"}\" { [:deref, text.to_sym] })")
   Rules[:_assignment] = rule_info("assignment", "var_name:v - \"=\" - arg:e { [:eq, v, e] }")
-  Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, s] })")
+  Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z]+/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, Statement.new(s)] })")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })")
