@@ -33,6 +33,7 @@ class Executor
   end
   def execute! objs
     objs.each {|o| self.eval(o, env:@environment) }
+    @environment[:frames][-1][:exit_status]
   end
   def _and arg1, arg2
     self.eval(arg1, env:@environment) && self.eval(arg2, env:@environment)
