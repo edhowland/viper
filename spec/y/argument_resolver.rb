@@ -23,7 +23,7 @@ class ArgumentResolver
     end
   end
   def deref arg
-    @environment[:frames][-1][arg]
+    VariableDerefencer.new(@environment[:frames])[arg]
   end
   
   
