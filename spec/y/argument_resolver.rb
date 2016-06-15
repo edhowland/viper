@@ -58,7 +58,7 @@ class ArgumentResolver
     executor = Executor.new({in: $stdin, out: sio,  err: $stderr, frames: @environment[:frames] })
     executor.execute! statement
     sio.close_write
-    sio.string
+    sio.string.chomp
   end
   def respond_to? obj
     return false unless Symbol === obj || String === obj
