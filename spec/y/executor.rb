@@ -20,7 +20,7 @@ class Executor
       self.eval(obj[0], env:env)
     else
       if self.respond_to? obj[0]
-        self.send obj[0], obj[1], obj[2]
+        self.send obj[0], *(obj[1..(-1)])  #obj[1], obj[2]
       else
         cmd, *args = obj
         command = CommandResolver[cmd]
@@ -59,5 +59,9 @@ class Executor
   expression = self.expand_arg(expression, env:@environment)
     @environment[:frames][-1][variable.to_sym] = expression
   end
+  def fn 
+    
+  end
+  
 end
 

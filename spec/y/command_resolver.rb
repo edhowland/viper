@@ -1,5 +1,6 @@
 # command_resolver - classCommandResolver - returns obj that responds to call
 
+require_relative 'function'
 require_relative 'echo'
 require_relative 'cat'
 require_relative 'bad'
