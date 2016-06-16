@@ -5,7 +5,10 @@ class VariableDerefencer
     @frames = frames
   end
   def [] sym
-    @frames.reduce('') { |i, j| j[sym].to_s || i }
+    result = @frames.reduce('') do |i, j|
+      j[sym] || i 
+    end
+    result.to_s
   end
 end
 

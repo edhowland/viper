@@ -1,0 +1,1 @@
+function dbg(arg) { debug :arg }

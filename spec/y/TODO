@@ -1,5 +1,4 @@
 1. Explore why argument list to command in sexp is [[]] array within array
   1.a possible because of something in vish.kpeg
-  2. Working on vish.kpeg arg_list in function_definition
-  3. fix bug in frame stacking in Function.call
-  
+2. get variable derefs working within strings
+3. (opt) work on aliases?

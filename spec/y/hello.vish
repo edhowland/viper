@@ -1,3 +1,3 @@
 greeting = 'hi there'
-function hello() { echo :greeting ", sailor" }
+function hello(name) { echo :greeting "," :name }
 
