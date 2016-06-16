@@ -11,8 +11,10 @@ not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 var_name = < valid_id > { text }
 arg_list = arg_list:a1 - ',' - arg_list:a2 { a1 + a2 }
-          | var_name:v { [ v ] } 
-function_definition = 'function' space+ identifier:i '()' - '{' - statement:s - '}' { [:fn, Function.new(i, [], s)] }
+          | var_name:v { [ v.to_sym ] } 
+paren_args = '(' - arg_list:a ')' { a }
+          | '(' - ')' { [] }
+function_definition = 'function' space+ identifier:i paren_args:a - '{' - statement:s - '}' { [:fn, Function.new(i, a, s)] }
 comment = - '#' not_nl* nl
 eol = comment
           | - nl

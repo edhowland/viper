@@ -73,7 +73,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # arg_list = (arg_list:a1 - "," - arg_list:a2 { a1 + a2 } | var_name:v { [ v ] })
+  # arg_list = (arg_list:a1 - "," - arg_list:a2 { a1 + a2 } | var_name:v { [ v.to_sym ] })
   def _arg_list
 
     _save = self.pos
@@ -127,7 +127,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  [ v ] ; end
+        @result = begin;  [ v.to_sym ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -144,7 +144,81 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # function_definition = "function" space+ identifier:i "()" - "{" - statement:s - "}" { [:fn, Function.new(i, [], s)] }
+  # paren_args = ("(" - arg_list:a ")" { a } | "(" - ")" { [] })
+  def _paren_args
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = match_string("(")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_arg_list)
+        a = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = match_string(")")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  a ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string("(")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = match_string(")")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_paren_args unless _tmp
+    return _tmp
+  end
+
+  # function_definition = "function" space+ identifier:i paren_args:a - "{" - statement:s - "}" { [:fn, Function.new(i, a, s)] }
   def _function_definition
 
     _save = self.pos
@@ -175,7 +249,8 @@ class Vish < KPeg::CompiledParser
         self.pos = _save
         break
       end
-      _tmp = match_string("()")
+      _tmp = apply(:_paren_args)
+      a = @result
       unless _tmp
         self.pos = _save
         break
@@ -211,7 +286,7 @@ class Vish < KPeg::CompiledParser
         self.pos = _save
         break
       end
-      @result = begin;  [:fn, Function.new(i, [], s)] ; end
+      @result = begin;  [:fn, Function.new(i, a, s)] ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -1193,8 +1268,9 @@ class Vish < KPeg::CompiledParser
   Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
   Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9]*/")
   Rules[:_var_name] = rule_info("var_name", "< valid_id > { text }")
-  Rules[:_arg_list] = rule_info("arg_list", "(arg_list:a1 - \",\" - arg_list:a2 { a1 + a2 } | var_name:v { [ v ] })")
-  Rules[:_function_definition] = rule_info("function_definition", "\"function\" space+ identifier:i \"()\" - \"{\" - statement:s - \"}\" { [:fn, Function.new(i, [], s)] }")
+  Rules[:_arg_list] = rule_info("arg_list", "(arg_list:a1 - \",\" - arg_list:a2 { a1 + a2 } | var_name:v { [ v.to_sym ] })")
+  Rules[:_paren_args] = rule_info("paren_args", "(\"(\" - arg_list:a \")\" { a } | \"(\" - \")\" { [] })")
+  Rules[:_function_definition] = rule_info("function_definition", "\"function\" space+ identifier:i paren_args:a - \"{\" - statement:s - \"}\" { [:fn, Function.new(i, a, s)] }")
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")

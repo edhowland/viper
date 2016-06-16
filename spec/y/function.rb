@@ -8,11 +8,11 @@ class Function
   end
   attr_reader :name, :args, :expansion
   def call *args, env:
-    frame = @args.zip(args).to_h
-#    env[:frames].push frame
+    frame = @args.zip(args[0]).to_h
+   env[:frames].push frame
     exc = Executor.new(env)
     result = exc.execute! @expansion
-#    env[:frames].pop
+    env[:frames].pop
     result
   end
 end
