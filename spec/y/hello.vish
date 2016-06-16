@@ -1,0 +1,3 @@
+greeting = 'hi there'
+function hello() { echo :greeting ", sailor" }
+
