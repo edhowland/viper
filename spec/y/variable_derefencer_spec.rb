@@ -28,6 +28,21 @@ describe VariableDerefencer do
     it 'should be evil' do
       subject.must_equal 'evil'
     end
-
+  end
+  describe 'decurlify :{var}' do
+    let(:frames) { [{var: 'hello'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    subject {vref.decurlify ":{var}" }
+    it 'should be "var"' do
+      subject.must_equal "var"
+    end
+  end
+  describe 'decurlify unknown match or empty' do
+    let(:frames) { [{var: 'hello'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    subject {vref.decurlify "" }
+    it 'should be ""' do
+      subject.must_equal ""
+    end
   end
 end
