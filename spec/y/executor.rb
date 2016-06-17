@@ -9,7 +9,13 @@ class Executor
   attr_reader :environment
 
   def expand_arg arg, env:
-    ArgumentResolver.new(env).resolve arg
+    result = ArgumentResolver.new(env).resolve arg
+    unless result.nil?
+      v = VariableDerefencer.new(env[:frames])
+      v.interpolate_str result
+    else
+      result
+    end
   end
 
   def eval_args args=[], env:

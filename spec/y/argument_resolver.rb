@@ -35,16 +35,22 @@ class ArgumentResolver
 
   # start of redirection methods
   def redirect_from arg
+    v=VariableDerefencer.new @environment[:frames]
+    arg = v.interpolate_str arg
     @environment[:in] = File.open(arg)
     @environment[:closers] << :in
     nil # consume this arg
   end
   def redirect_to arg
+    v=VariableDerefencer.new @environment[:frames]
+    arg = v.interpolate_str arg
     @environment[:out] = File.open(arg, 'w')
     @environment[:closers] << :out
     nil
   end
   def append_to arg
+    v=VariableDerefencer.new @environment[:frames]
+    arg = v.interpolate_str arg
     @environment[:out] = File.open(arg, 'a')
     @environment[:closers] << :out
     nil
