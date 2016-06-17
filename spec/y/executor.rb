@@ -65,6 +65,12 @@ class Executor
   expression = self.expand_arg(expression, env:@environment)
     @environment[:frames][-1][variable.to_sym] = expression
   end
+  def _alias name, expansion
+    al = Alias.new name, expansion
+    CommandResolver[name] = al
+    true
+  end
+  
   def fn functor
     CommandResolver[functor.name] = functor
     @environment[:frames][-1][:exit_status] = true

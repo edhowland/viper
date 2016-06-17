@@ -298,6 +298,60 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # alias_set = "alias" - identifier:i - "=" - arg:a { [:_alias, i, a] }
+  def _alias_set
+
+    _save = self.pos
+    while true # sequence
+      _tmp = match_string("alias")
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:_identifier)
+      i = @result
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = match_string("=")
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:_arg)
+      a = @result
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  [:_alias, i, a] ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_alias_set unless _tmp
+    return _tmp
+  end
+
   # comment = - "#" not_nl* nl
   def _comment
 
@@ -885,7 +939,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (function_definition:f { [ f ] } | eol { [] } | eol - statement:s { s } | statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })
+  # statement = (function_definition:f { [ f ] } | alias_set:a { [ a ] } | eol { [] } | eol - statement:s { s } | statement:s1 - ";" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })
   def _statement
 
     _save = self.pos
@@ -912,12 +966,13 @@ class Vish < KPeg::CompiledParser
 
       _save2 = self.pos
       while true # sequence
-        _tmp = apply(:_eol)
+        _tmp = apply(:_alias_set)
+        a = @result
         unless _tmp
           self.pos = _save2
           break
         end
-        @result = begin;  [] ; end
+        @result = begin;  [ a ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -935,18 +990,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
           break
         end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _tmp = apply(:_statement)
-        s = @result
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        @result = begin;  s ; end
+        @result = begin;  [] ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
@@ -959,18 +1003,7 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = apply(:_statement)
-        s1 = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = match_string(";")
+        _tmp = apply(:_eol)
         unless _tmp
           self.pos = _save4
           break
@@ -981,12 +1014,12 @@ class Vish < KPeg::CompiledParser
           break
         end
         _tmp = apply(:_statement)
-        s2 = @result
+        s = @result
         unless _tmp
           self.pos = _save4
           break
         end
-        @result = begin;  s1 + s2 ; end
+        @result = begin;  s ; end
         _tmp = true
         unless _tmp
           self.pos = _save4
@@ -1010,7 +1043,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save5
           break
         end
-        _tmp = apply(:_eol)
+        _tmp = match_string(";")
         unless _tmp
           self.pos = _save5
           break
@@ -1039,13 +1072,34 @@ class Vish < KPeg::CompiledParser
 
       _save6 = self.pos
       while true # sequence
-        _tmp = apply(:_assignment)
-        a = @result
+        _tmp = apply(:_statement)
+        s1 = @result
         unless _tmp
           self.pos = _save6
           break
         end
-        @result = begin;  [ a ] ; end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:_eol)
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:_statement)
+        s2 = @result
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        @result = begin;  s1 + s2 ; end
         _tmp = true
         unless _tmp
           self.pos = _save6
@@ -1058,16 +1112,35 @@ class Vish < KPeg::CompiledParser
 
       _save7 = self.pos
       while true # sequence
+        _tmp = apply(:_assignment)
+        a = @result
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        @result = begin;  [ a ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save7
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save8 = self.pos
+      while true # sequence
         _tmp = apply(:_term)
         t = @result
         unless _tmp
-          self.pos = _save7
+          self.pos = _save8
           break
         end
         @result = begin;  [ t ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save7
+          self.pos = _save8
         end
         break
       end # end sequence
@@ -1271,6 +1344,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_arg_list] = rule_info("arg_list", "(arg_list:a1 - \",\" - arg_list:a2 { a1 + a2 } | var_name:v { [ v.to_sym ] })")
   Rules[:_paren_args] = rule_info("paren_args", "(\"(\" - arg_list:a \")\" { a } | \"(\" - \")\" { [] })")
   Rules[:_function_definition] = rule_info("function_definition", "\"function\" space+ identifier:i paren_args:a - \"{\" - statement:s - \"}\" { [:fn, Function.new(i, a, s)] }")
+  Rules[:_alias_set] = rule_info("alias_set", "\"alias\" - identifier:i - \"=\" - arg:a { [:_alias, i, a] }")
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
@@ -1281,7 +1355,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, Statement.new(s)] })")
   Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
-  Rules[:_statement] = rule_info("statement", "(function_definition:f { [ f ] } | eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })")
+  Rules[:_statement] = rule_info("statement", "(function_definition:f { [ f ] } | alias_set:a { [ a ] } | eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })")
   Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \"(\" statement \")\" | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:

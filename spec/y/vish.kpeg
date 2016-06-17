@@ -15,6 +15,7 @@ arg_list = arg_list:a1 - ',' - arg_list:a2 { a1 + a2 }
 paren_args = '(' - arg_list:a ')' { a }
           | '(' - ')' { [] }
 function_definition = 'function' space+ identifier:i paren_args:a - '{' - statement:s - '}' { [:fn, Function.new(i, a, s)] }
+alias_set = 'alias' - identifier:i - '=' - arg:a { [:_alias, i, a] }  
 comment = - '#' not_nl* nl
 eol = comment
           | - nl
@@ -48,6 +49,7 @@ args = args:a1 - args:a2 { a1 + a2 }
           | identifier:c { [ c ] }
 
  statement =  function_definition:f { [ f ] } 
+          | alias_set:a { [ a ] }
           | eol { [] }
           | eol - statement:s { s }
           | statement:s1 - ';' - statement:s2 { s1 + s2 }
