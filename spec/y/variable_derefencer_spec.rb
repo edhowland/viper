@@ -45,4 +45,41 @@ describe VariableDerefencer do
       subject.must_equal ""
     end
   end
+  describe 'interpolate_str empty string' do
+    let(:frames) { [{var: 'hello'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    let(:str) { "" }
+    subject { vref.interpolate_str str }
+    it 'should be empty string' do
+      subject.must_equal ''
+    end
+    
+  end
+  describe 'interpolate_str with noembedded vars' do
+    let(:frames) { [{var: 'hello'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    let(:str) { "var nice" }
+    subject { vref.interpolate_str str }
+    it 'should be equal original str' do
+      subject.must_equal str
+    end
+  end
+  describe 'interpolate_str "xxx:{var}yyy"' do
+    let(:frames) { [{var: 'hello'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    let(:str) { "xxx:{var}yyy" }
+    subject { vref.interpolate_str str }
+    it 'should be xxxhelloyyy' do
+      subject.must_equal 'xxxhelloyyy'
+    end
+  end
+  describe 'interpolate_str 2 variables' do
+    let(:frames) { [{var: 'hello', name: 'Edward'}] }
+    let(:vref) { VariableDerefencer.new frames }
+    let(:str) { ":{var} there, :{name}" }
+    subject { vref.interpolate_str str }
+    it 'should be hello there, Edward' do
+      subject.must_equal 'hello there, Edward'
+    end
+  end
 end
