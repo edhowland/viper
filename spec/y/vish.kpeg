@@ -34,7 +34,7 @@ redirector = '<' - arg:a  { [[:redirect_from, a]] }
 variable =  ':' < valid_id > { [:deref, text.to_sym] }
           | ':{' < valid_id > '}' { [:deref, text.to_sym] }
 assignment = var_name:v - '=' - arg:e { [:eq, v, e] }
- arg = < /[\/\.\-\*:_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { text }
+ arg = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { text }
           | string
           | variable
           | ':(' - statement:s - ')' { [:_eval, Statement.new(s)] }
