@@ -9,17 +9,18 @@ class Alias
   attr_reader :name, :expansion
   def call *args, env:
     if @@calls.member? @name
-      fail "recursive call to this alias: #{@name}"
+      env[:err].puts "recursive call to this alias: #{@name}"
+      false
     else
       @@calls << @name
+      arg = args.join(' ')
+      statement = @expansion + ' ' + arg
+      sexps = Visher.parse! statement
+      exc = Executor.new env
+      result = exc.execute! sexps
+      @@calls.pop
+      result
     end
-    arg = args.join(' ')
-    statement = @expansion + ' ' + arg
-    sexps = Visher.parse! statement
-    exc = Executor.new env
-    result = exc.execute! sexps
-    @@calls.pop
-    result
   end
 end
 
