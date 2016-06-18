@@ -500,7 +500,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # redirector = ("<" - arg:a { [[:redirect_from, a]] } | ">" - arg:a { [[:redirect_to, a]] } | ">>" - arg:a { [[:append_to, a]] })
+  # redirector = ("<" - arg:a { [[:redirect_from, a]] } | ">" - arg:a { [[:redirect_to, a]] } | ">>" - arg:a { [[:append_to, a]] } | "2>" - arg:a { [[:redirect_err, a]] })
   def _redirector
 
     _save = self.pos
@@ -586,6 +586,35 @@ class Vish < KPeg::CompiledParser
         _tmp = true
         unless _tmp
           self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save4 = self.pos
+      while true # sequence
+        _tmp = match_string("2>")
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        _tmp = apply(:_arg)
+        a = @result
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        @result = begin;  [[:redirect_err, a]] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save4
         end
         break
       end # end sequence
@@ -1403,7 +1432,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
-  Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] })")
+  Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] } | \"2>\" - arg:a { [[:redirect_err, a]] })")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_variable] = rule_info("variable", "(\":\" < valid_id > { [:deref, text.to_sym] } | \":{\" < valid_id > \"}\" { [:deref, text.to_sym] })")
   Rules[:_assignment] = rule_info("assignment", "var_name:v - \"=\" - arg:e { [:eq, v, e] }")

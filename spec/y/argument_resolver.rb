@@ -57,6 +57,13 @@ class ArgumentResolver
     @environment[:closers] << :out
     nil
   end
+  def redirect_err arg
+    arg = interpolate arg
+    @environment[:err] = File.open(arg, 'w')
+    @environment[:closers] << :err
+    nil
+  end
+  
   
   # evaluate subshell expansion by calling a new Executor.new and .execute!
   # takes a Statement object - constructed by parser
