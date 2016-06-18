@@ -16,6 +16,8 @@ paren_args = '(' - arg_list:a ')' { a }
           | '(' - ')' { [] }
 function_definition = 'function' space+ identifier:i paren_args:a - '{' - statement:s - '}' { [:fn, Function.new(i, a, s)] }
 alias_set = 'alias' - identifier:i - '=' - arg:a { [:_alias, i, a] }  
+          | 'alias' - identifier:i { [:_expand_alias, i ] }
+          | 'alias' { [:_list_alias] }
 comment = - '#' not_nl* nl
 eol = comment
           | - nl

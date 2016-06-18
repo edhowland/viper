@@ -298,55 +298,110 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # alias_set = "alias" - identifier:i - "=" - arg:a { [:_alias, i, a] }
+  # alias_set = ("alias" - identifier:i - "=" - arg:a { [:_alias, i, a] } | "alias" - identifier:i { [:_expand_alias, i ] } | "alias" { [:_list_alias] })
   def _alias_set
 
     _save = self.pos
-    while true # sequence
-      _tmp = match_string("alias")
-      unless _tmp
-        self.pos = _save
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = match_string("alias")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_identifier)
+        i = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = match_string("=")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_arg)
+        a = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  [:_alias, i, a] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
         break
-      end
-      _tmp = apply(:__hyphen_)
-      unless _tmp
-        self.pos = _save
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string("alias")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_identifier)
+        i = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [:_expand_alias, i ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
         break
-      end
-      _tmp = apply(:_identifier)
-      i = @result
-      unless _tmp
-        self.pos = _save
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = match_string("alias")
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  [:_list_alias] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
         break
-      end
-      _tmp = apply(:__hyphen_)
-      unless _tmp
-        self.pos = _save
-        break
-      end
-      _tmp = match_string("=")
-      unless _tmp
-        self.pos = _save
-        break
-      end
-      _tmp = apply(:__hyphen_)
-      unless _tmp
-        self.pos = _save
-        break
-      end
-      _tmp = apply(:_arg)
-      a = @result
-      unless _tmp
-        self.pos = _save
-        break
-      end
-      @result = begin;  [:_alias, i, a] ; end
-      _tmp = true
-      unless _tmp
-        self.pos = _save
-      end
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       break
-    end # end sequence
+    end # end choice
 
     set_failed_rule :_alias_set unless _tmp
     return _tmp
@@ -1344,7 +1399,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_arg_list] = rule_info("arg_list", "(arg_list:a1 - \",\" - arg_list:a2 { a1 + a2 } | var_name:v { [ v.to_sym ] })")
   Rules[:_paren_args] = rule_info("paren_args", "(\"(\" - arg_list:a \")\" { a } | \"(\" - \")\" { [] })")
   Rules[:_function_definition] = rule_info("function_definition", "\"function\" space+ identifier:i paren_args:a - \"{\" - statement:s - \"}\" { [:fn, Function.new(i, a, s)] }")
-  Rules[:_alias_set] = rule_info("alias_set", "\"alias\" - identifier:i - \"=\" - arg:a { [:_alias, i, a] }")
+  Rules[:_alias_set] = rule_info("alias_set", "(\"alias\" - identifier:i - \"=\" - arg:a { [:_alias, i, a] } | \"alias\" - identifier:i { [:_expand_alias, i ] } | \"alias\" { [:_list_alias] })")
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")

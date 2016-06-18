@@ -27,7 +27,12 @@ class CommandResolver
   def []=(key, value)
     @@storage[key] = value
   end
-  
+  def keys
+    @@storage.keys
+  end
+  def values
+    @@storage.values
+  end
   end
 end
 

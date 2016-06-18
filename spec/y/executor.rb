@@ -26,7 +26,7 @@ class Executor
       self.eval(obj[0], env:env)
     else
       if self.respond_to? obj[0]
-        self.send obj[0], *(obj[1..(-1)])  #obj[1], obj[2]
+        self.send(obj[0], *(obj[1..(-1)]), env:env)
       else
         cmd, *args = obj
         command = CommandResolver[cmd]
@@ -41,13 +41,13 @@ class Executor
     objs.each {|o| self.eval(o, env:@environment) }
     @environment[:frames][-1][:exit_status]
   end
-  def _and arg1, arg2
+  def _and arg1, arg2, env:
     self.eval(arg1, env:@environment) && self.eval(arg2, env:@environment)
   end
-  def _or arg1, arg2
+  def _or arg1, arg2, env:
     self.eval(arg1, env:@environment) || self.eval(arg2, env:@environment)
   end
-  def | arg1, arg2
+  def | arg1, arg2, env:
     s = StringIO.new 'w'
     # set stdout to s
     enviro = @environment.clone
@@ -61,20 +61,35 @@ class Executor
     self.eval(arg2, env:e2)
   end
 
-  def eq variable, expression
+  def eq variable, expression, env:
   expression = self.expand_arg(expression, env:@environment)
     @environment[:frames][-1][variable.to_sym] = expression
   end
-  def _alias name, expansion
+  def _alias name, expansion, env:
     al = Alias.new name, expansion
     CommandResolver[name] = al
     true
   end
-  
-  def fn functor
+  def _expand_alias name, env:
+    thing = CommandResolver[name]
+    if thing && Alias === thing
+      env[:out].puts "alias #{thing.name}=\"#{thing.expansion}\""
+      true
+    else
+      env[:err].puts "vish: alias: #{name} not found"
+      false
+    end
+  end
+  def _list_alias env:
+    CommandResolver.values.select {|e| Alias === e }.each do |e|
+      env[:out].puts "alias #{e.name}=\"#{e.expansion}\""
+    end
+  end
+
+
+  def fn functor, env:
     CommandResolver[functor.name] = functor
     @environment[:frames][-1][:exit_status] = true
   end
-  
 end
 
