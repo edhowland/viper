@@ -500,7 +500,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # redirector = ("<" - arg:a { [[:redirect_from, a]] } | ">" - arg:a { [[:redirect_to, a]] } | ">>" - arg:a { [[:append_to, a]] } | "2>" - arg:a { [[:redirect_err, a]] })
+  # redirector = ("<" - arg:a { [[:redirect_from, a]] } | "^>" - arg:a { [[:redirect_err, a]] } | ">" - arg:a { [[:redirect_to, a]] } | ">>" - arg:a { [[:append_to, a]] })
   def _redirector
 
     _save = self.pos
@@ -537,7 +537,7 @@ class Vish < KPeg::CompiledParser
 
       _save2 = self.pos
       while true # sequence
-        _tmp = match_string(">")
+        _tmp = match_string("^>")
         unless _tmp
           self.pos = _save2
           break
@@ -553,7 +553,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  [[:redirect_to, a]] ; end
+        @result = begin;  [[:redirect_err, a]] ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -566,7 +566,7 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
-        _tmp = match_string(">>")
+        _tmp = match_string(">")
         unless _tmp
           self.pos = _save3
           break
@@ -582,7 +582,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
           break
         end
-        @result = begin;  [[:append_to, a]] ; end
+        @result = begin;  [[:redirect_to, a]] ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
@@ -595,7 +595,7 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = match_string("2>")
+        _tmp = match_string(">>")
         unless _tmp
           self.pos = _save4
           break
@@ -611,7 +611,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save4
           break
         end
-        @result = begin;  [[:redirect_err, a]] ; end
+        @result = begin;  [[:append_to, a]] ; end
         _tmp = true
         unless _tmp
           self.pos = _save4
@@ -898,7 +898,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # args = (args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })
+  # args = (args:a1 - args:a2 { a1 + a2 } | arg:a { [ a ] })
   def _args
 
     _save = self.pos
@@ -931,9 +931,6 @@ class Vish < KPeg::CompiledParser
         break
       end # end sequence
 
-      break if _tmp
-      self.pos = _save
-      _tmp = apply(:_redirector)
       break if _tmp
       self.pos = _save
 
@@ -1238,7 +1235,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # term = (term:t1 - "&&" - term:t2 { [:_and, t1, t2] } | term:t1 - "||" - term:t2 { [:_or, t1, t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | "(" statement ")" | command)
+  # term = (term:t1 - "&&" - term:t2 { [:_and, t1, t2] } | term:t1 - "||" - term:t2 { [:_or, t1, t2] } | term:t1 - "|" - term:t2 { [:|, t1,  t2] } | term:t - redirector:r { t + r } | "(" statement ")" | command)
   def _term
 
     _save = self.pos
@@ -1366,19 +1363,49 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = match_string("(")
+        _tmp = apply(:_term)
+        t = @result
         unless _tmp
           self.pos = _save4
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        _tmp = apply(:_redirector)
+        r = @result
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        @result = begin;  t + r ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save4
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save5 = self.pos
+      while true # sequence
+        _tmp = match_string("(")
+        unless _tmp
+          self.pos = _save5
           break
         end
         _tmp = apply(:_statement)
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
           break
         end
         _tmp = match_string(")")
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
         end
         break
       end # end sequence
@@ -1432,15 +1459,15 @@ class Vish < KPeg::CompiledParser
   Rules[:_comment] = rule_info("comment", "- \"\#\" not_nl* nl")
   Rules[:_eol] = rule_info("eol", "(comment | - nl)")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
-  Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] } | \"2>\" - arg:a { [[:redirect_err, a]] })")
+  Rules[:_redirector] = rule_info("redirector", "(\"<\" - arg:a { [[:redirect_from, a]] } | \"^>\" - arg:a { [[:redirect_err, a]] } | \">\" - arg:a { [[:redirect_to, a]] } | \">>\" - arg:a { [[:append_to, a]] })")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_variable] = rule_info("variable", "(\":\" < valid_id > { [:deref, text.to_sym] } | \":{\" < valid_id > \"}\" { [:deref, text.to_sym] })")
   Rules[:_assignment] = rule_info("assignment", "var_name:v - \"=\" - arg:e { [:eq, v, e] }")
   Rules[:_arg] = rule_info("arg", "(< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { text } | string | variable | \":(\" - statement:s - \")\" { [:_eval, Statement.new(s)] })")
-  Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | redirector | arg:a { [ a ] })")
+  Rules[:_args] = rule_info("args", "(args:a1 - args:a2 { a1 + a2 } | arg:a { [ a ] })")
   Rules[:_command] = rule_info("command", "(identifier:c - args:a { [c, a] } | identifier:c { [ c ] })")
   Rules[:_statement] = rule_info("statement", "(function_definition:f { [ f ] } | alias_set:a { [ a ] } | eol { [] } | eol - statement:s { s } | statement:s1 - \";\" - statement:s2 { s1 + s2 } | statement:s1 - eol - statement:s2 { s1 + s2 } | assignment:a { [ a ] } | term:t { [ t ] })")
-  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | \"(\" statement \")\" | command)")
+  Rules[:_term] = rule_info("term", "(term:t1 - \"&&\" - term:t2 { [:_and, t1, t2] } | term:t1 - \"||\" - term:t2 { [:_or, t1, t2] } | term:t1 - \"|\" - term:t2 { [:|, t1,  t2] } | term:t - redirector:r { t + r } | \"(\" statement \")\" | command)")
   Rules[:_root] = rule_info("root", "statement:t { @result = t }")
   # :startdoc:
 end

@@ -28,9 +28,9 @@ identifier = <valid_id  > { text.to_sym }
 
 
 redirector = '<' - arg:a  { [[:redirect_from, a]] }
+          | '^>' - arg:a { [[:redirect_err, a]] }
           | '>' - arg:a { [[:redirect_to, a]] }
           | '>>' - arg:a { [[:append_to, a]] }
-          | '2>' - arg:a { [[:redirect_err, a]] }
 
  string = '\'' < /[^']*/ > '\'' { text }
           | '"' < /[^"]*/ > '"' { text }
@@ -45,7 +45,7 @@ assignment = var_name:v - '=' - arg:e { [:eq, v, e] }
 
 
 args = args:a1 - args:a2 { a1 + a2 }
-          | redirector
+#          | redirector
           | arg:a { [ a ] }
 
  command = identifier:c - args:a { [c, a] }
@@ -63,6 +63,7 @@ args = args:a1 - args:a2 { a1 + a2 }
 term = term:t1 - "&&" - term:t2 { [:_and, t1, t2] }
      | term:t1 - "||" - term:t2 { [:_or, t1, t2] }
      | term:t1 - "|" - term:t2 { [:|, t1,  t2] }
+          | term:t - redirector:r { t + r }
           | '(' statement ')'
      | command
 
