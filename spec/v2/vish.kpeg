@@ -4,18 +4,24 @@
   attr_accessor :result
 }
 
+eps = ''
 space = " "
 - = space*
 nl = "\n"
 not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
+string = '\'' < /[^']*/ > '\'' { text }
+          | '"' < /[^"]*/ > '"' { text }
+
 
 identifier = <valid_id  > { text.to_sym }
 
 comment = '#' not_nl*
-statement = identifier:i { i }
+statement = identifier:i - string:s { [i, s] } 
+          | identifier:i { i }
 
 block = comment
           | statement:s - comment? { [s] }
+          | eps
 
 root = block:b { @result = b }

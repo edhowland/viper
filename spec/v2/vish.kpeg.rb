@@ -8,6 +8,13 @@ class Vish < KPeg::CompiledParser
 
   # :stopdoc:
 
+  # eps = ""
+  def _eps
+    _tmp = match_string("")
+    set_failed_rule :_eps unless _tmp
+    return _tmp
+  end
+
   # space = " "
   def _space
     _tmp = match_string(" ")
@@ -44,6 +51,82 @@ class Vish < KPeg::CompiledParser
   def _valid_id
     _tmp = scan(/\A(?-mix:[_A-Za-z][_A-Za-z0-9]*)/)
     set_failed_rule :_valid_id unless _tmp
+    return _tmp
+  end
+
+  # string = ("'" < /[^']*/ > "'" { text } | "\"" < /[^"]*/ > "\"" { text })
+  def _string
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = match_string("'")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix:[^']*)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = match_string("'")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  text ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = match_string("\"")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix:[^"]*)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = match_string("\"")
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  text ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_string unless _tmp
     return _tmp
   end
 
@@ -98,30 +181,68 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = identifier:i { i }
+  # statement = (identifier:i - string:s { [i, s] } | identifier:i { i })
   def _statement
 
     _save = self.pos
-    while true # sequence
-      _tmp = apply(:_identifier)
-      i = @result
-      unless _tmp
-        self.pos = _save
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_identifier)
+        i = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_string)
+        s = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  [i, s] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
         break
-      end
-      @result = begin;  i ; end
-      _tmp = true
-      unless _tmp
-        self.pos = _save
-      end
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_identifier)
+        i = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  i ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       break
-    end # end sequence
+    end # end choice
 
     set_failed_rule :_statement unless _tmp
     return _tmp
   end
 
-  # block = (comment | statement:s - comment? { [s] })
+  # block = (comment | statement:s - comment? { [s] } | eps)
   def _block
 
     _save = self.pos
@@ -163,6 +284,9 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
+      _tmp = apply(:_eps)
+      break if _tmp
+      self.pos = _save
       break
     end # end choice
 
@@ -194,15 +318,17 @@ class Vish < KPeg::CompiledParser
   end
 
   Rules = {}
+  Rules[:_eps] = rule_info("eps", "\"\"")
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
   Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9]*/")
+  Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
-  Rules[:_statement] = rule_info("statement", "identifier:i { i }")
-  Rules[:_block] = rule_info("block", "(comment | statement:s - comment? { [s] })")
+  Rules[:_statement] = rule_info("statement", "(identifier:i - string:s { [i, s] } | identifier:i { i })")
+  Rules[:_block] = rule_info("block", "(comment | statement:s - comment? { [s] } | eps)")
   Rules[:_root] = rule_info("root", "block:b { @result = b }")
   # :startdoc:
 end

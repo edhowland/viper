@@ -2,6 +2,11 @@
 require_relative 'vish.kpeg'
 class Visher
   class << self
+    def check! statement
+      v = Vish.new statement
+      v.parse
+    end
+    
     def parse! statement
       v = Vish.new statement
       puts 'syntax Error' unless v.parse
@@ -18,7 +23,7 @@ end
 
 def vdbg
   begin
-    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  p v.inspect }
+    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  p v }
   rescue => err
     puts err.message
   end
