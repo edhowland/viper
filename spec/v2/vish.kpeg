@@ -8,8 +8,14 @@ space = " "
 - = space*
 nl = "\n"
 not_nl = /[^\n]/
-comment = '#' not_nl*
+valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 
-block = -
-          | comment
+identifier = <valid_id  > { text.to_sym }
+
+comment = '#' not_nl*
+statement = identifier:i { i }
+
+block = comment
+          | statement:s - comment? { [s] }
+
 root = block:b { @result = b }
