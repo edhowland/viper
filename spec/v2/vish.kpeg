@@ -1,0 +1,15 @@
+# vish.kpeg - v2 redesign%% name = Vish
+%% name = Vish
+%% {
+  attr_accessor :result
+}
+
+space = " "
+- = space*
+nl = "\n"
+not_nl = /[^\n]/
+comment = '#' not_nl*
+
+block = -
+          | comment
+root = block:b { @result = b }
