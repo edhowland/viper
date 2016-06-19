@@ -30,7 +30,7 @@ module Viper
         klass = @storage["viper"]["classes"][ppath]
         parent[item] = klass.new
       end
-      
+
       def directory? path
         File.directory? path
       end

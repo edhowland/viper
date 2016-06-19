@@ -3,7 +3,7 @@
 require 'stringio'
 
 class Executor
-  def initialize enviro={out: $stdout, in: $stdin, err: $stderr, frames: [{}] }
+  def initialize enviro={out: $stdout, in: $stdin, err: $stderr, frames: [{path: '/viper/bin', exit_status: true}] }
     @environment =  enviro
   end
   attr_reader :environment
@@ -29,8 +29,9 @@ class Executor
         self.send(obj[0], *(obj[1..(-1)]), env:env)
       else
         cmd, *args = obj
-        command = CommandResolver[cmd]
         enviro = env.clone
+
+        command = CommandResolver[cmd, env:enviro]
         @environment[:frames][-1][:exit_status] = command.call(self.eval_args(*args, env:enviro), env:enviro)
         enviro[:closers].each {|f| enviro[f].close } unless enviro[:closers].nil?
         @environment[:frames][-1][:exit_status]
