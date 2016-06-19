@@ -242,7 +242,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s - comment? { [ s ] })
+  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })
   def _statement_list
 
     _save = self.pos
@@ -330,8 +330,13 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
+        _save4 = self.pos
         _tmp = apply(:_statement)
         s = @result
+        unless _tmp
+          _tmp = true
+          self.pos = _save4
+        end
         unless _tmp
           self.pos = _save3
           break
@@ -341,11 +346,11 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
           break
         end
-        _save4 = self.pos
+        _save5 = self.pos
         _tmp = apply(:_comment)
         unless _tmp
           _tmp = true
-          self.pos = _save4
+          self.pos = _save5
         end
         unless _tmp
           self.pos = _save3
@@ -436,7 +441,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_statement] = rule_info("statement", "(identifier:i - string:s { [i, s] } | identifier:i { i })")
-  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s - comment? { [ s ] })")
+  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })")
   Rules[:_block] = rule_info("block", "(statement_list:s { [s] } | eps)")
   Rules[:_root] = rule_info("root", "block:b { @result = b }")
   # :startdoc:
