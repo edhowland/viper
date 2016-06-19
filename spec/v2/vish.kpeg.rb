@@ -242,19 +242,16 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # block = (comment | statement:s - comment? { [s] } | eps)
-  def _block
+  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s - comment? { [ s ] })
+  def _statement_list
 
     _save = self.pos
     while true # choice
-      _tmp = apply(:_comment)
-      break if _tmp
-      self.pos = _save
 
       _save1 = self.pos
       while true # sequence
-        _tmp = apply(:_statement)
-        s = @result
+        _tmp = apply(:_statement_list)
+        s1 = @result
         unless _tmp
           self.pos = _save1
           break
@@ -264,12 +261,123 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        _save2 = self.pos
+        _tmp = match_string(";")
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_statement_list)
+        s2 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  s1 + s2 ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_statement_list)
+        s1 = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_nl)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_statement_list)
+        s2 = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  s1 + s2 ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = apply(:_statement)
+        s = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _save4 = self.pos
         _tmp = apply(:_comment)
         unless _tmp
           _tmp = true
-          self.pos = _save2
+          self.pos = _save4
         end
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  [ s ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_statement_list unless _tmp
+    return _tmp
+  end
+
+  # block = (statement_list:s { [s] } | eps)
+  def _block
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_statement_list)
+        s = @result
         unless _tmp
           self.pos = _save1
           break
@@ -328,7 +436,8 @@ class Vish < KPeg::CompiledParser
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_statement] = rule_info("statement", "(identifier:i - string:s { [i, s] } | identifier:i { i })")
-  Rules[:_block] = rule_info("block", "(comment | statement:s - comment? { [s] } | eps)")
+  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s - comment? { [ s ] })")
+  Rules[:_block] = rule_info("block", "(statement_list:s { [s] } | eps)")
   Rules[:_root] = rule_info("root", "block:b { @result = b }")
   # :startdoc:
 end

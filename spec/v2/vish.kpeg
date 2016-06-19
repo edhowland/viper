@@ -20,8 +20,10 @@ comment = '#' not_nl*
 statement = identifier:i - string:s { [i, s] } 
           | identifier:i { i }
 
-block = comment
-          | statement:s - comment? { [s] }
+statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
+          | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
+          | statement:s - comment? { [ s ] }
+block = statement_list:s { [s] }
           | eps
 
 root = block:b { @result = b }

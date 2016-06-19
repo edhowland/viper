@@ -48,4 +48,12 @@ describe Visher do
       subject.must_equal true
     end
   end
+  describe 'when parsing starting comment, newline, command' do
+    let(:str) { " # comment\nls" }
+    subject { Visher.check! str }
+    it 'should be true' do
+      subject.must_equal true
+    end
+
+  end
 end
