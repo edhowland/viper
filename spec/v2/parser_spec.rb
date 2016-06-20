@@ -56,4 +56,11 @@ describe Visher do
     end
 
   end
+  describe 'comments and lines' do
+    let(:str) { "# comment\nls" }
+    subject { Visher.parse! str }
+    it 'should be [[ls]]' do
+      subject.must_equal [[:ls]]
+    end
+  end
 end
