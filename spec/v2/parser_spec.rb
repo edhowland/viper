@@ -63,4 +63,18 @@ describe Visher do
       subject.must_equal [[:ls]]
     end
   end
+  describe 'mixed comments and commands' do
+    before { @str = <<-EOD
+    # comment
+    ls;cat
+    # comment
+    ls # trailing
+    # last line
+    EOD
+    }
+    subject { Visher.parse! @str }
+    it 'should be [[:ls, :cat :ls]],' do
+      subject.must_equal [[:ls, :cat, :ls]]
+    end
+  end
 end
