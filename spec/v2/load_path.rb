@@ -8,14 +8,13 @@ require_relative 'assignment'
 require_relative 'assignment_list'
 require_relative 'argument'
 require_relative 'argument_list'
-require_relative 'redirection'
-require_relative 'redirect_stdin'
-require_relative 'redirect_stdout'
-require_relative 'redirect_stdout_append'
-require_relative 'redirect_stderr'
-require_relative 'redirection_list'
+
+# get all the redirection stuff
+Dir['./redirects/*.rb'].each {|f| require_relative f }
 
 require_relative 'statement'
 require_relative 'block'
-Dir['./bin/*.rb'].each {|f| require f }
+
+# get all the commands
+Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'visher'
