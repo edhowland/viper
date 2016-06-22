@@ -6,6 +6,7 @@ class AssignmentList
     @storage = list
   end
   def call frames:
+    frames.push       # push down for possible assignments
     @storage.each {|a| a.call(frames:frames) }
   end
 end
