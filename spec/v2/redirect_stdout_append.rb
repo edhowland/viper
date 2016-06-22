@@ -5,4 +5,7 @@ class RedirectStdoutAppend < Redirection
   def initialize  target
     super target, 'a'
   end
+  def type_key
+    :out
+  end
 end

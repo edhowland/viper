@@ -2,4 +2,7 @@
 
 
 class RedirectStderr < RedirectStdout
+  def type_key
+    :err
+  end
 end

@@ -13,7 +13,9 @@ require_relative 'redirect_stdin'
 require_relative 'redirect_stdout'
 require_relative 'redirect_stdout_append'
 require_relative 'redirect_stderr'
+require_relative 'redirection_list'
 
-
+require_relative 'statement'
 require_relative 'block'
+Dir['./bin/*.rb'].each {|f| require f }
 require_relative 'visher'

@@ -2,7 +2,7 @@
 
 
 class Source
-  def call *args, env:
+  def call *args, env:, frames:
     fail 'Must supply 1 source file' unless args.length == 1
     codes = Visher.parse!(File.read(args[0][0]))
     executor = Executor.new(env)

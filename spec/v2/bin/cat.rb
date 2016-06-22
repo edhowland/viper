@@ -2,7 +2,7 @@
 
 
 class Cat
-  def call *args, env:
+  def call *args, env:, frames:
     env[:out].write(env[:in].read)
     true
   end

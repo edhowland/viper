@@ -2,7 +2,7 @@
 
 
 class Bye
-  def call *args, env:
+  def call *args, env:, frames:
     exit
   end
 end

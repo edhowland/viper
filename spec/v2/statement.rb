@@ -5,22 +5,19 @@
 # At runtime, the statement proceeds in 2 phases:
 # Phase I : Evaluate all the command expansion/substitution stuff
 # Phase II : Having the context proceed as if the substitutions were substituted. Run the command
-# Note: Must remember to close any open file descriptors
 class Statement
-  def initialize assignments:[], command:NullCommand.new, args:[], redirects:[]
+  def initialize assignments:, command:NullCommand.new, args:, redirects:
     @assignments = assignments
     @command = command
     @args = args
     @redirects = redirects
-    @variables = {}
   end
-  def call
-    # TODO implement this
-    # In bash, redirects are setup first
-    # @redirects.each {|r| r.prepare }
-    #  @args.each {|a| a.call, .prepare }
-    # assignments.each {|a| a.call, .prepare } # Only assigns for this call
-    # @command.call(@args, env:@variables)
+  
+  # proceeding in the phase order:
+  # set up assignments, redirects and args
+  # Then pass a block to redirection_list.call
+  def call frames:
+
   end
 end
 
