@@ -1,13 +1,9 @@
 # redirect_stdout - class RedirectStdout - > file
 
 
-class RedirectStdout
+class RedirectStdout < Redirection
   def initialize  target
-    @target = target
-  end
-  def call frames:
-    fname = @target.call frames:frames
-    
+    super target, 'w'
   end
 end
 

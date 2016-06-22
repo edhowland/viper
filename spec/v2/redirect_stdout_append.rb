@@ -1,11 +1,8 @@
 # redirect_stdout_append - class RedirectStddoutAppend - >> file
 
 
-class RedirectStddoutAppend
-  def initialize 
-    
-  end
-  def call frames:
-    
+class RedirectStdoutAppend < Redirection
+  def initialize  target
+    super target, 'a'
   end
 end
