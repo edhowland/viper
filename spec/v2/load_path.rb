@@ -10,7 +10,7 @@ require_relative 'argument'
 require_relative 'argument_list'
 
 # get all the redirection stuff
-Dir['./redirects/*.rb'].each {|f| require_relative f }
+require_relative 'redirects'
 
 require_relative 'statement'
 require_relative 'block'
