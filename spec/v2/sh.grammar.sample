@@ -1,0 +1,74 @@
+.
+   *)
+   
+   type shell_nonterminal =
+     | Complete_command
+       | Cmd_name
+         | Filename
+           | Function_start
+             | IO_redirect
+               | Linebreak
+                 | Newline_list
+                   | Pipe_sequence
+                     | Simple_command
+                       | Separator
+                         | Separator_op
+                         
+                         let simple_shell_rules =
+                           function
+                               | Complete_command ->
+                                 Seq [N Pipe_sequence; Choose [N Separator; Empty]]
+                                     | Pipe_sequence ->
+                                       Seq [N Simple_command; Star (Seq [T"|"; N Simple_command])]
+                                           | Simple_command ->
+                                             Seq [N Cmd_name; Star (Choose [T"WORD"; N IO_redirect])]
+                                                 | Cmd_name -> Seq [Not (N Function_start); T"WORD"]
+                                                     | IO_redirect -> Seq [Choose [T"<"; T">"; T">>"; T"<>"; T">|"];
+                                                             N Filename]
+                                                                 | Filename -> T"WORD"
+                                                                     | Newline_list -> Seq [T"\n"; N Linebreak]
+                                                                         | Linebreak -> Star (T"\n")
+                                                                             | Separator -> Choose [Seq [N Separator_op; N Linebreak]; N Newline_list]
+                                                                                 | Separator_op -> Choose [T"&"; T";"]
+                                                                                     | Function_start -> Seq [T"WORD"; T"("]
+                                                                                     
+                                                                                     let parse_with_simple_shell_grammar = parse_peg simple_shell_rules
+                                                                                     
+                                                                                     let parse_complete_command = parse_with_simple_ename, Leaf "WORD")])]]);
+                                                                                             Repeat []]);
+                                                                                                  Node (Separator,
+                                                                                                        Node (Newline_list,
+                                                                                                               Sequence [Leaf "\n"; Node (Linebreak,
+                                                                                                                                                       Repeat [Leaf "\n"; Leaf "\n"])]))]),
+                                                                                                                                                         []))
+                                                                                                                                                         
+                                                                                                                                                         let test_cc4 =
+                                                                                                                                                            (parse_complete_command
+                                                                                                                                                                   ["WORD"; "<"; "WORD"; "|"; "WORD"; "WORD"; "|";
+                                                                                                                                                                           "WORD"; ">"; "WORD"; "BLEAGH"]
+                                                                                                                                                                               = Some
+                                                                                                                                                                                      (Node (Complete_command,
+                                                                                                                                                                                         Sequence
+                                                                                                                                                                                             [Node (Pipe_sequence,
+                                                                                                                                                                                                   Sequence
+                                                                                                                                                                                                          [Node (Simple_command,
+                                                                                                                                                                                                                   Sequence
+                                                                                                                                                                                                                       [Node (Cmd_name, Sequence [Is_not (N Function_start);
+                                                                                                                                                                                                                                                                  Leaf "WORD"]);
+                                                                                                                                                                                                                                                                       Repeat
+                                                                                                                                                                                                                                                                             [Node (IO_redirect,
+                                                                                                                                                                                                                                                                                     Sequence [Leaf "<"; Node (Filename, Leaf "WORD")])]]);
+                                                                                                                                                                                                                                                                                             Repeat
+                                                                                                                                                                                                                                                                                                      [Sequence
+                                                                                                                                                                                                                                                                                                           [Leaf "|";
+                                                                                                                                                                                                                                                                                                                 Node (Simple_command,
+                                                                                                                                                                                                                                                                                                                        Sequence
+                                                                                                                                                                                                                                                                                                                                [Node (Cmd_name,
+                                                                                                                                                                                                                                                                                                                                          Sequence [Is_not (N Function_start); Leaf "WORD"]);
+                                                                                                                                                                                                                                                                                                                                                   Repeat [Leaf "WORD"]])];
+                                                                                                                                                                                                                                                                                                                                                       Sequence
+                                                                                                                                                                                                                                                                                                                                                            [Leaf "|";
+                                                                                                                                                                                                                                                                                                                                                                  Node (Simple_command,
+                                                                                                                                                                                                                                                                                                                                                                         Sequence
+                                                                                                                                                                                                                                                                                                                                                                                 [Node (Cmd_name,
+                                                                                                                                                                                                                                                                                                                                                                                           Sequence [Is_not (N F
