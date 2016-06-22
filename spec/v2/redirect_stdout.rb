@@ -2,10 +2,12 @@
 
 
 class RedirectStdout
-  def initialize 
+  def initialize  target
+    @target = target
+  end
+  def call frames:
+    fname = @target.call frames:frames
     
   end
 end
-def call frames:
-  
-end
+
