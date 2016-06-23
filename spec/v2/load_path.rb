@@ -8,7 +8,7 @@ require_relative 'assignment'
 require_relative 'assignment_list'
 require_relative 'argument'
 require_relative 'argument_list'
-
+require_relative 'command'
 # get all the redirection stuff
 require_relative 'redirects'
 

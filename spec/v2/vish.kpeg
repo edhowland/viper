@@ -16,13 +16,22 @@ string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
 
 identifier = <valid_id  > { text.to_sym }
 
+
+# commands
+command = identifier:i { Command.resolve(i) }
 # arguments:
+variable =  ':' < valid_id > { Deref.new(text.to_sym) }
 var_name = < valid_id > { text }
  argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
           | string:s { Argument.new(s) }
+          | variable:v { Argument.new(v) }
+
+argument_list = argument_list:a1 space+ argument_list:a2 { a1 + a2 }
+          | argument:a { [ a ] }
+
 comment = '#' not_nl*
-statement = identifier:i - string:s { [i, s] } 
-          | identifier:i { i }
+statement = command:c space+ argument_list:a { Statement.new(command:c, arguments:a) }
+          | command:c { Statement.new(command:c) }
 
 statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
@@ -33,4 +42,5 @@ block = statement_list:s { Block.new(s) }
 
 #root = block:b { @result = b }
 #root = string:s { @result = s }
-root = argument:a { @result = a }
+#root = argument_list:a { @result = a }
+root = statement:s { @result = s }

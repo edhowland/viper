@@ -6,7 +6,7 @@
 # Phase I : Evaluate all the command expansion/substitution stuff
 # Phase II : Having the context proceed as if the substitutions were substituted. Run the command
 class Statement
-  def initialize assignments:, command:NullCommand.new, arguments:, redirections:, crossovers:[]
+  def initialize assignments:AssignmentList.new([]), command:NullCommand.new, arguments:ArgumentList.new({}), redirections:RedirectionList.new([]), crossovers:[]
     @assignments = assignments
     @command = command
     @args = arguments
