@@ -182,27 +182,54 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
+  # argument = (< /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) } | string:s { Argument.new(s) })
   def _argument
 
     _save = self.pos
-    while true # sequence
-      _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
-      if _tmp
-        text = get_text(_text_start)
-      end
-      unless _tmp
-        self.pos = _save
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _text_start = self.pos
+        _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
+        if _tmp
+          text = get_text(_text_start)
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  Argument.new(StringLiteral.new(text)) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
         break
-      end
-      @result = begin;  Argument.new(StringLiteral.new(text)) ; end
-      _tmp = true
-      unless _tmp
-        self.pos = _save
-      end
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_string)
+        s = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  Argument.new(s) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       break
-    end # end sequence
+    end # end choice
 
     set_failed_rule :_argument unless _tmp
     return _tmp
@@ -492,7 +519,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { QuotedString.new(text) } | \"\\\"\" < /[^\"]*/ > \"\\\"\" {StringLiteral.new(text) })")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_var_name] = rule_info("var_name", "< valid_id > { text }")
-  Rules[:_argument] = rule_info("argument", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }")
+  Rules[:_argument] = rule_info("argument", "(< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) } | string:s { Argument.new(s) })")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_statement] = rule_info("statement", "(identifier:i - string:s { [i, s] } | identifier:i { i })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })")

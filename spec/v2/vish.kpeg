@@ -19,7 +19,7 @@ identifier = <valid_id  > { text.to_sym }
 # arguments:
 var_name = < valid_id > { text }
  argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
-
+          | string:s { Argument.new(s) }
 comment = '#' not_nl*
 statement = identifier:i - string:s { [i, s] } 
           | identifier:i { i }
