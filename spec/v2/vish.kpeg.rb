@@ -54,7 +54,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # string = ("'" < /[^']*/ > "'" { text } | "\"" < /[^"]*/ > "\"" { text })
+  # string = ("'" < /[^']*/ > "'" { QuotedString.new(text) } | "\"" < /[^"]*/ > "\"" {StringLiteral.new(text) })
   def _string
 
     _save = self.pos
@@ -81,7 +81,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        @result = begin;  text ; end
+        @result = begin;  QuotedString.new(text) ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -113,7 +113,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  text ; end
+        @result = begin; StringLiteral.new(text) ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -153,6 +153,58 @@ class Vish < KPeg::CompiledParser
     end # end sequence
 
     set_failed_rule :_identifier unless _tmp
+    return _tmp
+  end
+
+  # var_name = < valid_id > { text }
+  def _var_name
+
+    _save = self.pos
+    while true # sequence
+      _text_start = self.pos
+      _tmp = apply(:_valid_id)
+      if _tmp
+        text = get_text(_text_start)
+      end
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  text ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_var_name unless _tmp
+    return _tmp
+  end
+
+  # argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
+  def _argument
+
+    _save = self.pos
+    while true # sequence
+      _text_start = self.pos
+      _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
+      if _tmp
+        text = get_text(_text_start)
+      end
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  Argument.new(StringLiteral.new(text)) ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_argument unless _tmp
     return _tmp
   end
 
@@ -407,18 +459,18 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = block:b { @result = b }
+  # root = argument:a { @result = a }
   def _root
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_block)
-      b = @result
+      _tmp = apply(:_argument)
+      a = @result
       unless _tmp
         self.pos = _save
         break
       end
-      @result = begin;  @result = b ; end
+      @result = begin;  @result = a ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -437,12 +489,14 @@ class Vish < KPeg::CompiledParser
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
   Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9]*/")
-  Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { text } | \"\\\"\" < /[^\"]*/ > \"\\\"\" { text })")
+  Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { QuotedString.new(text) } | \"\\\"\" < /[^\"]*/ > \"\\\"\" {StringLiteral.new(text) })")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
+  Rules[:_var_name] = rule_info("var_name", "< valid_id > { text }")
+  Rules[:_argument] = rule_info("argument", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_statement] = rule_info("statement", "(identifier:i - string:s { [i, s] } | identifier:i { i })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })")
   Rules[:_block] = rule_info("block", "(statement_list:s { Block.new(s) } | eps)")
-  Rules[:_root] = rule_info("root", "block:b { @result = b }")
+  Rules[:_root] = rule_info("root", "argument:a { @result = a }")
   # :startdoc:
 end

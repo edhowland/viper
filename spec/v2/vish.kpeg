@@ -10,11 +10,15 @@ space = " "
 nl = "\n"
 not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
-string = '\'' < /[^']*/ > '\'' { text }
-          | '"' < /[^"]*/ > '"' { text }
+string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
+          | '"' < /[^"]*/ > '"' {StringLiteral.new(text) }
 
 
 identifier = <valid_id  > { text.to_sym }
+
+# arguments:
+var_name = < valid_id > { text }
+ argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
 
 comment = '#' not_nl*
 statement = identifier:i - string:s { [i, s] } 
@@ -27,4 +31,6 @@ statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
 block = statement_list:s { Block.new(s) }
           | eps
 
-root = block:b { @result = b }
+#root = block:b { @result = b }
+#root = string:s { @result = s }
+root = argument:a { @result = a }
