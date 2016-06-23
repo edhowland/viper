@@ -17,7 +17,10 @@ class Statement
   # set up assignments, redirects and args
   # Then pass a block to redirection_list.call
   def call frames:
-    locals = frames.clone.push
+#binding.pry
+    locals = frames.clone
+    locals.push
+    @assignments.call frames:locals
     args = @args.call frames:frames   # duplicating bash behaviour
     @redirects.call outer_frames:frames, frame:locals do |e, f|
       @command.call args, env:e, frames:f
