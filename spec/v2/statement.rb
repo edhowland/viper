@@ -6,11 +6,12 @@
 # Phase I : Evaluate all the command expansion/substitution stuff
 # Phase II : Having the context proceed as if the substitutions were substituted. Run the command
 class Statement
-  def initialize assignments:, command:NullCommand.new, arguments:, redirections:
+  def initialize assignments:, command:NullCommand.new, arguments:, redirections:, crossovers:[]
     @assignments = assignments
     @command = command
     @args = arguments
     @redirects = redirections
+    @crossovers = crossovers
   end
 
   # proceeding in the phase order:
@@ -22,6 +23,7 @@ class Statement
     locals.push
     @assignments.call frames:locals
     args = @args.call frames:frames   # duplicating bash behaviour
+    @redirects.crossovers += @crossovers
     @redirects.call outer_frames:frames, frame:locals do |e, f|
       @command.call args, env:e, frames:f
     end
