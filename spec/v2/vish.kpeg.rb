@@ -698,7 +698,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) } | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) } | command:c - redirection_list:r { Statement.new(command:c, redirections:RedirectionList.new(r)) } | command:c { Statement.new(command:c) })
+  # statement = (assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) } | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) } | command:c - redirection_list:r? { Statement.new(command:c, redirections:RedirectionList.new(r)) })
   def _statement
 
     _save = self.pos
@@ -877,8 +877,13 @@ class Vish < KPeg::CompiledParser
           self.pos = _save9
           break
         end
+        _save10 = self.pos
         _tmp = apply(:_redirection_list)
         r = @result
+        unless _tmp
+          _tmp = true
+          self.pos = _save10
+        end
         unless _tmp
           self.pos = _save9
           break
@@ -887,25 +892,6 @@ class Vish < KPeg::CompiledParser
         _tmp = true
         unless _tmp
           self.pos = _save9
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save10 = self.pos
-      while true # sequence
-        _tmp = apply(:_command)
-        c = @result
-        unless _tmp
-          self.pos = _save10
-          break
-        end
-        @result = begin;  Statement.new(command:c) ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save10
         end
         break
       end # end sequence
@@ -1126,7 +1112,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_redirection] = rule_info("redirection", "(\"<\" - argument:a { RedirectStdin.new(a) } | \">\" - argument:a { RedirectStdout.new(a) } | \"2>&1\" - argument:a { RedirectStderr.new(a) } | \">>\" - argument:a { RedirectStdoutAppend.new(a) })")
   Rules[:_redirection_list] = rule_info("redirection_list", "(redirection_list:r1 - redirection_list:r2 { r1 + r2 } | redirection:r { [ r ] })")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
-  Rules[:_statement] = rule_info("statement", "(assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) } | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) } | command:c - redirection_list:r { Statement.new(command:c, redirections:RedirectionList.new(r)) } | command:c { Statement.new(command:c) })")
+  Rules[:_statement] = rule_info("statement", "(assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) } | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) } | command:c - redirection_list:r? { Statement.new(command:c, redirections:RedirectionList.new(r)) })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })")
   Rules[:_block] = rule_info("block", "(statement_list:s { Block.new(s) } | eps)")
   Rules[:_root] = rule_info("root", "statement:s { @result = s }")

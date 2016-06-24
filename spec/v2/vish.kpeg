@@ -48,8 +48,8 @@ statement = assignment_list:a { Statement.new(assignments:AssignmentList.new(a))
           | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) }
           | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) }
           | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) }
-          | command:c - redirection_list:r { Statement.new(command:c, redirections:RedirectionList.new(r)) }
-          | command:c { Statement.new(command:c) }
+          | command:c - redirection_list:r? { Statement.new(command:c, redirections:RedirectionList.new(r)) }
+#          | command:c { Statement.new(command:c) }
 
 statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
@@ -62,3 +62,5 @@ block = statement_list:s { Block.new(s) }
 #root = string:s { @result = s }
 #root = argument_list:a { @result = a }
 root = statement:s { @result = s }
+#dummy = redirection_list:r? { RedirectionList.new(r) }
+#root = dummy:d { @result = d }

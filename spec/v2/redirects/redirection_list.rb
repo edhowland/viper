@@ -4,7 +4,7 @@
 # This includes any Crossover targets: 2>&1, >&2
 class RedirectionList
   def initialize list
-    @storage = list
+    @storage = list || []
     @crossovers = []
   end
   attr_accessor :crossovers
