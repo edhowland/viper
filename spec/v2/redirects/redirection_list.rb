@@ -25,4 +25,7 @@ perform_crossovers env, redirs_h
     blk.call env, frame
     @storage.each {|r| r.close }
   end
+  def to_s
+    @storage.map {|r| r.to_s }.join(' ')
+  end
 end

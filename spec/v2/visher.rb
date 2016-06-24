@@ -24,7 +24,7 @@ end
 
 def vdbg
   begin
-    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  p v }
+    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  puts v.to_s }
   rescue => err
     puts err.message
   end

@@ -27,4 +27,7 @@ class Redirection
   def close
     @fiber.resume
   end
+  def to_s
+    @target.to_s
+  end
 end

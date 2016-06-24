@@ -10,4 +10,7 @@ class RedirectStderrToStdout < Crossover
   def type_key
     :err
   end
+  def to_s
+    '2>&1'
+  end
 end

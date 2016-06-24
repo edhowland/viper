@@ -7,5 +7,8 @@ class RedirectStdin < Redirection
   def type_key
     :in
   end
+  def to_s
+    '< ' + super
+  end
 end
 

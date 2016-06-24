@@ -8,5 +8,8 @@ class RedirectStdout < Redirection
   def type_key
     :out
   end
+  def to_s
+    '> ' + super
+  end
 end
 

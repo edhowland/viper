@@ -32,10 +32,8 @@ class Statement
   def to_s
     @assignments.to_s + ' ' +
     @command.class.name.downcase + ' ' +
-    @args.to_s
+    @args.to_s + ' ' + @redirects.to_s
   end
-  def inspect
-    to_s
-  end
+
 end
 

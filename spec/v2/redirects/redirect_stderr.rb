@@ -5,4 +5,7 @@ class RedirectStderr < RedirectStdout
   def type_key
     :err
   end
+  def to_s
+    '2> ' + super
+  end
 end

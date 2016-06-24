@@ -34,11 +34,21 @@ var_name = < valid_id > { text }
 argument_list = argument_list:a1 space+ argument_list:a2 { a1 + a2 }
           | argument:a { [ a ] }
 
+redirection = '<' -  argument:a { RedirectStdin.new(a) }
+          | '>' - argument:a { RedirectStdout.new(a) }
+          | '2>&1' - argument:a { RedirectStderr.new(a) }
+          | '>>' - argument:a { RedirectStdoutAppend.new(a) }
+
+redirection_list = redirection_list:r1 - redirection_list:r2 { r1 + r2 }
+          | redirection:r { [ r ] }
+
 comment = '#' not_nl*
-statement = assignment_list:a { Statement.new(assignments:a) }
-          | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) }
-          | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) }
-          | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) }
+
+statement = assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) }
+          | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) }
+          | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) }
+          | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) }
+          | command:c - redirection_list:r { Statement.new(command:c, redirections:RedirectionList.new(r)) }
           | command:c { Statement.new(command:c) }
 
 statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
