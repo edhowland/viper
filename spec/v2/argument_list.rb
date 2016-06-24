@@ -2,7 +2,7 @@
 
 class ArgumentList
   def initialize list
-    @storage = list
+    @storage = list || []
   end
   def call frames:
     @storage.map { |e| e.call frames:frames }

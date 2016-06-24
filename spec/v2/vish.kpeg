@@ -1,66 +1,27 @@
-# vish.kpeg - v2 redesign%% name = Vish
 %% name = Vish
 %% {
   attr_accessor :result
 }
 
-eps = ''
 space = " "
-- = space*
-nl = "\n"
-not_nl = /[^\n]/
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
-string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
-          | '"' < /[^"]*/ > '"' {StringLiteral.new(text) }
-
-
 identifier = <valid_id  > { text.to_sym }
+ argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
+argument_list = argument_list:a1 argument_list:a2 { a1 + a2 }
+          | space+ argument:a { [ a ] }
 
-
-# assignments
 assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
 assignment_list = assignment_list:a1 space+ assignment_list:a2 { a1 + a2 }
           | assignment:a { [ a ] }
-# commands
-command = identifier:i { Command.resolve(i) }
+# command
+simple_command = identifier:i { Command.resolve(i) }
 
-# arguments:
-variable =  ':' < valid_id > { Deref.new(text.to_sym) }
-var_name = < valid_id > { text }
- argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
-          | string:s { Argument.new(s) }
-          | variable:v { Argument.new(v) }
 
-argument_list = argument_list:a1 space+ argument_list:a2 { a1 + a2 }
-          | argument:a { [ a ] }
+command = simple_command:c argument_list:a { [ c, a ] }
+          | simple_command:c { [ c ] }
+# statement
+statement = assignment_list:a space+ command:c? { [a, c ] }
+          | assignment_list:a { AssignmentList.new(a) }
+          | command:c { c }
 
-redirection = '<' -  argument:a { RedirectStdin.new(a) }
-          | '>' - argument:a { RedirectStdout.new(a) }
-          | '2>&1' - argument:a { RedirectStderr.new(a) }
-          | '>>' - argument:a { RedirectStdoutAppend.new(a) }
-
-redirection_list = redirection_list:r1 - redirection_list:r2 { r1 + r2 }
-          | redirection:r { [ r ] }
-
-comment = '#' not_nl*
-
-statement = assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) }
-          | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:AssignmentList.new(s), command:c, arguments:ArgumentList.new(a)) }
-          | assignment_list:s space+ command:c { Statement.new(assignments:AssignmentList.new(s), command:c) }
-          | command:c space+ argument_list:a { Statement.new(command:c, arguments:ArgumentList.new(a)) }
-          | command:c - redirection_list:r? { Statement.new(command:c, redirections:RedirectionList.new(r)) }
-#          | command:c { Statement.new(command:c) }
-
-statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
-          | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
-          | statement:s? - comment? { [ s ] }
-
-block = statement_list:s { Block.new(s) }
-          | eps
-
-#root = block:b { @result = b }
-#root = string:s { @result = s }
-#root = argument_list:a { @result = a }
-root = statement:s { @result = s }
-#dummy = redirection_list:r? { RedirectionList.new(r) }
-#root = dummy:d { @result = d }
+root = statement:x { @result = x }

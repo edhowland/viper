@@ -2,8 +2,8 @@
 
 
 class AssignmentList
-  def initialize list=[]
-    @storage = list
+  def initialize list
+    @storage = list || []
   end
   def call frames:
     @storage.each {|a| a.call(frames:frames) }

@@ -22,9 +22,17 @@ def vepl
   loop { print 'vish> '; executor.execute!(Visher.parse!(gets.chomp)) }
 end
 
+def vtos
+  begin
+    loop { print 'vtos'; v=Visher.parse!(gets.chomp);  puts v.to_s }
+  rescue => err
+    puts err.message
+  end
+end
+
 def vdbg
   begin
-    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  puts v.to_s }
+    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  p v }
   rescue => err
     puts err.message
   end
