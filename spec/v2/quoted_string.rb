@@ -8,5 +8,8 @@ class QuotedString
   def call frames:
     @storage.to_s
   end
+  def to_s
+    @storage.to_s
+  end
 end
 

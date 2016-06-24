@@ -35,7 +35,8 @@ argument_list = argument_list:a1 space+ argument_list:a2 { a1 + a2 }
           | argument:a { [ a ] }
 
 comment = '#' not_nl*
-statement = assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) }
+statement = assignment_list:a { Statement.new(assignments:a) }
+          | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) }
           | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) }
           | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) }
           | command:c { Statement.new(command:c) }

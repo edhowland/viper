@@ -9,5 +9,8 @@ class Assignment
   def call frames:
     frames[@left] = @right.call frames:frames
   end
+  def to_s
+    @left.to_s + '=' + @right.to_s
+  end
 end
 

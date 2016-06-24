@@ -13,6 +13,7 @@ class Statement
     @redirects = redirections
     @crossovers = crossovers
   end
+  attr_reader :command
 
   # proceeding in the phase order:
   # set up assignments, redirects and args
@@ -27,6 +28,14 @@ class Statement
     @redirects.call outer_frames:frames, frame:locals do |e, f|
       @command.call args, env:e, frames:f
     end
+  end
+  def to_s
+    @assignments.to_s + ' ' +
+    @command.class.name.downcase + ' ' +
+    @args.to_s
+  end
+  def inspect
+    to_s
   end
 end
 

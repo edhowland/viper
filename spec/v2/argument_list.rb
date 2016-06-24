@@ -7,5 +7,8 @@ class ArgumentList
   def call frames:
     @storage.map { |e| e.call frames:frames }
   end
+  def to_s
+    @storage.map {|a| a.to_s }.join(' ')
+  end
 end
 

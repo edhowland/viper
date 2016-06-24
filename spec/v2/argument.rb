@@ -8,5 +8,8 @@ class Argument
   def call frames:
     @storage.call frames:frames
   end
+  def to_s
+    @storage.to_s
+  end
 end
 

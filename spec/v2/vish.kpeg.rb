@@ -509,7 +509,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) } | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) } | command:c { Statement.new(command:c) })
+  # statement = (assignment_list:a { Statement.new(assignments:a) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) } | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) } | command:c { Statement.new(command:c) })
   def _statement
 
     _save = self.pos
@@ -518,30 +518,28 @@ class Vish < KPeg::CompiledParser
       _save1 = self.pos
       while true # sequence
         _tmp = apply(:_assignment_list)
+        a = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  Statement.new(assignments:a) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_assignment_list)
         s = @result
         unless _tmp
-          self.pos = _save1
-          break
-        end
-        _save2 = self.pos
-        _tmp = apply(:_space)
-        if _tmp
-          while true
-            _tmp = apply(:_space)
-            break unless _tmp
-          end
-          _tmp = true
-        else
           self.pos = _save2
-        end
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_command)
-        c = @result
-        unless _tmp
-          self.pos = _save1
           break
         end
         _save3 = self.pos
@@ -556,19 +554,40 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
         end
         unless _tmp
-          self.pos = _save1
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_command)
+        c = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _save4 = self.pos
+        _tmp = apply(:_space)
+        if _tmp
+          while true
+            _tmp = apply(:_space)
+            break unless _tmp
+          end
+          _tmp = true
+        else
+          self.pos = _save4
+        end
+        unless _tmp
+          self.pos = _save2
           break
         end
         _tmp = apply(:_argument)
         a = @result
         unless _tmp
-          self.pos = _save1
+          self.pos = _save2
           break
         end
         @result = begin;  Statement.new(assignments:s, command:c, arguments:a) ; end
         _tmp = true
         unless _tmp
-          self.pos = _save1
+          self.pos = _save2
         end
         break
       end # end sequence
@@ -576,15 +595,15 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save4 = self.pos
+      _save5 = self.pos
       while true # sequence
         _tmp = apply(:_assignment_list)
         s = @result
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
           break
         end
-        _save5 = self.pos
+        _save6 = self.pos
         _tmp = apply(:_space)
         if _tmp
           while true
@@ -593,22 +612,22 @@ class Vish < KPeg::CompiledParser
           end
           _tmp = true
         else
-          self.pos = _save5
+          self.pos = _save6
         end
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
           break
         end
         _tmp = apply(:_command)
         c = @result
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
           break
         end
         @result = begin;  Statement.new(assignments:s, command:c) ; end
         _tmp = true
         unless _tmp
-          self.pos = _save4
+          self.pos = _save5
         end
         break
       end # end sequence
@@ -616,15 +635,15 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save6 = self.pos
+      _save7 = self.pos
       while true # sequence
         _tmp = apply(:_command)
         c = @result
         unless _tmp
-          self.pos = _save6
+          self.pos = _save7
           break
         end
-        _save7 = self.pos
+        _save8 = self.pos
         _tmp = apply(:_space)
         if _tmp
           while true
@@ -633,22 +652,22 @@ class Vish < KPeg::CompiledParser
           end
           _tmp = true
         else
-          self.pos = _save7
+          self.pos = _save8
         end
         unless _tmp
-          self.pos = _save6
+          self.pos = _save7
           break
         end
         _tmp = apply(:_argument_list)
         a = @result
         unless _tmp
-          self.pos = _save6
+          self.pos = _save7
           break
         end
         @result = begin;  Statement.new(command:c, arguments:a) ; end
         _tmp = true
         unless _tmp
-          self.pos = _save6
+          self.pos = _save7
         end
         break
       end # end sequence
@@ -656,18 +675,18 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save8 = self.pos
+      _save9 = self.pos
       while true # sequence
         _tmp = apply(:_command)
         c = @result
         unless _tmp
-          self.pos = _save8
+          self.pos = _save9
           break
         end
         @result = begin;  Statement.new(command:c) ; end
         _tmp = true
         unless _tmp
-          self.pos = _save8
+          self.pos = _save9
         end
         break
       end # end sequence
@@ -886,7 +905,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_argument] = rule_info("argument", "(< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) } | string:s { Argument.new(s) } | variable:v { Argument.new(v) })")
   Rules[:_argument_list] = rule_info("argument_list", "(argument_list:a1 space+ argument_list:a2 { a1 + a2 } | argument:a { [ a ] })")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
-  Rules[:_statement] = rule_info("statement", "(assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) } | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) } | command:c { Statement.new(command:c) })")
+  Rules[:_statement] = rule_info("statement", "(assignment_list:a { Statement.new(assignments:a) } | assignment_list:s space+ command:c space+ argument:a { Statement.new(assignments:s, command:c, arguments:a) } | assignment_list:s space+ command:c { Statement.new(assignments:s, command:c) } | command:c space+ argument_list:a { Statement.new(command:c, arguments:a) } | command:c { Statement.new(command:c) })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | statement:s? - comment? { [ s ] })")
   Rules[:_block] = rule_info("block", "(statement_list:s { Block.new(s) } | eps)")
   Rules[:_root] = rule_info("root", "statement:s { @result = s }")
