@@ -288,7 +288,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # simple_command = identifier:i { Command.resolve(i) }
+  # simple_command = identifier:i { i }
   def _simple_command
 
     _save = self.pos
@@ -299,7 +299,7 @@ class Vish < KPeg::CompiledParser
         self.pos = _save
         break
       end
-      @result = begin;  Command.resolve(i) ; end
+      @result = begin;  i ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -311,7 +311,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # command = (simple_command:c argument_list:a { [ c, a ] } | simple_command:c { [ c ] })
+  # command = (simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) } | simple_command:c { Command.new(command_name:c)  })
   def _command
 
     _save = self.pos
@@ -331,7 +331,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        @result = begin;  [ c, a ] ; end
+        @result = begin;  Command.new(command_name:c, arguments:ArgumentList.new(a)) ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -350,7 +350,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save2
           break
         end
-        @result = begin;  [ c ] ; end
+        @result = begin;  Command.new(command_name:c)  ; end
         _tmp = true
         unless _tmp
           self.pos = _save2
@@ -367,7 +367,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c } | redirect_expr:r { [ r ] })
+  # statement = (assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) } | redirect_expr:r { [ r ] })
   def _statement
 
     _save = self.pos
@@ -396,18 +396,13 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        _save3 = self.pos
         _tmp = apply(:_command)
         c = @result
-        unless _tmp
-          _tmp = true
-          self.pos = _save3
-        end
         unless _tmp
           self.pos = _save1
           break
         end
-        @result = begin;  [a, c ] ; end
+        @result = begin;  Statement.new(assignments:AssignmentList.new(a), command:c) ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -418,15 +413,34 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save4 = self.pos
+      _save3 = self.pos
       while true # sequence
         _tmp = apply(:_assignment_list)
         a = @result
         unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  Statement.new(assignments:AssignmentList.new(a)) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save4 = self.pos
+      while true # sequence
+        _tmp = apply(:_command)
+        c = @result
+        unless _tmp
           self.pos = _save4
           break
         end
-        @result = begin;  AssignmentList.new(a) ; end
+        @result = begin;  Statement.new(command:c) ; end
         _tmp = true
         unless _tmp
           self.pos = _save4
@@ -439,35 +453,16 @@ class Vish < KPeg::CompiledParser
 
       _save5 = self.pos
       while true # sequence
-        _tmp = apply(:_command)
-        c = @result
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        @result = begin;  c ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save5
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save6 = self.pos
-      while true # sequence
         _tmp = apply(:_redirect_expr)
         r = @result
         unless _tmp
-          self.pos = _save6
+          self.pos = _save5
           break
         end
         @result = begin;  [ r ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save6
+          self.pos = _save5
         end
         break
       end # end sequence
@@ -622,9 +617,9 @@ class Vish < KPeg::CompiledParser
   Rules[:_argument_list] = rule_info("argument_list", "(argument_list:a1 argument_list:a2 { a1 + a2 } | space+ argument:a { [ a ] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
   Rules[:_assignment_list] = rule_info("assignment_list", "(assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })")
-  Rules[:_simple_command] = rule_info("simple_command", "identifier:i { Command.resolve(i) }")
-  Rules[:_command] = rule_info("command", "(simple_command:c argument_list:a { [ c, a ] } | simple_command:c { [ c ] })")
-  Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c } | redirect_expr:r { [ r ] })")
+  Rules[:_simple_command] = rule_info("simple_command", "identifier:i { i }")
+  Rules[:_command] = rule_info("command", "(simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) } | simple_command:c { Command.new(command_name:c)  })")
+  Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) } | redirect_expr:r { [ r ] })")
   Rules[:_redirect_expr] = rule_info("redirect_expr", "(redirect_op - argument space+ statement { :first } | statement space+ redirect_op - argument { :second })")
   Rules[:_root] = rule_info("root", "statement:x { @result = x }")
   # :startdoc:

@@ -6,10 +6,10 @@
 # Phase I : Evaluate all the command expansion/substitution stuff
 # Phase II : Having the context proceed as if the substitutions were substituted. Run the command
 class Statement
-  def initialize assignments:AssignmentList.new([]), command:NullCommand.new, arguments:ArgumentList.new({}), redirections:RedirectionList.new([]), crossovers:[]
+  def initialize assignments:AssignmentList.new([]), command:Command.new(command_name:'null'), redirections:RedirectionList.new([]), crossovers:[]
     @assignments = assignments
     @command = command
-    @args = arguments
+#    @args = arguments
     @redirects = redirections
     @crossovers = crossovers
   end
@@ -23,10 +23,10 @@ class Statement
     locals = frames.clone
     locals.push
     @assignments.call frames:locals
-    args = @args.call frames:frames   # duplicating bash behaviour
+#    args = @args.call frames:frames   # duplicating bash behaviour
     @redirects.crossovers += @crossovers
     @redirects.call outer_frames:frames, frame:locals do |e, f|
-      @command.call args, env:e, frames:f
+      @command.call env:e, frames:f
     end
   end
   def to_s

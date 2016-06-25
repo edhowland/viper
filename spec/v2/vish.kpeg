@@ -16,15 +16,15 @@ assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
 assignment_list = assignment_list:a1 space+ assignment_list:a2 { a1 + a2 }
           | assignment:a { [ a ] }
 # command
-simple_command = identifier:i { Command.resolve(i) }
+simple_command = identifier:i { i }
 
+command = simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) }
+          | simple_command:c { Command.new(command_name:c)  }
 
-command = simple_command:c argument_list:a { [ c, a ] }
-          | simple_command:c { [ c ] }
 # statement
-statement = assignment_list:a space+ command:c? { [a, c ] }
-          | assignment_list:a { AssignmentList.new(a) }
-          | command:c { c }
+statement = assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) }
+          | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) }
+          | command:c { Statement.new(command:c) }
           | redirect_expr:r { [ r ] }
 
 
