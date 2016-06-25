@@ -8,5 +8,8 @@ class Deref
   def call frames:
     frames[@key] || ''
   end
+  def to_s
+    ':' + @key.to_s
+  end
 end
 
