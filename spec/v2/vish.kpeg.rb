@@ -584,18 +584,18 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = statement:x { @result = x }
+  # root = redirect_op:r { @result = r }
   def _root
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_statement)
-      x = @result
+      _tmp = apply(:_redirect_op)
+      r = @result
       unless _tmp
         self.pos = _save
         break
       end
-      @result = begin;  @result = x ; end
+      @result = begin;  @result = r ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -621,6 +621,6 @@ class Vish < KPeg::CompiledParser
   Rules[:_command] = rule_info("command", "(simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) } | simple_command:c { Command.new(command_name:c)  })")
   Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) } | redirect_expr:r { [ r ] })")
   Rules[:_redirect_expr] = rule_info("redirect_expr", "(redirect_op - argument space+ statement { :first } | statement space+ redirect_op - argument { :second })")
-  Rules[:_root] = rule_info("root", "statement:x { @result = x }")
+  Rules[:_root] = rule_info("root", "redirect_op:r { @result = r }")
   # :startdoc:
 end

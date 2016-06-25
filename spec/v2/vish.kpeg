@@ -31,4 +31,5 @@ statement = assignment_list:a space+ command:c { Statement.new(assignments:Assig
 redirect_expr = redirect_op - argument space+ statement { :first }
           | statement space+ redirect_op - argument { :second }
 
+# main entry to root of grammar
 root = statement:x { @result = x }
