@@ -15,6 +15,44 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # - = space*
+  def __hyphen_
+    while true
+      _tmp = apply(:_space)
+      break unless _tmp
+    end
+    _tmp = true
+    set_failed_rule :__hyphen_ unless _tmp
+    return _tmp
+  end
+
+  # redirect_op = ("<" | ">" | ">>" | ">&2" | "2>&1")
+  def _redirect_op
+
+    _save = self.pos
+    while true # choice
+      _tmp = match_string("<")
+      break if _tmp
+      self.pos = _save
+      _tmp = match_string(">")
+      break if _tmp
+      self.pos = _save
+      _tmp = match_string(">>")
+      break if _tmp
+      self.pos = _save
+      _tmp = match_string(">&2")
+      break if _tmp
+      self.pos = _save
+      _tmp = match_string("2>&1")
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_redirect_op unless _tmp
+    return _tmp
+  end
+
   # valid_id = /[_A-Za-z][_A-Za-z0-9]*/
   def _valid_id
     _tmp = scan(/\A(?-mix:[_A-Za-z][_A-Za-z0-9]*)/)
@@ -329,7 +367,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement = (assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c })
+  # statement = (assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c } | redirect_expr:r { [ r ] })
   def _statement
 
     _save = self.pos
@@ -417,10 +455,137 @@ class Vish < KPeg::CompiledParser
 
       break if _tmp
       self.pos = _save
+
+      _save6 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirect_expr)
+        r = @result
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        @result = begin;  [ r ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save6
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
       break
     end # end choice
 
     set_failed_rule :_statement unless _tmp
+    return _tmp
+  end
+
+  # redirect_expr = (redirect_op - argument space+ statement { :first } | statement space+ redirect_op - argument { :second })
+  def _redirect_expr
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirect_op)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_argument)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _save2 = self.pos
+        _tmp = apply(:_space)
+        if _tmp
+          while true
+            _tmp = apply(:_space)
+            break unless _tmp
+          end
+          _tmp = true
+        else
+          self.pos = _save2
+        end
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_statement)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  :first ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = apply(:_statement)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _save4 = self.pos
+        _tmp = apply(:_space)
+        if _tmp
+          while true
+            _tmp = apply(:_space)
+            break unless _tmp
+          end
+          _tmp = true
+        else
+          self.pos = _save4
+        end
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_redirect_op)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_argument)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  :second ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_redirect_expr unless _tmp
     return _tmp
   end
 
@@ -449,6 +614,8 @@ class Vish < KPeg::CompiledParser
 
   Rules = {}
   Rules[:_space] = rule_info("space", "\" \"")
+  Rules[:__hyphen_] = rule_info("-", "space*")
+  Rules[:_redirect_op] = rule_info("redirect_op", "(\"<\" | \">\" | \">>\" | \">&2\" | \"2>&1\")")
   Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9]*/")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_argument] = rule_info("argument", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }")
@@ -457,7 +624,8 @@ class Vish < KPeg::CompiledParser
   Rules[:_assignment_list] = rule_info("assignment_list", "(assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })")
   Rules[:_simple_command] = rule_info("simple_command", "identifier:i { Command.resolve(i) }")
   Rules[:_command] = rule_info("command", "(simple_command:c argument_list:a { [ c, a ] } | simple_command:c { [ c ] })")
-  Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c })")
+  Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c? { [a, c ] } | assignment_list:a { AssignmentList.new(a) } | command:c { c } | redirect_expr:r { [ r ] })")
+  Rules[:_redirect_expr] = rule_info("redirect_expr", "(redirect_op - argument space+ statement { :first } | statement space+ redirect_op - argument { :second })")
   Rules[:_root] = rule_info("root", "statement:x { @result = x }")
   # :startdoc:
 end

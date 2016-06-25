@@ -4,6 +4,8 @@
 }
 
 space = " "
+- = space*
+redirect_op = '<' | '>' | '>>' | '>&2' | '2>&1'
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 identifier = <valid_id  > { text.to_sym }
  argument = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) }
@@ -23,5 +25,10 @@ command = simple_command:c argument_list:a { [ c, a ] }
 statement = assignment_list:a space+ command:c? { [a, c ] }
           | assignment_list:a { AssignmentList.new(a) }
           | command:c { c }
+          | redirect_expr:r { [ r ] }
+
+
+redirect_expr = redirect_op - argument space+ statement { :first }
+          | statement space+ redirect_op - argument { :second }
 
 root = statement:x { @result = x }
