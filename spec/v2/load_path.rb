@@ -10,7 +10,6 @@ require_relative 'argument'
 require_relative 'argument_list'
 require_relative 'command'
 # get all the redirection stuff
-#require_relative 'redirects'
 require_relative 'redirected_statement'
 
 require_relative 'statement'
