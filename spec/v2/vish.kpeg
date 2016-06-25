@@ -5,7 +5,7 @@
 
 space = " "
 - = space*
-redirect_op = '<' | '>' | '>>' | '>&2' | '2>&1'
+redirect_op = < /<|>(>|&2)?|>&2|2>&1|2>/ > { text }
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 identifier = <valid_id  > { text.to_sym }
 string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
@@ -33,11 +33,12 @@ command = simple_command:c argument_list:a { Command.new(command_name:c, argumen
 statement = assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) }
           | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) }
           | command:c { Statement.new(command:c) }
-          | redirect_expr:r { [ r ] }
+          | redirect_expr:r {  r  }
 
 
-redirect_expr = redirect_op - argument space+ statement { :first }
-          | statement space+ redirect_op - argument { :second }
+redirect_expr = redirect_op:r - argument:a space+ statement:s { RedirectedStatement.new(r, a, s) }
+          | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) }
 
 # main entry to root of grammar
 root = statement:x { @result = x }
+#root = redirect_op:x { @result = x }
