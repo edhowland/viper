@@ -31,8 +31,8 @@ class Statement
   end
   def to_s
     @assignments.to_s + ' ' +
-    @command.class.name.downcase + ' ' +
-    @args.to_s + ' ' + @redirects.to_s
+    @command.to_s + ' ' +
+    @redirects.to_s
   end
 
 end
