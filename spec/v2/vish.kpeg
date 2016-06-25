@@ -5,6 +5,8 @@
 
 space = " "
 - = space*
+nl = "\n"
+not_nl = /[^\n]/
 redirect_op = < /<|>(>|&2)?|>&2|2>&1|2>/ > { text }
 valid_id = /[_A-Za-z][_A-Za-z0-9]*/
 identifier = <valid_id  > { text.to_sym }
@@ -23,6 +25,10 @@ argument_list = argument_list:a1 argument_list:a2 { a1 + a2 }
 assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
 assignment_list = assignment_list:a1 space+ assignment_list:a2 { a1 + a2 }
           | assignment:a { [ a ] }
+
+# comments
+comment = '#' not_nl*
+
 # command
 simple_command = identifier:i { i }
 
@@ -38,5 +44,10 @@ redirect_expr = redirect_op:r - argument:a space+ statement:s { RedirectedStatem
           | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) }
           | statement:s { s }
 
+
+statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
+          | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
+          | redirect_expr:r? - comment? { [ r ] }
+
 # main entry to root of grammar
-root = redirect_expr:x { @result = x }
+root = statement_list:x { @result = x }
