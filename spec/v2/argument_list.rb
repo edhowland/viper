@@ -5,10 +5,10 @@ class ArgumentList
     @storage = list || []
   end
   def call frames:
-    @storage.map { |e| e.call frames:frames }
+    @storage.map { |e| e.call frames:frames }.flatten
   end
   def to_s
-    @storage.map {|a| a.to_s }.join(' ')
+    @storage.map {|a| a.to_s }.flatten.join(' ')
   end
 end
 

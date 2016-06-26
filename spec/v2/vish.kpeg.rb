@@ -206,7 +206,59 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # argument = (< /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) } | string:s { Argument.new(s) } | variable:v { Argument.new(v) })
+  # bare_string = < /[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }
+  def _bare_string
+
+    _save = self.pos
+    while true # sequence
+      _text_start = self.pos
+      _tmp = scan(/\A(?-mix:[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*)/)
+      if _tmp
+        text = get_text(_text_start)
+      end
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  StringLiteral.new(text) ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_bare_string unless _tmp
+    return _tmp
+  end
+
+  # glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
+  def _glob
+
+    _save = self.pos
+    while true # sequence
+      _text_start = self.pos
+      _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
+      if _tmp
+        text = get_text(_text_start)
+      end
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  Glob.new(StringLiteral.new(text)) ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_glob unless _tmp
+    return _tmp
+  end
+
+  # argument = (glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) })
   def _argument
 
     _save = self.pos
@@ -214,16 +266,13 @@ class Vish < KPeg::CompiledParser
 
       _save1 = self.pos
       while true # sequence
-        _text_start = self.pos
-        _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
-        if _tmp
-          text = get_text(_text_start)
-        end
+        _tmp = apply(:_glob)
+        g = @result
         unless _tmp
           self.pos = _save1
           break
         end
-        @result = begin;  Argument.new(StringLiteral.new(text)) ; end
+        @result = begin;  g ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -255,16 +304,35 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
+        _tmp = apply(:_bare_string)
+        s = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  Argument.new(s) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save4 = self.pos
+      while true # sequence
         _tmp = apply(:_variable)
         v = @result
         unless _tmp
-          self.pos = _save3
+          self.pos = _save4
           break
         end
         @result = begin;  Argument.new(v) ; end
         _tmp = true
         unless _tmp
-          self.pos = _save3
+          self.pos = _save4
         end
         break
       end # end sequence
@@ -902,12 +970,35 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = statement_list:x { @result = x }
-  def _root
+  # block = statement_list:s { Block.new(s) }
+  def _block
 
     _save = self.pos
     while true # sequence
       _tmp = apply(:_statement_list)
+      s = @result
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  Block.new(s) ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_block unless _tmp
+    return _tmp
+  end
+
+  # root = block:x { @result = x }
+  def _root
+
+    _save = self.pos
+    while true # sequence
+      _tmp = apply(:_block)
       x = @result
       unless _tmp
         self.pos = _save
@@ -935,7 +1026,9 @@ class Vish < KPeg::CompiledParser
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { QuotedString.new(text) } | \"\\\"\" < /[^\"]*/ > \"\\\"\" {StringLiteral.new(text) })")
   Rules[:_variable] = rule_info("variable", "\":\" < valid_id > { Deref.new(text.to_sym) }")
-  Rules[:_argument] = rule_info("argument", "(< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Argument.new(StringLiteral.new(text)) } | string:s { Argument.new(s) } | variable:v { Argument.new(v) })")
+  Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_0-9A-Za-z][\\/\\.\\-\\{\\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }")
+  Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
+  Rules[:_argument] = rule_info("argument", "(glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) })")
   Rules[:_argument_list] = rule_info("argument_list", "(argument_list:a1 argument_list:a2 { a1 + a2 } | space+ argument:a { [ a ] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
   Rules[:_assignment_list] = rule_info("assignment_list", "(assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })")
@@ -945,6 +1038,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) })")
   Rules[:_redirect_expr] = rule_info("redirect_expr", "(redirect_op:r - argument:a space+ statement:s { RedirectedStatement.new(r, a, s) } | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) } | statement:s { s })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | redirect_expr:r? - comment? { [ r ] })")
-  Rules[:_root] = rule_info("root", "statement_list:x { @result = x }")
+  Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
+  Rules[:_root] = rule_info("root", "block:x { @result = x }")
   # :startdoc:
 end
