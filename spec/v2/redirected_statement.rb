@@ -11,7 +11,9 @@ class RedirectedStatement
     @statement = statement
   end
   def call env:, frames:
-    File.open(@target.call(frames:frames), @mode) do |f|
+    expanded_target = @target.call frames:frames  # might be string or rarray
+    actual_target = (expanded_target.instance_of?(Array) ? expanded_target[0] : expanded_target)
+    File.open(actual_target, @mode) do |f|
       new_env = env.clone
       new_env[@key] = f
       @statement.call env:new_env, frames:frames

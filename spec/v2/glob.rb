@@ -8,7 +8,9 @@ class Glob
   end
   def call frames:
     derefed_pattern = @pattern.call frames:frames
-    Dir[derefed_pattern]
+    result = Dir[derefed_pattern]
+    return derefed_pattern if result.empty?
+    result
   end
   def to_s
     @pattern.to_s
