@@ -15,6 +15,7 @@ require_relative 'redirected_statement'
 
 require_relative 'statement'
 require_relative 'block'
+require_relative 'pipe'
 
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
