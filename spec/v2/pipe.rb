@@ -8,14 +8,18 @@ class Pipe
     @right=right
   end
   def call env:, frames:
-    io = StringIO.new('w')
-    my_env = env.clone
-    my_env[:out] = io
-    first_result = @left.call env:my_env, frames:frames
+    io = StringIO.new
+    env.push
+    env[:out] = io
+    first_result = @left.call env:env, frames:frames
+    env.pop
     io.close_write
     io.rewind
-    next_env = env.clone
-    next_env[:in] = io
-    second_result = @right.call env:next_env, frames:frames
+    env.push
+    env[:in] = io
+    second_result = @right.call env:env, frames:frames
+    env.pop
+    io.close_read
+    second_result
   end
 end
