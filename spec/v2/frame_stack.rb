@@ -7,7 +7,11 @@ class FrameStack
   end
     def [] sym
     result = @frames.reduce('') do |i, j|
-      j[sym] || i 
+    if j.has_key? sym
+        j[sym]
+      else
+        i
+      end
     end
     result  #.to_s
   end
@@ -30,6 +34,9 @@ class FrameStack
   end
   def values
     @frames[-1].values
+  end
+  def top
+    @frames[-1]
   end
   def length
     @frames.length

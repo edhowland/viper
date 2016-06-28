@@ -21,8 +21,12 @@ class Statement
     sorted.reject!(&:nil?)
     c, *args = sorted
     command = Command.resolve(c)
+    closers = local_ios.values
+    local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
+
     result = command.call *args,  env:local_ios, frames:local_vars
-    local_ios.values.each {|f| f.close }
+
+    closers.each {|f| f.close }
     local_ios.pop
     local_vars.pop
     local_vars[:exit_status] = result

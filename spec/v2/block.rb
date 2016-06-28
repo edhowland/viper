@@ -7,7 +7,9 @@ class Block
   end
   attr_reader :statement_list
   def call env:, frames:
+    frames[:exit_status] = true
     @statement_list.each {|s| s.call env:env, frames:frames }
+    frames[:exit_status]
   end
   def to_s
     @statement_list.map {|s| s.to_s }.join(';')

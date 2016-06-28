@@ -54,7 +54,7 @@ context = context:c1 space+ context:c2 { c1 + c2 }
 
 statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
-          | context:c { Statement.new c }
+          | context:c { [ Statement.new(c) ] }
 
 #          | redirect_expr:r? - comment? { [ r ] }
 
@@ -66,6 +66,6 @@ block = statement_list:s { Block.new(s) }
 ####### experimental
 ####### end of experimental
 # main entry to root of grammar
-root = statement_list:x { @result = x }
-#root = block:x { @result = x }
+#root = statement_list:x { @result = x }
+root = block:x { @result = x }
 #root = context:x { @result = x }

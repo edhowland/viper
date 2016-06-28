@@ -673,7 +673,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { Statement.new c })
+  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { [ Statement.new(c) ] })
   def _statement_list
 
     _save = self.pos
@@ -767,7 +767,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save3
           break
         end
-        @result = begin;  Statement.new c ; end
+        @result = begin;  [ Statement.new(c) ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
@@ -807,12 +807,12 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = statement_list:x { @result = x }
+  # root = block:x { @result = x }
   def _root
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_statement_list)
+      _tmp = apply(:_block)
       x = @result
       unless _tmp
         self.pos = _save
@@ -850,8 +850,8 @@ class Vish < KPeg::CompiledParser
   Rules[:_redirection] = rule_info("redirection", "redirect_op:r - argument:a { Redirection.new(r, a) }")
   Rules[:_element] = rule_info("element", "(assignment | argument | redirection)")
   Rules[:_context] = rule_info("context", "(context:c1 space+ context:c2 { c1 + c2 } | element:e { [ e ] })")
-  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { Statement.new c })")
+  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { [ Statement.new(c) ] })")
   Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
-  Rules[:_root] = rule_info("root", "statement_list:x { @result = x }")
+  Rules[:_root] = rule_info("root", "block:x { @result = x }")
   # :startdoc:
 end
