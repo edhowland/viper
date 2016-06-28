@@ -2,26 +2,19 @@
 # runnable commands, aliases or functions
 
 class Command
-  def initialize command_name:, arguments:ArgumentList.new([])
-    @command = self.class.resolve command_name
-    @args = arguments
-  end
   class << self
       # fake it till you make it
     def resolve id
-      klass = Kernel.const_get id.to_s.capitalize
-      result = klass.new unless klass.nil?
-      result || NullCommand.new
+      return Null.new if (id.nil? || id.empty?)
+      begin
+        klass = Kernel.const_get id.to_s.capitalize
+        result = klass.new
+        result
+      rescue => err
+        $stderr.puts "Command: #{id}: not found"
+        Bad.new
+      end
     end
-  end
-
-
-  def call env:, frames:
-    args = @args.call frames:frames   # duplicating bash behaviour
-      @command.call args, env:env, frames:frames
-  end
-  def to_s
-    @command.class.name.downcase + ' ' + @args.to_s
   end
 end
 

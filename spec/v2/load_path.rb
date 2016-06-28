@@ -21,3 +21,5 @@ require_relative 'pipe'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'visher'
+
+require_relative 'virtual_machine'
