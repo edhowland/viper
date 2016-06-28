@@ -32,21 +32,6 @@ assignment_list = assignment_list:a1 space+ assignment_list:a2 { a1 + a2 }
 # comments
 comment = '#' not_nl*
 
-# command
-#simple_command = identifier:i { i }
-
-#command = simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) }
-#          | simple_command:c { Command.new(command_name:c)  }
-
-# statement
-#statement = assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) }
-#          | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) }
-#          | command:c { Statement.new(command:c) }
-
-#redirect_expr = redirect_op:r - argument:a space+ statement:s { RedirectedStatement.new(r, a, s) }
-#          | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) }
-#          | statement:s { s }
-
 redirection = redirect_op:r - argument:a { Redirection.new(r, a) }
 element = assignment | argument | redirection
 context = context:c1 space+ context:c2 { c1 + c2 }
