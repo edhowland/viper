@@ -4,5 +4,6 @@
 class Null
   def call env:, frames:
     frames.merge
+    true
   end
 end

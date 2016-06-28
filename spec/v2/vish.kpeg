@@ -20,14 +20,9 @@ glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLit
           | string:s { Argument.new(s) }
           | bare_string:s { Argument.new(s) }
           | variable:v { Argument.new(v) }
-          
 
-argument_list = argument_list:a1 argument_list:a2 { a1 + a2 }
-          | space+ argument:a { [ a ] }
 
 assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
-assignment_list = assignment_list:a1 space+ assignment_list:a2 { a1 + a2 }
-          | assignment:a { [ a ] }
 
 # comments
 comment = '#' not_nl*
@@ -41,16 +36,7 @@ statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
           | context:c { [ Statement.new(c) ] }
 
-#          | redirect_expr:r? - comment? { [ r ] }
-
-
 block = statement_list:s { Block.new(s) }
 
-
-
-####### experimental
-####### end of experimental
 # main entry to root of grammar
-#root = statement_list:x { @result = x }
 root = block:x { @result = x }
-#root = context:x { @result = x }

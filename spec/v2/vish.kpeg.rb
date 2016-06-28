@@ -346,77 +346,6 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # argument_list = (argument_list:a1 argument_list:a2 { a1 + a2 } | space+ argument:a { [ a ] })
-  def _argument_list
-
-    _save = self.pos
-    while true # choice
-
-      _save1 = self.pos
-      while true # sequence
-        _tmp = apply(:_argument_list)
-        a1 = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_argument_list)
-        a2 = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        @result = begin;  a1 + a2 ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save1
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save2 = self.pos
-      while true # sequence
-        _save3 = self.pos
-        _tmp = apply(:_space)
-        if _tmp
-          while true
-            _tmp = apply(:_space)
-            break unless _tmp
-          end
-          _tmp = true
-        else
-          self.pos = _save3
-        end
-        unless _tmp
-          self.pos = _save2
-          break
-        end
-        _tmp = apply(:_argument)
-        a = @result
-        unless _tmp
-          self.pos = _save2
-          break
-        end
-        @result = begin;  [ a ] ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save2
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-      break
-    end # end choice
-
-    set_failed_rule :_argument_list unless _tmp
-    return _tmp
-  end
-
   # assignment = identifier:i "=" argument:a { Assignment.new(i, a) }
   def _assignment
 
@@ -448,77 +377,6 @@ class Vish < KPeg::CompiledParser
     end # end sequence
 
     set_failed_rule :_assignment unless _tmp
-    return _tmp
-  end
-
-  # assignment_list = (assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })
-  def _assignment_list
-
-    _save = self.pos
-    while true # choice
-
-      _save1 = self.pos
-      while true # sequence
-        _tmp = apply(:_assignment_list)
-        a1 = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _save2 = self.pos
-        _tmp = apply(:_space)
-        if _tmp
-          while true
-            _tmp = apply(:_space)
-            break unless _tmp
-          end
-          _tmp = true
-        else
-          self.pos = _save2
-        end
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_assignment_list)
-        a2 = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        @result = begin;  a1 + a2 ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save1
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save3 = self.pos
-      while true # sequence
-        _tmp = apply(:_assignment)
-        a = @result
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        @result = begin;  [ a ] ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save3
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-      break
-    end # end choice
-
-    set_failed_rule :_assignment_list unless _tmp
     return _tmp
   end
 
@@ -843,9 +701,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_0-9A-Za-z][\\/\\.\\-\\{\\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }")
   Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
   Rules[:_argument] = rule_info("argument", "(glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) })")
-  Rules[:_argument_list] = rule_info("argument_list", "(argument_list:a1 argument_list:a2 { a1 + a2 } | space+ argument:a { [ a ] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
-  Rules[:_assignment_list] = rule_info("assignment_list", "(assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_redirection] = rule_info("redirection", "redirect_op:r - argument:a { Redirection.new(r, a) }")
   Rules[:_element] = rule_info("element", "(assignment | argument | redirection)")
