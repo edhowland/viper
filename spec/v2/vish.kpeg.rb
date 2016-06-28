@@ -547,18 +547,29 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # simple_command = identifier:i { i }
-  def _simple_command
+  # redirection = redirect_op:r - argument:a { Redirection.new(r, a) }
+  def _redirection
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_identifier)
-      i = @result
+      _tmp = apply(:_redirect_op)
+      r = @result
       unless _tmp
         self.pos = _save
         break
       end
-      @result = begin;  i ; end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:_argument)
+      a = @result
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  Redirection.new(r, a) ; end
       _tmp = true
       unless _tmp
         self.pos = _save
@@ -566,76 +577,41 @@ class Vish < KPeg::CompiledParser
       break
     end # end sequence
 
-    set_failed_rule :_simple_command unless _tmp
+    set_failed_rule :_redirection unless _tmp
     return _tmp
   end
 
-  # command = (simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) } | simple_command:c { Command.new(command_name:c)  })
-  def _command
+  # element = (assignment | argument | redirection)
+  def _element
 
     _save = self.pos
     while true # choice
-
-      _save1 = self.pos
-      while true # sequence
-        _tmp = apply(:_simple_command)
-        c = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_argument_list)
-        a = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        @result = begin;  Command.new(command_name:c, arguments:ArgumentList.new(a)) ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save1
-        end
-        break
-      end # end sequence
-
+      _tmp = apply(:_assignment)
       break if _tmp
       self.pos = _save
-
-      _save2 = self.pos
-      while true # sequence
-        _tmp = apply(:_simple_command)
-        c = @result
-        unless _tmp
-          self.pos = _save2
-          break
-        end
-        @result = begin;  Command.new(command_name:c)  ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save2
-        end
-        break
-      end # end sequence
-
+      _tmp = apply(:_argument)
+      break if _tmp
+      self.pos = _save
+      _tmp = apply(:_redirection)
       break if _tmp
       self.pos = _save
       break
     end # end choice
 
-    set_failed_rule :_command unless _tmp
+    set_failed_rule :_element unless _tmp
     return _tmp
   end
 
-  # statement = (assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) })
-  def _statement
+  # context = (context:c1 space+ context:c2 { c1 + c2 } | element:e { [ e ] })
+  def _context
 
     _save = self.pos
     while true # choice
 
       _save1 = self.pos
       while true # sequence
-        _tmp = apply(:_assignment_list)
-        a = @result
+        _tmp = apply(:_context)
+        c1 = @result
         unless _tmp
           self.pos = _save1
           break
@@ -655,13 +631,13 @@ class Vish < KPeg::CompiledParser
           self.pos = _save1
           break
         end
-        _tmp = apply(:_command)
-        c = @result
+        _tmp = apply(:_context)
+        c2 = @result
         unless _tmp
           self.pos = _save1
           break
         end
-        @result = begin;  Statement.new(assignments:AssignmentList.new(a), command:c) ; end
+        @result = begin;  c1 + c2 ; end
         _tmp = true
         unless _tmp
           self.pos = _save1
@@ -674,35 +650,16 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
-        _tmp = apply(:_assignment_list)
-        a = @result
+        _tmp = apply(:_element)
+        e = @result
         unless _tmp
           self.pos = _save3
           break
         end
-        @result = begin;  Statement.new(assignments:AssignmentList.new(a)) ; end
+        @result = begin;  [ e ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save4 = self.pos
-      while true # sequence
-        _tmp = apply(:_command)
-        c = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        @result = begin;  Statement.new(command:c) ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save4
         end
         break
       end # end sequence
@@ -712,134 +669,11 @@ class Vish < KPeg::CompiledParser
       break
     end # end choice
 
-    set_failed_rule :_statement unless _tmp
+    set_failed_rule :_context unless _tmp
     return _tmp
   end
 
-  # redirect_expr = (redirect_op:r - argument:a space+ statement:s { RedirectedStatement.new(r, a, s) } | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) } | statement:s { s })
-  def _redirect_expr
-
-    _save = self.pos
-    while true # choice
-
-      _save1 = self.pos
-      while true # sequence
-        _tmp = apply(:_redirect_op)
-        r = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_argument)
-        a = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _save2 = self.pos
-        _tmp = apply(:_space)
-        if _tmp
-          while true
-            _tmp = apply(:_space)
-            break unless _tmp
-          end
-          _tmp = true
-        else
-          self.pos = _save2
-        end
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        _tmp = apply(:_statement)
-        s = @result
-        unless _tmp
-          self.pos = _save1
-          break
-        end
-        @result = begin;  RedirectedStatement.new(r, a, s) ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save1
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save3 = self.pos
-      while true # sequence
-        _tmp = apply(:_statement)
-        s = @result
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _tmp = apply(:_redirect_op)
-        r = @result
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _tmp = apply(:_argument)
-        a = @result
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        @result = begin;  RedirectedStatement.new(r, a, s) ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save3
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-
-      _save4 = self.pos
-      while true # sequence
-        _tmp = apply(:_statement)
-        s = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        @result = begin;  s ; end
-        _tmp = true
-        unless _tmp
-          self.pos = _save4
-        end
-        break
-      end # end sequence
-
-      break if _tmp
-      self.pos = _save
-      break
-    end # end choice
-
-    set_failed_rule :_redirect_expr unless _tmp
-    return _tmp
-  end
-
-  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | redirect_expr:r? - comment? { [ r ] })
+  # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { Statement.new c })
   def _statement_list
 
     _save = self.pos
@@ -927,33 +761,13 @@ class Vish < KPeg::CompiledParser
 
       _save3 = self.pos
       while true # sequence
-        _save4 = self.pos
-        _tmp = apply(:_redirect_expr)
-        r = @result
-        unless _tmp
-          _tmp = true
-          self.pos = _save4
-        end
+        _tmp = apply(:_context)
+        c = @result
         unless _tmp
           self.pos = _save3
           break
         end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        _save5 = self.pos
-        _tmp = apply(:_comment)
-        unless _tmp
-          _tmp = true
-          self.pos = _save5
-        end
-        unless _tmp
-          self.pos = _save3
-          break
-        end
-        @result = begin;  [ r ] ; end
+        @result = begin;  Statement.new c ; end
         _tmp = true
         unless _tmp
           self.pos = _save3
@@ -993,12 +807,12 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # root = block:x { @result = x }
+  # root = statement_list:x { @result = x }
   def _root
 
     _save = self.pos
     while true # sequence
-      _tmp = apply(:_block)
+      _tmp = apply(:_statement_list)
       x = @result
       unless _tmp
         self.pos = _save
@@ -1033,12 +847,11 @@ class Vish < KPeg::CompiledParser
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
   Rules[:_assignment_list] = rule_info("assignment_list", "(assignment_list:a1 space+ assignment_list:a2 { a1 + a2 } | assignment:a { [ a ] })")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
-  Rules[:_simple_command] = rule_info("simple_command", "identifier:i { i }")
-  Rules[:_command] = rule_info("command", "(simple_command:c argument_list:a { Command.new(command_name:c, arguments:ArgumentList.new(a)) } | simple_command:c { Command.new(command_name:c)  })")
-  Rules[:_statement] = rule_info("statement", "(assignment_list:a space+ command:c { Statement.new(assignments:AssignmentList.new(a), command:c) } | assignment_list:a { Statement.new(assignments:AssignmentList.new(a)) } | command:c { Statement.new(command:c) })")
-  Rules[:_redirect_expr] = rule_info("redirect_expr", "(redirect_op:r - argument:a space+ statement:s { RedirectedStatement.new(r, a, s) } | statement:s - redirect_op:r - argument:a { RedirectedStatement.new(r, a, s) } | statement:s { s })")
-  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | redirect_expr:r? - comment? { [ r ] })")
+  Rules[:_redirection] = rule_info("redirection", "redirect_op:r - argument:a { Redirection.new(r, a) }")
+  Rules[:_element] = rule_info("element", "(assignment | argument | redirection)")
+  Rules[:_context] = rule_info("context", "(context:c1 space+ context:c2 { c1 + c2 } | element:e { [ e ] })")
+  Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | context:c { Statement.new c })")
   Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
-  Rules[:_root] = rule_info("root", "block:x { @result = x }")
+  Rules[:_root] = rule_info("root", "statement_list:x { @result = x }")
   # :startdoc:
 end

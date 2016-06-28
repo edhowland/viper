@@ -1,5 +1,5 @@
 def mkenv
-  {in: $stdin, out: $stdout, err: $stderr}
+  FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}])
 end
 
 def m

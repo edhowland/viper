@@ -1,31 +1,35 @@
 # statement - classStatement - statement node in AST
 
-# Represents a statement of the form:
-# [var=val ...] command [arg1 arg2 ...] [redirection_op target ...] (# comment)?
-# At runtime, the statement proceeds in 2 phases:
-# Phase I : Evaluate all the command expansion/substitution stuff
-# Phase II : Having the context proceed as if the substitutions were substituted. Run the command
-class Statement
-  def initialize assignments:AssignmentList.new([]), command:Command.new(command_name:'null')
-    @assignments = assignments
-    @command = command
-  end
-  attr_reader :command
+require_relative 'context_constants'
 
-  # proceeding in the phase order:
-  # set up assignments, redirects and args
-  # Then pass a block to redirection_list.call
+class Statement
+  def initialize context=[]
+    @context = context
+  end
+  attr_reader :context
+
+  # sort the @context array by ordinal numbertake any command args and move them
+  # the assignments and command. The command is the first arg or glob or deref.
+  # the args are the rest of the array.
   def call env:, frames:
-    locals = frames.clone
-    locals.push
-    @assignments.call frames:locals
-    @command.call env:env, frames:frames
+    local_vars = frames
+    local_vars.push
+    local_ios = env
+    local_ios.push
+    sorted = @context.sort {|a, b| a.ordinal <=> b.ordinal }
+    sorted.map! {|e| e.call env:local_ios, frames:local_vars }
+    sorted.reject!(&:nil?)
+    c, *args = sorted
+    command = Command.resolve(c)
+    result = command.call *args,  env:local_ios, frames:local_vars
+    local_ios.values.each {|f| f.close }
+    local_ios.pop
+    local_vars.pop
+    local_vars[:exit_status] = result
+    result
   end
   def to_s
-    @assignments.to_s + ' ' +
-    @command.to_s + ' ' +
-    @redirects.to_s
+    @context.map {|e| e.to_s }.join(' ')
   end
-
 end
 

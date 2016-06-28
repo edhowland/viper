@@ -9,7 +9,7 @@ class FrameStack
     result = @frames.reduce('') do |i, j|
       j[sym] || i 
     end
-    result.to_s
+    result  #.to_s
   end
   def []= key, value
     @frames[-1][key] = value
@@ -18,11 +18,24 @@ class FrameStack
   def push
     @frames.push({})
   end
-  # pop the last frame (presumably the assignment frame) and merge it back to the
-  # previous frame
-  def pop_and_store
-    locals = @frames.pop
-    @frames[-1].merge! locals
+  # merge the top 2 levels on the stack
+  def merge
+    @frames[-2].merge! @frames[-1]
+  end
+  def pop
+    @frames.pop
+  end
+  def keys
+    @frames[-1].keys
+  end
+  def values
+    @frames[-1].values
+  end
+  def length
+    @frames.length
+  end
+  def depth
+    length
   end
 end
 

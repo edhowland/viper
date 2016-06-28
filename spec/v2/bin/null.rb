@@ -2,7 +2,7 @@
 
 
 class Null
-  def call frames:
-    frames.pop_and_store
+  def call env:, frames:
+    frames.merge
   end
 end

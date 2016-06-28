@@ -10,7 +10,8 @@ class Command
       # fake it till you make it
     def resolve id
       klass = Kernel.const_get id.to_s.capitalize
-      klass.new unless klass.nil?
+      result = klass.new unless klass.nil?
+      result || NullCommand.new
     end
   end
 
