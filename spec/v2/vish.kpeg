@@ -15,6 +15,7 @@ string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
 
 variable =  ':' < valid_id > { Deref.new(text.to_sym) }
 function_name = < valid_id > { text }
+
 bare_string =  < /[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }
 glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
  argument = glob:g { g }
@@ -22,6 +23,8 @@ glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLit
           | bare_string:s { Argument.new(s) }
           | variable:v { Argument.new(v) }
 
+function_args = function_args:a1 - ',' - function_args:a2 { a1 + a2 }
+          | identifier:a { [ a ] }
 
 assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
 
@@ -42,7 +45,7 @@ expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
           | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
           | '(' - expression - ')'
           | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
-          | 'function' - function_name:i '()' - '{' - block:b - '}' { [ FunctionDeclaration.new(i, [], b) ] }
+          | 'function' - function_name:i '(' - function_args:a - ')' - '{' - block:b - '}' { [ FunctionDeclaration.new(i, a, b) ] }
           | context:c { [ Statement.new(c) ] }
 
 block = statement_list:s { Block.new(s) }

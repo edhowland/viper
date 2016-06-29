@@ -9,6 +9,8 @@ class Function
   end
   def call *args, env:, frames:
     frames.push
+    bound = @args.zip(args).to_h  # bind any passed arguments to this hash
+    frames.top.merge! bound        # these are now variables within this context
     result = @block.call env:env, frames:frames
     frames.pop
     result
