@@ -7,11 +7,24 @@ class Statement
     @context = context
   end
   attr_reader :context
+  def call_expanded env:, frames:
+    string = @context.map {|e| e.to_s }.join(' ')
+    block = Visher.parse! string
+    block.call env:env, frames:frames
+  end
 
   # sort the @context array by ordinal numbertake any command args and move them
   # the assignments and command. The command is the first arg or glob or deref.
   # the args are the rest of the array.
   def call env:, frames:
+    # check if we have an alias expansion
+    possible_alias = @context.find {|e| e.ordinal == COMMAND }
+    real_alias = possible_alias.to_s
+    expansion = frames.aliases[real_alias]
+    unless expansion.nil?
+      @context[@context.index(possible_alias)] = StringLiteral.new(expansion)
+      call_expanded env:env, frames:frames
+    else
     local_vars = frames
     local_vars.push
     local_ios = env
@@ -31,6 +44,7 @@ class Statement
     local_vars.pop
     local_vars[:exit_status] = result
     result
+  end
   end
   def to_s
     @context.map {|e| e.to_s }.join(' ')

@@ -5,8 +5,9 @@ class FrameStack
   def initialize frames:[{}]
     @frames = frames
     @functions = {}
+    @aliases = {}
   end
-  attr_accessor :functions
+  attr_accessor :functions, :aliases
     def [] sym
     result = @frames.reduce('') do |i, j|
     if j.has_key? sym

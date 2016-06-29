@@ -36,4 +36,7 @@ class Redirection
   def ordinal
     REDIR
   end
+  def to_s
+    @op + ' ' + @target.to_s
+  end
 end
