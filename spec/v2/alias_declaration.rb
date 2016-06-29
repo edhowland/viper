@@ -6,6 +6,8 @@ class AliasDeclaration
     @expansion = expansion
   end
   def call env:, frames:
-    frames.aliases[@name] = @expansion
+    string = @expansion.call env:env, frames:frames
+    frames.aliases[@name] = string
+
   end
 end

@@ -41,6 +41,7 @@ expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
           | expression:l - '&&' - expression:r { [ BooleanAnd.new(l[0], r[0]) ] }
           | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
           | '(' - expression - ')'
+          | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
           | 'function' - function_name:i '()' - '{' - block:b - '}' { [ FunctionDeclaration.new(i, [], b) ] }
           | context:c { [ Statement.new(c) ] }
 

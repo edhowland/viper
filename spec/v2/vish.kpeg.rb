@@ -652,7 +652,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | "(" - expression - ")" | "function" - function_name:i "()" - "{" - block:b - "}" { [ FunctionDeclaration.new(i, [], b) ] } | context:c { [ Statement.new(c) ] })
+  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | "(" - expression - ")" | "alias" space+ function_name:f "=" argument:a {[ AliasDeclaration.new(f, a) ] } | "function" - function_name:i "()" - "{" - block:b - "}" { [ FunctionDeclaration.new(i, [], b) ] } | context:c { [ Statement.new(c) ] })
   def _expression
 
     _save = self.pos
@@ -812,59 +812,44 @@ class Vish < KPeg::CompiledParser
 
       _save5 = self.pos
       while true # sequence
-        _tmp = match_string("function")
+        _tmp = match_string("alias")
         unless _tmp
           self.pos = _save5
           break
         end
-        _tmp = apply(:__hyphen_)
+        _save6 = self.pos
+        _tmp = apply(:_space)
+        if _tmp
+          while true
+            _tmp = apply(:_space)
+            break unless _tmp
+          end
+          _tmp = true
+        else
+          self.pos = _save6
+        end
         unless _tmp
           self.pos = _save5
           break
         end
         _tmp = apply(:_function_name)
-        i = @result
+        f = @result
         unless _tmp
           self.pos = _save5
           break
         end
-        _tmp = match_string("()")
+        _tmp = match_string("=")
         unless _tmp
           self.pos = _save5
           break
         end
-        _tmp = apply(:__hyphen_)
+        _tmp = apply(:_argument)
+        a = @result
         unless _tmp
           self.pos = _save5
           break
         end
-        _tmp = match_string("{")
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        _tmp = apply(:_block)
-        b = @result
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        _tmp = match_string("}")
-        unless _tmp
-          self.pos = _save5
-          break
-        end
-        @result = begin;  [ FunctionDeclaration.new(i, [], b) ] ; end
+        @result = begin; [ AliasDeclaration.new(f, a) ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save5
@@ -875,18 +860,83 @@ class Vish < KPeg::CompiledParser
       break if _tmp
       self.pos = _save
 
-      _save6 = self.pos
+      _save7 = self.pos
+      while true # sequence
+        _tmp = match_string("function")
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:_function_name)
+        i = @result
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = match_string("()")
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = match_string("{")
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:_block)
+        b = @result
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        _tmp = match_string("}")
+        unless _tmp
+          self.pos = _save7
+          break
+        end
+        @result = begin;  [ FunctionDeclaration.new(i, [], b) ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save7
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save8 = self.pos
       while true # sequence
         _tmp = apply(:_context)
         c = @result
         unless _tmp
-          self.pos = _save6
+          self.pos = _save8
           break
         end
         @result = begin;  [ Statement.new(c) ] ; end
         _tmp = true
         unless _tmp
-          self.pos = _save6
+          self.pos = _save8
         end
         break
       end # end sequence
@@ -966,7 +1016,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_element] = rule_info("element", "(assignment | argument | redirection)")
   Rules[:_context] = rule_info("context", "(context:c1 space+ context:c2 { c1 + c2 } | element:e { [ e ] })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)")
-  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | \"(\" - expression - \")\" | \"function\" - function_name:i \"()\" - \"{\" - block:b - \"}\" { [ FunctionDeclaration.new(i, [], b) ] } | context:c { [ Statement.new(c) ] })")
+  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | \"(\" - expression - \")\" | \"alias\" space+ function_name:f \"=\" argument:a {[ AliasDeclaration.new(f, a) ] } | \"function\" - function_name:i \"()\" - \"{\" - block:b - \"}\" { [ FunctionDeclaration.new(i, [], b) ] } | context:c { [ Statement.new(c) ] })")
   Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
   Rules[:_root] = rule_info("root", "block:x { @result = x }")
   # :startdoc:
