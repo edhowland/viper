@@ -12,6 +12,8 @@ require_relative 'redirection'
 require_relative 'statement'
 require_relative 'block'
 require_relative 'pipe'
+require_relative 'boolean_and'
+require_relative 'boolean_or'
 
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }

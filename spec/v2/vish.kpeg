@@ -37,6 +37,8 @@ statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | expression
 
 expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
+          | expression:l - '&&' - expression:r { [ BooleanAnd.new(l[0], r[0]) ] }
+          | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
           | context:c { [ Statement.new(c) ] }
 
 block = statement_list:s { Block.new(s) }
