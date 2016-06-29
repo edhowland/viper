@@ -14,7 +14,8 @@ require_relative 'block'
 require_relative 'pipe'
 require_relative 'boolean_and'
 require_relative 'boolean_or'
-
+require_relative 'function'
+require_relative 'function_declaration'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'visher'

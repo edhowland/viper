@@ -4,8 +4,10 @@
 class Command
   class << self
       # fake it till you make it
-    def resolve id
+    def resolve id, frames:
       return Null.new if (id.nil? || id.empty?)
+      fn = frames.functions[id]
+      return fn unless fn.nil?
       begin
         klass = Kernel.const_get id.to_s.capitalize
         result = klass.new

@@ -20,7 +20,7 @@ class Statement
     sorted.map! {|e| e.call env:local_ios, frames:local_vars }
     sorted.reject!(&:nil?)
     c, *args = sorted
-    command = Command.resolve(c)
+    command = Command.resolve(c, frames:frames)
     closers = local_ios.values
     local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
 
