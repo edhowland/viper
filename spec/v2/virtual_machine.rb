@@ -14,6 +14,8 @@ class VirtualMachine
   def call block
     block.call env:@ios, frames:@fs
   end
+
+  # implement a dir stack so cd -, pushd, popd work
   def cd *args, env:, frames:
 #binding.pry
     @fs.first[:oldpwd] = Dir.pwd
@@ -21,4 +23,19 @@ class VirtualMachine
         @fs.first[:pwd] = Dir.pwd
         true
   end
+  def pwd *args, env:, frames:
+    env[:out].puts Dir.pwd
+    true
+  end
+  def one_alias key
+    expansion = @fs.aliases[key]
+    "alias #{key.to_s}=\"#{expansion}\""
+  end
+   def alias *args, env:, frames:
+     if args.empty?
+       @fs.aliases.keys.each {|k| env[:out].puts one_alias(k)}
+     else
+       env[:out].puts one_alias(args[0])
+     end
+   end
 end

@@ -18,8 +18,19 @@ end
 
 
 def vepl
-  executor = Executor.new
-  loop { print 'vish> '; executor.execute!(Visher.parse!(gets.chomp)) }
+  vm = VirtualMachine.new
+  begin
+    loop do
+      print 'vepl-> '
+      command = gets
+      fail if command.nil?
+      command = command.chomp
+      block = Visher.parse! command
+      vm.call block
+     end
+   rescue => err
+     puts 'Exiting ...'
+    end
 end
 
 def vtos
@@ -38,4 +49,4 @@ def vdbg
   end
 end
 
-Signal.trap("SIGQUIT") { exit }
+

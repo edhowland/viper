@@ -28,8 +28,3 @@
                run the block, returns the final result.
                14. Sub shell expansion.  As above, invokes a new VM, the output of ios[:out] is captured and returned.
     As above, :exit_status is set to the result of the last command
-
-
-Teststing
-
-1. fix running call when redirect is involved
