@@ -3,6 +3,7 @@
   attr_accessor :result
 }
 
+eps = ''
 space = " "
 - = space*
 nl = "\n"
@@ -25,6 +26,7 @@ glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLit
 
 function_args = function_args:a1 - ',' - function_args:a2 { a1 + a2 }
           | identifier:a { [ a ] }
+          | eps   { [] }
 
 assignment = identifier:i '=' argument:a { Assignment.new(i, a) }
 

@@ -8,6 +8,13 @@ class Vish < KPeg::CompiledParser
 
   # :stopdoc:
 
+  # eps = ""
+  def _eps
+    _tmp = match_string("")
+    set_failed_rule :_eps unless _tmp
+    return _tmp
+  end
+
   # space = " "
   def _space
     _tmp = match_string(" ")
@@ -372,7 +379,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # function_args = (function_args:a1 - "," - function_args:a2 { a1 + a2 } | identifier:a { [ a ] })
+  # function_args = (function_args:a1 - "," - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] })
   def _function_args
 
     _save = self.pos
@@ -430,6 +437,24 @@ class Vish < KPeg::CompiledParser
         _tmp = true
         unless _tmp
           self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = apply(:_eps)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  [] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
         end
         break
       end # end sequence
@@ -1089,6 +1114,7 @@ class Vish < KPeg::CompiledParser
   end
 
   Rules = {}
+  Rules[:_eps] = rule_info("eps", "\"\"")
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
@@ -1102,7 +1128,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_0-9A-Za-z][\\/\\.\\-\\{\\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }")
   Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
   Rules[:_argument] = rule_info("argument", "(glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) })")
-  Rules[:_function_args] = rule_info("function_args", "(function_args:a1 - \",\" - function_args:a2 { a1 + a2 } | identifier:a { [ a ] })")
+  Rules[:_function_args] = rule_info("function_args", "(function_args:a1 - \",\" - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
   Rules[:_redirection] = rule_info("redirection", "redirect_op:r - argument:a { Redirection.new(r, a) }")
