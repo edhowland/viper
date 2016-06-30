@@ -8,6 +8,7 @@ class Command
       return Null.new if (id.nil? || id.empty?)
       fn = frames.functions[id]
       return fn unless fn.nil?
+      return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env:env, frames:frames } if frames.vm.respond_to? id.to_sym
       begin
         klass = Kernel.const_get id.to_s.capitalize
         result = klass.new

@@ -10,6 +10,7 @@ class Glob
     derefed_pattern = @pattern.call frames:frames
     result = Dir[derefed_pattern]
     return derefed_pattern if result.empty?
+    return result[0] if result.length == 1
     result
   end
   def to_s

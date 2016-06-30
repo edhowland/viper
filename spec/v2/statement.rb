@@ -34,6 +34,7 @@ class Statement
     sorted.reject!(&:nil?)
     c, *args = sorted
     command = Command.resolve(c, frames:frames)
+#binding.pry
     closers = local_ios.values
     local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
 

@@ -15,6 +15,8 @@
 [check] 10. add functions
 [check]  10.1 implement argument list for functions
 [check]  10.2 - implement binding actual args to passed arguments on frame stack
+  [check] 10.3 make sure empty args work
+  
 [chekc] 11. add alias expansion
   11.1 Check for cyclic references, e.g. alias foo=bar;alias bar=baz;alias baz=foo
 12. builtins in virtual machine

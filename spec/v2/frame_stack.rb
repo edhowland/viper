@@ -6,8 +6,9 @@ class FrameStack
     @frames = frames
     @functions = {}
     @aliases = {}
+    @vm = nil
   end
-  attr_accessor :functions, :aliases
+  attr_accessor :functions, :aliases, :vm
     def [] sym
     result = @frames.reduce('') do |i, j|
     if j.has_key? sym
@@ -40,6 +41,9 @@ class FrameStack
   end
   def top
     @frames[-1]
+  end
+  def first
+    @frames.first
   end
   def length
     @frames.length
