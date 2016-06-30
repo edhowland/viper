@@ -15,4 +15,7 @@ class Function
     frames.pop
     result
   end
+  def to_s
+    "(#{@args.join(', ')}) { " + @block.to_s + " }"
+  end
 end

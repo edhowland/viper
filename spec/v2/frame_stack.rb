@@ -51,5 +51,8 @@ class FrameStack
   def depth
     length
   end
+  def each &blk
+    @frames.each {|f| yield f }
+  end
 end
 

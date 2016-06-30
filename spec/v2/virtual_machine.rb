@@ -48,5 +48,20 @@ class VirtualMachine
       self.call block
     end
   end
+  def declare_variables env:
+    @fs.each do |fr|
+      fr.each_pair {|k, v| env[:out].puts "#{k}=#{v}" } 
+    end
+    true
+  end
+  def declare *args, env:, frames:
+    if args[0] == '-f'
+      @fs.functions.each_pair do |k, v |
+        env[:out].puts "function #{k}#{v.to_s}"
+       end
+     else
+       declare_variables
+     end
+  end
 end
 
