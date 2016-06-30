@@ -19,10 +19,12 @@
   
 [chekc] 11. add alias expansion
   11.1 Check for cyclic references, e.g. alias foo=bar;alias bar=baz;alias baz=foo
-12. builtins in virtual machine
-  cd, pwd, :pwd, :oldpwd, cd -, pushd, popd
-    alias - lists aliases in this VM, either single or full list
-      declare -f -> lists functions, uses the to_s method for Function object
+[partial chack]12. builtins in virtual machine
+  [check] cd, pwd, :pwd, :oldpwd, cd -   # [NO IMPLEMENT], pushd, popd
+[check]    alias - lists aliases in this VM, either single or full list
+[check]      declare -f -> lists functions, uses the to_s method for Function object
+  [check] declare lists all variables
+  Add query function in args
           - only functions in this VM instance, see: #13 below
            13. make SubShell .new called in parser, invokes a new VirtualMachine
                run the block, returns the final result.

@@ -6,7 +6,7 @@ class VirtualMachine
     @fs[:exit_status] = true
     @fs.vm = self
     @fs[:pwd] = Dir.pwd
-    @fs[:oldpwd] = ''
+    @fs[:oldpwd] = Dir.pwd
     @ios = env
   end
   attr_accessor :fs, :ios
@@ -16,12 +16,23 @@ class VirtualMachine
   end
 
   # implement a dir stack so cd -, pushd, popd work
-  def cd *args, env:, frames:
-#binding.pry
+  def _chdir path
     @fs.first[:oldpwd] = Dir.pwd
-    Dir.chdir args[0]
+    Dir.chdir path
         @fs.first[:pwd] = Dir.pwd
         true
+  end
+  def cd *args, env:, frames:
+    if !args.empty? && args[0] == '-'
+      oldpwd = @fs[:oldpwd]
+      self._chdir oldpwd
+      self.pwd *args, env:env, frames:frames
+    elsif args.empty?
+      env[:err].puts "cd: Must supply one argument"
+      false
+    else
+      self._chdir args[0]
+    end
   end
   def pwd *args, env:, frames:
     env[:out].puts Dir.pwd
@@ -62,6 +73,7 @@ class VirtualMachine
      else
        declare_variables
      end
+    true
   end
 end
 
