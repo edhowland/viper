@@ -37,5 +37,16 @@ class VirtualMachine
      else
        env[:out].puts one_alias(args[0])
      end
-   end
+     true
+  end
+  def source *args, env:, frames:
+    if args.empty?
+      env[:err].puts 'source: missing argument'
+      false
+    else
+      block = Visher.parse!(File.read(args[0]))
+      self.call block
+    end
+  end
 end
+

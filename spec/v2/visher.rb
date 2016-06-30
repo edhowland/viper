@@ -29,6 +29,7 @@ def vepl
       vm.call block
      end
    rescue => err
+      puts err.message
      puts 'Exiting ...'
     end
 end
