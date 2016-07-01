@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     kpeg (1.1.0)
+    ruby_deep_clone (0.7.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   kpeg
+  ruby_deep_clone
 
 BUNDLED WITH
    1.12.3

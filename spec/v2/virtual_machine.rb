@@ -1,5 +1,7 @@
 # virtual_machine - class VirtualMachine - runs your stuff after parsing
 
+
+require 'deep_clone'
 class VirtualMachine
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
     @fs= frames
@@ -74,6 +76,10 @@ class VirtualMachine
        declare_variables
      end
     true
+  end
+  # get a deep copy using the MarshalltoUnMarshall method
+  def _clone
+    DeepClone.clone(self)
   end
 end
 
