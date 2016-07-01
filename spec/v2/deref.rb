@@ -6,7 +6,7 @@ class Deref
     @key = symbol
   end
   def call frames:
-    frames[@key] || ''
+    frames[@key]
   end
   def to_s
     ':' + @key.to_s

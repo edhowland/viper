@@ -2,7 +2,9 @@
 
 
 require 'deep_clone'
+
 class VirtualMachine
+  class BreakCalled < RuntimeError; end
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
     @fs= frames
     @fs[:exit_status] = true
@@ -52,6 +54,10 @@ class VirtualMachine
      end
      true
   end
+  def unalias *args, env:, frames:
+    @fs.aliases.delete args[0]
+    true
+  end
   def source *args, env:, frames:
     if args.empty?
       env[:err].puts 'source: missing argument'
@@ -67,17 +73,38 @@ class VirtualMachine
     end
     true
   end
-  def declare *args, env:, frames:
-    if args[0] == '-f'
-      @fs.functions.each_pair do |k, v |
-        env[:out].puts "function #{k}#{v.to_s}"
-       end
-     else
-       declare_variables
-     end
+  def declare_function fn, funct, env:
+    env[:out].puts "function #{fn}#{funct.to_s}"
     true
   end
-  # get a deep copy using the MarshalltoUnMarshall method
+  def declare_functions env:
+    @fs.functions.each_pair { |k, v| declare_function k, v, env:env }
+    true
+  end
+  def declare_single_function fn, env:
+    return false if @fs.functions[fn].nil?
+    declare_function fn, @fs.functions[fn], env:env
+  end
+  def declare *args, env:, frames:
+    if args.length ==1 && args[0] == '-f'
+      declare_functions env:env
+    elsif args.length > 1 && args[0] == '-f'
+      declare_single_function args[1], env:env
+    else
+       declare_variables env:env
+     end
+  end
+  def break *args, env:, frames:
+    raise VirtualMachine::BreakCalled.new
+  end
+    alias_method :exit, :break
+
+  def eval *args, env:, frames:
+    block = Visher.parse! args[0] 
+    block.call env:env, frames:frames
+    @fs.merge
+  end
+  # create a deep copy of me
   def _clone
     DeepClone.clone(self)
   end

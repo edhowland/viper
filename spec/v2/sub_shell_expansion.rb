@@ -10,9 +10,14 @@ class SubShellExpansion < SubShell
     my_env[:out] = sio
     vm = frames.vm._clone
     vm.ios = my_env
-    vm.call @block
-    sio.close_write
-    sio.rewind
-    sio.read
+    begin
+      vm.call @block
+    rescue VirtualMachine::BreakCalled => err
+      return ''
+    ensure
+      sio.close_write
+      sio.rewind
+      return sio.read
+    end
   end
 end

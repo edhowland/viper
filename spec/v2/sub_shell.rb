@@ -6,6 +6,10 @@ class SubShell
   end
   def call env:, frames:
     vm = frames.vm._clone
-    vm.call @block
+    begin
+      vm.call @block
+    rescue VirtualMachine::BreakCalled => err
+      return true
+    end
   end
 end

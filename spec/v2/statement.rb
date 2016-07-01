@@ -43,7 +43,7 @@ class Statement
     closers.each {|f| f.close }
     local_ios.pop
     local_vars.pop
-    local_vars[:exit_status] = result
+    frames[:exit_status] = result
     result
   end
   end
