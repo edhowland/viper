@@ -26,7 +26,7 @@
   [check] declare lists all variables
   Add query function in args
           - only functions in this VM instance, see: #13 below
-           13. make SubShell .new called in parser, invokes a new VirtualMachine
+[check]            13. make SubShell .new called in parser, invokes a new VirtualMachine
                run the block, returns the final result.
-               14. Sub shell expansion.  As above, invokes a new VM, the output of ios[:out] is captured and returned.
+[check]                14. Sub shell expansion.  As above, invokes a new VM, the output of ios[:out] is captured and returned.
     As above, :exit_status is set to the result of the last command

@@ -23,6 +23,7 @@ glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLit
           | string:s { Argument.new(s) }
           | bare_string:s { Argument.new(s) }
           | variable:v { Argument.new(v) }
+          | ':(' - block:b - ')' { SubShellExpansion.new(b) }
 
 function_args = function_args:a1 - ',' - function_args:a2 { a1 + a2 }
           | identifier:a { [ a ] }

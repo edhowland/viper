@@ -54,5 +54,8 @@ class FrameStack
   def each &blk
     @frames.each {|f| yield f }
   end
+  def _clone
+    DeepClone.clone(self)
+  end
 end
 
