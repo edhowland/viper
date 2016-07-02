@@ -6,7 +6,7 @@
     Implement some sort of VFS:
         Has root path: /v -> adjustable
     has '.', '..' dirs
-  0.1: correct ls behaviour currently
+  [check] 0.1: correct ls behaviour currently
 [check]] 1. implement RedirectStdoutToStderr
 2. Expand redirected_statement.rb to include crossover types
 [check]] 2.1: Somehow add multiple redirections to RedirectedStatement
