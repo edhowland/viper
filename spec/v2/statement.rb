@@ -11,6 +11,7 @@ class Statement
     string = @context.map {|e| e.to_s }.join(' ')
     block = Visher.parse! string
     block.call env:env, frames:frames
+    frames.vm.seen.pop
   end
 
   # sort the @context array by ordinal numbertake any command args and move them
@@ -23,7 +24,8 @@ class Statement
     expansion = frames.aliases[real_alias]
     unless expansion.nil?
       if frames.vm.seen.member? real_alias
-        fail "#{real_alias} not found"
+        env[:err].puts "#{real_alias} not found"
+        return false
       else
         frames.vm.seen << real_alias
       end
@@ -38,7 +40,7 @@ class Statement
     sorted.map! {|e| e.call env:local_ios, frames:local_vars }
     sorted.reject!(&:nil?)
     c, *args = sorted
-    command = Command.resolve(c, frames:frames)
+    command = Command.resolve(c, env:env, frames:frames)
 #binding.pry
     closers = local_ios.values
     local_ios.top.each_pair {|k, v| local_ios[k] = v.open }

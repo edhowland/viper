@@ -4,7 +4,7 @@
 class Command
   class << self
       # fake it till you make it
-    def resolve id, frames:
+    def resolve id, env:, frames:
       return Null.new if (id.nil? || id.empty?)
       fn = frames.functions[id]
       return fn unless fn.nil?
@@ -14,7 +14,7 @@ class Command
         result = klass.new
         result
       rescue => err
-        $stderr.puts "Command: #{id}: not found"
+        env[:err].puts "Command: #{id}: not found"
         Bad.new
       end
     end
