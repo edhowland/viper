@@ -22,6 +22,11 @@ class Statement
     real_alias = possible_alias.to_s
     expansion = frames.aliases[real_alias]
     unless expansion.nil?
+      if frames.vm.seen.member? real_alias
+        fail "#{real_alias} not found"
+      else
+        frames.vm.seen << real_alias
+      end
       @context[@context.index(possible_alias)] = StringLiteral.new(expansion)
       call_expanded env:env, frames:frames
     else

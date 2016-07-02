@@ -12,8 +12,9 @@ class VirtualMachine
     @fs[:pwd] = Dir.pwd
     @fs[:oldpwd] = Dir.pwd
     @ios = env
+    @seen = [] # seen aliases during dealias
   end
-  attr_accessor :fs, :ios
+  attr_accessor :fs, :ios, :seen
 
   def call block
     block.call env:@ios, frames:@fs
