@@ -38,6 +38,7 @@ class Statement
     local_ios.push
     sorted = @context.sort {|a, b| a.ordinal <=> b.ordinal }
     sorted.map! {|e| e.call env:local_ios, frames:local_vars }
+    sorted.flatten!
     sorted.reject!(&:nil?)
     c, *args = sorted
     command = Command.resolve(c, env:env, frames:frames)

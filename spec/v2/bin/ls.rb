@@ -3,6 +3,7 @@
 
 class Ls
   def call *args, env:, frames:
+#binding.pry
     args = Dir['*'] if args.empty?
     args.each do |f|
       list = [f]
