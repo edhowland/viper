@@ -6,7 +6,7 @@ class Ls
     args = Dir['*'] if args.empty?
     args.each do |f|
       list = [f]
-      list += Dir["#{f}/*"].map {|e| "#{f}/#{e}" } if File.directory? f
+      list += Dir["#{f}/*"] if File.directory? f
       list.each { |e| env[:out].puts e }
     end
   end
