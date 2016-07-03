@@ -8,7 +8,7 @@ class Glob
   end
   def call env:, frames:
     derefed_pattern = @pattern.call frames:frames
-    result = Dir[derefed_pattern]
+    result = Hal[derefed_pattern]
     return derefed_pattern if result.empty?
     return result[0] if result.length == 1
     result

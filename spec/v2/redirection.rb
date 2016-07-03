@@ -9,7 +9,7 @@ class ObjectRedir
     @mode = mode
   end
   def open
-    @handle = File.open @target, @mode
+    @handle = Hal.open @target, @mode
   end
   def close
     @handle.close
@@ -21,10 +21,10 @@ class Redirection
     @op = op
     @target = target
     def key
-      {'<' => :in, '>' => :out, '2>' => :err, '<<' => :out}[@op]
+      {'<' => :in, '>' => :out, '2>' => :err, '>>' => :out}[@op]
     end
     def mode
-      {'<' => 'r', '>' => 'w', '2>' => 'w', '>>' => 'w'}[@op]
+      {'<' => 'r', '>' => 'w', '2>' => 'w', '>>' => 'a'}[@op]
     end
   end
   def call env:, frames:

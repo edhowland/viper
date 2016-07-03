@@ -9,8 +9,8 @@ class VirtualMachine
     @fs= frames
     @fs[:exit_status] = true
     @fs.vm = self
-    @fs[:pwd] = Dir.pwd
-    @fs[:oldpwd] = Dir.pwd
+    @fs[:pwd] = Hal.pwd
+    @fs[:oldpwd] = Hal.pwd
     @ios = env
     @seen = [] # seen aliases during dealias
   end
@@ -22,9 +22,9 @@ class VirtualMachine
 
   # implement a dir stack so cd -, pushd, popd work
   def _chdir path
-    @fs.first[:oldpwd] = Dir.pwd
-    Dir.chdir path
-        @fs.first[:pwd] = Dir.pwd
+    @fs.first[:oldpwd] = Hal.pwd
+    Hal.chdir path
+    @fs.first[:pwd] = Hal.pwd
         true
   end
   def cd *args, env:, frames:
@@ -40,7 +40,7 @@ class VirtualMachine
     end
   end
   def pwd *args, env:, frames:
-    env[:out].puts Dir.pwd
+    env[:out].puts Hal.pwd
     true
   end
   def one_alias key
