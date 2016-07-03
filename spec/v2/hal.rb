@@ -16,5 +16,9 @@ class Hal
   def open path, mode
     File.open path, mode
   end
+    def directory? path
+      File.directory? path
+    end
   end
+
 end

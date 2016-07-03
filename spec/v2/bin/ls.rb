@@ -7,7 +7,7 @@ class Ls
     args = Hal['*'] if args.empty?
     args.each do |f|
       list = [f]
-      list += Dir["#{f}/*"] if File.directory? f
+      list += Dir["#{f}/*"] if Hal.directory? f
       list.each { |e| env[:out].puts e }
     end
   end
