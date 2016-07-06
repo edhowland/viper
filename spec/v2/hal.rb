@@ -1,6 +1,6 @@
 # hal - class Hal - Hardware Abstraction Layer - dispatches to file or VFS
 
-class Hal
+class PhysicalLayer
   class << self
   # simulate Dir[]
   def [] path
@@ -22,3 +22,29 @@ class Hal
   end
 
 end
+
+
+
+class Hal
+  class << self
+  # simulate Dir[]
+  def [] path
+    PhysicalLayer[path]
+  end
+  def pwd
+    PhysicalLayer.pwd
+  end
+  def chdir path
+    PhysicalLayer.chdir path
+  end
+  # simulate File.open, directory?
+  def open path, mode
+    PhysicalLayer.open path, mode
+  end
+    def directory? path
+      PhysicalLayer.directory? path
+    end
+  end
+
+end
+
