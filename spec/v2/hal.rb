@@ -20,9 +20,30 @@ class PhysicalLayer
       File.directory? path
     end
   end
-
 end
 
+
+$vfs = {
+  'v' => {'.' => 'root',  'file.rb' => 'contents', 'edh' => {'myfile.txt' => 'more stuff'}}
+}
+ 
+class VirtualLayer
+  class << self
+    def dig h, *keys
+      keys.reduce(h) {|i, j| i[j] }
+    end
+    def path_to_keys path
+      path.split('/')[1..-1]
+    end
+    def access path
+      self.dig($vfs, *self.path_to_keys(path))
+    end
+    def [] path
+      []
+    end
+  end
+
+end
 
 
 class Hal
