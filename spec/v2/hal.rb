@@ -22,7 +22,7 @@ class PhysicalLayer
   end
 end
 
-
+$in_virtual = false
 $vfs = {
   'v' => {'.' => 'root',  'file.rb' => 'contents', 'edh' => {'myfile.txt' => 'more stuff'}}
 }
@@ -40,14 +40,26 @@ class VirtualLayer
       self.dig($vfs, *self.path_to_keys(path))
     end
     def [] path
-      obj = self.dig($vfs, *$wd)
+      if path == '*'
+        keys = $wd
+      else
+        keys = self.path_to_keys path
+      end
+      obj = self.dig($vfs, *keys)
       obj.keys
     end
     def directory? path
       access(path).instance_of? Hash
     end
+    def relative? path
+       path[0] != '/'
+    end
     def chdir path
+      if self.relative? path
+        $wd << path
+      else
       $wd = self.path_to_keys path
+    end
     end
     def pwd
       '/' + $wd.join('/')
@@ -61,21 +73,31 @@ class Hal
   class << self
   # simulate Dir[]
   def [] path
-    if virtual? path
+    if $in_virtual || virtual?(path)
       VirtualLayer[path]
     else
       PhysicalLayer[path]
     end
   end
   def pwd
-    if virtual? path
+    if $in_virtual
       VirtualLayer.pwd
     else
       PhysicalLayer.pwd
     end
   end
+      def relative? path
+       path[0] != '/'
+    end
+
   def chdir path
-    PhysicalLayer.chdir path
+    if (self.relative?(path) && $in_virtual) || self.virtual?(path)
+      $in_virtual = true
+      VirtualLayer.chdir path
+    else
+      $in_virtual = false
+      PhysicalLayer.chdir path
+    end
   end
   # is this virtual or is it real
   def virtual? path
@@ -87,9 +109,12 @@ class Hal
     PhysicalLayer.open path, mode
   end
     def directory? path
-      PhysicalLayer.directory? path
+      if virtual? path
+        VirtualLayer.directory? path
+      else
+        PhysicalLayer.directory? path
+      end
     end
   end
-
 end
 

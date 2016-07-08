@@ -28,6 +28,7 @@ class VirtualMachine
         true
   end
   def cd *args, env:, frames:
+#binding.pry
     if !args.empty? && args[0] == '-'
       oldpwd = @fs[:oldpwd]
       self._chdir oldpwd
