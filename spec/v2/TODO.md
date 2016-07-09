@@ -2,8 +2,12 @@
 
 
 0. Implement HAL - hardware abstraction layer
-  refactor all calls to File.open, Dir, etc? to @hal in VM
-    Implement some sort of VFS:
+[check]  refactor all calls to File.open, Dir, etc? to @hal in VM
+  Implement VirtualLayer.open stuff
+      Make stuff in current vfs instances of StringIO
+          Open mode:r : .close_read, .close_write, .rewind, .string
+    open mode:w : .close_read, .close_wrie, .clear
+[check]    Implement some sort of VFS:
         Has root path: /v -> adjustable
     has '.', '..' dirs
   [check] 0.1: correct ls behaviour currently

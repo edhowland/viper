@@ -24,7 +24,8 @@ end
 
 $in_virtual = false
 $vfs = {
-  'v' => {'.' => 'root',  'file.rb' => 'contents', 'edh' => {'myfile.txt' => 'more stuff'}}
+  'v' => {'.' => 'root', 'file.rb' => StringIO.new('contents'), 
+  'edh' => {'myfile.txt' => StringIO.new('more stuff')}}
 }
 $wd = $vfs  # working dir is / 
 
@@ -64,8 +65,11 @@ class VirtualLayer
     def pwd
       '/' + $wd.join('/')
     end
+    def open path, mode
+      # start with StringIO
+      # work up to different openable objects
+    end
   end
-
 end
 
 
@@ -106,7 +110,11 @@ class Hal
   end
   # simulate File.open, directory?
   def open path, mode
-    PhysicalLayer.open path, mode
+  if virtual? path || $in_virtual
+    VirtualLayer.open(path, mode)
+  else
+      PhysicalLayer.open path, mode
+    end
   end
     def directory? path
       if virtual? path
