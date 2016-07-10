@@ -23,5 +23,6 @@ require_relative 'function_declaration'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'visher'
-
+require_relative 'vfs_node'
+require_relative 'vfs_root'
 require_relative 'virtual_machine'
