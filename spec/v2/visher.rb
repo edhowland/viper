@@ -30,6 +30,7 @@ def vepl
      end
    rescue => err
       puts err.message
+      puts err.backtrace[0]
      puts 'Exiting ...'
     end
 end

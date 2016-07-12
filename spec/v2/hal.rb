@@ -2,6 +2,9 @@
 
 class PhysicalLayer
   class << self
+  def mkdir_p path
+    FileUtils.mkdir_p path
+  end
   # simulate Dir[]
   def [] path
     Dir[path]
@@ -23,47 +26,40 @@ class PhysicalLayer
 end
 
 $in_virtual = false
-$vfs = {
-  'v' => {'.' => 'root', 'file.rb' => StringIO.new('contents'), 
-  'edh' => {'myfile.txt' => StringIO.new('more stuff')}}
-}
-$wd = $vfs  # working dir is / 
 
 class VirtualLayer
   class << self
-    def dig h, *keys
-      keys.reduce(h) {|i, j| i[j] }
+    def mkdir_p path
+      @@root.mkdir_p path
     end
-    def path_to_keys path
-      path.split('/')[1..-1]
+    def get_root
+      @@root
     end
-    def access path
-      self.dig($vfs, *self.path_to_keys(path))
+    def set_root root=VFSRoot.new
+      @@root = root
+      def virtual? path
+        @@root.contains? path
+      end
     end
+
+
     def [] path
       if path == '*'
-        keys = $wd
-      else
-        keys = self.path_to_keys path
-      end
-      obj = self.dig($vfs, *keys)
-      obj.keys
+      path = '.'
+    end
+    @@root.list path
     end
     def directory? path
-      access(path).instance_of? Hash
+      @@root.directory? path
     end
     def relative? path
        path[0] != '/'
     end
     def chdir path
-      if self.relative? path
-        $wd << path
-      else
-      $wd = self.path_to_keys path
-    end
+      @@root.cd path
     end
     def pwd
-      '/' + $wd.join('/')
+      @@root.pwd
     end
     def open path, mode
       # start with StringIO
@@ -105,8 +101,14 @@ class Hal
   end
   # is this virtual or is it real
   def virtual? path
-    keys = VirtualLayer.path_to_keys path
-    !keys.nil? && keys.length > 0 && keys[0] == 'v'
+      VirtualLayer.virtual? path
+  end
+  def mkdir_p path
+    if virtual? path
+      VirtualLayer.mkdir_p path
+    else
+      PhysicalLayer.mkdir_p path
+    end
   end
   # simulate File.open, directory?
   def open path, mode

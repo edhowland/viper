@@ -47,4 +47,28 @@ end
     start, *elements = path_to_elements path
     _mkdir elements, start
   end
+  def node elements, start=@root
+    elements.each do |e|
+      start = start[e]
+    end
+    start
+  end
+  def directory? path
+          start, *elements = path_to_elements path
+    mynode = node elements, start
+    mynode.instance_of? VFSNode
+  end
+  def list path='.'
+    if path == '.'
+      @wd.keys
+    else
+      start, *elements = path_to_elements path
+      mynode = node(elements, start)
+      mynode.keys
+    end
+  end
+  def contains? path
+    start, *elements = path_to_elements path
+    !@root[elements[0]].nil?
+  end
 end
