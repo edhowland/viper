@@ -12,6 +12,7 @@ class VFSNode
     @list[name] = VFSNode.new(self, name)
   end
   def [] key
+    return self.parent if key == '..'
     @list[key]
   end
   def []= key, value

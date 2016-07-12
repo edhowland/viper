@@ -4,15 +4,30 @@
 class VFSRoot
   def initialize 
     @root = VFSNode.new nil, ''
-    @dirs = [@root]
+    @wd = @root
   end
-  attr_reader :root
+  attr_reader :root, :wd
 
-  # returns the VFSNode of the current working dir
-  def cwd
-    @dirs[-1]
-  end
+
   def pwd
-    '/' + @dirs.map {|d| d.name }.join('/')
+    pathr = []
+    p = @wd
+    until p.parent.nil?
+      pathr << p
+      p = p.parent
+    end
+    '/' + pathr.reverse.map {|e| e.name }.join('/')
   end
+  def _chdir elements, start=@wd
+    elements.each do |e|
+      start = start[e]
+    end
+    @wd = start
+  end
+  def _mkdir elements, start=@root
+    node = start
+    elements.each do |e|
+      node = node.mknode e
+  end
+end
 end
