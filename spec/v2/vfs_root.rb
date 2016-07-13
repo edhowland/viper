@@ -31,12 +31,18 @@ class VFSRoot
     elements.each do |e|
       start = start[e]
     end
+    binding.pry if start.nil?
+    fail "cd: path not found" if start.nil?
     @wd = start
   end
   def _mkdir elements, start=@root
     node = start
     elements.each do |e|
-      node = node.mknode e
+      if node[e].nil?
+        node = node.mknode e
+      else
+        node = node[e]
+      end
   end
 end
   def cd path

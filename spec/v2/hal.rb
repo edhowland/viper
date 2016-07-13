@@ -90,8 +90,11 @@ class Hal
        path[0] != '/'
     end
 
-  def chdir path
-    if (self.relative?(path) && $in_virtual) || self.virtual?(path)
+  def chdir path, current_pwd
+#  binding.pry
+    in_virtual = virtual?(current_pwd)
+#    if in_virtual
+    if (self.relative?(path) && in_virtual) || self.virtual?(path)
       $in_virtual = true
       VirtualLayer.chdir path
     else

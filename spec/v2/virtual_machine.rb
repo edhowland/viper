@@ -22,8 +22,8 @@ class VirtualMachine
 
   # implement a dir stack so cd -, pushd, popd work
   def _chdir path
-    @fs.first[:oldpwd] = Hal.pwd
-    Hal.chdir path
+    @fs.first[:oldpwd] =  @fs[:pwd]
+    Hal.chdir path, @fs[:pwd]
     @fs.first[:pwd] = Hal.pwd
         true
   end
