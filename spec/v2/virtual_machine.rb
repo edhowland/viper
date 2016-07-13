@@ -28,14 +28,16 @@ class VirtualMachine
         true
   end
   def cd *args, env:, frames:
-#binding.pry
     if !args.empty? && args[0] == '-'
       oldpwd = @fs[:oldpwd]
       self._chdir oldpwd
       self.pwd *args, env:env, frames:frames
     elsif args.empty?
-      env[:err].puts "cd: Must supply one argument"
-      false
+      #env[:err].puts "cd: Must supply one argument"
+      #false
+      # go back to :proj
+      self._chdir frames[:proj]
+            self.pwd *args, env:env, frames:frames
     else
       self._chdir args[0]
     end

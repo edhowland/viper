@@ -1,0 +1,3 @@
+mount /v
+proj=:pwd
+vish_version="0.9"
