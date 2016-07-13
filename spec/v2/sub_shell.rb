@@ -12,4 +12,7 @@ class SubShell
       return true
     end
   end
+  def ordinal
+    COMMAND
+  end
 end

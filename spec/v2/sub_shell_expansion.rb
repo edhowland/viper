@@ -1,8 +1,6 @@
 # sub_shell_expansion - class SubShellExpansion - :( ...block...) -returns 
 # content of the last command's output
 
-
-
 class SubShellExpansion < SubShell
   def call env:, frames:
     my_env = env._clone
@@ -17,7 +15,10 @@ class SubShellExpansion < SubShell
     ensure
       sio.close_write
       sio.rewind
-      return sio.read
+      return sio.read.chomp
     end
+  end
+  def ordinal
+    COMMAND
   end
 end
