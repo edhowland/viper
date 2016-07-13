@@ -1,0 +1,3 @@
+mount /v
+mkdir /v/bin
+mkdir /v/buf
