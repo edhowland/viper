@@ -1,8 +1,5 @@
 # virtual_machine - class VirtualMachine - runs your stuff after parsing
 
-
-require 'deep_clone'
-
 class VirtualMachine
   class BreakCalled < RuntimeError; end
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
@@ -110,7 +107,9 @@ class VirtualMachine
   end
   # create a deep copy of me
   def _clone
-    DeepClone.clone(self)
+    nfs = @fs._clone
+    nios = @ios._clone
+    VirtualMachine.new(env:nios, frames:nfs)
   end
 end
 

@@ -2,10 +2,10 @@
 
 
 class FrameStack
-  def initialize frames:[{}]
+  def initialize frames:[{}], functions:{}, aliases:{}
     @frames = frames
-    @functions = {}
-    @aliases = {}
+    @functions = functions
+    @aliases = aliases
     @vm = nil
   end
   attr_accessor :functions, :aliases, :vm
@@ -55,7 +55,12 @@ class FrameStack
     @frames.each {|f| yield f }
   end
   def _clone
-    DeepClone.clone(self)
+    nframes = @frames.map {|e| e.clone }
+    nfunctions = @functions.clone
+    naliases = @aliases.clone
+    nfs = FrameStack.new(frames:nframes, functions:nfunctions, aliases:naliases)
+    nfs.vm = @vm
+    nfs
   end
 end
 
