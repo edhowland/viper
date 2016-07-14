@@ -68,8 +68,9 @@ class VirtualLayer
       @@root.creat path
     end
     def open path, mode
-      # start with StringIO
-      # work up to different openable objects
+      node = @@root[path]
+      facade = IOFactory.make node
+      facade.open path, mode
     end
   end
 end

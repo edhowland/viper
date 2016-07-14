@@ -82,4 +82,8 @@ end
     my_node = node(elements[0..(-2)], start)
     my_node[elements[-1]] = StringIO.new ''
   end
+  def [] path
+    start, *elements = path_to_elements path
+    node elements, start
+  end
 end

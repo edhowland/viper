@@ -14,7 +14,7 @@ class IOFactory
       unless facade.nil?
         facade.new(object)
       else
-        NullFacade.new
+        StringIOFacade.new(StringIO.new(''))
       end
     end
   end

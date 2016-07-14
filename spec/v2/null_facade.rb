@@ -2,7 +2,7 @@
 
 
 class NullFacade
-  def open mode
+  def open path, mode
     StringIO.new
   end
 end
