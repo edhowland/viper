@@ -22,6 +22,9 @@ class PhysicalLayer
     def directory? path
       File.directory? path
     end
+    def touch path
+      FileUtils.touch(path)
+    end
   end
 end
 
@@ -60,6 +63,9 @@ class VirtualLayer
     end
     def pwd
       @@root.pwd
+    end
+    def touch path
+      @@root.creat path
     end
     def open path, mode
       # start with StringIO
@@ -126,6 +132,13 @@ class Hal
         VirtualLayer.directory? path
       else
         PhysicalLayer.directory? path
+      end
+    end
+    def touch path
+      if virtual? path
+        VirtualLayer.touch(path)
+      else
+        PhysicalLayer.touch path
       end
     end
   end

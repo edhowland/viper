@@ -77,4 +77,9 @@ end
     start, *elements = path_to_elements path
     !@root[elements[0]].nil?
   end
+  def creat path
+    start, *elements = path_to_elements path
+    my_node = node(elements[0..(-2)], start)
+    my_node[elements[-1]] = StringIO.new ''
+  end
 end
