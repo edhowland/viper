@@ -2,3 +2,4 @@ mount /v
 mkdir /v/buf
 proj=:pwd
 vish_version="0.9"
+function newb(file) { mkbuf /v/buf/:{file} }
