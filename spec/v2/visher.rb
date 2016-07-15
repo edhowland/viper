@@ -29,7 +29,7 @@ def vepl
     end
 
     loop do
-      print 'vepl-> '
+      print vm.fs[:prompt]
       command = gets
       fail if command.nil?
       command = command.chomp

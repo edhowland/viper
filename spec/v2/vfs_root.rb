@@ -5,8 +5,10 @@ class VFSRoot
   def initialize 
     @root = VFSNode.new nil, ''
     @wd = @root
+    @mount_pt = ''
   end
   attr_reader :root, :wd
+  attr_accessor  :mount_pt
 
 
   def pwd
@@ -85,5 +87,17 @@ end
   def [] path
     start, *elements = path_to_elements path
     node elements, start
+  end
+  def to_s
+    "mounted at: #{@mount_pt}"
+  end
+  # given a path, return its parent node
+  def dirnode path
+    start, *elements = path_to_elements path
+    node elements[0..(-2)], start
+  end
+  def basename path
+    start, *elements = path_to_elements path
+    elements[-1]
   end
 end

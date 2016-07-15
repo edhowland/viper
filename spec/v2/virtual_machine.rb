@@ -7,6 +7,7 @@ class VirtualMachine
     @fs[:exit_status] = true
     @fs.vm = self
     @fs[:pwd] = Hal.pwd
+    @fs[:prompt] = 'vepl '
     @fs[:oldpwd] = Hal.pwd
     @ios = env
     @seen = [] # seen aliases during dealias

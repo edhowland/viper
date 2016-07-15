@@ -21,4 +21,7 @@ class VFSNode
   def keys
     @list.keys
   end
+  def to_s
+    "directory node: #{@name}"
+  end
 end

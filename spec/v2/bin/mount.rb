@@ -5,6 +5,9 @@ class Mount
     root = VFSRoot.new
     VirtualLayer.set_root root
     root.mkdir_p  args[0]
+    root.mount_pt = args[0]
+    frames[:vroot] = root
+    frames.merge
     true
   end
 end

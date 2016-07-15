@@ -29,4 +29,6 @@ require_relative 'io_factory'
 
 require_relative 'vfs_node'
 require_relative 'vfs_root'
+Dir['./buf/*.rb'].each {|f| require_relative f }
+
 require_relative 'virtual_machine'
