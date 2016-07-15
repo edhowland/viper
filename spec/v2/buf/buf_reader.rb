@@ -6,7 +6,13 @@ class BufReader
     @io = io
   end
   def read
-    @io['line'].string
+    result = ''
+    node = @io
+    until node.nil?
+      result << node['line'].string
+      node = node['nl']
+    end
+    result
   end
   def close
     # nop
