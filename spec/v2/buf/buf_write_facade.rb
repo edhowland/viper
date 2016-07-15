@@ -6,6 +6,10 @@ class BufWriteFacade
     @io = io
   end
   def open path, mode
-    BufWriter.new @io
+    if mode == 'w'
+      BufWriter.new @io
+    elsif mode == 'r'
+      BufReader.new @io
+    end
   end
 end

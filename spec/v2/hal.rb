@@ -25,6 +25,9 @@ class PhysicalLayer
     def touch path
       FileUtils.touch(path)
     end
+    def basename path
+      File.basename path
+    end
   end
 end
 
@@ -71,6 +74,9 @@ class VirtualLayer
       node = @@root[path]
       facade = IOFactory.make node
       facade.open path, mode
+    end
+    def basename path
+      @@root.basename path
     end
   end
 end
@@ -140,6 +146,13 @@ class Hal
         VirtualLayer.touch(path)
       else
         PhysicalLayer.touch path
+      end
+    end
+    def basename path
+      if virtual? path
+        VirtualLayer.basename path
+      else
+        PhysicalLayer.basename path
       end
     end
   end

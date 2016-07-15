@@ -3,3 +3,5 @@ mkdir /v/buf
 proj=:pwd
 vish_version="0.9"
 function newb(file) { mkbuf /v/buf/:{file} }
+function open(fname) { bname=:(basename :fname); newb :bname; cat < :fname > /v/buf/:{bname} }
+alias l="echo *"
