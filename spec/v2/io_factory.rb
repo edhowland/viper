@@ -7,7 +7,8 @@ class IOFactory
   class << self
     def make object
       knowns = {
-        StringIO => StringIOFacade
+        StringIO => StringIOFacade,
+        BufNode => BufWriteFacade
       }
       klass = object.class
       facade = knowns[klass]

@@ -19,4 +19,11 @@ class BufWriter
       #
     end
   end
+  def puts string
+    string = string.chomp
+    write string + "\n"
+  end
+  def close
+    # nop
+  end
 end
