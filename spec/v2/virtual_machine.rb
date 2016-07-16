@@ -96,10 +96,10 @@ class VirtualMachine
        declare_variables env:env
      end
   end
-  def break *args, env:, frames:
+  def _break *args, env:, frames:
     raise VirtualMachine::BreakCalled.new
   end
-    alias_method :exit, :break
+#    alias_method :exit, :break
 
   def eval *args, env:, frames:
     block = Visher.parse! args[0] 

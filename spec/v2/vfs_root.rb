@@ -77,7 +77,8 @@ end
   end
   def contains? path
     start, *elements = path_to_elements path
-    !@root[elements[0]].nil?
+    !start[elements[0]].nil?
+#    !@root[elements[0]].nil?
   end
   def creat path
     start, *elements = path_to_elements path
