@@ -12,7 +12,14 @@ class Subtree
       root = frames[:vroot]
       node = root.wd
       env[:out].puts node['line'].string
+      depth -= 1
       # recurse down max depth
+      node = node['nl']
+      until depth <= 0 || node.nil?
+        env[:out].puts node['line'].string
+        depth -= 1
+        node = node['nl']
+      end
       true
     end
   end
