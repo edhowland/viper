@@ -9,6 +9,13 @@ class BufNode < VFSNode
   def mknode name
     @list['nl'] = BufNode.new self, 'nl'
   end
+  def insnode text=''
+    child = @list['nl']
+    baby = mknode ''
+    baby['line'] = StringIO.new(text)
+    baby['nl'] = child
+    baby
+  end
   def to_s
     "buf node #{name}"
   end
