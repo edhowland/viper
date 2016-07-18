@@ -4,7 +4,7 @@ mkdir /v/clip
 proj=:pwd
 vish_version="0.9"
 function newb(file) { mkbuf /v/buf/:{file} }
-function open(fname) { bname=:(basename :fname); newb :bname; cat < :fname > /v/buf/:{bname}; _buf=/v/buf/:{bname}; cd :_buf; global _buf }
+function open(fname) { bname=:(basename :fname); newb :bname; cat < :fname > /v/buf/:{bname}; _buf=/v/buf/:{bname}; cd :_buf; global _buf; touch .pathname; realpath :fname > .pathname }
 function mkclip(num) { mkbuf /v/clip/:{num} }
 alias l="echo *"
 mkclip 0

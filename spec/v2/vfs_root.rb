@@ -78,7 +78,6 @@ end
   def contains? path
     start, *elements = path_to_elements path
     !start[elements[0]].nil?
-#    !@root[elements[0]].nil?
   end
   def creat path
     start, *elements = path_to_elements path
@@ -100,5 +99,17 @@ end
   def basename path
     start, *elements = path_to_elements path
     elements[-1]
+  end
+  def parents node
+    rpath = []
+    until node.parent.nil?
+      rpath << node
+      node = node.parent
+    end
+    rpath.reverse
+  end
+  def realpath path
+    start, *elements = path_to_elements path
+    (parents(start).map {|e| e.name } + elements).join('/')
   end
 end

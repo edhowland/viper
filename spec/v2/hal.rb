@@ -28,6 +28,9 @@ class PhysicalLayer
     def basename path
       File.basename path
     end
+      def realpath path
+    File.expand_path path
+  end
   end
 end
 
@@ -77,6 +80,9 @@ class VirtualLayer
     end
     def basename path
       @@root.basename path
+    end
+    def realpath path
+      @@root.realpath path
     end
   end
 end
@@ -142,7 +148,7 @@ class Hal
       end
     end
     def touch path
-      if virtual? path
+      if $in_virtual || virtual?(path)
         VirtualLayer.touch(path)
       else
         PhysicalLayer.touch path
@@ -153,6 +159,13 @@ class Hal
         VirtualLayer.basename path
       else
         PhysicalLayer.basename path
+      end
+    end
+    def realpath path
+    if virtual? path
+      VirtualLayer.realpath path
+    else
+        PhysicalLayer.realpath path
       end
     end
   end
