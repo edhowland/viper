@@ -25,6 +25,11 @@ class VirtualMachine
     @fs.first[:pwd] = Hal.pwd
         true
   end
+  # export args into global environment
+  def global *args, env:, frames:
+    args.each {|a| frames.first[a.to_sym] = frames[a.to_sym] }
+    true
+  end
   def cd *args, env:, frames:
     if !args.empty? && args[0] == '-'
       oldpwd = @fs[:oldpwd]
