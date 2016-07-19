@@ -12,4 +12,4 @@ function yank(depth) { subtree :depth > /v/clip/0 }
 function put() { cat < /v/clip/0 }
 alias c="cat < line"
 function paste() { put | instree }
-function save() {bname=:(basename :_buf); past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
+function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
