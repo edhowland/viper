@@ -12,3 +12,4 @@ function yank(depth) { subtree :depth > /v/clip/0 }
 function put() { cat < /v/clip/0 }
 alias c="cat < line"
 function paste() { put | instree }
+function save() {bname=:(basename :_buf); echo :bname }
