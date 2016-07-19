@@ -1,14 +1,12 @@
 # TODO
 
 
-0. Implement HAL - hardware abstraction layer
+[check] 0. Implement HAL - hardware abstraction layer
 [check]  refactor all calls to File.open, Dir, etc? to @hal in VM
-  Implement VirtualLayer.open stuff
-      Make stuff in current vfs instances of StringIO
-          Open mode:r : .close_read, .close_write, .rewind, .string
-    open mode:w : .close_read, .close_wrie, .clear
+  [check] Implement VirtualLayer.open stuff
+
 [check]    Implement some sort of VFS:
-        Has root path: /v -> adjustable
+     [check]   Has root path: /v -> adjustable
     has '.', '..' dirs
   [check] 0.1: correct ls behaviour currently
 [check]] 1. implement RedirectStdoutToStderr
@@ -44,3 +42,8 @@
     As above, :exit_status is set to the result of the last command
 
 15. make comments, empty lines work w/o syntax errors
+
+[check] 16. Create BufNode with mkbuf command. 
+[check]17. create subtree (number) to output n lines
+[check]18. Create /v/clip/0 for the clipboard(s)
+19. Change file/line into LineNode from VFSNode, with StringIO buffers: left, right
