@@ -1,11 +1,8 @@
 # peek - class Peek - command peek - returns char of LineNode/right
 
 
-class Peek
+class Peek < BaseNodeCommand
   def call *args, env:, frames:
-    root = frames[:vroot]
-    node = root[args[0]]
-    env[:out].print node[0]
-    true
+    perform(args[0], env:env, frames:frames) {|node| node.first }
   end
 end
