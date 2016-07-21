@@ -6,7 +6,10 @@ class Mklx
   def call *args, env:, frames:
     root = frames[:vroot]
     wd = root.wd
-    wd['lx'] = LineNode.new wd, 'lx'
+    node = LineNode.new wd, 'lx'
+    node.left = args[0]
+    node.right = args[1] unless args.length < 1
+    wd['lx'] = node
     true
   end
 end

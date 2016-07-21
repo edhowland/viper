@@ -46,4 +46,5 @@
 [check] 16. Create BufNode with mkbuf command. 
 [check]17. create subtree (number) to output n lines
 [check]18. Create /v/clip/0 for the clipboard(s)
-19. Change file/line into LineNode from VFSNode, with StringIO buffers: left, right
+19. Change file/line into LineNode from VFSNode, with Array buffers: left, right
+  Create LineNodeFacade to handle redirection here

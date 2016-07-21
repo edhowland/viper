@@ -16,6 +16,12 @@ class LineNode < VFSNode
   def insert string
     @list['left'] += string.chars
   end
+  def left= string
+    @list['left'] = string.chars
+  end
+  def right= string
+    @list['right'] = string.chars
+  end
   def string
     (@list['left'] + @list['right']).join ''
   end
