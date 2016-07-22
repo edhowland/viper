@@ -11,6 +11,8 @@ class LineNodeFacade
       LineReader.new @io
     elsif mode == 'w'
       LineWriter.new @io
+    elsif mode == 'a'
+      LineAppender.new @io
     end
   end
 end
