@@ -4,7 +4,7 @@
 class BufNode < VFSNode
   def initialize parent, name
     super parent, name
-    @list['line'] = StringIO.new
+    @list['line'] = LineNode.new(self, 'line')   #StringIO.new
   end
   def mknode name
     @list['nl'] = BufNode.new self, 'nl'

@@ -9,11 +9,11 @@ class BufWriter
     enum = string.each_line
     line = @io['line']
     begin
-    line.write(enum.next)
+    line.right = enum.next
     node = @io
       loop do
         node = node.mknode 'nl'
-        node['line'].write(enum.next)
+        node['line'].right = enum.next
       end
     rescue StopIteration
       #
