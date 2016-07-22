@@ -2,7 +2,7 @@
 # ones. Will try to interpolate embedded variable derefs
 
 class StringLiteral < QuotedString
-  def call frames:
+  def call frames:, env:{}
     string = super
     interpolate string, frames:frames
   end

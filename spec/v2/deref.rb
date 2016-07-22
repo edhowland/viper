@@ -5,7 +5,7 @@ class Deref
   def initialize symbol
     @key = symbol
   end
-  def call frames:
+  def call frames:, env:{}
     frames[@key]
   end
   def to_s

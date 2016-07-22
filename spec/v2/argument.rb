@@ -8,7 +8,7 @@ class Argument
     @storage = thing
   end
   def call env:, frames:
-    @storage.call frames:frames
+    @storage.call frames:frames, env:env
   end
   def to_s
     @storage.to_s

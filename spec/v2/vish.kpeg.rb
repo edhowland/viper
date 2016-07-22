@@ -291,7 +291,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # argument = (glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | ":(" - block:b - ")" { SubShellExpansion.new(b) })
+  # argument = (glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | ":(" - block:b - ")" { SubShellExpansion.new(b) } | "{" - block:b - "}" { LazyArgument.new(b) })
   def _argument
 
     _save = self.pos
@@ -405,6 +405,45 @@ class Vish < KPeg::CompiledParser
         _tmp = true
         unless _tmp
           self.pos = _save5
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save6 = self.pos
+      while true # sequence
+        _tmp = match_string("{")
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:_block)
+        b = @result
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        _tmp = match_string("}")
+        unless _tmp
+          self.pos = _save6
+          break
+        end
+        @result = begin;  LazyArgument.new(b) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save6
         end
         break
       end # end sequence
@@ -1173,7 +1212,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_function_name] = rule_info("function_name", "< valid_id > { text }")
   Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_0-9A-Za-z][\\/\\.\\-\\{\\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }")
   Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
-  Rules[:_argument] = rule_info("argument", "(glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | \":(\" - block:b - \")\" { SubShellExpansion.new(b) })")
+  Rules[:_argument] = rule_info("argument", "(glob:g { g } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | \":(\" - block:b - \")\" { SubShellExpansion.new(b) } | \"{\" - block:b - \"}\" { LazyArgument.new(b) })")
   Rules[:_function_args] = rule_info("function_args", "(function_args:a1 - \",\" - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")
   Rules[:_comment] = rule_info("comment", "\"\#\" not_nl*")
