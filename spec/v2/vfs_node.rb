@@ -7,7 +7,8 @@ class VFSNode
     @parent = parent
     @list = {}
   end
-  attr_reader :parent, :list, :name
+  attr_reader :parent, :name
+  attr_accessor :list
   def mknode name
     @list[name] = VFSNode.new(self, name)
   end
