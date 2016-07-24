@@ -3,8 +3,12 @@
 
 class Raw
   def call *args, env:, frames:
-    frames[args[0].to_sym] = $stdin.getch
-    frames.merge
+    if args[0] == '-'
+      env[:out].write $stdin.getch
+    else
+      frames[args[0].to_sym] = $stdin.getch
+      frames.merge
+    end
     true
   end
 end
