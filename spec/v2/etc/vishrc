@@ -13,3 +13,5 @@ function put() { cat < /v/clip/0 }
 alias c="cat < line"
 function paste() { put | instree }
 function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
+alias h="raw -|xfkey"
+mkdir /v/modes/viper
