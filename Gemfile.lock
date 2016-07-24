@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     kpeg (1.1.0)
+    remedy (0.0.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   kpeg
+  remedy
 
 BUNDLED WITH
    1.12.3
