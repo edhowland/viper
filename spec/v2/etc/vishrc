@@ -15,3 +15,5 @@ function paste() { put | instree }
 function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
 alias h="raw -|xfkey"
 mkdir /v/modes/viper
+mkdir /v/views/viper
+_mode=viper

@@ -15,4 +15,8 @@ class SubShell
   def ordinal
     COMMAND
   end
+def to_s
+  '(' + @block.to_s + ')'
 end
+end
+

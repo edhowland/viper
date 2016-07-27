@@ -3,6 +3,10 @@
 class Xfkey
   def call *args, env:, frames:
     values = env[:in].read
+    if ('A'..'Z').include?(values) || ('a'..'z').include?(values)
+      env[:out].write values 
+      return true
+    end
     result = {
       "\r" => "return",
       "\e" => "escape",
@@ -10,9 +14,12 @@ class Xfkey
       'A' => 'A'
     }[values]
     unless result.nil?
-      env[:out].puts result
+      env[:out].write result
+      true
     else
-      env[:out].puts "unknown"
+      env[:out].write "unknown"
+      false
+
     end
   end
 end
