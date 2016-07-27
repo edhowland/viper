@@ -7,7 +7,8 @@ class VFSRoot
     @wd = @root
     @mount_pt = ''
   end
-  attr_reader :root, :wd
+  attr_reader :root
+  attr_accessor :wd
   attr_accessor  :mount_pt
 
 

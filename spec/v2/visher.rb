@@ -17,12 +17,12 @@ class Visher
 end
 
 # starts the repl for vish engine
-def vepl
+def vepl options={}
   vm = VirtualMachine.new
   begin
     # load any startup scripts
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
-    if File.exist? vishrc
+    if File.exist?(vishrc) && options[:no_start].nil?
       code = File.read(vishrc)
       cblock = Visher.parse! code
       vm.call cblock

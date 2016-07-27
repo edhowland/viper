@@ -117,5 +117,8 @@ class VirtualMachine
     nios = @ios._clone
     VirtualMachine.new(env:nios, frames:nfs)
   end
+  def inspect
+    'intentionally blank'
+  end
 end
 
