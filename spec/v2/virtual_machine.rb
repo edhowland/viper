@@ -21,9 +21,15 @@ class VirtualMachine
   # implement a dir stack so cd -, pushd, popd work
   def _chdir path
     @fs.first[:oldpwd] =  @fs[:pwd]
-    Hal.chdir path, @fs[:pwd]
-    @fs.first[:pwd] = Hal.pwd
-        true
+    result = true
+    begin
+      Hal.chdir path, @fs[:pwd]
+    rescue => err
+      result = false
+    ensure
+      @fs.first[:pwd] = Hal.pwd
+    end
+    result
   end
   # export args into global environment
   def global *args, env:, frames:
