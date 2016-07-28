@@ -10,3 +10,4 @@ function lit2(ch, name) { echo -n "echo -n ':{ch}' | push line/left" > /v/modes/
 function lineno() { ruby "puts (':{pwd}'.split('/').count {|e| e == 'nl' } + 1)" }
 json modes.viper.json /v/modes/viper
 json views.viper.json /v/views/viper
+function search(pat) { loop { (grep :pat < line || not { cd nl }) && break } }

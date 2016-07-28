@@ -34,7 +34,7 @@ class VFSRoot
     elements.each do |e|
       start = start[e]
     end
-    binding.pry if start.nil?
+#    binding.pry if start.nil?
     fail "cd: path not found" if start.nil?
     @wd = start
   end
