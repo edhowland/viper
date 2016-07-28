@@ -11,3 +11,5 @@ function lineno() { ruby "puts (':{pwd}'.split('/').count {|e| e == 'nl' } + 1)"
 json modes.viper.json /v/modes/viper
 json views.viper.json /v/views/viper
 function search(pat) { loop { (grep :pat < line || not { cd nl }) && break } }
+function bottom() { loop { cd nl || break } }
+function top() { loop { (eq :pwd :_buf || not { cd .. }) && break } } }
