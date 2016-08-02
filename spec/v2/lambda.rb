@@ -8,6 +8,9 @@ class Lambda
     @frames = frames
   end
   def call *args, env:, frames:
-    @block.call env:env, frames:@frames
+    @frames.push
+    bound = @args.zip(args).to_h  # bind any passed arguments to this hash
+    @frames.top.merge! bound        # these are now variables within this context
+    result = @block.call env:env, frames:@frames
   end
 end

@@ -1,7 +1,5 @@
 # function - class Function - function invocation
 
-
-
 class Function
   def initialize args, block
     @args=args
