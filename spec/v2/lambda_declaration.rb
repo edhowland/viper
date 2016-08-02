@@ -7,7 +7,7 @@ class LambdaDeclaration
     @block = block
   end
   def call *args, env:, frames:
-    Lambda.new(@args, @block, frames:frames)
+    Lambda.new(@args, @block, frames:frames._clone)
   end
 end
 
