@@ -9,5 +9,8 @@ class LambdaDeclaration
   def call *args, env:, frames:
     Lambda.new(@args, @block, frames:frames._clone)
   end
+  def ordinal
+    COMMAND
+  end
 end
 

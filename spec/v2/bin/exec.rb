@@ -14,7 +14,7 @@ class Exec
       env[:err].puts "exec: first argument must not be nil"
       return false
     else
-      env[:err].puts 'exec: block must be first arg'
+      env[:err].puts 'exec: first argument must be either a block or lambda'
       return false    
     end
   end
