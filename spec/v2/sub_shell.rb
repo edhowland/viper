@@ -19,6 +19,8 @@ class SubShell
     @vm = frames.vm
     save_pwd @vm
     vm = @vm._clone
+    vm.ios = env
+    vm.fs = frames
     begin
       vm.call @block
     rescue VirtualMachine::BreakCalled => err
