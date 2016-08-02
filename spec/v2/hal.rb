@@ -55,8 +55,18 @@ class VirtualLayer
     def [] path
       if path == '*'
       path = '.'
+    elsif path == '**'
+    gather = []
+      node = @@root.wd
+      until node.nil?
+        prepend = node.pathname
+        gather += node.list.keys.map {|e| "#{prepend}/#{e}" }
+        node = node['nl']
+      end
+      gather
+    else
+      @@root.list path
     end
-    @@root.list path
     end
     def directory? path
       @@root.directory? path

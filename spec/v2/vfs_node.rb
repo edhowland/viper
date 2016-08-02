@@ -22,6 +22,15 @@ class VFSNode
   def keys
     @list.keys
   end
+  def pathname
+    gather = [@name]
+    node = @parent
+    until node.nil?
+      gather << node.name
+      node = node.parent
+    end
+    gather.reverse.join('/')
+  end
   def to_s
     "directory node: #{@name}"
   end
