@@ -21,6 +21,8 @@ require_relative 'boolean_or'
 require_relative 'alias_declaration'
 require_relative 'function'
 require_relative 'function_declaration'
+require_relative 'lambda'
+require_relative 'lambda_declaration'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'visher'

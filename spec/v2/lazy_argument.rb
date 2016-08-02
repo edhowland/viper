@@ -6,7 +6,4 @@ class LazyArgument < Argument
     def call env:, frames:
       @storage
   end
-  def lazy_call env:, frames:
-        @storage.call frames:frames, env:env
-  end
 end

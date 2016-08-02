@@ -20,6 +20,7 @@ function_name = < valid_id > { text }
 bare_string =  < /[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }
 glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
  argument = glob:g { g }
+          | '&()' - '{' - block:b - '}' { LambdaDeclaration.new(nil, b) }
           | string:s { Argument.new(s) }
           | bare_string:s { Argument.new(s) }
           | variable:v { Argument.new(v) }
