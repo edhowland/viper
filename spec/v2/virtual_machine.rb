@@ -113,9 +113,16 @@ class VirtualMachine
 #    alias_method :exit, :break
 
   def eval *args, env:, frames:
+    begin
     block = Visher.parse! args[0] 
+
     block.call env:env, frames:frames
     @fs.merge
+    true
+    rescue Vish::SyntaxError => err
+      env[:err].puts err.message
+      false
+    end
   end
   # create a deep copy of me
   def _clone

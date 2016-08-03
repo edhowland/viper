@@ -1,3 +1,4 @@
+function bell() { ruby 'print "\a"' }
 function mr() { deq lx/right | push lx/left; peek lx/right; echo }
 function ml() { pop lx/left | enq lx/right; peek lx/right; echo }
 function ex() { loop { raw char; eq :char 'q' && break;   echo -n :char | push line/left; echo -n :char } }
@@ -10,8 +11,8 @@ function lit2(ch, name) { echo -n "echo -n ':{ch}' | push line/left" > /v/modes/
 function lineno() { ruby "puts (':{pwd}'.split('/').count {|e| e == 'nl' } + 1)" }
 json modes.viper.json /v/modes/viper
 json views.viper.json /v/views/viper
-function search(pat) { loop { (grep :pat < line || not { cd nl }) && break } }
 function up() { eq :pwd :_buf || cd .. }
 function down() { cd nl }
 function bottom() { loop { cd nl || break } }
 function top() { loop { (eq :pwd :_buf || not { cd .. }) && break } } }
+function srch(pat) { find . line &(a) { loc=:(dirname :a); global loc; grep :pat < :a > /dev/null && cd :loc && break }; grep :pat < line || ruby 'print "\a"' }

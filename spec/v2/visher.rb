@@ -1,5 +1,14 @@
 # visher - class Visher - wraps Vish parser with parse! method
 require_relative 'vish.kpeg'
+
+class Vish
+  class SyntaxError < RuntimeError
+    def initialize 
+      super 'syntax error'
+    end
+  end
+end
+
 class Visher
   class << self
     def check! statement
@@ -9,7 +18,7 @@ class Visher
     
     def parse! statement
       v = Vish.new statement
-      puts 'syntax Error' unless v.parse
+      raise Vish::SyntaxError unless v.parse
       # remove any comment-only nodes from the result
       v.result  # .map {|e| e.reject(&:nil?) }
     end
@@ -29,13 +38,20 @@ def vepl options={}
     end
 
     loop do
+      begin
       print vm.fs[:prompt]
       command = gets
       fail if command.nil?
       command = command.chomp
+      next if command.empty?
       block = Visher.parse! command
       vm.call block
+   rescue Vish::SyntaxError => err
+     vm.ios[:err].puts err.message
+     vm.fs[:exit_status] = false
+   end
      end
+
    rescue => err
       puts err.message
       puts err.backtrace[0]

@@ -19,4 +19,12 @@ class BufNode < VFSNode
   def to_s
     "buf node #{name}"
   end
+
+     def newline
+    exist = @list['nl']
+    nl = BufNode.new(self, 'nl')
+    nl['nl'] = exist unless exist.nil?
+    exist.parent = nl unless exist.nil?
+    @list['nl'] = nl
+  end
 end
