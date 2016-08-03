@@ -55,6 +55,7 @@ class VirtualLayer
     def [] path
       if path == '*'
       path = '.'
+      @@root.list path
     elsif path == '**'
     gather = []
       node = @@root.wd
