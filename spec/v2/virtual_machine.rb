@@ -33,7 +33,7 @@ class VirtualMachine
   end
   # export args into global environment
   def global *args, env:, frames:
-    args.each {|a| frames.first[a.to_sym] = frames[a.to_sym] }
+    args.each {|a| @fs.first[a.to_sym] = frames[a.to_sym] }
     true
   end
   def cd *args, env:, frames:

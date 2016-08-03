@@ -171,6 +171,9 @@ class Hal
         PhysicalLayer.basename path
       end
     end
+    def dirname path
+      File.dirname path
+    end
     def realpath path
     if virtual? path
       VirtualLayer.realpath path
