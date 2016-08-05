@@ -80,10 +80,10 @@ end
     start, *elements = path_to_elements path
     !start[elements[0]].nil?
   end
-  def creat path
+  def creat path, object=StringIO.new('')
     start, *elements = path_to_elements path
     my_node = node(elements[0..(-2)], start)
-    my_node[elements[-1]] = StringIO.new ''
+    my_node[elements[-1]] = object
   end
   def [] path
     start, *elements = path_to_elements path
