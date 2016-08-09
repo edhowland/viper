@@ -9,7 +9,7 @@ class SubShellExpansion < SubShell
     super env:my_env, frames:frames
       sio.close_write
       sio.rewind
-      return sio.read.gsub(/\n/, ' ')
+      return sio.read.gsub(/\n/, ' ').split
   end
   def ordinal
     COMMAND
