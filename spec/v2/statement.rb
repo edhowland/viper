@@ -36,6 +36,8 @@ class Statement
     local_vars.push
     local_ios = env
     local_ios.push
+    File.open('vish.log', 'a') {|f| f.puts @context.join(' ') }
+
     sorted = @context.sort {|a, b| a.ordinal <=> b.ordinal }
     sorted.map! {|e| e.call env:local_ios, frames:local_vars }
     sorted.flatten!

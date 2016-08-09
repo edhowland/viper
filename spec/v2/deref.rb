@@ -7,11 +7,17 @@ class Deref
   end
   def call frames:, env:{}
     var = frames[@key]
+#    binding.pry
+    case var
+    when String
     result = var.split
     if result.length > 1
       return result
     else
       return result[0]
+    end
+    else
+      return var
     end
   end
   def to_s

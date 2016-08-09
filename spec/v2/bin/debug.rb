@@ -1,10 +1,14 @@
 # debug - class Debug - command debug - prints out environment
 
 class Debug
+  def print_args args
+    puts "args"
+    args.each {|e| puts e.inspect }
+  end
   def call *args, env:, frames:
     puts "-- debugging --"
-    puts "args"
-    puts args.inspect
+    print_args args
+    return true
     puts "-- environment --"
     puts env.inspect
     puts "variables frames --"
