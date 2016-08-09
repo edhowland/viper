@@ -6,7 +6,13 @@ class Deref
     @key = symbol
   end
   def call frames:, env:{}
-    frames[@key]
+    var = frames[@key]
+    result = var.split
+    if result.length > 1
+      return result
+    else
+      return result[0]
+    end
   end
   def to_s
     ':' + @key.to_s
