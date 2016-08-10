@@ -11,4 +11,7 @@ class FunctionDeclaration
     frames.functions[@name] = Function.new(@args, @block)
     true
   end
+  def to_s
+    "function #{@name}(#{@args.to_s}) { #{@block.to_s} }"
+  end
 end

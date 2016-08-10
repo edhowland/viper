@@ -29,6 +29,7 @@ end
 def vepl options={}
   vm = VirtualMachine.new
   begin
+    Log.start
     # load any startup scripts
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
     if File.exist?(vishrc) && options[:no_start].nil?
@@ -56,6 +57,8 @@ def vepl options={}
       puts err.message
       puts err.backtrace[0]
      puts 'Exiting ...'
+   ensure
+     Log.finish
     end
 end
 
