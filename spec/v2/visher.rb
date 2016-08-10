@@ -56,6 +56,8 @@ def vepl options={}
    rescue => err
       puts err.message
       puts err.backtrace[0]
+      Log.say_time "Exception #{err.message}: - backtrace:"
+      Log.dump err.backtrace
      puts 'Exiting ...'
    ensure
      Log.finish

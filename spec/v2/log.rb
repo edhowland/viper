@@ -19,8 +19,15 @@ class Log
     def finish
       log {|f| f.puts(time_of_day + ' Log stopped') }
     end
-    def say message
-      log {|f| f.puts message }
+    def say message, prefix=''
+      prefix += ' ' unless prefix.empty?
+      log {|f| f.puts "#{prefix}#{message}" }
+    end
+    def say_time message
+      say message, time_of_day
+    end
+    def dump collection, joiner="\n\t"
+      log {|f| f.puts collection.join(joiner) }
     end
     def remove
       File.unlink LOGF
