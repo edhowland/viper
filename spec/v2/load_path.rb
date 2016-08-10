@@ -1,5 +1,6 @@
 # load_path.rb - loads stuff for testing, running
 require_relative 'log'
+require_relative 'event'
 require_relative 'hal'
 require_relative 'frame_stack'
 require_relative 'quoted_string'

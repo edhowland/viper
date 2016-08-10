@@ -30,6 +30,7 @@ def vepl options={}
   vm = VirtualMachine.new
   begin
     Log.start
+    Event << ->(t, o) { Log.say o.to_s }
     # load any startup scripts
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
     if File.exist?(vishrc) && options[:no_start].nil?
