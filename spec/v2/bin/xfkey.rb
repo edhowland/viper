@@ -3,14 +3,16 @@
 class Xfkey
   def call *args, env:, frames:
     values = env[:in].read
-    if ('A'..'Z').include?(values) || ('a'..'z').include?(values)
+    if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
       env[:out].write "key_#{values}" 
       return true
     end
     result = {
-      "\r" => "return",
+      "\r" => "key_return",
       "\e" => "escape",
-      " " => "space",
+      " " => "key_space",
+      "\u007F" => 'key_backspace',
+      
       "." => 'key_period',
       "," => "key_comma",
       "<" => 'key_less',
@@ -25,7 +27,25 @@ class Xfkey
       "}" => 'key_rbrace',
       "[" => 'key_lbracket',
       "{" => 'key_lbrace',
-      
+      "\\" => 'key_backslash',
+      "|" => 'key_pipe',
+      "=" => 'key_equals',
+      "+" => 'key_plus',
+      "-" => 'key_dash',
+      "_" => 'key_underline',
+      ")" => 'key_rparen',
+      "(" => 'key_lparen',
+      "*" => 'key_star',
+      "&" => 'key_ampersand',
+      "^" => 'key_caret',
+      "%" => 'key_percent',
+      "$" => 'key_dollar',
+      "#" => 'key_number',
+      "@" => 'key_at',
+      "!" => 'key_exclaim',
+      "`" => 'key_accent',
+      "~" => 'key_tilde',
+    # control keys      
       "\u0011" => 'ctrl_q'
     }[values]
     unless result.nil?
