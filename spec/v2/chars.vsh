@@ -1,4 +1,5 @@
 function chars() {ruby "puts (('a'..'z').to_a + ('A'..'Z').to_a).join(' ')"}
+function puncts() { ruby 'a=((33..47).to_a + (58..64).to_a + (91..96).to_a + (123..126).to_a).map {|e| "_" + e.chr + "_" }.join(" "); env[:out].puts a' } 
 alias av="ruby 'puts args.length'"
 function mode_keys() { for i in :(chars) { store &() { echo -n :i | push line/left } /v/modes/viper/key_:{i} } }
 function view_keys() { for i in :(chars) { store &() { echo -n :i  } /v/views/viper/key_:{i} } }
