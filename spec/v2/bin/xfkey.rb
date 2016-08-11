@@ -11,6 +11,21 @@ class Xfkey
       "\r" => "return",
       "\e" => "escape",
       " " => "space",
+      "." => 'key_period',
+      "," => "key_comma",
+      "<" => 'key_less',
+      ">" => 'key_greater',
+      "/" => 'key_slash',
+      "?" => 'key_question',
+      "'" => 'key_apostrophe',
+      '"' => 'key_quote',
+      ";" => 'key_semicolon',
+      ":" => 'key_colon',
+      "]" => 'key_rbracket',
+      "}" => 'key_rbrace',
+      "[" => 'key_lbracket',
+      "{" => 'key_lbrace',
+      
       "\u0011" => 'ctrl_q'
     }[values]
     unless result.nil?
