@@ -4,14 +4,14 @@ class Xfkey
   def call *args, env:, frames:
     values = env[:in].read
     if ('A'..'Z').include?(values) || ('a'..'z').include?(values)
-      env[:out].write values 
+      env[:out].write "key_#{values}" 
       return true
     end
     result = {
       "\r" => "return",
       "\e" => "escape",
       " " => "space",
-      'A' => 'A'
+      "\u0011" => 'ctrl_q'
     }[values]
     unless result.nil?
       env[:out].write result
