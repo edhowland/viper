@@ -9,7 +9,7 @@ space = " "
 nl = "\n"
 not_nl = /[^\n]/
 redirect_op = < /<|>(>|&2)?|>&2|2>&1|2>/ > { text }
-valid_id = /[_A-Za-z][_A-Za-z0-9]*/
+valid_id = /[_A-Za-z][_A-Za-z0-9\.]*/
 identifier = <valid_id  > { text.to_sym }
 string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
           | '"' < /[^"]*/ > '"' {StringLiteral.new(text) }

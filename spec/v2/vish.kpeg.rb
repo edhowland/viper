@@ -73,9 +73,9 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # valid_id = /[_A-Za-z][_A-Za-z0-9]*/
+  # valid_id = /[_A-Za-z][_A-Za-z0-9\.]*/
   def _valid_id
-    _tmp = scan(/\A(?-mix:[_A-Za-z][_A-Za-z0-9]*)/)
+    _tmp = scan(/\A(?-mix:[_A-Za-z][_A-Za-z0-9\.]*)/)
     set_failed_rule :_valid_id unless _tmp
     return _tmp
   end
@@ -1275,7 +1275,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
   Rules[:_not_nl] = rule_info("not_nl", "/[^\\n]/")
   Rules[:_redirect_op] = rule_info("redirect_op", "< /<|>(>|&2)?|>&2|2>&1|2>/ > { text }")
-  Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9]*/")
+  Rules[:_valid_id] = rule_info("valid_id", "/[_A-Za-z][_A-Za-z0-9\\.]*/")
   Rules[:_identifier] = rule_info("identifier", "< valid_id > { text.to_sym }")
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { QuotedString.new(text) } | \"\\\"\" < /[^\"]*/ > \"\\\"\" {StringLiteral.new(text) })")
   Rules[:_variable] = rule_info("variable", "\":\" < valid_id > { Deref.new(text.to_sym) }")
