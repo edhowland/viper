@@ -9,6 +9,7 @@ class VirtualMachine
     @fs[:pwd] = Hal.pwd
     @fs[:prompt] = 'vepl '
     @fs[:oldpwd] = Hal.pwd
+    @fs[:version] = Vish::VERSION
     @ios = env
     @seen = [] # seen aliases during dealias
   end

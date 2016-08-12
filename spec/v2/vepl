@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+# vepl.rb - starts Vish REPL with options
+
+# TODO: REMOVEME
+require 'pry'
+require 'optparse'
+require_relative 'load_path'
+
+
+options = {}
+oparse = OptionParser.new do |opt|
+  opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
+  opt.separator ''
+  opt.on('-n', '--no-start', 'Do not execute startup scripts') do
+    options[:no_start] = true
+  end
+  opt.on('-l', '--log', 'Start logging to vish.log') do
+    options[:log] = true
+  end
+  opt.separator ''
+  opt.on('-h', '--help', 'Display this help and exit') do
+    puts opt
+    exit
+  end
+  opt.on('-v', '--version', 'Display version of Vish shell and exit') do
+    puts 'Vish version'
+    puts Vish::VERSION
+    exit
+  end
+end
+oparse.parse!
+
+# start REPL
+vepl(options)
