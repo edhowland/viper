@@ -7,6 +7,14 @@ class Xfkey
       env[:out].write "key_#{values}" 
       return true
     end
+    unis = (1..26).to_a.map {|e| [e].pack('U') }
+    if unis.member? values
+      unpacked = values.unpack('C')[0]
+      ctrl = 'ctrl_' + (unpacked + 64).chr.downcase
+      env[:out].write ctrl
+
+      return true
+    end
     result = {
       "\r" => "key_return",
       "\e" => "escape",
