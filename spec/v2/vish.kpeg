@@ -7,6 +7,7 @@ eps = ''
 space = " "
 - = space*
 nl = "\n"
+ws = space | nl
 not_nl = /[^\n]/
 redirect_op = < /<|>(>|&2)?|>&2|2>&1|2>/ > { text }
 valid_id = /[_A-Za-z][_A-Za-z0-9\.]*/
@@ -25,7 +26,7 @@ glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLit
           | bare_string:s { Argument.new(s) }
           | variable:v { Argument.new(v) }
           | ':(' - block:b - ')' { SubShellExpansion.new(b) }
-          | '{' - block:b - '}' { LazyArgument.new(b) }
+          | '{' ws* block:b ws* '}' { LazyArgument.new(b) }
 
 function_args = function_args:a1 - ',' - function_args:a2 { a1 + a2 }
           | identifier:a { [ a ] }
@@ -50,7 +51,7 @@ expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
           | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
           | '(' - block:b - ')' { [ SubShell.new(b) ] }
           | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
-          | 'function' - function_name:i '(' - function_args:a - ')' - '{' - block:b - '}' { [ FunctionDeclaration.new(i, a, b) ] }
+          | 'function' - function_name:i '(' - function_args:a - ')' - '{' ws* block:b ws* '}' { [ FunctionDeclaration.new(i, a, b) ] }
           | context:c { [ Statement.new(c) ] }
 
 block = statement_list:s { Block.new(s) }
