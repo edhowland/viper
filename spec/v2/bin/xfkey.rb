@@ -3,6 +3,14 @@
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 class Xfkey
+  def key_to_unicode values
+#  binding.pry
+
+    uni = values.chars.map {|e| e.unpack('H*')[0] }.map {|e| '\\u00' + e }
+
+    @out.puts uni.join(' ')
+    true
+  end
   def key_to_name values
         if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
       @out.write "key_#{values}" 
@@ -17,11 +25,9 @@ class Xfkey
       return true
     end
     result = {
-      "\r" => "key_return",
       "\e" => "escape",
-      " " => "key_space",
       "\u007F" => 'key_backspace',
-      
+      # punctuation
       "." => 'key_period',
       "," => "key_comma",
       "<" => 'key_less',
@@ -54,8 +60,8 @@ class Xfkey
       "!" => 'key_exclaim',
       "`" => 'key_accent',
       "~" => 'key_tilde',
-    # control keys      
-      "\u0011" => 'ctrl_q'
+      # movement keys
+      "\u001b" + "\u005b" + "\u0044" => 'move_left'
     }[values]
     unless result.nil?
       @out.write result
@@ -94,10 +100,12 @@ class Xfkey
   def call *args, env:, frames:
     @out = env[:out]
     values = env[:in].read
-    unless args[0] == '-h'
-      key_to_name values
-    else
+    if args[0] == '-h'
       name_to_human values
+      elsif args[0] == '-u'
+        key_to_unicode values
+    else
+      key_to_name values
     end
   end
 end
