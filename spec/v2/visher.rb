@@ -40,7 +40,11 @@ def vepl options={}
       cblock = Visher.parse! code
       vm.call cblock
     end
-
+    if options[:execute]
+      code = options[:execute]
+            cblock = Visher.parse! code
+      vm.call cblock
+    end
     loop do
       begin
       print vm.fs[:prompt]

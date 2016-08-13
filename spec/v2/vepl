@@ -17,6 +17,9 @@ oparse = OptionParser.new do |opt|
   opt.on('-l', '--log', 'Start logging to vish.log') do
     options[:log] = true
   end
+  opt.on('-e script', '--execute script', String, 'Execute this command at startup') do |script|
+    options[:execute] = script
+  end
   opt.separator ''
   opt.on('-h', '--help', 'Display this help and exit') do
     puts opt
