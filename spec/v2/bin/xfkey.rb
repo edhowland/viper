@@ -66,13 +66,34 @@ class Xfkey
 
     end
   end
+  def name_to_human name
+    human = {
+      'key_space' => 'space'
+    }[name]
+    if human.nil?
+      case name[0..3]
+      when 'key_'
+        @out.puts name[4]
+        true
+      when 'ctrl'
+        @out.puts "control #{name[5]}"
+        true
+      else
+        @out.puts 'unknown'
+        false
+      end
+    else
+      @out.puts human
+      true
+    end
+  end
   def call *args, env:, frames:
     @out = env[:out]
     values = env[:in].read
     unless args[0] == '-h'
       key_to_name values
     else
-      true
+      name_to_human values
     end
   end
 end
