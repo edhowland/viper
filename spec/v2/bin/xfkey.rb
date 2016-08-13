@@ -1,17 +1,18 @@
 # xfkey - class Xfkey - command xfkey - maps bytes to string representsations
-
+# arg: [-h] :  print human readable version
+# Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
+# echo key_space | xfkey -h  # prints human understandable character: "space"
 class Xfkey
-  def call *args, env:, frames:
-    values = env[:in].read
-    if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
-      env[:out].write "key_#{values}" 
+  def key_to_name values
+        if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
+      @out.write "key_#{values}" 
       return true
     end
     unis = (1..26).to_a.map {|e| [e].pack('U') }
     if unis.member? values
       unpacked = values.unpack('C')[0]
       ctrl = 'ctrl_' + (unpacked + 64).chr.downcase
-      env[:out].write ctrl
+      @out.write ctrl
 
       return true
     end
@@ -57,12 +58,21 @@ class Xfkey
       "\u0011" => 'ctrl_q'
     }[values]
     unless result.nil?
-      env[:out].write result
+      @out.write result
       true
     else
-      env[:out].write "unknown"
+      @out.write "unknown"
       false
 
+    end
+  end
+  def call *args, env:, frames:
+    @out = env[:out]
+    values = env[:in].read
+    unless args[0] == '-h'
+      key_to_name values
+    else
+      true
     end
   end
 end

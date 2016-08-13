@@ -18,7 +18,7 @@ store &() { echo  hi there sailor ed } /v/views/viper/key_backspace
 }
 function mode.ctrl() { for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} } }
 function view.ctrl() { for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} } }
-function apply(ch) { exec /v/modes/viper/:{ch}; exec /v/views/viper/:{ch} }
+function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function install() { 
 mode.keys.alpha
 mode.keys.punct
@@ -32,3 +32,4 @@ store &() { nop } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
 }
 function vip() { loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
+install
