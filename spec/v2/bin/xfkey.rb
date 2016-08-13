@@ -73,7 +73,11 @@ class Xfkey
     if human.nil?
       case name[0..3]
       when 'key_'
-        @out.puts name[4]
+        if name.length == 5
+          @out.puts name[4]
+        else
+          @out.puts name[4..(-1)]
+        end
         true
       when 'ctrl'
         @out.puts "control #{name[5]}"

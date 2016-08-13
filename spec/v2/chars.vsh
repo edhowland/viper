@@ -10,11 +10,11 @@ function view.keys.punct() { for i in :(puncts) { key=:(trunc :i); fname=:(echo 
 function mode.keys.punct() { for i in :(puncts) { key=:(trunc :i); fname=:(echo -n :key | xfkey); store &() { echo -n :key | push line/left } /v/modes/viper/:{fname} } }
 function mode.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n ' '| push line/left } /v/modes/viper/:{fname} 
-store &() { _ch=:(pop line/left); global _ch } /v/modes/viper/key_backspace
+store &() { pop line/left } /v/modes/viper/key_backspace
 }
 function view.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n space } /v/views/viper/:{fname}
-store &() { echo  hi there sailor ed } /v/views/viper/key_backspace
+store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_backspace
 }
 function mode.ctrl() { for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} } }
 function view.ctrl() { for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} } }
