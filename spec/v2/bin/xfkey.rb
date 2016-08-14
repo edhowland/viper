@@ -63,7 +63,11 @@ class Xfkey
       "~" => 'key_tilde',
       # movement keys
       "\u001b" + "\u005b" + "\u0044" => 'move_left',
-       "\u001b" + "\u005b" + "\u0043" => 'move_right'
+       "\u001b" + "\u005b" + "\u0043" => 'move_right',
+        "\u001b" + "\u005b" + "\u0041" => 'move_up',
+      "\u001b" + "\u005b" + "\u0042" => 'move_down'
+
+
 
     }[values]
     unless result.nil?
@@ -77,7 +81,8 @@ class Xfkey
   end
   def name_to_human name
     human = {
-      'key_space' => 'space'
+      'key_space' => 'space',
+      'ctrl_j' => 'new line'
     }[name]
     if human.nil?
       case name[0..3]
