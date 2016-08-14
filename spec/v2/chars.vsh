@@ -27,11 +27,13 @@ store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { deq line/right | push line/left } /v/modes/viper/move_right
+store &() { cd .. } /v/modes/viper/move_up
 store &() { cd nl } /v/modes/viper/move_down
 }
 function view.move.keys() {
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
+store &() { cat < line } /v/views/viper/move_up
 store &() { cat < line } /v/views/viper/move_down
 }
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
