@@ -8,7 +8,7 @@ class Xfkey
 
     uni = values.chars.map {|e| e.unpack('H*')[0] }.map {|e| '\\u00' + e }
 
-    @out.puts uni.join(' ')
+    @out.write uni.join(' ')
     true
   end
   def key_to_name values
@@ -28,6 +28,7 @@ class Xfkey
       "\e" => "escape",
       "\u007F" => 'key_backspace',
       # punctuation
+      " " => 'key_space',
       "." => 'key_period',
       "," => "key_comma",
       "<" => 'key_less',
@@ -61,7 +62,9 @@ class Xfkey
       "`" => 'key_accent',
       "~" => 'key_tilde',
       # movement keys
-      "\u001b" + "\u005b" + "\u0044" => 'move_left'
+      "\u001b" + "\u005b" + "\u0044" => 'move_left',
+       "\u001b" + "\u005b" + "\u0043" => 'move_right'
+
     }[values]
     unless result.nil?
       @out.write result
@@ -80,20 +83,20 @@ class Xfkey
       case name[0..3]
       when 'key_'
         if name.length == 5
-          @out.puts name[4]
+          @out.write name[4]
         else
-          @out.puts name[4..(-1)]
+          @out.write name[4..(-1)]
         end
         true
       when 'ctrl'
-        @out.puts "control #{name[5]}"
+        @out.write "control #{name[5]}"
         true
       else
-        @out.puts 'unknown'
+        @out.write 'unknown'
         false
       end
     else
-      @out.puts human
+      @out.write human
       true
     end
   end

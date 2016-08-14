@@ -18,6 +18,14 @@ store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_backspace
 }
 function mode.ctrl() { for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} } }
 function view.ctrl() { for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} } }
+function mode.move.keys() {
+store &() { pop line/left | enq line/right } /v/modes/viper/move_left
+store &() { deq line/right | push line/left } /v/modes/viper/move_right
+}
+function view.move.keys() {
+store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
+store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
+}
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function install() { 
 mode.keys.alpha
@@ -30,6 +38,9 @@ mode.ctrl
 view.ctrl
 store &() { nop } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
+mode.move.keys
+view.move.keys
 }
 function vip() { loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
+alias buffer="basename :_buf"
 install
