@@ -1,4 +1,6 @@
 function bell() { ruby 'print "\a"' }
+function apply.first(key) { exec /v/modes/viper/:{key} }
+function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
 function chars() { ruby "env[:out].puts (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).join(' ')"}
 function puncts() { ruby 'a=((33..47).to_a + (58..64).to_a + (91..96).to_a + (123..126).to_a).map {|e| "_" + e.chr + "_" }.join(" "); env[:out].puts a' } 
@@ -34,6 +36,7 @@ store &() { cd nl } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
 store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
 store &() { cat < line > line } /v/modes/viper/move_shift_home
+store &() { loop { peek line/right >/dev/null || break; apply.first move_right } } /v/modes/viper/move_shift_end
 }
 function view.move.keys() {
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
@@ -43,8 +46,8 @@ store &() { cat < line } /v/views/viper/move_down
 store &() { echo -n start of document } /v/views/viper/move_shift_pgup
 store  { echo -n end of document   } /v/views/viper/move_shift_pgdn
 store &() { echo -n start of line } /v/views/viper/move_shift_home
+store &() { echo -n end of line } /v/views/viper/move_shift_end
 }
-function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function install() { 
 mode.keys.alpha
 mode.keys.punct
