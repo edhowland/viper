@@ -6,9 +6,13 @@ class BaseNodeCommand
   def perform path, env:, frames:,  &blk
     root = frames[:vroot]
     node = root[path]
-    result = ''
-    result = yield node if block_given?
-    env[:out].print result
-    true
+    result = true
+    output = yield node if block_given?
+    if output.nil?
+      result = false
+      output = ''
+    end
+    env[:out].print output
+    result
   end
 end
