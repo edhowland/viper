@@ -11,10 +11,12 @@ function mode.keys.punct() { for i in :(puncts) { key=:(trunc :i); fname=:(echo 
 function mode.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n ' '| push line/left } /v/modes/viper/:{fname} 
 store &() { pop line/left } /v/modes/viper/key_backspace
+store &() { deq line/right } /v/modes/viper/key_delete
 }
 function view.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n space } /v/views/viper/:{fname}
 store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_backspace
+store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_delete
 }
 function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }

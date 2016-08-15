@@ -69,7 +69,10 @@ class Xfkey
       "\u001b" + "\u005b" + "\u0035" + "\u007e" => 'move_shift_pgup',
       "\u001b" + "\u005b" + "\u0036" + "\u007e" => 'move_shift_pgdn',
       "\u001b" + "\u005b" + "\u0048" => 'move_shift_home',
-      "\u001b" + "\u005b" + "\u0046" => 'move_shift_end'
+      "\u001b" + "\u005b" + "\u0046" => 'move_shift_end',
+      # forward delete
+      "\u001b" + "\u005b" + "\u0033" + "\u007e" => 'key_delete'
+      
 
 
 
