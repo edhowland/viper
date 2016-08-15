@@ -12,6 +12,7 @@ class Pipe
     env.push
     env[:out] = io
     first_result = @left.call env:env, frames:frames
+#binding.pry
     env.pop
     io.close_write
     io.rewind

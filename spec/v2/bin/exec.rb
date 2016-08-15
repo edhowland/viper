@@ -15,8 +15,9 @@ class Exec
       if node.nil?
         env[:err].puts 'exec: no such file'
         return false
-      elsif !node.instance_of?(Lambda)
-        env[:err].puts "exec: object at #{block} must be a lambda function"
+      elsif !(node.instance_of?(Lambda) || node.instance_of?(Block))
+        env[:err].puts "exec: object at #{block} must be a lambda function or a block"
+        env[:err].puts "got: #{node.class.name}"
         return false
       end
             node.call *args, env:env, frames:frames

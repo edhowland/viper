@@ -29,12 +29,16 @@ store &() { pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { deq line/right | push line/left } /v/modes/viper/move_right
 store &() { cd .. } /v/modes/viper/move_up
 store &() { cd nl } /v/modes/viper/move_down
+store { cd :_buf } /v/modes/viper/move_shift_pgup
+store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
 }
 function view.move.keys() {
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
 store &() { cat < line } /v/views/viper/move_up
 store &() { cat < line } /v/views/viper/move_down
+store &() { echo -n start of document } /v/views/viper/move_shift_pgup
+store  { echo hi   } /v/views/viper/move_shift_pgdn
 }
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function install() { 
@@ -46,7 +50,7 @@ mode.keys.space
 view.keys.space
 mode.ctrl
 view.ctrl
-store &() { nop } /v/modes/viper/unknown
+store &() { cat } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys

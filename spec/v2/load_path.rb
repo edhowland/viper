@@ -26,6 +26,7 @@ require_relative 'lambda'
 require_relative 'lambda_declaration'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
+require_relative 'capture'
 require_relative 'visher'
 require_relative 'null_facade'
 require_relative 'string_io_facade'

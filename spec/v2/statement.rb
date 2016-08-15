@@ -47,13 +47,14 @@ class Statement
 #binding.pry
     closers = local_ios.values
     local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
-
-    result = command.call *args,  env:local_ios, frames:local_vars
-
-    closers.each {|f| f.close }
-    local_ios.pop
-    local_vars.pop
-    frames[:exit_status] = result
+    begin
+      result = command.call *args,  env:local_ios, frames:local_vars
+    ensure
+      closers.each {|f| f.close }
+      local_ios.pop
+      local_vars.pop
+      frames[:exit_status] = result
+    end
     result
   end
   end
