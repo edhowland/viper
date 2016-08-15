@@ -38,7 +38,7 @@ store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
 store &() { cat < line } /v/views/viper/move_up
 store &() { cat < line } /v/views/viper/move_down
 store &() { echo -n start of document } /v/views/viper/move_shift_pgup
-store  { echo hi   } /v/views/viper/move_shift_pgdn
+store  { echo -n end of document   } /v/views/viper/move_shift_pgdn
 }
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function install() { 
