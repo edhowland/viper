@@ -1,9 +1,17 @@
 # deref - class Deref - Dereferences a variable given some starting hash
 
-
 class Deref
   def initialize symbol
     @key = symbol
+    @value = ''
+  end
+  attr_reader :key, :value
+  def handle_range
+    
+  end
+  def range?
+    @matches = @key.match /(.+)[^.]\.\.(.+)/
+    !@matches.nil?
   end
   def call frames:, env:{}
     var = frames[@key]

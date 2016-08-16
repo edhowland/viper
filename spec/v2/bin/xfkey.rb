@@ -94,7 +94,8 @@ class Xfkey
   def name_to_human name
     human = {
       'key_space' => 'space',
-      'ctrl_j' => 'new line'
+      'ctrl_j' => 'new line',
+      'ctrl_i' => 'tab'
     }[name]
     if human.nil?
       case name[0..3]
