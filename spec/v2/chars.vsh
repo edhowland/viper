@@ -31,8 +31,8 @@ store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { deq line/right | push line/left } /v/modes/viper/move_right
-store &() { cd .. } /v/modes/viper/move_up
-store &() { cd nl } /v/modes/viper/move_down
+store &() { apply.first move_shift_home; cd .. } /v/modes/viper/move_up
+store &() { apply.first move_shift_home; cd nl } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
 store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
 store &() { cat < line > line } /v/modes/viper/move_shift_home
