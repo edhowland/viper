@@ -18,11 +18,13 @@ function mode.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n ' '| push line/left } /v/modes/viper/:{fname} 
 store &() { pop line/left } /v/modes/viper/key_backspace
 store &() { deq line/right } /v/modes/viper/key_delete
+store &() { apply.times :indent key_backspace } /v/modes/viper/key_backtab
 }
 function view.keys.space() {
 fname=:(echo -n ' '|xfkey); store &() { echo -n space } /v/views/viper/:{fname}
 store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_backspace
 store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_delete
+store &() { echo -n back tab } /v/views/viper/key_backtab
 }
 function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
