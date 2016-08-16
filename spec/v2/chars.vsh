@@ -8,9 +8,7 @@ function ctrls() {ruby 'env[:out].puts ("a".."z").to_a.map {|e| "ctrl_#{e}" }.jo
 alias av="ruby 'puts args.length'"
 function handle.tab() {
 level=1..:{indent}
-echo :level
-for i in :level { spaces=":{spaces} "; global spaces }
-echo ">>:{spaces}<<<"
+for i in :level { apply.first key_space }
 }
 function mode.keys.alpha() { for i in :(chars) { store &() { echo -n :i | push line/left } /v/modes/viper/key_:{i} } }
 function view.keys.alpha() { for i in :(chars) { store &() { echo -n :i  } /v/views/viper/key_:{i} } }
@@ -28,11 +26,13 @@ store &() { echo -n delete :(xfkey|xfkey -h) } /v/views/viper/key_delete
 }
 function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
+store &() { handle.tab } /v/modes/viper/ctrl_i
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
 store &() { cat < line } /v/views/viper/ctrl_l
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
+store &() { echo -n tab } /v/views/viper/ctrl_i
 }
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
