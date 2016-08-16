@@ -1,14 +1,14 @@
 function bell() { ruby 'print "\a"' }
 function apply.first(key) { exec /v/modes/viper/:{key} }
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
+function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
 function chars() { ruby "env[:out].puts (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).join(' ')"}
 function puncts() { ruby 'a=((33..47).to_a + (58..64).to_a + (91..96).to_a + (123..126).to_a).map {|e| "_" + e.chr + "_" }.join(" "); env[:out].puts a' } 
 function ctrls() {ruby 'env[:out].puts ("a".."z").to_a.map {|e| "ctrl_#{e}" }.join(" ")' }
 alias av="ruby 'puts args.length'"
 function handle.tab() {
-level=1..:{indent}
-for i in :level { apply.first key_space }
+apply.times :indent key_space
 }
 function mode.keys.alpha() { for i in :(chars) { store &() { echo -n :i | push line/left } /v/modes/viper/key_:{i} } }
 function view.keys.alpha() { for i in :(chars) { store &() { echo -n :i  } /v/views/viper/key_:{i} } }
