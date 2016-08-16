@@ -71,7 +71,10 @@ class Xfkey
       "\u001b" + "\u005b" + "\u0048" => 'move_shift_home',
       "\u001b" + "\u005b" + "\u0046" => 'move_shift_end',
       # forward delete
-      "\u001b" + "\u005b" + "\u0033" + "\u007e" => 'key_delete'
+      "\u001b" + "\u005b" + "\u0033" + "\u007e" => 'key_delete',
+      # backtab
+      "\u001b" + "\u005b" + "\u005a" => 'key_backtab'
+       
       
 
 
