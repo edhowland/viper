@@ -6,18 +6,25 @@ class Deref
     @value = ''
   end
   attr_reader :key, :value
+  def resolve! frames:
+    @value = frames[@key]
+  end
   def handle_range
-    
+    r = Range.new @matches[1], @matches[2]
+    r.to_a
   end
   def range?
-    @matches = @key.match /(.+)[^.]\.\.(.+)/
+    @matches = @value.match /([^.]+)\.\.(.+)/
     !@matches.nil?
   end
   def call frames:, env:{}
-    var = frames[@key]
-#    binding.pry
+    resolve! frames:frames
+    var = @value
     case var
     when String
+      if range?
+        return handle_range
+      end
     result = var.split
     if result.length > 1
       return result
