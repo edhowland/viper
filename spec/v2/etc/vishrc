@@ -16,3 +16,5 @@ alias h="raw -|xfkey"
 mkdir /v/modes/viper
 mkdir /v/views/viper
 _mode=viper
+indent=2
+function neq(a, b) { not { eq :a :b } }

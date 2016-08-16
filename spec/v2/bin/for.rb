@@ -6,9 +6,8 @@ class For
     var, in_p = args.shift(2)
     raise Vish::SyntaxError if in_p.nil? || in_p != 'in' || args.empty?
     block = args.pop
-    vm = frames.vm
     var = var.to_sym
-    args.each {|e| vm.fs[var] = e; vm.call block }
+    args.each {|e| frames[var] = e; block.call env:env, frames:frames }
     true
   end
 end
