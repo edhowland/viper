@@ -29,12 +29,14 @@ store &() { echo -n back tab } /v/views/viper/key_backtab
 function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
 store &() { handle.tab } /v/modes/viper/ctrl_i
+store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
 store &() { cat < line } /v/views/viper/ctrl_l
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
 store &() { echo -n tab } /v/views/viper/ctrl_i
+store &() { cat < line } /v/views/viper/ctrl_o
 }
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
