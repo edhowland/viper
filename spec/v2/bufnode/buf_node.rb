@@ -12,7 +12,11 @@ class BufNode < VFSNode
   def insnode text=''
     child = @list['nl']
     baby = mknode ''
-    baby['line'] = StringIO.new(text)
+    lnode = LineNode.new(baby, 'line')
+    lnode.right = text
+    baby['line'] = lnode
+    baby.parent = child.parent
+    child.parent = baby
     baby['nl'] = child
     baby
   end
