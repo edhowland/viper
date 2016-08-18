@@ -166,11 +166,11 @@ class Hal
       end
     end
     def basename path
-      if virtual? path
-        VirtualLayer.basename path
-      else
+#      if virtual? path
+#        VirtualLayer.basename path
+#      else
         PhysicalLayer.basename path
-      end
+#      end
     end
     def dirname path
       File.dirname path

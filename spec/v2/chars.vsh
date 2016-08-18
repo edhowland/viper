@@ -54,6 +54,12 @@ store &() { wc -n } /v/views/viper/ctrl_k
 store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
 store &() { echo -n paste } /v/views/viper/ctrl_v
 }
+function mode.fn.keys() {
+store { basename :_buf } /v/modes/viper/fn_2
+}
+function view.fn.keys() {
+store &() { cat } /v/views/viper/fn_2
+}
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { deq line/right | push line/left } /v/modes/viper/move_right
@@ -83,6 +89,8 @@ mode.keys.space
 view.keys.space
 mode.ctrl
 view.ctrl
+mode.fn.keys
+view.fn.keys
 store &() { cat } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
 mode.move.keys

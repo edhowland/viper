@@ -73,9 +73,12 @@ class Xfkey
       # forward delete
       "\u001b" + "\u005b" + "\u0033" + "\u007e" => 'key_delete',
       # backtab
-      "\u001b" + "\u005b" + "\u005a" => 'key_backtab'
-       
-      
+      "\u001b" + "\u005b" + "\u005a" => 'key_backtab',
+      # function keys
+      "\u001b" + "\u004f" + "\u0051" => 'fn_2'
+
+
+
 
 
 
