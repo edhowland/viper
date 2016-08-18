@@ -39,6 +39,8 @@ store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
 store &() { handle.return } /v/modes/viper/ctrl_m
 store &() { spy line/left | wc } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
+store &() { yank 1 } /v/modes/viper/ctrl_y
+store &() { paste } /v/modes/viper/ctrl_v
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
@@ -49,6 +51,8 @@ store &() { cat < line } /v/views/viper/ctrl_o
 store &() { cat } /v/views/viper/ctrl_m
 store &() { cat } /v/views/viper/ctrl_k
 store &() { wc -n } /v/views/viper/ctrl_k
+store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
+store &() { echo -n paste } /v/views/viper/ctrl_v
 }
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
