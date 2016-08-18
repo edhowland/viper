@@ -10,6 +10,12 @@ alias av="ruby 'puts args.length'"
 function handle.tab() {
 apply.times :indent key_space
 }
+function handle.return() {
+(apply.first ctrl_o)
+echo | push line/left
+extract line/right | (cd nl; cat > line)
+apply move_down
+}
 function mode.keys.alpha() { for i in :(chars) { store &() { echo -n :i | push line/left } /v/modes/viper/key_:{i} } }
 function view.keys.alpha() { for i in :(chars) { store &() { echo -n :i  } /v/views/viper/key_:{i} } }
 function view.keys.punct() { for i in :(puncts) { key=:(trunc :i); fname=:(echo -n :key | xfkey); store &() { echo -n :key } /v/views/viper/:{fname} } } 
@@ -30,6 +36,7 @@ function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
 store &() { handle.tab } /v/modes/viper/ctrl_i
 store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
+store &() { handle.return } /v/modes/viper/ctrl_m
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
@@ -37,6 +44,7 @@ store &() { cat < line } /v/views/viper/ctrl_l
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
 store &() { echo -n tab } /v/views/viper/ctrl_i
 store &() { cat < line } /v/views/viper/ctrl_o
+store &() { cat } /v/views/viper/ctrl_m
 }
 function mode.move.keys() {
 store &() { pop line/left | enq line/right } /v/modes/viper/move_left
