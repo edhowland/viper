@@ -67,7 +67,15 @@ class VirtualLayer
       @@root.realpath path
     end
     def mv src, dest
-      puts "src: #{src}\ndest: #{dest}"
+      ddir, dfile = split_path(dest)
+      sdir, sfile = split_path src
+      d = @@root[ddir]
+      s=@@root[src]
+      s.parent = d
+      s.name = dfile
+      snode = @@root[sdir]
+      snode.list.delete sfile
+      d[dfile] = s
     end
   end
 end
