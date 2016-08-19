@@ -28,9 +28,12 @@ class PhysicalLayer
     def basename path
       File.basename path
     end
-      def realpath path
-    File.expand_path path
-  end
+    def realpath path
+      File.expand_path path
+    end
+    def mv src, dest
+      File.rename src, dest
+    end
   end
 end
 
@@ -46,11 +49,11 @@ class VirtualLayer
     end
     def set_root root=VFSRoot.new
       @@root = root
-      def virtual? path
+
+    end
+          def virtual? path
         @@root.contains? path
       end
-    end
-
 
     def [] path
       if path == '*'
@@ -166,11 +169,7 @@ class Hal
       end
     end
     def basename path
-#      if virtual? path
-#        VirtualLayer.basename path
-#      else
         PhysicalLayer.basename path
-#      end
     end
     def dirname path
       File.dirname path
@@ -180,6 +179,13 @@ class Hal
       VirtualLayer.realpath path
     else
         PhysicalLayer.realpath path
+      end
+    end
+    def mv src, dest
+      if virtual? src
+        VirtualLayer.mv src, dest
+      else
+        PhysicalLayer.mv src, dest
       end
     end
   end

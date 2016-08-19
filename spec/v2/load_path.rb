@@ -24,6 +24,8 @@ require_relative 'function'
 require_relative 'function_declaration'
 require_relative 'lambda'
 require_relative 'lambda_declaration'
+# BaseCommand - super class for all commands below
+require_relative 'base_command'
 # get all the commands
 Dir['./bin/*.rb'].each {|f| require_relative f }
 require_relative 'capture'
