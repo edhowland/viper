@@ -41,6 +41,10 @@ $in_virtual = false
 
 class VirtualLayer
   class << self
+    def split_path path
+      parts = path.split('/')
+      return parts[0..(-2)].join('/'), parts[-1]
+    end
     def mkdir_p path
       @@root.mkdir_p path
     end
@@ -97,6 +101,9 @@ class VirtualLayer
     end
     def realpath path
       @@root.realpath path
+    end
+    def mv src, dest
+      puts "src: #{src}\ndest: #{dest}"
     end
   end
 end
@@ -183,7 +190,7 @@ class Hal
     end
     def mv src, dest
       if virtual? src
-        VirtualLayer.mv src, dest
+        VirtualLayer.mv(VirtualLayer.realpath(src), VirtualLayer.realpath(dest))
       else
         PhysicalLayer.mv src, dest
       end
