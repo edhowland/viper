@@ -1,6 +1,5 @@
 line 1
 0123456789
-this is some fun
 hello world
 line 2
 line 3

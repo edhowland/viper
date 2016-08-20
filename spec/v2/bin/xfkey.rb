@@ -3,9 +3,10 @@
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 class Xfkey
+  def key_to_hex  values
+    @out.write(values.bytes.map {|e| '%0x' % e }.join(' '))
+  end
   def key_to_unicode values
-#  binding.pry
-
     uni = values.chars.map {|e| e.unpack('H*')[0] }.map {|e| '\\u00' + e }
 
     @out.write uni.join(' ')
@@ -24,6 +25,16 @@ class Xfkey
 
       return true
     end
+    # check for possible meta key
+    meta_keys = {
+        [226, 136, 130] => 'meta_d'
+      }
+      meta_k = values.bytes
+      if meta_keys[meta_k]
+        @out.write meta_keys[meta_k]
+        return true
+      end
+
     result = {
       "\e" => "escape",
       "\u007F" => 'key_backspace',
@@ -75,14 +86,9 @@ class Xfkey
       # backtab
       "\u001b" + "\u005b" + "\u005a" => 'key_backtab',
       # function keys
-      "\u001b" + "\u004f" + "\u0051" => 'fn_2'
-
-
-
-
-
-
-
+      "\u001b" + "\u004f" + "\u0051" => 'fn_2',
+      # meta keys
+      #[e2,88,82] => 'meta_d'
 
     }[values]
     unless result.nil?
@@ -124,10 +130,14 @@ class Xfkey
   def call *args, env:, frames:
     @out = env[:out]
     values = env[:in].read
+#  binding.pry
+
     if args[0] == '-h'
       name_to_human values
       elsif args[0] == '-u'
         key_to_unicode values
+      elsif args[0] == '-x'
+        key_to_hex  values
     else
       key_to_name values
     end
