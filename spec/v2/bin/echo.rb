@@ -1,17 +1,17 @@
 # echo - class Echo
 
-class Echo
+class Echo < BaseCommand
   def spit args
     args.join(' ')
   end
   def call *args, env:, frames:
-binding.pry if frames[:debug] == '1'
-    if args[0] == '-n'
-      env[:out].write spit(args[1..(-1)])
-    else
-      env[:out].puts spit(args)
+    super do |*a|
+      if @options[:n]
+        @out.write spit(a)
+      else
+        pout spit(a)
+      end
     end
-    true
   end
   
 end
