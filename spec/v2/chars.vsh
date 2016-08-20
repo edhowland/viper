@@ -42,6 +42,7 @@ store &() { spy line/left } /v/modes/viper/ctrl_k
 store &() { yank 1 } /v/modes/viper/ctrl_y
 store &() { paste } /v/modes/viper/ctrl_v
 store &() { apply.first ctrl_y; delete.line } /v/modes/viper/ctrl_d
+store { save } /v/modes/viper/ctrl_s
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
@@ -55,6 +56,7 @@ store &() { wc -n } /v/views/viper/ctrl_k
 store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
 store &() { echo -n paste } /v/views/viper/ctrl_v
 store &() { echo -n one line deleted } /v/views/viper/ctrl_d
+store { echo -n :(apply.first fn_2) saved } /v/views/viper/ctrl_s
 }
 function mode.fn.keys() {
 store { basename :_buf } /v/modes/viper/fn_2
