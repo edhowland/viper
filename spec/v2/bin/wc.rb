@@ -6,13 +6,14 @@
 # -n  prints w/o newline
 
 
-class Wc
+class Wc < BaseCommand
   def call *args, env:, frames:
-    method = :puts
-    if args.length > 0
-      method = :print if args[0] == '-n'
+    super do |*a|
+      method = :puts
+      if a.length > 0
+        method = :print if args[0] == '-n'
+      end
+      @out.send(method, @in.read.length)
     end
-    env[:out].send(method, env[:in].read.length)
-    true
   end
 end

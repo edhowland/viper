@@ -1,8 +1,7 @@
 # nop - class Nop - No operation command
 
-
-class Nop
-  def call env:, frames:
-    true
+class Nop < BaseCommand
+  def call *args, env:, frames:
+    super {|*a| }
   end
 end

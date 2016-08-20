@@ -18,3 +18,4 @@ mkdir /v/views/viper
 _mode=viper
 indent=2
 function neq(a, b) { not { eq :a :b } }
+alias ex="echo :exit_status"
