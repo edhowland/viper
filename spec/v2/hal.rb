@@ -88,6 +88,13 @@ class Hal
         PhysicalLayer.mv src, dest
       end
     end
+    def rm path
+            if virtual? path
+              VirtualLayer.rm(VirtualLayer.realpath(path))
+            else
+              PhysicalLayer.rm path
+            end
+    end
   end
 end
 

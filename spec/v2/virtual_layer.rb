@@ -77,5 +77,10 @@ class VirtualLayer
       snode.list.delete sfile
       d[dfile] = s
     end
+    def rm path
+      dir, file = split_path path
+      node = @@root[dir]
+      node.list.delete file
+    end
   end
 end

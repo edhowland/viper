@@ -111,6 +111,6 @@ end
   end
   def realpath path
     start, *elements = path_to_elements path
-    (parents(start).map {|e| e.name } + elements).join('/')
+    '/' + (parents(start).map {|e| e.name } + elements).join('/')
   end
 end

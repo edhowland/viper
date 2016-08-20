@@ -41,6 +41,7 @@ store &() { spy line/left | wc } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
 store &() { yank 1 } /v/modes/viper/ctrl_y
 store &() { paste } /v/modes/viper/ctrl_v
+store &() { apply.first ctrl_y; delete.line } /v/modes/viper/ctrl_d
 }
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
@@ -53,6 +54,7 @@ store &() { cat } /v/views/viper/ctrl_k
 store &() { wc -n } /v/views/viper/ctrl_k
 store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
 store &() { echo -n paste } /v/views/viper/ctrl_v
+store &() { echo -n one line deleted } /v/views/viper/ctrl_d
 }
 function mode.fn.keys() {
 store { basename :_buf } /v/modes/viper/fn_2
@@ -80,6 +82,7 @@ store  { echo -n end of document   } /v/views/viper/move_shift_pgdn
 store &() { echo -n start of line } /v/views/viper/move_shift_home
 store &() { echo -n end of line } /v/views/viper/move_shift_end
 }
+function delete.line() { cd ..; mv nl/nl _nl; rm nl; mv _nl nl; cd nl }
 function install() { 
 mode.keys.alpha
 mode.keys.punct

@@ -35,5 +35,8 @@ class PhysicalLayer
     def mv src, dest
       File.rename src, dest
     end
+    def rm path
+      File.unlink path
+    end
   end
 end
