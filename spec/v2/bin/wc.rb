@@ -5,12 +5,11 @@
 # -l prints the line count of stdin
 # -n  prints w/o newline
 
-
 class Wc < BaseCommand
   def call *args, env:, frames:
     super do |*a|
       method = :puts
-      if a.length > 0
+      if@options[:n] 
         method = :print if args[0] == '-n'
       end
       @out.send(method, @in.read.length)
