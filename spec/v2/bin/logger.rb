@@ -5,11 +5,9 @@ class Logger < BaseCommand
   def call *args, env:, frames:
     super do |*a|
       if @options[:p]
-        prefix = a.shift
-        Log.say(a.join(' '), prefix)
-      else
-        Log.say(a.join(' '))
+        a[0] = "#{a[0]}:"
       end
+        Log.dump(a, ' ')
     end
   end
 end
