@@ -31,7 +31,7 @@ def vepl options={}
   begin
     if options[:log]
       Log.start
-      Event << ->(t, o, env:vm.ios, frames:vm.fs) { Log.say o.to_s }
+      Event << ->(o, env:vm.ios, frames:vm.fs) { Log.say o.to_s }
     end
     # load any startup scripts
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
