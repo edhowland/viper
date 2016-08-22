@@ -13,9 +13,9 @@ class Event
       init
       @@events
     end
-    def trigger type, object
+    def trigger type, object, env:, frames:
       init
-      @@events.each {|e| e.call(type, object) }
+      @@events.each {|e| e.call(type, object, env:env, frames:frames) }
     end
   end
 end
