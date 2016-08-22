@@ -6,7 +6,6 @@ class Block
   end
   attr_reader :statement_list
   def call env:, frames:
-    #@statement_list.each {|s| Log.say s.to_s }
     @statement_list.each do |s|
       Event.trigger :statement, s
       s.call env:env, frames:frames 
