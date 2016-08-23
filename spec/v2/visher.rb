@@ -68,8 +68,9 @@ def vepl options={}
       Log.dump err.backtrace
      puts 'Exiting ...'
    ensure
-     Log.finish if options[:log]
+     # TODO: allow any possible future exitting events to fire
     end
+
     vm
 end
 
