@@ -2,7 +2,7 @@
 
 class Exit
   def call *args, env:, frames:
-    exit
+    raise VirtualMachine::ExitCalled
   end
 end
 

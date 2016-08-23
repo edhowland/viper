@@ -7,7 +7,10 @@ require 'optparse'
 require_relative 'load_path'
 
 
-options = {}
+options = {
+  :execute => [],
+  :finish => []
+}
 oparse = OptionParser.new do |opt|
   opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
   opt.separator ''
@@ -16,9 +19,13 @@ oparse = OptionParser.new do |opt|
   end
   opt.on('-l', '--log', 'Start logging to vish.log') do
     options[:log] = true
+    options[:execute] << 'logger -s; on &() { logger :_ }'
   end
   opt.on('-e script', '--execute script', String, 'Execute this command at startup') do |script|
-    options[:execute] = script
+    options[:execute] << script
+  end
+  opt.on('--finish script', String, 'Execute this set of scripts upon exit of session') do |script|
+    options[:finish] << script
   end
   opt.separator ''
   opt.on('-h', '--help', 'Display this help and exit') do
@@ -33,5 +40,17 @@ oparse = OptionParser.new do |opt|
 end
 oparse.parse!
 
+
+ # setup exit handlers
+
+at_exit do
+  options[:finish].reverse.each do |code|
+    cblock = Visher.parse! code
+    $vm.call cblock
+  end
+end
+
+
 # start REPL
-vepl(options)
+$vm = vepl(options)
+

@@ -29,22 +29,20 @@ end
 def vepl options={}
   vm = VirtualMachine.new
   begin
-    if options[:log]
-      Log.start
-      Event << ->(*args, env:vm.ios, frames:vm.fs) { Log.dump args, ' ' }
-    end
     # load any startup scripts
+    unless options[:execute].empty?
+      options[:execute].each do |code|
+              cblock = Visher.parse! code
+        vm.call cblock
+      end
+    end
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
     if File.exist?(vishrc) && options[:no_start].nil?
       code = File.read(vishrc)
       cblock = Visher.parse! code
       vm.call cblock
     end
-    if options[:execute]
-      code = options[:execute]
-            cblock = Visher.parse! code
-      vm.call cblock
-    end
+
     loop do
       begin
       print vm.fs[:prompt]
@@ -59,6 +57,9 @@ def vepl options={}
      vm.fs[:exit_status] = false
    end
      end
+    
+    rescue VirtualMachine::ExitCalled
+      # nop
 
    rescue => err
       puts err.message
@@ -69,22 +70,6 @@ def vepl options={}
    ensure
      Log.finish if options[:log]
     end
+    vm
 end
-
-def vtos
-  begin
-    loop { print 'vtos'; v=Visher.parse!(gets.chomp);  puts v.to_s }
-  rescue => err
-    puts err.message
-  end
-end
-
-def vdbg
-  begin
-    loop { print 'vdbg'; v=Visher.parse!(gets.chomp);  p v }
-  rescue => err
-    puts err.message
-  end
-end
-
 

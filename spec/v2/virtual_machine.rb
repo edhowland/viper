@@ -2,6 +2,8 @@
 
 class VirtualMachine
   class BreakCalled < RuntimeError; end
+  class ExitCalled < RuntimeError; end
+
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
     @fs= frames
     @fs[:exit_status] = true
