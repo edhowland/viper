@@ -1,8 +1,7 @@
 # true - class True - command true - returns true
 
-
-class True
+class True < BaseCommand
   def call *args, env:, frames:
-    true
+    super
   end
 end

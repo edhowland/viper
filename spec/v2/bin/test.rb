@@ -7,7 +7,7 @@ class Test < BaseCommand
     super do |*a|
       result = true
       if @options[:f]
-        result = Hal.exist?(a[0]).to_s
+        result = Hal.exist?(a[0])
       end
       result
     end

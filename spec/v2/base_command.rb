@@ -22,7 +22,8 @@ class BaseCommand
   @out = env[:out]
   @fs = frames
   av = args_parse! args
-    result = yield *av
+  result = true
+    result = yield(*av) if block_given?
     if TrueClass === result || FalseClass === result
       return result
     end

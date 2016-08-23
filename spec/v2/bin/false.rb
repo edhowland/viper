@@ -1,8 +1,7 @@
 # false - class False  - command false - returns false
 
-
-class False
+class False < BaseCommand
   def call *args, env:, frames:
-    false
+    super { false }
   end
 end
