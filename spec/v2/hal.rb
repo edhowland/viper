@@ -95,6 +95,13 @@ class Hal
               PhysicalLayer.rm path
             end
     end
+    def exist? path
+            if virtual? path
+              VirtualLayer.exist? path
+            else
+        PhysicalLayer.exist? path
+      end
+    end
   end
 end
 

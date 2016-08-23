@@ -82,5 +82,8 @@ class VirtualLayer
       node = @@root[dir]
       node.list.delete file
     end
+    def exist? path
+      !@@root[path].nil?
+    end
   end
 end

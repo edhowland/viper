@@ -38,5 +38,8 @@ class PhysicalLayer
     def rm path
       File.unlink path
     end
+    def exist? path
+      File.exist? path
+    end
   end
 end
