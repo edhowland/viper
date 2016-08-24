@@ -1,6 +1,7 @@
+function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
-function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
+function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
 function chars() { ruby "env[:out].puts (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).join(' ')"}
@@ -60,6 +61,12 @@ store &() { echo -n paste } /v/views/viper/ctrl_v
 store &() { echo -n one line deleted } /v/views/viper/ctrl_d
 store { echo -n :(apply.first fn_2) saved } /v/views/viper/ctrl_s
 }
+function mode.meta() {
+store { nop } /v/modes/viper/meta_d
+}
+function view.meta() {
+store { echo -n delete } /v/views/viper/meta_d
+}
 function mode.fn.keys() {
 store { basename :_buf } /v/modes/viper/fn_2
 }
@@ -96,6 +103,8 @@ mode.keys.space
 view.keys.space
 mode.ctrl
 view.ctrl
+mode.meta
+view.meta
 mode.fn.keys
 view.fn.keys
 store &() { cat } /v/modes/viper/unknown
