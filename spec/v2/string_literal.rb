@@ -1,4 +1,5 @@
-# string_literal - class StringLiteral - Nodes for bare strings and dbl ""
+# string_literal - class StringLiteral - Nodes for bare strings and double quoted
+#  "" strings
 # ones. Will try to interpolate embedded variable derefs
 
 class StringLiteral < QuotedString
@@ -19,7 +20,11 @@ class StringLiteral < QuotedString
       if var_s.nil?
         ''
       else
-        frames[var_s.to_sym]
+        value = frames[var_s.to_sym]
+        if value.instance_of?(Array)
+          value = value.join(' ')
+        end
+        value
       end
     end
   end

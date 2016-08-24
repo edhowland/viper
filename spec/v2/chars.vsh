@@ -39,7 +39,7 @@ store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
 store &() { handle.return } /v/modes/viper/ctrl_m
 store &() { spy line/left | wc } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
-store { buffers=:(rotate :buffers); global buffers; _=:buffers; shift _buf; global _buf; cd :_buf; basename :_buf } /v/modes/viper/ctrl_t
+store { buffers=:(rotate :buffers); global buffers; tmp=":{buffers}"; shift -s tmp _buf; global _buf; cd :_buf; basename :_buf } /v/modes/viper/ctrl_t
 store &() { yank 1 } /v/modes/viper/ctrl_y
 store &() { paste } /v/modes/viper/ctrl_v
 store &() { apply.first ctrl_y; delete.line } /v/modes/viper/ctrl_d
@@ -110,7 +110,9 @@ function open.all() {
 for f in :argv { open :f }
 buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
 global buffers
-_=:buffers; shift _buf; global _buf
+tmp=":{buffers}"
+echo tmp is :tmp
+shift -s tmp _buf; global _buf
 cd :_buf
 }
 
