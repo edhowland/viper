@@ -20,3 +20,4 @@ indent=2
 function neq(a, b) { not { eq :a :b } }
 alias ex="echo :exit_status"
 function rotate() { first=:(shift); echo :_ :first }
+function map() { shift fn; for i in :_ { exec :fn :i } }

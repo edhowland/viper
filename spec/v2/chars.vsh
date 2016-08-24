@@ -39,6 +39,7 @@ store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
 store &() { handle.return } /v/modes/viper/ctrl_m
 store &() { spy line/left | wc } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
+store { buffers=:(rotate :buffers); global buffers; _=:buffers; shift _buf; global _buf; cd :_buf; basename :_buf } /v/modes/viper/ctrl_t
 store &() { yank 1 } /v/modes/viper/ctrl_y
 store &() { paste } /v/modes/viper/ctrl_v
 store &() { apply.first ctrl_y; delete.line } /v/modes/viper/ctrl_d
@@ -53,6 +54,7 @@ store &() { cat < line } /v/views/viper/ctrl_o
 store &() { cat } /v/views/viper/ctrl_m
 store &() { cat } /v/views/viper/ctrl_k
 store &() { wc -n } /v/views/viper/ctrl_k
+store &() { echo buffer is now :(cat) } /v/views/viper/ctrl_t
 store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
 store &() { echo -n paste } /v/views/viper/ctrl_v
 store &() { echo -n one line deleted } /v/views/viper/ctrl_d
@@ -101,8 +103,14 @@ store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
 }
-function vip() { loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
+function vip() { basename :_buf; loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
 alias buffer="basename :_buf"
 install
-function open.all() { for f in :argv { open :f } }
+function open.all() {
+for f in :argv { open :f }
+buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
+global buffers
+_=:buffers; shift _buf; global _buf
+cd :_buf
+}
 
