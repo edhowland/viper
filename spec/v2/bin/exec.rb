@@ -28,5 +28,6 @@ class Exec
       env[:err].puts 'exec: first argument must be either a block or lambda'
       return false    
     end
+    true
   end
 end

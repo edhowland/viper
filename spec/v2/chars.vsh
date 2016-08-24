@@ -1,5 +1,5 @@
-function bell() { ruby 'print "\a"' }
-function apply.first(key) { exec /v/modes/viper/:{key} }
+function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
+function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { exec /v/modes/viper/:{ch} | exec /v/views/viper/:{ch} }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
