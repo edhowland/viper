@@ -10,7 +10,6 @@ class Shift < BaseCommand
       object = @fs[src]
       object = object.split if object.instance_of?(String)
             result = true
-#binding.pry
       if object && object.instance_of?(Array) && !object.empty?
         value = object.shift
         @fs[src] = object

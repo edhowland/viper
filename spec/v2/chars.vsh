@@ -111,7 +111,6 @@ for f in :argv { open :f }
 buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
 global buffers
 tmp=":{buffers}"
-echo tmp is :tmp
 shift -s tmp _buf; global _buf
 cd :_buf
 }
