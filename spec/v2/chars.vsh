@@ -104,3 +104,5 @@ view.move.keys
 function vip() { loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
 alias buffer="basename :_buf"
 install
+function open.all() { for f in :argv { open :f } }
+

@@ -26,9 +26,11 @@ class Visher
 end
 
 # starts the repl for vish engine
-def vepl options={}
+def vepl options={}, argv:
   vm = VirtualMachine.new
   begin
+    # setup arguments to vepl command as :argv
+    vm.fs[:argv] = argv
     # load any startup scripts
     options[:start].each do |code|
       cblock = Visher.parse! code
@@ -49,7 +51,7 @@ def vepl options={}
     loop do
       begin
       print vm.fs[:prompt]
-      command = gets
+      command = $stdin.gets
       fail if command.nil?
       command = command.chomp
       next if command.empty?
