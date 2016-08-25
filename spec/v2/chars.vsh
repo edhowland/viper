@@ -120,7 +120,10 @@ store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
 }
-function vip() { basename :_buf; loop { fn=:(raw -|xfkey); eq :fn ctrl_q && break; apply :fn } }
+function vip() {
+basename :_buf
+loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
+}
 function chg.mode(m) { _oldmode=:_mode; global _oldmode; _mode=:m; global _mode }
 function restore.mode() { _mode=:_oldmode; global _mode }
 alias buffer="basename :_buf"
