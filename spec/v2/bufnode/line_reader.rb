@@ -1,11 +1,7 @@
 # line_reader - class LineReader - returned from LineNodeFacade - open, close
-# methods.
+# methods: read, close
 
-
-class LineReader
-  def initialize io
-    @io = io
-  end
+class LineReader < BaseLineHandler
   def read
     @io.string
   end
