@@ -13,9 +13,10 @@ alias c="cat < line"
 function paste() { put | instree }
 function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
 alias h="raw -|xfkey"
-mkdir /v/modes/viper
-mkdir /v/views/viper
 _mode=viper
+function mk.mode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
+mk.mode viper
+mk.mode delete
 indent=2
 function neq(a, b) { not { eq :a :b } }
 alias ex="echo :exit_status"

@@ -94,6 +94,12 @@ store &() { echo -n start of line } /v/views/viper/move_shift_home
 store &() { echo -n end of line } /v/views/viper/move_shift_end
 }
 function delete.line() { cd ..; mv nl/nl _nl; rm nl; mv _nl nl; cd nl }
+function delete.mode.keys() {
+store { nop } /v/modes/delete/key_d
+}
+function delete.view.keys() {
+store { echo -n line } /v/views/delete/key_d
+}
 function install() { 
 mode.keys.alpha
 mode.keys.punct
@@ -107,6 +113,8 @@ mode.meta
 view.meta
 mode.fn.keys
 view.fn.keys
+delete.mode.keys
+delete.view.keys
 store &() { cat } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
 mode.move.keys
