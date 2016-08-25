@@ -5,14 +5,15 @@
 
 class IOFactory
   class << self
-    def make object
-      knowns = {
+    def mk_facade klass
+      {
         StringIO => StringIOFacade,
         BufNode => BufWriteFacade,
         LineNode => LineNodeFacade
-      }
-      klass = object.class
-      facade = knowns[klass]
+      }[klass]
+    end
+    def make object
+      facade = mk_facade object.class
       unless facade.nil?
         facade.new(object)
       else

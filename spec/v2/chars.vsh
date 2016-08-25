@@ -44,6 +44,7 @@ store { buffers=:(rotate :buffers); global buffers; tmp=":{buffers}"; shift -s t
 store &() { yank 1 } /v/modes/viper/ctrl_y
 store &() { paste } /v/modes/viper/ctrl_v
 store &() { apply.first ctrl_y; delete.line } /v/modes/viper/ctrl_d
+store { ruby 'raise VirtualMachine::ExitCalled' } /v/modes/viper/ctrl_q
 store { save } /v/modes/viper/ctrl_s
 }
 function view.ctrl() {
@@ -59,6 +60,7 @@ store &() { echo buffer is now :(cat) } /v/views/viper/ctrl_t
 store &() { echo -n 1 line yanked } /v/views/viper/ctrl_y
 store &() { echo -n paste } /v/views/viper/ctrl_v
 store &() { echo -n one line deleted } /v/views/viper/ctrl_d
+store { nop } /v/views/viper/ctrl_q
 store { echo -n :(apply.first fn_2) saved } /v/views/viper/ctrl_s
 }
 function mode.meta() {

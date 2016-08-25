@@ -1,18 +1,18 @@
 # line_node_facade - class LineNodeFacade - returns LineWriter, LineReader based
 #  on mode for open
 
-
 class LineNodeFacade
   def initialize io
     @io = io
   end
+  def mk_stream mode
+    {
+      'r' => LineReader,
+      'w' => LineWriter,
+      'a' => LineAppender
+      }[mode]
+  end
   def open path, mode
-    if mode == 'r'
-      LineReader.new @io
-    elsif mode == 'w'
-      LineWriter.new @io
-    elsif mode == 'a'
-      LineAppender.new @io
-    end
+  mk_stream(mode).new(@io)
   end
 end
