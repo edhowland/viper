@@ -65,7 +65,7 @@ function mode.meta() {
 store { nop } /v/modes/viper/meta_d
 }
 function view.meta() {
-store { echo -n delete } /v/views/viper/meta_d
+store { echo -n delete; chg.mode delete } /v/views/viper/meta_d
 }
 function mode.fn.keys() {
 store { basename :_buf } /v/modes/viper/fn_2
@@ -95,10 +95,10 @@ store &() { echo -n end of line } /v/views/viper/move_shift_end
 }
 function delete.line() { cd ..; mv nl/nl _nl; rm nl; mv _nl nl; cd nl }
 function delete.mode.keys() {
-store { nop } /v/modes/delete/key_d
+store { delete.line } /v/modes/delete/key_d
 }
 function delete.view.keys() {
-store { echo -n line } /v/views/delete/key_d
+store { echo -n line; restore.mode } /v/views/delete/key_d
 }
 function install() { 
 mode.keys.alpha
