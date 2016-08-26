@@ -1,4 +1,5 @@
 function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
+function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
