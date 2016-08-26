@@ -9,7 +9,8 @@ class IOFactory
       {
         StringIO => StringIOFacade,
         BufNode => BufWriteFacade,
-        LineNode => LineNodeFacade
+        LineNode => LineNodeFacade,
+        Array => ArrayFacade
       }[klass]
     end
     def make object

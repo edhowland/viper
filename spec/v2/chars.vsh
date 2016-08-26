@@ -98,9 +98,11 @@ store &() { echo -n end of line } /v/views/viper/move_shift_end
 function delete.line() { cd ..; mv nl/nl _nl; rm nl; mv _nl nl; cd nl }
 function delete.mode.keys() {
 store { delete.line } /v/modes/delete/key_d
+store { echo > line/right } /v/modes/delete/move_shift_end
 }
 function delete.view.keys() {
 store { echo -n line; restore.mode } /v/views/delete/key_d
+store { echo -n to end of line; restore.mode  } /v/views/delete/move_shift_end
 }
 function install() { 
 mode.keys.alpha
