@@ -5,11 +5,18 @@
 # returns true if found, else false
 
 class Indexof < BaseCommand
+  def regexp string
+    if string[0] == '/'
+      Regexp.new string[1..-2]
+    else
+      Regexp.new string
+    end
+  end
+
   def call *args, env:, frames:
-
     super do |*a|
-
-      var = @in.read.index(a[0][0])
+      regex = regexp a[0]
+      var = @in.read.index(regex)
       result = !var.nil?
       if result
         pout "#{var}"

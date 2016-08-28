@@ -2,15 +2,36 @@
 # args -o : only output matched chars
 
 class Grep < BaseCommand
+  def regexp string
+    if string[0] == '/'
+      Regexp.new string[1..-2]
+    else
+      Regexp.new string
+    end
+  end
+  
+  def say string
+    if @options[:n]
+      @out.print string
+    else
+      @out.puts string
+    end
+  end
+
   def call *args, env:, frames:
     super do |*a|
       pattern = a.shift
-      regex = %r{#{pattern}}
+      regex = regexp pattern
       result = false
       @in.read.each_line do |l|
-        if l =~ regex
+        matches = l.match regex
+        if matches
         result = true
-        pout l.chomp
+        if @options[:o]
+          say matches[1]
+        else
+          say matches[0]
+        end
       end
       end
       result

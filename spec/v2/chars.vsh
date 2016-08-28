@@ -4,6 +4,18 @@ function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
+function find.blank() {
+b=:(indexof ' ' < line/right)
+r=1..:{b}
+for i in :r { apply.first move_right }
+}
+function find.word() {
+find.blank
+a=:(indexof '/(\w+)/' < line/right)
+r=1..:{a}
+for i in :r { apply.first move_right }
+grep -n -o '/(\w+)/' < line/right 
+}
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
 function chars() { ruby "env[:out].puts (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).join(' ')"}
 function puncts() { ruby 'a=((33..47).to_a + (58..64).to_a + (91..96).to_a + (123..126).to_a).map {|e| "_" + e.chr + "_" }.join(" "); env[:out].puts a' } 
@@ -124,6 +136,7 @@ store &() { cat } /v/modes/viper/unknown
 store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
+bind ctrl_w { find.word } { cat }
 }
 function vip() {
 basename :_buf
