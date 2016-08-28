@@ -20,6 +20,7 @@ class BaseCommand
   @ios = env
   @in = env[:in]
   @out = env[:out]
+  @err = env[:err]
   @fs = frames
   av = args_parse! args
   result = true
