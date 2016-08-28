@@ -16,7 +16,7 @@ class Command
         result
       rescue => err
         env[:err].puts "Command: #{id}: not found"
-        Bad.new
+        False.new
       end
     end
   end

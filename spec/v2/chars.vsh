@@ -4,6 +4,10 @@ function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
+function read.word() {
+grep -o '/(\w+)/' < line/right
+}
+function yank.word() { read.word > /v/clip/0/line }
 function find.blank() {
 b=:(indexof ' ' < line/right)
 r=1..:{b}
@@ -15,6 +19,13 @@ a=:(indexof '/(\w+)/' < line/right)
 r=1..:{a}
 for i in :r { apply.first move_right }
 grep -n -o '/(\w+)/' < line/right 
+}
+function delete.word() {
+start=:(wc < line/left)
+find.blank
+fin=:(wc < line/left)
+range=":{start}..:{fin}"
+for i in :range { apply.first key_backspace | nop }
 }
 function trunc(ch) { ruby 'env[:out].puts args[1][1]' :ch }
 function chars() { ruby "env[:out].puts (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).join(' ')"}
@@ -51,7 +62,7 @@ for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
 store &() { handle.tab } /v/modes/viper/ctrl_i
 store &() { echo | instree; cd nl } /v/modes/viper/ctrl_o
 store &() { handle.return } /v/modes/viper/ctrl_m
-store &() { spy line/left | wc } /v/modes/viper/ctrl_k
+store { wc < line/left } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
 store { buffers=:(rotate :buffers); global buffers; tmp=":{buffers}"; shift -s tmp _buf; global _buf; cd :_buf; basename :_buf } /v/modes/viper/ctrl_t
 store &() { yank 1 } /v/modes/viper/ctrl_y
@@ -137,6 +148,7 @@ store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
 bind ctrl_w { find.word } { cat }
+_mode=delete bind key_w { restore.mode; delete.word } { echo -n word deleted }
 }
 function vip() {
 basename :_buf
