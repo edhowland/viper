@@ -135,6 +135,10 @@ for k in :lcase :ucase :nums { bind "key_:{k}" &() { echo -n :k | push line/left
 for k in :(puncts) { key=:(trunc :k); kname=:(echo -n :key | xfkey); bind :kname &() { echo -n :key | push line/left } &() { echo -n :key } }
 space_key=:(echo -n ' ' | xfkey); bind :space_key &() { echo -n ' ' | push line/left } &() { echo -n space }
 bind ctrl_m { nop } { restore.mode; cd :_loc }
+bind key_backspace { _mode=viper apply.first key_backspace } { _mode=viper apply.second key_backspace }
+bind key_delete { _mode=viper apply.first key_delete } { _mode=viper apply.second key_delete }
+bind move_left { _mode=viper apply.first move_left } { _mode=viper apply.second move_left }
+bind move_right { _mode=viper apply.first move_right } { _mode=viper apply.second move_right }
 _mode=viper bind ctrl_f { _loc=:pwd; global _loc; cd /v/search/buf } { echo -n search; chg.mode search }
 _mode=viper bind ctrl_r { nop } { echo -n search back }
 _mode=viper bind ctrl_g { nop } { echo -n search again }

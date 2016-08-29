@@ -22,9 +22,9 @@ class BaseCommand
   @out = env[:out]
   @err = env[:err]
   @fs = frames
-  av = args_parse! args
+  @av = args_parse! args
   result = true
-    result = yield(*av) if block_given?
+    result = yield(*@av) if block_given?
     if TrueClass === result || FalseClass === result
       return result
     end
