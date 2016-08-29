@@ -153,7 +153,10 @@ _mode=delete bind key_w { restore.mode; delete.word } { echo -n word deleted }
 function vip() {
 basename :_buf
 loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
+_loc=:pwd
+global _loc
 }
+alias i="cd :_loc; vip"
 function chg.mode(m) { _oldmode=:_mode; global _oldmode; _mode=:m; global _mode }
 function restore.mode() { _mode=:_oldmode; global _mode }
 alias buffer="basename :_buf"
