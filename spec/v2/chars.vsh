@@ -133,6 +133,11 @@ _mode=search
 lcase=a..z ucase=A..Z nums=0..9
 for k in :lcase :ucase :nums { bind "key_:{k}" &() { echo -n :k | push line/left } &() { echo -n :k } }
 for k in :(puncts) { key=:(trunc :k); kname=:(echo -n :key | xfkey); bind :kname &() { echo -n :key | push line/left } &() { echo -n :key } }
+space_key=:(echo -n ' ' | xfkey); bind :space_key &() { echo -n ' ' | push line/left } &() { echo -n space }
+bind ctrl_m { nop } { restore.mode; cd :_loc }
+_mode=viper bind ctrl_f { _loc=:pwd; global _loc; cd /v/search/buf } { echo -n search; chg.mode search }
+_mode=viper bind ctrl_r { nop } { echo -n search back }
+_mode=viper bind ctrl_g { nop } { echo -n search again }
 }
 function install() { 
 mode.keys.alpha
@@ -155,8 +160,6 @@ mode.move.keys
 view.move.keys
 bind ctrl_w { find.word } { cat }
 _mode=delete bind key_w { restore.mode; delete.word } { echo -n word deleted }
-bind ctrl_f { nop } { echo -n search }
-bind ctrl_r { nop } { echo -n search back }
 setup.search
 }
 function vip() {
