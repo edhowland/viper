@@ -3,6 +3,7 @@ mkdir /v/buf
 mkdir /v/clip
 mkdir /v/search
 mkbuf /v/search/buf
+echo > /v/search/buf
 proj=:pwd
 function newb(file) { mkbuf /v/buf/:{file} }
 function open.new(fname) {

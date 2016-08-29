@@ -134,7 +134,8 @@ lcase=a..z ucase=A..Z nums=0..9
 for k in :lcase :ucase :nums { bind "key_:{k}" &() { echo -n :k | push line/left } &() { echo -n :k } }
 for k in :(puncts) { key=:(trunc :k); kname=:(echo -n :key | xfkey); bind :kname &() { echo -n :key | push line/left } &() { echo -n :key } }
 space_key=:(echo -n ' ' | xfkey); bind :space_key &() { echo -n ' ' | push line/left } &() { echo -n space }
-bind ctrl_m { nop } { restore.mode; cd :_loc }
+bind ctrl_o { _mode=viper apply.first ctrl_o } { _mode=viper apply.second ctrl_o }
+bind ctrl_m { pattern=:(cat < line); handle.return; echo -n :pattern } {echo you searched for :(cat);  restore.mode; cd :_loc }
 bind key_backspace { _mode=viper apply.first key_backspace } { _mode=viper apply.second key_backspace }
 bind key_delete { _mode=viper apply.first key_delete } { _mode=viper apply.second key_delete }
 bind move_left { _mode=viper apply.first move_left } { _mode=viper apply.second move_left }
