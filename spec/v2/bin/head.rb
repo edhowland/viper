@@ -12,7 +12,9 @@ class Head < BaseCommand
   def call *args, env:, frames:
     super do |*a|
       buffer=@in.read
-      buffer.lines[0..(_count - 1)].each {|l| pout l.chomp }      
+      lines = buffer.lines
+      my_count = [lines.length, _count].min
+      lines[0..(my_count - 1)].each {|l| pout l.chomp }      
      end
   end
 end
