@@ -4,6 +4,9 @@ function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
+function find.forward(pattern) {
+(loc=:(indexof :pattern < line/right) && apply.times :loc move_right) || bell
+}
 function read.word() {
 grep -o '/(\w+)/' < line/right
 }
