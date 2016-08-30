@@ -11,6 +11,10 @@ class BufNode < VFSNode
   end
   def insnode text=''
     child = @list['nl']
+    unless child
+      mknode ''
+    child = @list['nl']
+    end
     baby = mknode ''
     lnode = LineNode.new(baby, 'line')
     lnode.right = text
