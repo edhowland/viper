@@ -54,6 +54,9 @@ class FrameStack
   def each &blk
     @frames.each {|f| yield f }
   end
+  def delete key
+    @frames.each {|f| f.delete key }
+  end
   def _clone
     nframes = @frames.map {|e| e.clone }
     nfunctions = @functions.clone

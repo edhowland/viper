@@ -4,8 +4,13 @@ function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
+function find.right(pattern) { loc=:(indexof :pattern < line/right) && global loc }
 function find.forward(pattern) {
-(loc=:(indexof :pattern < line/right) && apply.times :loc move_right) || bell
+unset loc
+_saved=:pwd
+find.right :pattern || find . line &(dir) { cd nl; loc=:(indexof :pattern < line) && global loc && break }
+(not { test -z :loc } && apply.times :loc move_right) || cd :_saved
+(not { test -z :loc } && cat < line/right) || echo not found
 }
 function read.word() {
 grep -o '/(\w+)/' < line/right

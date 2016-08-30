@@ -2,7 +2,8 @@
 
 class Not < Exec
   def call *args, env:, frames:
-    !super
+    super
+    !frames[:exit_status]
   end
 end
 

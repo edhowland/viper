@@ -8,6 +8,8 @@ class Test < BaseCommand
       result = true
       if @options[:f]
         result = Hal.exist?(a[0])
+      elsif @options[:z]
+        result = (a[0].nil? || a[0].empty?)
       end
       result
     end
