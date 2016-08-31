@@ -12,8 +12,9 @@ class BufWriter
     line.right = enum.next
     node = @io
       loop do
+        contents = enum.next
         node = node.mknode 'nl'
-        node['line'].right = enum.next
+        node['line'].right = contents
       end
     rescue StopIteration
       #
