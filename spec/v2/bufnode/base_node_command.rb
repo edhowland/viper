@@ -1,8 +1,7 @@
 # base_node_command - class BaseNodeCommand - base class for command primitive
 # gathers argument to node and passes to supplied block
 
-
-class BaseNodeCommand
+class BaseNodeCommand < BaseCommand
   def perform path, env:, frames:,  &blk
     root = frames[:vroot]
     node = root[path]

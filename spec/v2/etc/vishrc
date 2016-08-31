@@ -9,7 +9,6 @@ function newb(file) { mkbuf /v/buf/:{file} }
 function open.new(fname) {
 bname=:(basename :fname)
 newb :bname
-echo > /v/buf/:{bname}
 _buf=/v/buf/:{bname}
 cd :_buf
 global _buf
