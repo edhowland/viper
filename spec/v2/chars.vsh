@@ -109,14 +109,14 @@ function view.fn.keys() {
 store &() { cat } /v/views/viper/fn_2
 }
 function mode.move.keys() {
-store &() { pop line/left | enq line/right } /v/modes/viper/move_left
-store &() { deq line/right | push line/left } /v/modes/viper/move_right
+store &() { ll=:(cat < line/left); test -z :ll || pop line/left | enq line/right } /v/modes/viper/move_left
+store &() { ch=:(peek line/right | xfkey); eq ctrl_j :ch || deq line/right | push line/left } /v/modes/viper/move_right
 store &() { apply.first move_shift_home; cd .. } /v/modes/viper/move_up
 store &() { apply.first move_shift_home; cd nl } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
 store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
 store &() { cat < line > line } /v/modes/viper/move_shift_home
-store &() { loop { peek line/right >/dev/null || break; apply.first move_right } } /v/modes/viper/move_shift_end
+store &() { loop { ch=:(peek line/right | xfkey); eq ctrl_j :ch && break; apply.first move_right } } /v/modes/viper/move_shift_end
 }
 function view.move.keys() {
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
@@ -137,26 +137,7 @@ function delete.view.keys() {
 store { echo -n line; restore.mode } /v/views/delete/key_d
 store { echo -n to end of line; restore.mode  } /v/views/delete/move_shift_end
 }
-function setup.search() {
-_mode=search
-lcase=a..z ucase=A..Z nums=0..9
-for k in :lcase :ucase :nums { bind "key_:{k}" &() { echo -n :k | push line/left } &() { echo -n :k } }
-for k in :(puncts) { key=:(trunc :k); kname=:(echo -n :key | xfkey); bind :kname &() { echo -n :key | push line/left } &() { echo -n :key } }
-space_key=:(echo -n ' ' | xfkey); bind :space_key &() { echo -n ' ' | push line/left } &() { echo -n space }
-bind move_shift_pgdn { _mode=viper apply.first move_shift_pgdn } { nop }
-bind ctrl_o { _mode=viper apply.first ctrl_o } { _mode=viper apply.second ctrl_o }
-bind ctrl_m { pat=:(cat < line); global pat } { restore.mode; cd :_loc; find.forward :pat; unset pat }
-bind key_backspace { _mode=viper apply.first key_backspace } { _mode=viper apply.second key_backspace }
-bind key_delete { _mode=viper apply.first key_delete } { _mode=viper apply.second key_delete }
-bind move_left { _mode=viper apply.first move_left } { _mode=viper apply.second move_left }
-bind move_right { _mode=viper apply.first move_right } { _mode=viper apply.second move_right }
-bind move_up { _mode=viper apply.first move_up } { _mode=viper apply.second move_up }
-bind move_down { _mode=viper apply.first move_down } { _mode=viper apply.second move_down }
-bind ctrl_l { _mode=viper apply.first ctrl_l } { _mode=viper apply.second ctrl_l }
-_mode=viper bind ctrl_f { _loc=:pwd; global _loc; cd /v/search/buf; find . nl &(d) { cd nl }; handle.return } { echo -n search; chg.mode search }
-_mode=viper bind ctrl_r { nop } { echo -n search back }
-_mode=viper bind ctrl_g { nop } { echo -n search again }
-}
+source search.vsh
 function install() { 
 mode.keys.alpha
 mode.keys.punct

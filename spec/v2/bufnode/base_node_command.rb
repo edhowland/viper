@@ -7,6 +7,7 @@ class BaseNodeCommand
     root = frames[:vroot]
     node = root[path]
     result = true
+    output = ''
     output = yield node if block_given?
     if output.nil?
       result = false
