@@ -16,5 +16,5 @@ bind move_down { _mode=viper apply.first move_down } { _mode=viper apply.second 
 bind ctrl_l { _mode=viper apply.first ctrl_l } { _mode=viper apply.second ctrl_l }
 _mode=viper bind ctrl_f { _loc=:pwd; global _loc; cd /v/search/buf; find . nl &(d) { cd nl } } { echo -n search; chg.mode search }
 _mode=viper bind ctrl_r { nop } { echo -n search back }
-_mode=viper bind ctrl_g { nop } { echo -n search again }
+_mode=viper bind ctrl_g { exec :find_last } { cat }
 }

@@ -12,5 +12,8 @@ class LambdaDeclaration
   def ordinal
     COMMAND
   end
+  def to_s
+    '&(' + @args.to_s + ') { ' + @block.to_s + ' )'
+  end
 end
 

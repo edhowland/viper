@@ -1,3 +1,5 @@
+function top.buffer() { eq :_buf :pwd }
+function bottom.buffer() { test -f line && not { test -f nl } }
 function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
@@ -9,9 +11,11 @@ function find.forward(pattern) {
 unset loc
 _saved=:pwd
 find.right :pattern || find . line &(dir) { cd nl; apply.first move_shift_home; find.right :pattern && break }
+echo loc is :loc here
 (not { test -z :loc } && apply.times :loc move_right) || cd :_saved
-(not { test -z :loc } && cat < line/right) || echo not found
+(not { test -z :loc } && cat < line/right) || echo :pattern not found
 unset loc
+find_last=&() { find.forward :pattern }; global find_last
 }
 function read.word() {
 grep -o '/(\w+)/' < line/right
@@ -111,7 +115,7 @@ store &() { cat } /v/views/viper/fn_2
 function mode.move.keys() {
 store &() { ll=:(cat < line/left); test -z :ll || pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { ch=:(peek line/right | xfkey); eq ctrl_j :ch || deq line/right | push line/left } /v/modes/viper/move_right
-store &() { apply.first move_shift_home; cd .. } /v/modes/viper/move_up
+store { apply.first move_shift_home; top.buffer || cd .. } /v/modes/viper/move_up
 store &() { apply.first move_shift_home; cd nl } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
 store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
