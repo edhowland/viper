@@ -24,6 +24,13 @@ class BufNode < VFSNode
     baby['nl'] = child
     baby
   end
+  def addnode text=''
+    child = mknode ''
+    lnode = LineNode.new child, 'line'
+    lnode.right = text
+    child['line'] = lnode
+    child
+  end
   def to_s
     "buf node #{name}"
   end

@@ -1,6 +1,5 @@
 # instree - class Instree - reads stdin and creates new nodes from every line
 
-
 class Instree
   def call *args, env:, frames:
     root = frames[:vroot]

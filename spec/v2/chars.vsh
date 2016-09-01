@@ -84,7 +84,7 @@ store &() { echo -n back tab } /v/views/viper/key_backtab
 function mode.ctrl() {
 for i in :(ctrls) { store &() { nop } /v/modes/viper/:{i} }
 store &() { handle.tab } /v/modes/viper/ctrl_i
-store &() { last=:(peek -r line/right | xfkey); neq :last ctrl_j && echo | push line/right;  echo | instree; cd nl } /v/modes/viper/ctrl_o
+store &() { last=:(peek -r line/right | xfkey); neq :last ctrl_j && echo | push line/right; (bottom.buffer && echo | appendtree) || echo | instree; cd nl } /v/modes/viper/ctrl_o
 store &() { handle.return } /v/modes/viper/ctrl_m
 store { wc < line/left } /v/modes/viper/ctrl_k
 store &() { spy line/left } /v/modes/viper/ctrl_k
