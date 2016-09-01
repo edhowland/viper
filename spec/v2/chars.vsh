@@ -1,6 +1,7 @@
 function top.buffer() { eq :_buf :pwd }
 function bottom.buffer() { test -f line && not { test -f nl } }
 function until.bottom(fn) { loop { exec :fn; bottom.buffer && break; apply.first move_down } }
+function until.top(fn) { loop { exec :fn; top.buffer && break; apply.first move_up } }
 function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
@@ -16,6 +17,16 @@ cd :_dir
 apply.times :_pos move_right
 cat < line/right
 find_last=&() { find.forward :pattern }; global find_last
+}
+function find.back(pattern) {
+_=:((indexof -r :pattern < line/left && echo :pwd) || until.top { indexof -r :pattern < line/right && echo :pwd && break })
+test -z :_ && echo :pattern not found && return false
+shift _pos; shift _dir
+cd :_dir
+apply.first move_shift_home
+apply.times :_pos move_right
+cat < line/right
+find_last=&() { find.back :pattern }; global find_last
 }
 function read.word() {
 grep -o '/(\w+)/' < line/right
