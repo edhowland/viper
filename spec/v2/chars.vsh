@@ -10,10 +10,11 @@ function apply.times(count, key) { range=1..:{count}; for i in :range { apply.fi
 function find.right(pattern) { loc=:(indexof :pattern < line/right) && global loc }
 function find.forward(pattern) {
 _=:(until.bottom { indexof :pattern < line/right && echo :pwd && break })
+test -z :_ && echo :pattern not found && return false
 shift _pos; shift _dir
-echo :_pos is position
-echo :_dir is directory
-(not { test -z :_pos } && cd :_dir && apply.times :_pos move_right && cat < line/right) || echo :pattern not found
+cd :_dir
+apply.times :_pos move_right
+cat < line/right
 find_last=&() { find.forward :pattern }; global find_last
 }
 function read.word() {

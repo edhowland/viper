@@ -3,6 +3,12 @@
 class VirtualMachine
   class BreakCalled < RuntimeError; end
   class ExitCalled < RuntimeError; end
+  class ReturnCalled < RuntimeError
+    def initialize return_code
+      @return_code = return_code
+    end
+    attr_reader :return_code
+  end
 
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
     @fs= frames
@@ -112,6 +118,14 @@ class VirtualMachine
   end
   def _break *args, env:, frames:
     raise VirtualMachine::BreakCalled.new
+  end
+  def _return *args, env:, frames:
+    if args.empty?
+      code = true
+    else
+      code = args[0]
+    end
+    raise VirtualMachine::ReturnCalled.new code
   end
 #    alias_method :exit, :break
 

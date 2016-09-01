@@ -7,6 +7,8 @@ class Command
     def resolve id, env:, frames:
       return Null.new if (id.nil? || id.empty?)
       id = '_break' if id == 'break'
+      id = '_return' if id == 'return'
+
       fn = frames.functions[id]
       return fn unless fn.nil?
       return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env:env, frames:frames } if frames.vm.respond_to? id.to_sym
