@@ -1,5 +1,6 @@
 function top.buffer() { eq :_buf :pwd }
 function bottom.buffer() { test -f line && not { test -f nl } }
+function until.bottom(fn) { loop { exec :fn; bottom.buffer && break; apply.first move_down } }
 function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
@@ -8,13 +9,11 @@ function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second 
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
 function find.right(pattern) { loc=:(indexof :pattern < line/right) && global loc }
 function find.forward(pattern) {
-unset loc
-_saved=:pwd
-find.right :pattern || find . line &(dir) { cd nl; apply.first move_shift_home; find.right :pattern && break }
-echo loc is :loc here
-(not { test -z :loc } && apply.times :loc move_right) || cd :_saved
-(not { test -z :loc } && cat < line/right) || echo :pattern not found
-unset loc
+_=:(until.bottom { indexof :pattern < line/right && echo :pwd && break })
+shift _pos; shift _dir
+echo :_pos is position
+echo :_dir is directory
+(not { test -z :_pos } && cd :_dir && apply.times :_pos move_right && cat < line/right) || echo :pattern not found
 find_last=&() { find.forward :pattern }; global find_last
 }
 function read.word() {
@@ -116,7 +115,7 @@ function mode.move.keys() {
 store &() { ll=:(cat < line/left); test -z :ll || pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { ch=:(peek line/right | xfkey); eq ctrl_j :ch || deq line/right | push line/left } /v/modes/viper/move_right
 store { apply.first move_shift_home; top.buffer || cd .. } /v/modes/viper/move_up
-store &() { apply.first move_shift_home; cd nl } /v/modes/viper/move_down
+store &() { apply.first move_shift_home; cd nl; apply.first move_shift_home } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
 store &() { loop { cd nl || break }; echo -n "hi" } /v/modes/viper/move_shift_pgdn
 store &() { cat < line > line } /v/modes/viper/move_shift_home

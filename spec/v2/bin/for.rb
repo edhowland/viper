@@ -7,7 +7,14 @@ class For
     raise Vish::SyntaxError if in_p.nil? || in_p != 'in' || args.empty?
     block = args.pop
     var = var.to_sym
-    args.each {|e| frames[var] = e; block.call env:env, frames:frames }
+    begin
+      args.each do |e|
+        frames[var] = e
+        block.call env:env, frames:frames
+      end
+    rescue VirtualMachine::BreakCalled
+      # nop
+    end
     true
   end
 end
