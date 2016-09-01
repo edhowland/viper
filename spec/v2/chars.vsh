@@ -98,7 +98,7 @@ store { save } /v/modes/viper/ctrl_s
 function view.ctrl() {
 for i in :(ctrls) { store &() { bell } /v/views/viper/:{i} }
 store &() { cat < line } /v/views/viper/ctrl_l
-store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
+store &() { (eq 0 :(wc < line/right) && bell) || peek line/right | xfkey | xfkey -h } /v/views/viper/ctrl_j
 store &() { echo -n tab } /v/views/viper/ctrl_i
 store &() { cat < line } /v/views/viper/ctrl_o
 store &() { cat } /v/views/viper/ctrl_m
@@ -125,7 +125,7 @@ store &() { cat } /v/views/viper/fn_2
 }
 function mode.move.keys() {
 store &() { ll=:(cat < line/left); test -z :ll || pop line/left | enq line/right } /v/modes/viper/move_left
-store &() { ch=:(peek line/right | xfkey); eq ctrl_j :ch || deq line/right | push line/left } /v/modes/viper/move_right
+store &() { eq 0 :(wc < line/right) || eq ctrl_j :(peek line/right | xfkey) || deq line/right | push line/left } /v/modes/viper/move_right
 store { apply.first move_shift_home; top.buffer || cd .. } /v/modes/viper/move_up
 store &() { apply.first move_shift_home; cd nl; apply.first move_shift_home } /v/modes/viper/move_down
 store { cd :_buf } /v/modes/viper/move_shift_pgup
@@ -135,7 +135,7 @@ store &() { loop { ch=:(peek line/right | xfkey); eq ctrl_j :ch && break; apply.
 }
 function view.move.keys() {
 store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_left
-store &() { peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
+store &() { (eq 0 :(wc < line/right) && bell) || peek line/right | xfkey | xfkey -h } /v/views/viper/move_right
 store &() { cat < line } /v/views/viper/move_up
 store &() { cat < line } /v/views/viper/move_down
 store &() { echo -n start of document } /v/views/viper/move_shift_pgup

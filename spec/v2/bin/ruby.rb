@@ -10,11 +10,14 @@ class Ruby
     begin
       $stdin = env[:in]
       $stdout = env[:out]
-      status = self.instance_eval(args[0])
+      result = self.instance_eval(args[0])
     ensure
       $stdout = @orig_out
       $stdin = @orig_in
     end
-    status
+    if TrueClass === result || FalseClass === result
+      return result
+    end
+    true
   end
 end
