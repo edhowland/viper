@@ -3,8 +3,12 @@
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 class Xfkey
+
   def key_to_hex  values
     @out.write(values.bytes.map {|e| '%0x' % e }.join(' '))
+  end
+  def key_to_decimal values
+    @out.write(values.bytes.map {|e| '%0d' % e }.join(' '))
   end
   def key_to_unicode values
     uni = values.chars.map {|e| e.unpack('H*')[0] }.map {|e| '\\u00' + e }
@@ -86,7 +90,11 @@ class Xfkey
       # backtab
       "\u001b" + "\u005b" + "\u005a" => 'key_backtab',
       # function keys
+      "\u001b" + "\u004f" + "\u0050" => 'fn_1',
       "\u001b" + "\u004f" + "\u0051" => 'fn_2',
+      "\u001b" + "\u004f" + "\u0052" => 'fn_3',
+      "\u001b" + "\u004f" + "\u0053" => 'fn_4',
+
       # meta keys
       #[e2,88,82] => 'meta_d'
 
@@ -138,6 +146,8 @@ class Xfkey
         key_to_unicode values
       elsif args[0] == '-x'
         key_to_hex  values
+      elsif args[0] == '-d'
+        key_to_decimal values
     else
       key_to_name values
     end
