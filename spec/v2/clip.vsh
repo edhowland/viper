@@ -30,6 +30,7 @@ shift st; shift en
 cd :_buf
 between.lines :st :en
 }
+echo "copy.marks: Copies lines between marks to clipboard. Usage: copy.marks  . Bound to Control C" | desc copy.marks
 function copy.marks(m) {
 between.marks :m | cat > /v/clip/0
 }
@@ -40,8 +41,15 @@ apply.first move_down
 goto.mark :m
 until.bottom { cat < line } 
 }
+echo "cut.marks: Extracts lines between marked section and copies to clipboard. Usage: cut.marks  .  Bound to Ctrl X" | desc cut.marks
 function cut.marks(m) {
 copy.marks :m
 cd :_buf
 (exclude.marks :m) | cat > :_buf
 }
+echo "put: Outputs contents of clipboard. Usage: put" | desc put
+function put() { cat < /v/clip/0 }
+echo "paste: Pastes contents of clipboard into current buffer. Usage: paste . Bound to Control v" | desc paste
+function paste() { (bottom.buffer && put | appendtree) || put | instree }
+
+

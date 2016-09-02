@@ -27,9 +27,7 @@ function mkclip(num) { mkbuf /v/clip/:{num} }
 alias l="echo *"
 mkclip 0
 function yank(depth) { subtree :depth > /v/clip/0 }
-function put() { cat < /v/clip/0 }
 alias c="cat < line"
-function paste() { (bottom.buffer && put | appendtree) || put | instree }
 function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
 alias h="raw -|xfkey"
 _mode=viper
@@ -58,4 +56,12 @@ reduce :_fnx 0 :_
 }
 function bell() { ruby 'print "\a"' }
 alias scratch="open.new scratch"
+mkdir /v/share/man
+function desc(name) {
+mkbuf /v/share/man/:{name}
+cat > /v/share/man/:{name}
+}
+echo "desc: Creates a man page for function. Usage: echo 'your content' | desc my.function.name" | desc desc
+echo "man: Reads man page for function. Usage: man your.function.name" | desc man
+function man(name) { cat < /v/share/man/:{name} }
 

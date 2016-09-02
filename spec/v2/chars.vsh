@@ -9,6 +9,7 @@ function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
 function apply.times(count, key) { range=1..:{count}; for i in :range { apply.first :key } }
 function find.right(pattern) { loc=:(indexof :pattern < line/right) && global loc }
+echo "find.forward: Searches forward for pattern. Position cursor at start of found pattern. Usage: find.forward pattern   . Bound to Control f" | desc find.forward
 function find.forward(pattern) {
 _=:(until.bottom { indexof :pattern < line/right && echo :pwd && break })
 test -z :_ && echo :pattern not found && return false
@@ -16,8 +17,9 @@ shift _pos; shift _dir
 cd :_dir
 apply.times :_pos move_right
 cat < line/right
-find_last=&() { find.forward :pattern }; global find_last
+find_last=&() { apply.first move_right; find.forward :pattern }; global find_last
 }
+echo "find.back: Searches back for pattern. Positions cursor at start of located pattern. Usage: find.back pattern   . Bound to Control r" | desc find.back
 function find.back(pattern) {
 _=:((indexof -r :pattern < line/left && echo :pwd) || until.top { indexof -r :pattern < line/right && echo :pwd && break })
 test -z :_ && echo :pattern not found && return false
