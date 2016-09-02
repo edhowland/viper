@@ -164,6 +164,7 @@ view.keys.space
 mode.ctrl
 view.ctrl
 bind ctrl_c { copy.marks C } { echo -n selection copied }
+bind ctrl_x { cut.marks C } { echo -n selection cut }
 mode.meta
 view.meta
 mode.fn.keys

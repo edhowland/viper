@@ -41,6 +41,7 @@ goto.mark :m
 until.bottom { cat < line } 
 }
 function cut.marks(m) {
+copy.marks :m
 cd :_buf
 (exclude.marks :m) | cat > :_buf
 }
