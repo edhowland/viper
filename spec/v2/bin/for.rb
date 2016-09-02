@@ -14,6 +14,8 @@ class For
       end
     rescue VirtualMachine::BreakCalled
       # nop
+    ensure
+      frames.merge
     end
     true
   end

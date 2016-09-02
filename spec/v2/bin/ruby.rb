@@ -1,6 +1,5 @@
 # ruby - class Ruby - command ruby - evalulates string in Ruby interperter
 
-
 class Ruby
   def initialize 
     @orig_in = $stdin
@@ -10,7 +9,9 @@ class Ruby
     begin
       $stdin = env[:in]
       $stdout = env[:out]
-      result = self.instance_eval(args[0])
+      code = args.first
+      argv = args[1..-1]
+      result = self.instance_eval(code)
     ensure
       $stdout = @orig_out
       $stdin = @orig_in

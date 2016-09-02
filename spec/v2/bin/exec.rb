@@ -2,13 +2,14 @@
 
 class Exec
   def call *args, env:, frames:
+    result = true
     block = args.shift
 
     case block
     when Block
-      block.call env:env, frames:frames
+      result = block.call env:env, frames:frames
     when Lambda
-      block.call *args, env:env, frames:frames
+      result = block.call *args, env:env, frames:frames
     when String
       root = frames[:vroot]
       node = root[block]
@@ -20,7 +21,7 @@ class Exec
         env[:err].puts "got: #{node.class.name}"
         return false
       end
-            node.call *args, env:env, frames:frames
+            result = node.call *args, env:env, frames:frames
     when nil
       env[:err].puts "exec: first argument must not be nil"
       return false
@@ -28,6 +29,6 @@ class Exec
       env[:err].puts 'exec: first argument must be either a block or lambda'
       return false    
     end
-    true
+    result
   end
 end

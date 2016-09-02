@@ -25,7 +25,7 @@ class Deref
       if range?
         return handle_range
       end
-    result = var.split
+    result = var.split(frames[:ifs])
     if result.length > 1
       return result
     else

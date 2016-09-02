@@ -42,6 +42,20 @@ function neq(a, b) { not { eq :a :b } }
 alias ex="echo :exit_status"
 function rotate() { shift first; echo :_ :first }
 function map() { shift fn; for i in :_ { exec :fn :i } }
+function reduce() {
+shift fn
+shift init
+for i in :_ { init=:(exec :fn :init :i) }
+echo :init
+}
+function add(a, b) { ruby 'puts argv[0].to_i + argv[1].to_i' :a :b }
+function sub(a, b) { ruby 'puts argv[0].to_i - argv[1].to_i' :a :b }
+function incr(a) { add 1 :a }
+function count() {
+shift fn
+_fnx=&(i,j) { (exec :fn :j && incr :i) || echo :i }
+reduce :_fnx 0 :_
+}
 function bell() { ruby 'print "\a"' }
 alias scratch="open.new scratch"
 
