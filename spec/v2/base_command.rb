@@ -13,8 +13,8 @@ class BaseCommand
     @ios[:err].puts *stuff
   end
   def args_parse! args
-    args.select {|e| e =~ /^\-/ }.map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.each {|e| @options[e] = true }
-    args.reject {|e| e =~ /^\-/ }
+    args.select {|e| e =~ /^\-.+/ }.map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.each {|e| @options[e] = true }
+    args.reject {|e| e =~ /^\-.+/ }
   end
   def call *args, env:, frames:, &blk
   @ios = env

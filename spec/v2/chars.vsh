@@ -153,6 +153,7 @@ store { echo -n line; restore.mode } /v/views/delete/key_d
 store { echo -n to end of line; restore.mode  } /v/views/delete/move_shift_end
 }
 source search.vsh
+source clip.vsh
 function install() { 
 mode.keys.alpha
 mode.keys.punct

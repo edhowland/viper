@@ -1,7 +1,5 @@
 # pipe - class Pipe - implements stmnt1 | stmnt2 - with StringIO as buffer
 
-
-
 class Pipe
   def initialize left, right
     @left = left
@@ -22,5 +20,8 @@ class Pipe
     env.pop
     io.close_read
     second_result
+  end
+  def to_s
+    @left.to_s + ' | ' + @right.to_s
   end
 end
