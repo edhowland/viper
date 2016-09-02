@@ -29,7 +29,7 @@ mkclip 0
 function yank(depth) { subtree :depth > /v/clip/0 }
 function put() { cat < /v/clip/0 }
 alias c="cat < line"
-function paste() { put | instree }
+function paste() { (bottom.buffer && put | appendtree) || put | instree }
 function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
 alias h="raw -|xfkey"
 _mode=viper
