@@ -10,8 +10,6 @@ apply.times :col move_right
 }
 function mark(register) { touch ".m:{register}"; wc < line/left > ".m:{register}" }
 function lineno() {
-cnt=0
-ifs="/"
-count { cnt=:(incr :cnt) } :pwd
-echo :cnt
+paths=:(ifs="/"; _=:pwd; shift _dummy; echo :_)
+incr :(count &(a) { eq :a nl } :paths)
 }
