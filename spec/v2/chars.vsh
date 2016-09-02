@@ -163,10 +163,12 @@ mode.keys.space
 view.keys.space
 mode.ctrl
 view.ctrl
+bind ctrl_c { copy.marks C } { echo -n selection copied }
 mode.meta
 view.meta
 mode.fn.keys
 view.fn.keys
+bind fn_4 { mark C } { echo -n mark set }
 delete.mode.keys
 delete.view.keys
 store &() { cat } /v/modes/viper/unknown
