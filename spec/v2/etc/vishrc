@@ -64,4 +64,6 @@ cat > /v/share/man/:{name}
 echo "desc: Creates a man page for function. Usage: echo 'your content' | desc my.function.name" | desc desc
 echo "man: Reads man page for function. Usage: man your.function.name" | desc man
 function man(name) { cat < /v/share/man/:{name} }
+mkdir /v/macros
+touch /v/macros/0
 
