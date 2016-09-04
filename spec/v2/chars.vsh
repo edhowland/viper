@@ -159,6 +159,7 @@ store { echo -n to end of line; restore.mode  } /v/views/delete/move_shift_end
 }
 source search.vsh
 source clip.vsh
+source macros.vsh
 function install() { 
 mode.keys.alpha
 mode.keys.punct
@@ -183,6 +184,7 @@ store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
 bind ctrl_w { find.word } { cat }
+bind escape { nop } { nop }
 _mode=delete bind key_w { restore.mode; delete.word } { echo -n word deleted }
 setup.search
 }
