@@ -176,7 +176,8 @@ view.meta
 mode.fn.keys
 view.fn.keys
 bind fn_4 { mark C } { echo -n mark set }
-bind fn_5 { nop } { echo -n record macro }
+bind fn_5 { nop } { echo -n record macro. Press Escape and record.macro then enter }
+bind fn_6 { playback.macro } { echo -n Macro played back }
 delete.mode.keys
 delete.view.keys
 store &() { cat } /v/modes/viper/unknown
