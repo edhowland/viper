@@ -1,6 +1,7 @@
 echo "record.macro.file: Record macro to specific file in VFS, creating it first. Usage: record.macro.file /v/macros/macro_name" | desc record.macro.file
 function record.macro.file(fname) {
 echo -n "macro recording started. Press escape when done"
+touch :fname
 loop {
 fn=:(raw -|xfkey | stream_map &(c) { echo -n ":{c} " >> :fname; echo -n :c })
  eq :fn escape && break
