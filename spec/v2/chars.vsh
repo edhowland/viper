@@ -129,7 +129,7 @@ function view.fn.keys() {
 store &() { cat } /v/views/viper/fn_2
 }
 function mode.move.keys() {
-store &() { ll=:(cat < line/left); test -z :ll || pop line/left | enq line/right } /v/modes/viper/move_left
+store &() { eq 0 :(wc < line/left) || pop line/left | enq line/right } /v/modes/viper/move_left
 store &() { eq 0 :(wc < line/right) || eq ctrl_j :(peek line/right | xfkey) || deq line/right | push line/left } /v/modes/viper/move_right
 store { apply.first move_shift_home; top.buffer || cd .. } /v/modes/viper/move_up
 store &() { apply.first move_shift_home; cd nl; apply.first move_shift_home } /v/modes/viper/move_down
