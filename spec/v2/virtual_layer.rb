@@ -53,7 +53,8 @@ class VirtualLayer
       @@root.pwd
     end
     def touch path
-      @@root.creat path
+    node = @@root[path]
+      @@root.creat path if node.nil?
     end
     def open path, mode
       node = @@root[path]
