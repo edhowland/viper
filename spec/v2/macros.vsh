@@ -14,11 +14,11 @@ echo -n "Macro recorded. Press F6 to playback"
 }
 echo "playback.macro.file: Plays back macro stored in file in current buffer. Usage: playback.macro.file file ... where is file is /v/macros/file" | desc playback.macro.file
 function playback.macro.file(fname) { 
-map &(c) { apply.first :c } :(cat < /v/macros/:{fname})
+map &(c) { apply.first :c } :(cat < :fname)
 } 
 echo "playback.macro: Plays back series of keystrokes from /v/macros/0. Usage: playback.macro" | desc playback.macro
 function playback.macro() {
-playback.macro.file 0
+playback.macro.file /v/macros/0
 echo -n Macro inserted
 }
 
