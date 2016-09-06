@@ -14,6 +14,10 @@ cat < ":{_buf}/.association"
 function assoc.file(fname) {
 echo default
 }
+function assoc.new(pattern, assoc) {
+touch /v/assocs/:{pattern}
+echo :assoc > /v/assocs/:{pattern}
+}
 function newb(file) { mkbuf /v/buf/:{file} }
 function open.new(fname) {
 bname=:(basename :fname)
@@ -77,8 +81,10 @@ echo "desc: Creates a man page for function. Usage: echo 'your content' | desc m
 echo "man: Reads man page for function. Usage: man your.function.name" | desc man
 function man(name) { cat < /v/share/man/:{name} }
 mkdir /v/macros
+mkdir /v/assocs
 mkdir /v/snips
 touch /v/macros/0
 echo "stream_map: Performs map function on elements in stdin, sending to stdout ( or wherever). Usage: stream_map fn ... where fn is anonymous function taking one argument." | desc stream_map
 function stream_map(fx) { map :fx :(cat) }
+assoc.new vsh vish
 

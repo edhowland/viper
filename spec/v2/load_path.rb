@@ -1,4 +1,5 @@
 # load_path.rb - loads stuff for testing, running
+require 'rake'
 require_relative 'log'
 require_relative 'event'
 require_relative 'physical_layer'
