@@ -42,6 +42,12 @@ b=:(indexof ' ' < line/right)
 r=1..:{b}
 for i in :r { apply.first move_right }
 }
+function find.word.back() {
+spot=:(indexof -r '/(\w+)/' < line/left)
+apply.first move_shift_home
+apply.times :spot move_right
+grep -n -o '/(\w+)/' < line/right
+}
 function find.word() {
 find.blank
 a=:(indexof '/(\w+)/' < line/right)
