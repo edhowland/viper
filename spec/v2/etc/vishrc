@@ -4,6 +4,16 @@ mkdir /v/clip
 mkdir /v/search
 mkbuf /v/search/buf
 proj=:pwd
+function assoc.buf(name) {
+touch ":{_buf}/.association"
+echo :name > ":{_buf}/.association"
+}
+function assoc() {
+cat < ":{_buf}/.association"
+}
+function assoc.file(fname) {
+echo default
+}
 function newb(file) { mkbuf /v/buf/:{file} }
 function open.new(fname) {
 bname=:(basename :fname)
@@ -12,6 +22,7 @@ _buf=/v/buf/:{bname}
 cd :_buf
 global _buf
 touch .pathname; realpath :fname > .pathname
+assoc.buf :(assoc.file :bname)
  }
 function open.file(fname) {
 bname=:(basename :fname)
@@ -21,6 +32,7 @@ _buf=/v/buf/:{bname}
 cd :_buf
 global _buf
 touch .pathname; realpath :fname > .pathname
+assoc.buf :(assoc.file :bname)
 }
 function open(fname) { (test -f :fname && open.file :fname) || (open.new :fname; echo new file) }
 function mkclip(num) { mkbuf /v/clip/:{num} }
