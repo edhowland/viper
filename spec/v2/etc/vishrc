@@ -12,7 +12,9 @@ function assoc() {
 cat < ":{_buf}/.association"
 }
 function assoc.file(fname) {
-echo default
+ext=:(pathmap '%x' :fname)
+test -z :ext && echo default && return false
+(test -f /v/assocs/:{ext} && cat < /v/assocs/:{ext}) || echo default
 }
 function assoc.new(pattern, assoc) {
 touch /v/assocs/:{pattern}
@@ -86,5 +88,5 @@ mkdir /v/snips
 touch /v/macros/0
 echo "stream_map: Performs map function on elements in stdin, sending to stdout ( or wherever). Usage: stream_map fn ... where fn is anonymous function taking one argument." | desc stream_map
 function stream_map(fx) { map :fx :(cat) }
-assoc.new vsh vish
+assoc.new .vsh vish
 
