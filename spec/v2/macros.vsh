@@ -22,4 +22,12 @@ function playback.macro() {
 playback.macro.file /v/macros/0
 echo -n Macro inserted
 }
+function record.snip(name) {
+assc=:(assoc)
+record.macro.file /v/snips/:{assc}/:{name}
+}
+function playback.snip(name) {
+assc=:(assoc)
+playback.macro.file /v/snips/:{assc}/:{name}
+}
 
