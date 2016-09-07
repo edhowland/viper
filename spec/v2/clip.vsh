@@ -22,6 +22,7 @@ function lineno() {
 paths=:(ifs="/"; _=:pwd; shift _dummy; echo :_)
 incr :(count &(a) { eq :a nl } :paths)
 }
+function col() { wc < line/left }
 echo "between.lines: Outputs text of current buffer between lines. Usage: between.lines start end. Where start is first line and end is last line to output" | desc between.lines
 function between.lines(s, e) {
 _saved=:pwd
@@ -58,5 +59,10 @@ echo "put: Outputs contents of clipboard. Usage: put" | desc put
 function put() { cat < /v/clip/0 }
 echo "paste: Pastes contents of clipboard into current buffer. Usage: paste . Bound to Control v" | desc paste
 function paste() { (bottom.buffer && put | appendtree) || put | instree }
-
+function goto.mark.pos(m) {
+goto.mark :m
+test -f ".m:{m}" || return false
+apply.first move_shift_home
+apply.times :(cat < ".m:{m}") move_right
+}
 
