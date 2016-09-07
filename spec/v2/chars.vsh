@@ -42,11 +42,9 @@ b=:(indexof ' ' < line/right)
 r=1..:{b}
 for i in :r { apply.first move_right }
 }
+echo "find.word.back: Searches for a word backward. Usage: find.word.back" | desc find.word.back
 function find.word.back() {
-spot=:(indexof -r '/(\w+)/' < line/left)
-apply.first move_shift_home
-apply.times :spot move_right
-grep -n -o '/(\w+)/' < line/right
+find.back '/\b\w/' | grep -o '/(\w+)/'
 }
 function find.word() {
 find.blank
@@ -191,6 +189,7 @@ store &() { bell } /v/views/viper/unknown
 mode.move.keys
 view.move.keys
 bind ctrl_w { find.word } { cat }
+bind meta_w { find.word.back } { cat }
 bind escape { nop } { nop }
 _mode=delete bind key_w { restore.mode; delete.word } { echo -n word deleted }
 setup.search

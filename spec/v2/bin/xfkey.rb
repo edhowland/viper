@@ -31,7 +31,8 @@ class Xfkey
     end
     # check for possible meta key
     meta_keys = {
-        [226, 136, 130] => 'meta_d'
+        [226, 136, 130] => 'meta_d',
+[226, 136, 145] => 'meta_w'
       }
       meta_k = values.bytes
       if meta_keys[meta_k]
