@@ -45,7 +45,8 @@ goto.line :l; goto.col :c
  }
 echo "lineno: Outputs current line number of current buffer. Usage: lineno" | desc lineno
 function lineno() {
-paths=:(ifs="/"; _=:pwd; shift _dummy; echo :_)
+_pwd=:(pwd)
+paths=:(ifs="/"; _=:_pwd; shift _dummy; echo :_)
 incr :(count &(a) { eq :a nl } :paths)
 }
 function col() { wc < line/left }
