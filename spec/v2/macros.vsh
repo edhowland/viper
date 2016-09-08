@@ -29,5 +29,6 @@ record.macro.file /v/snips/:{assc}/:{name}
 function playback.snip(name) {
 assc=:(assoc)
 playback.macro.file /v/snips/:{assc}/:{name}
+goto.tabpt
 }
 

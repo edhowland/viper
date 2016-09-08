@@ -18,11 +18,20 @@ function set.tabpt() {
 test -f ":{_buf}/.tp" || mkarray ":{_buf}/.tp"
 echo :(lineno) :(wc < line/left)  | push ":{_buf}/.tp"
 }
+echo "goto.tabpt: Jumps to next tab point. Usage: goto.tabpt" | desc goto.tabpt
 function goto.tabpt() {
 test -f ":{_buf}/.tp" || return false
+test -z :(peek ":{_buf}/.tp") && return false
 _=:(deq ":{_buf}/.tp")
 shift l;shift c
 goto.line :l; goto.col :c
+}
+function whereis.tabpt() {
+test -f ":{_buf}/.tp" || return false
+test -z :(peek ":{_buf}/.tp") && return false
+_=:(peek ":{_buf}/.tp")
+shift l;shift c
+echo tab point is at line :l and column :c
 }
 function until.mark(blk, m) {
 until.bottom { test -f ".m:{m}" && break; exec :blk }
@@ -40,6 +49,8 @@ paths=:(ifs="/"; _=:pwd; shift _dummy; echo :_)
 incr :(count &(a) { eq :a nl } :paths)
 }
 function col() { wc < line/left }
+function position() { echo :(lineno) :(col) }
+function whereami() { echo buffer :(buffer); echo line :(lineno); echo column :(col) }
 echo "between.lines: Outputs text of current buffer between lines. Usage: between.lines start end. Where start is first line and end is last line to output" | desc between.lines
 function between.lines(s, e) {
 _saved=:pwd

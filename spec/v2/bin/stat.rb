@@ -7,7 +7,8 @@ class Stat
     if Hal.virtual? path
       root = frames[:vroot]
       node = root[path]
-      env[:out].puts "#{node.to_s}"
+      env[:out].puts "#{node.class.name}: #{node.to_s}"
+      env[:out].puts "length: #{node.length}" if node.instance_of?(Array)
     end
     true
   end
