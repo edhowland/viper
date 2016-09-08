@@ -2,7 +2,6 @@
 
 require_relative 'context_constants'
 
-
 class ObjectRedir
   def initialize target, mode
     @target = target

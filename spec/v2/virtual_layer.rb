@@ -20,7 +20,7 @@ class VirtualLayer
 
     end
           def virtual? path
-        @@root.contains? path
+        @@root.contains?(path) || (Hal.relative?(path) && @@root.contains?(Hal.pwd))
       end
 
     def [] path
