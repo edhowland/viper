@@ -180,7 +180,7 @@ view.meta
 mode.fn.keys
 view.fn.keys
 bind fn_4 { mark C } { echo -n mark set }
-bind fn_5 { mark T } { echo -n tab point set }
+bind fn_5 { set.tabpt } { echo -n tab point set }
 bind fn_6 { playback.macro } { echo -n Macro played back }
 delete.mode.keys
 delete.view.keys

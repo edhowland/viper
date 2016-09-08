@@ -14,6 +14,16 @@ echo "mark: Places a mark on current line. Usage: mark register  ... where regis
 function mark(register) {
 echo :(lineno) :(wc < line/left)  > ":{_buf}/.m:{register}"
 }
+function set.tabpt() {
+test -f ":{_buf}/.tp" || mkarray ":{_buf}/.tp"
+echo :(lineno) :(wc < line/left)  | push ":{_buf}/.tp"
+}
+function goto.tabpt() {
+test -f ":{_buf}/.tp" || return false
+_=:(deq ":{_buf}/.tp")
+shift l;shift c
+goto.line :l; goto.col :c
+}
 function until.mark(blk, m) {
 until.bottom { test -f ".m:{m}" && break; exec :blk }
 }
