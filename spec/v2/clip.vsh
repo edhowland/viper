@@ -11,12 +11,19 @@ apply.first move_shift_home
 apply.times :col move_right
 }
 echo "mark: Places a mark on current line. Usage: mark register  ... where register is any string. Used for marking selections for cut, cut text." | desc mark
-function mark(register) { touch ".m:{register}"; wc < line/left > ".m:{register}" }
+function mark(register) {
+echo :(lineno) :(wc < line/left)  > ":{_buf}/.m:{register}"
+}
 function until.mark(blk, m) {
 until.bottom { test -f ".m:{m}" && break; exec :blk }
 }
 echo "goto.mark: Positions cursor at requested marked register. Usage: goto.mark register ... where register is some previously marked line." | desc goto.mark
-function goto.mark(m) { until.mark { nop } :m }
+function goto.mark(m) {
+test -f ":{_buf}/.m:{m}" || return false
+_=:(cat < ":{_buf}/.m:{m}")
+shift l; shift c
+goto.line :l; goto.col :c
+ }
 echo "lineno: Outputs current line number of current buffer. Usage: lineno" | desc lineno
 function lineno() {
 paths=:(ifs="/"; _=:pwd; shift _dummy; echo :_)
