@@ -97,6 +97,10 @@ end
     start, *elements = path_to_elements path
     node elements[0..(-2)], start
   end
+  def dirpath path
+    start, *elements = path_to_elements path
+    elements[0..-2]
+  end
   def basename path
     start, *elements = path_to_elements path
     elements[-1]

@@ -1,7 +1,5 @@
 # mkbuf - class Mkbuf - command mkbuf - creates buffer node in VFS
 
-
-
 class Mkbuf
   def call *args, env:, frames:
     root = frames[:vroot]
