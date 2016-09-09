@@ -23,21 +23,23 @@ echo :assoc > /v/assocs/:{pattern}
 function newb(file) { mkbuf /v/buf/:{file} }
 function open.new(fname) {
 bname=:(basename :fname)
+rpath=:(realpath :fname)
 newb :bname
 _buf=/v/buf/:{bname}
 cd :_buf
 global _buf
-touch .pathname; realpath :fname > .pathname
+echo :rpath > .pathname
 assoc.buf :(assoc.file :bname)
  }
 function open.file(fname) {
 bname=:(basename :fname)
+rpath=:(realpath :fname)
 newb :bname
 cat < :fname > /v/buf/:{bname}
 _buf=/v/buf/:{bname}
 cd :_buf
 global _buf
-touch .pathname; realpath :fname > .pathname
+echo :rpath > .pathname
 assoc.buf :(assoc.file :bname)
 }
 function open(fname) { (test -f :fname && open.file :fname) || (open.new :fname; echo new file) }

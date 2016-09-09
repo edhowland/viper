@@ -3,7 +3,6 @@
 
 require 'json'
 
-
 class StringIO
   def to_json arg=''
     self.string.to_json
