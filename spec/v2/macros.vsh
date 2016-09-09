@@ -31,4 +31,16 @@ assc=:(assoc)
 playback.macro.file /v/snips/:{assc}/:{name}
 goto.tabpt
 }
+function save.snips() {
+_assc=:(assoc)
+json "/v/snips/:{_assc}" > ":{_assc}.json"
+}
+function list.snips() {
+_assc=:(assoc)
+(cd "/v/snips/:{_assc}"; map &(l) { echo :l } *)
+}
+function load.snips() {
+_assc=:(assoc)
+json ":{_assc}.json" "/v/snips/:{_assc}"
+}
 
