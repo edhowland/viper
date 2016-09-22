@@ -3,10 +3,6 @@ function bottom.buffer() { test -f line && not { test -f nl } }
 function until.bottom(fn) { loop { exec :fn; bottom.buffer && break; apply.first move_down } }
 function until.top(fn) { loop { exec :fn; top.buffer && break; apply.first move_up } }
 function key.exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-echo "bind: Binds key_name to pair of blocks or anonymous functions. Usage: bind key_name { first block } { second block } ... where first block is piped into second block." | desc bind
-function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
-echo "bound.to: Reports current binding of key_name in functions. Usage: bound.to key_name ... where is cannonical name of key. Like key_u for u, ctrl_c for Control c, fn_1 for Function 1 and meta_d for Alt+d" | desc bound.to
-function bound.to(name) { echo :name is bound to: }
 function apply.first(key) { exec "/v/modes/:{_mode}/:{key}" }
 function apply.second(key) { exec "/v/views/:{_mode}/:{key}" }
 function apply(ch) { (key.exists :ch || bell) && apply.first :ch | apply.second :ch }
