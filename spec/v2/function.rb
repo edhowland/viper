@@ -21,6 +21,6 @@ class Function
     result
   end
   def to_s
-    "(#{@args.join(', ')}) { " + @block.to_s + " }"
+    "(#{@args.join(', ')}) " + @block.to_s
   end
 end

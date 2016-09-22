@@ -13,6 +13,6 @@ class Block
     frames[:exit_status]
   end
   def to_s
-    @statement_list.map {|s| s.to_s }.join(';')
+    '{ ' + @statement_list.map {|s| s.to_s }.join(';') + ' }'
   end
 end

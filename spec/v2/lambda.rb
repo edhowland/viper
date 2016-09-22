@@ -17,6 +17,6 @@ class Lambda
     result = @block.call env:env, frames:@frames
   end
   def to_s
-    '&(' + @args.to_s + ') { ' + @block.to_s + ' }'
+    '&(' + @args.join(', ') + ') ' + @block.to_s
   end
 end
