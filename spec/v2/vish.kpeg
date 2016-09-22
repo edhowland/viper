@@ -42,6 +42,15 @@ element = assignment | argument | redirection
 context = context:c1 space+ context:c2 { c1 + c2 }
           | element:e { [ e ] }
 
+redirection_list = redirection_list:r1 - redirection_list:r2 { [ r1, r2 ] }
+          | redirection:r { [ r ] }
+
+subshell = '(' - block:b - ')' { b }
+subshell_command = redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) }
+          | redirection_list:r - subshell:s { SubShell.new(s, r) }
+          | subshell:s - redirection_list:r { SubShell.new(s, r) }
+          | subshell:s { SubShell.new(s) }
+
 statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
           | expression
@@ -49,10 +58,13 @@ statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
 expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
           | expression:l - '&&' - expression:r { [ BooleanAnd.new(l[0], r[0]) ] }
           | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
-          | '(' - block:b - ')' { [ SubShell.new(b) ] }
+          | subshell_command:s { [ s ] }
           | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
           | 'function' - function_name:i '(' - function_args:a - ')' - '{' ws* block:b ws* '}' { [ FunctionDeclaration.new(i, a, b) ] }
           | context:c { [ Statement.new(c) ] }
+
+
+#          | '(' - block:b - ')' { [ SubShell.new(b) ] }
 
 block = statement_list:s { Block.new(s) }
 

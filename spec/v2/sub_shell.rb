@@ -1,8 +1,9 @@
 # sub_shell - class SubShell - ( block ) - runs in a new VM
 
 class SubShell
-  def initialize block
+  def initialize block, redirections=[]
     @block = block
+    @redirections = redirections
     @pwd = ''
     @oldpwd = ''
     @vm = nil

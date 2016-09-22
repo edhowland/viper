@@ -827,6 +827,242 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # redirection_list = (redirection_list:r1 - redirection_list:r2 { [ r1, r2 ] } | redirection:r { [ r ] })
+  def _redirection_list
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirection_list)
+        r1 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_redirection_list)
+        r2 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  [ r1, r2 ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirection)
+        r = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  [ r ] ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_redirection_list unless _tmp
+    return _tmp
+  end
+
+  # subshell = "(" - block:b - ")" { b }
+  def _subshell
+
+    _save = self.pos
+    while true # sequence
+      _tmp = match_string("(")
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:_block)
+      b = @result
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = apply(:__hyphen_)
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      _tmp = match_string(")")
+      unless _tmp
+        self.pos = _save
+        break
+      end
+      @result = begin;  b ; end
+      _tmp = true
+      unless _tmp
+        self.pos = _save
+      end
+      break
+    end # end sequence
+
+    set_failed_rule :_subshell unless _tmp
+    return _tmp
+  end
+
+  # subshell_command = (redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s { SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r) } | subshell:s { SubShell.new(s) })
+  def _subshell_command
+
+    _save = self.pos
+    while true # choice
+
+      _save1 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirection_list)
+        r1 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_subshell)
+        s = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        _tmp = apply(:_redirection_list)
+        r2 = @result
+        unless _tmp
+          self.pos = _save1
+          break
+        end
+        @result = begin;  SubShell.new(s, r1 + r2) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save1
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save2 = self.pos
+      while true # sequence
+        _tmp = apply(:_redirection_list)
+        r = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        _tmp = apply(:_subshell)
+        s = @result
+        unless _tmp
+          self.pos = _save2
+          break
+        end
+        @result = begin;  SubShell.new(s, r) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save2
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save3 = self.pos
+      while true # sequence
+        _tmp = apply(:_subshell)
+        s = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:__hyphen_)
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        _tmp = apply(:_redirection_list)
+        r = @result
+        unless _tmp
+          self.pos = _save3
+          break
+        end
+        @result = begin;  SubShell.new(s, r) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save3
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+
+      _save4 = self.pos
+      while true # sequence
+        _tmp = apply(:_subshell)
+        s = @result
+        unless _tmp
+          self.pos = _save4
+          break
+        end
+        @result = begin;  SubShell.new(s) ; end
+        _tmp = true
+        unless _tmp
+          self.pos = _save4
+        end
+        break
+      end # end sequence
+
+      break if _tmp
+      self.pos = _save
+      break
+    end # end choice
+
+    set_failed_rule :_subshell_command unless _tmp
+    return _tmp
+  end
+
   # statement_list = (statement_list:s1 - ";" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)
   def _statement_list
 
@@ -922,7 +1158,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | "(" - block:b - ")" { [ SubShell.new(b) ] } | "alias" space+ function_name:f "=" argument:a {[ AliasDeclaration.new(f, a) ] } | "function" - function_name:i "(" - function_args:a - ")" - "{" ws* block:b ws* "}" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })
+  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | "alias" space+ function_name:f "=" argument:a {[ AliasDeclaration.new(f, a) ] } | "function" - function_name:i "(" - function_args:a - ")" - "{" ws* block:b ws* "}" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })
   def _expression
 
     _save = self.pos
@@ -1050,33 +1286,13 @@ class Vish < KPeg::CompiledParser
 
       _save4 = self.pos
       while true # sequence
-        _tmp = match_string("(")
+        _tmp = apply(:_subshell_command)
+        s = @result
         unless _tmp
           self.pos = _save4
           break
         end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = apply(:_block)
-        b = @result
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = apply(:__hyphen_)
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        _tmp = match_string(")")
-        unless _tmp
-          self.pos = _save4
-          break
-        end
-        @result = begin;  [ SubShell.new(b) ] ; end
+        @result = begin;  [ s ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save4
@@ -1324,8 +1540,11 @@ class Vish < KPeg::CompiledParser
   Rules[:_redirection] = rule_info("redirection", "redirect_op:r - argument:a { Redirection.new(r, a) }")
   Rules[:_element] = rule_info("element", "(assignment | argument | redirection)")
   Rules[:_context] = rule_info("context", "(context:c1 space+ context:c2 { c1 + c2 } | element:e { [ e ] })")
+  Rules[:_redirection_list] = rule_info("redirection_list", "(redirection_list:r1 - redirection_list:r2 { [ r1, r2 ] } | redirection:r { [ r ] })")
+  Rules[:_subshell] = rule_info("subshell", "\"(\" - block:b - \")\" { b }")
+  Rules[:_subshell_command] = rule_info("subshell_command", "(redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s { SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r) } | subshell:s { SubShell.new(s) })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)")
-  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | \"(\" - block:b - \")\" { [ SubShell.new(b) ] } | \"alias\" space+ function_name:f \"=\" argument:a {[ AliasDeclaration.new(f, a) ] } | \"function\" - function_name:i \"(\" - function_args:a - \")\" - \"{\" ws* block:b ws* \"}\" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })")
+  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | \"alias\" space+ function_name:f \"=\" argument:a {[ AliasDeclaration.new(f, a) ] } | \"function\" - function_name:i \"(\" - function_args:a - \")\" - \"{\" ws* block:b ws* \"}\" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })")
   Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
   Rules[:_root] = rule_info("root", "block:x { @result = x }")
   # :startdoc:
