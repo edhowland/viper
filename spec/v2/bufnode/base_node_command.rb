@@ -2,6 +2,10 @@
 # gathers argument to node and passes to supplied block
 
 class BaseNodeCommand < BaseCommand
+  def get_node path, frames:
+        root = frames[:vroot]
+    root[path]
+  end
   def perform path, env:, frames:,  &blk
     root = frames[:vroot]
     node = root[path]

@@ -98,3 +98,6 @@ echo "bind.describe: Describes current key binding. Usage: bind.describe key_x .
 function bind.describe(key) {
 echo bind :key :(describe "/v/modes/:{_mode}/:{key}") :(describe "/v/views/:{_mode}/:{key}")
 }
+echo "bind.describe.all: Outputs all described key bindings for current mode. Usage: bind.describe.all" | desc bind.describe.all
+function bind.describe.all() { (cd "/v/modes/:{_mode}"; map &(k) { bind.describe :k } *) }
+

@@ -2,6 +2,12 @@
 
 class Describe < BaseNodeCommand
   def call *args, env:, frames:
-    perform(args[0], env:env, frames:frames) {|node| env[:out].puts node.to_s }
+    super do |*a|
+#      pout get_node(a[0], frames:frames).to_s
+      r=frames[:vroot]
+      node = r[a[0]]
+      string = node.to_s
+      pout "#{string}"
+    end
   end
 end
