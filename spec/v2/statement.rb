@@ -3,6 +3,8 @@
 require_relative 'context_constants'
 
 class Statement
+  include Redirectable
+
   def initialize context=[]
     @context = context
   end
@@ -38,18 +40,20 @@ class Statement
     local_ios.push
 
     sorted = @context.sort {|a, b| a.ordinal <=> b.ordinal }
-    sorted.map! {|e| e.call env:local_ios, frames:local_vars }
+    sorted = sorted.reject {|e| redirectable?(e) && redirect(e, env:local_ios, frames:local_vars) }.map {|e| e.call env:local_ios, frames:local_vars }
     sorted.flatten!
     sorted.reject!(&:nil?)
     c, *args = sorted
     command = Command.resolve(c, env:env, frames:frames)
 #binding.pry
-    closers = local_ios.values
-    local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
+    # closers = local_ios.values
+    # local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
+    closers = open_redirs env:local_ios
     begin
       result = command.call *args,  env:local_ios, frames:local_vars
     ensure
-      closers.each {|f| f.close }
+      #closers.each {|f| f.close }
+      close_redirs closers
       local_ios.pop
       local_vars.pop
       frames[:exit_status] = result
