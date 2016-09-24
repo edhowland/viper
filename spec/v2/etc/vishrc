@@ -97,6 +97,7 @@ function bind.key(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :f
 echo "bind.describe: Describes current key binding. Usage: bind.describe key_x .. where first arg is key_l for letters, ctrl_l for control characters and meta_d for alt keys and fn_1 for function keys" | desc bind.describe
 function bind.describe(key) {
 echo bind :key :(describe "/v/modes/:{_mode}/:{key}") :(describe "/v/views/:{_mode}/:{key}")
+echo
 }
 echo "bind.describe.all: Outputs all described key bindings for current mode. Usage: bind.describe.all" | desc bind.describe.all
 function bind.describe.all() { (cd "/v/modes/:{_mode}"; map &(k) { bind.describe :k } *) }
