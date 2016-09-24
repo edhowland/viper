@@ -23,6 +23,7 @@ global _loc
 function handle.tab() {
 apply.times :indent key_space
 }
+function top.buffer() { eq :_buf :pwd }
 function bottom.buffer() { test -f line && not { test -f nl } }
 function insert.line() {
 last=:(peek -r line/right | xfkey)
@@ -30,9 +31,19 @@ neq :last ctrl_j && echo | push line/right
 (bottom.buffer && echo | appendtree) || echo | instree
 cd nl 
  }
+function move.start() { cat < line > line } 
+function move.down() {
+move.start
+cd nl
+move.start
+ cat < line 
+}
+function move.up() { move.start; top.buffer || cd ..; move.start; cat < line }
+function move.left() { eq 0 :(wc < line/left) || pop line/left | enq line/right } 
+function move.right() { eq 0 :(wc < line/right) || eq ctrl_j :(peek line/right | xfkey) || deq line/right | push line/left } 
 function handle.return() {
 insert.line
 echo | push line/left
 extract line/right | (cd nl; cat > line)
-apply move_down
+move.down
 }
