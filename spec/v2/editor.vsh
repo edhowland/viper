@@ -20,3 +20,19 @@ loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
 _loc=:pwd
 global _loc
 }
+function handle.tab() {
+apply.times :indent key_space
+}
+function bottom.buffer() { test -f line && not { test -f nl } }
+function insert.line() {
+last=:(peek -r line/right | xfkey)
+neq :last ctrl_j && echo | push line/right
+(bottom.buffer && echo | appendtree) || echo | instree
+cd nl 
+ }
+function handle.return() {
+insert.line
+echo | push line/left
+extract line/right | (cd nl; cat > line)
+apply move_down
+}
