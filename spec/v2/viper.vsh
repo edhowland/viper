@@ -8,3 +8,6 @@ _mode=viper bind move_up { move.up } { cat }
 _mode=viper bind move_left { move.left } { peek line/right | xfkey | xfkey -h }
 _mode=viper bind move_right { move.right } { (eq 0 :(wc < line/right) && bell) || peek line/right | xfkey | xfkey -h } 
 _mode=viper bind ctrl_l { nop } { cat < line }
+_mode=viper bind ctrl_j { peek line/right } { cat }
+_mode=viper bind ctrl_k { col -n } { cat }
+
