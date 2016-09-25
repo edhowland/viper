@@ -17,4 +17,5 @@ _mode=viper bind move_shift_end { move.end } { peek line/right }
 _mode=viper bind ctrl_o { insert.line } { cat < line }
 _mode=viper bind key_backspace { del.left } { echo -n delete :(xfkey | xfkey -h) }
 _mode=viper bind key_delete { del.right } { echo -n delete :(xfkey | xfkey -h) }
+_mode=viper bind key_backtab { handle.backtab } { echo -n back tab }
 

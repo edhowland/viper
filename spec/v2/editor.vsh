@@ -23,6 +23,9 @@ global _loc
 function handle.tab() {
 apply.times :indent key_space
 }
+function handle.backtab() {
+apply.times :indent key_backspace
+}
 function top.buffer() { eq :_buf :pwd }
 function bottom.buffer() { test -f line && not { test -f nl } }
 function insert.line() {
