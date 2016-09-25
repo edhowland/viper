@@ -3,6 +3,9 @@
 # adds methods: pout, perr to simplify stdout, stderr stream output
 
 class BaseCommand
+def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+        end
   def initialize 
     @options = {}
   end
