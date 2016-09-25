@@ -44,6 +44,7 @@ assoc.buf :(assoc.file :bname)
 }
 function open(fname) { (test -f :fname && open.file :fname) || (open.new :fname; echo new file) }
 function open.all() {
+test -z :argv && return false
 for f in :argv { open :f }
 buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
 global buffers

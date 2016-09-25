@@ -48,3 +48,6 @@ extract line/right | (cd nl; cat > line)
 move.down
 }
 function col(op) { wc ":{op}" < line/left }
+function move.bottom() { loop { cd nl || break } }
+function move.top() { cd :_buf }
+

@@ -10,4 +10,5 @@ _mode=viper bind move_right { move.right } { (eq 0 :(wc < line/right) && bell) |
 _mode=viper bind ctrl_l { nop } { cat < line }
 _mode=viper bind ctrl_j { peek line/right } { cat }
 _mode=viper bind ctrl_k { col -n } { cat }
-
+_mode=viper bind move_shift_pgup { move.top } { echo -n top of buffer }
+_mode=viper bind move_shift_pgdn { move.bottom } { echo -n bottom of buffer }
