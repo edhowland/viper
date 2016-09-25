@@ -43,6 +43,14 @@ echo :rpath > .pathname
 assoc.buf :(assoc.file :bname)
 }
 function open(fname) { (test -f :fname && open.file :fname) || (open.new :fname; echo new file) }
+function open.all() {
+for f in :argv { open :f }
+buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
+global buffers
+tmp=":{buffers}"
+shift -s tmp _buf; global _buf
+cd :_buf
+}
 function mkclip(num) { mkbuf /v/clip/:{num} }
 alias l="echo *"
 mkclip 0
