@@ -12,3 +12,6 @@ _mode=viper bind ctrl_j { peek line/right } { cat }
 _mode=viper bind ctrl_k { col -n } { cat }
 _mode=viper bind move_shift_pgup { move.top } { echo -n top of buffer }
 _mode=viper bind move_shift_pgdn { move.bottom } { echo -n bottom of buffer }
+_mode=viper bind move_shift_home { move.start } { peek line/right }
+_mode=viper bind move_shift_end { move.end } { peek line/right }
+

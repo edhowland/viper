@@ -1,4 +1,5 @@
 mount /v
+mkdir /v/bin
 mkdir /v/buf
 mkdir /v/clip
 mkdir /v/search

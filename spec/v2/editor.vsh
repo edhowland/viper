@@ -32,6 +32,7 @@ neq :last ctrl_j && echo | push line/right
 cd nl 
  }
 function move.start() { cat < line > line } 
+function move.end() { cat < line > line/left; echo -n '' > line/right; eq ctrl_j :(peek -r line/left | xfkey) && move.left }
 function move.down() {
 move.start
 cd nl
@@ -48,6 +49,6 @@ extract line/right | (cd nl; cat > line)
 move.down
 }
 function col(op) { wc ":{op}" < line/left }
-function move.bottom() { loop { cd nl || break } }
-function move.top() { cd :_buf }
+function move.bottom() { loop { cd nl || break }; move.end }
+function move.top() { cd :_buf; move.start }
 
