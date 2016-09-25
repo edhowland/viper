@@ -51,4 +51,6 @@ move.down
 function col(op) { wc ":{op}" < line/left }
 function move.bottom() { loop { cd nl || break }; move.end }
 function move.top() { cd :_buf; move.start }
+function del.left() { pop line/left }
+function del.right() { deq line/right }
 
