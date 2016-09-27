@@ -17,11 +17,10 @@ class Command
       return fn unless fn.nil?
       return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env:env, frames:frames } if frames.vm.respond_to? id.to_sym
       begin
-        if false
         cpath = "/v/bin/#{id}"
          thing = command_from_path cpath, frames:frames
-         end
-
+        return thing unless thing.nil?
+    # try to get old-style command from const_get of capitalized name class
         klass = Kernel.const_get id.to_s.capitalize
         result = klass.new
         result
