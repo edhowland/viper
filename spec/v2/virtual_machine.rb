@@ -75,6 +75,15 @@ class VirtualMachine
     Hal.mkdir_p args[0]
     true
   end
+  # install - command to install command objects into virtual bin dir
+  def install *args, env:, frames:
+        root=frames[:vroot]
+    path = root['/v/bin']  # commands will be installed here
+    BaseCommand.descendants.each do |klass|
+      path[klass.name.downcase] = klass.new
+    end
+    true
+  end
   def pwd *args, env:, frames:
     env[:out].puts Hal.pwd
     true
