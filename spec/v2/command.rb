@@ -3,6 +3,10 @@
 
 class Command
   class << self
+    def command_from_path path, frames:
+      root = frames[:vroot]
+      root[path]
+    end
       # fake it till you make it
     def resolve id, env:, frames:
       return Null.new if (id.nil? || id.empty?)
@@ -13,6 +17,11 @@ class Command
       return fn unless fn.nil?
       return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env:env, frames:frames } if frames.vm.respond_to? id.to_sym
       begin
+        if false
+        cpath = "/v/bin/#{id}"
+         thing = command_from_path cpath, frames:frames
+         end
+
         klass = Kernel.const_get id.to_s.capitalize
         result = klass.new
         result

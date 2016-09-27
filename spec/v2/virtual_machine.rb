@@ -61,6 +61,20 @@ class VirtualMachine
       self._chdir args[0]
     end
   end
+  def mount *args, env:, frames:
+    root = VFSRoot.new
+    VirtualLayer.set_root root
+    root.mkdir_p  args[0]
+    root.mount_pt = args[0]
+    frames[:vroot] = root
+    frames.merge
+    true
+  end
+
+  def mkdir *args, env:, frames:
+    Hal.mkdir_p args[0]
+    true
+  end
   def pwd *args, env:, frames:
     env[:out].puts Hal.pwd
     true
