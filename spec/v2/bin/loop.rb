@@ -1,6 +1,6 @@
 # loop - class Loop - command loop - repeats block until break called
 
-class Loop
+class Loop < BaseCommand
   def call *args, env:, frames:
     unless args[0].instance_of? Block
       env[:err].puts "loop: first argument must be a block"

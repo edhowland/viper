@@ -19,11 +19,15 @@ class Command
       begin
         cpath = "/v/bin/#{id}"
          thing = command_from_path cpath, frames:frames
-        return thing unless thing.nil?
+    unless thing.nil?
+        return thing 
+    else
     # try to get old-style command from const_get of capitalized name class
         klass = Kernel.const_get id.to_s.capitalize
         result = klass.new
+      Log.say "got from const_get:  #{id}"
         result
+    end
       rescue => err
         env[:err].puts "Command: #{id}: not found"
         False.new

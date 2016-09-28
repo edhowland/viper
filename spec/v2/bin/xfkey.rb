@@ -2,7 +2,7 @@
 # arg: [-h] :  print human readable version
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
-class Xfkey
+class Xfkey < BaseCommand
 
   def key_to_hex  values
     @out.write(values.bytes.map {|e| '%0x' % e }.join(' '))

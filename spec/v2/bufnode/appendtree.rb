@@ -1,7 +1,7 @@
 # appendtree - class Appendtree - command appendtree - adds to end  of buffer
 # like instree, but does not add final nl subtree for insertion
 
-class Appendtree
+class Appendtree < BaseNodeCommand
   def call *args, env:, frames:
     root = frames[:vroot]
     wd = root.wd

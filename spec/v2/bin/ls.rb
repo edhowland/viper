@@ -1,7 +1,7 @@
 # ls - class Ls - Unix-like ls command
 
 
-class Ls
+class Ls < BaseCommand
   def call *args, env:, frames:
 #binding.pry
     args = Hal['*'] if args.empty?

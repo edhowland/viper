@@ -2,7 +2,7 @@
 # and sends to stdout
 
 
-class Subtree
+class Subtree < BaseNodeCommand
   def call *args, env:, frames:
     if args.empty?
       env[:err].puts 'subtree: must supply depth argument'

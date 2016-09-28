@@ -1,6 +1,6 @@
 # mkbuf - class Mkbuf - command mkbuf - creates buffer node in VFS
 
-class Mkbuf
+class Mkbuf < BaseNodeCommand
   def call *args, env:, frames:
     root = frames[:vroot]
     if root.nil?

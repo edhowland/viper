@@ -1,6 +1,6 @@
 # ruby - class Ruby - command ruby - evalulates string in Ruby interperter
 
-class Ruby
+class Ruby < BaseCommand
   def initialize 
     @orig_in = $stdin
     @orig_out = $stdout

@@ -3,7 +3,7 @@
 
 require 'remedy'
 
-class Raw
+class Raw < BaseCommand
   include Remedy
   def getch
     Keyboard.get.seq

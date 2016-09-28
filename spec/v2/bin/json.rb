@@ -9,7 +9,7 @@ class StringIO
   end
 end
 
-class Json
+class Json < BaseCommand
   def call *args, env:, frames:
     root = frames[:vroot]
 

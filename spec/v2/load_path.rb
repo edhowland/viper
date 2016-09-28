@@ -40,6 +40,7 @@ require_relative 'io_factory'
 
 require_relative 'vfs_node'
 require_relative 'vfs_root'
+require_relative 'base_node_command'
 Dir['./bufnode/*.rb'].each {|f| require_relative f }
 require_relative 'version'
 

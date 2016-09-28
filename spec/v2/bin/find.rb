@@ -4,7 +4,7 @@
 # -exec :lambda to run on found elements
 
 class Selector < Eq
-  def initialize filter
+  def initialize filter="."  # default filter arg so can subclass from Eq 
     @filter = filter
   end
   def call *args, env:, frames:
@@ -12,7 +12,7 @@ class Selector < Eq
   end
 end
 
-class Find
+class Find < BaseCommand
   def initialize 
     @source = '.'
     @filter = Eq.new

@@ -1,6 +1,6 @@
 # exec - class Exec - command exec { block } - runs block of first arg
 
-class Exec
+class Exec < BaseCommand
   def call *args, env:, frames:
     result = true
     block = args.shift
