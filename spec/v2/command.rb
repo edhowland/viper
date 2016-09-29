@@ -9,6 +9,7 @@ class Command
     end
       # fake it till you make it
     def resolve id, env:, frames:
+    @@cache ||= {}
       return Null.new if (id.nil? || id.empty?)
       id = '_break' if id == 'break'
       id = '_return' if id == 'return'
@@ -17,16 +18,16 @@ class Command
       return fn unless fn.nil?
       return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env:env, frames:frames } if frames.vm.respond_to? id.to_sym
       begin
-        cpath = "/v/bin/#{id}"
-         thing = command_from_path cpath, frames:frames
+        thing = @@cache[id.to_sym]
+        if thing.nil?
+          cpath = "/v/bin/#{id}"
+           thing = command_from_path cpath, frames:frames
+         end
     unless thing.nil?
+      @@cache[id.to_sym] ||= thing
         return thing 
     else
-    # try to get old-style command from const_get of capitalized name class
-        klass = Kernel.const_get id.to_s.capitalize
-        result = klass.new
-      Log.say "got from const_get:  #{id}"
-        result
+      raise RuntimeError.new ''
     end
       rescue => err
         env[:err].puts "Command: #{id}: not found"
