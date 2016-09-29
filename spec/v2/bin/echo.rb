@@ -13,5 +13,4 @@ class Echo < BaseCommand
       end
     end
   end
-  
 end

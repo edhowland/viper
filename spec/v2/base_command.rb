@@ -16,6 +16,7 @@ def self.descendants
     @ios[:err].puts *stuff
   end
   def args_parse! args
+    @options = {}
     args.select {|e| e =~ /^\-.+/ }.map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.each {|e| @options[e] = true }
     args.reject {|e| e =~ /^\-.+/ }
   end
