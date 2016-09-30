@@ -7,7 +7,7 @@ function ctrls() {ruby 'env[:out].puts ("a".."z").to_a.map {|e| "ctrl_#{e}" }.jo
 function mode.keys() { 
 for i in :_ {
 key=:(echo -n :i | xfkey)
-bind :key &() { echo -n :i | push line/left } &() { echo -n :i } 
+bind :key &() { ins line :i } &() { echo -n :i } 
 }
 }
 function printable() {
