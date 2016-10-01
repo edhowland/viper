@@ -8,7 +8,9 @@ class On < BaseCommand
   def call *args, env:, frames:
     super do |*a|
       handler = a.pop
-      Event <<  handler
+      #Event <<  handler
+      regex = Regexp.new('^' + a.join(' '))
+      Event[regex] = handler
     end
   end
 end
