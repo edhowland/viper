@@ -56,4 +56,10 @@ function move.bottom() { loop { cd nl || break }; move.end }
 function move.top() { cd :_buf; move.start }
 function del.left() { pop line/left }
 function del.right() { deq line/right }
+function lineno() { ruby "puts (':{pwd}'.split('/').count {|e| e == 'nl' } + 1)" }
+function set.mark() {
+echo :(lineno) :(col) > ":{_buf}/mark"
+}
+function unset.mark() { rm ":{_buf}/mark" }
+function toggle.mark() { (test -f ":{_buf}/mark" && unset.mark) || set.mark }
 

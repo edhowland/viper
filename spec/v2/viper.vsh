@@ -18,4 +18,5 @@ _mode=viper bind ctrl_o { insert.line } { cat < line }
 _mode=viper bind key_backspace { del.left } { echo -n delete :(xfkey | xfkey -h) }
 _mode=viper bind key_delete { del.right } { echo -n delete :(xfkey | xfkey -h) }
 _mode=viper bind key_backtab { handle.backtab } { echo -n back tab }
+_mode=viper bind fn_4 { toggle.mark } { (test -f ":{_buf}/mark" && echo -n mark set) || echo -n mark unset }
 
