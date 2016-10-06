@@ -62,4 +62,7 @@ echo :(lineno) :(col) > ":{_buf}/mark"
 }
 function unset.mark() { rm ":{_buf}/mark" }
 function toggle.mark() { (test -f ":{_buf}/mark" && unset.mark) || set.mark }
+function report.mark() { cat < ":{_buf}/mark" }
+alias r=report.mark
+function is.mark.set() { test -f ":{_buf}/mark" }
 
