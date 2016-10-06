@@ -26,7 +26,15 @@ class Event
           init
 
       handler = @@matches[args.join(' ')]
-      handler.call(*args, env:env, frames:frames) if handler.respond_to? :call
+      if handler.respond_to? :call
+        if handler.instance_of? Lambda
+        handler.call(*args, env:env, frames:frames) 
+      elsif handler.instance_of? Block
+        handler.call env:env, frames:frames
+      else
+        raise RuntimeError.new('Unknown event handler type')
+      end
+      end
     end
     def trigger *args, env:, frames:
       init
