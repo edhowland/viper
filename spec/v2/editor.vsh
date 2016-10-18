@@ -59,10 +59,18 @@ function del.right() { deq line/right }
 function lineno() { ruby "puts (':{pwd}'.split('/').count {|e| e == 'nl' } + 1)" }
 function set.mark() {
 echo :(lineno) :(col) > ":{_buf}/mark"
+on ins { logger about to update mark; add.mark || logger no such mark here }
 }
 function unset.mark() { rm ":{_buf}/mark" }
 function toggle.mark() { (test -f ":{_buf}/mark" && unset.mark) || set.mark }
 function report.mark() { cat < ":{_buf}/mark" }
 alias r=report.mark
 function is.mark.set() { test -f ":{_buf}/mark" }
+function add.mark() {
+is.mark.set || logger no mark set && return false
+_=:(report.mark)
+shift l; shift c
+neq :(lineno) :l && logger not the right line && return false
+echo :l :(add :c 1) > ":{_buf}/mark"
+}
 

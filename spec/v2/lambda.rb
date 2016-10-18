@@ -7,14 +7,14 @@ class Lambda
     @frames = frames
   end
   def call *args, env:, frames:
-    @frames.push
+    fr = frames + @frames   # fr is now current frame stack + the saved context
+    fr.push
     bound = @args.zip(args).to_h  # bind any passed arguments to this hash
-    @frames.top.merge! bound        # these are now variables within this context
-    @frames[:_] = args   # the arguments to this function are collected in the :_ variable
-    @frames[:_argc] = args.length.to_s  # The number of arguments are stored in :_argc
+    fr.top.merge! bound        # these are now variables within this context
+    fr[:_] = args   # the arguments to this function are collected in the :_ variable
+    fr[:_argc] = args.length.to_s  # The number of arguments are stored in :_argc
 
-
-    result = @block.call env:env, frames:@frames
+    result = @block.call env:env, frames:fr
   end
   def to_s
     '&(' + @args.join(', ') + ') ' + @block.to_s
