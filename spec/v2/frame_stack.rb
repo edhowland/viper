@@ -1,11 +1,11 @@
 # frame_stack - class FrameStack - holds entire stack frame  - or part of it
 
 class FrameStack
-  def initialize frames:[{}], functions:{}, aliases:{}
+  def initialize frames:[{}], functions:{}, aliases:{}, vm:nil
     @frames = frames
     @functions = functions
     @aliases = aliases
-    @vm = nil
+    @vm = vm
   end
   attr_accessor :functions, :aliases, :vm, :frames
     def [] sym
@@ -57,7 +57,7 @@ class FrameStack
     @frames.each {|f| f.delete key }
   end
   def + that
-    FrameStack.new(frames:@frames + that.frames)
+    FrameStack.new(frames:@frames + that.frames, functions:that.functions, aliases:that.aliases, vm:that.vm)
   end
   def to_s
     @frames.map {|e| e.to_s }.join("\n---\n")
@@ -69,7 +69,7 @@ class FrameStack
   end
   # back: returns every from found key till top of stack in a new FrameStack
   def back value
-    FrameStack.new(frames:@frames[(self.index(value))..(-1)])
+    FrameStack.new(frames:@frames[(self.index(value))..(-1)], functions:@functions, aliases:@aliases, vm:@vm)
   end
   def _clone
     nframes = @frames.map {|e| e.clone }
