@@ -71,6 +71,7 @@ is.mark.set || logger no mark set && return false
 _=:(report.mark)
 shift l; shift c
 neq :(lineno) :l && logger not the right line && return false
+not { lte :(col) :c } && logger not less than col && return false
 echo :l :(add :c 1) > ":{_buf}/mark"
 }
 
