@@ -1,5 +1,6 @@
 # buffer.rb - requires for buffer/
 
+require_relative 'buffer/array_extender'
 require_relative 'buffer/command_buffer'
 
 require_relative 'buffer/recordable'

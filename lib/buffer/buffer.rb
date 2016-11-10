@@ -3,12 +3,17 @@
 # Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
 class Buffer
   def initialize(string='')
-    @a_buff = StringBuffer.new ''
-    @b_buff = StringBuffer.new string
+    @a_buff = [] #StringBuffer.new ''
+    @b_buff = string.chars #StringBuffer.new string
+    restore_extend
     @dirty = false
     @name = 'unnamed'
     @mark_position = nil
     @match_data = nil
+  end
+  def restore_extend
+        @a_buff.extend ArrayExtender
+    @b_buff.extend ArrayExtender
   end
 
   attr_accessor :name
@@ -53,8 +58,9 @@ class Buffer
   end
 
   def ins(string)
-    @a_buff.push string
+    @a_buff += string.chars
     @dirty = true
+    restore_extend
     record :ins, string
   end
 
@@ -82,14 +88,16 @@ class Buffer
 
   def beg
     record :beg
-    @b_buff = StringBuffer.new(to_s)
-    @a_buff = StringBuffer.new ''
+    @b_buff = (@a_buff + @b_buff)
+    @a_buff = []
+    restore_extend
   end
 
   def fin
     record :fin
-    @a_buff = StringBuffer.new(to_s)
-    @b_buff = StringBuffer.new ''
+    @a_buff = (@a_buff + @b_buff)
+    @b_buff = []
+    restore_extend
   end
 
   def rchomp(string)
@@ -144,8 +152,9 @@ class Buffer
   end
 
   def clear
-    @a_buff = StringBuffer.new ''
-    @b_buff = StringBuffer.new ''
+    @a_buff = []
+    @b_buff = []
+    restore_extend
     @dirty = false
   end
 
@@ -174,13 +183,13 @@ class Buffer
   end
 
   def srch_fwd(regex)
-    amount = @b_buff.index(regex)
+    amount = @b_buff.to_s.index(regex)
     fwd(amount) unless amount.nil?
   end
 
   def srch_back(regex)
-    amount = @a_buff.rindex(regex)
-    back(amount * -1) unless amount.nil?
+    amount = @a_buff.to_s.rindex(regex)
+    back(@a_buff.length - amount) unless amount.nil?
   end
 
   def position
@@ -225,8 +234,9 @@ class Buffer
   end
 
   def overwrite!(string)
-    @a_buff = StringBuffer.new ''
-    @b_buff = StringBuffer.new string
+    @a_buff = []
+    @b_buff = string.chars
+    restore_extend
   end
 
   # is this buffer able to be saved?
@@ -256,7 +266,7 @@ class Buffer
   end
 
   def to_s
-    @a_buff.to_s + @b_buff.to_s
+    (@a_buff+ @b_buff).join('')
   end
 
   # file associations: just return :default, but subclassed in FileBuffer

@@ -124,7 +124,6 @@ describe 'del a lot of content' do
   subject { buf.ins 'abcde'; buf.del 'abcde' }
 
   specify { subject.must_equal 'abcde'; buf.to_s.must_equal '' }
-
 end
 
 describe 'del_at' do
