@@ -3,8 +3,8 @@
 # Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
 class Buffer
   def initialize(string='')
-    @a_buff = [] #StringBuffer.new ''
-    @b_buff = string.chars #StringBuffer.new string
+    @a_buff = [] 
+    @b_buff = string.chars 
     restore_extend
     @dirty = false
     @name = 'unnamed'
@@ -285,8 +285,7 @@ class Buffer
     to_s
   end
   def write contents
-        @a_buff = StringBuffer.new ''
-    @b_buff = StringBuffer.new contents
+    overwrite! contents
   end
   
   

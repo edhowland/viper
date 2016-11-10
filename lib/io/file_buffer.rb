@@ -27,9 +27,8 @@ class FileBuffer < Buffer
   end
 
   def restore
-    @a_buff = StringBuffer.new ''
-    @b_buff = StringBuffer.new(File.read(@name))
-    @dirty = false
+overwrite!(File.read(@name))
+@dirty = false
   end
 
   def association
