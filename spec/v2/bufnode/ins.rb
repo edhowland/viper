@@ -9,8 +9,8 @@ class Ins < BaseNodeCommand
     end
 
     perform(args[0], env:env, frames:frames) do |node|
-      left = node['left']
-      object.chars.each {|c| left.push c }
+      buffer = node['buffer']
+      buffer.ins object #object.chars.each {|c| buffer.ins c }
       object
     end
   end

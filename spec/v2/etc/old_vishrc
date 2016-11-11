@@ -1,0 +1,116 @@
+mount /v
+mkdir /v/bin
+install
+mkdir /v/buf
+mkdir /v/clip
+mkdir /v/search
+mkbuf /v/search/buf
+proj=:pwd
+function assoc.buf(name) {
+touch ":{_buf}/.association"
+echo :name > ":{_buf}/.association"
+}
+function assoc() {
+cat < ":{_buf}/.association"
+}
+function assoc.file(fname) {
+ext=:(pathmap '%x' :fname)
+test -z :ext && echo default && return false
+(test -f /v/assocs/:{ext} && cat < /v/assocs/:{ext}) || echo default
+}
+function assoc.new(pattern, assoc) {
+touch /v/assocs/:{pattern}
+echo :assoc > /v/assocs/:{pattern}
+}
+function newb(file) { mkbuf /v/buf/:{file} }
+function open.new(fname) {
+bname=:(basename :fname)
+rpath=:(realpath :fname)
+newb :bname
+_buf=/v/buf/:{bname}
+cd :_buf
+global _buf
+echo :rpath > .pathname
+assoc.buf :(assoc.file :bname)
+ }
+function open.file(fname) {
+bname=:(basename :fname)
+rpath=:(realpath :fname)
+newb :bname
+cat < :fname > /v/buf/:{bname}
+_buf=/v/buf/:{bname}
+cd :_buf
+global _buf
+echo :rpath > .pathname
+assoc.buf :(assoc.file :bname)
+}
+function open(fname) { (test -f :fname && open.file :fname) || (open.new :fname; echo new file) }
+function open.all() {
+test -z :argv && return false
+for f in :argv { open :f }
+buffers=:(map &(x) { echo -n "/v/buf/:{x} " } :argv)
+global buffers
+tmp=":{buffers}"
+shift -s tmp _buf; global _buf
+cd :_buf
+}
+function mkclip(num) { mkbuf /v/clip/:{num} }
+alias l="echo *"
+mkclip 0
+function yank(depth) { subtree :depth > /v/clip/0 }
+alias c="cat < line"
+function save() { past=:pwd; cd :_buf; cat < :_buf > :(cat < .pathname); cd :past }
+alias h="raw -|xfkey"
+_mode=viper
+function mk.mode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
+mk.mode viper
+mk.mode delete
+mk.mode search
+indent=2
+function neq(a, b) { not { eq :a :b } }
+alias ex="echo :exit_status"
+function rotate() { shift first; echo :_ :first }
+function map() { shift fn; for i in :_ { exec :fn :i } }
+function reduce() {
+shift fn
+shift init
+for i in :_ { init=:(exec :fn :init :i) }
+echo :init
+}
+function add(a, b) { ruby 'puts argv[0].to_i + argv[1].to_i' :a :b }
+function sub(a, b) { ruby 'puts argv[0].to_i - argv[1].to_i' :a :b }
+function incr(a) { add 1 :a }
+function count() {
+shift fn
+_fnx=&(i,j) { (exec :fn :j && incr :i) || echo :i }
+reduce :_fnx 0 :_
+}
+function bell() { ruby 'print "\a"' }
+alias scratch="open.new scratch"
+mkdir /v/share/man
+function desc(name) {
+mkbuf /v/share/man/:{name}
+cat > /v/share/man/:{name}
+}
+echo "desc: Creates a man page for function. Usage: echo 'your content' | desc my.function.name" | desc desc
+echo "man: Reads man page for function. Usage: man your.function.name" | desc man
+function man(name) { cat < /v/share/man/:{name} }
+mkdir /v/macros
+mkdir /v/assocs
+mkdir /v/snips
+touch /v/macros/0
+echo "stream_map: Performs map function on elements in stdin, sending to stdout ( or wherever). Usage: stream_map fn ... where fn is anonymous function taking one argument." | desc stream_map
+function stream_map(fx) { map :fx :(cat) }
+assoc.new .vsh vish
+mkdir /v/snips/vish
+echo "bind.key: Binds key_name to pair of blocks or anonymous functions. Usage: bind key_name { first block } { second block } ... where first block is piped into second block." | desc bind
+function bind.key(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
+echo "bind.describe: Describes current key binding. Usage: bind.describe key_x .. where first arg is key_l for letters, ctrl_l for control characters and meta_d for alt keys and fn_1 for function keys" | desc bind.describe
+function bind.describe(key) {
+echo bind :key :(describe "/v/modes/:{_mode}/:{key}") :(describe "/v/views/:{_mode}/:{key}")
+echo
+}
+echo "bind.describe.all: Outputs all described key bindings for current mode. Usage: bind.describe.all" | desc bind.describe.all
+function bind.describe.all() { (cd "/v/modes/:{_mode}"; map &(k) { bind.describe :k } *) }
+function bind.j(key, fn1, fn2) { bind.key :key :fn1 :fn2 }
+function bind(key, fn1, fn2) { (eq :_argc 0 && bind.describe.all) || (eq :_argc 1 && bind.describe :key) || bind.key  :key :fn1 :fn2 }
