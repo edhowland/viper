@@ -2,6 +2,7 @@
 
 require_relative 'buffer/array_extender'
 require_relative 'buffer/mark'
+require_relative 'buffer/tabber'
 require_relative 'buffer/command_buffer'
 
 require_relative 'buffer/recordable'
