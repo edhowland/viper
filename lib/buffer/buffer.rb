@@ -8,7 +8,6 @@ class Buffer
     restore_extend
     @dirty = false
     @name = 'unnamed'
-    @mark_position = nil
     @match_data = nil
   end
   def restore_extend
@@ -19,25 +18,6 @@ class Buffer
   attr_accessor :name
   attr_reader :match_data
 
-  def set_mark
-    @mark_position = position
-  end
-
-  def set_if_not_set
-    set_mark unless mark_set?
-  end
-
-  def unset_mark
-    @mark_position = nil
-  end
-
-  def mark_set?
-    !@mark_position.nil?
-  end
-
-  def mark
-    @mark_position - position
-  end
 
   def suppress(&_blk)
     @recordings_suppressed = true
@@ -158,30 +138,6 @@ class Buffer
     @dirty = false
   end
 
-  def copy
-    raise MarkNotSet unless mark_set?
-    value = if mark < 0
-              @a_buff.copy(mark)
-            else
-              @b_buff.copy(mark)
-            end
-    unset_mark
-    unset_mark
-    value
-  end
-
-  def cut
-    raise MarkNotSet unless mark_set?
-    value = if mark < 1
-              @a_buff.cut(mark)
-            else
-              @b_buff.cut(mark)
-            end
-    unset_mark
-    @dirty = true
-    value
-  end
-
   def srch_fwd(regex)
     amount = @b_buff.to_s.index(regex)
     fwd(amount) unless amount.nil?
@@ -287,6 +243,23 @@ class Buffer
   def write contents
     overwrite! contents
   end
-  
-  
+  def to_a
+    @a_buff + @b_buff
+  end
+  def within range
+    to_a[range]
+  end
+  def within_s range
+    within(range).join('')
+  end
+  def slice! range
+    goto_position range.first
+    @b_buff.shift range.size
+  end
+  def apply_at ndx, &blk
+    yield to_a[ndx] if block_given?
+  end
+  def index &blk
+    to_a.index &blk
+  end
 end
