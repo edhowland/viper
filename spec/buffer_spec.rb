@@ -56,36 +56,6 @@ describe 'at' do
   specify { subject.must_equal 'c' }
 end
 
-describe 'copy' do
-  let(:buf) { Buffer.new '01234ABCDE' }
-  subject { buf.fwd(5); buf.set_mark; buf.back(2); buf.copy }
-
-  specify { subject.must_equal '34' }
-end
-
-describe 'set mark and copy (reverses direction)' do
-  let(:buf) { Buffer.new '01234ABCDEF' }
-  subject { buf.fwd 5; buf.set_mark; buf.fwd; buf.fwd; buf.copy }
-
-  specify { subject.must_equal 'AB' }
-
-end
-
-describe 'cut fwd' do
-  let(:buf) { Buffer.new '01234ABCDE' }
-  subject { buf.fwd 3; buf.set_mark; buf.fwd; buf.fwd; buf.cut }
-
-  specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
-
-end
-
-describe 'cut back' do
-  let(:buf) { Buffer.new '01234ABCDE' }
-  subject { buf.fwd 5; buf.set_mark; buf.back; buf.back; buf.cut }
-
-  specify { subject.must_equal '34'; buf.to_s.must_equal '012ABCDE' }
-
-end
 
 describe 'srch_fwd' do
   let(:buf) { Buffer.new 'Now is the time for all good men' }
