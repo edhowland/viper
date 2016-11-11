@@ -257,7 +257,7 @@ class Buffer
     @b_buff.shift range.size
   end
   def apply_at ndx, &blk
-    yield to_a[ndx] if block_given?
+    yield to_a[ndx] if block_given? && !ndx.nil?
   end
   def index &blk
     to_a.index &blk

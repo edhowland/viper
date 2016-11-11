@@ -30,7 +30,7 @@ end
       buffer.apply_at(buffer.position) {|e| e.extend Marked; e.mark }
     end
     def unset(buffer)
-      buffer.apply_at(buffer.position) {|e| e.respond_to?(:marked?) && e.unmark }
+      buffer.apply_at(where(buffer)) {|e| e.respond_to?(:marked?) && e.unmark }
     end
     def copy buffer
       raise NoMarkSetError.new('Mark not set') unless set?(buffer)
