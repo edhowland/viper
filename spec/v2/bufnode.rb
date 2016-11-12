@@ -1,6 +1,6 @@
 require_relative 'bufnode/appendtree'
 # bufnode.rb - requires for bufnode/
-
+require_relative 'bufnode/base_buffer_command'
 require_relative 'bufnode/array_appender'
 require_relative 'bufnode/array_facade'
 require_relative 'bufnode/array_reader'

@@ -1,6 +1,6 @@
 # ins - class Ins - command ins - inserts either stdin or arg into line
 
-class Ins < BaseNodeCommand
+class Ins < BaseBufferCommand
   def call *args, env:, frames:
     if args.length == 1
       object = env[:in].read
@@ -10,8 +10,8 @@ class Ins < BaseNodeCommand
     perform(args[0], env:env, frames:frames) do |node|
       buffer = node['buffer']
 
-      buffer.ins object
-       #object.chars.each {|c| buffer.ins c }
+       #buffer.ins object
+      @meth.call buffer, object
       object
     end
   end
