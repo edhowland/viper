@@ -7,7 +7,7 @@ class BufWriteFacade
   def mk_stream mode
     {
  'r' => BufferReader,
- 'w' => BufWriter,
+ 'w' => BufferWriter,
  'a' => BufWriter
     }[mode]
   end
