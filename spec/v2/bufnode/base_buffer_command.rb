@@ -7,7 +7,7 @@ class BaseBufferCommand < BaseNodeCommand
     @meth0 = ->(meth, buf) { buf.send meth }.curry.(command_name)
   end
   def command_name
-    self.class.name.downcase.to_sym
+    snakeize(self.class.name).to_sym
   end
   attr_reader :meth, :meth0
 

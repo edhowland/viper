@@ -80,7 +80,7 @@ class VirtualMachine
         root=frames[:vroot]
     path = root['/v/bin']  # commands will be installed here
     BaseCommand.descendants.each do |klass|
-      path[klass.name.downcase] = klass.new
+      path[snakeize(klass.name)] = klass.new
     end
     true
   end

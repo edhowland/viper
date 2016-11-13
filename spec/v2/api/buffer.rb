@@ -71,6 +71,7 @@ class Buffer
     @b_buff = (@a_buff + @b_buff)
     @a_buff = []
     restore_extend
+    ''
   end
 
   def fin

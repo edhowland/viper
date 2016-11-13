@@ -3,6 +3,7 @@
 
  module CommandName
    def command_name
-     self.class.name.downcase
+     #self.class.name.downcase
+     snakeize(self.class.name)
    end
  end
