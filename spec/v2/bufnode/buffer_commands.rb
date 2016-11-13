@@ -16,3 +16,12 @@ class Clear < NoArgBufferCommand; end
 
 class Position < NoArgBufferCommand; end
 class LineNumber < NoArgBufferCommand; end
+class Del < NoArgBufferCommand; end
+class Fwd < NoArgBufferCommand; end
+
+class Back < NoArgBufferCommand; end
+class Up < NoArgBufferCommand; end
+class Down < NoArgBufferCommand; end
+class Line < NoArgBufferCommand; end
+class At < NoArgBufferCommand; end
+

@@ -9,7 +9,6 @@ class IOFactory
       {
         StringIO => StringIOFacade,
         BufNode => BufWriteFacade,
-        LineNode => LineNodeFacade,
         Array => ArrayFacade
       }[klass]
     end
