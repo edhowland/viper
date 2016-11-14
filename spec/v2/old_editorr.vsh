@@ -15,10 +15,8 @@ uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'
 echo :lc :uc :nu :pu1 :pu2 :pu3 :pu4
 }
 function vip() {
-basename :_buf
+echo -n now in ;basename :_buf
 loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
-_loc=:pwd
-global _loc
 }
 function handle.tab() {
 apply.times :indent key_space

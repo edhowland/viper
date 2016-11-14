@@ -2,3 +2,4 @@ mount /v
 mkdir /v/bin
 install
 mkdir /v/buf
+proj=:pwd
