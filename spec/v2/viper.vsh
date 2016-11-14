@@ -8,4 +8,7 @@ _mode=viper bind move_right { fwd :_buf } { at :_buf }
 _mode=viper bind ctrl_j { nop } { at :_buf }
 _mode=viper bind ctrl_k { nop } { col :_buf }
 _mode=viper bind ctrl_l { nop } { line :_buf }
+_mode=viper bind key_backspace { del :_buf } { echo -n delete :(cat) }
+_mode=viper bind ctrl_m { echo | ins :_buf } { echo -n new line }
+
 
