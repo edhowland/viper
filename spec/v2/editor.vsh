@@ -26,3 +26,14 @@ function vip() {
 echo  now in :(basename :_buf)
 loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
 }
+function printable() {
+uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'
+echo :lc :uc :nu :pu1 :pu2 :pu3 :pu4
+}
+function mode_keys() {
+for i in :_ {
+key=:(echo -n :i | xfkey)
+bind :key &() { ins :_buf :i } &() { echo -n :i }
+}
+}
+
