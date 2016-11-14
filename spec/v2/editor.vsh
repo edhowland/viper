@@ -3,6 +3,7 @@ bname=:(basename :fname)
 _buf=/v/buf/:{bname}
 mkbuf :_buf
 global _buf
+echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
 }
 function fopen(fname) {
 open :fname
@@ -19,6 +20,7 @@ _mode=viper; global _mode
 echo mode is now :_mode
 function mkmode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
 mkmode viper
+mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
 mkmode search
 indent=2; global indent
