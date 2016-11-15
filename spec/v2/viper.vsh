@@ -15,4 +15,5 @@ function next() { rotate /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/v
 function prev() { rotate -r /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf }
 _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
 _mode=viper bind ctrl_i { apply_times :indent key_space } { echo -n tab }
+_mode=viper bind key_backtab { apply_times :indent key_backspace } { echo -n back tab }
 
