@@ -25,6 +25,7 @@ mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
 mkmode search
 indent=2; global indent
+pglines=10; global pglines
 function vip() {
 echo  now in :(basename :_buf)
 loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
@@ -46,4 +47,9 @@ for i in :r { apply :key }
 function save() {
 cat < :_buf > :(cat < ":{_buf}/.pathname")
 }
+function pager() {
+r="1..:{pglines}"
+for i in :r { line :_buf; down :_buf }
+}
+
 
