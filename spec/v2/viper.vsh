@@ -17,4 +17,5 @@ _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
 _mode=viper bind ctrl_i { apply_times :indent key_space } { echo -n tab }
 _mode=viper bind key_backtab { apply_times :indent key_backspace } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
+_mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
 
