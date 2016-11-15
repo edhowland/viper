@@ -2,4 +2,5 @@ mount /v
 mkdir /v/bin
 install
 mkdir /v/buf
+version=:(ruby 'puts Vish::VERSION')
 proj=:pwd

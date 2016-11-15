@@ -37,6 +37,8 @@ oparse = OptionParser.new do |opt|
   opt.on('-v', '--version', 'Display version of Vish shell and exit') do
     puts 'Vish version'
     puts Vish::VERSION
+    puts
+    puts Vish::DESCRIPTION
     exit
   end
 end
