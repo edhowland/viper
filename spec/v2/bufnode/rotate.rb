@@ -3,9 +3,12 @@
 
 class Rotate < BaseNodeCommand
   def call *args, env:, frames:
-    perform args[0], env:env, frames:frames do |node|
-      node.rotate!
-      ''
+    super do |*a|
+      if @options[:r]
+        perform(a[0], env:env, frames:frames) {|node| node.rotate! -1; '' }
+      else
+        perform(a[0], env:env, frames:frames) {|node| node.rotate!; '' }
+      end
     end
   end
 end
