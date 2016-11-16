@@ -53,5 +53,8 @@ capture { for i in :r { line :_buf; down :_buf } }
 function try(expr, ok) {
 ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 }
+mkdir /v/clip
+mkbuf /v/clip/a
+_clip=/v/clip/a; global _clip
 
 
