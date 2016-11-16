@@ -22,5 +22,7 @@ _mode=viper bind move_shift_pgup { beg :_buf } { line :_buf }
 _mode=viper bind move_shift_pgdn { fin :_buf } { line :_buf }
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind ctrl_p { pager } { cat }
-
+_mode=viper bind move_shift_home { front_of_line :_buf } { at :_buf }
+_mode=viper bind move_shift_end { back_of_line :_buf } { at :_buf }
+_mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 

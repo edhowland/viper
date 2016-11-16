@@ -45,6 +45,9 @@ class Line < NoArgBufferCommand; end
 class At < NoArgBufferCommand; end
 class WordFwd < NoArgBufferCommand; end
 class WordBack < NoArgBufferCommand; end
+class FrontOfLine < NoArgBufferCommand; end
+class BackOfLine < NoArgBufferCommand; end
+
 
  # single argument commands
  class SrchFwd < SingleArgBufferCommand; end
