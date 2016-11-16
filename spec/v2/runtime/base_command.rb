@@ -1,4 +1,4 @@
-# base_command - class BaseCommand - base class for all/most commands.
+# base_command.rb - abstract class BaseCommand - base class for all/most commands.
 # possibly abstracts out option handling
 # adds methods: pout, perr to simplify stdout, stderr stream output
 

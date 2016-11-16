@@ -1,8 +1,8 @@
 _mode=viper mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)
 _mode=viper bind :kname { ins :_buf ' ' } { echo -n space }
-_mode=viper bind move_down { down :_buf } { line :_buf }
-_mode=viper bind move_up { up :_buf } { line :_buf }
+_mode=viper bind move_down { capture { down :_buf; line :_buf } } { cat }
+_mode=viper bind move_up { capture { up :_buf; line :_buf } } { cat }
 _mode=viper bind move_left { back :_buf } { at :_buf }
 _mode=viper bind move_right { fwd :_buf } { at :_buf }
 _mode=viper bind ctrl_j { nop } { at :_buf }

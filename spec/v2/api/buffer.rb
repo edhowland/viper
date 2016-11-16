@@ -117,6 +117,7 @@ class Buffer
       back until col <= pos or position == 0
     end
     record :up
+    ''
   end
 
   def front_of_line
@@ -162,6 +163,7 @@ class Buffer
       fwd [line.chomp.length, pos].min
     end
     record :down
+    ''
   end
 
   def goto(line_no)

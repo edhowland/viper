@@ -2,6 +2,10 @@
 
 class Nop < BaseCommand
   def call *args, env:, frames:
-    super {|*a| }
+    result = true
+    super do |*a| 
+      result = a[0] if a.length == 1
+    end
+    result
   end
 end

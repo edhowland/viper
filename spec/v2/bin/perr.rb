@@ -2,7 +2,11 @@
 
 class Perr < BaseCommand
   def call *args, env:, frames:
-    env[:err].write(env[:in].read)
+    if args.length > 0
+      env[:err].puts args.join(' ')
+    else
+      env[:err].write(env[:in].read)
+    end
     true
   end
 end

@@ -15,7 +15,6 @@ function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-function bell() { ruby 'print "\a"' }
 function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch }
 _mode=viper; global _mode
 echo mode is now :_mode
@@ -50,6 +49,9 @@ cat < :_buf > :(cat < ":{_buf}/.pathname")
 function pager() {
 r="1..:{pglines}"
 for i in :r { line :_buf; down :_buf }
+}
+function try(expr, ok) {
+ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 }
 
 
