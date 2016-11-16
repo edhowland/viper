@@ -48,7 +48,7 @@ cat < :_buf > :(cat < ":{_buf}/.pathname")
 }
 function pager() {
 r="1..:{pglines}"
-for i in :r { line :_buf; down :_buf }
+capture { for i in :r { line :_buf; down :_buf } }
 }
 function try(expr, ok) {
 ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
