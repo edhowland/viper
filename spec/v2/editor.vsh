@@ -17,7 +17,6 @@ function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch }
 _mode=viper; global _mode
-echo mode is now :_mode
 function mkmode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
 mkmode viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
@@ -56,5 +55,6 @@ ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 mkdir /v/clip
 mkbuf /v/clip/a
 _clip=/v/clip/a; global _clip
+function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf }
 
 

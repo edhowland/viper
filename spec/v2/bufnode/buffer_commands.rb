@@ -47,6 +47,9 @@ class WordFwd < NoArgBufferCommand; end
 class WordBack < NoArgBufferCommand; end
 class FrontOfLine < NoArgBufferCommand; end
 class BackOfLine < NoArgBufferCommand; end
+class Lline < NoArgBufferCommand; end
+class Rline < NoArgBufferCommand; end
+
 
 
  # single argument commands

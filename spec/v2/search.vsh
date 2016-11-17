@@ -1,20 +1,20 @@
-function setup.search() {
-_mode=search
-lcase=a..z ucase=A..Z nums=0..9
-for k in :lcase :ucase :nums { bind "key_:{k}" &() { echo -n :k | push line/left } &() { echo -n :k } }
-for k in :(puncts) { key=:(trunc :k); kname=:(echo -n :key | xfkey); bind :kname &() { echo -n :key | push line/left } &() { echo -n :key } }
-space_key=:(echo -n ' ' | xfkey); bind :space_key &() { echo -n ' ' | push line/left } &() { echo -n space }
-bind move_shift_pgdn { _mode=viper apply.first move_shift_pgdn } { nop }
-bind ctrl_o { _mode=viper apply.first ctrl_o } { _mode=viper apply.second ctrl_o }
-bind ctrl_m { pat=:(cat < line); global pat; bottom.buffer && apply.first ctrl_o } { restore.mode; cd :_loc; :_method :pat; unset pat }
-bind key_backspace { _mode=viper apply.first key_backspace } { _mode=viper apply.second key_backspace }
-bind key_delete { _mode=viper apply.first key_delete } { _mode=viper apply.second key_delete }
-bind move_left { _mode=viper apply.first move_left } { _mode=viper apply.second move_left }
-bind move_right { _mode=viper apply.first move_right } { _mode=viper apply.second move_right }
-bind move_up { _mode=viper apply.first move_up } { _mode=viper apply.second move_up }
-bind move_down { _mode=viper apply.first move_down } { _mode=viper apply.second move_down }
-bind ctrl_l { _mode=viper apply.first ctrl_l } { _mode=viper apply.second ctrl_l }
-_mode=viper bind ctrl_f { _method="find.forward"; global _method; _loc=:pwd; global _loc; cd /v/search/buf; find . nl &(d) { cd nl } } { echo -n search; chg.mode search }
-_mode=viper bind ctrl_r { _method="find.back"; global _method; _loc=:pwd; global _loc; cd /v/search/buf; find . nl &(d) { cd nl } } { echo -n search back; chg.mode search }
-_mode=viper bind ctrl_g { exec :find_last } { cat }
-}
+mkbuf /v/search
+mkarray /v/search/bufstack
+mkarray /v/search/modestack
+_mode=search mode_keys :(printable)
+kname=:(echo -n ' '|xfkey)
+_mode=search bind :kname { ins :_buf ' ' } { echo -n space }
+_mode=search bind move_down { capture { down :_buf; line :_buf } } { cat }
+_mode=search bind move_up { capture { up :_buf; line :_buf } } { cat }
+_mode=search bind move_left { back :_buf } { at :_buf }
+_mode=search bind move_right { fwd :_buf } { at :_buf }
+_mode=search bind ctrl_j { nop } { at :_buf }
+_mode=search bind ctrl_k { nop } { col :_buf }
+_mode=search bind ctrl_l { nop } { line :_buf }
+_mode=search bind key_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -h) }
+_mode=search bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
+_mode=search bind move_shift_home { front_of_line :_buf } { at :_buf }
+_mode=search bind move_shift_end { back_of_line :_buf } { at :_buf }
+_mode=search bind ctrl_m { pattern=:(line /v/search); echo | ins /v/search; _mode=:(pop /v/search/modestack); global _mode; _buf=:(pop /v/search/bufstack); global _buf; srch_fwd :_buf :pattern; rline :_buf } { nop }
+_mode=search bind ctrl_f { nop } { echo -n search forward }
+

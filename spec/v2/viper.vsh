@@ -29,4 +29,5 @@ _mode=viper bind fn_4 { marker :_buf } { echo -n mark set }
 _mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
+_mode=viper bind ctrl_f { echo :_buf | push /v/search/bufstack; echo  :_mode | push /v/search/modestack; _mode=search; _buf=/v/search; global _mode; global _buf } { echo -n search forward }
 

@@ -39,7 +39,7 @@ end
     end
     def cut buffer
             raise NoMarkSetError.new('Mark not set') unless set?(buffer)
-      first, last = [where(buffer), buffer.position].sort
+      first, last = [where(buffer), buffer.position-1].sort
       buffer.slice!(first..last).join('')
     end
   end

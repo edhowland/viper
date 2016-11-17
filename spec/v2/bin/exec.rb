@@ -14,7 +14,7 @@ class Exec < BaseCommand
       root = frames[:vroot]
       node = root[block]
       if node.nil?
-        env[:err].puts 'exec: no such file'
+        env[:err].puts "exec: no such file: #{block}"
         return false
       elsif !(node.instance_of?(Lambda) || node.instance_of?(Block))
         env[:err].puts "exec: object at #{block} must be a lambda function or a block"
