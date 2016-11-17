@@ -15,6 +15,6 @@ _mode=search bind key_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -
 _mode=search bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
 _mode=search bind move_shift_home { front_of_line :_buf } { at :_buf }
 _mode=search bind move_shift_end { back_of_line :_buf } { at :_buf }
-_mode=search bind ctrl_m { pattern=:(line /v/search); echo | ins /v/search; _mode=:(pop /v/search/modestack); global _mode; _buf=:(pop /v/search/bufstack); global _buf; srch_fwd :_buf :pattern; rline :_buf } { nop }
-_mode=search bind ctrl_f { nop } { echo -n search forward }
+_mode=search bind ctrl_m { pattern=:(line /v/search); echo | ins /v/search; srch_cmd=":{srch_meth} :{pattern}"; global srch_cmd } { restore_modebuf; :srch_cmd; rline :_buf }
+
 

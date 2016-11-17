@@ -56,5 +56,17 @@ mkdir /v/clip
 mkbuf /v/clip/a
 _clip=/v/clip/a; global _clip
 function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf }
-
+mkdir /v/editor
+mkarray /v/editor/bufstack
+mkarray /v/editor/modestack
+function change_modebuf(mode, buf) {
+echo :_mode | push /v/editor/modestack
+echo :_buf | push /v/editor/bufstack
+_mode=:mode; global _mode
+_buf=:buf; global _buf
+}
+function restore_modebuf() {
+_mode=:(pop /v/editor/modestack); global _mode
+_buf=:(pop /v/editor/bufstack); global _buf
+}
 

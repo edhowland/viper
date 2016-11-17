@@ -143,11 +143,13 @@ class Buffer
   def srch_fwd(regex)
     amount = @b_buff.to_s.index(regex)
     fwd(amount) unless amount.nil?
+    ''
   end
 
   def srch_back(regex)
     amount = @a_buff.to_s.rindex(regex)
     back(@a_buff.length - amount) unless amount.nil?
+    ''
   end
 
   def position
