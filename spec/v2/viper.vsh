@@ -33,4 +33,6 @@ _mode=viper bind ctrl_f { srch_meth="srch_fwd :{_buf}"; global srch_meth } { cha
 _mode=viper bind ctrl_r { srch_meth="srch_back :{_buf}"; global srch_meth } { change_modebuf search /v/search; echo -n search back }
 _mode=viper bind ctrl_g { fwd :_buf; :srch_cmd } { rline :_buf }
 _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
+_mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
+
 

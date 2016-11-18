@@ -16,7 +16,7 @@ function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch; test -f ":{_buf}/.keylog" && (echo -n :ch | enq ":{_buf}/.keylog") }
+function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch; test -f ":{_buf}/.keylog" && (echo  :ch | enq ":{_buf}/.keylog") }
 _mode=viper; global _mode
 function mkmode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
 mkmode viper
@@ -60,6 +60,9 @@ function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf }
 mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack
+mkarray /v/editor/macroprompt
+echo "Macro stored. Press Esc, then save_macro name" | enq /v/editor/macroprompt
+echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 function change_modebuf(mode, buf) {
 echo :_mode | push /v/editor/modestack
 echo :_buf | push /v/editor/bufstack
@@ -69,5 +72,13 @@ _buf=:buf; global _buf
 function restore_modebuf() {
 _mode=:(pop /v/editor/modestack); global _mode
 _buf=:(pop /v/editor/bufstack); global _buf
+}
+mkdir /v/macros
+function save_macro(name) {
+mkarray "/v/macros/:{name}"
+for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push "/v/macros/:{name}" }
+}
+function playback(name) {
+for ch in :(cat < "/v/macros/:{name}") { suppress { apply :ch } }
 }
 
