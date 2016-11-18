@@ -81,4 +81,7 @@ for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push 
 function playback(name) {
 for ch in :(cat < "/v/macros/:{name}") { suppress { apply :ch } }
 }
+function select_all() {
+beg :_buf; marker :_buf; fin :_buf
+}
 
