@@ -3,6 +3,7 @@ bname=:(basename :fname)
 _buf=/v/buf/:{bname}
 mkbuf :_buf
 global _buf
+mkarray ":{_buf}/.keylog"
 echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
 }
 function fopen(fname) {
@@ -15,7 +16,7 @@ function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch }
+function apply(ch) { (key_exists :ch || bell) && applyf :ch | applys :ch; test -f ":{_buf}/.keylog" && (echo -n :ch | enq ":{_buf}/.keylog") }
 _mode=viper; global _mode
 function mkmode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
 mkmode viper
