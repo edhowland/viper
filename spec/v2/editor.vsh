@@ -91,10 +91,13 @@ function handle_tab() {
 (tab_exists :_buf && tab_goto :_buf) || tab_indent :_buf
 }
 function run_snip(name) {
+suppress {
 current=:(position :_buf)
 playback :name
 goto_position :_buf :current
 tab_exists :_buf && tab_goto :_buf
+}
+line :_buf
 }
 function move_word() {
 l=:(word_fwd :_buf | wc)
@@ -105,5 +108,4 @@ function move_word_back() {
 srch_back :_buf "/[^\w]\w+/"
 fwd :_buf
 }
-
 
