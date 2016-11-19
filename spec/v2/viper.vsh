@@ -38,6 +38,6 @@ _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind ctrl_a { select_all } { echo -n select all }
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
-
+_mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 
 

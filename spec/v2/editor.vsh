@@ -99,7 +99,11 @@ tab_exists :_buf && tab_goto :_buf
 function move_word() {
 l=:(word_fwd :_buf | wc)
 fwd_amt :_buf :l
-srch_fwd :_buf "\w+"
+srch_fwd :_buf "/\w+/"
+}
+function move_word_back() {
+srch_back :_buf "/[^\w]\w+/"
+fwd :_buf
 }
 
 

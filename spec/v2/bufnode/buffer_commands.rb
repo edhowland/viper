@@ -62,7 +62,14 @@ class Rline < NoArgBufferCommand; end
   end
 end
 
- class SrchBack < SingleArgBufferCommand; end
+ class SrchBack < SingleArgBufferCommand
+  def call *args, env:, frames:
+    buf_apply args[0], env:env, frames:frames do |buffer|
+      re = string_to_regex args[1]
+      buffer.srch_back re      
+    end
+  end
+end
 
 # integer single args
 class FwdAmt < IntegerArgBufferCommand 
