@@ -26,6 +26,7 @@ end
     def set?(buffer)
       !buffer.index {|e| e.respond_to?(:marked?) && e.marked? }.nil?
     end
+
     def set(buffer)
       buffer.apply_at(buffer.position) {|e| e.extend Marked; e.mark }
     end

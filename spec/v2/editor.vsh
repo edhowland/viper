@@ -84,4 +84,22 @@ for ch in :(cat < "/v/macros/:{name}") { suppress { apply :ch } }
 function select_all() {
 beg :_buf; mark :_buf; fin :_buf
 }
+function tab_indent() {
+apply_times :indent key_space
+}
+function handle_tab() {
+(tab_exists :_buf && tab_goto :_buf) || tab_indent :_buf
+}
+function run_snip(name) {
+current=:(position :_buf)
+playback :name
+goto_position :_buf :current
+tab_exists :_buf && tab_goto :_buf
+}
+function move_word() {
+l=:(word_fwd :_buf | wc)
+fwd_amt :_buf :l
+srch_fwd :_buf "\w+"
+}
+
 

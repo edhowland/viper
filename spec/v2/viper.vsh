@@ -14,7 +14,7 @@ _mode=viper bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h
 function next() { rotate /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf }
 function prev() { rotate -r /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf }
 _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
-_mode=viper bind ctrl_i { apply_times :indent key_space } { echo -n tab }
+_mode=viper bind ctrl_i { handle_tab } { echo -n tab }
 _mode=viper bind key_backtab { apply_times :indent key_backspace } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
@@ -37,6 +37,7 @@ _mode=viper bind ctrl_g { fwd :_buf; :srch_cmd } { rline :_buf }
 _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind ctrl_a { select_all } { echo -n select all }
+_mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 
 
 
