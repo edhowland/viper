@@ -26,6 +26,7 @@ _mode=viper bind move_shift_home { front_of_line :_buf } { at :_buf }
 _mode=viper bind move_shift_end { back_of_line :_buf } { at :_buf }
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { mark :_buf } { echo -n mark set }
+_mode=viper bind fn_5 { tab_set :_buf } { echo -n Tab point set }
 _mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
