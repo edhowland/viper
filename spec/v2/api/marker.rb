@@ -17,7 +17,7 @@ end
 class NoMarkSetError < RuntimeError
 end
 
- class Mark
+ class Marker
    class << self
     def where(buffer)
       buffer.index {|e| e.respond_to?(:marked?) && e.marked? }

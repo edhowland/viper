@@ -3,7 +3,7 @@
 class Cut < BaseBufferCommand
   def call *args, env:, frames:
     buf_apply args[0], env:env, frames:frames do |buffer|
-      env[:out].write(Mark.cut(buffer))
+      env[:out].write(Marker.cut(buffer))
       ''
     end
   end

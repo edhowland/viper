@@ -25,9 +25,10 @@ _mode=viper bind ctrl_p { pager } { cat }
 _mode=viper bind move_shift_home { front_of_line :_buf } { at :_buf }
 _mode=viper bind move_shift_end { back_of_line :_buf } { at :_buf }
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
-_mode=viper bind fn_4 { marker :_buf } { echo -n mark set }
+_mode=viper bind fn_4 { mark :_buf } { echo -n mark set }
 _mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
+_mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
 _mode=viper bind ctrl_f { srch_meth="srch_fwd :{_buf}"; global srch_meth } { change_modebuf search /v/search; echo -n search forward }
 _mode=viper bind ctrl_r { srch_meth="srch_back :{_buf}"; global srch_meth } { change_modebuf search /v/search; echo -n search back }

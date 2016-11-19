@@ -82,6 +82,6 @@ function playback(name) {
 for ch in :(cat < "/v/macros/:{name}") { suppress { apply :ch } }
 }
 function select_all() {
-beg :_buf; marker :_buf; fin :_buf
+beg :_buf; mark :_buf; fin :_buf
 }
 

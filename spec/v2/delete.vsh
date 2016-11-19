@@ -1,17 +1,17 @@
 function delete_line() {
-front_of_line :_buf; marker :_buf; down :_buf; cut :_buf | cat > :_clip
+front_of_line :_buf; mark :_buf; down :_buf; cut :_buf | cat > :_clip
 }
 function delete_front() {
-marker :_buf; front_of_line :_buf; cut :_buf | cat > :_clip
+mark :_buf; front_of_line :_buf; cut :_buf | cat > :_clip
 }
 function delete_back() {
-marker :_buf; back_of_line :_buf; cut :_buf | cat > :_clip
+mark :_buf; back_of_line :_buf; cut :_buf | cat > :_clip
 }
 function delete_beg() {
-marker :_buf; beg :_buf; cut :_buf | cat > :_clip
+mark :_buf; beg :_buf; cut :_buf | cat > :_clip
 }
 function delete_fin() {
-marker :_buf; fin :_buf; cut :_buf | cat > :_clip
+mark :_buf; fin :_buf; cut :_buf | cat > :_clip
 }
 _mode=delete bind key_d { delete_line } { echo -n line; restore_modebuf }
 _mode=delete bind move_shift_home { delete_front } { echo -n to beginning of line; restore_modebuf }
