@@ -93,6 +93,11 @@ function tab_indent() {
 apply_times :indent key_space
 }
 function handle_tab() {
+snip=:(word_back :_buf)
+len=:(echo -n :snip | wc)
+r="1..:{len}"
+test -z :snip || for i in :r { del :_buf }
+snip_exists :snip && run_snip :snip && return
 (tab_exists :_buf && tab_goto :_buf) || tab_indent :_buf
 }
 function snip_exists(name) {
