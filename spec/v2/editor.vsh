@@ -61,7 +61,7 @@ mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack
 mkarray /v/editor/macroprompt
-echo "Macro stored. Press Esc, then save_macro name" | enq /v/editor/macroprompt
+echo "Macro stored. Press Esc then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 function change_modebuf(mode, buf) {
 echo :_mode | push /v/editor/modestack
@@ -74,12 +74,17 @@ _mode=:(pop /v/editor/modestack); global _mode
 _buf=:(pop /v/editor/bufstack); global _buf
 }
 mkdir /v/macros
-function save_macro(name) {
-mkarray "/v/macros/:{name}"
-for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push "/v/macros/:{name}" }
+function save_macro(name, snip) {
+snip=:((test -z ":{snip}" && echo default) || echo :snip)
+mpath="/v/macros/:{snip}/:{name}"
+mkdir "/v/macros/:{snip}"
+mkarray :mpath
+for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push :mpath }
 }
-function playback(name) {
-for ch in :(cat < "/v/macros/:{name}") { suppress { apply :ch } }
+function playback(name, snip) {
+snip=:((test -z ":{snip}" && echo default) || echo :snip)
+mpath="/v/macros/:{snip}/:{name}"
+for ch in :(cat < :mpath) { suppress { apply :ch } }
 }
 function select_all() {
 beg :_buf; mark :_buf; fin :_buf
@@ -90,10 +95,15 @@ apply_times :indent key_space
 function handle_tab() {
 (tab_exists :_buf && tab_goto :_buf) || tab_indent :_buf
 }
+function snip_exists(name) {
+ext=:(pathmap '%x' :_buf)
+test -f "/v/macros/:{ext}/:{name}"
+}
 function run_snip(name) {
+ext=:(pathmap '%x' :_buf)
 suppress {
 current=:(position :_buf)
-playback :name
+playback :name :ext
 goto_position :_buf :current
 tab_exists :_buf && tab_goto :_buf
 }
