@@ -28,7 +28,7 @@ end
 
 class Beg < NoArgBufferCommand; end
 class Fin < NoArgBufferCommand; end
-class Indent < NoArgBufferCommand; end
+class IndentLevel < NoArgBufferCommand; end
 class Col < NoArgBufferCommand; end
 class Indent < NoArgBufferCommand; end
 class Clear < NoArgBufferCommand; end

@@ -32,10 +32,10 @@ class Xfkey < BaseCommand
     # check for possible meta key
     meta_keys = {
         [226, 136, 130] => 'meta_d',
-[226, 136, 145] => 'meta_w',
-[194, 172] => 'meta_l',
-[92] => 'meta_y'
-
+        [226, 136, 145] => 'meta_w',
+        [194, 172] => 'meta_l',
+        [92] => 'meta_y',
+        [203, 154] => 'meta_k'
       }
       meta_k = values.bytes
       if meta_keys[meta_k]

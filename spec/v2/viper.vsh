@@ -7,6 +7,7 @@ _mode=viper bind move_left { back :_buf } { at :_buf }
 _mode=viper bind move_right { fwd :_buf } { at :_buf }
 _mode=viper bind ctrl_j { nop } { at :_buf }
 _mode=viper bind ctrl_k { nop } { col :_buf }
+_mode=viper bind meta_k { nop } { indent_level :_buf }
 _mode=viper bind ctrl_l { nop } { line :_buf }
 _mode=viper bind key_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -h) }
 _mode=viper bind ctrl_m { echo | ins :_buf } { echo -n new line }
