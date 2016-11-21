@@ -16,8 +16,6 @@ class SingleArgBufferCommand < BaseBufferCommand
   end  
 end
 
-
-
 class IntegerArgBufferCommand < BaseBufferCommand
     def call *args, env:, frames:
         buf_apply(args[0], env:env, frames:frames) do |buffer|
@@ -25,6 +23,29 @@ class IntegerArgBufferCommand < BaseBufferCommand
     end
   end  
 end
+
+class AtBeg < BaseBufferCommand
+  def call *args, env:, frames:
+    result = false
+    buf_apply args[0], env:env, frames:frames do |buffer|
+      result = buffer.a_buff.length.zero?
+      ''
+    end
+    result
+  end
+end
+
+class AtFin < BaseBufferCommand
+  def call *args, env:, frames:
+    result = false
+    buf_apply args[0], env:env, frames:frames do |buffer|
+      result = buffer.b_buff.length.zero?
+      ''
+    end
+    result
+  end
+end
+
 
 class Beg < NoArgBufferCommand; end
 class Fin < NoArgBufferCommand; end

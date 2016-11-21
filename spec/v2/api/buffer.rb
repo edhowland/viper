@@ -17,6 +17,7 @@ class Buffer
 
   attr_accessor :name
   attr_reader :match_data
+  attr_accessor :a_buff, :b_buff
 
 
   def suppress(&_blk)
