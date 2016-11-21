@@ -5,4 +5,5 @@ mkdir /v/buf
 version=:(ruby 'puts Vish::VERSION')
 proj=:pwd
 function ifelse(expr, icl, ecl) { (exec :expr || (exec :ecl && false)) && exec :icl }
+function debugging() { false }
 
