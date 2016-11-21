@@ -1,3 +1,4 @@
+function debugging() { true }
 alias k="raw -|xfkey; echo"
 alias l="echo *"
 function o(name) { fopen :name; vip }

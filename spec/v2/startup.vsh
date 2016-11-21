@@ -10,4 +10,5 @@ test -z :argv || exec {
 for f in :(reverse :argv) { fopen :f }
 }
 :run
+cat < /v/command > command.hist
 

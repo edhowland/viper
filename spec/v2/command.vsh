@@ -13,7 +13,6 @@ apply :fn
 eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
-logger command :cmd
 test -z :cmd || vsh :cmd
 }
 }
