@@ -10,7 +10,7 @@ function fopen(fname) {
 open :fname
 rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
-cat < :fname > :_buf
+test -f :rpath && cat < :fname > :_buf
 }
 function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
