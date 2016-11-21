@@ -1,4 +1,5 @@
 source editor.vsh
+source command.vsh
 source viper.vsh
 source search.vsh
 source delete.vsh

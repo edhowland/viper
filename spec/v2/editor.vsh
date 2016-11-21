@@ -23,6 +23,7 @@ mkmode viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
 mkmode search
+mkmode command
 indent=2; global indent
 pglines=10; global pglines
 function vip() {
