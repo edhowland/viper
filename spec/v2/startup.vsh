@@ -1,8 +1,4 @@
-source editor.vsh
-source command.vsh
-source viper.vsh
-source search.vsh
-source delete.vsh
+source scripts.vsh
 source debug.vsh
 run=com
 test -z :argv || run=vip

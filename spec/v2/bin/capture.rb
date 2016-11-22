@@ -11,11 +11,11 @@ class Capture < Exec
     rescue => err
       #env[:err].puts err.message
       env[:out].write BELL
-#binding.pry
       frames.first[:last_exception] = err.message
+      exception_caught = true
       result = false
     end
-    if result
+    unless exception_caught
       args[1].call(env:env, frames:frames) if (args.length >= 1 && args[1].instance_of?(Block))
     else
       args[2].call(env:env, frames:frames) if(args.length >= 2 && args[2].instance_of?(Block))
