@@ -13,7 +13,7 @@ apply :fn
 eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
-vsh :cmd
+capture { vsh :cmd } { nop } { perr caught exception ':' :last_exception }
 }
 }
 kname=:(echo -n ' '|xfkey)
