@@ -124,10 +124,12 @@ class Buffer
   def front_of_line
     back @a_buff.rcount_nl
     fwd if at == NL
+    ''
   end
 
   def back_of_line
     fwd @b_buff.count_nl
+    ''
   end
 
   def look_ahead
