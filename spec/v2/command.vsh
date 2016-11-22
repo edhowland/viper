@@ -13,7 +13,7 @@ apply :fn
 eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
-test -z :cmd || vsh :cmd
+vsh :cmd
 }
 }
 kname=:(echo -n ' '|xfkey)

@@ -1,7 +1,7 @@
 function debugging() { true }
-alias k="raw -|xfkey; echo"
+alias k="raw -|xfkey"
 alias l="echo *"
-function o(name) { fopen :name; vip }
-alias u="raw -|xfkey -u;echo"
+alias u="raw -|xfkey -u"
+alias xd="raw - | xfkey -d"
 alias x="echo :exit_status"
 
