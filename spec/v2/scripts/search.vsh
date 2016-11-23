@@ -2,6 +2,7 @@ mkbuf /v/search
 mkarray /v/search/bufstack
 mkarray /v/search/modestack
 function searcher() {
+echo -n search
 read ab
 }
 _mode=search mode_keys :(printable)

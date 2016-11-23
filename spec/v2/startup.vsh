@@ -6,6 +6,6 @@ test -z :argv || run=vip
 test -z :argv || exec {
 for f in :(reverse :argv) { fopen :f }
 }
-:run
+:run 1
 cat < /v/command > command.hist
 

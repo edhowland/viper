@@ -36,11 +36,16 @@ _mode=command bind ctrl_b { break } { nop }
 _mode=command bind ctrl_q { exit } { nop }
 _mode=command bind ctrl_r { raise searcher } { nop }
 function commander() {
+echo -n command
 _mode=command; _buf=/v/command
+fin /v/command
 loop {
 key=:(raw -|xfkey)
 eq :key ctrl_m && break
 apply :key
 }
+cmd=:(line /v/command)
+at_fin /v/command && (echo | ins /v/command)
+vsh :cmd
 }
 

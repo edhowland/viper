@@ -27,7 +27,7 @@ mkmode command
 indent=2; global indent
 pglines=10; global pglines
 function vip() {
-echo  now in :(basename :_buf)
+eq 0 :_argc || echo  now in :(basename :_buf)
 loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
 }
 function printable() {
