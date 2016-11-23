@@ -8,6 +8,8 @@ class Capture < Exec
   def call *args, env:, frames:
     begin
       result = super
+    rescue VirtualMachine::ExitCalled => err
+      raise err
     rescue => err
       #env[:err].puts err.message
       env[:out].write BELL

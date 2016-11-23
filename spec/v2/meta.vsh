@@ -7,4 +7,5 @@ fn=:last_exception; global fn
 } 
 }
 }
+function dodge_out() { exit }
 

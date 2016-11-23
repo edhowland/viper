@@ -42,5 +42,6 @@ _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/mac
 _mode=viper bind ctrl_a { select_all } { echo -n select all }
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
-_mode=viper bind meta_semicolon { nop } {  raise "fn=com _mode=command _buf=/v/command" }
+_mode=viper bind meta_semicolon { raise dodge_out } { nop }
+
 
