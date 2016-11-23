@@ -1,5 +1,6 @@
 source scripts.vsh
 source debug.vsh
+source meta.vsh
 run=com
 test -z :argv || run=vip
 test -z :argv || exec {

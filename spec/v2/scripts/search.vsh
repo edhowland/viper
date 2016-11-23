@@ -1,6 +1,9 @@
 mkbuf /v/search
 mkarray /v/search/bufstack
 mkarray /v/search/modestack
+function searcher() {
+read ab
+}
 _mode=search mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)
 _mode=search bind :kname { ins :_buf ' ' } { echo -n space }
@@ -18,5 +21,6 @@ _mode=search bind move_shift_end { back_of_line :_buf } { at :_buf }
 _mode=search bind move_shift_pgup { beg /v/search } { line /v/search }
 _mode=search bind move_shift_pgdn { fin /v/search } { echo -n bottom of search buffer }
 _mode=search bind ctrl_m { pattern=:(line /v/search); at_fin /v/search && (echo | ins /v/search); srch_cmd=":{srch_meth} :{pattern}"; global srch_cmd } { restore_modebuf; :srch_cmd; rline :_buf }
+_mode=search bind ctrl_b { nop } { break }
 
 
