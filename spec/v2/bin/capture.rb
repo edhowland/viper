@@ -15,11 +15,16 @@ class Capture < Exec
       exception_caught = true
       result = false
     end
-    unless exception_caught
-      args[1].call(env:env, frames:frames) if (args.length >= 1 && args[1].instance_of?(Block))
-    else
-      args[2].call(env:env, frames:frames) if(args.length >= 2 && args[2].instance_of?(Block))
+      handler_clause, default_clause = args[1,2]
+    if exception_caught && args.length > 1
+              handler_clause.call(env:env, frames:frames)
+              frames.merge
+#              binding.pry
+    elsif args.length == 3
+      default_clause.call(env:env, frames:frames)
+              frames.merge
     end
+
     result
   end
 end

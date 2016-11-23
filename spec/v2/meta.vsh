@@ -1,12 +1,10 @@
-open scr
-function meta(func, buf) {
-_mode=viper _buf=:buf fn=:func; preamble="echo -n meta :{_mode} :{_buf} :{fn}"
-loop { capture {
-:preamble
-echo
+function meta(fn) {
+for i in 1 2 {
+capture {
 :fn
-} { nop } {
-:last_exception
-} }
+} {
+fn=:last_exception; global fn
+} 
+}
 }
 
