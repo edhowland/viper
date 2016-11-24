@@ -34,7 +34,7 @@ _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
 _mode=viper bind ctrl_f { srch_meth="srch_fwd :{_buf}"; global srch_meth } { change_modebuf search /v/search; fin :_buf; echo -n search forward }
-_mode=viper bind ctrl_r { srch_meth="srch_back :{_buf}"; global srch_meth } { change_modebuf search /v/search; echo -n search back }
+_mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
 _mode=viper bind ctrl_g { fwd :_buf; :srch_cmd } { rline :_buf }
 _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
 _mode=viper bind meta_l { line_number :_buf } { cat }
@@ -42,7 +42,10 @@ _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/mac
 _mode=viper bind ctrl_a { select_all } { echo -n select all }
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
-_mode=viper bind meta_semicolon { raise commander } { nop }
+_mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
-
+function search_vip_rev() {
+searcher
+line :_buf
+}
 

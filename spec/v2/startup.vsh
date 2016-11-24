@@ -5,7 +5,8 @@ run=com
 test -z :argv || run=vip
 test -z :argv || exec {
 for f in :(reverse :argv) { fopen :f }
+echo -n buffer :(basename :_buf)
 }
-:run 1
+meta :run
 cat < /v/command > command.hist
 

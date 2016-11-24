@@ -27,8 +27,11 @@ mkmode command
 indent=2; global indent
 pglines=10; global pglines
 function vip() {
-eq 0 :_argc || echo  now in :(basename :_buf)
-loop { fn=:(raw -|xfkey); eq :fn escape && break; apply :fn }
+_mode=viper
+loop {
+fn=:(raw -|xfkey)
+ eq :fn escape && break; apply :fn 
+}
 }
 function printable() {
 uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'

@@ -2,8 +2,15 @@ mkbuf /v/search
 mkarray /v/search/bufstack
 mkarray /v/search/modestack
 function searcher() {
-echo -n search
-read ab
+oldbuf=:_buf
+_mode=search _buf=/v/search
+loop {
+key=:(raw -|xfkey)
+eq :key ctrl_m && break
+apply :key
+}
+pattern=:(line :_buf)
+srch_back :oldbuf :pattern
 }
 _mode=search mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)

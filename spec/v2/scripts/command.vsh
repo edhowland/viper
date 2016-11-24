@@ -34,11 +34,10 @@ _mode=command bind move_shift_pgdn { fin /v/search } { echo -n bottom of search 
 _mode=command bind ctrl_m { cmd=:(line /v/command); global cmd; at_fin /v/command && not { test -z :cmd } && echo | ins :_buf } { nop }
 _mode=command bind ctrl_b { break } { nop }
 _mode=command bind ctrl_q { exit } { nop }
-_mode=command bind ctrl_r { raise searcher } { nop }
+_mode=command bind ctrl_r { echo -n search back } { cat; raise search_cmd_rev }
+_mode=command bind ctrl_d { echo -n exit command } { cat; raise vip }
 function commander() {
-echo -n command
 _mode=command; _buf=/v/command
-fin /v/command
 loop {
 key=:(raw -|xfkey)
 eq :key ctrl_m && break
@@ -47,5 +46,12 @@ apply :key
 cmd=:(line /v/command)
 at_fin /v/command && (echo | ins /v/command)
 vsh :cmd
+fin /v/command
 }
+function search_cmd_rev() {
+_buf=/v/command
+searcher
+line /v/command
+}
+
 
