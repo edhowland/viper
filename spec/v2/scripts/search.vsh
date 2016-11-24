@@ -10,7 +10,7 @@ eq :key ctrl_m && break
 apply :key
 }
 pattern=:(line :_buf)
-srch_back :oldbuf :pattern
+:srch_meth :oldbuf :pattern
 }
 _mode=search mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)

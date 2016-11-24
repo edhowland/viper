@@ -35,6 +35,7 @@ _mode=command bind ctrl_m { cmd=:(line /v/command); global cmd; at_fin /v/comman
 _mode=command bind ctrl_b { break } { nop }
 _mode=command bind ctrl_q { exit } { nop }
 _mode=command bind ctrl_r { echo -n search back } { cat; raise search_cmd_rev }
+_mode=command bind ctrl_g { nop } { raise search_com_again }
 _mode=command bind ctrl_d { echo -n exit command } { cat; raise vip }
 function commander() {
 _mode=command; _buf=/v/command
@@ -49,9 +50,13 @@ vsh :cmd
 fin /v/command
 }
 function search_cmd_rev() {
+srch_meth=srch_back; global srch_meth
 _buf=/v/command
 searcher
 line /v/command
 }
-
+function search_com_again() {
+test -z :srch_meth && bell && return
+:srch_meth /v/command
+}
 

@@ -33,7 +33,7 @@ _mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
-_mode=viper bind ctrl_f { srch_meth="srch_fwd :{_buf}"; global srch_meth } { change_modebuf search /v/search; fin :_buf; echo -n search forward }
+_mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
 _mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
 _mode=viper bind ctrl_g { fwd :_buf; :srch_cmd } { rline :_buf }
 _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
@@ -45,7 +45,14 @@ _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
 function search_vip_rev() {
+srch_meth=srch_back; global srch_meth
 searcher
 line :_buf
 }
+function search_vip_fwd() {
+srch_meth=srch_fwd; global srch_meth
+searcher
+line :_buf
+}
+
 
