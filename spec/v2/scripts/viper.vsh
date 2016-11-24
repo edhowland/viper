@@ -35,7 +35,7 @@ _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked 
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
 _mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
 _mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
-_mode=viper bind ctrl_g { fwd :_buf; :srch_cmd } { rline :_buf }
+_mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
 _mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
 _mode=viper bind meta_l { line_number :_buf } { cat }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
@@ -45,14 +45,20 @@ _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
 function search_vip_rev() {
-srch_meth=srch_back; global srch_meth
 searcher
+srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth
+:srch_meth
 line :_buf
 }
 function search_vip_fwd() {
-srch_meth=srch_fwd; global srch_meth
 searcher
+srch_meth="srch_fwd :{_buf} :{pattern}"; global srch_meth
+:srch_meth
 line :_buf
 }
-
+function search_vip_again() {
+test -z :srch_meth && bell && return
+:srch_meth 
+line :_buf
+}
 
