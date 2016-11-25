@@ -38,8 +38,7 @@ _mode=command bind ctrl_r { echo -n search back } { cat; raise search_cmd_rev }
 _mode=command bind ctrl_g { nop } { raise search_com_again }
 _mode=command bind ctrl_d { echo -n exit command } { cat; raise vip }
 function commander() {
-_mode=command; _buf=/v/command
-loop {
+_mode=command _buf=/v/command loop {
 key=:(raw -|xfkey)
 eq :key ctrl_m && break
 apply :key

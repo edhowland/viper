@@ -56,11 +56,13 @@ class Buffer
   def fwd(count = 1)
     record :fwd, count
     count.times { @a_buff.push(@b_buff.shift) }
+    ''
   end
 
   def back(count = 1)
     record :back, count
     count.times { @b_buff.unshift(@a_buff.pop) }
+    ''
   end
 
   def at
