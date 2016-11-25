@@ -12,6 +12,7 @@ rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
 test -f :rpath && cat < :fname > :_buf
 }
+function o(fname) { fopen :fname; apply fn_2 }
 function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
