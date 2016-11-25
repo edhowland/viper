@@ -10,6 +10,7 @@ class TabExists < BaseBufferCommand
       rescue NoTabFound => err
         result = false
       end
+      ''
     end
     result
   end

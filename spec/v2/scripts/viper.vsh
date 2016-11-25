@@ -33,6 +33,7 @@ _mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
+_mode=viper bind move_shift_right { echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
 _mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
 _mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
