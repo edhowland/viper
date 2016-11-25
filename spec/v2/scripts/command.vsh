@@ -3,10 +3,10 @@ mkarray /v/command/bufstack
 mkarray /v/command/modestack
 _mode=command mode_keys :(printable)
 function com() {
-_mode=command _buf=/v/command loop {
+loop {
 echo -n ":{prompt}2"
 fin /v/command
-loop { 
+_mode=command _buf=/v/command loop { 
 fn=:(raw -|xfkey)
 apply :fn 
 eq :fn ctrl_m && break
