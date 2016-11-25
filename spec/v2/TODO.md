@@ -3,6 +3,7 @@
 Outstanding bugs:
 
 add delete mode to meta mode. meta_d will raise deleter signal
+Make com, when raised in commander, be able to return to previous
 Add sh call to external shell to run commands
 Add check fn to run current buffer piped into 'sh ruby -c'
 Add (somehow) autoindent be used in ctrl_m (Enter/Return)
