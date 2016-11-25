@@ -127,4 +127,5 @@ function move_word_back() {
 srch_back :_buf "/[^\w]\w+/"
 fwd :_buf
 }
+function toggle_mark() {  (mark_exists :_buf && unset_mark :_buf) || mark :_buf }
 
