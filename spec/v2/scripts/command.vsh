@@ -34,7 +34,8 @@ _mode=command bind move_shift_pgdn { fin /v/search } { echo -n bottom of search 
 _mode=command bind ctrl_m { cmd=:(line /v/command); global cmd; at_fin /v/command && not { test -z :cmd } && echo | ins :_buf } { nop }
 _mode=command bind ctrl_b { break } { nop }
 _mode=command bind ctrl_q { exit } { nop }
-_mode=command bind ctrl_r { echo -n search back } { cat; raise search_cmd_rev }
+_mode=command bind ctrl_r { echo -n search back } { cat; raise search_com_rev }
+_mode=command bind ctrl_f { echo -n search } { cat; raise search_com_fwd }
 _mode=command bind ctrl_g { nop } { raise search_com_again }
 _mode=command bind ctrl_d { echo -n exit command } { cat; raise vip }
 function commander() {
@@ -48,14 +49,21 @@ at_fin /v/command && (echo | ins /v/command)
 vsh :cmd
 fin /v/command
 }
-function search_cmd_rev() {
-srch_meth=srch_back; global srch_meth
-_buf=/v/command
+function search_com_fwd() {
 searcher
+srch_meth="srch_fwd /v/command :pattern" global srch_meth
+:srch_meth
+line /v/command
+}
+function search_com_rev() {
+searcher
+srch_meth="srch_back /v/command :{pattern}"; global srch_meth
+:srch_meth
 line /v/command
 }
 function search_com_again() {
 test -z :srch_meth && bell && return
-:srch_meth /v/command
+:srch_meth
+line /v/command
 }
 
