@@ -4,6 +4,7 @@ Outstanding bugs:
 
 add delete mode to meta mode. meta_d will raise deleter signal
 Fix deleting of marked contents when either backspace or del_fwd keys pressed
+Clean up old bufstack, modestack and remove change_, restore_modebuf, etc.
 Make com, when raised in commander, be able to return to previous
 Add sh call to external shell to run commands
 Add check fn to run current buffer piped into 'sh ruby -c'
