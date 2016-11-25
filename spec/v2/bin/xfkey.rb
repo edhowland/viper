@@ -86,6 +86,8 @@ class Xfkey < BaseCommand
        "\u001b" + "\u005b" + "\u0043" => 'move_right',
         "\u001b" + "\u005b" + "\u0041" => 'move_up',
       "\u001b" + "\u005b" + "\u0042" => 'move_down',
+      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0043" => 'move_shift_right',
+      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0044" => 'move_shift_left',
       "\u001b" + "\u005b" + "\u0035" + "\u007e" => 'move_shift_pgup',
       "\u001b" + "\u005b" + "\u0036" + "\u007e" => 'move_shift_pgdn',
       "\u001b" + "\u005b" + "\u0048" => 'move_shift_home',
