@@ -2,7 +2,7 @@ function del_char() {
 del :_buf | echo -n delete :(xfkey | xfkey -h)
 }
 function cut_mark() {
-cut :_buf | cat > /v/clip/a
+cut :_buf | cat > :_clip
 echo -n selection deleted
 }
 function del_cut() {
@@ -48,7 +48,7 @@ _mode=viper bind move_shift_left { mark_exists :_buf || mark :_buf; echo -n 'lit
 _mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
 _mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
 _mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
-_mode=viper bind meta_d { nop } { change_modebuf delete :_buf; echo -n delete }
+_mode=viper bind meta_d { nop } { echo -n delete; do_delete } 
 _mode=viper bind meta_l { line_number :_buf } { cat }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind ctrl_a { select_all } { echo -n select all }

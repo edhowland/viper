@@ -72,16 +72,6 @@ mkarray /v/editor/modestack
 mkarray /v/editor/macroprompt
 echo "Macro stored. Press Esc then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
-function change_modebuf(mode, buf) {
-echo :_mode | push /v/editor/modestack
-echo :_buf | push /v/editor/bufstack
-_mode=:mode; global _mode
-_buf=:buf; global _buf
-}
-function restore_modebuf() {
-_mode=:(pop /v/editor/modestack); global _mode
-_buf=:(pop /v/editor/bufstack); global _buf
-}
 mkdir /v/macros
 function save_macro(name, snip) {
 snip=:((test -z ":{snip}" && echo default) || echo :snip)
