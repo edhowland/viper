@@ -113,7 +113,7 @@ class VirtualMachine
         block = Visher.parse!(File.read(args[0]))
         self.call block
       rescue ExitCalled
-        # nop
+        raise ExitCalled
       rescue ReturnCalled
         # nop
       rescue => err

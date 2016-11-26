@@ -213,6 +213,10 @@ class Buffer
   def should_save?
     savable? and dirty?
   end
+  
+  def clean
+    @dirty = false
+  end
 
   def word_back
     @a_buff.rword_index

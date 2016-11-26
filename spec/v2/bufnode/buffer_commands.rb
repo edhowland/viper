@@ -57,8 +57,8 @@ class Dirty < NoArgBufferCommand
   end
 end
 
-
 # no arg commands
+class Clean < NoArgBufferCommand; end
 class Beg < NoArgBufferCommand; end
 class Fin < NoArgBufferCommand; end
 class IndentLevel < NoArgBufferCommand; end

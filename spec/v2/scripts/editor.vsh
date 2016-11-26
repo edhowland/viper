@@ -50,6 +50,7 @@ for i in :r { apply :key }
 }
 function save_file(bname) {
 cat < :bname > :(cat < ":{bname}/.pathname")
+clean :bname
 }
 function save() {
 save_file :_buf
@@ -64,7 +65,7 @@ ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 mkdir /v/clip
 mkbuf /v/clip/a
 _clip=/v/clip/a; global _clip
-function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf }
+function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf }
 mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack
