@@ -8,6 +8,10 @@ class VFSNode
     @list = {}
   end
   attr_accessor :list, :parent, :name
+
+  def empty?
+    @list.empty?
+  end
   def mknode name
     @list[name] = VFSNode.new(self, name)
   end

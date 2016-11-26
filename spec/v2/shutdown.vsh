@@ -1,3 +1,4 @@
+test -e /v/buf && return
 unsaved=:(filter &(f) { dirty :f } :(buffers))
 for i in :unsaved {
 name=:(basename :i)

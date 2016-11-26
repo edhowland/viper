@@ -10,4 +10,18 @@ function filter() {
 shift fn
 for e in :_ { exec :fn :e && echo -n :e ' ' }
 }
+function reduce() {
+shift fn
+shift init
+for e in :_ {
+init=:(exec :fn :init :e)
+}
+echo :init
+}
+function map() {
+shift fn
+for e in :_ { echo -n :(exec :fn :e) ' ' }
+}
+
+
 

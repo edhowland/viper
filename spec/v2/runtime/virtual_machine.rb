@@ -109,8 +109,17 @@ class VirtualMachine
       env[:err].puts 'source: missing argument'
       false
     else
-      block = Visher.parse!(File.read(args[0]))
-      self.call block
+    begin
+        block = Visher.parse!(File.read(args[0]))
+        self.call block
+      rescue ExitCalled
+        # nop
+      rescue ReturnCalled
+        # nop
+      rescue => err
+        env[:err].puts "#{args[0]}: exception #{err.message}"
+        false
+      end
     end
   end
   def declare_variables env:

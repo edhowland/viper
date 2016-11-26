@@ -16,6 +16,8 @@ Implement some means of toggling autoindent off/on when rotating thrubuffers
   > based on file extension. /mode/.../.rb/activate is script or block
 Make Vsh able to set variables in global environment, w/o requireing global expression
 Add exit from editor in new file: shutdown.vsh.
+  > fix bug in save_file that does not reset dirty flag,
+  > ... also in rew rewind fn to restore buffer
   > Checks dirty flag on all buffers, offering to save any that are
   > Make a Y/N prompter method thats returns true/false in exit_status
 

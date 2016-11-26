@@ -2,7 +2,7 @@
 # args: 
 # -f checks if file exists
 # -z checks if argument is empty string
-# -e checks if array is empty
+# -e checks if array or directory  is empty
 
 class Test < BaseCommand
   def call *args, env:, frames:
