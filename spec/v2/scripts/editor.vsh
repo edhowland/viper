@@ -130,4 +130,9 @@ fwd :_buf
 }
 function toggle_mark() {  (mark_exists :_buf && unset_mark :_buf) || mark :_buf }
 autoindent=false; global autoindent
+function buffers() {
+names=:(cd /v/buf; echo *)
+for i in :names { echo "/v/buf/:{i}" }
+}
+
 

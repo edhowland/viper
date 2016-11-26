@@ -46,7 +46,19 @@ class AtFin < BaseBufferCommand
   end
 end
 
+class Dirty < NoArgBufferCommand
+  def call *args, env:, frames:
+    result = false
+    buf_apply args[0], env:env, frames:frames do |buffer|
+      result = buffer.dirty?
+      ''
+    end
+    result    
+  end
+end
 
+
+# no arg commands
 class Beg < NoArgBufferCommand; end
 class Fin < NoArgBufferCommand; end
 class IndentLevel < NoArgBufferCommand; end

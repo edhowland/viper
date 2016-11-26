@@ -6,4 +6,8 @@ version=:(ruby 'puts Vish::VERSION')
 proj=:pwd
 function ifelse(expr, icl, ecl) { (exec :expr || (exec :ecl && false)) && exec :icl }
 function debugging() { false }
+function filter() {
+shift fn
+for e in :_ { exec :fn :e && echo -n :e ' ' }
+}
 
