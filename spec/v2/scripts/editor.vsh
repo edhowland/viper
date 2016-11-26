@@ -48,8 +48,11 @@ function apply_times(n, key) {
 r="1..:{n}"
 for i in :r { apply :key }
 }
+function save_file(bname) {
+cat < :bname > :(cat < ":{bname}/.pathname")
+}
 function save() {
-cat < :_buf > :(cat < ":{_buf}/.pathname")
+save_file :_buf
 }
 function pager() {
 r="1..:{pglines}"

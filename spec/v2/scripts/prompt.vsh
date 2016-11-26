@@ -1,7 +1,7 @@
 mkdir /v/modes/prompt; mkdir /v/views/prompt
 function prompt_yn(message) {
 mkbuf /v/prompt
-echo -n :message [y/n]
+echo -n :message '[y/n]'
 prompter
 eq :response 'y' || eq :response 'Y'
 }
