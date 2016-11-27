@@ -4,3 +4,5 @@ source scripts/command.vsh
 source scripts/delete.vsh
 source scripts/search.vsh
 source scripts/prompt.vsh
+source scripts/extras.vsh
+

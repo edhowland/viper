@@ -8,9 +8,10 @@ class Debug < BaseCommand
   def call *args, env:, frames:
     puts "-- debugging --"
     print_args args
-    return true
     puts "-- environment --"
     puts env.inspect
+    return true
+
     puts "variables frames --"
     puts frames.inspect
   end

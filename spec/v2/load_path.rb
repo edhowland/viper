@@ -1,5 +1,7 @@
 # load_path.rb - loads stuff for testing, running
 require 'rake'
+require 'open3'
+
 require_relative 'api'
 require_relative 'ast'
 require_relative 'runtime'
