@@ -91,6 +91,12 @@ beg :_buf; mark :_buf; fin :_buf
 function tab_indent() {
 apply_times :indent key_space
 }
+function handle_return() {
+current=:(indent_level :_buf)
+echo | ins :_buf
+range="1..:{current}"
+:autoindent &&  for i in :range { echo -n ' ' | ins :_buf }
+}
 function handle_tab() {
 snip=:(word_back :_buf)
 len=:(echo -n :snip | wc)
