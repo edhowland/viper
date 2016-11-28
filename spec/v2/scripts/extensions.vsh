@@ -9,6 +9,5 @@ test -z :ext && return
 extp="/v/exts/:{ext}"
 test -f :extp || return
  pre=":{extp}/pre_hook"
-echo trying :pre
 test -f :pre && exec :pre
 }

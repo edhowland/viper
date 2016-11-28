@@ -2,9 +2,8 @@
 
 Outstanding bugs:
 
+Bug in handle_tab, occurs when recorded one macro, trying to record 2nd one and tab
 Make com, when raised in commander, be able to return to previous mode
-Add sh call to external shell to run commands
-Add check fn to run current buffer piped into 'sh ruby -c'
 Add (somehow) autoindent be used in ctrl_m (Enter/Return)
   > gets current indent_level before performing ins of newline.
   > then inserts that number of spaces.

@@ -28,6 +28,7 @@ mkmode command
 indent=2; global indent
 pglines=10; global pglines
 function vip() {
+resolve_ext :_buf
 _mode=viper
 loop {
 fn=:(raw -|xfkey)

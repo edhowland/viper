@@ -1,6 +1,5 @@
 # vfs_root - class VFSRoot - parent node of all nodes, and holder  for subtrees
 
-
 class VFSRoot
   def initialize 
     @root = VFSNode.new nil, ''
