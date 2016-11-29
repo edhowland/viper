@@ -2,6 +2,8 @@
 
 Outstanding bugs:
 
+Bug: in playback, apply first (applyf) fn_5 (tab point set) after ctrl_i or after ctrl_m (return)
+  will cause exception in vfs_root node. where this is happening is unclear
 Bug in handle_tab, occurs when recorded one macro, trying to record 2nd one and tab
 Make com, when raised in commander, be able to return to previous mode
 Add (somehow) autoindent be used in ctrl_m (Enter/Return)

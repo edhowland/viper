@@ -84,13 +84,14 @@ for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push 
 function playback(name, snip) {
 snip=:((test -z ":{snip}" && echo default) || echo :snip)
 mpath="/v/macros/:{snip}/:{name}"
-for ch in :(cat < :mpath) { suppress { apply :ch } }
+noexpandtab=true for ch in :(cat < :mpath) { suppress { apply :ch } }
 }
 function select_all() {
 beg :_buf; mark :_buf; fin :_buf
 }
 function tab_indent() {
-apply_times :indent key_space
+r="1..:{indent}"
+for i in :r { applyf key_space }
 }
 function handle_return() {
 current=:(indent_level :_buf)
@@ -98,7 +99,12 @@ echo | ins :_buf
 range="1..:{current}"
 :autoindent &&  for i in :range { echo -n ' ' | ins :_buf }
 }
+function handle_backtab() {
+r="1..:{indent}"
+for i in :r { applyf key_backspace }
+}
 function handle_tab() {
+test -z :noexpandtab || (tab_indent :_buf; return)
 snip=:(word_back :_buf)
 len=:(echo -n :snip | wc)
 r="1..:{len}"

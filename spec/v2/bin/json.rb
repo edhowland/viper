@@ -1,34 +1,37 @@
-# json - class Json - command - outputs hash to stdout, else reads .json to path
-# useful for storing things in /v/* to file.json
+# json.rb - class Json - command json - converts VfsNodes to JSON
+# with argument '-r' reads JSON from stdin and creates VFSNodes and appends to 
+# args[0] - first arg
 
-require 'json'
 
-class StringIO
-  def to_json arg=''
-    self.string.to_json
-  end
-end
 
-class Json < BaseCommand
-  def call *args, env:, frames:
-    root = frames[:vroot]
-
-    if args.length == 1
-      node = root[args[0]]
-      list = node.list
-      env[:out].write list.to_json
+ require 'json'
+def to_vfs parent, name, h
+  node = VFSNode.new(parent, name)
+  h.each do |k,v|
+    if Hash === v
+      node[k] = to_vfs(node, k, v)
     else
-      # assume 2 args: TODO: add error check
-      storage = JSON.load(File.read(args[0]))
-      #storage = storage.to_a.map {|kv| kv[1] = StringIO.new(kv[1]) }.to_h
-      storage = storage.to_a
-      storage = storage.map {|kv| [kv[0], StringIO.new(kv[1])] }.to_h
-#      binding.pry
-      
-      node = root[args[1]]
-      node.list = storage
+      node[k] = v
     end
-    true
   end
+  node
 end
 
+
+ class Json < BaseNodeCommand
+   def call *args, env:, frames:
+     super do |*a|
+       if @options[:r]
+         perform_new a[0], env:env, frames:frames do |node, base|
+           child = to_vfs(node, base, JSON.load(env[:in].read))
+           node[child.name] = child
+           ''
+         end
+      else
+     perform args[0], env:env, frames:frames do |node|
+      node.to_h.to_json
+    end
+  end
+end
+   end
+ end

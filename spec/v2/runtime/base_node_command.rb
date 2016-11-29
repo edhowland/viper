@@ -19,4 +19,14 @@ class BaseNodeCommand < BaseCommand
     env[:out].print output
     result
   end
+  def perform_new path, env:, frames:, &blk
+    dir = path.pathmap('%d')
+    base = path.pathmap('%f')
+    root = frames[:vroot]
+    node = root[dir]
+    output = ''
+    result = true
+    output = blk.call(node, base) if block_given?
+    result
+  end
 end
