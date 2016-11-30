@@ -119,8 +119,9 @@ snip_exists :snip && del_word_back :_buf && run_snip :snip
 function handle_tab() {
 test -z :noexpandtab || (tab_indent :_buf; return)
 check_snip && return
-tab_exists :_buf && tab_goto :_buf && return
+tab_exists :_buf && tab_goto :_buf && echo -n tab && return
 tab_indent :_buf
+echo -n tab
 }
 function snip_exists(name) {
 ext=:(pathmap '%x' :_buf)
