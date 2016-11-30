@@ -114,10 +114,11 @@ echo -n :word > :_clip
 function check_snip() {
 snip=:(word_back :_buf)
 test -z :snip && return false
-snip_exists :snip && del_word_back :_buf && run_snip :snip
+snip_exists :snip || return false
+del_word_back :_buf && run_snip :snip
 }
 function handle_tab() {
-test -z :noexpandtab || (tab_indent :_buf; return)
+test -z :noexpandtab || tab_indent :_buf&&  return
 check_snip && return
 tab_exists :_buf && tab_goto :_buf && echo -n tab && return
 tab_indent :_buf

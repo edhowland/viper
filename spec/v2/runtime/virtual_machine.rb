@@ -155,8 +155,12 @@ class VirtualMachine
   def _return *args, env:, frames:
     if args.empty?
       code = true
-    else
-      code = args[0]
+    elsif args[0] == 'false'
+        code = false
+      elsif args[0] == 'true'
+        code = true
+      else
+        code = args[0]
     end
     raise VirtualMachine::ReturnCalled.new code
   end
