@@ -103,14 +103,24 @@ function handle_backtab() {
 r="1..:{indent}"
 for i in :r { applyf key_backspace }
 }
+function del_word_back(buf) {
+word=:(word_back :buf)
+test -z :word && return false
+len=:(echo -n :word | wc)
+r="1..:{len}"
+for i in :r { del :buf } | nop
+echo -n :word > :_clip
+}
+function check_snip() {
+snip=:(word_back :_buf)
+test -z :snip && return false
+snip_exists :snip && del_word_back :_buf && run_snip :snip
+}
 function handle_tab() {
 test -z :noexpandtab || (tab_indent :_buf; return)
-snip=:(word_back :_buf)
-len=:(echo -n :snip | wc)
-r="1..:{len}"
-test -z :snip || for i in :r { del :_buf }
-snip_exists :snip && run_snip :snip && return
-(tab_exists :_buf && tab_goto :_buf) || tab_indent :_buf
+check_snip && return
+tab_exists :_buf && tab_goto :_buf && return
+tab_indent :_buf
 }
 function snip_exists(name) {
 ext=:(pathmap '%x' :_buf)
