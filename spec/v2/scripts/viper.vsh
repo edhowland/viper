@@ -22,8 +22,14 @@ _mode=viper bind ctrl_l { nop } { line :_buf }
 _mode=viper bind key_backspace { del_cut } { cat }
 _mode=viper bind ctrl_m { handle_return } { echo -n new line }
 _mode=viper bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
-function next() { rotate /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf }
-function prev() { rotate -r /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf }
+function next() { 
+rotate /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf 
+resolve_ext :_buf
+}
+function prev() {
+ rotate -r /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf 
+resolve_ext :_buf
+}
 _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
 _mode=viper bind meta_y { prev } { echo -n buffer is now :(basename :_buf) }
 _mode=viper bind ctrl_i { handle_tab } { cat }

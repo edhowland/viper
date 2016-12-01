@@ -1,7 +1,7 @@
 # version - class Vish::VERSION - version of Vish shell
 
 class Vish
-  VERSION = '0.2.2'.freeze
+  VERSION = '0.2.3'.freeze
   DESCRIPTION = <<-EOD
   Vish is an Bash-like command shell developed for the Viper editor.
   Thi version #{VERSION} contains support for the Buffer class API and
@@ -17,6 +17,9 @@ class Vish
     vip or com mode
   shutdown.vsh - cleans up unsaved buffers asking to save them.
   debug.vsh - various aliases for debugging
+scripts/ruby.vsh prehook and extension setup for Ruby language snippets
+ruby.json snippets for Ruby language. Load with loadrb, save macros with dumprb
+
   EOD
 end
 

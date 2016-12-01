@@ -1,6 +1,6 @@
 mkdir /v/exts/.rb
-store { autoindent=true; global autoindent } /v/exts/.rb/pre_hook
-alias check="cat < :_buf | sh - ruby -c"
+function checkrb() { cat < :_buf | sh - ruby -c }
+store { autoindent=true; global autoindent; checker=checkrb; global checker } /v/exts/.rb/pre_hook
 function dumprb() { json /v/macros/.rb > ruby.json }
 function loadrb() { json -r /v/macros/.rb < ruby.json }
 test -f ruby.json && loadrb
