@@ -1,4 +1,5 @@
 source scripts/editor.vsh
+source scripts/undo.vsh
 source scripts/viper.vsh
 source scripts/command.vsh
 source scripts/delete.vsh

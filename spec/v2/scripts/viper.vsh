@@ -20,6 +20,7 @@ _mode=viper bind ctrl_k { nop } { col :_buf }
 _mode=viper bind meta_k { nop } { indent_level :_buf }
 _mode=viper bind ctrl_l { nop } { line :_buf }
 _mode=viper bind key_backspace { del_cut } { cat }
+store { echo key_backspace :(cat | xfkey) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/key_backspace
 _mode=viper bind ctrl_m { handle_return } { echo -n new line }
 _mode=viper bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
 function next() { 
@@ -62,6 +63,8 @@ _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
+_mode=viper bind ctrl_z { undo } { cat }
+_mode=viper bind meta_z { redo } { cat }
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth

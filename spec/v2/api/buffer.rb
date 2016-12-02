@@ -219,6 +219,7 @@ class Buffer
   
   def clean
     @dirty = false
+    ''
   end
 
   def word_back

@@ -4,6 +4,7 @@ _buf=/v/buf/:{bname}
 mkbuf :_buf
 global _buf
 mkarray ":{_buf}/.keylog"
+mkarray ":{_buf}/.undones"
 echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
 }
 function fopen(fname) {
@@ -15,15 +16,25 @@ test -f :rpath && cat < :fname > :_buf
 function o(fname) { fopen :fname; apply fn_2 }
 function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
+function applyk(key, opt) {
+(test -f "/v/klogs/:{_mode}/:{key}" &&  exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
+}
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 _keysink=.keylog; global _keysink
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-function apply(ch) {
-(key_exists :ch || bell) && applyf :ch | applys :ch
+function log_key() {
+test -f ":{_buf}/:{_keysink}" && echo :_ | enq ":{_buf}/:{_keysink}"
+}
+function apply(ch, data) {
+(key_exists :ch || bell) && applyf :ch :data | tee -e { nop } | applys :ch :data
 test -f ":{_buf}/:{_keysink}" && (echo :ch | enq ":{_buf}/:{_keysink}")
 }
 _mode=viper; global _mode
-function mkmode(m) { mkdir /v/modes/:{m}; mkdir /v/views/:{m} }
+function mkmode(m) {
+mkdir /v/modes/:{m}
+mkdir /v/views/:{m} 
+mkdir /v/klogs/:{m}
+}
 mkmode viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
@@ -70,7 +81,7 @@ ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 mkdir /v/clip
 mkbuf /v/clip/a
 _clip=/v/clip/a; global _clip
-function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf }
+function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf; echo -n :(basename :_buf) restored }
 mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack

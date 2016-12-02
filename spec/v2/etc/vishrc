@@ -22,6 +22,11 @@ function map() {
 shift fn
 for e in :_ { echo -n :(exec :fn :e) ' ' }
 }
+function each() {
+shift fn
+for e in :_ { exec :fn :e }
+}
+
 alias x="echo :exit_status"
 
 

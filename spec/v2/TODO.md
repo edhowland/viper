@@ -4,6 +4,8 @@ Version : vish.0.2.4
 Outstanding bugs:
 
 Feature: Syntax checker for .vsh buffers
+Feature: complete coding of undo/redo:
+> handle backspace, forward delete, cut, copy, paste, cursor movement, etc.
 Bug: echos extra new line after typing search term and returning to vip mode
 > Also occurs in Command mode
 Bug: line_number is often incremented by one or more for some reason
