@@ -11,7 +11,7 @@ function fopen(fname) {
 open :fname
 rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
-test -f :rpath && cat < :fname > :_buf
+test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
 }
 function o(fname) { fopen :fname; apply fn_2 }
 function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
