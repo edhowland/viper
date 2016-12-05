@@ -10,9 +10,13 @@ class Wc < BaseCommand
     super do |*a|
       method = :puts
       if@options[:n] 
-        method = :print if args[0] == '-n'
+        method = :print # if args[0] == '-n'
       end
-      @out.send(method, @in.read.length)
+      if @options[:w]
+        @output.send(method,@in.read.split(/\b/).map {|e| e.strip }.reject {|e| e.empty? }.length)
+      else
+        @out.send(method, @in.read.length)
+      end
     end
   end
 end

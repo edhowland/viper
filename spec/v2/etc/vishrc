@@ -26,8 +26,10 @@ function each() {
 shift fn
 for e in :_ { exec :fn :e }
 }
-
-alias x="echo :exit_status"
-
-
+function count() {
+shift fn
+cnt=0
+for i in :_ { exec :fn :i && cnt=:(expr 1 '+' :cnt) }
+echo :cnt
+}
 

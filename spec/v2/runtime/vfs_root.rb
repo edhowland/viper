@@ -33,7 +33,6 @@ class VFSRoot
     elements.each do |e|
       start = start[e]
     end
-#    binding.pry if start.nil?
     fail "cd: path not found" if start.nil?
     @wd = start
   end
@@ -61,6 +60,7 @@ end
     end
     start
   end
+
   def directory? path
           start, *elements = path_to_elements path
     mynode = node elements, start
@@ -71,10 +71,16 @@ end
       @wd.keys
     else
       start, *elements = path_to_elements path
+#binding.pry
       mynode = node(elements, start)
-      mynode.keys
+      if VFSNode === mynode
+        mynode.keys
+      else
+        [elements[-1]]
+      end
     end
   end
+
   def contains? path
     start, *elements = path_to_elements path
     !start[elements[0]].nil?

@@ -19,9 +19,6 @@ def self.descendants
     @options = {}
     args.select {|e| e =~ /^\-.+/ }.map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.each {|e| @options[e] = true }
     args.reject {|e| e =~ /^\-.+/ }
-    #opts, ags = args.partition {|e| e =~ /^\-/ }
-    #opts.map {|e| e[1..-1] }.map {|e| e.to_sym }.each_with_object(@options) {|e, o| o[e] = true }
-    #ags
   end
   def call *args, env:, frames:, &blk
   @ios = env

@@ -26,7 +26,8 @@ class VirtualLayer
     def [] path
       if path == '*'
       path = '.'
-      @@root.list path
+      result = @@root.list(path).sort
+      result
     elsif path == '**'
     gather = []
       node = @@root.wd
@@ -36,10 +37,14 @@ class VirtualLayer
         node = node['nl']
       end
       gather
+    elsif path =~ /\*/
+      @@root.list('.').grep(regexify(path)).sort
     else
-      @@root.list path
+      puts 'in default'; puts "path: #{path}"
+      @@root.list(path) 
     end
     end
+
     def directory? path
       @@root.directory? path
     end

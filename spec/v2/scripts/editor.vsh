@@ -26,8 +26,7 @@ function log_key() {
 test -f ":{_buf}/:{_keysink}" && echo :_ | enq ":{_buf}/:{_keysink}"
 }
 function apply(ch, data) {
-(key_exists :ch || bell) && applyf :ch :data | tee -e { nop } | applys :ch :data
-test -f ":{_buf}/:{_keysink}" && (echo :ch | enq ":{_buf}/:{_keysink}")
+(key_exists :ch || bell) && applyf :ch :data | tee -e { applyk :ch } | applys :ch :data
 }
 _mode=viper; global _mode
 function mkmode(m) {

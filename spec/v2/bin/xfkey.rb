@@ -1,7 +1,10 @@
 # xfkey - class Xfkey - command xfkey - maps bytes to string representsations
 # arg: [-h] :  print human readable version
+# -d : prints decimal representation of keystroke
+# -u : prints Unicode representation of keystroke
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
+
 class Xfkey < BaseCommand
 
   def key_to_hex  values
@@ -37,7 +40,8 @@ class Xfkey < BaseCommand
         [92] => 'meta_y',
         [203, 154] => 'meta_k',
         [226, 128, 166] => 'meta_semicolon',
-        [206, 169] => 'meta_z'
+        [206, 169] => 'meta_z',
+        [226, 136, 134] => 'meta_j'
       }
       meta_k = values.bytes
       if meta_keys[meta_k]

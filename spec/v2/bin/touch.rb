@@ -3,7 +3,7 @@
 
 class Touch < BaseCommand
   def call *args, env:, frames:
-    Hal.touch(args[0]) unless args.empty?
+    args.each {|f| Hal.touch(f)}
     true
   end
 end
