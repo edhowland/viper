@@ -1,11 +1,12 @@
 alias snips='echo available snippets are; (b=:(pathmap "%f" :_ext); cd "/v/macros/:{b}"; ls)'
 function timehash() {
-  datetime | hashcode -r | encode64 -r
+  datetime | digest_sha1 -c 6
 }
 function new_clip() {
   h=:(timehash)
-  cpath="/v/clips/:{h}"
+  cpath="/v/clip/:{h}"
   mkbuf :cpath
+  _clip=:cpath; global _clip
   echo :cpath
 }
 function scratch() {
