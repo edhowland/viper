@@ -27,4 +27,7 @@ _mode=undo bind move_left { _mode=viper applyf move_right } { at :_buf }
 _mode=undo bind move_up { _mode=viper applyf move_down } {line  :_buf }
 _mode=undo bind move_down { _mode=viper applyf move_up } { line :_buf }
 _mode=undo bind key_backspace &(data) { _mode=vipercat < :data | ins :_buf } { cat }
-_mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } { echo -n selection restored }
+_mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } &(data) { echo -n selection restored }
+_mode=undo bind fn_4 { _mode=viper apply fn_4 } { cat }
+_mode=undo bind ctrl_l { _mode=viper apply ctrl_l } { cat }
+

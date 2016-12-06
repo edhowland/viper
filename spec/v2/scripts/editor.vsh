@@ -14,8 +14,8 @@ echo :rpath > ":{_buf}/.pathname"
 test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
 }
 function o(fname) { fopen :fname; apply fn_2 }
-function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
-function applys(key) { exec "/v/views/:{_mode}/:{key}" }
+function applyf(key, data) { exec "/v/modes/:{_mode}/:{key}" :data }
+function applys(key, data) { exec "/v/views/:{_mode}/:{key}" :data }
 function applyk(key, opt) {
 (test -f "/v/klogs/:{_mode}/:{key}" && exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
 }
