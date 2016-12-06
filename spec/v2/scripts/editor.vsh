@@ -86,7 +86,6 @@ function new_clip() {
   cpath="/v/clip/:{h}"
   mkbuf :cpath
   _clip=:cpath; global _clip
-  echo :cpath
 }
 new_clip | nop
 function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf; echo -n :(basename :_buf) restored }

@@ -47,8 +47,9 @@ _mode=viper bind move_shift_end { back_of_line :_buf } { at :_buf }
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { toggle_mark  } { (mark_exists :_buf &&echo -n mark set) || echo -n mark unset }
 _mode=viper bind fn_5 { tab_set :_buf } { echo -n Tab point set }
-_mode=viper bind ctrl_c { copy :_buf | cat > :_clip } { echo -n copy }
-_mode=viper bind ctrl_x { cut :_buf | cat > :_clip } { echo -n cut }
+_mode=viper bind ctrl_c { new_clip; copy :_buf | cat > :_clip } { echo -n copy }
+_mode=viper bind ctrl_x { new_clip; cut :_buf | cat > :_clip } { echo -n cut }
+store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
 _mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
 _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
@@ -64,7 +65,7 @@ _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
-_mode=viper bind ctrl_z { undo } { cat }
+_mode=viper bind ctrl_z { undo || bell } { cat }
 _mode=viper bind meta_z { redo } { cat }
 function search_vip_rev() {
 searcher

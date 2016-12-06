@@ -3,5 +3,6 @@
 class Bell < BaseCommand
   def call *args, env:, frames:
     env[:err].print BELL
+    true
   end
 end
