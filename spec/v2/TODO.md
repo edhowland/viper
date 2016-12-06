@@ -3,8 +3,9 @@
 Version : vish.0.2.4
 Outstanding bugs:
 
+Feature: undo key_backspace get contents from passed :_clip buffer
+
 Bug: introduced new problem in shutdown.vsh, having to do with  prompt mode
-Bug: Finally fix bug in VirtualLayer[ ... anything except * ...] returns nil for VfsNode/Root
 Bug: backslash character is doing what fn_2 :F2 is doing and not putting backslash
 Feature: Syntax checker for .vsh buffers
 Feature: complete coding of undo/redo:

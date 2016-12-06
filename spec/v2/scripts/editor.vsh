@@ -17,7 +17,7 @@ function o(fname) { fopen :fname; apply fn_2 }
 function applyf(key) { exec "/v/modes/:{_mode}/:{key}" }
 function applys(key) { exec "/v/views/:{_mode}/:{key}" }
 function applyk(key, opt) {
-(test -f "/v/klogs/:{_mode}/:{key}" &&  exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
+(test -f "/v/klogs/:{_mode}/:{key}" && exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
 }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 _keysink=.keylog; global _keysink
@@ -78,8 +78,17 @@ function try(expr, ok) {
 ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 }
 mkdir /v/clip
-mkbuf /v/clip/a
-_clip=/v/clip/a; global _clip
+function timehash() {
+  datetime | digest_sha1 -c 6
+}
+function new_clip() {
+  h=:(timehash)
+  cpath="/v/clip/:{h}"
+  mkbuf :cpath
+  _clip=:cpath; global _clip
+  echo :cpath
+}
+new_clip | nop
 function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf; echo -n :(basename :_buf) restored }
 mkdir /v/editor
 mkarray /v/editor/bufstack
