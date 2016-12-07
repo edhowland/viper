@@ -30,4 +30,6 @@ _mode=undo bind key_backspace &(data) { _mode=vipercat < :data | ins :_buf } { c
 _mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } &(data) { echo -n selection restored }
 _mode=undo bind fn_4 { _mode=viper apply fn_4 } { cat }
 _mode=undo bind ctrl_l { _mode=viper apply ctrl_l } { cat }
+_mode=undo bind meta_semicolon { nop } { echo -n ignoring command key }
+_mode=undo bind ctrl_v &(data) { unset_mark :_buf;  mark :_buf; goto_position :_buf :data; fwd :_buf; cut :_buf | nop } &(data) { echo -n paste undone }
 

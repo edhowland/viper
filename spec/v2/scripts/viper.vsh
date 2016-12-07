@@ -51,7 +51,8 @@ _mode=viper bind ctrl_c { new_clip; copy :_buf | cat > :_clip } { echo -n copy }
 _mode=viper bind ctrl_x { new_clip; cut :_buf | cat > :_clip } { echo -n cut }
 store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
-_mode=viper bind ctrl_v { cat < :_clip | ins :_buf } { echo -n paste }
+_mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }
+store { echo ctrl_v :(cat) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind move_shift_left { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
 _mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
