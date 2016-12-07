@@ -68,6 +68,7 @@ _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 _mode=viper bind ctrl_b { break } { nop }
 _mode=viper bind ctrl_z { undo || bell } { cat }
 _mode=viper bind meta_z { redo } { cat }
+_mode=viper bind meta_v { next_clip } { echo -n clip now contains :(head -n1 < :_clip) }
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth

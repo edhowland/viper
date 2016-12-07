@@ -1,5 +1,6 @@
 # head - class Head - command head - outputs x lines of input
-# x is default 10, but can be changed with -11, etc.
+# args: -n x
+# x: default: 10
 
 class Head < BaseCommand
   def _count

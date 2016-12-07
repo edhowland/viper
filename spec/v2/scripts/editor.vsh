@@ -77,7 +77,8 @@ capture { for i in :r { line :_buf; down :_buf } }
 function try(expr, ok) {
 ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 }
-mkdir /v/clip
+mkdir /v/clip/metadata
+mkarray /v/clip/metadata/clips
 function timehash() {
   datetime | digest_sha1 -c 6
 }
@@ -86,8 +87,13 @@ function new_clip() {
   cpath="/v/clip/:{h}"
   mkbuf :cpath
   _clip=:cpath; global _clip
+echo :_clip | enq /v/clip/metadata/clips
 }
-new_clip | nop
+function next_clip() {
+  rotate /v/clip/metadata/clips
+  _clip=:(peek /v/clip/metadata/clips)
+  global _clip
+}
 function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf; echo -n :(basename :_buf) restored }
 mkdir /v/editor
 mkarray /v/editor/bufstack
