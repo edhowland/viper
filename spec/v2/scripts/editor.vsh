@@ -184,4 +184,10 @@ for i in :names { echo "/v/buf/:{i}" }
 function ignore_undo(key) {
   store { nop } "/v/klogs/viper/:{key}" 
 }
+function save_pos() {
+_pos=:(position :_buf); global _pos
+}
+function log_key_pos(key) {
+  store {  echo :key :_pos | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
+}
 

@@ -72,7 +72,8 @@ _mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
 _mode=viper bind meta_d { nop } { echo -n delete; do_delete } 
 _mode=viper bind meta_l { line_number :_buf } { cat }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
-_mode=viper bind ctrl_a { select_all } { echo -n select all }
+_mode=viper bind ctrl_a { save_pos; select_all } { echo -n select all }
+log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
