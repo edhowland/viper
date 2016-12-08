@@ -38,7 +38,8 @@ _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
-_mode=viper bind move_shift_pgup { beg :_buf } { line :_buf }
+_mode=viper bind move_shift_pgup { pos=:(position :_buf); beg :_buf; echo :pos } { line :_buf }
+store { echo move_shift_pgup :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgup
 _mode=viper bind move_shift_pgdn { fin :_buf } { echo -n bottom of buffer }
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind ctrl_p { pager } { cat }

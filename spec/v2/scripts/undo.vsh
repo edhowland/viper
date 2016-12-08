@@ -28,6 +28,7 @@ _mode=undo bind move_up { _mode=viper applyf move_down } {line  :_buf }
 _mode=undo bind move_down { _mode=viper applyf move_up } { line :_buf }
 _mode=undo bind move_shift_home &(data) { goto_position :_buf :data } &(data) { at :_buf }
 _mode=undo bind move_shift_end &(data) { goto_position :_buf :data } &(data) { at :_buf }
+_mode=undo bind move_shift_pgup &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind key_backspace &(data) { _mode=vipercat < :data | ins :_buf } { cat }
 _mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } &(data) { echo -n selection restored }
 _mode=undo bind ctrl_c &(clip) { i=:(index_of /v/clip/metadata/clips :clip); delete_at /v/clip/metadata/clips :i; rm :clip; _clip=:(peek /v/clip/metadata/clips); global _clip } &(clip) { echo -n copy undone }
