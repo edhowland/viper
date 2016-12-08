@@ -66,7 +66,8 @@ _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | no
 store { echo ctrl_v :(cat) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind move_shift_left { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
-_mode=viper bind ctrl_f { echo -n search } { cat; raise search_vip_fwd }
+_mode=viper bind ctrl_f { echo -n search } { cat; save_pos; raise search_vip_fwd }
+log_key_pos ctrl_f
 _mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
 _mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
 _mode=viper bind meta_d { nop } { echo -n delete; do_delete } 
