@@ -11,7 +11,7 @@ Feature: undo key_backspace get contents from passed :_clip buffer
 Bug: introduced new problem in shutdown.vsh, having to do with  prompt mode
 Feature: Syntax checker for .vsh buffers
 Feature: complete coding of undo/redo:
-> handle backspace, forward delete, ctrl_w, meta_w, meta_d (delete line, to end of line, .etc)  ... etc.
+> handle backspace, forward delete, , meta_d (delete line, to end of line, .etc)  ... etc.
 Bug: echos extra new line after typing search term and returning to vip mode
 > Also occurs in Command mode
 Bug: line_number is often incremented by one or more for some reason

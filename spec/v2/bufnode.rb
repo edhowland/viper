@@ -1,4 +1,3 @@
-require_relative 'bufnode/appendtree'
 # bufnode.rb - requires for bufnode/
 require_relative 'bufnode/base_buffer_command'
 require_relative 'bufnode/array_appender'
@@ -19,7 +18,6 @@ require_relative 'bufnode/enq'
 require_relative 'bufnode/extract'
 require_relative 'bufnode/buffer_commands'
 require_relative 'bufnode/ins'
-require_relative 'bufnode/instree'
 require_relative 'bufnode/mkarray'
 require_relative 'bufnode/mkbuf'
 require_relative 'bufnode/mkline'
