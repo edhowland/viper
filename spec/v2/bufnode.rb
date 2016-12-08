@@ -38,3 +38,7 @@ require_relative 'bufnode/copy'
 require_relative 'bufnode/cut'
 require_relative 'bufnode/mark_exists'
 require_relative 'bufnode/unset_mark'
+require_relative 'bufnode/index_of'
+require_relative 'bufnode/delete_at'
+
+

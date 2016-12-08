@@ -3,6 +3,7 @@
 Version : vish.0.2.4
 Outstanding bugs:
 
+Bug: screwed up handle_tab, but run_snip still works
 Feature: undo key_backspace get contents from passed :_clip buffer
 
 Bug: introduced new problem in shutdown.vsh, having to do with  prompt mode

@@ -48,6 +48,7 @@ _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { toggle_mark  } { (mark_exists :_buf &&echo -n mark set) || echo -n mark unset }
 _mode=viper bind fn_5 { tab_set :_buf } { echo -n Tab point set }
 _mode=viper bind ctrl_c { new_clip; copy :_buf | cat > :_clip } { echo -n copy }
+store { echo ctrl_c :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_c
 _mode=viper bind ctrl_x { new_clip; cut :_buf | cat > :_clip } { echo -n cut }
 store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
 _mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
