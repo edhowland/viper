@@ -42,7 +42,8 @@ _mode=viper bind move_shift_pgup { beg :_buf } { line :_buf }
 _mode=viper bind move_shift_pgdn { fin :_buf } { echo -n bottom of buffer }
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind ctrl_p { pager } { cat }
-_mode=viper bind move_shift_home { front_of_line :_buf } { at :_buf }
+_mode=viper bind move_shift_home { pos=:(position :_buf); front_of_line :_buf; echo :pos } { at :_buf }
+store { echo move_shift_home :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_home
 _mode=viper bind move_shift_end { pos=:(position :_buf);  back_of_line :_buf; echo :pos } { at :_buf }
 store { echo move_shift_end :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_end 
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
