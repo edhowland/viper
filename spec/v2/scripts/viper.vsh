@@ -43,7 +43,8 @@ _mode=viper bind move_shift_pgdn { fin :_buf } { echo -n bottom of buffer }
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind ctrl_p { pager } { cat }
 _mode=viper bind move_shift_home { front_of_line :_buf } { at :_buf }
-_mode=viper bind move_shift_end { back_of_line :_buf } { at :_buf }
+_mode=viper bind move_shift_end { pos=:(position :_buf);  back_of_line :_buf; echo :pos } { at :_buf }
+store { echo move_shift_end :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_end 
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { toggle_mark  } { (mark_exists :_buf &&echo -n mark set) || echo -n mark unset }
 _mode=viper bind fn_5 { tab_set :_buf } { echo -n Tab point set }
