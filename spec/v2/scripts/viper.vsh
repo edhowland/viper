@@ -43,7 +43,9 @@ store { echo move_shift_pgup :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/mov
 _mode=viper bind move_shift_pgdn { pos=:(position :_buf); fin :_buf; echo :pos } { echo -n bottom of buffer }
 store { echo move_shift_pgdn :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgdn
 _mode=viper bind ctrl_q { nop } { exit }
-_mode=viper bind ctrl_p { pager } { cat }
+_mode=viper bind meta_a { _pos=:(position :_buf); global _pos; pager } { cat }
+store { echo meta_a :_pos | enq ":{_buf}/.keylog" } /v/klogs/viper/meta_a
+_mode=viper bind ctrl_p { nop } { echo -n Control p is not assigned }
 _mode=viper bind move_shift_home { pos=:(position :_buf); front_of_line :_buf; echo :pos } { at :_buf }
 store { echo move_shift_home :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_home
 _mode=viper bind move_shift_end { pos=:(position :_buf);  back_of_line :_buf; echo :pos } { at :_buf }
