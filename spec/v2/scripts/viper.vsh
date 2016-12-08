@@ -33,7 +33,9 @@ function prev() {
 resolve_ext :_buf
 }
 _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
+ignore_undo ctrl_t
 _mode=viper bind meta_t { prev } { echo -n buffer is now :(basename :_buf) }
+ignore_undo meta_t
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
@@ -78,6 +80,8 @@ _mode=viper bind ctrl_z { undo || bell } { cat }
 store { nop } /v/klogs/viper/ctrl_z
 _mode=viper bind meta_z { redo } { cat }
 _mode=viper bind meta_v { next_clip } { echo -n clip now contains :(head -n1 < :_clip) }
+_mode=viper bind ctrl_n { scratch } { cat }
+ignore_undo ctrl_n
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth

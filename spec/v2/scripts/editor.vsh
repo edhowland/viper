@@ -181,5 +181,7 @@ function buffers() {
 names=:(cd /v/buf; echo *)
 for i in :names { echo "/v/buf/:{i}" }
 }
-
+function ignore_undo(key) {
+  store { nop } "/v/klogs/viper/:{key}" 
+}
 
