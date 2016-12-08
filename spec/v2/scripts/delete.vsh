@@ -14,6 +14,7 @@ function delete_fin() {
 mark :_buf; fin :_buf; cut :_buf | cat > :_clip
 }
 function do_delete() {
+new_clip
 key=:(raw -|xfkey)
 eq :key key_d && delete_line && echo -n line && return
 eq :key move_shift_home && delete_front && echo -n to front of line && return

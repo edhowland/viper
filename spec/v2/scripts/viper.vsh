@@ -33,7 +33,7 @@ function prev() {
 resolve_ext :_buf
 }
 _mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
-_mode=viper bind meta_y { prev } { echo -n buffer is now :(basename :_buf) }
+_mode=viper bind meta_t { prev } { echo -n buffer is now :(basename :_buf) }
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
@@ -51,7 +51,8 @@ _mode=viper bind ctrl_c { new_clip; copy :_buf | cat > :_clip } { echo -n copy }
 store { echo ctrl_c :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_c
 _mode=viper bind ctrl_x { new_clip; cut :_buf | cat > :_clip } { echo -n cut }
 store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
-_mode=viper bind ctrl_y { line :_buf | cat > :_clip } { echo -n One line yanked }
+_mode=viper bind ctrl_y { new_clip; line :_buf | cat > :_clip } { echo -n One line yanked }
+_mode=viper bind meta_y { nop } { echo -n Alt y is not assigned }
 _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }
 store { echo ctrl_v :(cat) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }

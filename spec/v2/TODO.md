@@ -1,15 +1,12 @@
 # TODO
 
 Version : vish.0.2.4
-Outstanding bugs:
+Outstanding bugs, new features
 
-Bug: delete modes, and delete selection works, but do not work in view mode:
-  > reports command not found
 Bug: screwed up handle_tab, but run_snip still works
 Feature: undo key_backspace get contents from passed :_clip buffer
 
 Bug: introduced new problem in shutdown.vsh, having to do with  prompt mode
-Bug: backslash character is doing what fn_2 :F2 is doing and not putting backslash
 Feature: Syntax checker for .vsh buffers
 Feature: complete coding of undo/redo:
 > handle backspace, forward delete, cut, copy, paste, cursor movement, etc.
