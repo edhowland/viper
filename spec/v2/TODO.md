@@ -3,6 +3,8 @@
 Version : vish.0.2.4
 Outstanding bugs:
 
+Bug: delete modes, and delete selection works, but do not work in view mode:
+  > reports command not found
 Bug: screwed up handle_tab, but run_snip still works
 Feature: undo key_backspace get contents from passed :_clip buffer
 

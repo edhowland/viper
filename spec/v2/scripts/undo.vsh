@@ -3,12 +3,12 @@ function pop_keylog() {
   is_empty ":{_buf}/.keylog" && bell && return false
   _=:(deq ":{_buf}/.keylog")
   shift _key
+_data=''
   (test -z :_ && _data='') || shift _data
   global _key; global _data 
 }
 function undo() {
   pop_keylog || return false
-eq ctrl_z :_key && pop_keylog || return false
   _keysink=.undones _mode=undo apply :_key :_data
 }
 function redo() {
