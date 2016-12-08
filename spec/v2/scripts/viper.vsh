@@ -40,7 +40,8 @@ _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
 _mode=viper bind move_shift_pgup { pos=:(position :_buf); beg :_buf; echo :pos } { line :_buf }
 store { echo move_shift_pgup :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgup
-_mode=viper bind move_shift_pgdn { fin :_buf } { echo -n bottom of buffer }
+_mode=viper bind move_shift_pgdn { pos=:(position :_buf); fin :_buf; echo :pos } { echo -n bottom of buffer }
+store { echo move_shift_pgdn :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgdn
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind ctrl_p { pager } { cat }
 _mode=viper bind move_shift_home { pos=:(position :_buf); front_of_line :_buf; echo :pos } { at :_buf }
