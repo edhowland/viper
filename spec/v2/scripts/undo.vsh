@@ -31,10 +31,12 @@ _mode=undo bind move_shift_end &(data) { goto_position :_buf :data } &(data) { a
 _mode=undo bind move_shift_pgup &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind move_shift_pgdn &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind key_backspace &(data) { _mode=vipercat < :data | ins :_buf } { cat }
+_mode=undo bind ctrl_i { _mode=viper apply key_backtab } { cat }
+_mode=undo bind key_backtab { _mode=viper apply ctrl_i } { cat }
 _mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } &(data) { echo -n selection restored }
 _mode=undo bind ctrl_c &(clip) { i=:(index_of /v/clip/metadata/clips :clip); delete_at /v/clip/metadata/clips :i; rm :clip; _clip=:(peek /v/clip/metadata/clips); global _clip } &(clip) { echo -n copy undone }
 _mode=undo bind fn_4 { _mode=viper apply fn_4 } { cat }
-_mode=undo bind ctrl_l { _mode=viper apply ctrl_l } { cat }
+_mode=undo for key in ctrl_l ctrl_k ctrl_j { bind :key { _mode=viper apply :key } { cat } }
 _mode=undo bind meta_semicolon { nop } { echo -n ignoring command key }
 _mode=undo bind ctrl_v &(data) { unset_mark :_buf;  mark :_buf; goto_position :_buf :data; fwd :_buf; cut :_buf | nop } &(data) { echo -n paste undone }
 _mode=undo bind meta_a &(data) { goto_position :_buf :data } &(data) { line :_buf }
