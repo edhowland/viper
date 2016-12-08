@@ -39,6 +39,7 @@ ignore_undo meta_t
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
+ignore_undo fn_2
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
 _mode=viper bind move_shift_pgup { pos=:(position :_buf); beg :_buf; echo :pos } { line :_buf }
 store { echo move_shift_pgup :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgup
@@ -82,6 +83,8 @@ _mode=viper bind meta_z { redo } { cat }
 _mode=viper bind meta_v { next_clip } { echo -n clip now contains :(head -n1 < :_clip) }
 _mode=viper bind ctrl_n { scratch } { cat }
 ignore_undo ctrl_n
+_mode=viper bind fn_1 { buffers | wc -l } { echo -n Viper Editor buffers :(cat) }
+ignore_undo fn_1
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth
