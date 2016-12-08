@@ -31,6 +31,7 @@ _mode=undo bind move_shift_end &(data) { goto_position :_buf :data } &(data) { a
 _mode=undo bind move_shift_pgup &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind move_shift_pgdn &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind key_backspace &(data) { _mode=vipercat < :data | ins :_buf } { cat }
+_mode=undo for key in ctrl_m ctrl_o { bind :key { _mode=viper apply key_backspace } { cat } }
 _mode=undo bind ctrl_i { _mode=viper apply key_backtab } { cat }
 _mode=undo bind key_backtab { _mode=viper apply ctrl_i } { cat }
 _mode=undo bind ctrl_x &(clip) { cat < :clip | ins :_buf } &(data) { echo -n selection restored }
