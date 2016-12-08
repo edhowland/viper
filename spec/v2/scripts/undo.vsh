@@ -44,3 +44,5 @@ _mode=undo bind meta_a &(data) { goto_position :_buf :data } &(data) { line :_bu
 _mode=undo bind ctrl_s { nop } { echo -n cannot unsave file }
 _mode=undo bind ctrl_a &(data) { goto_position :_buf :data; unset_mark :_buf } &(data) { echo -n buffer unselected }
 _mode=undo bind ctrl_f &(data) { goto_position :_buf :data } &(data) { line :_buf }
+_mode=undo bind ctrl_r &(data) { goto_position :_buf :data } &(data) { line :_buf }
+

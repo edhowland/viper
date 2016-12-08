@@ -68,7 +68,8 @@ _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'li
 _mode=viper bind move_shift_left { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
 _mode=viper bind ctrl_f { echo -n search } { cat; save_pos; raise search_vip_fwd }
 log_key_pos ctrl_f
-_mode=viper bind ctrl_r { echo -n search back } { cat; raise search_vip_rev }
+_mode=viper bind ctrl_r { echo -n search back } { cat; save_pos; raise search_vip_rev }
+log_key_pos ctrl_r
 _mode=viper bind ctrl_g { fwd :_buf; search_vip_again } { cat }
 _mode=viper bind meta_d { nop } { echo -n delete; do_delete } 
 _mode=viper bind meta_l { line_number :_buf } { cat }
