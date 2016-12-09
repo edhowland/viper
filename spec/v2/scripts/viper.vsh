@@ -20,10 +20,8 @@ _mode=viper bind meta_j { word_fwd :_buf } { cat }
 _mode=viper bind ctrl_k { nop } { col :_buf }
 _mode=viper bind meta_k { nop } { indent_level :_buf }
 _mode=viper bind ctrl_l { nop } { line :_buf }
-_mode=viper bind key_backspace { del_cut } { cat }
 store { echo key_backspace :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/key_backspace
 _mode=viper bind ctrl_m { handle_return } { echo -n new line }
-_mode=viper bind key_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
 function next() { 
 rotate /v/modes/viper/metadata/buffers; _buf=:(peek /v/modes/viper/metadata/buffers); global _buf 
 resolve_ext :_buf
@@ -83,10 +81,16 @@ log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
-_mode=viper bind fake_backspace { nop } { echo -n fake backspace }
-_mode=viper bind fake_cut { nop } { echo -n fake selection deleted }
-_mode=viper bind ctrl_b { (mark_exists :_buf && apply fake_cut) || apply fake_backspace } { cat }  
-ignore_undo ctrl_b
+_mode=viper bind fake_backspace { del :_buf } { echo -n delete :(cat) }
+store { echo key_backspace :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_backspace
+_mode=viper bind fake_cut { applyf ctrl_x } { echo -n selection deleted }
+log_key_clip fake_cut
+_mode=viper bind key_backspace { (mark_exists :_buf && apply fake_cut) || apply fake_backspace } { cat }  
+ignore_undo key_backspace
+_mode=viper bind fake_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
+store { echo fake_delete :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_delete
+_mode=viper bind key_delete { (mark_exists :_buf && apply fake_cut) || apply fake_delete } { cat }
+ignore_undo key_delete
 _mode=viper bind ctrl_z { undo || bell } { cat }
 store { nop } /v/klogs/viper/ctrl_z
 _mode=viper bind meta_z { redo } { cat }
