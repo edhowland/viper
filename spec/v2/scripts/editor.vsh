@@ -190,4 +190,6 @@ _pos=:(position :_buf); global _pos
 function log_key_pos(key) {
   store {  echo :key :_pos | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
 }
-
+function log_key_clip(key) {
+store { echo :key :_clip | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
+}

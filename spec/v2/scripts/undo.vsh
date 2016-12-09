@@ -48,4 +48,5 @@ _mode=undo bind ctrl_r &(data) { goto_position :_buf :data } &(data) { line :_bu
 _mode=undo bind ctrl_g &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind ctrl_w { _mode=viper apply meta_w } { cat }
 _mode=undo bind meta_w { _mode=viper apply ctrl_w } { cat }
+_mode=undo bind meta_d &(data) { cat < :data | ins :_buf } &(data) { echo -n undeleted }
 
