@@ -18,4 +18,3 @@ for i in :(cat < "/v/macros/.rb/:{snip}") {
 echo :i | enq /v/stuff 
 }
 }
-_mode=viper bind ctrl_b {k=:(pop /v/stuff); applyf :k; echo -n :k } { cat }

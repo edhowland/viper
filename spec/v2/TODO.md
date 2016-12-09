@@ -4,6 +4,7 @@ Version : vish.0.2.4
 
 Outstanding bugs, new features
 
+Bug: in shutdown, when neither y nor n is pressed, should default to n
 Bug: screwed up handle_tab, but run_snip still works
 Feature: undo key_backspace get contents from passed :_clip buffer
 

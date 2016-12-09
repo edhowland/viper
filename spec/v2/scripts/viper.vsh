@@ -83,7 +83,10 @@ log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
-_mode=viper bind ctrl_b { break } { nop }
+_mode=viper bind fake_backspace { nop } { echo -n fake backspace }
+_mode=viper bind fake_cut { nop } { echo -n fake selection deleted }
+_mode=viper bind ctrl_b { (mark_exists :_buf && apply fake_cut) || apply fake_backspace } { cat }  
+ignore_undo ctrl_b
 _mode=viper bind ctrl_z { undo || bell } { cat }
 store { nop } /v/klogs/viper/ctrl_z
 _mode=viper bind meta_z { redo } { cat }

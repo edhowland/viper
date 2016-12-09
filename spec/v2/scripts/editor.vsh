@@ -65,7 +65,7 @@ for i in :r { apply :key }
 }
 function save_file(bname) {
 cat < :bname > :(cat < ":{bname}/.pathname")
-clean :bname
+digest_sha1 < :_buf > ":{_buf}/.digest"
 }
 function save() {
 save_file :_buf
