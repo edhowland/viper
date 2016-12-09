@@ -34,15 +34,24 @@ end
     def unset(buffer)
       buffer.apply_at(where(buffer)) {|e| e.respond_to?(:marked?) && e.unmark }
     end
-    def copy buffer
+    def apply_range buffer, &blk
       raise NoMarkSetError.new('Mark not set') unless set?(buffer)
-      first,last = [where(buffer), buffer.position].sort
-      buffer.within_s(first..last)
+      mark = where(buffer)
+      pos = buffer.position
+      first,last = [mark, pos].sort      
+      yield buffer, first, last - 1
     end
+
+    def copy buffer
+      apply_range buffer do | buffer, first, last|
+        buffer.within_s(first..last)
+      end
+    end
+
     def cut buffer
-            raise NoMarkSetError.new('Mark not set') unless set?(buffer)
-      first, last = [where(buffer), buffer.position-1].sort
-      buffer.slice!(first..last).join('')
+      apply_range buffer do |buffer, first, last|
+        buffer.slice!(first..last).join('')
+      end
     end
   end
   

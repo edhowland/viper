@@ -18,6 +18,7 @@ new_clip
 key=:(raw -|xfkey)
 eq :key key_d && delete_line && echo -n line && return
 eq :key move_shift_home && delete_front && echo -n to front of line && return
+eq :key key_h && delete_front && echo -n to front of line && return
 eq :key move_shift_end && delete_back && echo -n to end of line && return
 eq :key move_shift_pgup && delete_beg && echo -n to top of buffer && return
 eq :key move_shift_pgdn && delete_fin && echo -n to bottom of buffer && return
