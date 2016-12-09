@@ -61,6 +61,7 @@ store { echo ctrl_c :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_c
 _mode=viper bind ctrl_x { new_clip; cut :_buf | cat > :_clip } { echo -n cut }
 store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
 _mode=viper bind ctrl_y { new_clip; line :_buf | cat > :_clip } { echo -n One line yanked }
+log_key_clip ctrl_y
 _mode=viper bind meta_y { nop } { echo -n Alt y is not assigned }
 _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }
 store { echo ctrl_v :(cat) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
