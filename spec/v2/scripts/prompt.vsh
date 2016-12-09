@@ -1,4 +1,4 @@
-mkdir /v/modes/prompt; mkdir /v/views/prompt
+mkmode prompt
 function prompt_yn(message) {
 mkbuf /v/prompt
 echo -n :message '[y/n]'
