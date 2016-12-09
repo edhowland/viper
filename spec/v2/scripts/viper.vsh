@@ -77,6 +77,7 @@ _mode=viper bind meta_d { new_clip } { echo -n delete; do_delete }
 log_key_clip meta_d
 _mode=viper bind meta_l { line_number :_buf } { cat }
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
+_mode=viper bind fn_8  { nop } { echo selection is; copy :_buf }
 _mode=viper bind ctrl_a { save_pos; select_all } { echo -n select all }
 log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
