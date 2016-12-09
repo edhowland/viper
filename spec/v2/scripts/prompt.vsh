@@ -3,6 +3,7 @@ function prompt_yn(message) {
 mkbuf /v/prompt
 echo -n :message '[y/n]'
 prompter
+test -z :response && response=n
 eq :response 'y' || eq :response 'Y'
 }
 function prompter() {
