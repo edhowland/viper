@@ -38,7 +38,7 @@ _mode=viper bind meta_t { prev } { echo -n buffer is now :(basename :_buf) }
 ignore_undo meta_t
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
-_mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) }
+_mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
 ignore_undo fn_2
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
 _mode=viper bind move_shift_pgup { pos=:(position :_buf); beg :_buf; echo :pos } { line :_buf }
