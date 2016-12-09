@@ -249,7 +249,7 @@ class Buffer
   end
 
   def line_number
-    @a_buff.lines.length + 1
+    @a_buff.count {|l| l == "\n" } + 1
   end
 
   def restore
