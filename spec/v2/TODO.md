@@ -8,8 +8,14 @@ In interactive Vish shell:
 
 
 test command can now take no options and set :_status, :exit_status based on first argument
+
 Outstanding bugs, new features
 
+Feature: indent/outdent marked range
+Feature: Implement simple lint checker, like in Viper version 1.x
+Bug: in handle_tab
+  > and whenever this occurs
+  > caught exception : undefined method `split' for false:FalseClass
 
 Bug: screwed up handle_tab, but run_snip still works
 
