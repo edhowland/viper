@@ -24,6 +24,4 @@ Feature: complete coding of undo/redo:
   > keep checking on possible undo stuff ...
   > such as after run_snip, via handle_tab
 
-Bug: echos extra new line after typing search term and returning to vip mode
-> Also occurs in Command mode
 Make com, when raised in commander, be able to return to previous mode

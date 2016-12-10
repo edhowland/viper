@@ -46,7 +46,7 @@ apply :key
 }
 cmd=:(line /v/command)
 at_fin /v/command && (echo | ins /v/command)
-vsh :cmd
+vsh ":{cmd}"
 fin /v/command
 }
 function search_com_fwd() {
