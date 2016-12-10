@@ -1,21 +1,27 @@
 # vish - class Vsh - command vsh "string of commands" - runs Vish parser,vm on 
 # string
+# args:
+# -e true|false - sets initial value of :exit_status
 
-class Vsh < BaseCommand
+class Vsh < BaseValueCommand
   def normalize_status status
     status = (status.nil? ? true : status)
     status = (status.empty? ? true : status)
   status
   end
   def call *args, env:, frames:
-    code = args.join(' ').chomp
-            frames[:exit_status] = normalize_status(frames[:vsh_status])
-      return frames[:vsh_status] if code.empty?    
+    super do |*a|
+      code = a.join(' ').chomp
+      return true if code.empty?    
       block = Visher.parse! code
 
-    result = block.call env:env, frames:frames
-    frames[:vsh_status] = result
-    frames.merge
+    vm = frames.vm
+    frames.first[:exit_status] = @options[:e] unless @options[:e].nil?
+    #binding.pry
+    result = vm.call block
+    # globalize any variables gathered via above execution
+    frames.keys.each {|k| frames.first[k] = frames[k] }
     result
+    end
   end
 end

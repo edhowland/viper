@@ -3,8 +3,9 @@ mkarray /v/command/bufstack
 mkarray /v/command/modestack
 _mode=command mode_keys :(printable)
 function com() {
+true;_status=:exit_status;global _status
 loop {
-echo -n ":{prompt}2"
+echo; echo -n ":{prompt}2"
 fin /v/command
 _mode=command _buf=/v/command loop { 
 fn=:(raw -|xfkey)
@@ -12,7 +13,7 @@ apply :fn
 eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
-capture { vsh :cmd } { perr caught exception ':' :last_exception }
+capture { vsh -e :_status :cmd } { perr caught exception ':' :last_exception } { _status=:exit_status; global _status }
 }
 }
 kname=:(echo -n ' '|xfkey)

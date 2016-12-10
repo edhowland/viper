@@ -3,7 +3,8 @@ alias k="raw -|xfkey"
 alias l="echo *"
 alias u="raw -|xfkey -u"
 alias xd="raw - | xfkey -d"
-alias x="echo :exit_status"
+alias xe="echo :exit_status"
+alias x='echo :_status'
 alias cmd="raise com"
 function pb(name, snip) {
 for k in :(cat < "/v/macros/:{snip}/:{name}") {

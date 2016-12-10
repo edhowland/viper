@@ -16,6 +16,8 @@ class Test < BaseCommand
          root = frames[:vroot]
          node = root[a[0]]
          result = node.empty?
+       else
+         result = a[0]
       end
       result
     end

@@ -2,7 +2,14 @@
 
 Version : vish.0.2.4
 
+Notes:
+In interactive Vish shell:
+  > exit_status is ppreserved in :_status
+
+
+test command can now take no options and set :_status, :exit_status based on first argument
 Outstanding bugs, new features
+
 
 Bug: screwed up handle_tab, but run_snip still works
 
@@ -14,6 +21,3 @@ Feature: complete coding of undo/redo:
 Bug: echos extra new line after typing search term and returning to vip mode
 > Also occurs in Command mode
 Make com, when raised in commander, be able to return to previous mode
-Make Vsh able to set variables in global environment, w/o requireing global expression
-  > probably need to execute input in context of vm, not block just parsed
-
