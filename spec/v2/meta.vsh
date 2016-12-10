@@ -11,5 +11,6 @@ echo :last_exception | push /v/meta
 } 
 }
 }
-function dodge_out() { exit }
-
+function meta_modes() {
+  cat < /v/meta
+}

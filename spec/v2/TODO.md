@@ -9,6 +9,10 @@ In interactive Vish shell:
 
 test command can now take no options and set :_status, :exit_status based on first argument
 
+
+Use 'vish' fn to enter into interactive shell from command mode
+  > Use 'vip' to return to viper mode in current buffer
+
 Outstanding bugs, new features
 
 Feature: indent/outdent marked range
@@ -24,4 +28,3 @@ Feature: complete coding of undo/redo:
   > keep checking on possible undo stuff ...
   > such as after run_snip, via handle_tab
 
-Make com, when raised in commander, be able to return to previous mode

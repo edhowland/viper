@@ -5,7 +5,6 @@ alias u="raw -|xfkey -u"
 alias xd="raw - | xfkey -d"
 alias xe="echo :exit_status"
 alias x='echo :_status'
-alias cmd="raise com"
 function pb(name, snip) {
 for k in :(cat < "/v/macros/:{snip}/:{name}") {
 echo -n :k; raw ab
