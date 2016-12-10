@@ -13,11 +13,11 @@ Outstanding bugs, new features
 
 Feature: indent/outdent marked range
 Feature: Implement simple lint checker, like in Viper version 1.x
-Bug: in handle_tab
-  > and whenever this occurs
+Bug:  > and whenever this occurs
   > caught exception : undefined method `split' for false:FalseClass
+  > ... Usually means virtual path does not exist like echo -n :word > :_clip
+  > like before first new_clip has been executed
 
-Bug: screwed up handle_tab, but run_snip still works
 
 Feature: Syntax checker for .vsh buffers
 Feature: complete coding of undo/redo:

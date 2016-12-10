@@ -134,9 +134,11 @@ for i in :r { applyf key_backspace }
 function del_word_back(buf) {
 word=:(word_back :buf)
 test -z :word && return false
+new_clip
 len=:(echo -n :word | wc)
 r="1..:{len}"
-for i in :r { del :buf } | nop
+for i in :r { 
+del :buf } | nop
 echo -n :word > :_clip
 }
 function check_snip() {
