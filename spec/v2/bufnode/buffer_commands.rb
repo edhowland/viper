@@ -24,6 +24,14 @@ class IntegerArgBufferCommand < BaseBufferCommand
   end  
 end
 
+class RangeArgBufferCommand < BaseBufferCommand
+  def call *args, env:, frames:
+        buf_apply(args[0], env:env, frames:frames) do |buffer|
+      @meth.call(buffer, Range.new(args[1].to_i, args[2].to_i)).join('')
+    end
+  end
+end
+
 class AtBeg < BaseBufferCommand
   def call *args, env:, frames:
     result = false
@@ -40,6 +48,17 @@ class AtFin < BaseBufferCommand
     result = false
     buf_apply args[0], env:env, frames:frames do |buffer|
       result = buffer.b_buff.length.zero?
+      ''
+    end
+    result
+  end
+end
+
+class BooleanBufferCommand < BaseBufferCommand
+  def call *args, env:, frames:
+    result = false
+    buf_apply args[0], env:env, frames:frames do |buffer|
+      result = @meth.call buffer, args[1]
       ''
     end
     result
@@ -116,3 +135,4 @@ end
 
 class Goto < IntegerArgBufferCommand; end
 class GotoPosition < IntegerArgBufferCommand; end
+class Within < RangeArgBufferCommand; end

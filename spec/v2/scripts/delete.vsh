@@ -13,6 +13,9 @@ mark :_buf; beg :_buf; cut :_buf | cat > :_clip
 function delete_fin() {
 mark :_buf; fin :_buf; cut :_buf | cat > :_clip
 }
+function clear_line() {
+  delete_back; delete_front
+}
 function do_delete() {
 key=:(raw -|xfkey)
 eq :key key_d && delete_line && echo -n line && return
@@ -24,5 +27,6 @@ eq :key move_shift_pgup && delete_beg && echo -n to top of buffer && return
 eq :key key_k && delete_beg && echo -n to top of buffer && return
 eq :key move_shift_pgdn && delete_fin && echo -n to bottom of buffer && return
 eq :key key_j && delete_fin && echo -n to bottom of buffer && return
+eq :key key_c && clear_line && echo -n clear line && return
 bell && return false
 }

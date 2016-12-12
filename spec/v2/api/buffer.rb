@@ -44,6 +44,11 @@ class Buffer
     restore_extend
     record :ins, string
   end
+  def ins_at string
+    string.chars.reverse.each do |c|
+      @b_buff.unshift c
+    end 
+  end
 
   def del(string = ' ')
     raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
