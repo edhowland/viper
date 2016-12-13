@@ -8,6 +8,7 @@ echo -n selection deleted
 function del_cut() {
 (mark_exists :_buf && cut_mark) || del_char
 }
+mkdir /v/macros/viper
 _mode=viper mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)
 _mode=viper bind :kname { ins :_buf ' ' } { echo -n space }
