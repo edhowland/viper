@@ -45,8 +45,13 @@ class Buffer
     @b_buff[0].includes_trait? trait
   end
 
-  def trait_find trait
+  def trait_first trait
     trait =trait.to_sym
     to_a.index {|c| c.includes_trait? trait }
+  end
+
+  def trait_next trait
+    trait =trait.to_sym
+    @b_buff.index {|c| c.includes_trait? trait }
   end
 end

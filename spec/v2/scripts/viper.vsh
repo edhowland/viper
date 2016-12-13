@@ -101,7 +101,8 @@ ignore_undo ctrl_n
 _mode=viper bind fn_1 { buffers | wc -l } { echo -n Viper Editor buffers :(cat) }
 ignore_undo fn_1
 _mode=viper bind fn_3 { meta_modes } { echo  meta modes; cat }
-ignore_undo meta_m
+ignore_undo fn_3
+_mode=viper bind meta_p { position :_buf } { echo -n position :(cat) }
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth

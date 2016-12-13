@@ -7,5 +7,6 @@
 class TraitSet < SingleArgBufferCommand; end
 class TraitDel < SingleArgBufferCommand; end
 class TraitHas < BooleanBufferCommand; end
-class TraitFind < SingleArgBufferCommand; end
+class TraitFirst < SingleArgBufferCommand; end
+class TraitNext < SingleArgBufferCommand; end
 

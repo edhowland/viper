@@ -45,6 +45,7 @@ class Xfkey < BaseCommand
        [226, 128, 160] => 'meta_t',
        [195, 165] => 'meta_a',
        [194, 181] => 'meta_m',
+      [207, 128] => 'meta_p',
       [226, 137, 164] => 'meta_comma',
       [226, 137, 165] => 'meta_period',
       [198, 146] => 'meta_f',
