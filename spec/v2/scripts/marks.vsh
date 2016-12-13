@@ -1,3 +1,11 @@
+mkmode mark
+function mark_keys() {
+  for i in :_ {
+key=:(echo -n :i | xfkey)
+bind :key &() { trait_set :_buf :i; _mark=:i; global _mark } &() { echo -n mark :i set }
+  }
+}
+_mode=mark mark_keys :(printable)
 function m(mark) {
   trait_set :_buf :mark
   _mark=:mark; global _mark

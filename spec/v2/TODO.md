@@ -14,6 +14,7 @@ Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 > added meta_r, meta_f to goto previous, next mark based on :_mark
 > These can be undone/redone
+> Added meta_m + (printable) - sets named mark at current char
 In interactive Vish shell:
   > exit_status is ppreserved in :_status
 
