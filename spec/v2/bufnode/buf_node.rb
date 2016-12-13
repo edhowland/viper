@@ -5,7 +5,6 @@ class BufNode < VFSNode
     super parent, name
     buffer = Buffer.new('')
     @list['buffer'] = buffer
-      #LineNode.new(self, 'line')   #StringIO.new
   end
   def mknode name
     @list['nl'] = BufNode.new self, 'nl'
