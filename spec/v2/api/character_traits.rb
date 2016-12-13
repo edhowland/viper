@@ -49,9 +49,9 @@ class Buffer
     trait =trait.to_sym
     to_a.index {|c| c.includes_trait? trait }
   end
-
+  # must offset result by 1 to make up for starting at @b_buff[1]
   def trait_next trait
     trait =trait.to_sym
-    @b_buff.index {|c| c.includes_trait? trait }
+    @b_buff[1..-1].index {|c| c.includes_trait? trait } + position + 1
   end
 end

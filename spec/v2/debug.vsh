@@ -18,3 +18,5 @@ for i in :(cat < "/v/macros/.rb/:{snip}") {
 echo :i | enq /v/stuff 
 }
 }
+alias f='mark_first :_mark'
+alias n='mark_next :_mark'

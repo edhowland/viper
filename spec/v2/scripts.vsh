@@ -9,4 +9,4 @@ source scripts/extensions.vsh
 source scripts/vish.vsh
 source scripts/ruby.vsh
 source scripts/extras.vsh
-
+source scripts/marks.vsh
