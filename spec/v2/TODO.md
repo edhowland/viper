@@ -8,6 +8,12 @@ Currently working on api/character_traits.rb - refinement to string to add
   > traits to string chars
   > Aded within :_buf p1 p2 - outputs content between p1 and p2
   > For eventual use in new copy method using  traits as bookmarks, marks
+
+
+Have added meta_period to repeat the last command.
+> m <mark name> - sets given mark at current position. Can be reused with meta_period
+> added meta_r, meta_f to goto previous, next mark based on :_mark
+> These can be undone/redone
 In interactive Vish shell:
   > exit_status is ppreserved in :_status
 
@@ -21,6 +27,7 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
   > For future use in ctrl_d in command mode
 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
+
 Outstanding bugs, new features
 
 Bug: cannot search with embedded spaces.

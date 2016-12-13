@@ -1,4 +1,7 @@
 mkmode undo
+function peek_keylog() {
+  peek ":{_buf}/.keylog"
+}
 function pop_keylog() {
   is_empty ":{_buf}/.keylog" && bell && return false
   _=:(deq ":{_buf}/.keylog")
@@ -52,3 +55,6 @@ _mode=undo bind meta_d &(data) { cat < :data | ins :_buf } &(data) { echo -n und
 _mode=undo bind ctrl_y &(data) { cat < :data | ins :_buf } &(data) { echo -n line unyanked }
 _mode=undo bind fake_delete &(data) { echo -n :data | ins :_buf; back :_buf } &(data) { echo -n :data }
 _mode=undo bind fake_backspace &(data) { _mode=viper applyf :data } &(data) { _mode=viper applys :data }
+_mode=undo bind meta_r &(data) { goto_position :_buf :data } &(data) { line :_buf }
+_mode=undo bind meta_f &(data) { goto_position :_buf :data } &(data) { line :_buf }
+
