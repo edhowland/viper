@@ -104,6 +104,8 @@ _mode=viper bind fn_3 { meta_modes } { echo  meta modes; cat }
 ignore_undo fn_3
 _mode=viper bind meta_p { position :_buf } { echo -n position :(cat) }
 _mode=viper bind meta_period { fin /v/command; up /v/command; vsh :(line /v/command); fin /v/command } { cat }
+_mode=viper bind meta_r { mark_prev :_mark } { line :_buf }
+_mode=viper bind meta_f { mark_next :_mark } { line :_buf }
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth
