@@ -27,7 +27,8 @@ end
 class RangeArgBufferCommand < BaseBufferCommand
   def call *args, env:, frames:
         buf_apply(args[0], env:env, frames:frames) do |buffer|
-      @meth.call(buffer, Range.new(args[1].to_i, args[2].to_i)).join('')
+          values = [args[1].to_i, args[2].to_i].sort
+      @meth.call(buffer, Range.new(*values)).join('')
     end
   end
 end
