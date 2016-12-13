@@ -20,3 +20,5 @@ echo :i | enq /v/stuff
 }
 alias f='mark_first :_mark'
 alias n='mark_next :_mark'
+alias p='mark_prev :_mark'
+

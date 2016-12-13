@@ -54,4 +54,9 @@ class Buffer
     trait =trait.to_sym
     @b_buff[1..-1].index {|c| c.includes_trait? trait } + position + 1
   end
+
+  def trait_prev trait
+    trait =trait.to_sym
+    @a_buff.rindex{|c| c.includes_trait? trait } 
+  end
 end
