@@ -8,7 +8,7 @@ class Shift < BaseCommand
       src = '_'.to_sym
             src = a.shift.to_sym if @options[:s]
       object = @fs[src]
-      object = object.split if object.instance_of?(String)
+      object = object.split(frames[:ifs]) if object.instance_of?(String)
             result = true
       if object && object.instance_of?(Array) && !object.empty?
         value = object.shift

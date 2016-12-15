@@ -31,6 +31,10 @@ F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
 
+Bug: save_macro does not properly handle embedded spaces in cat < :_buf/.keylog entries
+  > Investigate a better way to pass those entries into push /macros/.rb/snip
+  > Also BUG: should ignore key_j (or :_mark name) when apply using _mode=mark
+    >> This requires change to fn : mark_keys
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command
   > Possible fix is to rework srch_fwd, back to gather args into a single arg

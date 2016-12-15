@@ -5,7 +5,7 @@ _mode=command mode_keys :(printable)
 function com() {
 true;_status=:exit_status;global _status
 loop {
-echo; echo -n ":{prompt}2"
+echo -n ":{prompt}2"
 fin /v/command
 _mode=command _buf=/v/command loop { 
 fn=:(raw -|xfkey)
@@ -14,7 +14,7 @@ eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
 (eq 'vip' ":{cmd}") && _mode=viper apply fn_2 && break
-capture { vsh -e :_status ":{cmd}" } { perr caught exception ':' :last_exception } { _status=:exit_status; global _status }
+capture { echo; vsh -e :_status ":{cmd}" } { perr caught exception ':' :last_exception } { _status=:exit_status; global _status }
 }
 }
 kname=:(echo -n ' '|xfkey)

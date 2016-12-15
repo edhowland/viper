@@ -5,7 +5,7 @@ function peek_keylog() {
 function pop_keylog() {
   is_empty ":{_buf}/.keylog" && bell && return false
   _=:(deq ":{_buf}/.keylog")
-  shift _key
+  ifs=',' shift _key
 _data=''
   (test -z :_ && _data='') || shift _data
   global _key; global _data 

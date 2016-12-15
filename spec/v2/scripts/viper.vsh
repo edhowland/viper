@@ -40,18 +40,18 @@ _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { echo -n buffer :(basename :_buf) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
 ignore_undo fn_2
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
-_mode=viper bind move_shift_pgup { pos=:(position :_buf); beg :_buf; echo :pos } { line :_buf }
-store { echo move_shift_pgup :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgup
-_mode=viper bind move_shift_pgdn { pos=:(position :_buf); fin :_buf; echo :pos } { echo -n bottom of buffer }
-store { echo move_shift_pgdn :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_pgdn
+_mode=viper bind move_shift_pgup { _pos=:(position :_buf); beg :_buf; global _pos } { line :_buf }
+log_key_pos move_shift_pgup
+_mode=viper bind move_shift_pgdn { _pos=:(position :_buf); fin :_buf; global _pos } { echo -n bottom of buffer }
+log_key_pos move_shift_pgdn
 _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind meta_a { _pos=:(position :_buf); global _pos; pager } { cat }
 store { echo meta_a :_pos | enq ":{_buf}/.keylog" } /v/klogs/viper/meta_a
 _mode=viper bind ctrl_p { nop } { echo -n Control p is not assigned }
-_mode=viper bind move_shift_home { pos=:(position :_buf); front_of_line :_buf; echo :pos } { at :_buf }
-store { echo move_shift_home :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_home
-_mode=viper bind move_shift_end { pos=:(position :_buf);  back_of_line :_buf; echo :pos } { at :_buf }
-store { echo move_shift_end :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/move_shift_end 
+_mode=viper bind move_shift_home { _pos=:(position :_buf); front_of_line :_buf; global _pos } { at :_buf }
+log_key_pos move_shift_home
+_mode=viper bind move_shift_end { _pos=:(position :_buf);  back_of_line :_buf; global _pos } { at :_buf }
+log_key_pos move_shift_end
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { toggle_mark  } { (mark_exists :_buf &&echo -n mark set) || echo -n mark unset }
 _mode=viper bind fn_5 { tab_set :_buf } { echo -n Tab point set }

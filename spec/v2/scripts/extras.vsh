@@ -9,3 +9,6 @@ echo -n buffer is now :(basename :pth)
 function is_dirty(buf) {
   not { eq :(cat < ":{buf}/.digest") :(digest_sha1 < :buf) }
 }
+function split(val, sep) {
+  ifs=:sep; echo :val
+}
