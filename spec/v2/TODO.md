@@ -12,9 +12,12 @@ Currently working on api/character_traits.rb - refinement to string to add
 
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
+
 > added meta_r, meta_f to goto previous, next mark based on :_mark
 > These can be undone/redone
 > Added meta_m + (printable) - sets named mark at current char
+
+Added meta_p: reports absolute current position
 In interactive Vish shell:
   > exit_status is ppreserved in :_status
 
@@ -31,10 +34,6 @@ F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
 
-Bug: save_macro does not properly handle embedded spaces in cat < :_buf/.keylog entries
-  > Investigate a better way to pass those entries into push /macros/.rb/snip
-  > Also BUG: should ignore key_j (or :_mark name) when apply using _mode=mark
-    >> This requires change to fn : mark_keys
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command
   > Possible fix is to rework srch_fwd, back to gather args into a single arg
@@ -43,7 +42,6 @@ Bug: in command mode/commander mode: ctrl_d should not just push vip on modestac
   < Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
 Feature: Implement ins_fwd method in api/buffer.rb
-  > For use in fn_5 Tab Point set. Bind to 
 Feature: indent/outdent marked range
 Feature: comment/uncomment blocks that are marked
   > Use comment style as defined by .ext. E.g. .rb => '#'. .js => '//'

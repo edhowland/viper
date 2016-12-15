@@ -5,9 +5,6 @@
 # stderr is stored in :last_error
 
 #require_relative 'capture''
-
-
-
  require_relative 'exec'
 
 class Suppress < Exec

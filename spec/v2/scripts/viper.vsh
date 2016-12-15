@@ -109,7 +109,7 @@ _mode=viper bind meta_r { save_pos; mark_prev :_mark } { line :_buf }
 log_key_pos meta_r
 _mode=viper bind meta_f { save_pos; mark_next :_mark } { line :_buf }
 log_key_pos meta_f
-_mode=viper bind meta_m {  key=:(raw - | xfkey); _mode=mark apply :key } { cat }
+_mode=viper bind meta_m { perr -n set mark; key=:(raw - | xfkey); _mode=mark apply :key } { cat }
 log_key_mark meta_m
 function search_vip_rev() {
 searcher

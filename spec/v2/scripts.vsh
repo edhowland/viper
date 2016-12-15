@@ -10,3 +10,4 @@ source scripts/vish.vsh
 source scripts/ruby.vsh
 source scripts/extras.vsh
 source scripts/marks.vsh
+source scripts/macros.vsh

@@ -2,11 +2,15 @@
 
 class Perr < BaseCommand
   def call *args, env:, frames:
-    if args.length > 0
-      env[:err].puts args.join(' ')
-    else
-      env[:err].write(env[:in].read)
+    super do |*a|
+      meth = (@options[:n] ? :print : :puts)
+      if a.length == 0
+        @err.send(meth, @in.read)
+      else
+        @err.send(meth, a.join(' '))
+      end
     end
+
     true
   end
 end
