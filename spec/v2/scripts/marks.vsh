@@ -3,6 +3,7 @@ function mark_keys() {
   for i in :_ {
 key=:(echo -n :i | xfkey)
 bind :key &() { trait_set :_buf :i; _mark=:i; global _mark } &() { echo -n mark :i set }
+store { nop } "/v/klogs/:{_mode}/:{key}"
   }
 }
 _mode=mark mark_keys :(printable)

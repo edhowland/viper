@@ -57,4 +57,5 @@ _mode=undo bind fake_delete &(data) { echo -n :data | ins :_buf; back :_buf } &(
 _mode=undo bind fake_backspace &(data) { _mode=viper applyf :data } &(data) { _mode=viper applys :data }
 _mode=undo bind meta_r &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind meta_f &(data) { goto_position :_buf :data } &(data) { line :_buf }
+_mode=undo bind meta_m &(data) { trait_del :_buf :data } &(data) { echo -n mark :data unset }
 
