@@ -16,9 +16,7 @@ mark :_buf; fin :_buf; cut :_buf | cat > :_clip
 function clear_line() {
   delete_back; delete_front
 }
-function do_delete() {
-key=:(raw -|xfkey)
-_sup=:key; global _sup
+function perform_delete(key) {
 eq :key key_d && delete_line && echo -n line && return
 eq :key move_shift_home && delete_front && echo -n to front of line && return
 eq :key key_h && delete_front && echo -n to front of line && return
@@ -31,5 +29,10 @@ eq :key key_j && delete_fin && echo -n to bottom of buffer && return
 eq :key key_c && clear_line && echo -n clear line && return
 eq :key key_W && del_word_back :_buf && echo -n word back && return
 eq :key key_w && del_word_fwd :_buf && echo -n word && return
-bell && return false
+bell && return false  
+}
+function do_delete() {
+key=:(raw -|xfkey)
+_sup=:key; global _sup
+perform_delete :key
 }

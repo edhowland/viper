@@ -99,10 +99,10 @@ mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack
 mkarray /v/editor/macroprompt
-echo "Macro stored. Press Esc then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
+echo "Macro stored. Press command key  then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 mkdir /v/macros
-function save_macro(name, snip) {
+function _save_macro(name, snip) {
 snip=:((test -z ":{snip}" && echo default) || echo :snip)
 mpath="/v/macros/:{snip}/:{name}"
 mkdir "/v/macros/:{snip}"

@@ -63,7 +63,7 @@ _mode=viper bind ctrl_y { new_clip; line :_buf | cat > :_clip } { echo -n One li
 log_key_clip ctrl_y
 _mode=viper bind meta_y { nop } { echo -n Alt y is not assigned }
 _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }
-store { echo ctrl_v :(cat) | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
+store { data=:(cat); echo "ctrl_v,:{data}" | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind move_shift_left { mark_exists :_buf || mark :_buf; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
 _mode=viper bind ctrl_f { echo -n search } { cat; save_pos; raise search_vip_fwd }
