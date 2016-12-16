@@ -42,7 +42,7 @@ _mode=undo bind ctrl_c &(clip) { i=:(index_of /v/clip/metadata/clips :clip); del
 _mode=undo bind fn_4 { _mode=viper apply fn_4 } { cat }
 _mode=undo for key in ctrl_l ctrl_k ctrl_j { bind :key { _mode=viper apply :key } { cat } }
 _mode=undo bind meta_semicolon { nop } { echo -n ignoring command key }
-_mode=undo bind ctrl_v &(data) { unset_mark :_buf;  mark :_buf; goto_position :_buf :data; fwd :_buf; cut :_buf | nop } &(data) { echo -n paste undone }
+_mode=undo bind ctrl_v &(data) { unset_mark :_buf; mark :_buf; goto_position :_buf :data;  cut :_buf | nop } &(data) { echo -n paste undone }
 _mode=undo bind meta_a &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind ctrl_s { nop } { echo -n cannot unsave file }
 _mode=undo bind ctrl_a &(data) { goto_position :_buf :data; unset_mark :_buf } &(data) { echo -n buffer unselected }
