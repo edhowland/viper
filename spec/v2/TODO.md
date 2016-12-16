@@ -17,6 +17,8 @@ Have added meta_period to repeat the last command.
 > These can be undone/redone
 > Added meta_m + (printable) - sets named mark at current char
 
+
+meta_d captures key, _clip and _sup for undo and macro playback
 Added meta_p: reports absolute current position
 In interactive Vish shell:
   > exit_status is ppreserved in :_status
@@ -41,6 +43,18 @@ Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   < Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
+Feature: when logging  meta_c, in addition to remembering :_clip, 
+Feature: in play_macro: look for up to 3 fields for things like meta_d,:_clip,:_sup to playback real thing
+  > /v/modes/macros/meta_d &(data) { ... figure this out. data is NOT the supplemental char
+  > Possibly switch :_clip,:_sup to ,:_sup,:_clip instead
+  > How would this affect other things in undo actions?
+> also remember :_sup for supplemental key. This is the second key struck.
+Feature: meta_c +  move_shift_end => copy to end of line
+  > meta_c + move_shift_home => copy to front of line
+  > meta_c + move_shift_pgup => copy to top of buffer
+  > meta_c + move_shift_pgdn => copy to end of buffer
+  > meta_c + w => copy word forward
+  > meta_c + W => copy word back
 Feature: Implement ins_fwd method in api/buffer.rb
 Feature: indent/outdent marked range
 Feature: comment/uncomment blocks that are marked

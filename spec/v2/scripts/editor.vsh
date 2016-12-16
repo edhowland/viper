@@ -141,6 +141,16 @@ for i in :r {
 del :buf } | nop
 echo -n :word > :_clip
 }
+function del_word_fwd(buf) {
+word=:(word_fwd :buf)
+test -z :word && return false
+new_clip
+len=:(echo -n :word | wc)
+r="1..:{len}"
+for i in :r { 
+del_at :buf } | nop
+echo -n :word > :_clip
+}
 function check_snip() {
 snip=:(word_back :_buf)
 test -z :snip && return false
@@ -194,6 +204,9 @@ function log_key_pos(key) {
 }
 function log_key_clip(key) {
 store { echo ":{key},:{_clip}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
+}
+function log_key_clip_sup(key) {
+store { echo ":{key},:{_clip},:{_sup}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
 }
 function log_key_mark(key) {
 store { echo ":{key},:{_mark}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
