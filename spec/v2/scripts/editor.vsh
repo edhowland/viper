@@ -102,13 +102,6 @@ mkarray /v/editor/macroprompt
 echo "Macro stored. Press command key  then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 mkdir /v/macros
-function _save_macro(name, snip) {
-snip=:((test -z ":{snip}" && echo default) || echo :snip)
-mpath="/v/macros/:{snip}/:{name}"
-mkdir "/v/macros/:{snip}"
-mkarray :mpath
-for ch in :(cat < ":{_buf}/.keylog" | reverse | between fn_6) { echo :ch | push :mpath }
-}
 function playback(name, snip) {
 snip=:((test -z ":{snip}" && echo default) || echo :snip)
 mpath="/v/macros/:{snip}/:{name}"

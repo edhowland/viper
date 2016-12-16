@@ -1,10 +1,16 @@
 mkmode macros
+function snip_is(snip) {
+val=:(  (test -z :snip && pathmap '%x' :_buf) || echo :snip)
+(test -z :val && echo viper) || echo :val
+}
 function save_macro(name, snip) {
+snip=:(snip_is :snip)
   mpath="/v/macros/:{snip}/:{name}"
   mkarray :mpath
-  for k in :(cat < ":{_buf}/.keylog" | between fn_6 | reverse) { echo :k | enq :mpath }
+  for k in :(cat < ":{_buf}/.keylog" | between fn_6) { echo :k | enq :mpath }
 }
 function play_macro(name, snip) {
+snip=:(snip_is :snip)
   mpath="/v/macros/:{snip}/:{name}"
   loop {
 suppress { peek :mpath   || break }
