@@ -23,6 +23,7 @@ test -z :_ || shift _sup
 global _sup
 suppress { (_mode=macros key_exists :key && _mode=macros apply :key :data) || _mode=viper apply :key }
   }
+applyk macro_stop
 }
-_mode=macros bind meta_m &(data) { trait_set :_buf :data } &(data) { nop }
+_mode=macros bind meta_m &(data) { trait_set :_buf :data; _mark=:data; global _mark } &(data) { nop }
 _mode=macros bind meta_d &(data) { new_clip; perform_delete :_sup } &(data) { nop }
