@@ -58,4 +58,5 @@ _mode=undo bind fake_backspace &(data) { _mode=viper applyf :data } &(data) { _m
 _mode=undo bind meta_r &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind meta_f &(data) { goto_position :_buf :data } &(data) { line :_buf }
 _mode=undo bind meta_m &(data) { trait_del :_buf :data } &(data) { echo -n mark :data unset }
+_mode=undo bind meta_comma { undo_macro } { echo -n macro expansion reversed }
 

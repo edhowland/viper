@@ -111,7 +111,7 @@ _mode=viper bind meta_f { save_pos; mark_next :_mark } { line :_buf }
 log_key_pos meta_f
 _mode=viper bind meta_m { perr -n set mark; key=:(raw - | xfkey); _mode=mark apply :key } { cat }
 log_key_mark meta_m
-_mode=viper bind meta_comma { play_macro :(word_back :_buf) } { cat }
+_mode=viper bind meta_comma { play_macro :(word_back :_buf) } { line :_buf }
 function search_vip_rev() {
 searcher
 srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth
