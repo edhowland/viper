@@ -94,7 +94,12 @@ function next_clip() {
   _clip=:(peek /v/clip/metadata/clips)
   global _clip
 }
-function rew() { cat < :(cat < ":{_buf}/.pathname") > :_buf; clean :_buf; echo -n :(basename :_buf) restored }
+function rew() {
+  cat < :(cat < ":{_buf}/.pathname") > :_buf
+mkarray ":{_buf}/.keylog"
+  digest_sha1 -f :(cat < ":{_buf}/.pathname") > ":{_buf}/.digest"
+  echo -n :(basename :_buf) restored 
+}
 mkdir /v/editor
 mkarray /v/editor/bufstack
 mkarray /v/editor/modestack

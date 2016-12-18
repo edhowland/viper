@@ -11,11 +11,10 @@ snip=:(snip_is :snip)
 }
 function play_macro(name, snip) {
 snip=:(snip_is :snip)
-mpath="/v/macros/:{snip}/:{name}"
+  mpath="/v/macros/:{snip}/:{name}"
   applyk macro_start
-  loop {
-suppress { peek :mpath   || break }
-  _=:(deq :mpath) 
+  for atom in :(cat < :mpath) {
+  _=:atom
 ifs=',' shift key
 data=''
 _sup=''

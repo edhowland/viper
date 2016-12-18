@@ -35,7 +35,7 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
-
+Bug: First time try of meta_d + any key, get command not found
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command
   > Possible fix is to rework srch_fwd, back to gather args into a single arg
