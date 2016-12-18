@@ -30,6 +30,8 @@ function undo_macro() {
   eq :(peek_keylog) macro_start  && break
   undo
   } }
+  eq macro_start :(peek_keylog) && pop_keylog
 }
 _mode=macros bind meta_m &(data) { trait_set :_buf :data; _mark=:data; global _mark } &(data) { nop }
+store { echo "meta_m,:{_mark}" | enq ":{_buf}/.keylog" } /v/klogs/macros/meta_m
 _mode=macros bind meta_d &(data) { new_clip; perform_delete :_sup } &(data) { nop }

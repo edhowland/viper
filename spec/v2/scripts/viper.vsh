@@ -18,8 +18,10 @@ _mode=viper bind move_left { back :_buf } { at :_buf }
 _mode=viper bind move_right { fwd :_buf } { at :_buf }
 _mode=viper bind ctrl_j { nop } { at :_buf }
 _mode=viper bind meta_j { word_fwd :_buf } { cat }
+ignore_undo meta_j
 _mode=viper bind ctrl_k { nop } { col :_buf }
 _mode=viper bind meta_k { nop } { indent_level :_buf }
+ignore_undo meta_k
 _mode=viper bind ctrl_l { nop } { line :_buf }
 store { echo key_backspace :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/key_backspace
 _mode=viper bind ctrl_m { handle_return } { echo -n new line }
@@ -75,6 +77,7 @@ log_key_pos ctrl_g
 _mode=viper bind meta_d { new_clip; perr -n delete; do_delete } { cat } 
 log_key_clip_sup meta_d
 _mode=viper bind meta_l { line_number :_buf } { cat }
+ignore_undo meta_l
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind fn_8  { nop } { echo selection is; copy :_buf }
 _mode=viper bind ctrl_a { save_pos; select_all } { echo -n select all }
