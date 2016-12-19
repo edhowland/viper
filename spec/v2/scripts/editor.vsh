@@ -127,7 +127,7 @@ range="1..:{current}"
 }
 function handle_backtab() {
 r="1..:{indent}"
-for i in :r { applyf key_backspace }
+for i in :r { applyf fake_backspace }
 }
 function del_word_back(buf) {
 word=:(word_back :buf)

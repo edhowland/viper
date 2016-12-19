@@ -35,6 +35,11 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
+Bug: back_tab expands into fake_backspace 2 times then back_tab in .keylog
+Bug: when scratch is buffer, in shutdown.vsh, problem in eq call somewhere
+  > Test with just only scratch, make option to vepl binary for scratch
+
+Bug: in either save_macro or play_macro, does not do key_backspace properly
 Bug: First time try of meta_d + any key, get command not found
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command

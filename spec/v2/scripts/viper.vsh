@@ -87,7 +87,7 @@ _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
 _mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
 ignore_undo meta_semicolon
 _mode=viper bind fake_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -h) }
-store { echo fake_backspace :(xfkey) | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_backspace
+store { logk=:(xfkey); echo "fake_backspace,:{logk}" | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_backspace
 _mode=viper bind fake_cut { applyf ctrl_x } { echo -n selection deleted }
 log_key_clip fake_cut
 _mode=viper bind key_backspace { (mark_exists :_buf && apply fake_cut) || apply fake_backspace } { cat }  
