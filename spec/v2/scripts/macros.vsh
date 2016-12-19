@@ -35,6 +35,14 @@ function undo_macro() {
 function rm_macro(name, ext) {
   rm "/v/macros/:{ext}/:{name}"
 }
+function edit_macro(name, snip) {
+  snip=:(snip_is :snip)
+  mpath="/v/macros/:{snip}/:{name}"
+  echo -n editing macro :name in :snip Use control z and alt z to undo and redo actions. Press F6 when done
+  applyk fn_6
+  rotate /v/editor/macroprompt
+  play_macro :name :snip
+}
 function macros() {
   ext=:(pathmap '%x' :_buf)
   cd "/v/macros/:{ext}"
