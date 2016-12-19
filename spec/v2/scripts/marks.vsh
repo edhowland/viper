@@ -20,3 +20,12 @@ function mark_next(mark) {
 function mark_prev(mark) {
   goto_position :_buf :(trait_prev :_buf :mark)
 }
+function mark_apply(fn,buf, mark) {
+  mpos=:(trait_first :buf :mark)
+  pos=:(position :buf)
+  exec :fn :buf :mpos :pos
+}
+function mark_copy(buf, mark) {
+  new_clip
+  mark_apply &(buf, m, p) { within :buf :m :p } :buf :mark | cat > :_clip
+}
