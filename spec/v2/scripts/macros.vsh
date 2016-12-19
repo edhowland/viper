@@ -32,6 +32,12 @@ function undo_macro() {
   } }
   eq macro_start :(peek_keylog) && pop_keylog
 }
+function macros() {
+  ext=:(pathmap '%x' :_buf)
+  cd "/v/macros/:{ext}"
+  echo available macros for :ext
+  each &(m) { echo :m } *
+}
 _mode=macros bind meta_m &(data) { trait_set :_buf :data; _mark=:data; global _mark } &(data) { nop }
 store { echo "meta_m,:{_mark}" | enq ":{_buf}/.keylog" } /v/klogs/macros/meta_m
 _mode=macros bind meta_d &(data) { new_clip; perform_delete :_sup } &(data) { nop }
