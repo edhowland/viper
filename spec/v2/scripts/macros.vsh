@@ -1,4 +1,8 @@
 mkmode macros
+function snip_exists(name) {
+ext=:(pathmap '%x' :_buf)
+test -f "/v/macros/:{ext}/:{name}"
+}
 function snip_is(snip) {
 val=:(  (test -z :snip && pathmap '%x' :_buf) || echo :snip)
 (test -z :val && echo viper) || echo :val

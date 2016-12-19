@@ -107,11 +107,6 @@ mkarray /v/editor/macroprompt
 echo "Macro stored. Press command key  then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 mkdir /v/macros
-function playback(name, snip) {
-snip=:((test -z ":{snip}" && echo default) || echo :snip)
-mpath="/v/macros/:{snip}/:{name}"
-noexpandtab=true for ch in :(cat < :mpath) { suppress { apply :ch } }
-}
 function select_all() {
 beg :_buf; mark :_buf; fin :_buf
 }
@@ -149,32 +144,9 @@ for i in :r {
 del_at :buf } | nop
 echo -n :word > :_clip
 }
-function check_snip() {
-snip=:(word_back :_buf)
-test -z :snip && return false
-snip_exists :snip || return false
-del_word_back :_buf && run_snip :snip
-}
 function handle_tab() {
-test -z :noexpandtab || tab_indent :_buf&&  return
-check_snip && return
-tab_exists :_buf && tab_goto :_buf && line :_buf && return
 tab_indent :_buf
 echo -n tab
-}
-function snip_exists(name) {
-ext=:(pathmap '%x' :_buf)
-test -f "/v/macros/:{ext}/:{name}"
-}
-function run_snip(name) {
-ext=:(pathmap '%x' :_buf)
-suppress {
-current=:(position :_buf)
-playback :name :ext
-goto_position :_buf :current
-tab_exists :_buf && tab_goto :_buf
-}
-line :_buf
 }
 function move_word() {
 l=:(word_fwd :_buf | wc)
