@@ -3,6 +3,11 @@
 Version : vish.0.3.0
 
 Notes:
+Addded  keys:
+  meta_less - bound to outdent range
+  meta_greater - bound to indent range
+  meta_number - will be bound to comment range
+
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 
