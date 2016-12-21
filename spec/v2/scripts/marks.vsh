@@ -22,10 +22,23 @@ function mark_prev(mark) {
 }
 function mark_apply(fn,buf, mark) {
   mpos=:(trait_first :buf :mark)
-  pos=:(position :buf)
+  pos=:(decr :(position :buf))
   exec :fn :buf :mpos :pos
 }
 function mark_copy(buf, mark) {
   new_clip
   mark_apply &(buf, m, p) { within :buf :m :p } :buf :mark | cat > :_clip
 }
+function mark_cut(buf, mark) {
+  new_clip
+  mark_apply &(buf, m, p) { slice :buf :m :p } :buf :mark | cat > :_clip
+}
+function mark_exists(mark) {
+  trait_exists :_buf :mark
+  }
+function mark_del(mark) {
+  trait_del :_buf :mark
+  }
+new_clip
+_mark=_ ; global _mark
+

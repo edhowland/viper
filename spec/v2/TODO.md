@@ -33,9 +33,11 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
+Bug: in redo function or meta_z, does not do bell function when redo stack exhausted
 Bug: when scratch is buffer, in shutdown.vsh, problem in eq call somewhere
   > Test with just only scratch, make option to vepl binary for scratch
-
+Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
+> when shift left, shift right
 Bug: First time try of meta_d + any key, get command not found
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command

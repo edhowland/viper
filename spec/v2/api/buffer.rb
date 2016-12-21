@@ -279,6 +279,8 @@ class Buffer
     goto_position range.first
     @b_buff.shift range.size
   end
+  alias_method :slice, :slice!
+
   def apply_at ndx, &blk
     yield to_a[ndx] if block_given? && !ndx.nil?
   end

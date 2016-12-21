@@ -10,4 +10,4 @@ class TraitHas < BooleanBufferCommand; end
 class TraitFirst < SingleArgBufferCommand; end
 class TraitNext < SingleArgBufferCommand; end
 class TraitPrev < SingleArgBufferCommand; end
-
+class TraitExists < BooleanBufferCommand; end

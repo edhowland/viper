@@ -19,6 +19,7 @@ module CharacterTraits
     def trait_append trait
       traits << trait
     end
+
     def remove_trait trait
       traits.delete trait
     end
@@ -47,8 +48,10 @@ class Buffer
 
   def trait_first trait
     trait =trait.to_sym
-    to_a.index {|c| c.includes_trait? trait }
+    pos = to_a.index {|c| c.includes_trait? trait }
+    pos.nil? ? 0 : pos
   end
+
   # must offset result by 1 to make up for starting at @b_buff[1]
   def trait_next trait
     trait =trait.to_sym
@@ -58,5 +61,10 @@ class Buffer
   def trait_prev trait
     trait =trait.to_sym
     @a_buff.rindex{|c| c.includes_trait? trait } 
+  end
+  
+  def trait_exists trait
+    pos=trait_first(trait)
+    to_a[pos].includes_trait? trait.to_sym
   end
 end

@@ -32,4 +32,9 @@ cnt=0
 for i in :_ { exec :fn :i && cnt=:(expr 1 '+' :cnt) }
 echo :cnt
 }
-
+function decr(x) {
+  expr :x '-' 1
+}
+function incr(x) {
+  expr :x '+' 1
+}

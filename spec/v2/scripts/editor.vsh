@@ -108,7 +108,7 @@ echo "Macro stored. Press command key  then save_macro name .extension (optional
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
 mkdir /v/macros
 function select_all() {
-beg :_buf; mark :_buf; fin :_buf
+beg :_buf; m _ ; fin :_buf
 }
 function tab_indent() {
 r="1..:{indent}"
@@ -157,7 +157,6 @@ function move_word_back() {
 srch_back :_buf "/[^\w]\w+/"
 fwd :_buf
 }
-function toggle_mark() {  (mark_exists :_buf && unset_mark :_buf) || mark :_buf }
 autoindent=false; global autoindent
 function buffers() {
 names=:(cd /v/buf; echo *)
@@ -180,4 +179,7 @@ store { echo ":{key},:{_clip},:{_sup}" | enq ":{_buf}/.keylog" } "/v/klogs/viper
 }
 function log_key_mark(key) {
 store { echo ":{key},:{_mark}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
+}
+function buffer_name() {
+  echo -n buffer :(basename :_buf) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
 }

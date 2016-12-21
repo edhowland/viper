@@ -136,3 +136,4 @@ end
 class Goto < IntegerArgBufferCommand; end
 class GotoPosition < IntegerArgBufferCommand; end
 class Within < RangeArgBufferCommand; end
+class Slice < RangeArgBufferCommand; end

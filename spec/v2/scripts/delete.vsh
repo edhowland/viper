@@ -1,20 +1,34 @@
 function delete_line() {
-front_of_line :_buf; mark :_buf; down :_buf; cut :_buf | cat > :_clip
+front_of_line :_buf
+pos=:(position :_buf)
+  down :_buf
+   slice :_buf :pos :(decr :(position :_buf)) | cat > :_clip
 }
 function delete_front() {
-mark :_buf; front_of_line :_buf; cut :_buf | cat > :_clip
+  pos=:(decr :(position :_buf))
+  front_of_line :_buf
+  slice :_buf :(position :_buf) :pos | cat > :_clip
 }
 function delete_back() {
-mark :_buf; back_of_line :_buf; cut :_buf | cat > :_clip
+  pos=:(position :_buf)
+  back_of_line :_buf
+  slice :_buf :pos :(decr :(position :_buf)) | cat > :_clip
 }
 function delete_beg() {
-mark :_buf; beg :_buf; cut :_buf | cat > :_clip
+  pos=:(decr :(position :_buf))
+  beg :_buf
+  slice :_buf 0 :pos | cat > :_clip
 }
 function delete_fin() {
-mark :_buf; fin :_buf; cut :_buf | cat > :_clip
+  pos=:(position :_buf)
+  fin :_buf
+  slice :_buf :pos :(decr :(position :_buf)) | cat > :_clip
 }
 function clear_line() {
-  delete_back; delete_front
+  front_of_line :_buf
+  pos=:(position :_buf)
+  back_of_line :_buf
+  slice :_buf :pos :(decr :(position :_buf)) | cat > :_clip
 }
 function perform_delete(key) {
 eq :key key_d && delete_line && echo -n line && return

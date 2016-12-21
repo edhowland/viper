@@ -1,5 +1,4 @@
 source scripts/editor.vsh
-source scripts/undo.vsh
 source scripts/viper.vsh
 source scripts/command.vsh
 source scripts/delete.vsh
@@ -8,6 +7,7 @@ source scripts/prompt.vsh
 source scripts/extensions.vsh
 source scripts/vish.vsh
 source scripts/ruby.vsh
-source scripts/extras.vsh
 source scripts/marks.vsh
+source scripts/undo.vsh
 source scripts/macros.vsh
+source scripts/extras.vsh
