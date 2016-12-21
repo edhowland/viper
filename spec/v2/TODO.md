@@ -1,14 +1,8 @@
 # TODO
 
-Version : vish.0.2.5
+Version : vish.0.3.0
 
 Notes:
-
-Currently working on api/character_traits.rb - refinement to string to add 
-  > traits to string chars
-  > Aded within :_buf p1 p2 - outputs content between p1 and p2
-  > For eventual use in new copy method using  traits as bookmarks, marks
-
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 
