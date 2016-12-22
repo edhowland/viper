@@ -12,3 +12,18 @@ function is_dirty(buf) {
 function split(val, sep) {
   ifs=:sep; echo :val
 }
+function indent_line(buf) {
+  suppress {
+    front_of_line :buf
+    tab_indent
+  }
+}
+function outdent_line(buf) {
+  suppress {
+    il=:(indent_level :buf)
+    eq 0 :il && return false
+    front_of_line :_buf
+    apply_times :il move_right
+    handle_backtab
+  }
+}
