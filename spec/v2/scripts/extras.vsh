@@ -27,3 +27,16 @@ function outdent_line(buf) {
     handle_backtab
   }
 }
+comment_chars='#'; global comment_chars
+function comment_line(buf) {
+    il=:(indent_level :buf)
+  front_of_line :_buf
+  apply_times :il move_right
+  echo -n :comment_chars | ins :buf
+}
+function uncomment_line(buf) {
+  front_of_line :buf
+  srch_fwd :buf :comment_chars
+  eq :(at :buf | xfkey -d) :(echo -n :comment_chars | xfkey -d) && del_at :buf
+}
+
