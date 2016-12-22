@@ -97,11 +97,11 @@ _mode=viper bind fake_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -
 store { logk=:(xfkey); echo "fake_backspace,:{logk}" | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_backspace
 _mode=viper bind fake_cut { applyf ctrl_x } { echo -n selection deleted }
 log_key_clip fake_cut
-_mode=viper bind key_backspace { (mark_exists :_mark && apply fake_cut) || apply fake_backspace } { cat }  
+_mode=viper bind key_backspace { (mark_exists _ && apply fake_cut) || apply fake_backspace } { cat }  
 ignore_undo key_backspace
 _mode=viper bind fake_delete { del_at :_buf } { echo -n delete :(xfkey | xfkey -h) }
 store { echo fake_delete :(cat) | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_delete
-_mode=viper bind key_delete { (mark_exists :_mark && apply fake_cut) || apply fake_delete } { cat }
+_mode=viper bind key_delete { (mark_exists _ && apply fake_cut) || apply fake_delete } { cat }
 ignore_undo key_delete
 _mode=viper bind ctrl_z { undo || bell } { cat }
 store { nop } /v/klogs/viper/ctrl_z
