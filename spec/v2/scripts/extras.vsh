@@ -39,4 +39,8 @@ function uncomment_line(buf) {
   srch_fwd :buf :comment_chars
   eq :(at :buf | xfkey -d) :(echo -n :comment_chars | xfkey -d) && del_at :buf
 }
+alias in="mark_lines_apply &(b) { indent_line :b } :_buf"
+alias out="mark_lines_apply &(b) { outdent_line :b } :_buf"
+alias cmt="mark_lines_apply &(b) { comment_line :b } :_buf"
+alias unc="mark_lines_apply &(b) { uncomment_line :b } :_buf"
 

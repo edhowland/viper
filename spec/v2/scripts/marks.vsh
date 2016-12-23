@@ -39,6 +39,18 @@ function mark_exists(mark) {
 function mark_del(mark) {
   trait_del :_buf :mark
   }
+function mark_line_extent(buf, m) {
+  mark_apply &(buf, m, p) { p=:(incr :p); goto_position :buf :m; lm=:(line_number :buf); goto_position :buf :p; lp=:(line_number :buf); echo :lm :lp } :buf :m 
+}
+function mark_lines_apply(fn, buf, m) {
+  _=:(mark_line_extent :buf :m)
+  shift start; shift fini
+  r=":{start}..:{fini}"
+  for l in :r {
+    goto :buf :l
+    exec :fn :buf
+  }
+}
 new_clip
 _mark=_ ; global _mark
 
