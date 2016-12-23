@@ -55,7 +55,8 @@ class Xfkey < BaseCommand
       [194, 160] => 'meta_space',
       [194, 175] => 'meta_less',
       [203, 152] => 'meta_greater',
-      [226, 128, 185] => 'meta_number'
+      [226, 128, 185] => 'meta_number',
+      [194, 163] => 'meta_3'
       }
       meta_k = values.bytes
       if meta_keys[meta_k]
