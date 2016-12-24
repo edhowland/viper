@@ -10,13 +10,18 @@ require_relative 'load_path'
 options = {
   :start => [],
   :execute => [],
-  :finish => []
+  :finish => [],
+:debug => false
 }
 oparse = OptionParser.new do |opt|
   opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
   opt.separator ''
   opt.on('-n', '--no-start', 'Do not execute startup scripts') do
     options[:no_start] = true
+  end
+  opt.on('-x', '--debug', 'Debugging Support') do
+    options[:debug] = true
+require_relative 'debugging_support'
   end
   opt.on('-l', '--log', 'Start logging to vish.log') do
     options[:log] = true
@@ -58,3 +63,4 @@ end
 # start REPL
 $vm = vepl(options, argv:ARGV)
 
+binding.pry if options[:debug]
