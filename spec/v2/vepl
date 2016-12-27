@@ -63,4 +63,4 @@ end
 # start REPL
 $vm = vepl(options, argv:ARGV)
 
-binding.pry if options[:debug]
+#binding.pry if options[:debug]
