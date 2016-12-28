@@ -7,8 +7,9 @@ class FunctionDeclaration
     @args = args
     @block = block
   end
+
   def call env:, frames:
-    frames.functions[@name] = Function.new(@args, @block)
+    frames.functions[@name] = Function.new(@args, @block, @name)
     true
   end
   def to_s

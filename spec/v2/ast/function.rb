@@ -1,14 +1,18 @@
 # function - class Function - function invocation
 
 class Function
-  def initialize args, block
+  def initialize args, block, name='anonymous'
     @args=args
     @block = block
+    @name = name
   end
+
+  attr_reader :name
+
   def call *args, env:, frames:
     frames.push
     frames[:__FUNCTION__] = true
-    #frames[:xx] = true
+    frames[:__NAME__] = @name
     bound = @args.zip(args).to_h  # bind any passed arguments to this hash
     frames.top.merge! bound        # these are now variables within this context
     frames[:_] = args   # the arguments to this function are collected in the :_ variable

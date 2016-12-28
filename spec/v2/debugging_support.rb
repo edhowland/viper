@@ -3,6 +3,7 @@
 
 $call_stack = []
 
+$verbosep = ->(x) { x.class.name + ':' + x.to_s }
 
 def howdidigethere &blk
   if block_given?
@@ -16,6 +17,7 @@ module Debugging
   def call block
     @block_stack = @block_stack || []
     @block_stack << block
+    @fs.first[:_debug] = true
     super
   end
 
@@ -65,4 +67,26 @@ class Trace < BaseCommand
     a.each {|e| env[:out].puts e }
   end
 end
+
+module TraceWhenInException
+  def message
+    commandp = ->(e) {
+      case e
+      when Block
+        'Block'
+      when Statement
+        "Statement:#{e.to_s}"
+      when Function
+        "Function:#{e.name}"
+      else
+        'unknown'
+      end
+    }
+    howdidigethere(&commandp).join("\n") + "\n" + super
+  end
+end
   #
+  
+  class CommandNotFound
+    prepend TraceWhenInException
+  end

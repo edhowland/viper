@@ -20,6 +20,7 @@ class VirtualMachine
     @fs[:version] = Vish::VERSION
     @fs[:ifs] = " "
     @fs[:ofs] = ' '
+    @fs[:_debug] = false
     @ios = env
     @seen = [] # seen aliases during dealias
   end

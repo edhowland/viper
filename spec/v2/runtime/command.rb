@@ -1,6 +1,12 @@
 # command - class Command - factory class to resolve identifiers into actual 
 # runnable commands, aliases or functions
 
+class CommandNotFound < RuntimeError
+  def initialize  command='unknown'
+    super "Command: #{command}: not found"
+  end
+end
+
 class Command
   class << self
     def command_from_path path, frames:
@@ -27,10 +33,10 @@ class Command
       @@cache[id.to_sym] ||= thing
         return thing 
     else
-      raise RuntimeError.new ''
+      raise CommandNotFound.new id  #RuntimeError.new ''
     end
       rescue => err
-        env[:err].puts "Command: #{id}: not found"
+        env[:err].puts err.message  #"Command: #{id}: not found"
         False.new
       end
     end
