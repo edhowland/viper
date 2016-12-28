@@ -1,5 +1,10 @@
 # debugging_support.rb - modules and classes to support debugging
 
+def trace_range
+  r = rangify(ENV['RNG'])
+  return 0..-1 if r.nil?
+  r
+end
 
 $call_stack = []
 
@@ -82,11 +87,11 @@ module TraceWhenInException
         'unknown'
       end
     }
-    howdidigethere(&commandp).join("\n") + "\n" + super
+    howdidigethere(&commandp)[trace_range].join("\n") + "\n" + super
   end
 end
-  #
-  
+
+
   class CommandNotFound
     prepend TraceWhenInException
   end

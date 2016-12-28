@@ -8,3 +8,5 @@ require_relative 'api/array_extender'
 require_relative 'api/buffer'
 require_relative 'api/character_traits'
 require_relative 'api/regexify'
+require_relative 'api/rangify'
+
