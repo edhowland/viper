@@ -34,9 +34,22 @@ class VirtualMachine
 end
 
 
+
+class DebugHolder
+  def initialize object, env:, frames:
+    @object = object
+    @env = env
+    @frames = frames
+  end
+
+  def to_s
+    @object.class.name + ':' + @object.to_s + ':' + @frames.slice(-5..-1).inspect
+  end
+end
+
 module CallRecorder
   def call env:, frames:
-    $call_stack.push self
+    $call_stack.push DebugHolder.new(self, env:env, frames:frames)
     result = super
     $call_stack.pop
     result
@@ -83,6 +96,8 @@ module TraceWhenInException
         "Statement:#{e.to_s}"
       when Function
         "Function:#{e.name}"
+      when DebugHolder
+        e.to_s
       else
         'unknown'
       end

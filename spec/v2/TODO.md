@@ -32,18 +32,23 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
+Bug: In debugging support mode:
+  > when exiting an unchanged file, (i.e. clean) asks to save unsaved changes
 Bug: in redo function or meta_z, does not do bell function when redo stack exhausted
 Bug: when scratch is buffer, in shutdown.vsh, problem in eq call somewhere
   > Test with just only scratch, make option to vepl binary for scratch
 Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
 > when shift left, shift right
 Bug: First time try of meta_d + any key, get command not found
+> Use: -x option to require debugging_support:
+> When command not found, stack trace is output
+> Use RNG='-7..-1' to restrict verbosity of trace output lines as global ENVironment var
 Bug: cannot search with embedded spaces.
   > probably due to splitting into multiple arguments to command
   > Possible fix is to rework srch_fwd, back to gather args into a single arg
 Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
-  < Should enter vip or exit onto last line of /v/command buffer
+  > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
 Feature: when logging  meta_c, in addition to remembering :_clip, 
   > How would this affect other things in undo actions?

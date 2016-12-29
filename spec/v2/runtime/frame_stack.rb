@@ -79,5 +79,8 @@ class FrameStack
     nfs.vm = @vm
     nfs
   end
+  def slice range
+    @frames[range]
+  end
 end
 
