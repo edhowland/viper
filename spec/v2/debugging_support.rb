@@ -70,10 +70,9 @@ module CallWArgsRecorder
     $call_stack.push self
     result = super
     $call_stack.pop
+    result
   end
 end
-
-
 
 class Function
   prepend CallWArgsRecorder

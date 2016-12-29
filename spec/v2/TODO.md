@@ -32,8 +32,6 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
-Bug: In debugging support mode:
-  > when exiting an unchanged file, (i.e. clean) asks to save unsaved changes
 Bug: in redo function or meta_z, does not do bell function when redo stack exhausted
 Bug: when scratch is buffer, in shutdown.vsh, problem in eq call somewhere
   > Test with just only scratch, make option to vepl binary for scratch
