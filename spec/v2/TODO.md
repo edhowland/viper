@@ -33,6 +33,9 @@ F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
 Bug: in redo function or meta_z, does not do bell function when redo stack exhausted
+Bug: when starting editor: scripts.vsh sources scripts/marks.vsh: get exception frequently
+  > Does this occur in debugging mode?
+  > If so, how can inspect the actual line it errors on?
 Bug: when scratch is buffer, in shutdown.vsh, problem in eq call somewhere
   > Test with just only scratch, make option to vepl binary for scratch
 Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
