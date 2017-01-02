@@ -5,10 +5,11 @@ require_relative 'context_constants'
 class Statement
   include Redirectable
 
-  def initialize context=[]
+  def initialize context=[], line_number=0
     @context = context
+    @line_number = line_number
   end
-  attr_reader :context
+  attr_reader :context, :line_number
   def call_expanded env:, frames:
     string = @context.map {|e| e.to_s }.join(' ')
     block = Visher.parse! string

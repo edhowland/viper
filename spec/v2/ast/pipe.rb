@@ -1,10 +1,13 @@
 # pipe - class Pipe - implements stmnt1 | stmnt2 - with StringIO as buffer
 
 class Pipe
-  def initialize left, right
+  def initialize left, right, line_number=0
     @left = left
     @right=right
+    @line_number = line_number
   end
+  attr_reader :line_number
+
   def call env:, frames:
     io = StringIO.new
     env.push

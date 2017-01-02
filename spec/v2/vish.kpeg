@@ -4,6 +4,7 @@
 }
 
 eps = ''
+line = { current_line }
 space = " "
 - = space*
 nl = "\n"
@@ -60,8 +61,8 @@ expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
           | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
           | subshell_command:s { [ s ] }
           | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
-          | 'function' - function_name:i '(' - function_args:a - ')' - '{' ws* block:b ws* '}' { [ FunctionDeclaration.new(i, a, b) ] }
-          | context:c { [ Statement.new(c) ] }
+          | line:line 'function' - function_name:i '(' - function_args:a - ')' - '{' ws* block:b ws* '}' { [ FunctionDeclaration.new(i, a, b, line) ] }
+          | line:line context:c { [ Statement.new(c, line) ] }
 
 
 #          | '(' - block:b - ')' { [ SubShell.new(b) ] }

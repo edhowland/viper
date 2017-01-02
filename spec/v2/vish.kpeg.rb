@@ -15,6 +15,14 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
+  # line = { current_line }
+  def _line
+    @result = begin;  current_line ; end
+    _tmp = true
+    set_failed_rule :_line unless _tmp
+    return _tmp
+  end
+
   # space = " "
   def _space
     _tmp = match_string(" ")
@@ -1158,7 +1166,7 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | "alias" space+ function_name:f "=" argument:a {[ AliasDeclaration.new(f, a) ] } | "function" - function_name:i "(" - function_args:a - ")" - "{" ws* block:b ws* "}" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })
+  # expression = (expression:l - "|" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - "&&" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - "||" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | "alias" space+ function_name:f "=" argument:a {[ AliasDeclaration.new(f, a) ] } | line:line "function" - function_name:i "(" - function_args:a - ")" - "{" ws* block:b ws* "}" { [ FunctionDeclaration.new(i, a, b, line) ] } | line:line context:c { [ Statement.new(c, line) ] })
   def _expression
 
     _save = self.pos
@@ -1355,6 +1363,12 @@ class Vish < KPeg::CompiledParser
 
       _save7 = self.pos
       while true # sequence
+        _tmp = apply(:_line)
+        line = @result
+        unless _tmp
+          self.pos = _save7
+          break
+        end
         _tmp = match_string("function")
         unless _tmp
           self.pos = _save7
@@ -1436,7 +1450,7 @@ class Vish < KPeg::CompiledParser
           self.pos = _save7
           break
         end
-        @result = begin;  [ FunctionDeclaration.new(i, a, b) ] ; end
+        @result = begin;  [ FunctionDeclaration.new(i, a, b, line) ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save7
@@ -1449,13 +1463,19 @@ class Vish < KPeg::CompiledParser
 
       _save10 = self.pos
       while true # sequence
+        _tmp = apply(:_line)
+        line = @result
+        unless _tmp
+          self.pos = _save10
+          break
+        end
         _tmp = apply(:_context)
         c = @result
         unless _tmp
           self.pos = _save10
           break
         end
-        @result = begin;  [ Statement.new(c) ] ; end
+        @result = begin;  [ Statement.new(c, line) ] ; end
         _tmp = true
         unless _tmp
           self.pos = _save10
@@ -1520,6 +1540,7 @@ class Vish < KPeg::CompiledParser
 
   Rules = {}
   Rules[:_eps] = rule_info("eps", "\"\"")
+  Rules[:_line] = rule_info("line", "{ current_line }")
   Rules[:_space] = rule_info("space", "\" \"")
   Rules[:__hyphen_] = rule_info("-", "space*")
   Rules[:_nl] = rule_info("nl", "\"\\n\"")
@@ -1544,7 +1565,7 @@ class Vish < KPeg::CompiledParser
   Rules[:_subshell] = rule_info("subshell", "\"(\" - block:b - \")\" { b }")
   Rules[:_subshell_command] = rule_info("subshell_command", "(redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s { SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r) } | subshell:s { SubShell.new(s) })")
   Rules[:_statement_list] = rule_info("statement_list", "(statement_list:s1 - \";\" - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)")
-  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | \"alias\" space+ function_name:f \"=\" argument:a {[ AliasDeclaration.new(f, a) ] } | \"function\" - function_name:i \"(\" - function_args:a - \")\" - \"{\" ws* block:b ws* \"}\" { [ FunctionDeclaration.new(i, a, b) ] } | context:c { [ Statement.new(c) ] })")
+  Rules[:_expression] = rule_info("expression", "(expression:l - \"|\" - expression:r { [ Pipe.new(l[0], r[0]) ] } | expression:l - \"&&\" - expression:r { [ BooleanAnd.new(l[0], r[0]) ] } | expression:l - \"||\" - expression:r { [ BooleanOr.new(l[0], r[0]) ] } | subshell_command:s { [ s ] } | \"alias\" space+ function_name:f \"=\" argument:a {[ AliasDeclaration.new(f, a) ] } | line:line \"function\" - function_name:i \"(\" - function_args:a - \")\" - \"{\" ws* block:b ws* \"}\" { [ FunctionDeclaration.new(i, a, b, line) ] } | line:line context:c { [ Statement.new(c, line) ] })")
   Rules[:_block] = rule_info("block", "statement_list:s { Block.new(s) }")
   Rules[:_root] = rule_info("root", "block:x { @result = x }")
   # :startdoc:
