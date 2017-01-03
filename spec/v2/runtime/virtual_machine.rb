@@ -119,7 +119,11 @@ class VirtualMachine
       rescue ReturnCalled
         # nop
       rescue => err
-        env[:err].puts "#{args[0]}: exception #{err.message}"
+        line = 0
+        if err.respond_to? :line_number
+          line = err.line_number
+        end
+        env[:err].puts "#{args[0]}:#{line}: exception #{err.message}"
         false
       end
     end
