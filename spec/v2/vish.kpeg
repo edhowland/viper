@@ -56,9 +56,9 @@ statement_list = statement_list:s1 - ';' - statement_list:s2 { s1 + s2 }
           | statement_list:s1 - nl - statement_list:s2 { s1 + s2 }
           | expression
 
-expression = expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0]) ] }
-          | expression:l - '&&' - expression:r { [ BooleanAnd.new(l[0], r[0]) ] }
-          | expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0]) ] }
+expression = line:line expression:l - '|' - expression:r { [ Pipe.new(l[0], r[0], line) ] }
+          | line:line expression:l - '&&' - expression:r { [ BooleanAnd.new(l[0], r[0], line) ] }
+          | line:line expression:l - '||' - expression:r { [ BooleanOr.new(l[0], r[0], line) ] }
           | subshell_command:s { [ s ] }
           | 'alias' space+ function_name:f '=' argument:a {[ AliasDeclaration.new(f, a) ] } 
           | line:line 'function' - function_name:i '(' - function_args:a - ')' - '{' ws* block:b ws* '}' { [ FunctionDeclaration.new(i, a, b, line) ] }

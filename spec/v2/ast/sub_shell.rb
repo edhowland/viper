@@ -10,6 +10,14 @@ class SubShell
     @oldpwd = ''
     @vm = nil
   end
+
+  def line_number
+    result = 0
+    if @block.statement_list.length >= 1
+      result = @block.statement_list.first.line_number
+    end
+    result
+  end
   def save_pwd vm
     @pwd = vm.fs[:pwd]
     @oldpwd = vm.fs[:oldpwd]
