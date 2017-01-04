@@ -51,6 +51,6 @@ function mark_lines_apply(fn, buf, m) {
     exec :fn :buf
   }
 }
-new_clip
+capture { new_clip } { echo caught :last_exception in :__FILE__; (test -f /v/clip/metadata/clips && echo /v/clip/metadata/clips exists) || echo /v/clip/metadata/clips does not exist }
 _mark=_ ; global _mark
 

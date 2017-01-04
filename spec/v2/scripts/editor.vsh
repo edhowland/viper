@@ -79,11 +79,8 @@ ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
 }
 mkdir /v/clip/metadata
 mkarray /v/clip/metadata/clips
-function timehash() {
-  datetime | digest_sha1 -c 6
-}
 function new_clip() {
-  h=:(timehash)
+  h=:(rand -c 0 5)
   cpath="/v/clip/:{h}"
   mkbuf :cpath
   _clip=:cpath; global _clip

@@ -113,7 +113,10 @@ class VirtualMachine
     else
     begin
         block = Visher.parse!(File.read(args[0]))
+        @fs.push
+        @fs[:__FILE__] = args[0]
         self.call block
+        @fs.pop
       rescue ExitCalled
         raise ExitCalled
       rescue ReturnCalled
