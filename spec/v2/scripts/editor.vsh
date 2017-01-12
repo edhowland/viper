@@ -6,6 +6,7 @@ global _buf
 mkarray ":{_buf}/.keylog"
 mkarray ":{_buf}/.undones"
 echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
+cat < :_buf | digest_sha1 > ":{_buf}/.digest"
 }
 function fopen(fname) {
 open :fname

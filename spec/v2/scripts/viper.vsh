@@ -1,6 +1,3 @@
-function del_char() {
-del :_buf | echo -n delete :(xfkey | xfkey -h)
-}
 function cut_mark() {
 cut :_buf | cat > :_clip
 echo -n selection deleted
