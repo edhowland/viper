@@ -32,7 +32,6 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Outstanding bugs, new features
-Bug: in redo function or meta_z, does not do bell function when redo stack exhausted
 Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
 > when shift left, shift right
 Bug: First time try of meta_d + any key, get command not found
@@ -55,7 +54,6 @@ Feature: meta_c +  move_shift_end => copy to end of line
   > meta_c + w => copy word forward
   > meta_c + W => copy word back
 Feature: Implement ins_fwd method in api/buffer.rb
-Feature: indent/outdent marked range
 Feature: comment/uncomment blocks that are marked
   > Use comment style as defined by .ext. E.g. .rb => '#'. .js => '//'
   > Work at current indent level

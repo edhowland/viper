@@ -15,6 +15,7 @@ function undo() {
   _keysink=.undones _mode=undo apply :_key :_data
 }
 function redo() {
+is_empty ":{_buf}/.undones" && return false
   key=:(deq ":{_buf}/.undones")
   apply :key
 }
