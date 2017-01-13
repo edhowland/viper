@@ -3,6 +3,7 @@
 
 # TODO: REMOVEME
 require 'pry'
+
 require 'optparse'
 require_relative 'load_path'
 
@@ -11,7 +12,8 @@ options = {
   :start => [],
   :execute => [],
   :finish => [],
-:debug => false
+:debug => false,
+:check => false
 }
 oparse = OptionParser.new do |opt|
   opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
@@ -34,6 +36,9 @@ require_relative 'debugging_support'
   opt.on('--finish script', String, 'Execute this set of scripts upon exit of session') do |script|
     options[:finish] << script
   end
+  opt.on('-c', '--check', 'Check syntax of Vish file or stdin') do
+    options[:check] = true
+  end
   opt.separator ''
   opt.on('-h', '--help', 'Display this help and exit') do
     puts opt
@@ -48,6 +53,22 @@ require_relative 'debugging_support'
   end
 end
 oparse.parse!
+
+ # possibly check all input files for syntax correctness
+if options[:check]
+  rvalue = 0
+    ARGV.each do |f|
+    begin
+      Visher.parse!(File.read(f))
+puts "#{f}: Syntax OK"
+  rescue VishSyntaxError => err
+    $stderr.puts "#{f}: #{err.message}"
+rvalue = 1
+  end
+  end
+  exit rvalue
+end
+
 
 
  # setup exit handlers

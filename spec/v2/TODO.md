@@ -31,6 +31,9 @@ meta+d, c will call fn clear_line. clears contents of line without deleting the 
 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
+Investigations:
+Investigate: Is Vsh redundant for eval statement?
+  > If so, then replace vsh w/eval
 Outstanding bugs, new features
 Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
 > when shift left, shift right
