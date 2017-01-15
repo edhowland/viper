@@ -4,8 +4,13 @@
 class VshParse < BaseCommand
   def call *args, env:, frames:
     source = env[:in].read
-      Visher.parse! source
+    block = Visher.parse! source
+    if args.length > 0
+      frames[args[0].to_sym] = block
+      frames.merge
+    else
       env[:out].puts 'Syntax OK'
-      true
+    end
+    true
   end
 end

@@ -6,4 +6,7 @@ store { autoindent=true; global autoindent; checker=checkvsh; global checker } /
 function dumpvsh() { json /v/macros/.vsh > vish.json }
 function loadvsh() { json -r /v/macros/.vsh < vish.json }
 test -f vish.json && loadvsh
+function evalvsh() {
+  capture { vsh_parse aa < :_buf } { echo Syntax error } {  exec :aa }
+}
 

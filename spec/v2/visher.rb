@@ -12,8 +12,7 @@ class Visher
     def parse! statement
       v = Vish.new statement
       raise VishSyntaxError unless v.parse
-      # remove any comment-only nodes from the result
-      v.result  # .map {|e| e.reject(&:nil?) }
+      v.result
     end
   end
 end
