@@ -19,6 +19,10 @@ closure do
     fail unless r == 10
   end
 
+  test do 
+    r = e - 2
+    fail("expected 0, got #{r}") unless r == 0
+  end
   end
 
 

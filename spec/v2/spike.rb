@@ -50,22 +50,36 @@ def passed list
 end
 
 def failures list
-  list.reject {|e| Passed === e }.length
+  list.reject {|e| Passed === e }
 end
 
 def stats list
   puts <<EOD
   Total: #{list.length}
   Passed: #{passed(list)}
-  Failures: #{failures(list)}
+  Failures: #{failures(list).length}
 EOD
 end
 
+def report list
+  failures(list).each do |e|
+    puts e.message
+    puts e.backtrace[0]
+  end
+end
+
+
+
+def separator
+  puts
+end
 # main
 def main
   c = combine $tests
   l = lambdaize c
-  r = run l
+  r = run l.shuffle
+  report r
+  separator
   stats r
 end
 
