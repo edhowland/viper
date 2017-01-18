@@ -5,6 +5,7 @@ class Ruby < BaseCommand
     @orig_in = $stdin
     @orig_out = $stdout
   end
+
   def call *args, env:, frames:
     begin
       $stdin = env[:in]

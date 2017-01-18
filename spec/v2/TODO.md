@@ -7,7 +7,14 @@ Addded  keys:
   meta_less - bound to outdent range
   meta_greater - bound to indent range
   meta_number - will be bound to comment range
-
+indenting/outdenting, commenting commands:
+in <mark> will indent to previous mark
+out <mark> will outdent to previous mark
+cmt <mark> will comment all lines to previous mark
+Evaluate buffer:
+In command mode: 
+evalvsh - Will parse and evaluate contents of buffer: :_buf
+echo some Vish stuff | vsh_parse varname - ; eval :varname - parse and evaluate stdin
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 
