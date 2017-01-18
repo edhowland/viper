@@ -2,6 +2,7 @@
 
 require_relative 'spike'
 
+# The closure block is so we can use lexical closures to wrap variables: e here
 closure do 
   e = 0
 
@@ -22,6 +23,10 @@ closure do
   test do 
     r = e - 2
     fail("expected 0, got #{r}") unless r == 0
+  end
+  
+  after do 
+    e = 0
   end
   end
 

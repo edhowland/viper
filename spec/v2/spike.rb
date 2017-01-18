@@ -23,6 +23,10 @@ def before &blk
   $befores << blk
 end
 
+def after &blk
+  $afters << blk
+end
+
 # execution phase
 def combine list
   list.map { |e| $befores + [e] + $afters }
