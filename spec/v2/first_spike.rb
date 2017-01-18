@@ -3,8 +3,14 @@
 require_relative 'spike'
 
 closure do 
+  e = 0
+  
+  before do 
+    e = 1
+  end
   test do 
-    1 + 1
+    r = e + 1
+    fail('expected 2') unless r == 2
   end
   
   test do 
@@ -14,3 +20,6 @@ closure do
 
   end
 
+
+
+binding.pry
