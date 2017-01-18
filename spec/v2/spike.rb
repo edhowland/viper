@@ -68,13 +68,8 @@ def main
   r = run l
   stats r
 end
-#at_exit do 
-  #result = $tests.map do |e|
-    #begin
-      #e.call
-    #rescue => err
-      #err
-    #end
-#end
-  #p result
-##end
+
+
+at_exit do 
+  main
+end
