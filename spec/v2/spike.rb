@@ -56,6 +56,10 @@ def passed list
   list.count {|e| Passed === e }
 end
 
+def non_passed list
+  list.reject {|e| Passed === e }
+end
+
 def failures list
   list.select {|e| AssertionFailure === e }
 end
@@ -74,7 +78,7 @@ EOD
 end
 
 def report list
-  failures(list).each do |e|
+  non_passed(list).each do |e|
     puts e.message
     puts e.backtrace[0]
   end
@@ -93,9 +97,11 @@ def main
   report r
   separator
   stats r
+  non_passed(r).length == 0 ? 0 : 1
 end
 
 
 at_exit do 
-  main
+  result = main
+  exit result
 end
