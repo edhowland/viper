@@ -12,21 +12,29 @@ closure do
 
   test do 
     r = e + 1
-    fail('expected 2') unless r == 2
+    assert(r == 2, 'expected 2') 
   end
 
   test do 
     r = e * 10
-    fail unless r == 10
+    assert_eq r, 10
   end
 
   test do 
     r = e - 2
-    fail("expected 0, got #{r}") unless r == 0
+    assert_eq r, 0
   end
   
   after do 
     e = 0
+  end
+
+  test do 
+    assert_is e, String
+  end
+
+  test do 
+    fail 'bad juju'
   end
   end
 

@@ -1,5 +1,8 @@
 # spike.rb - spike simple tests like xUnit
 
+require_relative 'assertions'
+
+
 $befores = []
 $tests = []
 $afters = []
@@ -54,7 +57,11 @@ def passed list
 end
 
 def failures list
-  list.reject {|e| Passed === e }
+  list.select {|e| AssertionFailure === e }
+end
+
+def errors list
+  list.length - passed(list) - failures(list).length
 end
 
 def stats list
@@ -62,6 +69,7 @@ def stats list
   Total: #{list.length}
   Passed: #{passed(list)}
   Failures: #{failures(list).length}
+  Errors: #{errors(list)}
 EOD
 end
 
