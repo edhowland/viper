@@ -36,7 +36,13 @@ closure do
   test do 
     fail 'bad juju'
   end
+
+  test do 
+    skip
   end
-
-
+  
+  test do 
+    skip 'skipped because I am lazy'
+  end
+  end
 

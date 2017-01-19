@@ -56,6 +56,10 @@ def passed list
   list.count {|e| Passed === e }
 end
 
+
+def skipped list
+  list.count {|e| SkipException === e }
+end
 def non_passed list
   list.reject {|e| Passed === e }
 end
@@ -65,7 +69,7 @@ def failures list
 end
 
 def errors list
-  list.length - passed(list) - failures(list).length
+  list.length - passed(list) - failures(list).length - skipped(list)
 end
 
 def stats list
@@ -74,13 +78,14 @@ def stats list
   Passed: #{passed(list)}
   Failures: #{failures(list).length}
   Errors: #{errors(list)}
+  Skips: #{skipped(list)}
 EOD
 end
 
 def report list
-  non_passed(list).each do |e|
-    puts e.message
-    puts e.backtrace[0]
+  ndxs = non_passed(list).each_with_index
+  non_passed(list).flat_map {|e| [ndxs.next[1] + 1, e.message, ignore_this_file(e.backtrace)[0]] }.each_with_index do |e, i|
+    puts e
   end
 end
 
