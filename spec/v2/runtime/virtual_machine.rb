@@ -77,6 +77,17 @@ class VirtualMachine
     Hal.mkdir_p args[0]
     true
   end
+
+  # install_cmd Class /v/bin # installs class named Class into vpath /v/bin
+  # making it available to run as command
+  def install_cmd *args, env:, frames:
+    klass = Kernel.const_get(args[0])
+        root=frames[:vroot]
+    path = root[args[1]]
+      path[snakeize(klass.name)] = klass.new
+    true
+  end
+
   # install - command to install command objects into virtual bin dir
   def install *args, env:, frames:
         root=frames[:vroot]
@@ -86,6 +97,7 @@ class VirtualMachine
     end
     true
   end
+
   def pwd *args, env:, frames:
     env[:out].puts Hal.pwd
     true
