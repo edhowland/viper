@@ -9,7 +9,7 @@ class Grep < BaseCommand
       Regexp.new string
     end
   end
-  
+
   def say string
     if @options[:n]
       @out.print string

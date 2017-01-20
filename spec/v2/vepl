@@ -7,7 +7,6 @@ require 'pry'
 require 'optparse'
 require_relative 'load_path'
 
-
 options = {
   :start => [],
   :execute => [],
@@ -29,6 +28,9 @@ require_relative 'debugging_support'
     options[:log] = true
     options[:start] << 'logger -s; on &() { logger :_ }'
     options[:finish] << 'logger -e'
+  end
+  opt.on('-s script', '--source script', 'Source script') do |script|
+    options[:execute] << "source #{script}"
   end
   opt.on('-e script', '--execute script', String, 'Execute this command at startup') do |script|
     options[:execute] << script
