@@ -1,5 +1,6 @@
 # grep - class Grep - command grep - looks for regex in lines
 # args -o : only output matched chars
+# -n: print without newline
 
 class Grep < BaseCommand
   def regexp string
@@ -28,9 +29,10 @@ class Grep < BaseCommand
         if matches
         result = true
         if @options[:o]
-          say matches[1]
-        else
+#        binding.pry
           say matches[0]
+        else
+          say l
         end
       end
       end
