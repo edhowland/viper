@@ -12,7 +12,7 @@ class Capture < Exec
       raise err
     rescue => err
       #env[:err].puts err.message
-      env[:out].write BELL
+      env[:err].write BELL
       frames.first[:last_exception] = err.message
       exception_caught = true
       result = false

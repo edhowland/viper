@@ -29,7 +29,6 @@ class Grep < BaseCommand
         if matches
         result = true
         if @options[:o]
-#        binding.pry
           say matches[0]
         else
           say l
