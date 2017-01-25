@@ -1,8 +1,12 @@
 # Rakefile - builds parser from grammar
+# also runs tests
+
 file 'vish.kpeg.rb' => 'vish.kpeg' do
   sh 'kpeg -f vish.kpeg && (sleep 1; ruby -c vish.kpeg.rb)'
 end
 
-
+task :test do
+  sh "./vepl -s tests/vunit_dbg.vsh -e exit -f 'stats; test -f /v/tests/fails && cat < /v/tests/fails'"
+end
 
 task :default => ['vish.kpeg.rb']
