@@ -42,8 +42,6 @@ Investigations:
 Investigate: Is Vsh redundant for eval statement?
   > If so, then replace vsh w/eval
 Outstanding bugs, new features
-Bug: seem to have off by 1 and off by 2 sometimes in cut on same line, also 
-> when shift left, shift right
 Bug: First time try of meta_d + any key, get command not found
 > Use: -x option to require debugging_support:
 > When command not found, stack trace is output
@@ -55,6 +53,7 @@ Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
+Feature: in scripts/*.vsh: move cut, copy and paste to scripts/editor.vsh
 Feature: when logging  meta_c, in addition to remembering :_clip, 
   > How would this affect other things in undo actions?
 Feature: meta_c +  move_shift_end => copy to end of line

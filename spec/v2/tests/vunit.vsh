@@ -32,3 +32,4 @@ function stats() {
   echo Passed :(passes :set)
   echo Failures :(failures :set)
 }
+alias report_fails='cat < /v/tests/fails'

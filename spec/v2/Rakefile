@@ -6,7 +6,7 @@ file 'vish.kpeg.rb' => 'vish.kpeg' do
 end
 
 task :test do
-  sh "./vepl -s tests/vunit_dbg.vsh -e exit -f 'stats; test -f /v/tests/fails && cat < /v/tests/fails'"
+  sh "./vepl -s tests/all_tests.vsh -e exit -f 'stats; test -f /v/tests/fails && cat < /v/tests/fails'"
 end
 
 task :default => ['vish.kpeg.rb']
