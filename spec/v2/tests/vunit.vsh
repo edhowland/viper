@@ -2,12 +2,15 @@ require ls_functions.rb
 install_cmd LsFunctions /v/bin
 require shuffle.rb
 install_cmd Shuffle /v/bin
+function assert() {
+  :_ || raise "expected :{_} to be true"
+}
 mkdir /v/tests
 function units() {
 ls_functions | grep test
 }
 function run_units() {
-  map &(fn) { capture { :fn >> /v/tests/log; echo pass } { echo :fn } } :(shuffle :(units))
+  map &(fn) { capture { :fn >> /v/tests/log; echo pass } { echo :fn ':' :last_exception >> /v/tests/fails; echo :fn } } :(shuffle :(units))
 }
 function passes() {
   count &(x) { eq :x pass } :_
