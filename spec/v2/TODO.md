@@ -53,6 +53,11 @@ Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
+Feature: add -f option to unset command to remove functions
+  > Possible enhancement: allow for the function hash to be a part of the frame stack
+  > ... Would for functions to within functions, and go out of scope when left
+  > ... Also, allow for blocks, lambdas to contain them and called externally
+  > ... By some dot '.' notation (whithin grammar?)
 Feature: in scripts/*.vsh: move cut, copy and paste to scripts/editor.vsh
 Feature: when logging  meta_c, in addition to remembering :_clip, 
   > How would this affect other things in undo actions?

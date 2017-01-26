@@ -6,11 +6,23 @@ function assert() {
   :_ || raise "expected :{_} to be true"
 }
 mkdir /v/tests
+function befores() {
+  ls_functions | grep setup
+}
+function run_befores() {
+  each &(f) { :f } :(befores)
+}
+function afters() {
+  ls_functions | grep teardown
+}
+function run_afters() {
+  each &(f) { :f } :(afters)
+}
 function units() {
 ls_functions | grep test
 }
 function run_units() {
-  map &(fn) { capture { :fn >> /v/tests/log; echo pass } { echo :fn ':' :last_exception >> /v/tests/fails; echo :fn } } :(shuffle :(units))
+  map &(fn) { capture { run_befores; :fn >> /v/tests/log; run_afters; echo pass } { echo :fn ':' :last_exception >> /v/tests/fails; echo :fn } } :(shuffle :(units))
 }
 function passes() {
   count &(x) { eq :x pass } :_
@@ -35,6 +47,6 @@ function stats() {
 alias report_fails='cat < /v/tests/fails'
 alias x='echo :exit_status'
 function run_1(te) {
-  capture { :te >> /v/tests/log; echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
+  capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
 }
 on exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }
