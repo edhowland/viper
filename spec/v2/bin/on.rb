@@ -3,7 +3,6 @@
 # -k  deletes (kills) handler
 # -l : lists (all) handler(s)
 
-
 class On < BaseCommand
   def call *args, env:, frames:
     super do |*a|

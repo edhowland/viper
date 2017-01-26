@@ -2,6 +2,7 @@
 # Stores handlers for matching command regexs. Runs them when triggered
 
 require_relative 'regex_hash'
+
 class Event
 
   @@proceed = -1
@@ -10,18 +11,26 @@ class Event
       @@events ||= []
       @@matches ||= RegexHash.new
     end
+
     def << handler
       init
       @@events << handler
     end
+
     def events
       init
       @@events
     end
+
     def []= key, handler
       init
       @@matches[key] = handler
     end
+    
+    def matches
+      @@matches
+    end
+
     def on(*args, env:, frames:)
           init
 
@@ -36,6 +45,7 @@ class Event
       end
       end
     end
+
     def trigger *args, env:, frames:
       init
       @@proceed += 1

@@ -6,9 +6,13 @@ class RegexHash
   def initialize 
     @storage = []
   end
+
+  attr_reader :storage
+
   def []= key, value
     @storage << [key, value]
   end
+
   def [] key
     results = @storage.select {|e| !!(key =~ e[0]) }
     if results.length > 0

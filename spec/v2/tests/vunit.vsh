@@ -33,3 +33,8 @@ function stats() {
   echo Failures :(failures :set)
 }
 alias report_fails='cat < /v/tests/fails'
+alias x='echo :exit_status'
+function run_1(te) {
+  capture { :te >> /v/tests/log; echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
+}
+on exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }
