@@ -18,3 +18,11 @@ function test_cd_virtual_should_be_bad() {
   assert not { test :exit_status }
   assert eq :pwd /v/buf
 }
+function test_echo_ok_path() {
+  aa=aa
+  echo > :aa
+  rm aa
+}
+function test_echo_empty_path() {
+  unset aa
+}
