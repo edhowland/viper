@@ -72,9 +72,9 @@ _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | no
 store { data=:(cat); echo "ctrl_v,:{data}" | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_mark || m _ ; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind move_shift_left { mark_exists :_mark || m _ ; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
-_mode=viper bind ctrl_f { echo -n search } { cat; save_pos; raise search_vip_fwd }
+_mode=viper bind ctrl_f { srch_dir=srch_fwd; global srch_dir; echo -n search } { cat; save_pos; raise search_vip_fwd }
 log_key_pos ctrl_f
-_mode=viper bind ctrl_r { echo -n search back } { cat; save_pos; raise search_vip_rev }
+_mode=viper bind ctrl_r { srch_dir=srch_back; global srch_dir; echo -n search back } { cat; save_pos; raise search_vip_rev }
 log_key_pos ctrl_r
 _mode=viper bind ctrl_g { save_pos; fwd :_buf; search_vip_again } { cat }
 log_key_pos ctrl_g
@@ -126,19 +126,19 @@ _mode=viper bind meta_number { comment_line :_buf } {line :_buf  }
 _mode=viper bind meta_3 { uncomment_line :_buf } { line :_buf }
 function search_vip_rev() {
 searcher
-srch_meth="srch_back :{_buf} :{pattern}"; global srch_meth
-:srch_meth
+compose_srch_cmd srch_back
+exec :srch_cmd
 line :_buf
 }
 function search_vip_fwd() {
 searcher
-srch_meth="srch_fwd :{_buf} :{pattern}"; global srch_meth
-:srch_meth
+compose_srch_cmd srch_fwd
+exec :srch_cmd
 line :_buf
 }
 function search_vip_again() {
-test -z :srch_meth && bell && return
-:srch_meth 
+test -l :srch_cmd || bell && return false
+exec :srch_cmd
 line :_buf
 }
 

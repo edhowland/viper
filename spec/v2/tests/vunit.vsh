@@ -5,6 +5,7 @@ install_cmd Shuffle /v/bin
 function assert() {
   :_ || raise "expected :{_} to be true"
 }
+alias assert_true='assert test'
 mkdir /v/tests
 function befores() {
   ls_functions | grep setup
