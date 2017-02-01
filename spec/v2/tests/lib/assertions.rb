@@ -30,9 +30,9 @@ def assert_is actual, klass
 end
 
 # skips
-class SkipException < BaseAssertionException
+class SkippedTest < RuntimeError
 end
 
 def skip message='skipped'
-  raise SkipException.new(message)
+  raise SkippedTest.new(message)
 end
