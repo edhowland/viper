@@ -10,12 +10,14 @@ require_relative 'spike_utils'
 
 require_relative 'spike_generator'
 require_relative 'spike_runner'
+require_relative 'spike_total'
+
 require_relative 'spike_stats'
 require_relative 'spike_color'
 
 # spike_report - last step in chain: formats stats and color
 def spike_report
-  fan_out([spike_stats, (pick(0) | spike_color)])
+  fan_out([spike_total, spike_stats, (pick(0) | spike_color)])
 end
 
 at_exit do 
