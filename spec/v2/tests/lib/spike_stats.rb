@@ -1,12 +1,10 @@
 # spike_stats.rb - method spike_stats - Spike's final stage: outputs results
 
 def spike_stats
-  PipeProc.new do |coll|
-    e = coll.group_by {|x| x[0] }.to_enum
-    stats = e.map do |s|
-      [s[0], s[1..-1].length]
-    end
-    stats.unshift [:total, stats.length]
-    stats.map {|l| "#{l[1]} #{l[0]}" }
-  end
+  gru = group {|e| e[0] }
+  reduction = reduce([]) {|i, j| i + ["#{j[0]} #{j[1].length}"] }
+  ord = {'pass' => -99, 'fail' => -10, 'erro' => 0, 'skip' => 99}
+  rearranger = sort { |l, r| ord[l[0..3]] <=> ord[r[0..3]] }
+
+  gru | reduction | rearranger
 end

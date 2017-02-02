@@ -20,6 +20,7 @@ class PipeProc < Proc
   def call_with param=nil
     self.reduce(param) {|i, j| j.call(i) }
   end
+  alias_method  :pump, :call_with
 end
 
 

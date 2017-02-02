@@ -15,7 +15,10 @@ def spike_lamb_wrap
     coll.map do |tuple|
       tuple[1].map do |test|
         dp = DecoratedProc.new do 
-          tuple[0].new.send test
+          obj = tuple[0].new
+          obj.try :set_up
+          obj.send  test
+          obj.try :tear_down
         end
         dp.message = "#{tuple[0].name}::#{test.to_s}"
         dp

@@ -8,4 +8,7 @@ class BaseSpike
   def self.tests
     instance_methods.select {|e| e =~ /^test/ }
   end
+  def try sym, *args
+    self.send sym, *args if self.respond_to? sym
+  end
 end

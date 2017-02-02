@@ -22,3 +22,46 @@ end
 def pick ndx
   L {|e| e.map {|c| c[ndx] } }
 end
+def group &blk
+  L do |coll|
+    coll.group_by &blk
+  end
+end
+
+def reduce init, &blk
+  L do |coll|
+    coll.reduce(init, &blk)
+  end
+end
+
+def map &blk
+  L do |coll|
+    coll.map &blk
+  end
+end
+
+def ident
+  L do |coll|
+    coll
+  end
+end
+def fan_in
+  reduce([]) {|i,j| i + j }
+end
+
+def sort &blk
+  L do |coll|
+    coll.sort &blk
+  end
+end
+
+def reverse
+  L do |coll|
+    coll.reverse
+  end
+end
+def rotate
+  L do |coll|
+    coll.rotate
+  end
+end
