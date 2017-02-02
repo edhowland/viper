@@ -1,4 +1,4 @@
-require_relative 'tests/lib/spike_load'
+require_relative '../spike_load'
 
 class NoSkip < BaseSpike
   def test1

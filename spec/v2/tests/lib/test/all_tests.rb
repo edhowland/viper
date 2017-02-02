@@ -1,6 +1,12 @@
 # all_tests.rb - requires for tests
 
- require_relative 'lib/spike_load'
+ require_relative '../spike_load'
+
+require_relative 'zero_test'
+
+require_relative 'yellow_skip'
+require_relative 'no_skip'
+require_relative 'one_test'
 
 # load tests herein
 
