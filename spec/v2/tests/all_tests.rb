@@ -6,10 +6,10 @@
 
 class MyTest < BaseSpike
   def set_upmethod
-    
+    @thing = -99
   end
   def test_pass
-    #
+    assert_equals @thing, -99
   end
   def test_fail
     assert false
@@ -20,8 +20,11 @@ class MyTest < BaseSpike
   def test_skip
     skip 'not now'
   end
+  def test_thing_is_nil
+    assert_nil @thing
+  end
   def tear_down
-    
+    @thing = nil
   end
 end
 
