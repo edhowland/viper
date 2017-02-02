@@ -70,7 +70,6 @@ describe 'srch_fwd for non-existing string' do
   subject { buf.srch_fwd 'xyzzy'; buf.at }
 
   specify { subject.must_equal 'N' }
-
 end
 
 describe 'srch_back' do

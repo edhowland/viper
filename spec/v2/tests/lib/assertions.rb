@@ -32,6 +32,19 @@ end
 def assert_nil obj
   assert obj.nil?, "expected #{obj} to be nil"
 end
+class AssertionRaiseFailure < BaseAssertionException; end
+
+def assert_raises exception, &blk
+  begin
+    yield
+    raise AssertionRaiseFailure.new  "Expected block to raise #{exception.name}, got none"
+  rescue AssertionRaiseFailure => err
+    raise err
+  rescue => err
+    assert exception  === err, "Expected block to raise #{exception.name}, but got #{err.class.name} with message #{err.message}"
+  end
+end
+
 # skips
 class SkippedTest < RuntimeError
 end
