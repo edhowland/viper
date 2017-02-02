@@ -7,11 +7,11 @@ def spike_runner
         p.call
         [:pass, p.message]
       rescue BaseAssertionException => err
-        [:fail, err.message]
+        [:fail, p.message + ':' + err.message]
       rescue SkippedTest => err
-        [:skip, err.message]
+        [:skip, p.message + ':' + err.message]
       rescue => err
-        [:error, err.message]
+        [:error, p.message + ':' + err.message]
       end
     end
   }

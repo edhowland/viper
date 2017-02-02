@@ -65,3 +65,9 @@ def rotate
     coll.rotate
   end
 end
+def filter &blk
+  L do |coll|
+    coll.select &blk
+  end
+
+end

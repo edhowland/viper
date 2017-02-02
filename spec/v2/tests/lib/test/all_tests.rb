@@ -11,7 +11,7 @@ require_relative 'one_test'
 # load tests herein
 
 class MyTest < BaseSpike
-  def set_upmethod
+  def set_up
     @thing = -99
   end
   def test_pass
@@ -27,6 +27,7 @@ class MyTest < BaseSpike
     skip 'not now'
   end
   def test_thing_is_nil
+    tear_down
     assert_nil @thing
   end
   def tear_down

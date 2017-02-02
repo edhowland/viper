@@ -21,6 +21,9 @@ end
 def assert_eq left, right
   assert(left == right, "Expected #{left} to equal #{right}")
 end
+def assert_equals left, right
+  assert_eq left, right
+end
 
 def assert_is actual, klass
   assert(klass === actual, "Expected #{actual} to be instance of #{klass}, got #{actual.class.name}")
