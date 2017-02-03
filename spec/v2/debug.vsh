@@ -23,5 +23,8 @@ alias n='mark_next :_mark'
 alias p='mark_prev :_mark'
 alias sm='save_macro'
 alias em="edit_macro"
-alias g='goto :_buf'
+function g(ln) {
+  goto :_buf :ln | nop; line :_buf
+}
+test -f .vishrc && source .vishrc
 

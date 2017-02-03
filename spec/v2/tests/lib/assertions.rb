@@ -45,6 +45,13 @@ def assert_raises exception, &blk
   end
 end
 
+def assert_empty coll
+  assert coll.empty?, 'Expected collection to be empty, but was not'
+end
+
+def assert_not_empty coll
+  assert !coll.empty?, 'Expected collection to not be empty, but was'
+end
 # skips
 class SkippedTest < RuntimeError
 end
