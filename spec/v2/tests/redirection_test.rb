@@ -45,4 +45,14 @@ assert_eq @ios[:out].mode, 'w'
     result = var.call frames:@frames
     assert_eq result, 'hello'
   end
+  def test_redir_target_is_deref
+    @frames[:pathn] = 'xxyyzz'
+    var = Deref.new :pathn
+    redir = Redirection.new '<', var
+    result = redir.call env:@ios, frames:@frames
+    assert_is @ios[:in], ObjectRedir
+    #assert_eq @ios[:in].target, 'xxyyzz'
+    assert_eq @ios[:in].target, 'xxyyzz'
+
+  end
 end
