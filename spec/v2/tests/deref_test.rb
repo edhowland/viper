@@ -5,6 +5,8 @@ require_relative 'test_helper'
 class DerefTest < BaseSpike
   def set_up
     @frames = FrameStack.new
+    # Must set :ifs to single space for Deref.call split
+    @frames[:ifs] = ' '
   end
   def test_init
     var = Deref.new 'key'
