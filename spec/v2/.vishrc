@@ -1,2 +1,5 @@
 alias run_tests="sh 'ruby tests/buffer_test.rb'"
+function run_test(name) {
+  sh "ruby :{name}"
+}
 _mode=viper bind ctrl_e { run_tests } { cat }
