@@ -18,6 +18,10 @@ def assert expr, message='Expected true, got false'
   raise AssertionFailure.new(message) unless expr
 end
 
+def assert_false expr
+  assert(!(expr), 'Expected expression to be false, got true')
+end
+
 def assert_eq left, right
   assert(left == right, "Expected #{left} to equal #{right}")
 end

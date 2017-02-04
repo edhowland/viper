@@ -151,12 +151,40 @@ class BufferTest < BaseSpike
   end
 
 #describe 'eob? front is false' do
+  def test_eob_front_is_false
+    @buffer = Buffer.new 'hello world'
+    assert_false @buffer.eob?
+  end
 #describe 'eob? after move to end' do
-#describe 'match sets match_data' do
+  def test_eob_after_fin_is_true
+    @buffer = Buffer.new 'hello world'
+    @buffer.fin
+    assert @buffer.eob?
+  end
+
 #describe 'indent_level' do
+  def test_indent_level
+    @buffer = Buffer.new '  Jq something'
+    assert_eq @buffer.indent_level, 2
+  end
 #describe 'empty line indent_level is 0' do
+  def test_empty_line_indent_level_is_0
+    assert_eq @buffer.indent_level, 0
+  end
 #describe 'no indent_level should be 0' do
+  def test_indent_level_full_string_is_0
+    @buffer = Buffer.new 'hello world'
+    assert_eq @buffer.indent_level, 0
+  end
 #describe '2 tabs should be 4 indent_level' do
+  def test_2_tabs_indent_level_should_be_4
+    @buffer = Buffer.new '    hello world'
+    assert_eq @buffer.indent_level, 4
+  end
 #describe 'only spaces still report 6' do
-#
+def test_only_spaces_indent_level_should_still_be_6
+@buffer = Buffer.new '      '
+      assert_eq @buffer.indent_level, 6
 end
+end
+
