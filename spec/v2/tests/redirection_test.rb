@@ -11,6 +11,7 @@ class RedirectionTest  < BaseSpike
     @target = ->(env:, frames:) { 'xxyyzz' }
     @ios = FrameStack.new
     @frames = FrameStack.new
+    @frames[:ifs] = ' '
   end
   def test_init
     @redir = Redirection.new '>', @target
@@ -37,5 +38,11 @@ assert_eq @ios[:out].mode, 'w'
     assert_is @ios[:out], ObjectRedir
     assert_eq @ios[:out].target, 'xxyyzz'
     assert_eq @ios[:out].mode, 'a'
+  end
+  def test_deref_target
+    @frames[:kk] = 'hello'
+    var = Deref.new :kk
+    result = var.call frames:@frames
+    assert_eq result, 'hello'
   end
 end
