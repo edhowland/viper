@@ -1,0 +1,2 @@
+alias run_tests="sh 'ruby tests/buffer_test.rb'"
+_mode=viper bind ctrl_e { run_tests } { cat }
