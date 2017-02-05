@@ -69,5 +69,10 @@ def filter &blk
   L do |coll|
     coll.select &blk
   end
+end
 
+def slice range=(0..-1)
+  L do |coll|
+    coll.slice(range)
+  end
 end

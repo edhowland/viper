@@ -5,6 +5,11 @@ file 'vish.kpeg.rb' => 'vish.kpeg' do
   sh 'kpeg -f vish.kpeg && (sleep 1; ruby -c vish.kpeg.rb)'
 end
 
+task :testrb do
+  sh "ruby tests/all_tests.rb"
+end
+
+
 task :test do
   sh "./vepl -s tests/all_tests.vsh -e exit"
 end
