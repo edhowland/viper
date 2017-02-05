@@ -55,4 +55,11 @@ assert_eq @ios[:out].mode, 'w'
     assert_eq @ios[:in].target, 'xxyyzz'
 
   end
+  def test_raises_ambigous_error
+    var = Deref.new :pathn
+    redir = Redirection.new '<', var
+    assert_raises AmbigousRedirection do 
+      result = redir.call env:@ios, frames:@frames
+    end
+  end
 end

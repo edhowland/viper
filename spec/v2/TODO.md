@@ -72,10 +72,6 @@ Feature: comment/uncomment blocks that are marked
   > Use comment style as defined by .ext. E.g. .rb => '#'. .js => '//'
   > Work at current indent level
 Feature: Implement simple lint checker, like in Viper version 1.x
-Bug:  > and whenever this occurs
-  > caught exception : undefined method `split' for false:FalseClass
-  > ... Usually means virtual path does not exist like echo -n :word > :_clip
-  > like before first new_clip has been executed
 
 
 Feature: complete coding of undo/redo:

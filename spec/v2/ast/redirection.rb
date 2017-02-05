@@ -2,6 +2,9 @@
 
 require_relative 'context_constants'
 
+class AmbigousRedirection < RuntimeError
+end
+
 class ObjectRedir
   def initialize target, mode
     @target = target
@@ -28,6 +31,7 @@ class Redirection
   end
   def call env:, frames:
     target  = @target.call env:env, frames:frames
+    raise AmbigousRedirection.new "ambigous redirection target #{target}" if target.nil? || target.empty? || !!(target =~ /^\s+$/)
     target = target[0] if Array === target
     env[key] = ObjectRedir.new target, mode
     nil   # we will be rejected in statement after  we have been called
