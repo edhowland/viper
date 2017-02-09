@@ -56,7 +56,11 @@ end
   end
   def node elements, start=@root
     elements.each do |e|
-      start = start[e]
+      if start.nil? || start[e].nil?
+        start = nil
+      else
+        start = start[e]
+      end
     end
     start
   end

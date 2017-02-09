@@ -25,8 +25,9 @@ class FrameStack
   def push
     @frames.push({})
   end
-  # merge the top 2 levels on the stack
+  # merge the top 2 levels on the stack, unless only one level
   def merge
+    return nil if @frames.length < 2
     @frames[-2].merge! @frames[-1]
   end
   def pop

@@ -63,6 +63,7 @@ class VirtualLayer
     end
     def open path, mode
       node = @@root[path]
+      raise Errno::ENOENT.new(path) if node.nil? && mode == 'r'
       facade = IOFactory.make node
       facade.open path, mode
     end
