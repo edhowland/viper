@@ -39,6 +39,7 @@ end
 class AssertionRaiseFailure < BaseAssertionException; end
 
 def assert_raises exception, &blk
+  assert(false, 'assert_raises: Must supply a block') unless block_given?
   begin
     yield
     raise AssertionRaiseFailure.new  "Expected block to raise #{exception.name}, got none"

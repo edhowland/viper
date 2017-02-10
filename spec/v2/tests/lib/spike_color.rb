@@ -7,17 +7,24 @@
 # (opt):
 # infra red - a syntax error occurred, or some lib could not be  loaded
 
-Red = 0b00
-Green = 0b11
-Yellow = 0b10
-Blue = 0b01
+# return lambda for bitwise and of 2 args
+# lambda takes 2 args: color symbols like :red, :yellow
+# based on  color_bits hash
+def xform_color color_bits
+  bits_color = color_bits.invert
+  ->(a, b) { bits_color[color_bits[a] & color_bits[b] ] }
+end
+
+Red = 0b000
+Green = 0b011
+Yellow = 0b001
+Blue = 0b111
 
 def spike_color
   PipeProc.new do |coll|
-    color_bits = {pass: Green, fail: Red, error: Red, skip: Yellow, empty: Blue }
-    color_names = {Green => 'green', Yellow => 'yellow', Red => 'red', Blue => 'blue' }
-    coll = [:empty] if coll.empty?
+    status_color = {pass: :green, fail: :red, error: :red, skip: :yellow }
+        color_bits = {red: Red, yellow: Yellow, green: Green, blue: Blue }
 
-    color_names[ coll.reduce(Green) {|i, j| i & color_bits[j] } ]
+    coll.map {|e| status_color[e] }.reduce(:blue, &xform_color(color_bits))
   end
 end

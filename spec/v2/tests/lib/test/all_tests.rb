@@ -7,6 +7,8 @@ require_relative 'zero_test'
 require_relative 'yellow_skip'
 require_relative 'no_skip'
 require_relative 'one_test'
+require_relative 'color_tests'
+
 
 # load tests herein
 

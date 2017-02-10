@@ -31,9 +31,13 @@ class VFSRoot
   end
   def _chdir elements, start=@wd
     elements.each do |e|
-      start = start[e]
+      if start.nil? || start[e].nil?
+        start = nil
+      else
+        start = start[e]
+      end
     end
-    fail "cd: path not found" if start.nil?
+    raise Errno::ENOENT.new(elements.join('/')) if start.nil? 
     @wd = start
   end
   def _mkdir elements, start=@root
