@@ -36,6 +36,8 @@ class VirtualMachine
     result = true
     begin
       Hal.chdir path, @fs[:pwd]
+      rescue Errno::ENOENT => exc
+        raise exc
     rescue => err
       result = false
     ensure
@@ -54,8 +56,6 @@ class VirtualMachine
       self._chdir oldpwd
       self.pwd *args, env:env, frames:frames
     elsif args.empty?
-      #env[:err].puts "cd: Must supply one argument"
-      #false
       # go back to :proj
       self._chdir frames[:proj]
             self.pwd *args, env:env, frames:frames
