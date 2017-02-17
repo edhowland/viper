@@ -5,8 +5,10 @@ require_relative 'test_helper'
 class VirtualMachineTests < BaseSpike
   def set_up
     @errbuf = StringIO.new
+    @outbuf = StringIO.new
     @vm = VirtualMachine.new
     @vm.ios[:err] = @errbuf
+    @vm.ios[:out] = @outbuf
         @vm.mount '/v', env:@vm.ios, frames:@vm.fs
     @vroot = @vm.fs[:vroot]
     @oldpwd = @vm.fs[:pwd]
@@ -22,9 +24,7 @@ class VirtualMachineTests < BaseSpike
     assert_eq @vm.fs[:proj], @vm.fs[:pwd]
   end
   def test_cd_non_existant_dir_does_change_pwd
-      assert_raises Errno::ENOENT do 
-      @vm.cd '/xxttzz', env:@vm.ios, frames:@vm.fs
-    end
+    @vm.cd '/xxttzz', env:@vm.ios, frames:@vm.fs
     assert_eq @oldpwd, @vm.fs[:pwd]
   end
   def test_cd_dash_returns_oldpwd
@@ -40,5 +40,9 @@ class VirtualMachineTests < BaseSpike
     assert_raises Errno::ENOENT do 
       @vm._chdir '/xxyyzz'
     end
+  end
+  def test_cd_non_existant_dir_outputs_error_msg_to_stderr
+    @vm.cd '/v/zzyyxx', env:@vm.ios, frames:@vm.fs
+    assert_diff "cd: No such file or directory - /v/zzyyxx\n", @errbuf.string
   end
 end

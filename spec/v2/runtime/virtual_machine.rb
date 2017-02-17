@@ -51,16 +51,20 @@ class VirtualMachine
     true
   end
   def cd *args, env:, frames:
-    if !args.empty? && args[0] == '-'
-      oldpwd = @fs[:oldpwd]
-      self._chdir oldpwd
-      self.pwd *args, env:env, frames:frames
-    elsif args.empty?
-      # go back to :proj
-      self._chdir frames[:proj]
-            self.pwd *args, env:env, frames:frames
-    else
-      self._chdir args[0]
+    begin
+      if !args.empty? && args[0] == '-'
+        oldpwd = @fs[:oldpwd]
+        self._chdir oldpwd
+        self.pwd *args, env:env, frames:frames
+      elsif args.empty?
+        # go back to :proj
+        self._chdir frames[:proj]
+        self.pwd *args, env:env, frames:frames
+      else
+        self._chdir args[0]
+      end
+    rescue Errno::ENOENT => err
+      env[:err].puts "cd: #{err.message}"
     end
   end
   def mount *args, env:, frames:

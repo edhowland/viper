@@ -30,6 +30,7 @@ class VFSRoot
   elements
   end
   def _chdir elements, start=@wd
+    spath = path_from_start_elements(start.name, elements)
     elements.each do |e|
       if start.nil? || start[e].nil?
         start = nil
@@ -37,7 +38,7 @@ class VFSRoot
         start = start[e]
       end
     end
-    raise Errno::ENOENT.new(elements.join('/')) if start.nil? 
+    raise Errno::ENOENT.new(spath) if start.nil? 
     @wd = start
   end
   def _mkdir elements, start=@root

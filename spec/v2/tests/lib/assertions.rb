@@ -22,6 +22,12 @@ def assert_false expr
   assert(!(expr), 'Expected expression to be false, got true')
 end
 
+def assert_diff left, right, message=''
+  left.chars.each_with_index do |e, i|
+    assert e == right[i], "strings differ at offset #{i} : left: #{e} : right #{right[i]}"
+  end
+  assert left.length == right.length, "strings are of different lengths: left #{left.length} right #{right.length}\n#{[left, right].max.bytes[([left, right].min.length)..-1].inspect}"
+end
 def assert_eq left, right
   assert(left == right, "Expected #{left} to equal #{right}")
 end
