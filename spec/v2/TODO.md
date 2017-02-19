@@ -43,13 +43,8 @@ Investigate: Is Vsh redundant for eval statement?
   > If so, then replace vsh w/eval
 ----
 Outstanding bugs, new features
-Bug: command cd to nonexistent directory , should be exposed to statement and output error to stderr from Error::ENO exception.
 Bug: when scratch buffer(s) in use: and non_-empty, they cannot be saved to file names
   > Possibly, have a modal dialog base to get filename from user
-Bug: First time try of meta_d + any key, get command not found
-> Use: -x option to require debugging_support:
-> When command not found, stack trace is output
-> Use RNG='-7..-1' to restrict verbosity of trace output lines as global ENVironment var
 Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer

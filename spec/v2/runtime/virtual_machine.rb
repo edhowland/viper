@@ -63,8 +63,10 @@ class VirtualMachine
       else
         self._chdir args[0]
       end
+      true
     rescue Errno::ENOENT => err
       env[:err].puts "cd: #{err.message}"
+      false
     end
   end
   def mount *args, env:, frames:

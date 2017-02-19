@@ -45,4 +45,12 @@ class VirtualMachineTests < BaseSpike
     @vm.cd '/v/zzyyxx', env:@vm.ios, frames:@vm.fs
     assert_diff "cd: No such file or directory - /v/zzyyxx\n", @errbuf.string
   end
+  def test_cd_ok_has_true_exit_status
+    @vm.cd '/v', env:@vm.ios, frames:@vm.fs
+    assert @vm.fs[:exit_status]
+  end
+  def test_cd_non_existant_dir_has_false_exit_status
+        result = @vm.cd '/v/xxxyyyzzz', env:@vm.ios, frames:@vm.fs
+        assert_false result
+  end
 end
