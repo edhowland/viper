@@ -20,6 +20,9 @@ oparse = OptionParser.new do |opt|
   opt.on('-n', '--no-start', 'Do not execute startup scripts') do
     options[:no_start] = true
   end
+  opt.on('-S script', '--start script', String, 'Run script prior to load') do |script|
+    options[:start] << script
+  end
   opt.on('-x', '--debug', 'Debugging Support') do
     options[:debug] = true
 require_relative 'debugging_support'
@@ -29,8 +32,8 @@ require_relative 'debugging_support'
     options[:start] << 'logger -s; on &() { logger :_ }'
     options[:finish] << 'logger -e'
   end
-  opt.on('-l line', '--line line', 'Jump to line number after load buffer') do |line|
-    options[:execute] << "goto :_buf #{line}"
+  opt.on('-l line', '--line line', String, 'Jump to line number after load buffer') do |line|
+    options[:start] << "on load_event { g #{line} }"
   end
   opt.on('-s script', '--source script', 'Source script') do |script|
     options[:execute] << "source #{script}"

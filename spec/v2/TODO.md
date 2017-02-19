@@ -49,6 +49,8 @@ Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
+Feature/Bug: Make the echo be both builtin and a real command in /v/bin.
+  >> This conforms to Bash like behaviour.
 Feature: add -f option to unset command to remove functions
   > Possible enhancement: allow for the function hash to be a part of the frame stack
   > ... Would for functions to within functions, and go out of scope when left

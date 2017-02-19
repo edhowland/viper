@@ -7,6 +7,7 @@ test -z :argv || exec {
 for f in :(reverse :argv) { fopen :f }
 echo -n buffer :(basename :_buf)
 }
+load_event
 meta :run
 cat < /v/command > command.hist
 

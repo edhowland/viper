@@ -23,14 +23,15 @@ def vepl options={}, argv:
   begin
     # setup arguments to vepl command as :argv
     vm.fs[:argv] = argv
-    # load any startup scripts
-    options[:start].each do |code|
-      cblock = Visher.parse! code
-      vm.call cblock
-    end
+
     vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
     if File.exist?(vishrc) && options[:no_start].nil?
       code = File.read(vishrc)
+      cblock = Visher.parse! code
+      vm.call cblock
+    end
+    # load any startup scripts
+    options[:start].each do |code|
       cblock = Visher.parse! code
       vm.call cblock
     end

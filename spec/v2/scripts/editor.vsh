@@ -1,3 +1,6 @@
+function load_event() {
+  nop
+}
 function open(fname) {
 bname=:(basename :fname)
 _buf=/v/buf/:{bname}
