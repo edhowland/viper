@@ -17,7 +17,7 @@ options = {
 :check => false
 }
 oparse = OptionParser.new do |opt|
-  opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
+  opt.banner = 'Viper - Scriptible code editor'
   opt.separator ''
   opt.on('-n', '--no-start', 'Do not execute startup scripts') do
     options[:no_start] = true
@@ -38,7 +38,7 @@ require_relative 'debugging_support'
     options[:finish] << 'logger -e'
   end
   opt.on('-l line', '--line line', String, 'Jump to line number after load buffer') do |line|
-    options[:start] << "on load_event { g #{line} }"
+    options[:start] << "on load_event { goto :_buf #{line} | nop }"
   end
   opt.on('-s script', '--source script', 'Source script') do |script|
     options[:sources] << script
@@ -124,6 +124,7 @@ $exit_handlers = final_scripts($vm).map {|e| File.read(e) }.map {|e| Visher.pars
     (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
     options[:execute] +
     files(ARGV) + 
+    [ 'load_event' ] +
     mode(options) +
     final_scripts($vm).map {|e| File.read(e) }
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
@@ -138,13 +139,3 @@ rescue => err
 ensure
   $exit_handlers.each {|e| $vm.call e }
 end
-
- # setup exit handlers
-
-at_exit do
-  options[:finish].reverse.each do |code|
-    cblock = Visher.parse! code
-    $vm.call cblock
-  end
-end
-

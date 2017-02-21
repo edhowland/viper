@@ -4,12 +4,10 @@ Version : Viper 1.99-rc0
 
 MUST DO:
 
-I. Implement exit functionality...check for open dirty unsaved files
 II. reimplement meta mode in spec/v2/meta.vsh
 III. Add any home dir/.vishrc or local .vishrc
 IV. Implement scratch thing ... somehow
   >> See below to learn about not saving some types of buffers. 
-V. Implement -l --line number, or make it still works
 Notes:
 Addded  keys:
   meta_less - bound to outdent range
