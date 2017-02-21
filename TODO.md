@@ -51,6 +51,7 @@ Investigate: Is Vsh redundant for eval statement?
   > If so, then replace vsh w/eval
 ----
 Outstanding bugs, new features
+Bug: -c does not work to check .vsh syntax ... investigate
 Bug: when scratch buffer(s) in use: and non_-empty, they cannot be saved to file names
   > Possibly, have a modal dialog base to get filename from user
 Bug: problem with/backspace saying selection deleted. sometimes

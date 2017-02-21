@@ -91,6 +91,11 @@ def scripts opt, vm
   Dir[vm.fs[:vhome] + '/scripts/*.vsh']
 end
 
+# return list of extension file.vsh in :vhome/ext/*/*.vsh
+def extensions vm
+  Dir[vm.fs[:vhome] + '/ext/*/*.vsh']
+end
+
 def mode opt
   [ opt[:mode] ]
 end
@@ -103,11 +108,12 @@ def files argv
 end
 
 $vm = VirtualMachine.new
+#extensions($vm).map {|e| File.read(e) }; exit
 begin
   ((
     boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
     options[:start] +
-    scripts(options, $vm).map {|e| File.read(e) } +
+    (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
     options[:execute] +
     files(ARGV) + 
     mode(options)
