@@ -5,7 +5,7 @@ _mode=command mode_keys :(printable)
 function com() {
 true;_status=:exit_status;global _status
 loop {
-echo -n ":{prompt}2"
+echo -n ":{prompt}"
 fin /v/command
 _mode=command _buf=/v/command loop { 
 fn=:(raw -|xfkey)

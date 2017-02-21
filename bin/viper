@@ -95,8 +95,11 @@ def mode opt
   [ opt[:mode] ]
 end
 
+# return list of 'fopen filename' s based on ARGV
+# if ARGV is empty, return [ 'open unnamed1 ]
+# unless some other command has set :_buf first
 def files argv
-  argv.empty? ? ['open unnamed1'] : argv.reverse.map {|e| "fopen #{e}" }
+  argv.empty? ? [ 'test -z :_buf && open unnamed1'] : argv.reverse.map {|e| "fopen #{e}" }
 end
 
 $vm = VirtualMachine.new
@@ -128,6 +131,3 @@ at_exit do
   end
 end
 
-
-# start REPL
-#$vm = vepl(options, argv:ARGV)
