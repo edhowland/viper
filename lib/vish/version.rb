@@ -1,29 +1,21 @@
 # version - class Vish::VERSION - version of Vish shell
 
 class Vish
-  VERSION = '0.3.0'.freeze
+  VERSION = '1.99-rc0'.freeze
   DESCRIPTION = <<-EOD
-  Vish is an Bash-like command shell developed for the Viper editor.
-  Thi version #{VERSION} contains support for the Buffer class API and
-  the implementation of the Viper written entirely in various Vish scripts:
-  etc/vishrc - Vish startup script: mounts /v as root of all data structures
-  scripts/editor.vsh - Supporting functions for editors
-  scripts/eviper.vsh - The key bindings for editor mode: viper
-  scripts/edelete.vsh - deletion commands, bound to meta_d + keys
-  scripts/eprompt.vsh - prompting for a choice from user
-  scripts/ecommand.vsh - command mode invoked with meta_semicolon
-  meta.vsh - function meta - loop about meta mode.
-  startup.vsh - gets the whole ball rolling. drops into meta mode with either
-    vip or com mode
-  shutdown.vsh - cleans up unsaved buffers asking to save them.
-  debug.vsh - various aliases for debugging
-scripts/ruby.vsh prehook and extension setup for Ruby language snippets
-scripts/vish.vsh pre_hook for .vsh file type
-ruby.json snippets for Ruby language. Load with loadrb, save macros with dumprb
-vish.json snippets for .vsh: Vish file types. load w/loadvsh, dump w/dumpvsh
-scripts/extras.vsh placeholder for various misc. functions, aliases, etc.
-scripts/marks.vsh - functions  for use in navigating marks set in :_mark
-scripts/macros.vsh - functions having to do with macros : save_macro, play_macro, edit_macro, rm_macro, macros
+Viper version #{Vish::VERSION}
+Runs scripts in the Vish command language  implement a code editor.
+The editor scripts are in the Viper Home/scripts directory. Each is a numbered
+file (E.g.: 001_editor.vsh, 002_*.vsh).
+Use -h to see a list of options. By default, viper will open a buffer called : unnamed1
+Any non option arguments are treated as files to be edited.
+Use the --mode mode option to start another mode besides : vip.
+-m com  : starts the command REPL.
+--mode nop  : Will run nothing at start.
+--mode userfn  : Will run any function you choose.
+
+Use the --source to load your own list of Vish scripts or use --execute
+to load a script on the command line.
   EOD
 end
 
