@@ -94,6 +94,7 @@ begin
     options[:start] +
     scripts(options, $vm).map {|e| File.read(e) } +
     options[:execute] +
+    ARGV.reverse.map {|e| "fopen #{e}" } +
     [ 'com' ]
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
