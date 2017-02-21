@@ -15,6 +15,7 @@ class VirtualMachine
     @fs[:exit_status] = true
     @fs.vm = self
     @fs[:pwd] = Hal.pwd
+    @fs[:vhome] = PhysicalLayer.realpath(Hal.dirname(__FILE__) + '/../..')
     @fs[:prompt] = 'vepl '
     @fs[:oldpwd] = Hal.pwd
     @fs[:version] = Vish::VERSION

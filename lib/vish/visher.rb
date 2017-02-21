@@ -24,7 +24,7 @@ def vepl options={}, argv:
     # setup arguments to vepl command as :argv
     vm.fs[:argv] = argv
 
-    vishrc = File.dirname(File.expand_path(__FILE__)) + '/etc/vishrc'
+    vishrc = File.dirname(File.expand_path(__FILE__)) + '/../etc/vishrc'
     if File.exist?(vishrc) && options[:no_start].nil?
       code = File.read(vishrc)
       cblock = Visher.parse! code

@@ -1,0 +1,119 @@
+#!/usr/bin/env ruby
+# viper - main start for viper editor
+
+# TODO: REMOVEME
+require 'pry'
+
+require 'optparse'
+require_relative '../lib/viper'
+
+options = {
+  :start => [],
+  :sources => [],
+  :execute => [],
+  :finish => [],
+:debug => false,
+:check => false
+}
+oparse = OptionParser.new do |opt|
+  opt.banner = 'vepl - Read, Eval, Print Loop for Vish shell for Viper editor'
+  opt.separator ''
+  opt.on('-n', '--no-start', 'Do not execute startup scripts') do
+    options[:no_start] = true
+  end
+  opt.on('-S script', '--start script', String, 'Run script prior to load') do |script|
+    options[:start] << script
+  end
+  opt.on('-x', '--debug', 'Debugging Support') do
+    options[:debug] = true
+require_relative 'debugging_support'
+  end
+  opt.on('-L', '--log', 'Start logging to vish.log') do
+    options[:log] = true
+    options[:start] << 'logger -s; on &() { logger :_ }'
+    options[:finish] << 'logger -e'
+  end
+  opt.on('-l line', '--line line', String, 'Jump to line number after load buffer') do |line|
+    options[:start] << "on load_event { g #{line} }"
+  end
+  opt.on('-s script', '--source script', 'Source script') do |script|
+    options[:sources] << script
+  end
+  opt.on('-e script', '--execute script', String, 'Execute this command at startup') do |script|
+    options[:execute] << script
+  end
+  opt.on('--finish script', String, 'Execute this set of scripts upon exit of session') do |script|
+    options[:finish] << script
+  end
+  opt.on('-c', '--check', 'Check syntax of Vish file or stdin') do
+    options[:check] = true
+  end
+  opt.separator ''
+  opt.on('-h', '--help', 'Display this help and exit') do
+    puts opt
+    exit
+  end
+  opt.on('-v', '--version', 'Display version of Vish shell and exit') do
+    puts 'Vish version'
+    puts Vish::VERSION
+    puts
+    puts Vish::DESCRIPTION
+    exit
+  end
+end
+oparse.parse!
+
+ # possibly check all input files for syntax correctness
+if options[:check]
+  rvalue = 0
+    ARGV.each do |f|
+    begin
+      Visher.parse!(File.read(f))
+puts "#{f}: Syntax OK"
+  rescue VishSyntaxError => err
+    $stderr.puts "#{f}: #{err.message}"
+rvalue = 1
+  end
+  end
+  exit rvalue
+end
+
+
+def boot opt, vm
+  opt[:no_start] ? [] : [ vm.fs[:vhome] + '/etc/vishrc' ]
+end
+
+def scripts opt, vm
+  Dir[vm.fs[:vhome] + '/scripts/*.vsh']
+end
+
+$vm = VirtualMachine.new
+begin
+  ((
+    boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
+    options[:start] +
+    scripts(options, $vm).map {|e| File.read(e) } +
+    options[:execute] +
+    [ 'com' ]
+  ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
+rescue VirtualMachine::ExitCalled => err
+  #
+  rescue VishSyntaxError => err
+  puts 'Syntax error occured during load'
+rescue => err
+  puts err.class.name
+  puts err.message
+end
+
+ # setup exit handlers
+
+at_exit do
+  options[:finish].reverse.each do |code|
+    cblock = Visher.parse! code
+    $vm.call cblock
+  end
+end
+
+
+# start REPL
+#$vm = vepl(options, argv:ARGV)
