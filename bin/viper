@@ -96,6 +96,11 @@ def extensions vm
   Dir[vm.fs[:vhome] + '/ext/*/*.vsh']
 end
 
+# return list of final scripts to be run at system exit
+def final_scripts vm
+  Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
+end
+
 def mode opt
   [ opt[:mode] ]
 end
@@ -108,15 +113,19 @@ def files argv
 end
 
 $vm = VirtualMachine.new
-#extensions($vm).map {|e| File.read(e) }; exit
+
 begin
+# setup exit handlers. Checks for existantance and syntax correctness
+$exit_handlers = final_scripts($vm).map {|e| File.read(e) }.map {|e| Visher.parse! e }
+
   ((
     boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
     options[:start] +
     (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
     options[:execute] +
     files(ARGV) + 
-    mode(options)
+    mode(options) +
+    final_scripts($vm).map {|e| File.read(e) }
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
   #
@@ -126,6 +135,8 @@ rescue => err
   puts err.class.name
   puts err.message
   puts err.backtrace
+ensure
+  $exit_handlers.each {|e| $vm.call e }
 end
 
  # setup exit handlers
