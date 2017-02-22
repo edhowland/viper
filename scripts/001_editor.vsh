@@ -17,7 +17,7 @@ rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
 test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
 }
-function o(fname) { fopen :fname; apply fn_2 }
+function o(fname) { fopen :fname; (test -f :fname && apply fn_2) || echo -n new file ':' :fname }
 function applyf(key, data) { exec "/v/modes/:{_mode}/:{key}" :data }
 function applys(key, data) { exec "/v/views/:{_mode}/:{key}" :data }
 function applyk(key, opt) {
