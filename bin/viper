@@ -112,6 +112,11 @@ def files argv
   argv.empty? ? [ 'test -z :_buf && open unnamed1'] : argv.reverse.map {|e| "fopen #{e}" }
 end
 
+
+def vishrc_files
+  Dir[ENV['HOME'] + '/.vishrc'] + Dir['./.vishrc']
+end
+
 $vm = VirtualMachine.new
 
 begin
@@ -124,9 +129,9 @@ $exit_handlers = final_scripts($vm).map {|e| File.read(e) }.map {|e| Visher.pars
     (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
     options[:execute] +
     files(ARGV) + 
+    vishrc_files.map {|e| File.read(e) } +
     [ 'load_event' ] +
-    mode(options) +
-    final_scripts($vm).map {|e| File.read(e) }
+    mode(options)
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
   #

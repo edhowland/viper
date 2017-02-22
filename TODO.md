@@ -4,10 +4,9 @@ Version : Viper 1.99-rc0
 
 MUST DO:
 
-II. reimplement meta mode in spec/v2/meta.vsh
-III. Add any home dir/.vishrc or local .vishrc
 IV. Implement scratch thing ... somehow
   >> See below to learn about not saving some types of buffers. 
+
 Notes:
 Addded  keys:
   meta_less - bound to outdent range
