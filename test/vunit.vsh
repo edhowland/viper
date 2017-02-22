@@ -1,7 +1,4 @@
-require ls_functions.rb
-install_cmd LsFunctions /v/bin
-require shuffle.rb
-install_cmd Shuffle /v/bin
+source load_commands.vsh
 function assert() {
   :_ || raise "expected :{_} to be true"
 }
@@ -20,7 +17,7 @@ function run_afters() {
   each &(f) { :f } :(afters)
 }
 function units() {
-ls_functions | grep test
+ls_functions | grep '/^test/'
 }
 function run_units() {
   map &(fn) { capture { run_befores; :fn >> /v/tests/log; run_afters; echo pass } { echo :fn ':' :last_exception >> /v/tests/fails; echo :fn } } :(shuffle :(units))
@@ -50,4 +47,5 @@ alias x='echo :exit_status'
 function run_1(te) {
   capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
 }
-at exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }
+at_exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }
+
