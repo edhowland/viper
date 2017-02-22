@@ -8,7 +8,7 @@ require 'optparse'
 require_relative '../lib/viper'
 
 options = {
-  :mode => 'echo -n buffer :(basename :_buf); vip',
+  :mode => 'echo -n buffer :(basename :_buf); meta vip',
   :start => [],
   :sources => [],
   :execute => [],
