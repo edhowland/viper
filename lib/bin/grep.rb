@@ -1,6 +1,7 @@
 # grep - class Grep - command grep - looks for regex in lines
 # args -o : only output matched chars
 # -n: print without newline
+# -q : no output, only :exit_status is true if match, else false
 
 class Grep < BaseCommand
   def regexp string
@@ -14,6 +15,8 @@ class Grep < BaseCommand
   def say string
     if @options[:n]
       @out.print string
+    elsif @options[:q]
+      #
     else
       @out.puts string
     end

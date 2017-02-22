@@ -10,6 +10,10 @@ function filter() {
 shift fn
 for e in :_ { exec :fn :e && echo -n :e ' ' }
 }
+function reject() {
+shift fn
+for e in :_ { exec :fn :e || echo -n :e ' ' }
+}
 function reduce() {
 shift fn
 shift init

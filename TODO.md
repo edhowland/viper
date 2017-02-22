@@ -2,11 +2,6 @@
 
 Version : Viper 1.99-rc0
 
-MUST DO:
-
-IV. Implement scratch thing ... somehow
-  >> See below to learn about not saving some types of buffers. 
-
 Notes:
 Addded  keys:
   meta_less - bound to outdent range
@@ -49,8 +44,6 @@ Investigate: Is Vsh redundant for eval statement?
 ----
 Outstanding bugs, new features
 Bug: -c does not work to check .vsh syntax ... investigate
-Bug: when scratch buffer(s) in use: and non_-empty, they cannot be saved to file names
-  > Possibly, have a modal dialog base to get filename from user
 Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
