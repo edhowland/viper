@@ -50,4 +50,4 @@ alias x='echo :exit_status'
 function run_1(te) {
   capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
 }
-on exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }
+at exit { stats; test -f /v/tests/fails && cat < /v/tests/fails }

@@ -129,8 +129,8 @@ end
 $vm = VirtualMachine.new
 
 begin
-# setup exit handlers. Checks for existantance and syntax correctness
-$exit_handlers = final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) }.map {|e| Visher.parse! e }
+  # setup exit handlers. Checks for existantance and syntax correctness
+  $exit_handlers = (final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) } + [ 'exit_event' ]).map {|e| Visher.parse! e }
 
   ((
     boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
