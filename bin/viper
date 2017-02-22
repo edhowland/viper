@@ -8,6 +8,8 @@ require 'optparse'
 require_relative '../lib/viper'
 
 options = {
+  :no_start => false,
+:no_finish => false,
   :mode => 'echo -n buffer :(basename :_buf); meta vip',
   :start => [],
   :sources => [],
@@ -21,6 +23,9 @@ oparse = OptionParser.new do |opt|
   opt.separator ''
   opt.on('-n', '--no-start', 'Do not execute startup scripts') do
     options[:no_start] = true
+  end
+  opt.on('--no-finish', 'Do not execute scripts at exit') do
+    options[:no_finish] = true
   end
   opt.on('-m mode', '--mode mode', String, 'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
@@ -97,8 +102,12 @@ def extensions vm
 end
 
 # return list of final scripts to be run at system exit
-def final_scripts vm
-  Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
+def final_scripts vm, no_finish: false
+  unless no_finish
+    Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
+  else
+    []
+  end
 end
 
 def mode opt
@@ -121,7 +130,7 @@ $vm = VirtualMachine.new
 
 begin
 # setup exit handlers. Checks for existantance and syntax correctness
-$exit_handlers = final_scripts($vm).map {|e| File.read(e) }.map {|e| Visher.parse! e }
+$exit_handlers = final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) }.map {|e| Visher.parse! e }
 
   ((
     boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +

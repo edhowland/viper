@@ -2,6 +2,14 @@
 
 Version : Viper 1.99-rc0
 
+
+Current Task:
+
+A. Make test/all_test.vsh work within bin/viper
+  >> Move attic/Rakefile to ./Rakefile. 
+    >>>> Make kpeg compile work within lib/vish
+    >>>> Check current Rakefile for things... Probably just runs old specs
+  >> Copy old debugging support to somewhere
 Notes:
 Addded  keys:
   meta_less - bound to outdent range

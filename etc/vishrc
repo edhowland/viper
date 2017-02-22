@@ -42,3 +42,6 @@ function decr(x) {
 function incr(x) {
   expr :x '+' 1
 }
+function load_event() {
+  nop
+}
