@@ -129,6 +129,7 @@ end
 $vm = VirtualMachine.new
 
 begin
+  _exit_code = 0
   # setup exit handlers. Checks for existantance and syntax correctness
   $exit_handlers = (final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) } + [ 'exit_event' ]).map {|e| Visher.parse! e }
 
@@ -143,7 +144,7 @@ begin
     mode(options)
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
-  #
+  _exit_code = err.code
   rescue VishSyntaxError => err
   puts 'Syntax error occured during load'
 rescue => err
@@ -152,4 +153,5 @@ rescue => err
   puts err.backtrace
 ensure
   $exit_handlers.each {|e| $vm.call e }
+  exit(_exit_code)
 end

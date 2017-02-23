@@ -2,7 +2,12 @@
 
 class VirtualMachine
   class BreakCalled < RuntimeError; end
-  class ExitCalled < RuntimeError; end
+  class ExitCalled < RuntimeError
+  def initialize code=0
+    @code = code
+  end
+  attr_reader :code
+   end
   class ReturnCalled < RuntimeError
     def initialize return_code
       @return_code = return_code

@@ -2,7 +2,9 @@
 
 class Exit < BaseCommand
   def call *args, env:, frames:
-    raise VirtualMachine::ExitCalled
+    code = 0
+    code = args[0].to_i unless args.empty?
+    raise VirtualMachine::ExitCalled.new(code)
   end
 end
 
