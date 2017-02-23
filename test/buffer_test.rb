@@ -186,5 +186,9 @@ def test_only_spaces_indent_level_should_still_be_6
 @buffer = Buffer.new '      '
       assert_eq @buffer.indent_level, 6
 end
+  def test_lines
+    @buffer.ins "line 1\nline 2\nline 3\n"
+    assert_eq @buffer.lines.length, 3
+  end
 end
 

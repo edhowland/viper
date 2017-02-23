@@ -287,4 +287,7 @@ class Buffer
   def index &blk
     to_a.index &blk
   end
+  def lines
+    @a_buff.lines + @b_buff.lines
+  end
 end
