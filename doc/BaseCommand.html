@@ -1,0 +1,526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: BaseCommand
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!BaseCommand.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (B)</a> &raquo;
+    
+    
+    <span class="title">BaseCommand</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: BaseCommand
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">BaseCommand</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/runtime/base_command.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>base_command.rb - abstract class BaseCommand - base class for all/most
+commands. possibly abstracts out option handling adds methods: pout, perr
+to simplify stdout, stderr stream output</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="BaseNodeCommand.html" title="BaseNodeCommand (class)">BaseNodeCommand</a></span>, <span class='object_link'><a href="BaseValueCommand.html" title="BaseValueCommand (class)">BaseValueCommand</a></span>, <span class='object_link'><a href="Basename.html" title="Basename (class)">Basename</a></span>, <span class='object_link'><a href="Bell.html" title="Bell (class)">Bell</a></span>, <span class='object_link'><a href="Between.html" title="Between (class)">Between</a></span>, <span class='object_link'><a href="Cat.html" title="Cat (class)">Cat</a></span>, <span class='object_link'><a href="Combine.html" title="Combine (class)">Combine</a></span>, <span class='object_link'><a href="Datetime.html" title="Datetime (class)">Datetime</a></span>, <span class='object_link'><a href="Dirname.html" title="Dirname (class)">Dirname</a></span>, <span class='object_link'><a href="Echo.html" title="Echo (class)">Echo</a></span>, <span class='object_link'><a href="Encode64.html" title="Encode64 (class)">Encode64</a></span>, <span class='object_link'><a href="Eq.html" title="Eq (class)">Eq</a></span>, <span class='object_link'><a href="Exec.html" title="Exec (class)">Exec</a></span>, <span class='object_link'><a href="Exit.html" title="Exit (class)">Exit</a></span>, <span class='object_link'><a href="Expr.html" title="Expr (class)">Expr</a></span>, <span class='object_link'><a href="False.html" title="False (class)">False</a></span>, <span class='object_link'><a href="Find.html" title="Find (class)">Find</a></span>, <span class='object_link'><a href="For.html" title="For (class)">For</a></span>, <span class='object_link'><a href="Grep.html" title="Grep (class)">Grep</a></span>, <span class='object_link'><a href="Hashcode.html" title="Hashcode (class)">Hashcode</a></span>, <span class='object_link'><a href="Hd.html" title="Hd (class)">Hd</a></span>, <span class='object_link'><a href="Head.html" title="Head (class)">Head</a></span>, <span class='object_link'><a href="Indexof.html" title="Indexof (class)">Indexof</a></span>, <span class='object_link'><a href="Logger.html" title="Logger (class)">Logger</a></span>, <span class='object_link'><a href="Loop.html" title="Loop (class)">Loop</a></span>, <span class='object_link'><a href="Ls.html" title="Ls (class)">Ls</a></span>, <span class='object_link'><a href="Lt.html" title="Lt (class)">Lt</a></span>, <span class='object_link'><a href="Lte.html" title="Lte (class)">Lte</a></span>, <span class='object_link'><a href="Mkarray.html" title="Mkarray (class)">Mkarray</a></span>, <span class='object_link'><a href="Mv.html" title="Mv (class)">Mv</a></span>, <span class='object_link'><a href="Nop.html" title="Nop (class)">Nop</a></span>, <span class='object_link'><a href="Null.html" title="Null (class)">Null</a></span>, <span class='object_link'><a href="On.html" title="On (class)">On</a></span>, <span class='object_link'><a href="Pathmap.html" title="Pathmap (class)">Pathmap</a></span>, <span class='object_link'><a href="Perr.html" title="Perr (class)">Perr</a></span>, <span class='object_link'><a href="Raise.html" title="Raise (class)">Raise</a></span>, <span class='object_link'><a href="Rand.html" title="Rand (class)">Rand</a></span>, <span class='object_link'><a href="Raw.html" title="Raw (class)">Raw</a></span>, <span class='object_link'><a href="Read.html" title="Read (class)">Read</a></span>, <span class='object_link'><a href="Realpath.html" title="Realpath (class)">Realpath</a></span>, <span class='object_link'><a href="Require.html" title="Require (class)">Require</a></span>, <span class='object_link'><a href="Reverse.html" title="Reverse (class)">Reverse</a></span>, <span class='object_link'><a href="Rm.html" title="Rm (class)">Rm</a></span>, <span class='object_link'><a href="Ruby.html" title="Ruby (class)">Ruby</a></span>, <span class='object_link'><a href="Setv.html" title="Setv (class)">Setv</a></span>, <span class='object_link'><a href="Sh.html" title="Sh (class)">Sh</a></span>, <span class='object_link'><a href="Shift.html" title="Shift (class)">Shift</a></span>, <span class='object_link'><a href="Sleep.html" title="Sleep (class)">Sleep</a></span>, <span class='object_link'><a href="Stat.html" title="Stat (class)">Stat</a></span>, <span class='object_link'><a href="Store.html" title="Store (class)">Store</a></span>, <span class='object_link'><a href="Tail.html" title="Tail (class)">Tail</a></span>, <span class='object_link'><a href="Tee.html" title="Tee (class)">Tee</a></span>, <span class='object_link'><a href="Test.html" title="Test (class)">Test</a></span>, <span class='object_link'><a href="Touch.html" title="Touch (class)">Touch</a></span>, <span class='object_link'><a href="Tr.html" title="Tr (class)">Tr</a></span>, <span class='object_link'><a href="True.html" title="True (class)">True</a></span>, <span class='object_link'><a href="Unset.html" title="Unset (class)">Unset</a></span>, <span class='object_link'><a href="VshParse.html" title="VshParse (class)">VshParse</a></span>, <span class='object_link'><a href="Wc.html" title="Wc (class)">Wc</a></span>, <span class='object_link'><a href="Xfkey.html" title="Xfkey (class)">Xfkey</a></span></p>
+</div>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#descendants-class_method" title="descendants (class method)">+ (Object) <strong>descendants</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#args_parse%21-instance_method" title="#args_parse! (instance method)">- (Object) <strong>args_parse!</strong>(args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-instance_method" title="#call (instance method)">- (Object) <strong>call</strong>(*args, env:, frames:, &amp;blk) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (BaseCommand) <strong>initialize</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of BaseCommand.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#perr-instance_method" title="#perr (instance method)">- (Object) <strong>perr</strong>(*stuff) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pout-instance_method" title="#pout (instance method)">- (Object) <strong>pout</strong>(*stuff) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="BaseCommand (class)">BaseCommand</a></span></tt>) <strong>initialize</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of BaseCommand</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> 
+  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="descendants-class_method">
+  
+    + (<tt>Object</tt>) <strong>descendants</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_descendants'>descendants</span>
+      <span class='const'>ObjectSpace</span><span class='period'>.</span><span class='id identifier rubyid_each_object'>each_object</span><span class='lparen'>(</span><span class='const'>Class</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_klass'>klass</span><span class='op'>|</span> <span class='id identifier rubyid_klass'>klass</span> <span class='op'>&lt;</span> <span class='kw'>self</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="args_parse!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>args_parse!</strong>(args) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_args_parse!'>args_parse!</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\-.+</span><span class='regexp_end'>/</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\-*([^\-]*)</span><span class='regexp_end'>/</span></span><span class='semicolon'>;</span> <span class='backref'>$1</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='id identifier rubyid_e'>e</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\-.+</span><span class='regexp_end'>/</span></span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="call-instance_method">
+  
+    - (<tt>Object</tt>) <strong>call</strong>(*args, env:, frames:, &amp;blk) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='label'>env:</span><span class='comma'>,</span> <span class='label'>frames:</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span>
+<span class='ivar'>@ios</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span>
+<span class='ivar'>@in</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:in</span><span class='rbracket'>]</span>
+<span class='ivar'>@out</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:out</span><span class='rbracket'>]</span>
+<span class='ivar'>@err</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:err</span><span class='rbracket'>]</span>
+<span class='ivar'>@fs</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span>
+<span class='ivar'>@av</span> <span class='op'>=</span> <span class='id identifier rubyid_args_parse!'>args_parse!</span> <span class='id identifier rubyid_args'>args</span>
+<span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='op'>*</span><span class='ivar'>@av</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+  <span class='kw'>if</span> <span class='const'>TrueClass</span> <span class='op'>===</span> <span class='id identifier rubyid_result'>result</span> <span class='op'>||</span> <span class='const'>FalseClass</span> <span class='op'>===</span> <span class='id identifier rubyid_result'>result</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='kw'>end</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="perr-instance_method">
+  
+    - (<tt>Object</tt>) <strong>perr</strong>(*stuff) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_perr'>perr</span> <span class='op'>*</span><span class='id identifier rubyid_stuff'>stuff</span>
+  <span class='ivar'>@ios</span><span class='lbracket'>[</span><span class='symbol'>:err</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='op'>*</span><span class='id identifier rubyid_stuff'>stuff</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pout-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pout</strong>(*stuff) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/base_command.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_pout'>pout</span> <span class='op'>*</span><span class='id identifier rubyid_stuff'>stuff</span>
+  <span class='ivar'>@ios</span><span class='lbracket'>[</span><span class='symbol'>:out</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='op'>*</span><span class='id identifier rubyid_stuff'>stuff</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Feb 22 19:37:47 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.2.2).
+</div>
+
+  </body>
+</html>
