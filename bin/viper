@@ -128,10 +128,13 @@ end
 
 $vm = VirtualMachine.new
 
+at_exit do
+  $exit_handlers.each {|e| $vm.call e }
+end
 begin
   _exit_code = 0
   # setup exit handlers. Checks for existantance and syntax correctness
-  $exit_handlers = (final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) } + [ 'exit_event' ]).map {|e| Visher.parse! e }
+  $exit_handlers = (final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) }).map {|e| Visher.parse! e }
 
   ((
     boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
@@ -141,7 +144,8 @@ begin
     files(ARGV) + 
     vishrc_files.map {|e| File.read(e) } +
     [ 'load_event' ] +
-    mode(options)
+    mode(options) +
+    [ 'exit_event' ]
   ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
   _exit_code = err.code
@@ -152,6 +156,5 @@ rescue => err
   puts err.message
   puts err.backtrace
 ensure
-  $exit_handlers.each {|e| $vm.call e }
   exit(_exit_code)
 end
