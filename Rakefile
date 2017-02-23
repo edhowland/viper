@@ -1,5 +1,7 @@
 # Rakefile for running tests
 
+import './lib/vish/compile.rake'
+
 task :test_rb do
   sh "ruby test/all_tests.rb"
 end
