@@ -3,6 +3,12 @@
 Version : Viper 1.99-rc0
 
 
+Major Bug:
+
+Bug: Cannot edit two buffers from the same file name, but different directories
+  >> This is because /v/buf/Rakefile is only a single pathname:
+  >> constructed by : filename.ext of original pathname prepended with /v/buf/
+  >> Possible fix:  append '_2', '_3' ... for subsequent buffer pathnames
 Current Task:
 
 A. Make test/all_test.vsh work within bin/viper
@@ -10,6 +16,9 @@ A. Make test/all_test.vsh work within bin/viper
     >>>> Make kpeg compile work within lib/vish
     >>>> Check current Rakefile for things... Probably just runs old specs
   >> Copy old debugging support to somewhere
+
+
+
 Notes:
 Addded  keys:
   meta_less - bound to outdent range

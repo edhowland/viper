@@ -1,10 +1,16 @@
 # Rakefile for running tests
 
-require 'rake/testtask'
-
-Rake::TestTask.new do |t|
-  t.pattern = './spec/*_spec.rb'
+task :test_rb do
+  sh "ruby test/all_tests.rb"
 end
+
+task :test_vsh do
+  sh "./bin/viper --no-finish -m nop -s test/all_tests.vsh"
+end
+
+
+
+task :test => [:test_rb, :test_vsh]
 
 task default: [:test]
 
