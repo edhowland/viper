@@ -1,4 +1,6 @@
 # pipe - class Pipe - implements stmnt1 | stmnt2 - with StringIO as buffer
+# result from last piped command is returned.
+# all status are collected in the :pipe_status array
 
 class Pipe
   def initialize left, right, line_number=0
@@ -13,7 +15,6 @@ class Pipe
     env.push
     env[:out] = io
     first_result = @left.call env:env, frames:frames
-#binding.pry
     env.pop
     io.close_write
     io.rewind
@@ -22,6 +23,7 @@ class Pipe
     second_result = @right.call env:env, frames:frames
     env.pop
     io.close_read
+    frames[:pipe_status] = [first_result, second_result]
     second_result
   end
   def to_s

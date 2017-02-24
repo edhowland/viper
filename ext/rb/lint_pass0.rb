@@ -9,7 +9,7 @@ class LintPass0 < BaseBufferCommand
       lines = buffer.lines
       a = 0
       maker = ->(e) { [a+=1, e] }
-      indentations(lines).map(&maker).reject {|e| (e[1] % frames[:indent].to_i).zero? }.map {|e| "line #{e[0]}: indented: #{e[1]}" }.join("\n")
+      { lint_pass0: indentations(lines).map(&maker).reject {|e| (e[1] % frames[:indent].to_i).zero? }.map {|e| "line #{e[0]}: indented: #{e[1]}" } }.to_json
     end
   end
 end

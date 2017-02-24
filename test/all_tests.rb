@@ -11,4 +11,6 @@ require_relative 'virtual_layer_tests'
 require_relative 'hal_tests'
 require_relative 'virtual_machine_tests'
 require_relative 'command_tests'
+require_relative 'ast_tests'
+
 
