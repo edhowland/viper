@@ -13,6 +13,6 @@ require_relative 'virtual_machine_tests'
 require_relative 'command_tests'
 require_relative 'statement_tests'
 
-require_relative 'ast_tests'
+require_relative 'pipe_tests'
 
 

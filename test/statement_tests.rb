@@ -5,6 +5,9 @@ require_relative 'test_helper'
 class StatementTest < BaseSpike
   def set_up
     @vm = VirtualMachine.new
+    block = Visher.parse! 'mount /v;mkdir /v/bin;install'
+    @vm.call block
+    
   end
   def test_stub_works
     stub m: 1 do |o|
@@ -21,9 +24,15 @@ class StatementTest < BaseSpike
     end
   end
   def test_call_something_returns_command_name
-    stub oordinal: COMMAND, call: 'cd' do |o|
+    stub ordinal: COMMAND, call: 'true' do |o|
       s = Statement.new [ o ]
          s.call env:@vm.ios, frames:@vm.fs
+    end
+  end
+  def test_false_returns_false
+    stub ordinal: COMMAND, call: 'false' do |o|
+      s = Statement.new [ o ]
+      assert_false( s.call( env:@vm.ios, frames:@vm.fs))
     end
   end
 end
