@@ -8,7 +8,6 @@ class Glob
   end
   def call env:, frames:
     derefed_pattern = @pattern.call frames:frames
-#    binding.pry
 result = []
     result = Hal[derefed_pattern] if derefed_pattern.match /\*/
     return derefed_pattern if result.empty?
