@@ -33,4 +33,11 @@ class AstTests < BaseSpike
     assert @vm.fs[:pipe_status][0]
     assert_false @vm.fs[:pipe_status][1]
   end
+  def test_3_piped_gets_pipe_status_length_3
+    p2 = Pipe.new @false, @true
+    p1 = Pipe.new @true, p2
+    result = p1.call env:@vm.ios, frames:@vm.fs
+    assert result
+    assert_eq @vm.fs[:pipe_status].length, 3
+  end
 end

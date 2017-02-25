@@ -1,7 +1,7 @@
 # indexof - class Indexof - command indexof -
 # args
 # character 
-# reads stream from stdin, outputs charcter positon if found
+# reads stream from stdin, outputs character position if found
 # -r : reverses the search with rindex
 # returns true if found, else false
 

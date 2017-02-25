@@ -58,6 +58,7 @@ class Statement
       local_ios.pop
       local_vars.pop
       frames[:exit_status] = result
+      frames.first[:pipe_status] = [ result ]
     end
     result
   end
