@@ -42,6 +42,10 @@ function decr(x) {
 function incr(x) {
   expr :x '+' 1
 }
+function first() {
+  shift item
+  echo :item
+}
 function load_event() { nop }
 function exit_event() { nop }
 alias at_exit="on exit_event"

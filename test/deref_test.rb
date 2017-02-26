@@ -19,5 +19,13 @@ class DerefTest < BaseSpike
     var = Deref.new :key
     result = var.call frames:@frames
     assert !result.nil?, 'Expected result from Deref.call to not be nil, but was nil'
+    assert_eq result, 'hello'
+  end
+  def test_range
+    @frames[:range] = '0..3'
+    var = Deref.new :range
+    result = var.call frames:@frames
+    assert_is result, Array
+    assert_eq result, ['0', '1', '2', '3']
   end
 end

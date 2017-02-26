@@ -20,6 +20,8 @@ require_relative 'bin/grep'
 require_relative 'bin/hashcode'
 require_relative 'bin/hd'
 require_relative 'bin/head'
+require_relative 'bin/index'
+
 require_relative 'bin/indexof'
 require_relative 'bin/json'
 require_relative 'bin/logger'
