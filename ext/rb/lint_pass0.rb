@@ -1,11 +1,13 @@
 # lint_pass0.rb - class LintPass0 - checks for indentations not even multiple
 # of :indent
 
+require_relative 'jsonify'
 require_relative 'indentations'
 
 class LintPass0 < BaseBufferCommand
+  include Jsonify
   def call *args, env:, frames:
-    rvalue = buf_apply args[0], env:env, frames:frames do |buffer|
+    jsonify args[0], env:env, frames:frames do |buffer|
       lines = buffer.lines
       a = 0
       maker = ->(e) { [a+=1, e] }
@@ -19,7 +21,5 @@ class LintPass0 < BaseBufferCommand
         { lint_pass0: result }.to_json
       end
     end
-    env[:out].print '{}' unless rvalue
-    !rvalue
   end
 end
