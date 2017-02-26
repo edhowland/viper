@@ -1,11 +1,28 @@
 # lint_pass2.rb - class LintPass2 - command lint_pass2 buf - checks for trailing
 # whitespace
 
+require_relative 'jsonify'
+
 class LintPass2 < BaseBufferCommand
+  include Jsonify
+
   def call *args, env:, frames:
-    buf_apply args[0], env:env, frames:frames do |buffer|
-      #nil
-      ''
+    jsonify args[0], env:env, frames:frames do |buffer|
+      lines = buffer.lines
+      a = 0
+      maker = ->(e) { [a+=1, e] }
+
+      result = lines.map do |e|
+        m = e.match /( *)$/
+    m[1].nil? ? 0 : m[1].length
+      end.
+      map(&maker).
+      reject {|e| e[1].zero? }
+      if result.empty?
+        nil
+      else
+        { lint_pass2: result }.to_json
+      end
     end
   end
 end
