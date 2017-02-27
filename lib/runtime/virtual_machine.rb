@@ -157,7 +157,7 @@ end
   end
   def declare_variables env:
     @fs.each do |fr|
-      fr.each_pair {|k, v| env[:out].puts "#{k}=#{v}" } 
+      fr.each_pair {|k, v| env[:out].puts "#{k}=#{v}" }
     end
     true
   end

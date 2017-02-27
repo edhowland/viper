@@ -9,10 +9,8 @@ class LintPass0 < BaseBufferCommand
   def call *args, env:, frames:
     jsonify args[0], env:env, frames:frames do |buffer|
       lines = buffer.lines
-      a = 0
-      maker = ->(e) { [a+=1, e] }
 
-      result = indentations(lines).map(&maker).
+      result = indentations(lines).map(&ennumber).
       reject {|e| (e[1] % frames[:indent].to_i).zero? }.
       map {|e| "line #{e[0]}: indented: #{e[1]}"}
       if result.empty?

@@ -9,14 +9,12 @@ class LintPass2 < BaseBufferCommand
   def call *args, env:, frames:
     jsonify args[0], env:env, frames:frames do |buffer|
       lines = buffer.lines
-      a = 0
-      maker = ->(e) { [a+=1, e] }
 
       result = lines.map do |e|
         m = e.match /( *)$/
     m[1].nil? ? 0 : m[1].length
       end.
-      map(&maker).
+      map(&ennumber).
       reject {|e| e[1].zero? }
       if result.empty?
         nil

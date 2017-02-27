@@ -9,6 +9,9 @@ function lint() {
   echo lint pass 0: indents are multiples of :indent
   lint_pass0 :_buf  | json -r /v/lint/0
   echo result was :(first :pipe_status)
+  echo pass 1 indent distances are either 0 or :indent
+  lint_pass1 :_buf | json -r /v/lint/1
+      echo result was :(first :pipe_status)
   echo pass 2 trailing whitespace
   lint_pass2 :_buf | json -r /v/lint/2
     echo result was :(first :pipe_status)
