@@ -42,8 +42,8 @@ end
     result = true
     begin
       Hal.chdir path, @fs[:pwd]
-      rescue Errno::ENOENT => exc
-        raise exc
+    rescue Errno::ENOENT => exc
+      raise exc
     rescue => err
       result = false
     ensure
@@ -118,13 +118,13 @@ end
     expansion = @fs.aliases[key]
     "alias #{key.to_s}=\"#{expansion}\""
   end
-   def alias *args, env:, frames:
-     if args.empty?
-       @fs.aliases.keys.each {|k| env[:out].puts one_alias(k)}
-     else
-       env[:out].puts one_alias(args[0])
-     end
-     true
+  def alias *args, env:, frames:
+    if args.empty?
+      @fs.aliases.keys.each {|k| env[:out].puts one_alias(k)}
+    else
+      env[:out].puts one_alias(args[0])
+    end
+    true
   end
   def unalias *args, env:, frames:
     @fs.aliases.delete args[0]
@@ -179,8 +179,8 @@ end
     elsif args.length > 1 && args[0] == '-f'
       declare_single_function args[1], env:env
     else
-       declare_variables env:env
-     end
+      declare_variables env:env
+    end
   end
   def _break *args, env:, frames:
     raise VirtualMachine::BreakCalled.new
@@ -222,4 +222,3 @@ end
     'intentionally blank'
   end
 end
-

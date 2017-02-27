@@ -7,6 +7,7 @@ install_cmd LintPass2 /v/bin
 require ":{vhome}/ext/rb/lint_pass3.rb"
 install_cmd LintPass3 /v/bin
 function lint() {
+  test -f /v/lint && rm /v/lint
   mkdir /v/lint
   echo lint pass 0: indents are multiples of :indent
   lint_pass0 :_buf  | json -r /v/lint/0
@@ -20,4 +21,7 @@ function lint() {
   echo pass 3 check for excessive blank lineage
   lint_pass3 :_buf | json -r /v/lint/3
   echo result was :(first :pipe_status)
+}
+function gl(pass) {
+  deq "/v/lint/:{pass}/lint_pass:{pass}"
 }

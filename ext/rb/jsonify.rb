@@ -1,5 +1,5 @@
 # jsonify.rb - module Jsonify - addes jsonify method
-# encapsulates buffer application adn converting to JSON as well return 
+# encapsulates buffer application adn converting to JSON as well return
 # correct status
 
 module Jsonify
