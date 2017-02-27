@@ -7,7 +7,7 @@ class LintPass2 < BaseBufferCommand
   include Jsonify
 
   def call *args, env:, frames:
-    jsonify args[0], env:env, frames:frames do |buffer|
+    jsonify args[0], pass_name:'lint_pass2', env:env, frames:frames do |buffer|
       lines = buffer.lines
 
       result = lines.map do |e|
@@ -16,11 +16,6 @@ class LintPass2 < BaseBufferCommand
       end.
       map(&ennumber).
       reject {|e| e[1].zero? }
-      if result.empty?
-        nil
-      else
-        { lint_pass2: result }.to_json
-      end
     end
   end
 end

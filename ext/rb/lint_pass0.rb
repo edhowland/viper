@@ -7,17 +7,12 @@ require_relative 'indentations'
 class LintPass0 < BaseBufferCommand
   include Jsonify
   def call *args, env:, frames:
-    jsonify args[0], env:env, frames:frames do |buffer|
+    jsonify args[0], pass_name:'lint_pass0', env:env, frames:frames do |buffer|
       lines = buffer.lines
 
       result = indentations(lines).map(&ennumber).
       reject {|e| (e[1] % frames[:indent].to_i).zero? }.
       map {|e| "line #{e[0]}: indented: #{e[1]}"}
-      if result.empty?
-        nil
-      else
-        { lint_pass0: result }.to_json
-      end
     end
   end
 end
