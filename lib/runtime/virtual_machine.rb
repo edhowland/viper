@@ -94,15 +94,15 @@ end
   # making it available to run as command
   def install_cmd *args, env:, frames:
     klass = Kernel.const_get(args[0])
-        root=frames[:vroot]
+    root=frames[:vroot]
     path = root[args[1]]
-      path[snakeize(klass.name)] = klass.new
+    path[snakeize(klass.name)] = klass.new
     true
   end
 
   # install - command to install command objects into virtual bin dir
   def install *args, env:, frames:
-        root=frames[:vroot]
+    root=frames[:vroot]
     path = root['/v/bin']  # commands will be installed here
     BaseCommand.descendants.each do |klass|
       path[snakeize(klass.name)] = klass.new
@@ -135,7 +135,7 @@ end
       env[:err].puts 'source: missing argument'
       false
     else
-    begin
+      begin
         block = Visher.parse!(File.read(args[0]))
         @fs.push
         @fs[:__FILE__] = args[0]
@@ -189,11 +189,11 @@ end
     if args.empty?
       code = true
     elsif args[0] == 'false'
-        code = false
-      elsif args[0] == 'true'
-        code = true
-      else
-        code = args[0]
+      code = false
+    elsif args[0] == 'true'
+      code = true
+    else
+      code = args[0]
     end
     raise VirtualMachine::ReturnCalled.new code
   end
@@ -201,11 +201,10 @@ end
 
   def eval *args, env:, frames:
     begin
-    block = Visher.parse! args.join(' ')
-
-    block.call env:env, frames:frames
-    @fs.merge
-    frames[:exit_status]
+      block = Visher.parse! args.join(' ')
+      block.call env:env, frames:frames
+      @fs.merge
+      frames[:exit_status]
     rescue VishSyntaxError => err
       env[:err].puts err.message
       false
