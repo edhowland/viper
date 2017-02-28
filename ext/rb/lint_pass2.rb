@@ -12,7 +12,7 @@ class LintPass2 < BaseBufferCommand
 
       result = lines.map do |e|
         m = e.match /( *)$/
-    m[1].nil? ? 0 : m[1].length
+        m[1].nil? ? 0 : m[1].length
       end.
       map(&ennumber).
       reject {|e| e[1].zero? }
