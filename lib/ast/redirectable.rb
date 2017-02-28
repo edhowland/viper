@@ -7,7 +7,7 @@ module Redirectable
   def redirect object, env:, frames:
     object.call env:env, frames:frames
   end
-  
+
   # open_redirs: open streams, returning values for closers
   def open_redirs env:
     env.top.each_pair {|k, v| env[k] = v.open }
@@ -15,6 +15,6 @@ module Redirectable
   end
   # close_redirs : closes objects opened above
   def close_redirs closers
-          closers.each {|f| f.close }
+    closers.each {|f| f.close }
   end
 end

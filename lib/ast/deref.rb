@@ -44,4 +44,3 @@ class Deref
     ':' + @key.to_s
   end
 end
-

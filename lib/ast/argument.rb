@@ -1,6 +1,5 @@
 # argument - class Argument - holds an argument which be given to a command
 
-
 require_relative 'context_constants'
 
 class Argument
@@ -17,4 +16,3 @@ class Argument
   COMMAND
   end
 end
-

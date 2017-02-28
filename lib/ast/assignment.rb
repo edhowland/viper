@@ -1,7 +1,8 @@
-# assignment - class Assignment - Subtree of  Symbol node and either 
+# assignment - class Assignment - Subtree of  Symbol node and either
 # QuotedString, StringLiteral, Deref or CommandExpansion
 
 require_relative 'context_constants'
+
 class Assignment
   def initialize left, right
     @left = left
@@ -18,4 +19,3 @@ class Assignment
     ASSIGN
   end
 end
-

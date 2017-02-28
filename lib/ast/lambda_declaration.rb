@@ -1,4 +1,4 @@
-# lambda_declaration - class LambdaDeclaration - returns lambda closure 
+# lambda_declaration - class LambdaDeclaration - returns lambda closure
 # returns Lambda instance
 
 class LambdaDeclaration
@@ -17,4 +17,3 @@ class LambdaDeclaration
     '&(' + @args.to_s + ') { ' + @block.to_s + ' )'
   end
 end
-

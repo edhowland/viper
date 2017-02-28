@@ -1,4 +1,4 @@
-# function_declaration - class FunctionDeclaration - does: 
+# function_declaration - class FunctionDeclaration - does:
 # function name(arg1, arg2, .. , argn) { stmnt1; stmnt2 }
 
 class FunctionDeclaration

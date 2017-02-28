@@ -56,4 +56,3 @@ def to_s
   '(' + @block.to_s + ')'
 end
 end
-

@@ -29,4 +29,3 @@ class StringLiteral < QuotedString
     end
   end
 end
-

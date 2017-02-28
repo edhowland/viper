@@ -19,7 +19,7 @@ class Block
       begin
         #Event.trigger *(s.to_s.split), env:env, frames:frames
         Event.on(*(s.to_s.split),env:env, frames:frames)
-        s.call env:env, frames:frames 
+        s.call env:env, frames:frames
       rescue => err
         err.extend LineNumberable
         err.line_number = s.line_number

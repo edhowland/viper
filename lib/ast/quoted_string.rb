@@ -12,4 +12,3 @@ class QuotedString
     @storage.to_s
   end
 end
-

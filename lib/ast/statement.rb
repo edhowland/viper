@@ -46,7 +46,6 @@ class Statement
     sorted.reject!(&:nil?)
     c, *args = sorted
     command = Command.resolve(c, env:env, frames:frames)
-#binding.pry
     # closers = local_ios.values
     # local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
     closers = open_redirs env:local_ios
@@ -67,4 +66,3 @@ class Statement
     @context.map {|e| e.to_s }.join(' ')
   end
 end
-
