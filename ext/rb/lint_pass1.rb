@@ -7,10 +7,17 @@ require_relative 'distance'
 class LintPass1 < BaseBufferCommand
   include Jsonify
 
+  def combine
+    p = ennumber
+    ->(e) { p.call(e.length) + [indented(e)] }
+  end
+
   def call *args, env:, frames:
     jsonify(args[0], pass_name:'lint_pass1', env:env, frames:frames) do |buffer|
       lines = buffer.lines
-      distance(indentations lines).map(&:abs).map(&ennumber).reject {|e| e[1].zero? }.reject {|e| e[1] == frames[:indent].to_i }.map {|e| "line #{e[0]},#{e[0] + 1}: offset: #{e[1]}" } 
+      interim = lines.map(&:chomp).map(&combine).
+        reject {|e| e[1].zero? }.map {|e| [e[0], e[2]] }
+      adjacents(interim).map {|e| [e[0][0], (e[0][1] - e[1][1]).abs ] }.reject {|e| e[1] == 0 || e[1] == 2 }
     end
   end
 end

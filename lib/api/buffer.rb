@@ -3,22 +3,21 @@
 # Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
 class Buffer
   def initialize(string='')
-    @a_buff = [] 
-    @b_buff = string.chars 
+    @a_buff = []
+    @b_buff = string.chars
     restore_extend
     @dirty = false
     @name = 'unnamed'
     @match_data = nil
   end
   def restore_extend
-        @a_buff.extend ArrayExtender
+    @a_buff.extend ArrayExtender
     @b_buff.extend ArrayExtender
   end
 
   attr_accessor :name
   attr_reader :match_data
   attr_accessor :a_buff, :b_buff
-
 
   def suppress(&_blk)
     @recordings_suppressed = true
@@ -47,7 +46,7 @@ class Buffer
   def ins_at string
     string.chars.reverse.each do |c|
       @b_buff.unshift c
-    end 
+    end
   end
 
   def del(string = ' ')
@@ -221,7 +220,7 @@ class Buffer
   def should_save?
     savable? and dirty?
   end
-  
+
   def clean
     @dirty = false
     ''

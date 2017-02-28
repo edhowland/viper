@@ -18,12 +18,12 @@ module ArrayExtender
     StringIO.new(self.to_s).each_line.to_a
   end
 
-    def count_nl
+  def count_nl
     index = self.to_s.index("\n")
     index || length
   end
 
-    def calc_range(limit)
+  def calc_range(limit)
     (limit < 0 ? limit..-1 : 0..(limit - 1))
   end
 
@@ -53,7 +53,6 @@ module ArrayExtender
 
   def rword_index
     offset = self.to_s.rindex(/\s|\n/)
-
     offset = self.to_s.rindex(/^\w/) if offset.nil?
     (offset.nil? ? '' : self[offset..-1].join('').lstrip)
   end

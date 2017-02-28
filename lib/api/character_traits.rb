@@ -1,5 +1,5 @@
-# character_traits.rb - module CharacterTraits 
-# Base class for various traits assigned to individual characters. 
+# character_traits.rb - module CharacterTraits
+# Base class for various traits assigned to individual characters.
 # Like marks, tab points, positional markers, etc.
 # Each trait is just a symbol, so virtually infinite of them can be devised
 # This  module just maintains an array of them for an individual char.
@@ -60,9 +60,9 @@ class Buffer
 
   def trait_prev trait
     trait =trait.to_sym
-    @a_buff.rindex{|c| c.includes_trait? trait } 
+    @a_buff.rindex{|c| c.includes_trait? trait }
   end
-  
+
   def trait_exists trait
     pos=trait_first(trait)
     to_a[pos].includes_trait? trait.to_sym
