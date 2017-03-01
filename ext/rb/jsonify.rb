@@ -3,9 +3,14 @@
 # correct status
 
 module Jsonify
+  def pragma strings, pass_number:''
+    r = Regexp.new "%%LINT#{pass_number}"
+    !(strings.grep(r).empty?)
+  end
   def jsonify arg, pass_name:, env:, frames:, &blk
     buffer = frames[:vroot]["#{arg}/buffer"]
-    rvalue = yield(buffer)
+    lines = buffer.lines
+    rvalue = yield(lines)
     result = { pass_name => rvalue }.to_json
     env[:out].print result
     # return true if collection is empty, else lint failed with output, false

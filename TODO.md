@@ -9,6 +9,8 @@ Bug: Cannot edit two buffers from the same file name, but different directories
   >> This is because /v/buf/Rakefile is only a single pathname:
   >> constructed by : filename.ext of original pathname prepended with /v/buf/
   >> Possible fix:  append '_2', '_3' ... for subsequent buffer pathnames
+
+Bug: better error handle of trying to open a directory
 Current Task:
 
 A. Make test/all_test.vsh work within bin/viper
