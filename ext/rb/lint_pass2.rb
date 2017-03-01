@@ -7,7 +7,7 @@ class LintPass2 < BaseBufferCommand
   include Jsonify
 
   def call *args, env:, frames:
-    jsonify args[0], pass_name:'lint_pass2', env:env, frames:frames do |lines|
+    jsonify args[0], pass_name:'2', env:env, frames:frames do |lines|
 
       result = lines.map do |e|
         m = e.match /( *)$/

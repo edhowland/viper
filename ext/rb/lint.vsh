@@ -26,5 +26,5 @@ function lint() {
   return false
 }
 function gl(pass) {
-  deq "/v/lint/:{pass}/lint_pass:{pass}"
+  deq "/v/lint/:{pass}/pass:{pass}"
 }

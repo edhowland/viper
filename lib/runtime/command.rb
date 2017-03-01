@@ -1,4 +1,4 @@
-# command - class Command - factory class to resolve identifiers into actual 
+# command - class Command - factory class to resolve identifiers into actual
 # runnable commands, aliases or functions
 
 class CommandNotFound < RuntimeError
@@ -27,14 +27,14 @@ class Command
         thing = @@cache[id.to_sym]
         if thing.nil?
           cpath = "/v/bin/#{id}"
-           thing = command_from_path cpath, frames:frames
-         end
-    unless thing.nil?
-      @@cache[id.to_sym] ||= thing
-        return thing 
-    else
-      raise CommandNotFound.new id  #RuntimeError.new ''
-    end
+          thing = command_from_path cpath, frames:frames
+        end
+        unless thing.nil?
+          @@cache[id.to_sym] ||= thing
+          return thing
+        else
+          raise CommandNotFound.new id  #RuntimeError.new ''
+        end
       rescue => err
         env[:err].puts err.message  #"Command: #{id}: not found"
         False.new
@@ -42,4 +42,3 @@ class Command
     end
   end
 end
-

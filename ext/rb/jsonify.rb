@@ -10,8 +10,12 @@ module Jsonify
   def jsonify arg, pass_name:, env:, frames:, &blk
     buffer = frames[:vroot]["#{arg}/buffer"]
     lines = buffer.lines
-    rvalue = yield(lines)
-    result = { pass_name => rvalue }.to_json
+    if pragma(lines, pass_number:pass_name)
+      rvalue = []
+    else
+      rvalue = yield(lines)
+    end
+    result = { "pass#{pass_name}" => rvalue }.to_json
     env[:out].print result
     # return true if collection is empty, else lint failed with output, false
     rvalue.empty?
