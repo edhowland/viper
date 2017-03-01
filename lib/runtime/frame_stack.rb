@@ -10,7 +10,7 @@ class FrameStack
   attr_accessor :functions, :aliases, :vm, :frames
     def [] sym
     result = @frames.reduce('') do |i, j|
-    if j.has_key? sym
+      if j.has_key? sym
         j[sym]
       else
         i
@@ -64,8 +64,8 @@ class FrameStack
     @frames.map {|e| e.to_s }.join("\n---\n")
   end
   def index value
-        dict = @frames.reverse.select {|e| e[value] == true }
-        index = @frames.index dict.first
+    dict = @frames.reverse.select {|e| e[value] == true }
+    index = @frames.index dict.first
     index.to_i
   end
   # back: returns every from found key till top of stack in a new FrameStack
@@ -84,4 +84,3 @@ class FrameStack
     @frames[range]
   end
 end
-

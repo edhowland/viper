@@ -26,23 +26,23 @@ class Event
       init
       @@matches[key] = handler
     end
-    
+
     def matches
       @@matches
     end
 
     def on(*args, env:, frames:)
-          init
+      init
 
       handler = @@matches[args.join(' ')]
       if handler.respond_to? :call
         if handler.instance_of? Lambda
-        handler.call(*args, env:env, frames:frames) 
-      elsif handler.instance_of? Block
-        handler.call env:env, frames:frames
-      else
-        raise RuntimeError.new('Unknown event handler type')
-      end
+          handler.call(*args, env:env, frames:frames)
+        elsif handler.instance_of? Block
+          handler.call env:env, frames:frames
+        else
+          raise RuntimeError.new('Unknown event handler type')
+        end
       end
     end
 
