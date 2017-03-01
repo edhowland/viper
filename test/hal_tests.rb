@@ -3,6 +3,12 @@
 require_relative 'test_helper'
 
 class HalTest < BaseSpike
+  def home_dir &blk
+    old = Dir.pwd
+    Dir.chdir ENV['HOME']
+    yield
+    Dir.chdir old
+  end
     def set_up
       @orig_dir = File.dirname(File.expand_path(__FILE__))
     @vm = VirtualMachine.new
@@ -11,7 +17,8 @@ class HalTest < BaseSpike
     @oldpwd = @vm.fs[:pwd]
   end
   def tear_down
-    Hal.chdir @oldpwd, @vm.fs[:pwd]
+    Dir.chdir File.dirname(File.expand_path(__FILE__))
+    #Hal.chdir @oldpwd, @vm.fs[:pwd]
   end
   def test_mkdir_ok
     Hal.mkdir_p '/v/a/b'
@@ -27,7 +34,10 @@ class HalTest < BaseSpike
     end
   end
   def test_physical_chdir_works
-    Hal.chdir '..', @vm.fs[:pwd]#
+    home_dir do
+      Hal.chdir '/'
+      assert_eq Dir.pwd, '/'
+    end
   end
   def test_chdir_non_existant_physical_raises_no_such_file_or_dir
             assert_raises Errno::ENOENT do 
@@ -36,6 +46,25 @@ class HalTest < BaseSpike
     
   end
   def test_realpathequals_here
-    assert_eq(@orig_dir, Hal.realpath('.'))
+    home_dir do
+      assert_eq(Hal.realpath('.'), ENV['HOME'])
+    end
   end
 end
+# need to test all the following methods
+    #def [] path
+    #def pwd
+    #def relative? path
+    #def chdir path, current_pwd
+    #def virtual? path
+    #def mkdir_p path
+    #def open path, mode
+    #def directory? path
+    #def touch path
+    #def basename path
+    #def dirname path
+    #def realpath path
+    #def mv src, dest
+    #def rm path
+    #def exist? path
+##
