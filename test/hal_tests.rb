@@ -22,10 +22,12 @@ class HalTest < BaseSpike
   end
   def test_mkdir_ok
     Hal.mkdir_p '/v/a/b'
+    assert Hal.exist?('/v/a/b')
   end
   def test_chdir_ok
     Hal.mkdir_p '/v/a/b'
-    Hal.chdir '/v/a/b', @vm.fs[:pwd]
+    Hal.chdir '/v/a/b'
+    assert_eq Hal.pwd, '/v/a/b'
   end
   def test_chdir_non_existant_path_raises_no_file_or_dir
         Hal.mkdir_p '/v/a/b'
@@ -33,7 +35,7 @@ class HalTest < BaseSpike
       Hal.chdir '/v/a/c', @vm.fs[:pwd]
     end
   end
-  def test_physical_chdir_works
+  def  test_physical_chdir_works
     home_dir do
       Hal.chdir '/'
       assert_eq Dir.pwd, '/'
@@ -43,7 +45,6 @@ class HalTest < BaseSpike
             assert_raises Errno::ENOENT do 
               Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
             end 
-    
   end
   def test_realpathequals_here
     home_dir do
@@ -51,7 +52,7 @@ class HalTest < BaseSpike
     end
   end
 end
-# need to test all the following methods
+# eed to test all the following methods
     #def [] path
     #def pwd
     #def relative? path
