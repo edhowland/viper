@@ -63,6 +63,12 @@ class HalTest < BaseSpike
     Hal.rm '/v/xxx'
     assert_false Hal.exist?('/v/xxx')
   end
+  def test_cp_virtual_file
+    Hal.chdir '/v'
+    Hal.touch 'x'
+    Hal.cp 'x', 'y'
+    assert Hal.exist?('y'), 'Expected /v/y to be a copy of x'
+  end
   def test_mv
     Hal.touch '/v/zzz'
     Hal.mv '/v/zzz', '/v/nnn'
