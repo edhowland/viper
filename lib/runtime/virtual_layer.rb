@@ -73,16 +73,37 @@ class VirtualLayer
     def realpath path
       @@root.realpath path
     end
+    def cp src, dest
+      src = self.realpath(src)
+      sfile = src.pathmap('%f')
+      snode = @@root[src]
+      # raise File Not Found if snode.nil?
+      dest = self.realpath(dest)
+      ddir, dfile = split_path dest
+      if self.exist? dest
+        if self.directory? dest
+          # copy to directory node THIS WORKS
+          dnode = @@root[dest]
+          dnode[sfile] = snode
+        else
+          # some other object, overwrite. 
+          # get directory node
+          dnode = @@root[ddir]
+          # raise No such Directory if dnode.nil?
+          # add node of sfile .deep_clone her
+          dnode[dfile] = snode
+        end
+      else
+        # object or directory does not exist
+        # get node of ddir
+        # add node of sfile .deep_clone here
+        dnode = @@root[ddir]
+        dnode[dfile] = snode
+      end
+    end
     def mv src, dest
-      ddir, dfile = split_path(dest)
-      sdir, sfile = split_path src
-      d = @@root[ddir]
-      s=@@root[src]
-      s.parent = d
-      s.name = dfile
-      snode = @@root[sdir]
-      snode.list.delete sfile
-      d[dfile] = s
+      self.cp src, dest
+      self.rm src
     end
     def rm path
       dir, file = split_path path

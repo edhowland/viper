@@ -51,6 +51,24 @@ class HalTest < BaseSpike
       assert_eq(Hal.realpath('.'), ENV['HOME'])
     end
   end
+  def test_rm
+    Hal.touch '/v/xxx'
+    assert Hal.exist?( '/v/xxx')
+    Hal.rm '/v/xxx'
+    assert_false Hal.exist?('/v/xxx')
+  end
+    def test_rm
+    Hal.touch '/v/xxx'
+    assert Hal.exist?( '/v/xxx')
+    Hal.rm '/v/xxx'
+    assert_false Hal.exist?('/v/xxx')
+  end
+  def test_mv
+    Hal.touch '/v/zzz'
+    Hal.mv '/v/zzz', '/v/nnn'
+    assert Hal.exist?('/v/nnn')
+    assert_false Hal.exist?('/v/zzz')
+  end
 end
 # eed to test all the following methods
     #def [] path
