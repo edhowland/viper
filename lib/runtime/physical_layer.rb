@@ -32,6 +32,9 @@ class PhysicalLayer
     def realpath path
       File.expand_path path
     end
+    def cp src, dest
+      FileUtils.cp src, dest
+    end
     def mv src, dest
       File.rename src, dest
     end

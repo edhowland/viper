@@ -1,13 +1,13 @@
-# mv - class Mv - command mv - mv src dest
+# cp.rb - class Cp - command cp src dest -
 
-class Mv < BaseCommand
+class Cp < BaseCommand
   def call *args, env:, frames:
     src, dest = args
     if src.nil? || dest.nil?
       env[:err].puts 'mv: wrong # of arguments. mv src dest'
       return false
     end
-    Hal.mv src, dest
+    Hal.cp src, dest
     true
   end
 end

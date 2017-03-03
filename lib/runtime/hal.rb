@@ -77,6 +77,13 @@ class Hal
         PhysicalLayer.realpath path
       end
     end
+    def cp src, dest
+      if virtual? src
+        VirtualLayer.cp src, dest
+      else
+        PhysicalLayer.cp src, dest
+      end
+    end
     def mv src, dest
       if virtual? src
         VirtualLayer.mv(VirtualLayer.realpath(src), VirtualLayer.realpath(dest))
