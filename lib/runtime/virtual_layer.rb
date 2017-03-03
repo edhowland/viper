@@ -77,8 +77,9 @@ class VirtualLayer
       src = self.realpath(src)
       sfile = src.pathmap('%f')
       snode = @@root[src]
-      # raise File Not Found if snode.nil?
+      raise Errno::ENOENT.new src if snode.nil?
       dest = self.realpath(dest)
+      raise ArgumentError.new "same file: #{src}" if src == dest
       ddir, dfile = split_path dest
       if self.exist? dest
         if self.directory? dest

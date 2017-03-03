@@ -52,4 +52,15 @@ class VirtualLayerTests < BaseSpike
     VirtualLayer.mv '/v/aa', '/v/xxx'
     assert VirtualLayer.exist?('/v/xxx/aa')
   end
+  def test_cp_same_file_raises_argument_error_same_file
+    VirtualLayer.touch 'x'
+    assert_raises ArgumentError do 
+      VirtualLayer.cp 'x', 'x'
+    end
+  end
+  def test_cp_non_existant_file_raises_no_such_file
+    assert_raises Errno::ENOENT  do
+      VirtualLayer.cp 'zzyyx', 'xxyyz'
+    end
+  end
 end
