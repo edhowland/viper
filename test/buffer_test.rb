@@ -190,5 +190,24 @@ end
     @buffer.ins "line 1\nline 2\nline 3\n"
     assert_eq @buffer.lines.length, 3
   end
+  def test_mismatched_buffers_are_not_equal
+    b1 = Buffer.new 'hello'
+    b2 = Buffer.new 'hell'
+    assert_neq b1, b2
+  end
+  def test_buffers_with_exact_same_contents_are_equal
+    b1 = Buffer.new 'hello'
+    b2 = Buffer.new 'hello'
+    assert_eq b1, b2
+  end
+  def test_clones_are_equal
+    b1 = Buffer.new 'hello'
+    b2 = b1.clone
+    assert_eq b1, b2
+  end
+  def test_clones_are_not_the_exact_same_object
+    b1 = Buffer.new 'hello'
+    b2 = b1.clone
+    assert_neq b1.object_id, b2.object_id
+  end
 end
-

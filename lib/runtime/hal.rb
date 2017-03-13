@@ -59,15 +59,15 @@ class Hal
       File.dirname path
     end
 
-    def _dispatch arg
-      if virtual? arg
+    def _dispatch arg, within=false
+      if virtual?(arg) || within
         VirtualLayer
       else
         PhysicalLayer
       end
     end
     def method_missing name, *args
-      klass = _dispatch args[0]
+      klass = _dispatch args[0] #, $in_virtual
       klass.send name, *args
     end
   end

@@ -35,6 +35,9 @@ def assert_equals left, right
   assert_eq left, right
 end
 
+def assert_neq left, right
+  assert left != right, "Expected #{left.to_s} to not equal #{right.to_s}"
+end
 def assert_is actual, klass
   assert(klass === actual, "Expected #{actual} to be instance of #{klass}, got #{actual.class.name}")
 end

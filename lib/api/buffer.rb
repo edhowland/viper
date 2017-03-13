@@ -289,4 +289,10 @@ class Buffer
   def lines
     @a_buff.lines + @b_buff.lines
   end
+  def == that
+    self.to_a == that.to_a
+  end
+  def clone
+    self.class.new self.to_s
+  end
 end

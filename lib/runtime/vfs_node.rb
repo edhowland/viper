@@ -1,6 +1,5 @@
 # vfs_node - class VFSNode - A node in a VFS tree
 
-
 class Hash; def identy; :to_h; end; end
 
 class String; def identy; :to_s; end; end
@@ -50,5 +49,12 @@ class VFSNode
 
   def to_h
     @list.to_a.each_with_object({}) { |e, h| h[e[0]] = e[1].send(e[1].identy) }
+  end
+  def deep_clone
+    that = self.class.new @parent, @name
+    @list.each_pair do |k, v|
+      that.list[k] = cloner(v)
+    end
+    that
   end
 end

@@ -1,5 +1,7 @@
 # api.rb - requires for api/
 
+require_relative 'api/cloner'
+
 require_relative 'api/string_to_regex'
 require_relative 'api/path_from_start_elements'
 

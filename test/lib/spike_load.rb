@@ -4,6 +4,8 @@ require_relative 'pipe_proc'
 require_relative 'decorated_proc'
 require_relative 'assertions'
 require_relative 'stub'
+require_relative 'mock'
+
 
 require_relative 'base_spike'
 

@@ -85,21 +85,23 @@ class VirtualLayer
         if self.directory? dest
           # copy to directory node THIS WORKS
           dnode = @@root[dest]
-          dnode[sfile] = snode
+          dnode[sfile] = cloner(snode)
         else
           # some other object, overwrite. 
           # get directory node
           dnode = @@root[ddir]
           # raise No such Directory if dnode.nil?
           # add node of sfile .deep_clone her
-          dnode[dfile] = snode
+          dnode[dfile] = cloner(snode)
         end
       else
         # object or directory does not exist
         # get node of ddir
         # add node of sfile .deep_clone here
         dnode = @@root[ddir]
-        dnode[dfile] = snode
+        that = cloner(snode)
+        that.name = dfile if snode.kind_of? VFSNode
+        dnode[dfile] = that
       end
     end
     def mv src, dest

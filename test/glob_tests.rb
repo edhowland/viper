@@ -16,6 +16,7 @@ class GlobTests < BaseSpike
     end
   end
   def test_star_returns_non_empty_array
+    Hal.chdir '/v/bin'
     stub call: '*' do |o|
       g = Glob.new o
       result = g.call env:@vm.ios, frames:@vm.fs
