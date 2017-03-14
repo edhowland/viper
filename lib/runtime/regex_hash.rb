@@ -3,7 +3,7 @@
 #  and retrieved it is some potetially matching string
 
 class RegexHash
-  def initialize 
+  def initialize
     @storage = []
   end
 

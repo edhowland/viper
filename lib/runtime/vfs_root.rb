@@ -1,7 +1,7 @@
 # vfs_root - class VFSRoot - parent node of all nodes, and holder  for subtrees
 
 class VFSRoot
-  def initialize 
+  def initialize
     @root = VFSNode.new nil, ''
     @wd = @root
     @mount_pt = ''
@@ -9,7 +9,6 @@ class VFSRoot
   attr_reader :root
   attr_accessor :wd
   attr_accessor  :mount_pt
-
 
   def pwd
     pathr = []
@@ -38,7 +37,7 @@ class VFSRoot
         start = start[e]
       end
     end
-    raise Errno::ENOENT.new(spath) if start.nil? 
+    raise Errno::ENOENT.new(spath) if start.nil?
     @wd = start
   end
   def _mkdir elements, start=@root
@@ -49,8 +48,8 @@ class VFSRoot
       else
         node = node[e]
       end
+    end
   end
-end
   def cd path
     start, *elements = path_to_elements(path)
     _chdir elements, start
@@ -71,7 +70,7 @@ end
   end
 
   def directory? path
-          start, *elements = path_to_elements path
+    start, *elements = path_to_elements path
     mynode = node elements, start
     mynode.instance_of? VFSNode
   end
@@ -80,7 +79,6 @@ end
       @wd.keys
     else
       start, *elements = path_to_elements path
-#binding.pry
       mynode = node(elements, start)
       if VFSNode === mynode
         mynode.keys

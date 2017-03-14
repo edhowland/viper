@@ -1,6 +1,5 @@
 # string_io_facade - class StringIOFacade - open method for StringIO
 
-
 class StringIOFacade
   def initialize stringio
     @io = stringio
@@ -13,11 +12,11 @@ class StringIOFacade
       @io.rewind
       StringIO.new(@io.string)
     elsif mode == 'a'
-          root = VirtualLayer.get_root
-          node = root[path]
-          if node.nil?
-            root.creat path
-          else
+      root = VirtualLayer.get_root
+      node = root[path]
+      if node.nil?
+        root.creat path
+      else
         @io.reopen(@io.string, 'a')
       end
     end

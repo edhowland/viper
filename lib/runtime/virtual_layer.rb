@@ -17,39 +17,37 @@ class VirtualLayer
     end
     def set_root root=VFSRoot.new
       @@root = root
-
     end
-          def virtual? path
-        @@root.contains?(path) || (Hal.relative?(path) && @@root.contains?(Hal.pwd))
-      end
+    def virtual? path
+      @@root.contains?(path) || (Hal.relative?(path) && @@root.contains?(Hal.pwd))
+    end
 
     def [] path
       if path == '*'
-      path = '.'
-      result = @@root.list(path).sort
-      result
-    elsif path == '**'
-    gather = []
-      node = @@root.wd
-      until node.nil?
-        prepend = node.pathname
-        gather += node.list.keys.map {|e| "#{prepend}/#{e}" }
-        node = node['nl']
+        path = '.'
+        result = @@root.list(path).sort
+        result
+      elsif path == '**'
+        gather = []
+        node = @@root.wd
+        until node.nil?
+          prepend = node.pathname
+          gather += node.list.keys.map {|e| "#{prepend}/#{e}" }
+          node = node['nl']
+        end
+        gather
+      elsif path =~ /\*/
+        @@root.list('.').grep(regexify(path)).sort
+      else
+        @@root.list(path)
       end
-      gather
-    elsif path =~ /\*/
-      @@root.list('.').grep(regexify(path)).sort
-    else
-      puts 'in default'; puts "path: #{path}"
-      @@root.list(path) 
-    end
     end
 
     def directory? path
       @@root.directory? path
     end
     def relative? path
-       path[0] != '/'
+      path[0] != '/'
     end
     def chdir path
       @@root.cd path
@@ -58,7 +56,7 @@ class VirtualLayer
       @@root.pwd
     end
     def touch path
-    node = @@root[path]
+      node = @@root[path]
       @@root.creat path if node.nil?
     end
     def open path, mode
@@ -87,7 +85,7 @@ class VirtualLayer
           dnode = @@root[dest]
           dnode[sfile] = cloner(snode)
         else
-          # some other object, overwrite. 
+          # some other object, overwrite.
           # get directory node
           dnode = @@root[ddir]
           # raise No such Directory if dnode.nil?

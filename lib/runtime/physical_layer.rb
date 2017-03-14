@@ -1,5 +1,4 @@
-# physical_layer - class PhysicalLayer - from hal.rb - implements 
-# physical file system functions
+# physical_layer - class PhysicalLayer - from hal.rb - implements # physical file system functions
 
 class PhysicalLayer
   class << self
