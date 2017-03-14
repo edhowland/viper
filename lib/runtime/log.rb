@@ -1,4 +1,3 @@
-lint
 # log - class Log - implements log functions
 
 LOGF=File.expand_path(File.dirname(__FILE__)) + '/vish.log'
