@@ -10,10 +10,8 @@ class Ins < BaseBufferCommand
     perform(args[0], env:env, frames:frames) do |node|
       buffer = node['buffer']
 
-       #buffer.ins object
       @meth.call buffer, object
       object
     end
   end
 end
-

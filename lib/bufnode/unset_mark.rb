@@ -1,5 +1,4 @@
-# unset_mark - class UnsetMark - command unset_mark :_buf - unsets any mark in buf
-
+# unset_mark - class UnsetMark - command unset_mark :_buf - unsets any mark
 
 class UnsetMark < BaseBufferCommand
   def call *args, env:, frames:

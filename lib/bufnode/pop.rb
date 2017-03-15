@@ -1,4 +1,4 @@
-# pop - class Pop - command pop - extracts last element of stack - 
+# pop - class Pop - command pop - extracts last element of stack -
 # used for moving within LineNode/left possibly to enq LineNode/right
 
 class Pop < BaseNodeCommand
@@ -6,4 +6,3 @@ class Pop < BaseNodeCommand
     perform(args[0], env:env, frames:frames) {|node| node.pop }
   end
 end
-

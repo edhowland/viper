@@ -10,4 +10,3 @@ class Mkarray < BaseCommand
     end
   end
 end
-

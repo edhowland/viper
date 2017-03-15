@@ -12,4 +12,3 @@ class Rotate < BaseNodeCommand
     end
   end
 end
-
