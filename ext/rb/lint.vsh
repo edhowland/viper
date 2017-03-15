@@ -33,3 +33,4 @@ function lint() {
 function gl(pass) {
   deq "/v/lint/:{pass}/pass:{pass}"
 }
+alias g='goto :_buf'

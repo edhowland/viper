@@ -1,6 +1,7 @@
 # buffer.rb - class Buffer
 
-# Buffer is the main buffer top level class. Almost all editor functions are deferred to this class.
+# Buffer is the main buffer top level class. Almost all editor functions
+# are deferred to this class.
 class Buffer
   def initialize(string='')
     @a_buff = []
@@ -9,6 +10,9 @@ class Buffer
     @dirty = false
     @name = 'unnamed'
     @match_data = nil
+  end
+  def buffer_exceeded spot,  &blk
+    raise BufferExceeded.new("Delete past #{spot} of buffer") if  yield
   end
   def restore_extend
     @a_buff.extend ArrayExtender
@@ -50,7 +54,7 @@ class Buffer
   end
 
   def del(string = ' ')
-    raise BufferExceeded.new('Delete past beginning of buffer') if @a_buff.empty?
+    buffer_exceeded('beginning') { @a_buff.empty? }
     @dirty = true
     value = @a_buff.cut(string.length * -1)
     record :del, value
@@ -199,7 +203,7 @@ class Buffer
   end
 
   def del_at(string = ' ')
-    raise BufferExceeded.new('Delete past beginning of buffer') if @b_buff.empty?
+    buffer_exceeded('end') { @b_buff.empty? }
     @dirty = true
     value = @b_buff.cut(string.length)
     record :del_at, value
