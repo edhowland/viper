@@ -5,6 +5,10 @@ Version : Viper 1.99-rc0
 
 Major Bug:
 
+Bug: Handle No Mark set on Ctrl-c, -v and -p
+  >> Erase :_mark after cut, copy
+  >> willtie into the above Bug to handle no mark set
+  >> Will also fix backspace and delete saying selection deleted
 Bug: Cannot edit two buffers from the same file name, but different directories
   >> This is because /v/buf/Rakefile is only a single pathname:
   >> constructed by : filename.ext of original pathname prepended with /v/buf/
@@ -67,6 +71,8 @@ Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
+Feature: Remove buf_node: BufNode < VFSNode.
+  >> make mkbuf extend mknode or mkdir and add new Buffer to buffer key
 Feature/Bug: Make the echo be both builtin and a real command in /v/bin.
   >> This conforms to Bash like behaviour.
 Feature: add -f option to unset command to remove functions
