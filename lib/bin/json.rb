@@ -2,8 +2,6 @@
 # with argument '-r' reads JSON from stdin and creates VFSNodes and appends to 
 # args[0] - first arg
 
-
-
  require 'json'
 def to_vfs parent, name, h
   node = VFSNode.new(parent, name)
@@ -16,7 +14,6 @@ def to_vfs parent, name, h
   end
   node
 end
-
 
  class Json < BaseNodeCommand
    def call *args, env:, frames:

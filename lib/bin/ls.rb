@@ -1,6 +1,5 @@
 # ls - class Ls - Unix-like ls command
 
-
 class Ls < BaseCommand
   def call *args, env:, frames:
 #binding.pry

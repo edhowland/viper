@@ -1,6 +1,5 @@
 # raw - class Raw,  - command raw - reads one char from $stdin into var
 
-
 require 'remedy'
 
 class Raw < BaseCommand

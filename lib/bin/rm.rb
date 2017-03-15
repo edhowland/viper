@@ -1,6 +1,5 @@
 # rm - class Rm - command rm - rm path - removes file
 
-
 class Rm < BaseCommand
   def call *args, env:, frames:
     if args.empty?
