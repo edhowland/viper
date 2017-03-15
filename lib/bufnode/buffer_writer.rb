@@ -17,4 +17,3 @@ class BufferWriter
     # nop
   end
 end
-

@@ -1,6 +1,5 @@
 # buf_writer - class BufWriter - returned by BufWriteFacade
 
-
 class BufWriter
   def initialize io
     @io = io

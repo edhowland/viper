@@ -1,4 +1,5 @@
-# buf_write_facade - class BufWriteFacade - returns BufWriter when open for write
+# buf_write_facade - class BufWriteFacade - returns BufWriter when open for
+# write
 
 class BufWriteFacade
   def initialize io
@@ -6,9 +7,9 @@ class BufWriteFacade
   end
   def mk_stream mode
     {
- 'r' => BufferReader,
- 'w' => BufferWriter,
- 'a' => BufWriter
+      'r' => BufferReader,
+      'w' => BufferWriter,
+      'a' => BufWriter
     }[mode]
   end
   def open path, mode

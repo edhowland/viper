@@ -1,7 +1,7 @@
 # buffer_reader - class BufferReader - returned from BufNodeFacade : mode: r
 
 class BufferReader
-    def initialize io
+  def initialize io
     @io = io
   end
   def read
@@ -13,4 +13,3 @@ class BufferReader
     # nop
   end
 end
-

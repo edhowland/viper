@@ -35,7 +35,7 @@ class BufNode < VFSNode
     "buf node #{name}"
   end
 
-     def newline
+  def newline
     exist = @list['nl']
     nl = BufNode.new(self, 'nl')
     nl['nl'] = exist unless exist.nil?

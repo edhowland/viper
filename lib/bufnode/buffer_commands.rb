@@ -1,33 +1,33 @@
 # buffer_commands - all classes for Buffer methods
 
 class NoArgBufferCommand < BaseBufferCommand
-    def call *args, env:, frames:
-        buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call *args, env:, frames:
+    buf_apply(args[0], env:env, frames:frames) do |buffer|
       @meth0.call buffer
     end
   end
 end
 
 class SingleArgBufferCommand < BaseBufferCommand
-    def call *args, env:, frames:
-        buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call *args, env:, frames:
+    buf_apply(args[0], env:env, frames:frames) do |buffer|
       @meth.call buffer, args[1]
     end
-  end  
+  end
 end
 
 class IntegerArgBufferCommand < BaseBufferCommand
-    def call *args, env:, frames:
-        buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call *args, env:, frames:
+    buf_apply(args[0], env:env, frames:frames) do |buffer|
       @meth.call buffer, args[1].to_i
     end
-  end  
+  end
 end
 
 class RangeArgBufferCommand < BaseBufferCommand
   def call *args, env:, frames:
-        buf_apply(args[0], env:env, frames:frames) do |buffer|
-          values = [args[1].to_i, args[2].to_i].sort
+    buf_apply(args[0], env:env, frames:frames) do |buffer|
+      values = [args[1].to_i, args[2].to_i].sort
       @meth.call(buffer, Range.new(*values)).join('')
     end
   end
@@ -73,7 +73,7 @@ class Dirty < NoArgBufferCommand
       result = buffer.dirty?
       ''
     end
-    result    
+    result
   end
 end
 
@@ -103,10 +103,8 @@ class BackOfLine < NoArgBufferCommand; end
 class Lline < NoArgBufferCommand; end
 class Rline < NoArgBufferCommand; end
 
-
-
- # single argument commands
- class SrchFwd < SingleArgBufferCommand
+# single argument commands
+class SrchFwd < SingleArgBufferCommand
   def call *args, env:, frames:
     buf_apply args[0], env:env, frames:frames do |buffer|
       re = string_to_regex args[1]
@@ -115,17 +113,17 @@ class Rline < NoArgBufferCommand; end
   end
 end
 
- class SrchBack < SingleArgBufferCommand
+class SrchBack < SingleArgBufferCommand
   def call *args, env:, frames:
     buf_apply args[0], env:env, frames:frames do |buffer|
       re = string_to_regex args[1]
-      buffer.srch_back re      
+      buffer.srch_back re
     end
   end
 end
 
 # integer single args
-class FwdAmt < IntegerArgBufferCommand 
+class FwdAmt < IntegerArgBufferCommand
   def call *args, env:, frames:
     buf_apply args[0], env:env, frames:frames do |buffer|
       buffer.fwd(args[1].to_i)

@@ -2,7 +2,6 @@
 # performs unshift operation on array
 # use this command to not confuse w/shell unshift (if exists?)
 
-
 class Enq < BaseNodeCommand
   def call *args, env:, frames:
     object = env[:in].read
