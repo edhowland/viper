@@ -13,8 +13,10 @@ class Lambda
     fr.push
     bound = @args.zip(args).to_h  # bind any passed arguments to this hash
     fr.top.merge! bound        # these are now variables within this context
-    fr[:_] = args   # the arguments to this function are collected in the :_ variable
-    fr[:_argc] = args.length.to_s  # The number of arguments are stored in :_argc
+    # the arguments to this function are collected in the :_ variable
+    fr[:_] = args
+    # The number of arguments are stored in :_argc
+    fr[:_argc] = args.length.to_s
     result = @block.call env:env, frames:fr
   end
 

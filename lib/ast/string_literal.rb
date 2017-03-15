@@ -1,4 +1,5 @@
-# string_literal - class StringLiteral - Nodes for bare strings and double quoted
+# string_literal - class StringLiteral - Nodes for bare strings and double
+#quoted
 #  "" strings
 # ones. Will try to interpolate embedded variable derefs
 

@@ -31,6 +31,7 @@ class Redirection
   end
   def call env:, frames:
     target  = @target.call env:env, frames:frames
+    #%%LINT4
     raise AmbigousRedirection.new "ambigous redirection target #{target}" if target.nil? || target.empty? || !!(target =~ /^\s+$/)
     target = target[0] if Array === target
     env[key] = ObjectRedir.new target, mode

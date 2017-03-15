@@ -7,7 +7,8 @@ class LambdaDeclaration
     @block = block
   end
   def call *args, env:, frames:
-    fr = frames.back(:__FUNCTION__)  # pull only frame stack back to function frame
+    # pull only frame stack back to function frame
+    fr = frames.back(:__FUNCTION__)
     Lambda.new(@args, @block, frames:fr._clone)
   end
   def ordinal
