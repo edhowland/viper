@@ -14,7 +14,7 @@ end
     end
     attr_reader :return_code
   end
-
+  # %%LINT4 - ignore this long line
   def initialize  env:FrameStack.new(frames:[{in: $stdin, out: $stdout, err: $stderr}]), frames:FrameStack.new
     @fs= frames
     @fs[:exit_status] = true

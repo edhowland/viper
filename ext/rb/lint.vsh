@@ -6,6 +6,8 @@ require ":{vhome}/ext/rb/lint_pass2.rb"
 install_cmd LintPass2 /v/bin
 require ":{vhome}/ext/rb/lint_pass3.rb"
 install_cmd LintPass3 /v/bin
+require ":{vhome}/ext/rb/lint_pass4.rb"
+install_cmd LintPass4 /v/bin
 function lint() {
   test -f /v/lint && rm /v/lint
   mkdir /v/lint
@@ -17,11 +19,14 @@ function lint() {
    pass2=:(first :pipe_status)
   lint_pass3 :_buf | json -r /v/lint/3
   pass3=:(first :pipe_status)
-  :pass0 && :pass1 && :pass2 && :pass3 && echo lint ok && return true
+  lint_pass4 :_buf | json -r /v/lint/4
+  pass4=:(first :pipe_status)
+  :pass0 && :pass1 && :pass2 && :pass3 && :pass4 && echo lint ok && return true
   :pass0 || echo lint pass 0: indents are multiples of :indent
   :pass1 || echo pass 1 indent distances are either 0 or :indent
   :pass2 || echo pass 2 trailing whitespace
   :pass3 || echo pass 3 check for excessive blank lineage
+  :pass4 || echo pass 4 excessive line length greater than :(test -z :lint_max_length && echo 80)
   echo lint failed
   return false
 }
