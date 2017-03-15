@@ -27,6 +27,7 @@ oparse = OptionParser.new do |opt|
   opt.on('--no-finish', 'Do not execute scripts at exit') do
     options[:no_finish] = true
   end
+#%%LINT4
   opt.on('-m mode', '--mode mode', String, 'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
   end
@@ -35,7 +36,7 @@ oparse = OptionParser.new do |opt|
   end
   opt.on('-x', '--debug', 'Debugging Support') do
     options[:debug] = true
-require_relative 'debugging_support'
+    require_relative 'debugging_support'
   end
   opt.on('-L', '--log', 'Start logging to vish.log') do
     options[:log] = true
@@ -72,21 +73,20 @@ require_relative 'debugging_support'
 end
 oparse.parse!
 
- # possibly check all input files for syntax correctness
+# possibly check all input files for syntax correctness
 if options[:check]
   rvalue = 0
     ARGV.each do |f|
     begin
       Visher.parse!(File.read(f))
-puts "#{f}: Syntax OK"
-  rescue VishSyntaxError => err
-    $stderr.puts "#{f}: #{err.message}"
-rvalue = 1
-  end
+      puts "#{f}: Syntax OK"
+    rescue VishSyntaxError => err
+      $stderr.puts "#{f}: #{err.message}"
+      rvalue = 1
+    end
   end
   exit rvalue
 end
-
 
 def boot opt, vm
   opt[:no_start] ? [] : [ vm.fs[:vhome] + '/etc/vishrc' ]
@@ -121,7 +121,6 @@ def files argv
   argv.empty? ? [ 'test -z :_buf && open unnamed1'] : argv.reverse.map {|e| "fopen #{e}" }
 end
 
-
 def vishrc_files
   Dir[ENV['HOME'] + '/.vishrc'] + Dir['./.vishrc']
 end
@@ -141,7 +140,7 @@ begin
     options[:start] +
     (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
     options[:execute] +
-    files(ARGV) + 
+    files(ARGV) +
     vishrc_files.map {|e| File.read(e) } +
     [ 'load_event' ] +
     mode(options) +
