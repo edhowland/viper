@@ -7,4 +7,3 @@ class Exit < BaseCommand
     raise VirtualMachine::ExitCalled.new(code)
   end
 end
-

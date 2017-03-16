@@ -17,8 +17,8 @@ class Expr < BaseCommand
         false
       end
     else
-      env[:err].puts "expr: wrong number of arguments. Expected 3, got: #{args.length}"
-      false 
+      arg_error 3, env:env
+      false
     end
   end
 end

@@ -6,7 +6,7 @@
 
 # by default, output base64 encode. Results in shorter output  strings w/entropy
 
- require 'digest/sha1'
+require 'digest/sha1'
 
 class DigestSha1 < BaseValueCommand
   def base64 digester, length=-1, string=nil
@@ -33,5 +33,5 @@ class DigestSha1 < BaseValueCommand
       env[:out].write(base64(digest, clip_length, gets))
     end
     true
-   end
+    end
   end

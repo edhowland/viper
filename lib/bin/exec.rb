@@ -17,17 +17,18 @@ class Exec < BaseCommand
         env[:err].puts "exec: no such file: #{block}"
         return false
       elsif !(node.instance_of?(Lambda) || node.instance_of?(Block))
-        env[:err].puts "exec: object at #{block} must be a lambda function or a block"
+        error 'Object at',
+          block, '#{block} must be a lambda function or a block'
         env[:err].puts "got: #{node.class.name}"
         return false
       end
-            result = node.call *args, env:env, frames:frames
+      result = node.call *args, env:env, frames:frames
     when nil
       env[:err].puts "exec: first argument must not be nil"
       return false
     else
       env[:err].puts 'exec: first argument must be either a block or lambda'
-      return false    
+      return false
     end
     result
   end
