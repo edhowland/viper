@@ -18,4 +18,3 @@ class Loop < BaseCommand
     end
   end
 end
-

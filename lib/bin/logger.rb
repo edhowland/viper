@@ -11,8 +11,8 @@ class Logger < BaseCommand
       if @options[:p]
         a[0] = "#{a[0]}:"
       end
-        Log.dump(a, ' ')
-        Log.finish if @options[:e]
+      Log.dump(a, ' ')
+      Log.finish if @options[:e]
     end
   end
 end

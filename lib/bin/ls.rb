@@ -2,7 +2,6 @@
 
 class Ls < BaseCommand
   def call *args, env:, frames:
-#binding.pry
     args = Hal['*'] if args.empty?
     args.each do |f|
       list = [f]
