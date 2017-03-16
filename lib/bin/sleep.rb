@@ -5,7 +5,7 @@ class Sleep < BaseCommand
     if args.length == 1
       sleep(args[0].to_i)
     else
-      env[:err].puts "sleep: wrong number of arguments: :Usage: sleep number_of_secs"
+      arg_error 1, env:env
     end
   end
 end

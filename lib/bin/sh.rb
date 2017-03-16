@@ -9,7 +9,7 @@ class Sh < BaseCommand
     begin
       stdin, stdout, stderr = Open3.popen3(command)
 
-       stdin.write(env[:in].read) unless opt.nil?
+      stdin.write(env[:in].read) unless opt.nil?
       stdin.close
       env[:out].write(stdout.read)
       env[:err].write(stderr.read)

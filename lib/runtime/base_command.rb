@@ -1,4 +1,5 @@
-# base_command.rb - abstract class BaseCommand - base class for all/most commands.
+# base_command.rb - abstract class BaseCommand - base class for all/most
+# commands.
 # possibly abstracts out option handling
 # adds methods: pout, perr to simplify stdout, stderr stream output
 
@@ -17,8 +18,17 @@ class BaseCommand
   end
   def args_parse! args
     @options = {}
-    args.select {|e| e =~ /^\-.+/ }.map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.each {|e| @options[e] = true }
+    args.select {|e| e =~ /^\-.+/ }.
+      map {|e| e =~ /^\-*([^\-]*)/; $1.to_sym }.
+      each {|e| @options[e] = true }
     args.reject {|e| e =~ /^\-.+/ }
+  end
+  def error *phrases, env:
+  phrases.unshift snakeize(self.class.name)
+    env[:err].puts phrases.join ': '
+  end
+  def arg_error expected, env:
+    error 'Wrong number of arguments', 'Expected', expected, env:env
   end
   def call *args, env:, frames:, &blk
   @ios = env
