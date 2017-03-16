@@ -1,5 +1,6 @@
 # rand.rb - class Class Rand - command rand - outputs  random string
-#args: -c first last => output chars within first..last range. Else outputs all 22 chars
+#args: -c first last => output chars within first..last range.
+# Else outputs all 22 chars
 
 require 'securerandom'
 

@@ -12,4 +12,3 @@ class Read < BaseCommand
     true
   end
 end
-

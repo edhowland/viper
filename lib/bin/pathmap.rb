@@ -1,4 +1,4 @@
-# pathmap - class  Pathmap - command pathmap - works like Rake's pathmap 
+# pathmap - class  Pathmap - command pathmap - works like Rake's pathmap
 
 class Pathmap < BaseCommand
   def call *args, env:, frames:
@@ -12,4 +12,3 @@ class Pathmap < BaseCommand
     end
   end
 end
-

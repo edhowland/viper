@@ -5,4 +5,3 @@ class PryInvoker
     binding.pry
   end
 end
-

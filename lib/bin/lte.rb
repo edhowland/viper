@@ -1,4 +1,4 @@
-# lt - class Lte - command lte - returns true if args are less than or equal
+# lte.rb  - class Lte - command lte - returns true if args are less than or equal
 
 class Lte < BaseCommand
   def call *args, env:, frames:

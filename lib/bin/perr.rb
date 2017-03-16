@@ -14,4 +14,3 @@ class Perr < BaseCommand
     true
   end
 end
-

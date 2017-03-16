@@ -6,4 +6,3 @@ class Not < Exec
     !frames[:exit_status]
   end
 end
-
