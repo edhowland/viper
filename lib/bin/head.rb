@@ -15,7 +15,7 @@ class Head < BaseCommand
       buffer=@in.read
       lines = buffer.lines
       my_count = [lines.length, _count].min
-      lines[0..(my_count - 1)].each {|l| pout l.chomp }      
-     end
+      lines[0..(my_count - 1)].each {|l| pout l.chomp }
+    end
   end
 end

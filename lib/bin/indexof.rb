@@ -1,6 +1,6 @@
 # indexof - class Indexof - command indexof -
 # args
-# character 
+# character
 # reads stream from stdin, outputs character position if found
 # -r : reverses the search with rindex
 # returns true if found, else false
@@ -27,4 +27,3 @@ class Indexof < BaseCommand
     end
   end
 end
-

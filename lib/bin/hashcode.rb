@@ -1,5 +1,5 @@
 # hashcode - class Hashcode - command hashcode - converts string to hash code
-# Args: 
+# Args:
 # -r reads from stdin
 # args:  joined - string to be converted after joining
 

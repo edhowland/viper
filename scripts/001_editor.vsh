@@ -189,3 +189,4 @@ function buffer_name() {
 function g(num) {
   goto :_buf :num
 }
+alias buffer='apply fn_2'

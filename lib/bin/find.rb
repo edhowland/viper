@@ -4,7 +4,7 @@
 # -exec :lambda to run on found elements
 
 class Selector < Eq
-  def initialize filter="."  # default filter arg so can subclass from Eq 
+  def initialize filter="."  # default filter arg so can subclass from Eq
     @filter = filter
   end
   def call *args, env:, frames:
@@ -13,7 +13,7 @@ class Selector < Eq
 end
 
 class Find < BaseCommand
-  def initialize 
+  def initialize
     @source = '.'
     @filter = Eq.new
     @exec = Echo.new
@@ -31,11 +31,12 @@ class Find < BaseCommand
     end
     @exec ||= Echo.new
     begin
-      Hal['**'].select {|e| @filter.call(e, env:env, frames:frames) }.each {|e| @exec.call(e, env:env, frames:frames) }
+      Hal['**'].select {|e| @filter.call(e, env:env, frames:frames) }.
+        each {|e| @exec.call(e, env:env, frames:frames) }
+      #
     rescue VirtualMachine::BreakCalled => err
       return true
     end
     true
   end
 end
-
