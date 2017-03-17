@@ -1,0 +1,6 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - 'bin/viper'
+  Exclude:
+    - 'test/**/*'
