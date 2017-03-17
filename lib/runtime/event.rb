@@ -4,7 +4,6 @@
 require_relative 'regex_hash'
 
 class Event
-
   @@proceed = -1
   class << self
     def init
@@ -12,7 +11,7 @@ class Event
       @@matches ||= RegexHash.new
     end
 
-    def << handler
+    def <<(handler)
       init
       @@events << handler
     end
@@ -22,7 +21,7 @@ class Event
       @@events
     end
 
-    def []= key, handler
+    def []=(key, handler)
       init
       @@matches[key] = handler
     end
@@ -37,19 +36,19 @@ class Event
       handler = @@matches[args.join(' ')]
       if handler.respond_to? :call
         if handler.instance_of? Lambda
-          handler.call(*args, env:env, frames:frames)
+          handler.call(*args, env: env, frames: frames)
         elsif handler.instance_of? Block
-          handler.call env:env, frames:frames
+          handler.call env: env, frames: frames
         else
-          raise RuntimeError.new('Unknown event handler type')
+          raise 'Unknown event handler type'
         end
       end
     end
 
-    def trigger *args, env:, frames:
+    def trigger(*args, env:, frames:)
       init
       @@proceed += 1
-      @@events.each {|e| e.call(*args, env:env, frames:frames) } if @@proceed.zero?
+      @@events.each { |e| e.call(*args, env: env, frames: frames) } if @@proceed.zero?
       @@proceed -= 1
     end
   end

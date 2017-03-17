@@ -4,28 +4,30 @@
 # -u : prints Unicode representation of keystroke
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
-#%%LINT4
+# %%LINT4
 
 class Xfkey < BaseCommand
+  def key_to_hex(values)
+    @out.write(values.bytes.map { |e| '%0x' % e }.join(' '))
+  end
 
-  def key_to_hex  values
-    @out.write(values.bytes.map {|e| '%0x' % e }.join(' '))
+  def key_to_decimal(values)
+    @out.write(values.bytes.map { |e| '%0d' % e }.join(' '))
   end
-  def key_to_decimal values
-    @out.write(values.bytes.map {|e| '%0d' % e }.join(' '))
-  end
-  def key_to_unicode values
-    uni = values.chars.map {|e| e.unpack('H*')[0] }.map {|e| '\\u00' + e }
+
+  def key_to_unicode(values)
+    uni = values.chars.map { |e| e.unpack('H*')[0] }.map { |e| '\\u00' + e }
 
     @out.write uni.join(' ')
     true
   end
-  def key_to_name values
-    if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
+
+  def key_to_name(values)
+    if ('A'..'Z').cover?(values) || ('a'..'z').cover?(values) || ('0'..'9').cover?(values)
       @out.write "key_#{values}"
       return true
     end
-    unis = (1..26).to_a.map {|e| [e].pack('U') }
+    unis = (1..26).to_a.map { |e| [e].pack('U') }
     if unis.member? values
       unpacked = values.unpack('C')[0]
       ctrl = 'ctrl_' + (unpacked + 64).chr.downcase
@@ -61,48 +63,48 @@ class Xfkey < BaseCommand
       [203, 156] => 'meta_n'
     }
     meta_k = values.bytes
-      if meta_keys[meta_k]
-        @out.write meta_keys[meta_k]
-        return true
-      end
+    if meta_keys[meta_k]
+      @out.write meta_keys[meta_k]
+      return true
+    end
 
     result = {
-      "\e" => "escape",
+      "\e" => 'escape',
       "\u007F" => 'key_backspace',
       # punctuation
-      " " => 'key_space',
-      "." => 'key_period',
-      "," => "key_comma",
-      "<" => 'key_less',
-      ">" => 'key_greater',
-      "/" => 'key_slash',
-      "?" => 'key_question',
+      ' ' => 'key_space',
+      '.' => 'key_period',
+      ',' => 'key_comma',
+      '<' => 'key_less',
+      '>' => 'key_greater',
+      '/' => 'key_slash',
+      '?' => 'key_question',
       "'" => 'key_apostrophe',
       '"' => 'key_quote',
-      ";" => 'key_semicolon',
-      ":" => 'key_colon',
-      "]" => 'key_rbracket',
-      "}" => 'key_rbrace',
-      "[" => 'key_lbracket',
-      "{" => 'key_lbrace',
-      "\\" => 'key_backslash',
-      "|" => 'key_pipe',
-      "=" => 'key_equals',
-      "+" => 'key_plus',
-      "-" => 'key_dash',
-      "_" => 'key_underline',
-      ")" => 'key_rparen',
-      "(" => 'key_lparen',
-      "*" => 'key_star',
-      "&" => 'key_ampersand',
-      "^" => 'key_caret',
-      "%" => 'key_percent',
-      "$" => 'key_dollar',
-      "#" => 'key_number',
-      "@" => 'key_at',
-      "!" => 'key_exclaim',
-      "`" => 'key_accent',
-      "~" => 'key_tilde',
+      ';' => 'key_semicolon',
+      ':' => 'key_colon',
+      ']' => 'key_rbracket',
+      '}' => 'key_rbrace',
+      '[' => 'key_lbracket',
+      '{' => 'key_lbrace',
+      '\\' => 'key_backslash',
+      '|' => 'key_pipe',
+      '=' => 'key_equals',
+      '+' => 'key_plus',
+      '-' => 'key_dash',
+      '_' => 'key_underline',
+      ')' => 'key_rparen',
+      '(' => 'key_lparen',
+      '*' => 'key_star',
+      '&' => 'key_ampersand',
+      '^' => 'key_caret',
+      '%' => 'key_percent',
+      '$' => 'key_dollar',
+      '#' => 'key_number',
+      '@' => 'key_at',
+      '!' => 'key_exclaim',
+      '`' => 'key_accent',
+      '~' => 'key_tilde',
       # movement keys
       "\u001b" + "\u005b" + "\u0044" => 'move_left',
       "\u001b" + "\u005b" + "\u0043" => 'move_right',
@@ -133,19 +135,20 @@ class Xfkey < BaseCommand
       "\u001b" + "\u005b" + "\u0032" + "\u0034" + "\u007e" => 'fn_12',
 
       # meta keys
-      #[e2,88,82] => 'meta_d'
+      # [e2,88,82] => 'meta_d'
 
     }[values]
-    unless result.nil?
-      @out.write result
-      true
-    else
-      @out.write "unknown"
+    if result.nil?
+      @out.write 'unknown'
       false
 
+    else
+      @out.write result
+      true
     end
   end
-  def name_to_human name
+
+  def name_to_human(name)
     human = {
       'key_space' => 'space',
       'ctrl_j' => 'new line',
@@ -157,7 +160,7 @@ class Xfkey < BaseCommand
         if name.length == 5
           @out.write name[4]
         else
-          @out.write name[4..(-1)]
+          @out.write name[4..-1]
         end
         true
       when 'ctrl'
@@ -172,7 +175,8 @@ class Xfkey < BaseCommand
       true
     end
   end
-  def call *args, env:, frames:
+
+  def call(*args, env:, frames:)
     @out = env[:out]
     values = env[:in].read
 

@@ -1,32 +1,32 @@
 # buffer_commands - all classes for Buffer methods
 
 class NoArgBufferCommand < BaseBufferCommand
-  def call *args, env:, frames:
-    buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply(args[0], env: env, frames: frames) do |buffer|
       @meth0.call buffer
     end
   end
 end
 
 class SingleArgBufferCommand < BaseBufferCommand
-  def call *args, env:, frames:
-    buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply(args[0], env: env, frames: frames) do |buffer|
       @meth.call buffer, args[1]
     end
   end
 end
 
 class IntegerArgBufferCommand < BaseBufferCommand
-  def call *args, env:, frames:
-    buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply(args[0], env: env, frames: frames) do |buffer|
       @meth.call buffer, args[1].to_i
     end
   end
 end
 
 class RangeArgBufferCommand < BaseBufferCommand
-  def call *args, env:, frames:
-    buf_apply(args[0], env:env, frames:frames) do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply(args[0], env: env, frames: frames) do |buffer|
       values = [args[1].to_i, args[2].to_i].sort
       @meth.call(buffer, Range.new(*values)).join('')
     end
@@ -34,9 +34,9 @@ class RangeArgBufferCommand < BaseBufferCommand
 end
 
 class AtBeg < BaseBufferCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     result = false
-    buf_apply args[0], env:env, frames:frames do |buffer|
+    buf_apply args[0], env: env, frames: frames do |buffer|
       result = buffer.a_buff.length.zero?
       ''
     end
@@ -45,9 +45,9 @@ class AtBeg < BaseBufferCommand
 end
 
 class AtFin < BaseBufferCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     result = false
-    buf_apply args[0], env:env, frames:frames do |buffer|
+    buf_apply args[0], env: env, frames: frames do |buffer|
       result = buffer.b_buff.length.zero?
       ''
     end
@@ -56,9 +56,9 @@ class AtFin < BaseBufferCommand
 end
 
 class BooleanBufferCommand < BaseBufferCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     result = false
-    buf_apply args[0], env:env, frames:frames do |buffer|
+    buf_apply args[0], env: env, frames: frames do |buffer|
       result = @meth.call buffer, args[1]
       ''
     end
@@ -67,9 +67,9 @@ class BooleanBufferCommand < BaseBufferCommand
 end
 
 class Dirty < NoArgBufferCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     result = false
-    buf_apply args[0], env:env, frames:frames do |buffer|
+    buf_apply args[0], env: env, frames: frames do |buffer|
       result = buffer.dirty?
       ''
     end
@@ -105,8 +105,8 @@ class Rline < NoArgBufferCommand; end
 
 # single argument commands
 class SrchFwd < SingleArgBufferCommand
-  def call *args, env:, frames:
-    buf_apply args[0], env:env, frames:frames do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply args[0], env: env, frames: frames do |buffer|
       re = string_to_regex args[1]
       buffer.srch_fwd re
     end
@@ -114,8 +114,8 @@ class SrchFwd < SingleArgBufferCommand
 end
 
 class SrchBack < SingleArgBufferCommand
-  def call *args, env:, frames:
-    buf_apply args[0], env:env, frames:frames do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply args[0], env: env, frames: frames do |buffer|
       re = string_to_regex args[1]
       buffer.srch_back re
     end
@@ -124,8 +124,8 @@ end
 
 # integer single args
 class FwdAmt < IntegerArgBufferCommand
-  def call *args, env:, frames:
-    buf_apply args[0], env:env, frames:frames do |buffer|
+  def call(*args, env:, frames:)
+    buf_apply args[0], env: env, frames: frames do |buffer|
       buffer.fwd(args[1].to_i)
     end
   end

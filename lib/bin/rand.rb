@@ -1,11 +1,11 @@
 # rand.rb - class Class Rand - command rand - outputs  random string
-#args: -c first last => output chars within first..last range.
+# args: -c first last => output chars within first..last range.
 # Else outputs all 22 chars
 
 require 'securerandom'
 
 class Rand < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       range = 0..-1
       if @options[:c]

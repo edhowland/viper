@@ -2,12 +2,14 @@
 # strings. Will not interpolate them
 
 class QuotedString
-  def initialize string
+  def initialize(string)
     @storage = string
   end
-  def call frames:, env:{}
+
+  def call(frames:, env: {})
     @storage.to_s
   end
+
   def to_s
     @storage.to_s
   end

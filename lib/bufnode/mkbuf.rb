@@ -1,10 +1,10 @@
 # mkbuf - class Mkbuf - command mkbuf - creates buffer node in VFS
 
 class Mkbuf < BaseNodeCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     root = frames[:vroot]
     if root.nil?
-      env[:err].puts "VFS not mounted"
+      env[:err].puts 'VFS not mounted'
       false
     else
       dnode = root.dirnode args[0]

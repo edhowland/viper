@@ -6,20 +6,18 @@ class Ruby < BaseCommand
     @orig_out = $stdout
   end
 
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     begin
       $stdin = env[:in]
       $stdout = env[:out]
       code = args.first
       argv = args[1..-1]
-      result = self.instance_eval(code)
+      result = instance_eval(code)
     ensure
       $stdout = @orig_out
       $stdin = @orig_in
     end
-    if TrueClass === result || FalseClass === result
-      return result
-    end
+    return result if TrueClass === result || FalseClass === result
     true
   end
 end

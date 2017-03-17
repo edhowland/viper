@@ -4,7 +4,7 @@
 # Possibly used in conjunction with push
 
 class Deq < BaseNodeCommand
-  def call *args, env:, frames:
-    perform(args[0], env:env, frames:frames) {|node| node.shift }
+  def call(*args, env:, frames:)
+    perform(args[0], env: env, frames: frames, &:shift)
   end
 end

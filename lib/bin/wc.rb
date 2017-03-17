@@ -6,15 +6,15 @@
 # -n  prints without printingo newline
 
 class Wc < BaseCommand
-  def call *args, env:, frames:
-    super do |*a|
+  def call(*args, env:, frames:)
+    super do |*_a|
       method = :puts
-      if@options[:n]
+      if @options[:n]
         method = :print # if args[0] == '-n'
       end
       if @options[:w]
         # %%LINT4
-        @output.send(method,@in.read.split(/\b/).map {|e| e.strip }.reject {|e| e.empty? }.length)
+        @output.send(method, @in.read.split(/\b/).map(&:strip).reject(&:empty?).length)
       elsif @options[:l]
         @out.puts @in.read.each_line.to_a.length
       else

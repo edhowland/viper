@@ -3,16 +3,19 @@
 require_relative 'context_constants'
 
 class Argument
-  def initialize thing
+  def initialize(thing)
     @storage = thing
   end
-  def call env:, frames:
-    @storage.call frames:frames, env:env
+
+  def call(env:, frames:)
+    @storage.call frames: frames, env: env
   end
+
   def to_s
     @storage.to_s
   end
+
   def ordinal
-  COMMAND
+    COMMAND
   end
 end

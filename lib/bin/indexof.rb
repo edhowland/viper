@@ -6,7 +6,7 @@
 # returns true if found, else false
 
 class Indexof < BaseCommand
-  def regexp string
+  def regexp(string)
     if string[0] == '/'
       Regexp.new string[1..-2]
     else
@@ -14,15 +14,13 @@ class Indexof < BaseCommand
     end
   end
 
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       method = (@options[:r] ? :rindex : :index)
       regex = regexp a[0]
       var = @in.read.send(method, regex)
       result = !var.nil?
-      if result
-        pout "#{var}"
-      end
+      pout var.to_s if result
       result
     end
   end

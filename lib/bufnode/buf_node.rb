@@ -1,19 +1,21 @@
 # buf_node - class BufNode - subclass VFSNode - like a directory, but a buffer
 
 class BufNode < VFSNode
-  def initialize parent, name
+  def initialize(parent, name)
     super parent, name
     buffer = Buffer.new('')
     @list['buffer'] = buffer
   end
-  def mknode name
+
+  def mknode(_name)
     @list['nl'] = BufNode.new self, 'nl'
   end
-  def insnode text=''
+
+  def insnode(text = '')
     child = @list['nl']
     unless child
       mknode ''
-    child = @list['nl']
+      child = @list['nl']
     end
     baby = mknode ''
     lnode = LineNode.new(baby, 'line')
@@ -24,13 +26,15 @@ class BufNode < VFSNode
     baby['nl'] = child
     baby
   end
-  def addnode text=''
+
+  def addnode(text = '')
     child = mknode ''
     lnode = LineNode.new child, 'line'
     lnode.right = text
     child['line'] = lnode
     child
   end
+
   def to_s
     "buf node #{name}"
   end

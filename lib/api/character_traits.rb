@@ -12,15 +12,15 @@ module CharacterTraits
       @traits || @traits = Set.new
     end
 
-    def includes_trait? trait
+    def includes_trait?(trait)
       traits.include? trait
     end
 
-    def trait_append trait
+    def trait_append(trait)
       traits << trait
     end
 
-    def remove_trait trait
+    def remove_trait(trait)
       traits.delete trait
     end
   end
@@ -29,42 +29,42 @@ end
 class Buffer
   using CharacterTraits
 
-  def trait_set trait
+  def trait_set(trait)
     trait = trait.to_sym
     @b_buff[0].trait_append trait
     ''
   end
 
-  def trait_del trait
+  def trait_del(trait)
     trait = trait.to_sym
     @b_buff[0].remove_trait trait
     ''
   end
 
-  def trait_has trait
+  def trait_has(trait)
     trait = trait.to_sym
     @b_buff[0].includes_trait? trait
   end
 
-  def trait_first trait
-    trait =trait.to_sym
-    pos = to_a.index {|c| c.includes_trait? trait }
+  def trait_first(trait)
+    trait = trait.to_sym
+    pos = to_a.index { |c| c.includes_trait? trait }
     pos.nil? ? 0 : pos
   end
 
   # must offset result by 1 to make up for starting at @b_buff[1]
-  def trait_next trait
-    trait =trait.to_sym
-    @b_buff[1..-1].index {|c| c.includes_trait? trait } + position + 1
+  def trait_next(trait)
+    trait = trait.to_sym
+    @b_buff[1..-1].index { |c| c.includes_trait? trait } + position + 1
   end
 
-  def trait_prev trait
-    trait =trait.to_sym
-    @a_buff.rindex{|c| c.includes_trait? trait }
+  def trait_prev(trait)
+    trait = trait.to_sym
+    @a_buff.rindex { |c| c.includes_trait? trait }
   end
 
-  def trait_exists trait
-    pos=trait_first(trait)
+  def trait_exists(trait)
+    pos = trait_first(trait)
     to_a[pos].includes_trait? trait.to_sym
   end
 end

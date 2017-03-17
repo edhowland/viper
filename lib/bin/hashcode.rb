@@ -4,7 +4,7 @@
 # args:  joined - string to be converted after joining
 
 class Hashcode < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       if @options[:r]
         env[:out].write(env[:in].read.hash)

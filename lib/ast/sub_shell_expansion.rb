@@ -2,14 +2,14 @@
 # content of the last command's output
 
 class SubShellExpansion < SubShell
-  def call env:, frames:
+  def call(env:, frames:)
     my_env = env._clone
     sio = StringIO.new
     my_env[:out] = sio
-    super env:my_env, frames:frames
+    super env: my_env, frames: frames
     sio.close_write
     sio.rewind
-    result = sio.read.gsub(/\n/, ' ').split
+    result = sio.read.tr("\n", ' ').split
     if result.length == 1
       result[0]
     else

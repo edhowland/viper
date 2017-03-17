@@ -4,11 +4,12 @@
 # -exec :lambda to run on found elements
 
 class Selector < Eq
-  def initialize filter="."  # default filter arg so can subclass from Eq
+  def initialize(filter = '.') # default filter arg so can subclass from Eq
     @filter = filter
   end
-  def call *args, env:, frames:
-    super @filter, Hal.basename(args[0]), env:env, frames:frames
+
+  def call(*args, env:, frames:)
+    super @filter, Hal.basename(args[0]), env: env, frames: frames
   end
 end
 
@@ -18,7 +19,8 @@ class Find < BaseCommand
     @filter = Eq.new
     @exec = Echo.new
   end
-  def call *args, env:, frames:
+
+  def call(*args, env:, frames:)
     @source, @filter, @exec = args.shift(3)
     case @filter
     when String
@@ -31,8 +33,8 @@ class Find < BaseCommand
     end
     @exec ||= Echo.new
     begin
-      Hal['**'].select {|e| @filter.call(e, env:env, frames:frames) }.
-        each {|e| @exec.call(e, env:env, frames:frames) }
+      Hal['**'].select { |e| @filter.call(e, env: env, frames: frames) }
+               .each { |e| @exec.call(e, env: env, frames: frames) }
       #
     rescue VirtualMachine::BreakCalled => err
       return true

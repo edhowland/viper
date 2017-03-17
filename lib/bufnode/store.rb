@@ -3,7 +3,7 @@
 # stores a variable or anonymous function to a path in the VFS
 
 class Store < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     object, path = args
     root = frames[:vroot]
     root.creat path, object

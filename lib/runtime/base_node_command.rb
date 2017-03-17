@@ -2,11 +2,12 @@
 # gathers argument to node and passes to supplied block
 
 class BaseNodeCommand < BaseCommand
-  def get_node path, frames:
+  def get_node(path, frames:)
     root = frames[:vroot]
     root[path]
   end
-  def perform path, env:, frames:,  &blk
+
+  def perform(path, env:, frames:)
     root = frames[:vroot]
     node = root[path]
     result = true
@@ -19,14 +20,15 @@ class BaseNodeCommand < BaseCommand
     env[:out].print output
     result
   end
-  def perform_new path, env:, frames:, &blk
+
+  def perform_new(path, env:, frames:)
     dir = path.pathmap('%d')
     base = path.pathmap('%f')
     root = frames[:vroot]
     node = root[dir]
     output = ''
     result = true
-    output = blk.call(node, base) if block_given?
+    output = yield(node, base) if block_given?
     result
   end
 end

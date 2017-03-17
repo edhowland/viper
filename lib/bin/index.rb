@@ -2,7 +2,7 @@
 # reported to stdout
 
 class Index < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     env[:out].puts args[0][args[1].to_i]
   end
 end

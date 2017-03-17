@@ -2,12 +2,12 @@
 # VFS node
 
 class Describe < BaseNodeCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
-      r=frames[:vroot]
+      r = frames[:vroot]
       node = r[a[0]]
       string = node.to_s
-      pout "#{string}"
+      pout string.to_s
     end
   end
 end

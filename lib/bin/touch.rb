@@ -2,8 +2,8 @@
 # updates its time
 
 class Touch < BaseCommand
-  def call *args, env:, frames:
-    args.each {|f| Hal.touch(f)}
+  def call(*args, env:, frames:)
+    args.each { |f| Hal.touch(f) }
     true
   end
 end

@@ -30,5 +30,3 @@ require_relative 'bufnode/mark'
 require_relative 'bufnode/mark_exists'
 require_relative 'bufnode/index_of'
 require_relative 'bufnode/delete_at'
-
-

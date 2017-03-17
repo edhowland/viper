@@ -9,16 +9,12 @@ class RegexHash
 
   attr_reader :storage
 
-  def []= key, value
+  def []=(key, value)
     @storage << [key, value]
   end
 
-  def [] key
-    results = @storage.select {|e| !!(key =~ e[0]) }
-    if results.length > 0
-      results[0][1]
-    else
-      nil
-    end
+  def [](key)
+    results = @storage.select { |e| !!(key =~ e[0]) }
+    results[0][1] unless results.empty?
   end
 end

@@ -5,24 +5,28 @@ $in_virtual = false
 
 class VirtualLayer
   class << self
-    def split_path path
+    def split_path(path)
       parts = path.split('/')
-      return parts[0..(-2)].join('/'), parts[-1]
+      [parts[0..-2].join('/'), parts[-1]]
     end
-    def mkdir_p path
+
+    def mkdir_p(path)
       @@root.mkdir_p path
     end
+
     def get_root
       @@root
     end
-    def set_root root=VFSRoot.new
+
+    def set_root(root = VFSRoot.new)
       @@root = root
     end
-    def virtual? path
+
+    def virtual?(path)
       @@root.contains?(path) || (Hal.relative?(path) && @@root.contains?(Hal.pwd))
     end
 
-    def [] path
+    def [](path)
       if path == '*'
         path = '.'
         result = @@root.list(path).sort
@@ -32,7 +36,7 @@ class VirtualLayer
         node = @@root.wd
         until node.nil?
           prepend = node.pathname
-          gather += node.list.keys.map {|e| "#{prepend}/#{e}" }
+          gather += node.list.keys.map { |e| "#{prepend}/#{e}" }
           node = node['nl']
         end
         gather
@@ -43,44 +47,52 @@ class VirtualLayer
       end
     end
 
-    def directory? path
+    def directory?(path)
       @@root.directory? path
     end
-    def relative? path
+
+    def relative?(path)
       path[0] != '/'
     end
-    def chdir path
+
+    def chdir(path)
       @@root.cd path
     end
+
     def pwd
       @@root.pwd
     end
-    def touch path
+
+    def touch(path)
       node = @@root[path]
       @@root.creat path if node.nil?
     end
-    def open path, mode
+
+    def open(path, mode)
       node = @@root[path]
-      raise Errno::ENOENT.new(path) if node.nil? && mode == 'r'
+      raise Errno::ENOENT, path if node.nil? && mode == 'r'
       facade = IOFactory.make node
       facade.open path, mode
     end
-    def basename path
+
+    def basename(path)
       @@root.basename path
     end
-    def realpath path
+
+    def realpath(path)
       @@root.realpath path
     end
-    def cp src, dest
-      src = self.realpath(src)
+
+    def cp(src, dest)
+      src = realpath(src)
       sfile = src.pathmap('%f')
       snode = @@root[src]
-      raise Errno::ENOENT.new src if snode.nil?
-      dest = self.realpath(dest)
-      raise ArgumentError.new "same file: #{src}" if src == dest
+      raise Errno::ENOENT, src if snode.nil?
+      dest = realpath(dest)
+      raise ArgumentError, "same file: #{src}" if src == dest
       ddir, dfile = split_path dest
-      if self.exist? dest
-        if self.directory? dest
+      if exist? dest
+        if directory? dest
           # copy to directory node THIS WORKS
           dnode = @@root[dest]
           dnode[sfile] = cloner(snode)
@@ -98,20 +110,23 @@ class VirtualLayer
         # add node of sfile .deep_clone here
         dnode = @@root[ddir]
         that = cloner(snode)
-        that.name = dfile if snode.kind_of? VFSNode
+        that.name = dfile if snode.is_a? VFSNode
         dnode[dfile] = that
       end
     end
-    def mv src, dest
-      self.cp src, dest
-      self.rm src
+
+    def mv(src, dest)
+      cp src, dest
+      rm src
     end
-    def rm path
+
+    def rm(path)
       dir, file = split_path path
       node = @@root[dir]
       node.list.delete file
     end
-    def exist? path
+
+    def exist?(path)
       !@@root[path].nil?
     end
   end

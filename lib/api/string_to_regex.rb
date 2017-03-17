@@ -7,10 +7,10 @@
 # deslashify '/thing' # => 'thing'
 # This can be used as front end of Regexp.new which guarantees a true regex
 # Use of Rake's pathmap method works better than constructed regex here
-def deslashify string
+def deslashify(string)
   string.pathmap('%f')
 end
 
-def string_to_regex string
+def string_to_regex(string)
   Regexp.new(deslashify(string))
 end

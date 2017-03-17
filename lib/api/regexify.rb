@@ -1,8 +1,8 @@
 # regexify - method regexify - given a possible glop string, returns regex
 # a real simple implementation
 
-def regexify glob
-  glob.gsub! '.', "\\."
+def regexify(glob)
+  glob.gsub! '.', '\\.'
   rx = glob.split '*'
   rs = '^' + rx[0]
   rs << '.*'

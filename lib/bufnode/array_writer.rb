@@ -1,18 +1,20 @@
 # array_writer - class ArrayWriter - wraps Array
 
 class ArrayWriter
-  def initialize io
+  def initialize(io)
     @io = io
   end
   attr_reader :io
   # must use send here to invoke method on object in this subtree
-  def write string
+  def write(string)
     @io.send(:clear)
-    string.chars.each {|c| @io.send(:<<, c) }
+    string.chars.each { |c| @io.send(:<<, c) }
   end
-  def puts string
+
+  def puts(string)
     write "#{string}\n"
   end
+
   def close
     # nop
   end

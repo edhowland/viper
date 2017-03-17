@@ -3,7 +3,7 @@
 # -s <input array> : Use this input instead of :_
 
 class Shift < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       src = '_'.to_sym
       src = a.shift.to_sym if @options[:s]
@@ -20,7 +20,7 @@ class Shift < BaseCommand
         result = false
       end
       if a.length.zero?
-        perr "shift: missing variable argument"
+        perr 'shift: missing variable argument'
         result = false
       end
       if result

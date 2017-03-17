@@ -1,13 +1,13 @@
 # deref - class Deref - Dereferences a variable given some starting hash
 
 class Deref
-  def initialize symbol
+  def initialize(symbol)
     @key = symbol
     @value = ''
   end
   attr_reader :key, :value
 
-  def resolve! frames:
+  def resolve!(frames:)
     @value = frames[@key]
   end
 
@@ -21,20 +21,18 @@ class Deref
     !@matches.nil?
   end
 
-  def call frames:, env:{}
-    resolve! frames:frames
+  def call(frames:, env: {})
+    resolve! frames: frames
     var = @value
     case var
     when String
-      if range?
-        return handle_range
+      return handle_range if range?
+      result = var.split(frames[:ifs])
+      if result.length > 1
+        return result
+      else
+        return result[0]
       end
-    result = var.split(frames[:ifs])
-    if result.length > 1
-      return result
-    else
-      return result[0]
-    end
     else
       return var
     end

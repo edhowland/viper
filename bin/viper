@@ -8,15 +8,15 @@ require 'optparse'
 require_relative '../lib/viper'
 
 options = {
-  :no_start => false,
-:no_finish => false,
-  :mode => 'echo -n buffer :(basename :_buf); meta vip',
-  :start => [],
-  :sources => [],
-  :execute => [],
-  :finish => [],
-:debug => false,
-:check => false
+  no_start: false,
+  no_finish: false,
+  mode: 'echo -n buffer :(basename :_buf); meta vip',
+  start: [],
+  sources: [],
+  execute: [],
+  finish: [],
+  debug: false,
+  check: false
 }
 oparse = OptionParser.new do |opt|
   opt.banner = 'Viper - Scriptible code editor'
@@ -27,7 +27,7 @@ oparse = OptionParser.new do |opt|
   opt.on('--no-finish', 'Do not execute scripts at exit') do
     options[:no_finish] = true
   end
-#%%LINT4
+  # %%LINT4
   opt.on('-m mode', '--mode mode', String, 'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
   end
@@ -76,7 +76,7 @@ oparse.parse!
 # possibly check all input files for syntax correctness
 if options[:check]
   rvalue = 0
-    ARGV.each do |f|
+  ARGV.each do |f|
     begin
       Visher.parse!(File.read(f))
       puts "#{f}: Syntax OK"
@@ -88,37 +88,37 @@ if options[:check]
   exit rvalue
 end
 
-def boot opt, vm
-  opt[:no_start] ? [] : [ vm.fs[:vhome] + '/etc/vishrc' ]
+def boot(opt, vm)
+  opt[:no_start] ? [] : [vm.fs[:vhome] + '/etc/vishrc']
 end
 
-def scripts opt, vm
+def scripts(_opt, vm)
   Dir[vm.fs[:vhome] + '/scripts/*.vsh']
 end
 
 # return list of extension file.vsh in :vhome/ext/*/*.vsh
-def extensions vm
+def extensions(vm)
   Dir[vm.fs[:vhome] + '/ext/*/*.vsh']
 end
 
 # return list of final scripts to be run at system exit
-def final_scripts vm, no_finish: false
-  unless no_finish
-    Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
-  else
+def final_scripts(vm, no_finish: false)
+  if no_finish
     []
+  else
+    Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
   end
 end
 
-def mode opt
-  [ opt[:mode] ]
+def mode(opt)
+  [opt[:mode]]
 end
 
 # return list of 'fopen filename' s based on ARGV
 # if ARGV is empty, return [ 'open unnamed1 ]
 # unless some other command has set :_buf first
-def files argv
-  argv.empty? ? [ 'test -z :_buf && open unnamed1'] : argv.reverse.map {|e| "fopen #{e}" }
+def files(argv)
+  argv.empty? ? ['test -z :_buf && open unnamed1'] : argv.reverse.map { |e| "fopen #{e}" }
 end
 
 def vishrc_files
@@ -128,27 +128,27 @@ end
 $vm = VirtualMachine.new
 
 at_exit do
-  $exit_handlers.each {|e| $vm.call e }
+  $exit_handlers.each { |e| $vm.call e }
 end
 begin
   _exit_code = 0
   # setup exit handlers. Checks for existantance and syntax correctness
-  $exit_handlers = (final_scripts($vm, no_finish:options[:no_finish]).map {|e| File.read(e) }).map {|e| Visher.parse! e }
+  $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish]).map { |e| File.read(e) }).map { |e| Visher.parse! e }
 
   ((
-    boot(options, $vm) + options[:sources]).map {|e| File.read(e) } +
+    boot(options, $vm) + options[:sources]).map { |e| File.read(e) } +
     options[:start] +
-    (scripts(options, $vm) + extensions($vm)).map {|e| File.read(e) } +
+    (scripts(options, $vm) + extensions($vm)).map { |e| File.read(e) } +
     options[:execute] +
     files(ARGV) +
-    vishrc_files.map {|e| File.read(e) } +
-    [ 'load_event' ] +
+    vishrc_files.map { |e| File.read(e) } +
+    ['load_event'] +
     mode(options) +
-    [ 'exit_event' ]
-  ).map {|e| Visher.parse!(e) }.each {|e| $vm.call(e) }
+    ['exit_event']
+  ).map { |e| Visher.parse!(e) }.each { |e| $vm.call(e) }
 rescue VirtualMachine::ExitCalled => err
   _exit_code = err.code
-  rescue VishSyntaxError => err
+rescue VishSyntaxError => err
   puts 'Syntax error occured during load'
 rescue => err
   puts err.class.name

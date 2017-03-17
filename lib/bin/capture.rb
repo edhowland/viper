@@ -5,7 +5,7 @@
 require_relative 'exec'
 
 class Capture < Exec
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     begin
       result = super
     rescue VirtualMachine::ExitCalled => err
@@ -16,12 +16,12 @@ class Capture < Exec
       exception_caught = true
       result = false
     end
-      handler_clause, default_clause = args[1,2]
+    handler_clause, default_clause = args[1, 2]
     if exception_caught && args.length > 1
-      handler_clause.call(env:env, frames:frames)
+      handler_clause.call(env: env, frames: frames)
       frames.merge
     elsif args.length == 3
-      default_clause.call(env:env, frames:frames)
+      default_clause.call(env: env, frames: frames)
       frames.merge
     end
 

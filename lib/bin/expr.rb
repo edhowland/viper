@@ -4,7 +4,7 @@
 # expr 5 -2 => 3
 
 class Expr < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     if args.length == 3
       a1, op, a2 = args
       a1 = a1.to_i; a2 = a2.to_i
@@ -17,7 +17,7 @@ class Expr < BaseCommand
         false
       end
     else
-      arg_error 3, env:env
+      arg_error 3, env: env
       false
     end
   end

@@ -2,7 +2,7 @@
 # args are expanded
 
 class LazyArgument < Argument
-  def call env:, frames:
+  def call(env:, frames:)
     @storage
   end
 end

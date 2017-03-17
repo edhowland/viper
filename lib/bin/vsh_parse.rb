@@ -5,10 +5,10 @@
 # ok
 
 class VshParse < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     source = env[:in].read
     block = Visher.parse! source
-    if args.length > 0
+    if !args.empty?
       frames[args[0].to_sym] = block
       frames.merge
     else

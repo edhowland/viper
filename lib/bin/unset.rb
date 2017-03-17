@@ -1,7 +1,7 @@
 # unset - class Unset - command unset - unsets a variable
 
 class Unset < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       if a.empty?
         perr 'unset: must supply a variable'

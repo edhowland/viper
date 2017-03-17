@@ -1,10 +1,11 @@
 # string_io_facade - class StringIOFacade - open method for StringIO
 
 class StringIOFacade
-  def initialize stringio
+  def initialize(stringio)
     @io = stringio
   end
-  def open path, mode
+
+  def open(path, mode)
     if mode == 'w'
       root = VirtualLayer.get_root
       root.creat path

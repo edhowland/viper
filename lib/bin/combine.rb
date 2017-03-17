@@ -3,7 +3,7 @@
 # Note: can be used with ofs=' ' to repeat args, if ever needed
 
 class Combine < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     env[:out].puts args.join(frames[:ofs])
     true
   end

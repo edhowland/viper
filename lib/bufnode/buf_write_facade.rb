@@ -2,17 +2,19 @@
 # write
 
 class BufWriteFacade
-  def initialize io
+  def initialize(io)
     @io = io
   end
-  def mk_stream mode
+
+  def mk_stream(mode)
     {
       'r' => BufferReader,
       'w' => BufferWriter,
       'a' => BufWriter
     }[mode]
   end
-  def open path, mode
+
+  def open(_path, mode)
     mk_stream(mode).new(@io)
   end
 end

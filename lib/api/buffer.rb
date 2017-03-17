@@ -3,7 +3,7 @@
 # Buffer is the main buffer top level class. Almost all editor functions
 # are deferred to this class.
 class Buffer
-  def initialize(string='')
+  def initialize(string = '')
     @a_buff = []
     @b_buff = string.chars
     restore_extend
@@ -11,9 +11,11 @@ class Buffer
     @name = 'unnamed'
     @match_data = nil
   end
-  def buffer_exceeded spot,  &blk
-    raise BufferExceeded.new("Delete past #{spot} of buffer") if  yield
+
+  def buffer_exceeded(spot)
+    raise BufferExceeded, "Delete past #{spot} of buffer" if yield
   end
+
   def restore_extend
     @a_buff.extend ArrayExtender
     @b_buff.extend ArrayExtender
@@ -34,12 +36,10 @@ class Buffer
   end
 
   # dummy method. does nothing overriden in Recordable module
-  def record(_method, *_args)
-  end
+  def record(_method, *_args); end
 
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
-  def save
-  end
+  def save; end
 
   def ins(string)
     @a_buff += string.chars
@@ -47,7 +47,8 @@ class Buffer
     restore_extend
     record :ins, string
   end
-  def ins_at string
+
+  def ins_at(string)
     string.chars.reverse.each do |c|
       @b_buff.unshift c
     end
@@ -110,12 +111,12 @@ class Buffer
   end
 
   def indent_level
-    #return line.length if line =~ /^\s*$/
-    #result = line =~ /[^\s]/
+    # return line.length if line =~ /^\s*$/
+    # result = line =~ /[^\s]/
     m = line.match /( *)/
     return 0 if m.nil?
     m[1].length
-    #result.nil? ? 0 : result
+    # result.nil? ? 0 : result
   end
 
   def col
@@ -127,8 +128,8 @@ class Buffer
     suppress do
       pos = col
       back
-      back until at == "\n" or position == 0
-      back until col <= pos or position == 0
+      back until (at == "\n") || (position == 0)
+      back until (col <= pos) || (position == 0)
     end
     record :up
     ''
@@ -176,7 +177,7 @@ class Buffer
     raise BufferExceeded if at.nil?
     suppress do
       pos = col
-      fwd until at.nil? or at == "\n"
+      fwd until at.nil? || (at == "\n")
       fwd if at == "\n"
       fwd [line.chomp.length, pos].min
     end
@@ -222,7 +223,7 @@ class Buffer
   end
 
   def should_save?
-    savable? and dirty?
+    savable? && dirty?
   end
 
   def clean
@@ -248,7 +249,7 @@ class Buffer
   end
 
   def to_s
-    (@a_buff+ @b_buff).join('')
+    (@a_buff + @b_buff).join('')
   end
 
   # file associations: just return :default, but subclassed in FileBuffer
@@ -257,46 +258,56 @@ class Buffer
   end
 
   def line_number
-    @a_buff.count {|l| l == "\n" } + 1
+    @a_buff.count { |l| l == "\n" } + 1
   end
 
   def restore
-    raise NonRestorableException.new self.class.name
+    raise NonRestorableException, self.class.name
   end
+
   def read
     to_s
   end
-  def write contents
+
+  def write(contents)
     overwrite! contents
   end
+
   def to_a
     @a_buff + @b_buff
   end
-  def within range
+
+  def within(range)
     to_a[range]
   end
-  def within_s range
+
+  def within_s(range)
     within(range).join('')
   end
-  def slice! range
+
+  def slice!(range)
     goto_position range.first
     @b_buff.shift range.size
   end
-  alias_method :slice, :slice!
+  alias slice slice!
 
-  def apply_at ndx, &blk
+  def apply_at(ndx)
     yield to_a[ndx] if block_given? && !ndx.nil?
   end
-  def index &blk
+
+  def index(&blk)
     to_a.index &blk
   end
+
   def lines
     @a_buff.lines + @b_buff.lines
   end
-  def == that
-    self.to_a == that.to_a
+
+  def ==(that)
+    to_a == that.to_a
   end
+
   def clone
-    self.class.new self.to_s
+    self.class.new to_s
   end
 end

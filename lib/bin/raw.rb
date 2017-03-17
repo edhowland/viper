@@ -7,7 +7,8 @@ class Raw < BaseCommand
   def getch
     Keyboard.get.seq
   end
-  def call *args, env:, frames:
+
+  def call(*args, env:, frames:)
     if args[0] == '-'
       env[:out].write getch
     else

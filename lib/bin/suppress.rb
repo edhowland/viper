@@ -4,11 +4,11 @@
 # result of stdout is stored in global :last_output
 # stderr is stored in :last_error
 
-#require_relative 'capture''
+# require_relative 'capture''
 require_relative 'exec'
 
 class Suppress < Exec
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     env.push
     env[:out] = StringIO.new
     env[:err] = StringIO.new

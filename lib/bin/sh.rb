@@ -2,7 +2,7 @@
 # to env[:in, :out, :err]. returning error code  converted into true/false
 
 class Sh < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     opt = nil
     opt = args.shift if args[0] == '-'
     command = args.join(' ')
@@ -14,8 +14,8 @@ class Sh < BaseCommand
       env[:out].write(stdout.read)
       env[:err].write(stderr.read)
     rescue => err
-    env[:err].puts "exception: #{err.class.name}: #{err.message}"
-    false
+      env[:err].puts "exception: #{err.class.name}: #{err.message}"
+      false
     ensure
       stdout.close unless stdout.nil?
       stderr.close unless stderr.nil?

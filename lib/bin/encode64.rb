@@ -3,7 +3,7 @@
 require 'base64'
 
 class Encode64 < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       if @options[:r]
         env[:out].write(Base64.encode64(env[:in].read))

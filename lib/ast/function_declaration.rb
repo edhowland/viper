@@ -2,7 +2,7 @@
 # function name(arg1, arg2, .. , argn) { stmnt1; stmnt2 }
 
 class FunctionDeclaration
-  def initialize name, args, block, line_number=0
+  def initialize(name, args, block, line_number = 0)
     @name = name
     @args = args
     @block = block
@@ -11,11 +11,12 @@ class FunctionDeclaration
 
   attr_reader :line_number
 
-  def call env:, frames:
+  def call(env:, frames:)
     frames.functions[@name] = Function.new(@args, @block, @name)
     true
   end
+
   def to_s
-    "function #{@name}(#{@args.to_s}) { #{@block.to_s} }"
+    "function #{@name}(#{@args}) { #{@block} }"
   end
 end

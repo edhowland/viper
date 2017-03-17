@@ -2,8 +2,8 @@
 # of found element. returns '' and stderr error message if not found
 
 class IndexOf < BaseNodeCommand
-  def call *args, env:, frames:
-    perform args[0], env:env, frames:frames do |node|
+  def call(*args, env:, frames:)
+    perform args[0], env: env, frames: frames do |node|
       result = node.index (args[1] + "\n")
       if result.nil?
         result = ''

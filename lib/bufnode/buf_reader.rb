@@ -1,9 +1,10 @@
 # buf_reader - class BufReader - recurses down nl s in BufNode, creates string
 
 class BufReader
-  def initialize io
+  def initialize(io)
     @io = io
   end
+
   def read
     result = ''
     node = @io
@@ -13,6 +14,7 @@ class BufReader
     end
     result
   end
+
   def close
     # nop
   end

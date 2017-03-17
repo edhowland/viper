@@ -7,7 +7,7 @@
 # -l true if arg is a Lambda
 
 class Test < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       result = true
       if @options[:f]

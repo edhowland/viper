@@ -5,19 +5,20 @@
 
 class IOFactory
   class << self
-    def mk_facade klass
+    def mk_facade(klass)
       {
         StringIO => StringIOFacade,
         BufNode => BufWriteFacade,
         Array => ArrayFacade
       }[klass]
     end
-    def make object
+
+    def make(object)
       facade = mk_facade object.class
-      unless facade.nil?
-        facade.new(object)
-      else
+      if facade.nil?
         StringIOFacade.new(StringIO.new(''))
+      else
+        facade.new(object)
       end
     end
   end

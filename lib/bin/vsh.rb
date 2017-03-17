@@ -4,24 +4,25 @@
 # -e true|false - sets initial value of :exit_status
 
 class Vsh < BaseValueCommand
-  def normalize_status status
+  def normalize_status(status)
     status = (status.nil? ? true : status)
     status = (status.empty? ? true : status)
-  status
+    status
   end
-  def call *args, env:, frames:
+
+  def call(*args, env:, frames:)
     super do |*a|
       code = a.join(' ').chomp
       return true if code.empty?
       block = Visher.parse! code
 
-    vm = frames.vm
-    frames.first[:exit_status] = @options[:e] unless @options[:e].nil?
-    #binding.pry
-    result = vm.call block
-    # globalize any variables gathered via above execution
-    frames.keys.each {|k| frames.first[k] = frames[k] }
-    result
+      vm = frames.vm
+      frames.first[:exit_status] = @options[:e] unless @options[:e].nil?
+      # binding.pry
+      result = vm.call block
+      # globalize any variables gathered via above execution
+      frames.keys.each { |k| frames.first[k] = frames[k] }
+      result
     end
   end
 end

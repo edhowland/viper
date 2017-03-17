@@ -1,7 +1,7 @@
 # ls - class Ls - Unix-like ls command
 
 class Ls < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     args = Hal['*'] if args.empty?
     args.each do |f|
       list = [f]

@@ -4,7 +4,7 @@
 # start, end of macro recording session.
 
 class Between < BaseCommand
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     ok = -1
     pattern = args[0]
     env[:in].read.each_line do |line|

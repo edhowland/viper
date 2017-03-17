@@ -2,22 +2,22 @@
 
 class Lambda
   # args: arg list, block: statement list, frames: context of outer environment
-  def initialize args, block, frames:
+  def initialize(args, block, frames:)
     @args = args
     @block = block
     @frames = frames
   end
 
-  def call *args, env:, frames:
-    fr = frames + @frames   # fr is now current frame stack + the saved context
+  def call(*args, env:, frames:)
+    fr = frames + @frames # fr is now current frame stack + the saved context
     fr.push
-    bound = @args.zip(args).to_h  # bind any passed arguments to this hash
-    fr.top.merge! bound        # these are now variables within this context
+    bound = @args.zip(args).to_h # bind any passed arguments to this hash
+    fr.top.merge! bound # these are now variables within this context
     # the arguments to this function are collected in the :_ variable
     fr[:_] = args
     # The number of arguments are stored in :_argc
     fr[:_argc] = args.length.to_s
-    result = @block.call env:env, frames:fr
+    result = @block.call env: env, frames: fr
   end
 
   def to_s
