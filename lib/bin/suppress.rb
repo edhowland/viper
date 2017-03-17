@@ -5,7 +5,7 @@
 # stderr is stored in :last_error
 
 #require_relative 'capture''
- require_relative 'exec'
+require_relative 'exec'
 
 class Suppress < Exec
   def call *args, env:, frames:
@@ -19,4 +19,3 @@ class Suppress < Exec
     result
   end
 end
-

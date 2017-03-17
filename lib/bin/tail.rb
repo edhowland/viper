@@ -3,7 +3,7 @@
 # x: default: 10
 
 class Tail < BaseCommand
-    def _count
+  def _count
     result = 10
     if @options[:n]
       result = @av.shift.to_i
@@ -17,7 +17,6 @@ class Tail < BaseCommand
       my_count = [lines.length, _count].min
       start = lines.length - my_count
       lines[start..(-1)].each {|l| pout l.chomp }
-     end
+    end
   end
 end
-

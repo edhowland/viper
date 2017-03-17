@@ -8,11 +8,11 @@ class Tee < BaseCommand
         File.open(a[0], 'a') do |f|
           f.write string
         end
-        elsif @options[:e]
+      elsif @options[:e]
         env.push
-          env[:in] = StringIO.new(string)
-          a[0].call env:env, frames:frames
-          env.pop
+        env[:in] = StringIO.new(string)
+        a[0].call env:env, frames:frames
+        env.pop
       else
         File.open(a[0], 'w') do |f|
           f.write string

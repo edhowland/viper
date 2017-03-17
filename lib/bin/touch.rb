@@ -1,4 +1,4 @@
-# touch - class Touch - command touch file - creates file if non-exist, else 
+# touch - class Touch - command touch file - creates file if non-exist, else
 # updates its time
 
 class Touch < BaseCommand
