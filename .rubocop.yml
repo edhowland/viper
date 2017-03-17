@@ -1,6 +1,12 @@
+
+
 AllCops:
   Include:
     - '**/Rakefile'
     - 'bin/viper'
   Exclude:
     - 'test/**/*'
+    - 'lib/vish/**'
+
+Style/Documentation:
+  Enabled: false
