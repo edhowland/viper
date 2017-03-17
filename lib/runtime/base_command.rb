@@ -23,9 +23,15 @@ class BaseCommand
       each {|e| @options[e] = true }
     args.reject {|e| e =~ /^\-.+/ }
   end
-  def error *phrases, env:
-  phrases.unshift snakeize(self.class.name)
-    env[:err].puts phrases.join ': '
+  def message *phrases, stream:, env:, sep:
+    phrases.unshift snakeize(self.class.name)
+    env[stream].puts phrases.join(sep)
+  end
+  def error *phrases, env:, sep:': '
+    message *phrases, stream: :err, env:env, sep:sep
+  end
+  def info *phrases, env:, sep:' '
+    message *phrases, stream: :out, env:env, sep:sep
   end
   def arg_error expected, env:
     error 'Wrong number of arguments', 'Expected', expected, env:env

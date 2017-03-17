@@ -1,9 +1,13 @@
 # stat - class Stat - command stat file - info about path
 
 class Stat < BaseCommand
+  def examine rxr, method, *args
+    method.to_s + ' ' + rxr.send(method, *args).to_s
+  end
   def call *args, env:, frames:
     path = args[0]
-    env[:out].puts "#{path}: is virtual? #{Hal.virtual?(path)}\nis directory? #{Hal.directory?(path)}"
+    info path, *([:virtual?, :directory?].
+      map {|e| examine(Hal, e, path) }), env:env, sep:"\n"
     if Hal.virtual? path
       root = frames[:vroot]
       node = root[path]

@@ -1,4 +1,4 @@
-# shift - class Shift - command shift - outputs first argument. See rotate fn 
+# shift - class Shift - command shift - outputs first argument. See rotate fn
 # args:
 # -s <input array> : Use this input instead of :_
 
@@ -6,10 +6,10 @@ class Shift < BaseCommand
   def call *args, env:, frames:
     super do |*a|
       src = '_'.to_sym
-            src = a.shift.to_sym if @options[:s]
+      src = a.shift.to_sym if @options[:s]
       object = @fs[src]
       object = object.split(frames[:ifs]) if object.instance_of?(String)
-            result = true
+      result = true
       if object && object.instance_of?(Array) && !object.empty?
         value = object.shift
         @fs[src] = object

@@ -25,7 +25,13 @@ class BaseCommandTests < BaseSpike
     @cmd.call env:@vm.ios, frames:@vm.fs
     assert_diff @ebuf.string, "dummy: Wrong number of arguments: Expected: 2\n"
   end
+  def test_message
+    @cmd.message stream: :out, env:@vm.ios, sep:' '
+  end
   def test_error
     @cmd.error env:@vm.ios
+  end
+  def test_info
+    @cmd.info env:@vm.ios
   end
 end
