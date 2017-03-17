@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-# vish - Runs a vish shell
-
-require_relative 'load_path'
-require_relative 'visher'
-
-vepl

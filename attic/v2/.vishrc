@@ -1,9 +1,0 @@
-alias run_tests="sh 'ruby tests/buffer_test.rb'"
-function set_test() {
-  sut=:(cat < ":{_buf}/.pathname")
-  global sut
-}
-function run_test(name) {
-  sh "ruby :{name}"
-}
-_mode=viper bind ctrl_e { run_tests } { cat }

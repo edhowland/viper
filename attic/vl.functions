@@ -1,7 +1,0 @@
-alias vp="~/src/viper/bin/viper -c"
-vl () 
-{ 
-    vp "../lib/$1"
-}
-
-alias irl='irb -r ./load_path.rb'

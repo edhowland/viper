@@ -1,6 +1,0 @@
-You can use the OS/10 say command to output speech with modifiers.
-Eg. 
-
-say [[char LTRL]] cat [[char NORM]]
-
-speaks the individual letters of of cat

@@ -1,9 +1,0 @@
-line 1
-0123456789
-hello there world sailor
-line 2
-line 3
-line 4
-extra 2
-penultimate line
-last line
