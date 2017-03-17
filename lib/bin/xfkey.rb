@@ -4,6 +4,7 @@
 # -u : prints Unicode representation of keystroke
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
+#%%LINT4
 
 class Xfkey < BaseCommand
 
@@ -20,8 +21,8 @@ class Xfkey < BaseCommand
     true
   end
   def key_to_name values
-        if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
-      @out.write "key_#{values}" 
+    if ('A'..'Z').include?(values) || ('a'..'z').include?(values) || ('0'..'9').include?(values)
+      @out.write "key_#{values}"
       return true
     end
     unis = (1..26).to_a.map {|e| [e].pack('U') }
@@ -34,17 +35,17 @@ class Xfkey < BaseCommand
     end
     # check for possible meta key
     meta_keys = {
-        [226, 136, 130] => 'meta_d',
-        [226, 136, 145] => 'meta_w',
-        [194, 172] => 'meta_l',
-        [203, 154] => 'meta_k',
-        [226, 128, 166] => 'meta_semicolon',
-        [206, 169] => 'meta_z',
-        [226, 136, 134] => 'meta_j',
-        [226, 136, 154] => 'meta_v',
-       [226, 128, 160] => 'meta_t',
-       [195, 165] => 'meta_a',
-       [194, 181] => 'meta_m',
+      [226, 136, 130] => 'meta_d',
+      [226, 136, 145] => 'meta_w',
+      [194, 172] => 'meta_l',
+      [203, 154] => 'meta_k',
+      [226, 128, 166] => 'meta_semicolon',
+      [206, 169] => 'meta_z',
+      [226, 136, 134] => 'meta_j',
+      [226, 136, 154] => 'meta_v',
+      [226, 128, 160] => 'meta_t',
+      [195, 165] => 'meta_a',
+      [194, 181] => 'meta_m',
       [207, 128] => 'meta_p',
       [226, 137, 164] => 'meta_comma',
       [226, 137, 165] => 'meta_period',
@@ -58,8 +59,8 @@ class Xfkey < BaseCommand
       [226, 128, 185] => 'meta_number',
       [194, 163] => 'meta_3',
       [203, 156] => 'meta_n'
-      }
-      meta_k = values.bytes
+    }
+    meta_k = values.bytes
       if meta_keys[meta_k]
         @out.write meta_keys[meta_k]
         return true
@@ -104,8 +105,8 @@ class Xfkey < BaseCommand
       "~" => 'key_tilde',
       # movement keys
       "\u001b" + "\u005b" + "\u0044" => 'move_left',
-       "\u001b" + "\u005b" + "\u0043" => 'move_right',
-        "\u001b" + "\u005b" + "\u0041" => 'move_up',
+      "\u001b" + "\u005b" + "\u0043" => 'move_right',
+      "\u001b" + "\u005b" + "\u0041" => 'move_up',
       "\u001b" + "\u005b" + "\u0042" => 'move_down',
       "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0043" => 'move_shift_right',
       "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0044" => 'move_shift_left',
@@ -124,14 +125,12 @@ class Xfkey < BaseCommand
       "\u001b" + "\u004f" + "\u0053" => 'fn_4',
       "\u001b" + "\u005b" + "\u0031" + "\u0035" + "\u007e" => 'fn_5',
       "\u001b" + "\u005b" + "\u0031" + "\u0037" + "\u007e" => 'fn_6',
-       "\u001b" + "\u005b" + "\u0031" + "\u0038" + "\u007e" => 'fn_7',
+      "\u001b" + "\u005b" + "\u0031" + "\u0038" + "\u007e" => 'fn_7',
       "\u001b" + "\u005b" + "\u0031" + "\u0039" + "\u007e" => 'fn_8',
-      
       "\u001b" + "\u005b" + "\u0032" + "\u0030" + "\u007e" => 'fn_9',
       "\u001b" + "\u005b" + "\u0032" + "\u0031" + "\u007e" => 'fn_10',
       # fn_11 is Mac special key
       "\u001b" + "\u005b" + "\u0032" + "\u0034" + "\u007e" => 'fn_12',
-       
 
       # meta keys
       #[e2,88,82] => 'meta_d'
@@ -176,19 +175,17 @@ class Xfkey < BaseCommand
   def call *args, env:, frames:
     @out = env[:out]
     values = env[:in].read
-#  binding.pry
 
     if args[0] == '-h'
       name_to_human values
-      elsif args[0] == '-u'
-        key_to_unicode values
-      elsif args[0] == '-x'
-        key_to_hex  values
-      elsif args[0] == '-d'
-        key_to_decimal values
+    elsif args[0] == '-u'
+      key_to_unicode values
+    elsif args[0] == '-x'
+      key_to_hex  values
+    elsif args[0] == '-d'
+      key_to_decimal values
     else
       key_to_name values
     end
   end
 end
-

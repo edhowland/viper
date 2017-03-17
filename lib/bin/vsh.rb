@@ -1,4 +1,4 @@
-# vish - class Vsh - command vsh "string of commands" - runs Vish parser,vm on 
+# vish - class Vsh - command vsh "string of commands" - runs Vish parser,vm on
 # string
 # args:
 # -e true|false - sets initial value of :exit_status
@@ -12,7 +12,7 @@ class Vsh < BaseValueCommand
   def call *args, env:, frames:
     super do |*a|
       code = a.join(' ').chomp
-      return true if code.empty?    
+      return true if code.empty?
       block = Visher.parse! code
 
     vm = frames.vm
