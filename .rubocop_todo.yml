@@ -18,13 +18,20 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
+# Since Little  Linter cannot really parse Ruby code
+# Multi-line method calls cannot be aligned the way Rubocop likes them
+Style/AlignParameters:
+  Enabled: false
+
+#  Exclude:
+#    'lib/bin/exec.rb'
 
 # Offense count: 11
 Lint/AmbiguousOperator:
   Exclude:
-    - 'lib/api/buffer.rb'
-    - 'lib/ast/statement.rb'
-    - 'lib/bin/exec.rb'
+    #- 'lib/api/buffer.rb'
+    #- 'lib/ast/statement.rb'
+    #- 'lib/bin/exec.rb'
     - 'lib/bufnode/rotate.rb'
     - 'lib/runtime/base_command.rb'
     - 'lib/runtime/virtual_machine.rb'

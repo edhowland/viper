@@ -42,7 +42,7 @@ class Statement
       # local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
       closers = open_redirs env: local_ios
       begin
-        result = command.call *args, env: local_ios, frames: local_vars
+        result = command.call(*args, env: local_ios, frames: local_vars)
       ensure
         # closers.each {|f| f.close }
         close_redirs closers

@@ -296,7 +296,7 @@ class Buffer
   end
 
   def index(&blk)
-    to_a.index &blk
+    to_a.index(&blk)
   end
 
   def lines
