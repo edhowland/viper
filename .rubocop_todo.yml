@@ -22,7 +22,7 @@ Style/Documentation:
 # Multi-line method calls cannot be aligned the way Rubocop likes them
 Style/AlignParameters:
   Enabled: false
-
+# where the above config gives an offense
 #  Exclude:
 #    'lib/bin/exec.rb'
 
@@ -32,9 +32,9 @@ Lint/AmbiguousOperator:
     #- 'lib/api/buffer.rb'
     #- 'lib/ast/statement.rb'
     #- 'lib/bin/exec.rb'
-    - 'lib/bufnode/rotate.rb'
-    - 'lib/runtime/base_command.rb'
-    - 'lib/runtime/virtual_machine.rb'
+    #- 'lib/bufnode/rotate.rb'
+    #- 'lib/runtime/base_command.rb'
+    #- 'lib/runtime/virtual_machine.rb'
 
 # Offense count: 6
 Lint/AmbiguousRegexpLiteral:

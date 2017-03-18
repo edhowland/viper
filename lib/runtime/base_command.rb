@@ -2,6 +2,7 @@
 # commands.
 # possibly abstracts out option handling
 # adds methods: pout, perr to simplify stdout, stderr stream output
+# %%LINT1 # forced to do this by Rubocop alignment cop
 
 class BaseCommand
   def self.descendants
@@ -13,11 +14,11 @@ class BaseCommand
   end
 
   def pout(*stuff)
-    @ios[:out].puts *stuff
+    @ios[:out].puts(*stuff)
   end
 
   def perr(*stuff)
-    @ios[:err].puts *stuff
+    @ios[:err].puts(*stuff)
   end
 
   def args_parse!(args)
@@ -34,11 +35,11 @@ class BaseCommand
   end
 
   def error(*phrases, env:, sep: ': ')
-    message *phrases, stream: :err, env: env, sep: sep
+    message(*phrases, stream: :err, env: env, sep: sep)
   end
 
   def info(*phrases, env:, sep: ' ')
-    message *phrases, stream: :out, env: env, sep: sep
+    message(*phrases, stream: :out, env: env, sep: sep)
   end
 
   def arg_error(expected, env:)

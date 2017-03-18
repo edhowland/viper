@@ -62,11 +62,11 @@ end
     if !args.empty? && args[0] == '-'
       oldpwd = @fs[:oldpwd]
       _chdir oldpwd
-      pwd *args, env: env, frames: frames
+      pwd(*args, env: env, frames: frames)
     elsif args.empty?
       # go back to :proj
       _chdir frames[:proj]
-      pwd *args, env: env, frames: frames
+      pwd(*args, env: env, frames: frames)
     else
       _chdir args[0]
     end
