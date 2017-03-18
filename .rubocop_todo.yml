@@ -51,14 +51,14 @@ Lint/AmbiguousRegexpLiteral:
 # SupportedStylesAlignWith: start_of_line, def
 Lint/DefEndAlignment:
   Exclude:
-    - 'lib/ast/string_literal.rb'
-    - 'lib/bin/digest_sha1.rb'
-    - 'lib/runtime/frame_stack.rb'
+    #- 'lib/ast/string_literal.rb'
+    #- 'lib/bin/digest_sha1.rb'
+    #- 'lib/runtime/frame_stack.rb'
 
 # Offense count: 1
 Lint/DuplicateMethods:
   Exclude:
-    - 'lib/api/array_extender.rb'
+    #- 'lib/api/array_extender.rb'
 
 # Offense count: 1
 Lint/EmptyWhen:

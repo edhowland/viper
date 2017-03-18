@@ -32,5 +32,5 @@ class DigestSha1 < BaseValueCommand
       env[:out].write(base64(digest, clip_length, gets))
     end
     true
-    end
   end
+end

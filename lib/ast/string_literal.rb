@@ -15,7 +15,7 @@ class StringLiteral < QuotedString
     m = arg.match /:{([_\w]+)\}/
     return '' if m.nil?
     m.captures.first
-end
+  end
 
   def interpolate(string, frames:)
     string.gsub(/:\{[_\w]+\}/).each do |v|

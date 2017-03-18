@@ -17,7 +17,7 @@ class FrameStack
       end
     end
     result # .to_s
-end
+  end
 
   def []=(key, value)
     @frames[-1][key] = value

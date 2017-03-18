@@ -5,11 +5,6 @@ module ArrayExtender
     join('')
   end
 
-  def count_nl
-    my_index = to_s.index("\n")
-    my_index || length
-  end
-
   def rcount_nl
     my_index = to_s.rindex("\n") || 0
     length - my_index
