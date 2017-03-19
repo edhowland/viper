@@ -28,7 +28,8 @@ class Find < BaseCommand
     when Lambda
       # nop
     else
-      env[:err].puts 'find: second arg must be string or lambda'
+      error 'Second arg must be string or lambda'
+      # env[:err].puts 'find: second arg must be string or lambda'
       return false
     end
     @exec ||= Echo.new

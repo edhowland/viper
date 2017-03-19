@@ -4,7 +4,9 @@ Version : Viper 1.99-rc0
 
 
 Major Bug:
-
+Bug/Feature: Investigate how to properly handle option errors
+  >> in OptionParser - w/custom error handler
+Bug: find command does not work properly
 Bug: Handle No Mark set on Ctrl-c, -v and -p
   >> Erase :_mark after cut, copy
   >> willtie into the above Bug to handle no mark set

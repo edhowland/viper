@@ -63,7 +63,7 @@ Lint/DuplicateMethods:
 # Offense count: 1
 Lint/EmptyWhen:
   Exclude:
-    - 'lib/bin/find.rb'
+    #- 'lib/bin/find.rb'
 
 # Offense count: 9
 # Cop supports --auto-correct.
