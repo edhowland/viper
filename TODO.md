@@ -28,6 +28,10 @@ A. Make test/all_test.vsh work within bin/viper
 
 
 Notes:
+# disabled the LineLength cop for this one section of code
+# rubocop:disable Lint/UnusedBlockArgument
+#->(env: _, frames: _) { puts }
+
 Addded  keys:
   meta_less - bound to outdent range
   meta_greater - bound to indent range
