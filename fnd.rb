@@ -3,6 +3,7 @@
 # args:
 # -e &(f) { ... }  : Run this anon function for everymatched file
 # -grep /pattern/ : match only files that match this pattern
+# -name glob_pattern : match files that match this Shell -like glob pattern
 # -filter &(o) { ... } : match only names that satisfiy this anon function
 # -f : match actual files, not directories
 # -d : match only directories, not files
@@ -17,7 +18,16 @@ class Fnd < BaseCommand
     @parser.on('-filter') do |lmbd|
       raise ArgumentError.new('-filter requires a lambda argument') unless Lambda === lmbd
       @filter = lmbd
+      @parser.on('-name') do |pattern|
+              raise ArgumentError.new('-name requires a string argument') unless String === pattern
+              @filter = ->(*args, env:, frames:) { File.fnmatch pattern, args[0] }
+
+      end
     end
+  end
+  def clear_filter_action
+    @filter = nil
+    @action = nil
   end
   def get_glob pat
     case pat
@@ -31,8 +41,13 @@ class Fnd < BaseCommand
       end
     end
   end
-  def filter_p obj=nil
-    ->(o) { true }
+  def filter_p env:, frames:
+    if @filter.nil?
+      ->(o) { true }
+    else
+      ->(o) { @filter.call o, env:env, frames:frames }
+    end
+    
   end
   def action_p env:
     ->(o) {env[:out].puts o }
@@ -40,12 +55,12 @@ class Fnd < BaseCommand
   def call *args, env:, frames:
     args.unshift '.' if args.empty?
     src,  = args
-    @action = nil
+    clear_filter_action
     @parser.parse args
     @action ||= ->(*args, env:, frames:) { env[:out].puts args[0] }
     action_p = ->(o) { @action.call o, env:env, frames:frames }
     src = get_glob(src)
-    Hal[src].select(&filter_p).each(&action_p)
+    Hal[src].select(&filter_p(env:env, frames:frames)).each(&action_p)
     true
   end
 end
