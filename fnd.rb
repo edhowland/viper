@@ -12,7 +12,7 @@ class Fnd < BaseCommand
   def initialize
     @parser = FlagParser.new
     @parser.on('-e') do |lmbd|
-      raise ArgumentError.new('-e requires a lambda argument') unless Lambda === lmbd
+      @parser.arg_type '-e', lmbd, Lambda
       @action = lmbd
     end
     @parser.on('-d') do
@@ -22,15 +22,16 @@ class Fnd < BaseCommand
       @filter = ->(*args, env:, frames:) { ! Hal.directory?(args[0]) }
     end
     @parser.on('-filter') do |lmbd|
-      raise ArgumentError.new('-filter requires a lambda argument') unless Lambda === lmbd
+      @parser.arg_type '-filter', lmbd, Lambda
       @filter = lmbd
     end
     @parser.on('-name') do |pattern|
-      raise ArgumentError.new('-name requires a string argument') unless String === pattern
+      @parser.arg_type '-name', pattern, String
       @filter = ->(*args, env:, frames:) { File.fnmatch pattern, args[0] }
     end
     @parser.on('-grep') do |pattern|
-      raise ArgumentError.new('-grep requires a string argument') unless String === pattern
+      @parser.arg_type '-grep', pattern, String
+
       pattern = Regexp.new pattern
       @filter = ->(*args, env:, frames:) { !! args[0].match(pattern) }
     end
@@ -57,7 +58,7 @@ class Fnd < BaseCommand
     else
       ->(o) { @filter.call o, env:env, frames:frames }
     end
-    
+
   end
   def action_p env:
     ->(o) {env[:out].puts o }

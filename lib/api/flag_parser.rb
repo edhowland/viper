@@ -18,6 +18,13 @@ class FlagParser
       [arg]
     end
   end
+  def arg_type option, arg,  klass
+    unless klass  === arg
+      message = "#{option} expects arg to be a #{klass.name}"
+      raise ArgumentError.new message
+    end
+    true
+  end
   def parse args=[]
     execs = args.map {|e| @flags[e] }
     temp = args
