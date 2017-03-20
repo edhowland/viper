@@ -2,7 +2,6 @@
 
 require_relative 'test_helper'
 
-
 class APITests < BaseSpike
   def test_path_from_start_elements_returns
     path_from_start_elements ''
@@ -32,5 +31,13 @@ class ArrayExtenderTests < BaseSpike
   def test_lines
     l = @obj.lines
     assert_not_empty l
+  end
+  def test_regexify_returns_regexp_class
+    result = regexify 'a'
+    assert_is result, Regexp
+  end
+  def test_regexify_w_pattern_matches_input
+    result = regexify 'cat'
+    assert(!!'cat'.match(result))
   end
 end

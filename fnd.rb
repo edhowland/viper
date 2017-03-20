@@ -18,11 +18,15 @@ class Fnd < BaseCommand
     @parser.on('-filter') do |lmbd|
       raise ArgumentError.new('-filter requires a lambda argument') unless Lambda === lmbd
       @filter = lmbd
-      @parser.on('-name') do |pattern|
-              raise ArgumentError.new('-name requires a string argument') unless String === pattern
-              @filter = ->(*args, env:, frames:) { File.fnmatch pattern, args[0] }
-
-      end
+    end
+    @parser.on('-name') do |pattern|
+      raise ArgumentError.new('-name requires a string argument') unless String === pattern
+      @filter = ->(*args, env:, frames:) { File.fnmatch pattern, args[0] }
+    end
+    @parser.on('-grep') do |pattern|
+      raise ArgumentError.new('-grep requires a string argument') unless String === pattern
+      pattern = Regexp.new pattern
+      @filter = ->(*args, env:, frames:) { !! args[0].match(pattern) }
     end
   end
   def clear_filter_action
