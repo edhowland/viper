@@ -15,6 +15,12 @@ class Fnd < BaseCommand
       raise ArgumentError.new('-e requires a lambda argument') unless Lambda === lmbd
       @action = lmbd
     end
+    @parser.on('-d') do
+      @filter = ->(*args, env:, frames:) { Hal.directory?(args[0]) }
+    end
+    @parser.on('-f') do
+      @filter = ->(*args, env:, frames:) { ! Hal.directory?(args[0]) }
+    end
     @parser.on('-filter') do |lmbd|
       raise ArgumentError.new('-filter requires a lambda argument') unless Lambda === lmbd
       @filter = lmbd
