@@ -1,6 +1,8 @@
 # all_tests.rb - requires to load all test classes
 
 require_relative 'api_tests'
+require_relative 'flag_parser_tests'
+
 
 require_relative 'buffer_test'
 require_relative 'redirection_test'

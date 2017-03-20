@@ -14,7 +14,7 @@ class FlagParser
     @flags[flag] = blk
   end
 
-  def o_or_arr arg
+  def o_or_arr(arg)
     if @flags.include? arg
       []
     else
@@ -22,21 +22,21 @@ class FlagParser
     end
   end
 
-  def arg_type option, arg,  klass
-    unless klass  === arg
+  def arg_type(option, arg, klass)
+    unless arg.instance_of?(klass)
       message = "#{option} expects arg to be a #{klass.name}"
-      raise ArgumentError.new message
+      raise ArgumentError, message
     end
     true
   end
 
-  def parse args=[]
-    execs = args.map {|e| @flags[e] }
+  def parse(args = [])
+    execs = args.map { |e| @flags[e] }
     temp = args
     temp.shift
-    params = temp.map {|e|o_or_arr(e) }
+    params = temp.map { |e| o_or_arr(e) }
     params.push []
-    things = execs.zip(params).reject {|e| e[0].nil? }
-    things.each {|e| e[0].call(*e[1]) }
+    things = execs.zip(params).reject { |e| e[0].nil? }
+    things.each { |e| e[0].call(*e[1]) }
   end
 end
