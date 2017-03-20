@@ -18,7 +18,7 @@ class Find < BaseCommand
       @filter = ->(*args, env:, frames:) { Hal.directory?(args[0]) }
     end
     @parser.on('-f') do
-      @filter = ->(*args, env:, frames:) { ! Hal.directory?(args[0]) }
+      @filter = ->(*args, env:, frames:) { !Hal.directory?(args[0]) }
     end
     @parser.on('-filter') do |lmbd|
       @parser.arg_type '-filter', lmbd, Lambda
@@ -32,13 +32,15 @@ class Find < BaseCommand
       @parser.arg_type '-grep', pattern, String
 
       pattern = Regexp.new pattern
-      @filter = ->(*args, env:, frames:) { !! args[0].match(pattern) }
+      @filter = ->(*args, env:, frames:) { !!args[0].match(pattern) }
     end
   end
+
   def clear_filter_action
     @filter = nil
     @action = nil
   end
+
   def get_glob pat
     case pat
     when '.'
@@ -51,6 +53,7 @@ class Find < BaseCommand
       end
     end
   end
+
   def filter_p env:, frames:
     if @filter.nil?
       ->(o) { true }
@@ -59,9 +62,11 @@ class Find < BaseCommand
     end
 
   end
+
   def action_p env:
     ->(o) {env[:out].puts o }
   end
+
   def call *args, env:, frames:
     args.unshift '.' if args.empty?
     src,  = args

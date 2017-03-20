@@ -10,3 +10,12 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+
+# Since Little  Linter cannot really parse Ruby code
+# Multi-line method calls cannot be aligned the way Rubocop likes them
+Style/AlignParameters:
+  Enabled: false
+# where the above config gives an offense
+#  Exclude:
+#    'lib/bin/exec.rb'
