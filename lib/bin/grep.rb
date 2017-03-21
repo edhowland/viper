@@ -30,13 +30,13 @@ class Grep < BaseCommand
       @in.read.each_line do |l|
         matches = l.match regex
         if matches
-        result = true
-        if @options[:o]
-          say matches[0]
-        else
-          say l
+          result = true
+          if @options[:o]
+            say matches[0]
+          else
+            say l
+          end
         end
-      end
       end
       result
     end

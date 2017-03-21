@@ -18,7 +18,7 @@ class ObjectRedir
   def close
     @handle.close
   end
-  end
+end
 
 class Redirection
   def initialize(op, target)
