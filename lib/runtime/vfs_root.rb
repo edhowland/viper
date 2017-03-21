@@ -26,7 +26,7 @@ class VFSRoot
       elements[0] = @root
     else
       elements.unshift @wd
-  end
+    end
     elements
   end
 

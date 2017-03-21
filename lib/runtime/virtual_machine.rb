@@ -7,7 +7,8 @@ class VirtualMachine
       @code = code
     end
     attr_reader :code
-end
+  end
+
   class ReturnCalled < RuntimeError
     def initialize(return_code)
       @return_code = return_code
