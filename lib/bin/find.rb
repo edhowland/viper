@@ -7,12 +7,9 @@
 # -f : match actual files, not directories
 # -d : match only directories, not files
 #
-# method line length for BaseCommand must be longer than 10 lines for initialize
-# for the same  reason, ABC complexity
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
 # Double negation is OK to return true/false from regex match
 # rubocop:disable Style/DoubleNegation
+
 class Find < BaseCommand
   def initialize
     @parser = FlagParser.new

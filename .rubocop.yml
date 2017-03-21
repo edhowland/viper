@@ -1,4 +1,8 @@
+# Add  these 2 lines to .rubocop_todo.yml 
 
+#inherit_from:
+#  - .rubocop.yml
+# then uncomment them
 
 AllCops:
   Include:
@@ -19,6 +23,18 @@ Style/AlignParameters:
 # where the above config gives an offense
 #  Exclude:
 #    'lib/bin/exec.rb'
+
+
+# method line length for BaseCommand must be longer than 10 lines for initialize
+# for the same  reason, ABC complexity
+#
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/bin/find.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/bin/find.rb'
 
 # Ignore unused env: or frames: keywords
 Lint/UnusedMethodArgument:
