@@ -30,4 +30,13 @@ class BinTests < BaseSpike
     str = cmd.examine Hal, :virtual?, '/dev/null'
     assert_eq str, 'virtual? false'
   end
+  # ls tests
+  def test_ls_dir_star_w_directory
+    cmd = Ls.new
+    assert_eq cmd.dir_star('/v/bin'), '/v/bin/*'
+  end
+  def test_dir_star_w_file
+    cmd = Ls.new
+    assert_eq cmd.dir_star('xx'), 'xx'
+  end
 end

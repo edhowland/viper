@@ -19,3 +19,8 @@ Style/AlignParameters:
 # where the above config gives an offense
 #  Exclude:
 #    'lib/bin/exec.rb'
+
+# Ignore unused env: or frames: keywords
+Lint/UnusedMethodArgument:
+  Enabled: false
+
