@@ -6,7 +6,13 @@
 # -filter &(o) { ... } : match only names that satisfiy this anon function
 # -f : match actual files, not directories
 # -d : match only directories, not files
-
+#
+# method line length for BaseCommand must be longer than 10 lines for initialize
+# for the same  reason, ABC complexity
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+# Double negation is OK to return true/false from regex match
+# rubocop:disable Style/DoubleNegation
 class Find < BaseCommand
   def initialize
     @parser = FlagParser.new
@@ -62,8 +68,8 @@ class Find < BaseCommand
     end
   end
 
-  def action_p(env:)
-    ->(o) { env[:out].puts o }
+  def action_set(env:)
+    @action ||= ->(*ag, **_keywords) { env[:out].puts ag[0] }
   end
 
   def call(*args, env:, frames:)
@@ -71,7 +77,7 @@ class Find < BaseCommand
     src, = args
     clear_filter_action
     @parser.parse args
-    @action ||= ->(*args, env:, **_keywords) { env[:out].puts args[0] }
+    action_set(env: env)
     action_p = ->(o) { @action.call o, env: env, frames: frames }
     src = get_glob(src)
     Hal[src].select(&filter_p(env: env, frames: frames)).each(&action_p)
