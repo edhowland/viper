@@ -17,4 +17,4 @@ class Stat < BaseCommand
     end
     true
   end
-  end
+end

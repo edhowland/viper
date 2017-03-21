@@ -28,8 +28,8 @@ Lint/EndAlignment:
   Exclude:
 #    - 'lib/ast/redirection.rb'
     #- 'lib/bin/grep.rb'
-    - 'lib/bin/stat.rb'
-    - 'lib/runtime/vfs_node.rb'
+    #- 'lib/bin/stat.rb'
+    #- 'lib/runtime/vfs_node.rb'
     - 'lib/runtime/vfs_root.rb'
     - 'lib/runtime/virtual_machine.rb'
 
