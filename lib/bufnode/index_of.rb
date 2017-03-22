@@ -4,7 +4,7 @@
 class IndexOf < BaseNodeCommand
   def call(*args, env:, frames:)
     perform args[0], env: env, frames: frames do |node|
-      result = node.index (args[1] + "\n")
+      result = node.index((args[1] + "\n"))
       if result.nil?
         result = ''
         env[:err].puts 'index_of: element not found'

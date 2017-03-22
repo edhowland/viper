@@ -49,17 +49,17 @@ Lint/NestedMethodDefinition:
 # Offense count: 1
 Lint/ParenthesesAsGroupedExpression:
   Exclude:
-    - 'lib/bufnode/index_of.rb'
+    #- 'lib/bufnode/index_of.rb'
 
 # Offense count: 1
 Lint/RequireParentheses:
   Exclude:
-    - 'lib/runtime/hal.rb'
+    #- 'lib/runtime/hal.rb'
 
 # Offense count: 2
 Lint/ShadowingOuterLocalVariable:
   Exclude:
-    - 'lib/runtime/command.rb'
+    #- 'lib/runtime/command.rb'
 
 # Offense count: 1
 Lint/UnderscorePrefixedVariableName:

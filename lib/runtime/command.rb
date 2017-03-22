@@ -1,5 +1,6 @@
 # command - class Command - factory class to resolve identifiers into actual
 # runnable commands, aliases or functions
+# rubocop:disable Lint/ShadowingOuterLocalVariable
 
 class CommandNotFound < RuntimeError
   def initialize(command = 'unknown')
