@@ -5,12 +5,12 @@ class BufferWriter
     @io = io
   end
 
-  def get_buffer
+  def buffer
     @io['buffer']
   end
 
   def write(contents)
-    get_buffer.overwrite! contents
+    buffer.overwrite! contents
   end
 
   def puts(contents)

@@ -123,8 +123,8 @@ Security/JSONLoad:
 # Offense count: 3
 Style/AccessorMethodName:
   Exclude:
-    - 'lib/bufnode/buffer_writer.rb'
-    - 'lib/runtime/virtual_layer.rb'
+    #- 'lib/bufnode/buffer_writer.rb'
+    #- 'lib/runtime/virtual_layer.rb'
 
 # Offense count: 8
 Style/CaseEquality:
