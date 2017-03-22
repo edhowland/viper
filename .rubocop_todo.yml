@@ -126,16 +126,6 @@ Style/AccessorMethodName:
     #- 'lib/bufnode/buffer_writer.rb'
     #- 'lib/runtime/virtual_layer.rb'
 
-# Offense count: 8
-Style/CaseEquality:
-  Exclude:
-    - 'lib/ast/redirection.rb'
-    - 'lib/bin/json.rb'
-    - 'lib/bin/ruby.rb'
-    - 'lib/bin/test.rb'
-    - 'lib/runtime/base_command.rb'
-    - 'lib/runtime/vfs_root.rb'
-
 # Offense count: 7
 Style/ClassVars:
   Exclude:

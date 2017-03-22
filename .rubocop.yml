@@ -39,3 +39,7 @@ Metrics/AbcSize:
 # Ignore unused env: or frames: keywords
 Lint/UnusedMethodArgument:
   Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
+
