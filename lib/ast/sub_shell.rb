@@ -43,7 +43,7 @@ class SubShell
     closers = open_redirs env: local_ios
     begin
       vm.call @block
-    rescue VirtualMachine::BreakCalled => err
+    rescue VirtualMachine::BreakCalled
       return true
     ensure
       restore_pwd @vm

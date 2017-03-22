@@ -122,12 +122,12 @@ class VFSRoot
   end
 
   def dirpath(path)
-    start, *elements = path_to_elements path
+    _start, *elements = path_to_elements path
     elements[0..-2]
   end
 
   def basename(path)
-    start, *elements = path_to_elements path
+    _start, *elements = path_to_elements path
     elements[-1]
   end
 

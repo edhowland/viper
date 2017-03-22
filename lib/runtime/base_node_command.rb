@@ -26,9 +26,8 @@ class BaseNodeCommand < BaseCommand
     base = path.pathmap('%f')
     root = frames[:vroot]
     node = root[dir]
-    output = ''
     result = true
-    output = yield(node, base) if block_given?
+    yield(node, base) if block_given?
     result
   end
 end

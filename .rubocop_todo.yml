@@ -74,11 +74,11 @@ Lint/UselessAssignment:
     #- 'ext/rb/lint_pass2.rb'
     #- 'lib/ast/lambda.rb'
     #- 'lib/ast/pipe.rb'
-    - 'lib/ast/sub_shell.rb'
-    - 'lib/bin/ruby.rb'
-    - 'lib/runtime/base_node_command.rb'
-    - 'lib/runtime/vfs_root.rb'
-    - 'lib/runtime/virtual_machine.rb'
+    #- 'lib/ast/sub_shell.rb'
+    #- 'lib/bin/ruby.rb'
+    #- 'lib/runtime/base_node_command.rb'
+    #- 'lib/runtime/vfs_root.rb'
+    #- 'lib/runtime/virtual_machine.rb'
 
 # Offense count: 23
 Metrics/AbcSize:
@@ -118,7 +118,7 @@ Metrics/PerceivedComplexity:
 # Configuration parameters: AutoCorrect.
 Security/JSONLoad:
   Exclude:
-    - 'lib/bin/json.rb'
+    #- 'lib/bin/json.rb'
 
 # Offense count: 3
 Style/AccessorMethodName:

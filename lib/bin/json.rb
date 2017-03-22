@@ -21,7 +21,7 @@ class Json < BaseNodeCommand
     super do |*a|
       if @options[:r]
         perform_new a[0], env: env, frames: frames do |node, base|
-          child = to_vfs(node, base, JSON.load(env[:in].read))
+          child = to_vfs(node, base, JSON.parse(env[:in].read))
           node[child.name] = child
           ''
         end

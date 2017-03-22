@@ -46,6 +46,7 @@ class VirtualMachine
     rescue Errno::ENOENT => exc
       raise exc
     rescue => err
+      @ios[:err].puts '_chdir: ' + err.message
       result = false
     ensure
       @fs.first[:pwd] = Hal.pwd

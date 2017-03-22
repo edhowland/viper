@@ -11,7 +11,6 @@ class Ruby < BaseCommand
       $stdin = env[:in]
       $stdout = env[:out]
       code = args.first
-      argv = args[1..-1]
       result = instance_eval(code)
     ensure
       $stdout = @orig_out
