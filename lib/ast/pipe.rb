@@ -14,7 +14,7 @@ class Pipe
     io = StringIO.new
     env.push
     env[:out] = io
-    first_result = @left.call env: env, frames: frames
+    @left.call env: env, frames: frames
     left_status = frames[:pipe_status]
     env.pop
     io.close_write

@@ -17,7 +17,7 @@ class Lambda
     fr[:_] = args
     # The number of arguments are stored in :_argc
     fr[:_argc] = args.length.to_s
-    result = @block.call env: env, frames: fr
+    @block.call env: env, frames: fr
   end
 
   def to_s
