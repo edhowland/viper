@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # viper - main start for viper editor
-
+# rubocop:disable Lint/UnderscorePrefixedVariableName
 # TODO: REMOVEME
 require 'pry'
 
@@ -132,7 +132,7 @@ at_exit do
 end
 begin
   _exit_code = 0
-  # setup exit handlers. Checks for existantance and syntax correctness
+  # setup exit handlers. Checks for existanance and syntax correctness
   $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish]).map { |e| File.read(e) }).map { |e| Visher.parse! e }
 
   ((

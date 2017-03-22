@@ -64,7 +64,7 @@ Lint/ShadowingOuterLocalVariable:
 # Offense count: 1
 Lint/UnderscorePrefixedVariableName:
   Exclude:
-    - 'bin/viper'
+    #- 'bin/viper'
 
 # Offense count: 12
 Lint/UselessAssignment:
