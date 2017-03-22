@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # viper - main start for viper editor
+#
+# Rubocop triggers on:   _exit_code = 0
+# Since we are an interpreter written in an interpreter, this is ok, so we ignore
 # rubocop:disable Lint/UnderscorePrefixedVariableName
+
 # TODO: REMOVEME
 require 'pry'
 
@@ -150,6 +154,7 @@ rescue VirtualMachine::ExitCalled => err
   _exit_code = err.code
 rescue VishSyntaxError => err
   puts 'Syntax error occured during load'
+  puts err.message
 rescue => err
   puts err.class.name
   puts err.message

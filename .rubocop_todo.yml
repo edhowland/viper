@@ -69,9 +69,9 @@ Lint/UnderscorePrefixedVariableName:
 # Offense count: 12
 Lint/UselessAssignment:
   Exclude:
-    - 'bin/viper'
-    - 'ext/rb/lint_pass0.rb'
-    - 'ext/rb/lint_pass2.rb'
+    #- 'bin/viper'
+    #- 'ext/rb/lint_pass0.rb'
+    #- 'ext/rb/lint_pass2.rb'
     - 'lib/ast/lambda.rb'
     - 'lib/ast/pipe.rb'
     - 'lib/ast/sub_shell.rb'
