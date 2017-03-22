@@ -8,7 +8,7 @@ class Loop < BaseCommand
       begin
         loop { result = block.call env: env, frames: frames }
       rescue VirtualMachine::BreakCalled
-        # nop
+        return true
       end
 
       result

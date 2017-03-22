@@ -24,13 +24,14 @@ class Redirection
   def initialize(op, target)
     @op = op
     @target = target
-    def key
-      { '<' => :in, '>' => :out, '2>' => :err, '>>' => :out }[@op]
-    end
+  end
 
-    def mode
-      { '<' => 'r', '>' => 'w', '2>' => 'w', '>>' => 'a' }[@op]
-    end
+  def key
+    { '<' => :in, '>' => :out, '2>' => :err, '>>' => :out }[@op]
+  end
+
+  def mode
+    { '<' => 'r', '>' => 'w', '2>' => 'w', '>>' => 'a' }[@op]
   end
 
   def call(env:, frames:)

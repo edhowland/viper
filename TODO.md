@@ -4,6 +4,8 @@ Version : Viper 1.99-rc0
 
 
 Major Bug:
+Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
+
 Bug/Feature: Investigate how to properly handle option errors
   >> in OptionParser - w/custom error handler
 Bug: find command does not work properly

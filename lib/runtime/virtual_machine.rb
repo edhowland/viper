@@ -149,8 +149,8 @@ class VirtualMachine
         @fs.pop
       rescue ExitCalled
         raise ExitCalled
-      rescue ReturnCalled
-        # nop
+      rescue ReturnCalled => r
+        return r.return_code
       rescue => err
         line = 0
         line = err.line_number if err.respond_to? :line_number

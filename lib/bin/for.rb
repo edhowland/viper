@@ -13,7 +13,7 @@ class For < BaseCommand
         block.call env: env, frames: frames
       end
     rescue VirtualMachine::BreakCalled
-      # nop
+      return true
     ensure
       frames.merge
     end

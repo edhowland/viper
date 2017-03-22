@@ -36,15 +36,15 @@ Lint/EndAlignment:
 # Offense count: 4
 Lint/HandleExceptions:
   Exclude:
-    - 'lib/bin/for.rb'
-    - 'lib/bin/loop.rb'
-    - 'lib/bufnode/buf_writer.rb'
-    - 'lib/runtime/virtual_machine.rb'
+    #- 'lib/bin/for.rb'
+    #- 'lib/bin/loop.rb'
+    #- 'lib/bufnode/buf_writer.rb'
+    #- 'lib/runtime/virtual_machine.rb'
 
 # Offense count: 2
 Lint/NestedMethodDefinition:
   Exclude:
-    - 'lib/ast/redirection.rb'
+    #- 'lib/ast/redirection.rb'
 
 # Offense count: 1
 Lint/ParenthesesAsGroupedExpression:

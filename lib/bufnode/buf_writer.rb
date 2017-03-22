@@ -17,7 +17,7 @@ class BufWriter
         node['line'].right = contents
       end
     rescue StopIteration
-      #
+      true
     end
   end
 
