@@ -64,4 +64,9 @@ class FlagHashTests < BaseSpike
     result = @parser.parse ['-f', 'file']
     assert_eq result['-f'], 'file'
   end
+  def test_multiple_types_of_flags_params
+    result = @parser.parse ['-e', '-f', 'string', 'dummy']
+    assert result['-e']
+    assert_eq result['-f'], 'string'
+  end
 end

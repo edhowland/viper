@@ -1,6 +1,6 @@
 # flag_parser.rb - class FlagParser - simple option parser
 # converts array of posible -flag strings internally to some Procs
-# Then calls the procs, possibly with attached argument
+# When :parse called, calls the procs, possibly with attached argument
 #  The simplest thing that possibly could work
 # class FlagHash - child of FlagParser - converts hash into hash of parsed
 # values
@@ -32,9 +32,18 @@ class FlagParser
     true
   end
 
+  def mash(args = [])
+    execs = args.map { |e| @flags[e] }
+    temp = args.clone
+    temp.shift
+    params = temp.map { |e| o_or_arr(e) }
+    params.push []
+    execs.zip(params)
+  end
+
   def parse(args = [])
     execs = args.map { |e| @flags[e] }
-    temp = args
+    temp = args.clone
     temp.shift
     params = temp.map { |e| o_or_arr(e) }
     params.push []
