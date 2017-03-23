@@ -9,6 +9,7 @@ class VFSTest < BaseSpike
     @vroot = @vm.fs[:vroot]
   end
   def test_normal_open
+    Hal.chdir File.dirname(__FILE__)
     Hal.open __FILE__, 'r'
   end
   def test_virtual_layer

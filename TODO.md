@@ -4,6 +4,8 @@ Version : Viper 1.99-rc0
 
 
 Major Bug:
+Bug: incorrect error message when no more tab points exist. When using meta_f
+  >> Also check meta_r
 Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
 
 Bug/Feature: Investigate how to properly handle option errors

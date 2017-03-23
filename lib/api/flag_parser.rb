@@ -2,6 +2,8 @@
 # converts array of posible -flag strings internally to some Procs
 # Then calls the procs, possibly with attached argument
 #  The simplest thing that possibly could work
+# class FlagHash - child of FlagParser - converts hash into hash of parsed
+# values
 
 class FlagParser
   def initialize
@@ -38,5 +40,32 @@ class FlagParser
     params.push []
     things = execs.zip(params).reject { |e| e[0].nil? }
     things.each { |e| e[0].call(*e[1]) }
+  end
+end
+
+class FlagHash < FlagParser
+  def initialize flag_hash: {}
+    super() # This forces 0 arguments to FlagParser.initialize
+    @flag_hash = flag_hash
+    @parsed_hash = @flag_hash.clone
+    @flag_hash.each_pair do |key, value|
+      if is_boolean?(value)
+        on(key) do
+          @parsed_hash[key] = true
+        end
+      else
+        on(key) do |param|
+          @parsed_hash[key] = param
+        end
+      end
+    end
+  end
+  attr_accessor :flag_hash, :parsed_hash
+  def is_boolean? param
+    param.instance_of?(TrueClass) || param.instance_of?(FalseClass)
+  end
+  def parse args=[]
+    super args
+    @parsed_hash
   end
 end

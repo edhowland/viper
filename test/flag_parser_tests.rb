@@ -28,4 +28,40 @@ class FlagParserTests < BaseSpike
     @parser.parse ['-e']
     assert flag
   end
+  def test_w_string_param_sets_value
+    str = ''
+    @parser.on('-e') do |string|
+      str = string
+    end
+    @parser.parse ['-e', 'dummy']
+    assert_eq str, 'dummy'
+  end
+end
+
+class FlagHashTests < BaseSpike
+  def set_up
+    @orig_hash = {'-e' => false, '-f' => nil}
+        @parser = FlagHash.new flag_hash: @orig_hash
+  end
+  def test_parse_returns_hash_w_empty_returns_original_hash
+    result = @parser.parse []
+    assert_eq result, @orig_hash
+  end
+  def test_w_dash_e_returns_true_value_in_hash
+    result = @parser.parse ['-e']
+    assert result['-e']
+  end
+  def test_is_boolean_w_true
+    assert @parser.is_boolean?(true)
+  end
+  def test_is_boolean_w_false
+    assert @parser.is_boolean?(false)
+  end
+  def test_is_boolean_w_nil_is_false
+    assert_false @parser.is_boolean?(nil)
+  end
+  def test_w_param_returns_hash_value_is_param
+    result = @parser.parse ['-f', 'file']
+    assert_eq result['-f'], 'file'
+  end
 end
