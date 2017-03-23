@@ -43,28 +43,29 @@ class FlagParser
   end
 end
 
+# is_boolean? is intentional
+# rubocop:disable Style/PredicateName
 class FlagHash < FlagParser
-  def initialize flag_hash: {}
+  def initialize(flag_hash: {})
     super() # This forces 0 arguments to FlagParser.initialize
     @flag_hash = flag_hash
     @parsed_hash = @flag_hash.clone
     @flag_hash.each_pair do |key, value|
       if is_boolean?(value)
-        on(key) do
-          @parsed_hash[key] = true
-        end
+        on(key) { @parsed_hash[key] = true }
       else
-        on(key) do |param|
-          @parsed_hash[key] = param
-        end
+        on(key) { |param| @parsed_hash[key] = param }
       end
     end
   end
+
   attr_accessor :flag_hash, :parsed_hash
-  def is_boolean? param
+
+  def is_boolean?(param)
     param.instance_of?(TrueClass) || param.instance_of?(FalseClass)
   end
-  def parse args=[]
+
+  def parse(args = [])
     super args
     @parsed_hash
   end
