@@ -1,17 +1,14 @@
-# echo - class Echo
+# echo.rb - class Echo - command echo
 
-class Echo < BaseCommand
-  def spit(args)
-    args.join(' ')
-  end
-
-  def call(*args, env:, frames:)
-    super do |*a|
-      if @options[:n]
-        @out.write spit(a)
+class Echo < FlaggedCommand
+  def initialize
+    super(flags:{'-n' => false}) do |inn, out, err, frames, flags, *args|
+      if flags['-n']
+        out.print args.join(' ')
       else
-        pout spit(a)
+        out.puts args.join(' ')
       end
     end
+    true
   end
 end

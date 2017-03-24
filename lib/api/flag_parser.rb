@@ -64,7 +64,7 @@ end
 class FlagHash < FlagParser
   def initialize(flag_hash: {})
     super() # This forces 0 arguments to FlagParser.initialize
-    @flag_hash = flag_hash
+    @flag_hash = flag_hash.clone
     @parsed_hash = @flag_hash.clone
     @flag_hash.each_pair do |key, value|
       if is_boolean?(value)
@@ -87,6 +87,7 @@ class FlagHash < FlagParser
   end
 
   def parse!(args = [])
+    @parsed_hash = @flag_hash.clone
     remaining = super args
     [@parsed_hash, remaining]
   end

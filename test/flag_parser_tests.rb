@@ -86,4 +86,11 @@ class FlagHashTests < BaseSpike
     assert_is flags, Hash
     assert_is args, Array
   end
+  def test_after_parse_parsed_hash_resuumes
+  assert_false @parser.parsed_hash['-e']
+    @parser.parse! ['-e']
+    assert @parser.parsed_hash['-e']
+    @parser.parse!
+    assert_false @parser.parsed_hash['-e']
+  end
 end
