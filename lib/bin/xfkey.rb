@@ -8,11 +8,11 @@
 
 class Xfkey < BaseCommand
   def key_to_hex(values)
-    @out.write(values.bytes.map { |e| '%0x' % e }.join(' '))
+    @out.write(values.bytes.map { |e| format('%0x', e) }.join(' '))
   end
 
   def key_to_decimal(values)
-    @out.write(values.bytes.map { |e| '%0d' % e }.join(' '))
+    @out.write(values.bytes.map { |e| format('%0d', e) }.join(' '))
   end
 
   def key_to_unicode(values)

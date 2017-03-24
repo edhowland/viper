@@ -144,8 +144,8 @@ Style/DoubleNegation:
 # SupportedStyles: format, sprintf, percent
 Style/FormatString:
   Exclude:
-    - 'lib/bin/hd.rb'
-    - 'lib/bin/xfkey.rb'
+    #- 'lib/bin/hd.rb'
+    #- 'lib/bin/xfkey.rb'
 
 # Offense count: 16
 # Configuration parameters: AllowedVariables.
