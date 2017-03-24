@@ -26,24 +26,28 @@ class FlagParser
 
   def parse!(args = [])
     value = []
-    ments = args.map {|e| @flags[e].nil? ? e : @flags[e] }
+    ments = args.map { |e| @flags[e].nil? ? e : @flags[e] }
     iter = ments.each
-    loop do
-      arg = iter.next
-      if arg.instance_of?(Proc)
-        case arg.arity
-        when 0
-          arg.call
-        when 1
-          param = iter.next
-          arg.call param
+    begin
+      loop do
+        arg = iter.next
+        if arg.instance_of?(Proc)
+          case arg.arity
+          when 0
+            arg.call
+          when 1
+            param = iter.next
+            arg.call param
+          else
+            raise ArgumentError, "Wrong number of parameters to block for this option. Got #{arg.arity}. Expected 0 or 1"
+          end
         else
-          raise ArgumentError.new "Wrong number of parameters to block for this option. Got #{arg.arity}. Expected 0 or 1"
+          value << arg
         end
-      else
-        value << arg
       end
-    end rescue StopIteration
+    rescue
+      StopIteration
+    end
     value
   end
 
@@ -55,7 +59,7 @@ end
 # is_boolean? is intentional
 # rubocop:disable Style/PredicateName
 # create w/flag_hash: {'-e' -> false, '-f' => ''}  :: Will return found flags
-# when :parse called w/array. Unfound flags, will leave initial 
+# when :parse called w/array. Unfound flags, will leave initial
 # key, value unchenged
 class FlagHash < FlagParser
   def initialize(flag_hash: {})
@@ -81,6 +85,7 @@ class FlagHash < FlagParser
     super args
     @parsed_hash
   end
+
   def parse!(args = [])
     remaining = super args
     [@parsed_hash, remaining]
