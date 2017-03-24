@@ -129,9 +129,9 @@ Style/AccessorMethodName:
 # Offense count: 7
 Style/ClassVars:
   Exclude:
-    - 'lib/runtime/command.rb'
-    - 'lib/runtime/event.rb'
-    - 'lib/runtime/virtual_layer.rb'
+    #- 'lib/runtime/command.rb'
+    #- 'lib/runtime/event.rb'
+    #- 'lib/runtime/virtual_layer.rb'
 
 # Offense count: 2
 Style/DoubleNegation:

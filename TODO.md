@@ -2,6 +2,12 @@
 
 Version : Viper 1.99-rc0
 
+Rubocop stuff
+command: rubo.todo.cop
+individual command: rubo.todo.cop -D lib/... /... .rb
+Current line in .rubocop_todo.yml:
+132
+
 
 Major Bug:
 Bug: incorrect error message when no more tab points exist. When using meta_f

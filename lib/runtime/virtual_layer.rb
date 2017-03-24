@@ -1,6 +1,8 @@
 # virtual_layer - class VirtualLayer - fromhal.rb - implements
 # VFS functions
 # rubocop:disable Style/AccessorMethodName
+# rubocop:disable Style/ClassVars
+
 $in_virtual = false
 
 class VirtualLayer
