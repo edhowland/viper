@@ -1,4 +1,5 @@
 # redirection - class Redirection - holder for >, <, >> 2> stuff
+# rubocop:disable Style/DoubleNegation
 
 require_relative 'context_constants'
 

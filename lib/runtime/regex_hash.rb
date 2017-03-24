@@ -1,6 +1,7 @@
 # regex_hash - class RegexHash - data structor to use regex'es as keys
 # When stored, the key is a Regexp
 #  and retrieved it is some potetially matching string
+# rubocop:disable Style/DoubleNegation
 
 class RegexHash
   def initialize

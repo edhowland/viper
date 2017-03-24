@@ -136,8 +136,8 @@ Style/ClassVars:
 # Offense count: 2
 Style/DoubleNegation:
   Exclude:
-    - 'lib/ast/redirection.rb'
-    - 'lib/runtime/regex_hash.rb'
+    #- 'lib/ast/redirection.rb'
+    #- 'lib/runtime/regex_hash.rb'
 
 # Offense count: 3
 # Configuration parameters: EnforcedStyle, SupportedStyles.
