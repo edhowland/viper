@@ -45,6 +45,10 @@ end
 def assert_nil obj
   assert obj.nil?, "expected #{obj} to be nil"
 end
+def assert_not_nil obj
+  assert !obj.nil?, 'Expected object to not be nil, but was nil'
+end
+
 class AssertionRaiseFailure < BaseAssertionException; end
 
 def assert_raises exception, &blk

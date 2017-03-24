@@ -81,4 +81,8 @@ class FlagHash < FlagParser
     super args
     @parsed_hash
   end
+  def parse!(args = [])
+    remaining = super args
+    [@parsed_hash, remaining]
+  end
 end

@@ -36,6 +36,16 @@ class FlagParserTests < BaseSpike
     @parser.parse ['-e', 'dummy']
     assert_eq str, 'dummy'
   end
+  def test_parse_exclaim_returns_non_arg_values
+    bool = false
+    @parser.on('-e') { bool = true }
+    my_file = ''
+    @parser.on('-f') {|file| my_file = file }
+    result = @parser.parse! ['-f', 'ruby.rb', 'no_arg', '-e', 'nuther']
+    assert bool
+    assert_eq my_file, 'ruby.rb'
+    assert_eq result, ['no_arg', 'nuther']
+  end
 end
 
 class FlagHashTests < BaseSpike
@@ -68,5 +78,12 @@ class FlagHashTests < BaseSpike
     result = @parser.parse ['-e', '-f', 'string', 'dummy']
     assert result['-e']
     assert_eq result['-f'], 'string'
+  end
+  def test_parse_exclaim_returns_flags_and_remaining_args
+    flags, args = @parser.parse! ['-e', '-f', 'filename', 'arg1', 'arg2']
+    assert_not_nil flags
+    assert_not_nil args
+    assert_is flags, Hash
+    assert_is args, Array
   end
 end
