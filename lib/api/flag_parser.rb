@@ -41,6 +41,29 @@ class FlagParser
     execs.zip(params)
   end
 
+  def parse!(args = [])
+    value = []
+    ments = args.map {|e| @flags[e].nil? ? e : @flags[e] }
+    iter = ments.each
+    loop do
+      arg = iter.next
+      if arg.instance_of?(Proc)
+        case arg.arity
+        when 0
+          arg.call
+        when 1
+          param = iter.next
+          arg.call param
+        else
+          raise ArgumentError.new "Wrong number of parameters to block for this option. Got #{arg.arity}. Expected 0 or 1"
+        end
+      else
+        value << arg
+      end
+    end rescue StopIteration
+    value
+  end
+
   def parse(args = [])
     execs = args.map { |e| @flags[e] }
     temp = args.clone
@@ -54,6 +77,9 @@ end
 
 # is_boolean? is intentional
 # rubocop:disable Style/PredicateName
+# create w/flag_hash: {'-e' -> false, '-f' => ''}  :: Will return found flags
+# when :parse called w/array. Unfound flags, will leave initial 
+# key, value unchenged
 class FlagHash < FlagParser
   def initialize(flag_hash: {})
     super() # This forces 0 arguments to FlagParser.initialize
