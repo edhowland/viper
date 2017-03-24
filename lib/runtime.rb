@@ -1,5 +1,7 @@
 require_relative 'runtime/vish_syntax_error'
 require_relative 'runtime/base_command.rb'
+require_relative 'runtime/flagged_command'
+
 require_relative 'runtime/base_value_command'
 require_relative 'runtime/base_node_command.rb'
 require_relative 'runtime/command_name.rb'
