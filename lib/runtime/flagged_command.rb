@@ -1,24 +1,25 @@
-# flagged_command.rb - class  FlaggedCommand - base for commands that take - args
+# flagged_command.rb - class  FlaggedCommand - base for commands that take
+# dashed args
 
-
+# %%LINT4
 # Example usage:
-#class Flag < FlaggedCommand
-  #def initialize
-    #super(flags: {'-e' => false, '-f' => ''}) do |inp, out, err, frames, flags, *args|
-      #out.puts 'in flag:'
-      #out.puts "-e #{flags['-e'].to_s}"
-      #out.puts "-f #{flags['-f']}"
-      #out.puts "remaining args"
-      #out.puts args.inspect
-      #true
-    #end
-  #end
-#end
+# class Flag < FlaggedCommand
+# def initialize
+# super(flags: {'-e' => false, '-f' => ''}) do |inp, out, err, frames, flags, *args|
+# out.puts 'in flag:'
+# out.puts "-e #{flags['-e'].to_s}"
+# out.puts "-f #{flags['-f']}"
+# out.puts "remaining args"
+# out.puts args.inspect
+# true
+# end
+# end
+# end
 
 class FlaggedCommand < BaseCommand
-  def initialize flags: {}, &blk
+  def initialize(flags: {}, &blk)
     super()
-    @parser = FlagHash.new flag_hash:flags
+    @parser = FlagHash.new flag_hash: flags
     @block = blk
   end
 
