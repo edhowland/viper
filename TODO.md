@@ -6,7 +6,9 @@ Rubocop stuff
 command: rubo.todo.cop
 individual command: rubo.todo.cop -D lib/... /... .rb
 Current line in .rubocop_todo.yml:
-132
+~ 155 
+Add tests for rangify
+--- Skipping over global variables for now
 
 
 Major Bug:

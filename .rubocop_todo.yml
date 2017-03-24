@@ -159,7 +159,7 @@ Style/GlobalVars:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
-    - 'lib/api/rangify.rb'
+    #- 'lib/api/rangify.rb'
     - 'lib/ast/deref.rb'
     - 'lib/runtime/command.rb'
     - 'lib/runtime/event.rb'
