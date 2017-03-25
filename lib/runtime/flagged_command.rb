@@ -25,6 +25,7 @@ class FlaggedCommand < BaseCommand
 
   def call(*args, env:, frames:)
     flags, remains = @parser.parse!(args)
-    @block.call env[:in], env[:out], env[:err], frames, flags, *remains
+    result = @block.call env[:in], env[:out], env[:err], frames, flags, *remains
+    !!result
   end
 end

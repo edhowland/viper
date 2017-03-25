@@ -9,7 +9,7 @@ class Echo < FlaggedCommand
       else
         out.puts args.join(' ')
       end
+      true
     end
-    true
   end
 end
