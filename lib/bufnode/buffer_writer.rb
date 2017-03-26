@@ -20,6 +20,7 @@ class BufferWriter
   def print(contents)
     write contents
   end
+
   def close
     # nop
   end
