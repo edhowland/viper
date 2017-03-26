@@ -3,7 +3,7 @@
 
 class Read < BaseCommand
   def call(*args, env:, frames:)
-    vars = env[:in].gets.chomp.split(' ')
+    vars = env[:in].gets.chomp.split(frames[:ifs])
     combine = args.map(&:to_sym).zip vars
     combine.each do |e|
       frames[e[0]] = e[1]

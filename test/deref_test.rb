@@ -28,4 +28,16 @@ class DerefTest < BaseSpike
     assert_is result, Array
     assert_eq result, ['0', '1', '2', '3']
   end
+  def test_deref_does_strip_leading_spaces
+    @frames[:var] = ' jj'
+    var = Deref.new :var
+    result = var.call frames:@frames
+    assert_eq result, 'jj'
+  end
+  def test_deref_does_strip_trailing_spaces
+    @frames[:var] = 'jj '
+    var = Deref.new :var
+    result = var.call frames:@frames
+    assert_eq result, 'jj'
+  end
 end

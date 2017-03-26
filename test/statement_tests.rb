@@ -7,7 +7,6 @@ class StatementTest < BaseSpike
     @vm = VirtualMachine.new
     block = Visher.parse! 'mount /v;mkdir /v/bin;install'
     @vm.call block
-    
   end
   def test_stub_works
     stub m: 1 do |o|
@@ -33,6 +32,12 @@ class StatementTest < BaseSpike
     stub ordinal: COMMAND, call: 'false' do |o|
       s = Statement.new [ o ]
       assert_false( s.call( env:@vm.ios, frames:@vm.fs))
+    end
+    def test_assignment_works
+    b = Visher.parse! 'aa=1..3'
+    @vm.call b
+    c = Visher.parse! 'false'
+    assert_false @vm.call c
     end
   end
 end

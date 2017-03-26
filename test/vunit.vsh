@@ -3,6 +3,9 @@ function assert() {
   :_ || raise "expected :{_} to be true"
 }
 alias assert_true='assert test'
+function assert_eq(left, right) {
+  eq ":{left}" ":{right}" || raise "Expected |:{left}| to equal |:{right}|"
+}
 mkdir /v/tests
 function befores() {
   ls_functions | grep setup

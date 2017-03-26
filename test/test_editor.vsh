@@ -29,3 +29,10 @@ function test_paste() {
   yy=:(cat < :_buf)
   assert eq 'hello world' ":{yy}"
 }
+function test_del_word_fwd() {
+echo -n 'hello world' | ins :_buf
+beg :_buf
+del_word_fwd :_buf
+cat < :_buf | ifs='x' read result
+assert_eq ":{result}" ' world'
+}

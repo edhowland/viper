@@ -40,4 +40,9 @@ class ArrayExtenderTests < BaseSpike
     result = regexify 'cat'
     assert(!!'cat'.match(result))
   end
+  def test_rangify
+    r = rangify '2..4'
+    assert_is r, Range
+    assert_eq r, 2..4
+  end
 end

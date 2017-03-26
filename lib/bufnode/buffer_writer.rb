@@ -17,6 +17,9 @@ class BufferWriter
     write contents
   end
 
+  def print(contents)
+    write contents
+  end
   def close
     # nop
   end

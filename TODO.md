@@ -12,7 +12,9 @@ Add tests for rangify
 
 
 Major Bug:
+Bug: Deref class :call method strips leading (and trailing?) spaces from string variable in FrameStack
 Bug: Somehow broke delete stuff: backspace, delete, or meta_d w
+  >> Issue was in lib/bin/echo.rb after changed oover to subclass FlaggedCommand
 Bug: incorrect error message when no more tab points exist. When using meta_f
   >> Also check meta_r
 Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
@@ -41,6 +43,10 @@ A. Make test/all_test.vsh work within bin/viper
 
 
 Notes:
+Remember Vish is a Bash-clone: This means spaces are significant esp. when dereferencing variables
+  >> Can sometimes overcome this by placing in double quotes: :result vs. ":{result}"
+  >> This also applies to read command and also subshell expansion
+  >> Can use :ifs to be some other value than ' '; E.g.: ifs='x' read result
 # disabled the LineLength cop for this one section of code
 # rubocop:disable Lint/UnusedBlockArgument
 #->(env: _, frames: _) { puts }
