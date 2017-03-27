@@ -49,4 +49,13 @@ class ArrayExtenderTests < BaseSpike
     result = rangify '12'
     assert_nil result
   end
+  def test_head_or_all_single_element_returns_that_element
+    result = head_or_all [55]
+    assert_eq result, 55
+  end
+  def test_head_or_all_returns_entire_input_if_more_than_element
+    input = [0,1,2,3]
+        result = head_or_all input
+        assert_eq result, input
+  end
 end

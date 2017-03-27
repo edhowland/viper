@@ -28,11 +28,7 @@ class Deref
     when String
       return handle_range if range?
       result = var.split(frames[:ifs])
-      if result.length > 1
-        return result
-      else
-        return result[0]
-      end
+      return head_or_all(result)
     else
       return var
     end
