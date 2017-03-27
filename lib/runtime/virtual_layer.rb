@@ -2,6 +2,8 @@
 # VFS functions
 # rubocop:disable Style/AccessorMethodName
 # rubocop:disable Style/ClassVars
+# TODO: Should fugure more reactive way to do this
+# rubocop:disable Style/GlobalVars
 
 $in_virtual = false
 

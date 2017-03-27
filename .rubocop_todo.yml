@@ -151,9 +151,9 @@ Style/FormatString:
 # Configuration parameters: AllowedVariables.
 Style/GlobalVars:
   Exclude:
-    - 'bin/viper'
-    - 'lib/runtime/hal.rb'
-    - 'lib/runtime/virtual_layer.rb'
+    #- 'bin/viper'
+    #- 'lib/runtime/hal.rb'
+    #- 'lib/runtime/virtual_layer.rb'
 
 # Offense count: 4
 # Configuration parameters: MinBodyLength.

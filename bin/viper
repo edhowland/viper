@@ -4,6 +4,8 @@
 # Rubocop triggers on:   _exit_code = 0
 # Since we are an interpreter written in an interpreter, this is ok, so we ignore
 # rubocop:disable Lint/UnderscorePrefixedVariableName
+# TODO: Should re-archetype this
+# rubocop:disable Style/GlobalVars
 
 # TODO: REMOVEME
 require 'pry'

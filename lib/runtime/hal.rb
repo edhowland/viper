@@ -1,4 +1,6 @@
 # hal - class Hal - Hardware Abstraction Layer - dispatches to file or VFS
+# TODO: Should figure a better way to not use global vars
+# rubocop:disable Style/GlobalVars
 
 class Hal
   class << self
