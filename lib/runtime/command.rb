@@ -3,6 +3,9 @@
 # rubocop:disable Lint/ShadowingOuterLocalVariable
 # Intentionally ignore @@cached. There must be only one
 # rubocop:disable Style/ClassVars
+# logic herein does not support guard clause
+# rubocop:disable Style/GuardClause
+
 class CommandNotFound < RuntimeError
   def initialize(command = 'unknown')
     super "Command: #{command}: not found"

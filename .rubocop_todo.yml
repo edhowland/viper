@@ -161,8 +161,8 @@ Style/GuardClause:
   Exclude:
     #- 'lib/api/rangify.rb'
     #- 'lib/ast/deref.rb'
-    - 'lib/runtime/command.rb'
-    - 'lib/runtime/event.rb'
+    #- 'lib/runtime/command.rb'
+    #- 'lib/runtime/event.rb'
 
 # Offense count: 1
 Style/IfInsideElse:

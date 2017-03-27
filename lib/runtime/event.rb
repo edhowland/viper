@@ -1,6 +1,8 @@
 # event - class Event - events handler
 # Stores handlers for matching command regexs. Runs them when triggered
 # rubocop:disable Style/ClassVars
+# logic herein does not (yet) allow for guard clause
+# rubocop:disable Style/GuardClause
 
 require_relative 'regex_hash'
 
