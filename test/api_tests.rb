@@ -45,4 +45,8 @@ class ArrayExtenderTests < BaseSpike
     assert_is r, Range
     assert_eq r, 2..4
   end
+  def test_rangify_returns_nil_if_no_range_string_given
+    result = rangify '12'
+    assert_nil result
+  end
 end

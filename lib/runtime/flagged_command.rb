@@ -1,5 +1,6 @@
 # flagged_command.rb - class  FlaggedCommand - base for commands that take
 # dashed args
+# rubocop:disable Style/DoubleNegation
 
 # %%LINT4
 # Example usage:
