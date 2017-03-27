@@ -1,0 +1,6 @@
+line 1
+xxx
+line 3
+line 4
+xxx
+line 6

@@ -167,7 +167,7 @@ Style/GuardClause:
 # Offense count: 1
 Style/IfInsideElse:
   Exclude:
-    - 'lib/bin/between.rb'
+    #- 'lib/bin/between.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
