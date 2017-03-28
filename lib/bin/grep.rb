@@ -4,7 +4,7 @@
 # -q : no output, only :exit_status is true if match, else false
 
 class Grep < BaseCommand
-  def regexp string
+  def regexp(string)
     if string[0] == '/'
       Regexp.new string[1..-2]
     else
@@ -12,7 +12,7 @@ class Grep < BaseCommand
     end
   end
 
-  def say string
+  def say(string)
     if @options[:n]
       @out.print string
     elsif @options[:q]
@@ -22,20 +22,19 @@ class Grep < BaseCommand
     end
   end
 
-  def call *args, env:, frames:
+  def call(*args, env:, frames:)
     super do |*a|
       pattern = a.shift
       regex = regexp pattern
       result = false
       @in.read.each_line do |l|
         matches = l.match regex
-        if matches
-          result = true
-          if @options[:o]
-            say matches[0]
-          else
-            say l
-          end
+        next unless matches
+        result = true
+        if @options[:o]
+          say matches[0]
+        else
+          say l
         end
       end
       result

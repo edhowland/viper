@@ -182,12 +182,12 @@ Style/IndentationWidth:
 # SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
 Style/MethodDefParentheses:
   Exclude:
-    - 'lib/bin/grep.rb'
+    #- 'lib/bin/grep.rb'
 
 # Offense count: 1
 Style/MethodMissing:
   Exclude:
-    - 'lib/runtime/hal.rb'
+    #- 'lib/runtime/hal.rb'
 
 # Offense count: 1
 Style/MultilineBlockChain:

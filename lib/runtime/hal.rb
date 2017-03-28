@@ -74,9 +74,17 @@ class Hal
       end
     end
 
+    def respond_to_missing?(name, private = false)
+      PhysicalLayer.respond_to?(name) && VirtualLayer.respond_to?(name)
+    end
+
     def method_missing(name, *args)
-      klass = _dispatch args[0] # , $in_virtual
-      klass.send name, *args
+      if PhysicalLayer.respond_to?(name) && VirtualLayer.respond_to?(name)
+        klass = _dispatch args[0] # , $in_virtual
+        klass.send name, *args
+      else
+        super
+      end
     end
   end
 end

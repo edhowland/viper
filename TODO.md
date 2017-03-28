@@ -40,6 +40,7 @@ A. Make test/all_test.vsh work within bin/viper
 
 
 Notes:
+Should implement pwd method in lib/runtime/hal.rb via method_missing
 :: objects returned from various ...Facade  class, must implement the print method (and the write method?)
 
 Remember Vish is a Bash-clone: This means spaces are significant esp. when dereferencing variables

@@ -75,7 +75,22 @@ class HalTest < BaseSpike
     assert Hal.exist?('/v/nnn')
     assert_false Hal.exist?('/v/zzz')
   end
+  def test_respond_to_mv
+    assert Hal.respond_to?(:mv)
+  end
+  def test_respond_to_relative
+    assert Hal.respond_to?(:relative?)
+  end
+  def test_respond_to_non_existant_method
+    assert_false Hal.respond_to?(:xx)
+  end
+  def test_non_existant_method_call_raises_no_method_error
+    assert_raises NoMethodError do
+      Hal.xx
+    end
+  end
 end
+
 # eed to test all the following methods
     #def [] path
     #def pwd
