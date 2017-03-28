@@ -174,7 +174,7 @@ Style/IfInsideElse:
 # Configuration parameters: Width.
 Style/IndentationWidth:
   Exclude:
-    - 'lib/bin/grep.rb'
+    #- 'lib/bin/grep.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
