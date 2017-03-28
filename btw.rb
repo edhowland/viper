@@ -8,16 +8,13 @@ class Btw < BaseCommand
     lines = env[:in].read.lines
     ms = lines.map {|e| e.chomp == pattern }
     nums = ms.each_with_index.to_a
-env[:err].puts  ms.inspect
     nums.select! {|e| e[0] }
-env[:err].puts nums.inspect
     nums.map! {|e| e[1] }
     start, fin = nums
-    env[:err].puts "start: #{start}, fin: #{fin}"
-
+    start = -1 if start.nil?
     start += 1
+    fin = 0 if fin.nil?
     fin -= 1
-    env[:err].puts "start: #{start}, fin: #{fin}"
     env[:out].print lines[start..fin].join('')
     true
   end

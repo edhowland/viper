@@ -24,5 +24,5 @@ function test_echo_ok_path() {
   rm aa
 }
 function test_echo_empty_path() {
-  unset aa
+  nop
 }

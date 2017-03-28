@@ -1,3 +1,4 @@
+cd ":{vhome}/test"
 source load_commands.vsh
 function assert() {
   :_ || raise "expected :{_} to be true"

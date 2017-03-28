@@ -1,18 +1,21 @@
-# between.rb - class Between - command - outputs first set of lines between
-# pattern
-# used to capture recorded keystrokes in :_buf/.keylog between fn_6's
-# start, end of macro recording session.
+# between.rb - class Between - command between  guard - outputs lines between
+# guard lines
+# Eg.: cat < :_buf | between xxx  # prints lines between  xxx lines, exclusive
 
 class Between < BaseCommand
   def call(*args, env:, frames:)
-    ok = -1
-    pattern = args[0]
-    env[:in].read.each_line do |line|
-      if line.chomp == pattern
-        ok += 1
-      else
-        env[:out].write line if ok.zero?
-      end
-    end
+    pattern = args.first
+    lines = env[:in].read.lines
+    ms = lines.map {|e| e.chomp == pattern }
+    nums = ms.each_with_index.to_a
+    nums.select! {|e| e[0] }
+    nums.map! {|e| e[1] }
+    start, fin = nums
+    start = -1 if start.nil?
+    start += 1
+    fin = 0 if fin.nil?
+    fin -= 1
+    env[:out].print lines[start..fin].join('')
+    true
   end
 end
