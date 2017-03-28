@@ -6,10 +6,10 @@ class Between < BaseCommand
   def call(*args, env:, frames:)
     pattern = args.first
     lines = env[:in].read.lines
-    ms = lines.map {|e| e.chomp == pattern }
+    ms = lines.map { |e| e.chomp == pattern }
     nums = ms.each_with_index.to_a
-    nums.select! {|e| e[0] }
-    nums.map! {|e| e[1] }
+    nums.select! { |e| e[0] }
+    nums.map! { |e| e[1] }
     start, fin = nums
     start = -1 if start.nil?
     start += 1
