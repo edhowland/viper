@@ -223,8 +223,8 @@ Style/OpMethod:
 # Configuration parameters: AllowAsExpressionSeparator.
 Style/Semicolon:
   Exclude:
-    - 'lib/bin/expr.rb'
-    - 'lib/bufnode/enq.rb'
+    #- 'lib/bin/expr.rb'
+    #- 'lib/bufnode/enq.rb'
     - 'lib/bufnode/push.rb'
     - 'lib/bufnode/rotate.rb'
     - 'lib/runtime/base_command.rb'

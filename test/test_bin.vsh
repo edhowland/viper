@@ -26,3 +26,11 @@ function test_between_w_empty_input() {
   result=:(echo -n | between xxx)
   assert test -z :result
 }
+function test_expr_plus() {
+  result=:(expr 1 '+' 2)
+  assert_eq :result 3
+}
+function test_expr_div() {
+  result=:(expr 10 '/' 2)
+  assert_eq :result 5
+}

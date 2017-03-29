@@ -5,6 +5,9 @@
 class Enq < BaseNodeCommand
   def call(*args, env:, frames:)
     object = env[:in].read
-    perform(args[0], env: env, frames: frames) { |node| node.unshift object; '' }
+    perform(args[0], env: env, frames: frames) do |node|
+      node.unshift object
+      ''
+    end
   end
 end
