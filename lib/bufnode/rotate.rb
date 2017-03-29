@@ -1,5 +1,8 @@
 # rotate - class Rotate - command rotate - used on things like :
 # /v/modes/viper/metadata/buffers
+# args:
+# -r : reverse rotates
+# rubocop:disable Style/Semicolon
 
 class Rotate < BaseNodeCommand
   def call(*args, env:, frames:)
