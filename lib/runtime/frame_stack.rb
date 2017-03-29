@@ -86,14 +86,16 @@ class FrameStack
 
   # back: returns every from found key till top of stack in a new FrameStack
   def back(value)
-    FrameStack.new(frames: @frames[(index(value))..-1], functions: @functions, aliases: @aliases, vm: @vm)
+    FrameStack.new(frames: @frames[(index(value))..-1], functions: @functions,
+                   aliases: @aliases, vm: @vm)
   end
 
   def _clone
     nframes = @frames.map(&:clone)
     nfunctions = @functions.clone
     naliases = @aliases.clone
-    nfs = FrameStack.new(frames: nframes, functions: nfunctions, aliases: naliases)
+    nfs = FrameStack.new(frames: nframes,
+                         functions: nfunctions, aliases: naliases)
     nfs.vm = @vm
     nfs
   end
@@ -105,6 +107,6 @@ end
 
 class IosStack < FrameStack
   def initialize
-    super(frames: { :in => $stdin, :out => $stdout, :err => $stderr })
+    super(frames: { in: $stdin, out: $stdout, err: $stderr })
   end
 end
