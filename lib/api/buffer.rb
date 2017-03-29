@@ -35,9 +35,6 @@ class Buffer
     @dirty
   end
 
-  # dummy method. does nothing overriden in Recordable module
-  def record(_method, *_args); end
-
   # Dummy save method. Does nothing in case ctrl_s pressed in ReadOnly or blank
   def save; end
 
@@ -45,7 +42,6 @@ class Buffer
     @a_buff += string.chars
     @dirty = true
     restore_extend
-    record :ins, string
   end
 
   def ins_at(string)
@@ -58,20 +54,17 @@ class Buffer
     buffer_exceeded('beginning') { @a_buff.empty? }
     @dirty = true
     value = @a_buff.cut(string.length * -1)
-    record :del, value
     value
   end
 
   def fwd(count = 1)
     raise BufferExceeded if @b_buff.empty?
-    record :fwd, count
     count.times { @a_buff.push(@b_buff.shift) }
     ''
   end
 
   def back(count = 1)
     raise BufferExceeded if position.zero?
-    record :back, count
     count.times { @b_buff.unshift(@a_buff.pop) }
     ''
   end
@@ -81,7 +74,6 @@ class Buffer
   end
 
   def beg
-    record :beg
     @b_buff = (@a_buff + @b_buff)
     @a_buff = []
     restore_extend
@@ -89,7 +81,6 @@ class Buffer
   end
 
   def fin
-    record :fin
     @a_buff = (@a_buff + @b_buff)
     @b_buff = []
     restore_extend
@@ -130,10 +121,9 @@ class Buffer
     suppress do
       pos = col
       back
-      back until (at == "\n") || (position.zero?)
-      back until (col <= pos) || (position.zero?)
+      back until (at == "\n") || position.zero?
+      back until (col <= pos) || position.zero?
     end
-    record :up
     ''
   end
 
@@ -183,7 +173,6 @@ class Buffer
       fwd if at == "\n"
       fwd [line.chomp.length, pos].min
     end
-    record :down
     ''
   end
 
@@ -209,7 +198,6 @@ class Buffer
     buffer_exceeded('end') { @b_buff.empty? }
     @dirty = true
     value = @b_buff.cut(string.length)
-    record :del_at, value
     value
   end
 
