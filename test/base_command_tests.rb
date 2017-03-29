@@ -17,13 +17,27 @@ class BaseCommandTests < BaseSpike
     @vm.mkdir '/v/bin', env:@vm.ios, frames:@vm.fs
     @vm.install env:@vm.ios, frames:@vm.fs
     @cmd = Dummy.new
-
   end
   def test_create
   end
   def test_arg_error
     @cmd.call env:@vm.ios, frames:@vm.fs
     assert_diff @ebuf.string, "dummy: Wrong number of arguments: Expected: 2\n"
+  end
+  def test_options_are_empty
+    assert_empty @cmd.options
+  end
+  def test_options_are_empty_w_no_options_in_array
+    result = @cmd.args_parse! ['jj', 'kk', 'll']
+    assert_empty @cmd.options
+    assert_eq result.length, 3
+  end
+  def test_options_are_set
+    result = @cmd.args_parse! ['jj', 'kk', '-e', 'll', '-force']
+    assert @cmd.options[:e]
+    assert @cmd.options[:force]
+    assert_eq result.length, 3
+    assert_eq result, ['jj', 'kk', 'll']
   end
   def test_arg_error_with_array
     @cmd.arg_error [0,1,2,3], env:@vm.ios

@@ -227,4 +227,4 @@ Style/Semicolon:
     #- 'lib/bufnode/enq.rb'
     #- 'lib/bufnode/push.rb'
     #- 'lib/bufnode/rotate.rb'
-    - 'lib/runtime/base_command.rb'
+    #- 'lib/runtime/base_command.rb'

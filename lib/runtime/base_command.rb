@@ -13,6 +13,8 @@ class BaseCommand
     @options = {}
   end
 
+  attr_reader :options
+
   def pout(*stuff)
     @ios[:out].puts(*stuff)
   end
@@ -24,7 +26,7 @@ class BaseCommand
   def args_parse!(args)
     @options = {}
     args.select { |e| e =~ /^\-.+/ }
-        .map { |e| e =~ /^\-*([^\-]*)/; Regexp.last_match(1).to_sym }
+        .map { |e| e[1..-1].to_sym }
         .each { |e| @options[e] = true }
     args.reject { |e| e =~ /^\-.+/ }
   end
