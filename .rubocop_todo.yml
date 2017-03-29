@@ -10,76 +10,6 @@
 inherit_from:
   - .rubocop.yml
 
-
-# Offense count: 6
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'ext/rb/indentations.rb'
-    - 'ext/rb/lint_pass2.rb'
-    - 'lib/api/buffer.rb'
-    - 'lib/ast/deref.rb'
-    - 'lib/ast/string_literal.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith, SupportedStylesAlignWith, AutoCorrect.
-# SupportedStylesAlignWith: keyword, variable, start_of_line
-Lint/EndAlignment:
-  Exclude:
-#    - 'lib/ast/redirection.rb'
-    #- 'lib/bin/grep.rb'
-    #- 'lib/bin/stat.rb'
-    #- 'lib/runtime/vfs_node.rb'
-    #- 'lib/runtime/vfs_root.rb'
-    #- 'lib/runtime/virtual_machine.rb'
-
-# Offense count: 4
-Lint/HandleExceptions:
-  Exclude:
-    #- 'lib/bin/for.rb'
-    #- 'lib/bin/loop.rb'
-    #- 'lib/bufnode/buf_writer.rb'
-    #- 'lib/runtime/virtual_machine.rb'
-
-# Offense count: 2
-Lint/NestedMethodDefinition:
-  Exclude:
-    #- 'lib/ast/redirection.rb'
-
-# Offense count: 1
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    #- 'lib/bufnode/index_of.rb'
-
-# Offense count: 1
-Lint/RequireParentheses:
-  Exclude:
-    #- 'lib/runtime/hal.rb'
-
-# Offense count: 2
-Lint/ShadowingOuterLocalVariable:
-  Exclude:
-    #- 'lib/runtime/command.rb'
-
-# Offense count: 1
-Lint/UnderscorePrefixedVariableName:
-  Exclude:
-    #- 'bin/viper'
-
-# Offense count: 12
-Lint/UselessAssignment:
-  Exclude:
-    #- 'bin/viper'
-    #- 'ext/rb/lint_pass0.rb'
-    #- 'ext/rb/lint_pass2.rb'
-    #- 'lib/ast/lambda.rb'
-    #- 'lib/ast/pipe.rb'
-    #- 'lib/ast/sub_shell.rb'
-    #- 'lib/bin/ruby.rb'
-    #- 'lib/runtime/base_node_command.rb'
-    #- 'lib/runtime/vfs_root.rb'
-    #- 'lib/runtime/virtual_machine.rb'
-
 # Offense count: 23
 Metrics/AbcSize:
   Max: 93
@@ -112,3 +42,4 @@ Metrics/MethodLength:
 # Offense count: 4
 Metrics/PerceivedComplexity:
   Max: 11
+

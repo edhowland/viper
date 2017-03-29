@@ -17,7 +17,7 @@ class Deref
   end
 
   def range?
-    @matches = @value.match /([^.]+)\.\.(.+)/
+    @matches = @value.match(/([^.]+)\.\.(.+)/)
     !@matches.nil?
   end
 

@@ -12,7 +12,7 @@ class StringLiteral < QuotedString
   protected
 
   def decurlify(arg)
-    m = arg.match /:{([_\w]+)\}/
+    m = arg.match(/:{([_\w]+)\}/)
     return '' if m.nil?
     m.captures.first
   end
