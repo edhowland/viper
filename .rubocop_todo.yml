@@ -215,8 +215,8 @@ Style/NumericPredicate:
 # Offense count: 2
 Style/OpMethod:
   Exclude:
-    - 'lib/api/buffer.rb'
-    - 'lib/runtime/frame_stack.rb'
+    #- 'lib/api/buffer.rb'
+    #- 'lib/runtime/frame_stack.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.

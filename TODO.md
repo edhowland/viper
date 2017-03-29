@@ -19,6 +19,7 @@ Bug: incorrect error message when no more tab points exist. When using meta_f
 Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
 
 Bug/Feature: Investigate how to properly handle option errors
+Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
 Bug: find command does not work properly
 Bug: Handle No Mark set on Ctrl-c, -v and -p

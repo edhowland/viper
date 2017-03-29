@@ -70,8 +70,8 @@ class FrameStack
     @frames.each { |f| f.delete key }
   end
 
-  def +(that)
-    FrameStack.new(frames: @frames + that.frames, functions: that.functions, aliases: that.aliases, vm: that.vm)
+  def +(other)
+    FrameStack.new(frames: @frames + other.frames, functions: other.functions, aliases: other.aliases, vm: other.vm)
   end
 
   def to_s

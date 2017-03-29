@@ -293,8 +293,8 @@ class Buffer
     @a_buff.lines + @b_buff.lines
   end
 
-  def ==(that)
-    to_a == that.to_a
+  def ==(other)
+    to_a == other.to_a
   end
 
   def clone
