@@ -102,3 +102,9 @@ class FrameStack
     @frames[range]
   end
 end
+
+class IosStack < FrameStack
+  def initialize
+    super(frames: { :in => $stdin, :out => $stdout, :err => $stderr })
+  end
+end

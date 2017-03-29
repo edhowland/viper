@@ -1,4 +1,5 @@
-# syntax_error.rb - class VishSyntaxError - exception raised when cannot eval commands
+# syntax_error.rb - class VishSyntaxError - exception raised when cannot eval
+# commands
 
 class VishSyntaxError < RuntimeError
   def initialize
