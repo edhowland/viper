@@ -4,6 +4,9 @@
 #  - .rubocop.yml
 # then uncomment them
 
+# ext/rb/** contains files meant for Ruby language support
+# Ignored because not part of Viper core
+# Can rubocop them separately
 AllCops:
   Include:
     - '**/Rakefile'
@@ -11,6 +14,7 @@ AllCops:
   Exclude:
     - 'test/**/*'
     - 'lib/vish/**'
+    - 'ext/rb/**'
 
 Style/Documentation:
   Enabled: false

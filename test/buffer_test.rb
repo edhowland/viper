@@ -210,4 +210,29 @@ end
     b2 = b1.clone
     assert_neq b1.object_id, b2.object_id
   end
+  def test_up_raises_buffer_exceeded_when_at_top
+    b = Buffer.new "line 1\nline 2\n"
+    assert_raises BufferExceeded do
+      b.up
+    end
+    def test_down_raises_buffer_exceeded_when_at_last_line
+          b = Buffer.new "line 1\nline 2\n"
+    b.down
+    assert_raises BufferExceeded do
+      b.down
+    end
+    end
+  end
+  def test_back_raises_buffer_exceeded_when_at_beg
+    b = Buffer.new "line 1\nline 2\n"
+    assert_raises BufferExceeded do
+      b.back
+    end
+  end
+  def test_fwd_raises_buffer_exceeded_when_at_end_of_buffer
+    b = Buffer.new ''
+    assert_raises BufferExceeded do
+      b.fwd
+    end
+  end
 end

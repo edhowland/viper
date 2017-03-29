@@ -192,7 +192,7 @@ Style/MethodMissing:
 # Offense count: 1
 Style/MultilineBlockChain:
   Exclude:
-    - 'ext/rb/lint_pass2.rb'
+    #- 'ext/rb/lint_pass2.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -200,7 +200,7 @@ Style/MultilineBlockChain:
 # SupportedStyles: skip_modifier_ifs, always
 Style/Next:
   Exclude:
-    - 'lib/bin/grep.rb'
+    #- 'lib/bin/grep.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -208,9 +208,9 @@ Style/Next:
 # SupportedStyles: predicate, comparison
 Style/NumericPredicate:
   Exclude:
-    - 'spec/**/*'
-    - 'ext/rb/lint_pass1.rb'
-    - 'lib/api/buffer.rb'
+    #- 'spec/**/*'
+    #- 'ext/rb/lint_pass1.rb'
+    #- 'lib/api/buffer.rb'
 
 # Offense count: 2
 Style/OpMethod:

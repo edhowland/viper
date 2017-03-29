@@ -63,12 +63,14 @@ class Buffer
   end
 
   def fwd(count = 1)
+    raise BufferExceeded if @b_buff.empty?
     record :fwd, count
     count.times { @a_buff.push(@b_buff.shift) }
     ''
   end
 
   def back(count = 1)
+    raise BufferExceeded if position.zero?
     record :back, count
     count.times { @b_buff.unshift(@a_buff.pop) }
     ''
@@ -124,12 +126,12 @@ class Buffer
   end
 
   def up
-    raise BufferExceeded if position == 0
+    raise BufferExceeded if position.zero?
     suppress do
       pos = col
       back
-      back until (at == "\n") || (position == 0)
-      back until (col <= pos) || (position == 0)
+      back until (at == "\n") || (position.zero?)
+      back until (col <= pos) || (position.zero?)
     end
     record :up
     ''

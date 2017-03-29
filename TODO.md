@@ -12,6 +12,8 @@ Add tests for rangify
 
 
 Major Bug:
+Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
+  >> vip mode _mode=viper
 Bug: incorrect error message when no more tab points exist. When using meta_f
   >> Also check meta_r
 Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
