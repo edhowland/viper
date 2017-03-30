@@ -1,4 +1,6 @@
 # statement - classStatement - statement node in AST
+# Use multiline block chain is OK
+# rubocop:disable Style/MultilineBlockChain
 
 require_relative 'context_constants'
 
@@ -32,8 +34,11 @@ class Statement
       local_ios.push
 
       sorted = @context.sort_by(&:ordinal)
-      # %%LINT4
-      sorted = sorted.reject { |e| redirectable?(e) && redirect(e, env: local_ios, frames: local_vars) }.map { |e| e.call env: local_ios, frames: local_vars }
+      sorted = sorted
+               .reject do |e|
+                 redirectable?(e) &&
+                   redirect(e, env: local_ios, frames: local_vars)
+               end.map { |e| e.call env: local_ios, frames: local_vars }
       sorted.flatten!
       sorted.reject!(&:nil?)
       c, *args = sorted
