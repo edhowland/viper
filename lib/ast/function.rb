@@ -14,9 +14,12 @@ class Function
     frames[:__FUNCTION__] = true
     frames[:__NAME__] = @name
     bound = @args.zip(args).to_h # bind any passed arguments to this hash
-    frames.top.merge! bound # these are now variables within this context
-    frames[:_] = args # the arguments to this function are collected in the :_ variable
-    frames[:_argc] = args.length.to_s # The number of arguments are stored in :_argc
+    # these are now variables within this context
+    frames.top.merge! bound
+    # the arguments to this function are collected in the :_ variable
+    frames[:_] = args
+    # The number of arguments are stored in :_argc
+    frames[:_argc] = args.length.to_s
     begin
       result = @block.call env: env, frames: frames
     rescue VirtualMachine::ReturnCalled => err
