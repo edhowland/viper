@@ -4,7 +4,6 @@
 # -u : prints Unicode representation of keystroke
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
-# %%LINT4
 
 class Xfkey < BaseCommand
   def key_to_hex(values)
@@ -23,7 +22,8 @@ class Xfkey < BaseCommand
   end
 
   def key_to_name(values)
-    if ('A'..'Z').cover?(values) || ('a'..'z').cover?(values) || ('0'..'9').cover?(values)
+    if ('A'..'Z').cover?(values) ||
+       ('a'..'z').cover?(values) || ('0'..'9').cover?(values)
       @out.write "key_#{values}"
       return true
     end
@@ -110,8 +110,10 @@ class Xfkey < BaseCommand
       "\u001b" + "\u005b" + "\u0043" => 'move_right',
       "\u001b" + "\u005b" + "\u0041" => 'move_up',
       "\u001b" + "\u005b" + "\u0042" => 'move_down',
-      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0043" => 'move_shift_right',
-      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" + "\u0044" => 'move_shift_left',
+      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" \
+      "\u0043" => 'move_shift_right',
+      "\u001b" + "\u005b" + "\u0031" \
+      "\u003b" + "\u0032" + "\u0044" => 'move_shift_left',
       "\u001b" + "\u005b" + "\u0035" + "\u007e" => 'move_shift_pgup',
       "\u001b" + "\u005b" + "\u0036" + "\u007e" => 'move_shift_pgdn',
       "\u001b" + "\u005b" + "\u0048" => 'move_shift_home',

@@ -1,9 +1,11 @@
 # redirection - class Redirection - holder for >, <, >> 2> stuff
-# rubocop:disable Style/DoubleNegation
 
 require_relative 'context_constants'
 
 class AmbigousRedirection < RuntimeError
+  def initialize(target)
+    super "#{self.class.name}: target: #{target}"
+  end
 end
 
 class ObjectRedir
@@ -37,8 +39,8 @@ class Redirection
 
   def call(env:, frames:)
     target = @target.call env: env, frames: frames
-    # %%LINT4
-    raise AmbigousRedirection, "ambigous redirection target #{target}" if target.nil? || target.empty? || !!(target =~ /^\s+$/)
+    target.extend Blankable
+    raise AmbigousRedirection, target if target.blank?
     target = target[0] if Array === target
     env[key] = ObjectRedir.new target, mode
     nil # we will be rejected in statement after  we have been called

@@ -20,5 +20,6 @@ require_relative 'glob_tests'
 
 require_relative 'statement_tests'
 require_relative 'pipe_tests'
+require_relative 'blankable_tests'
 
 
