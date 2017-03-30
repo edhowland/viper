@@ -71,7 +71,9 @@ class FrameStack
   end
 
   def +(other)
-    FrameStack.new(frames: @frames + other.frames, functions: other.functions, aliases: other.aliases, vm: other.vm)
+    FrameStack.new(frames: @frames + other.frames,
+                   functions: other.functions, aliases: other.aliases,
+                   vm: other.vm)
   end
 
   def to_s

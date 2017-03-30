@@ -6,7 +6,8 @@
 # Example usage:
 # class Flag < FlaggedCommand
 # def initialize
-# super(flags: {'-e' => false, '-f' => ''}) do |inp, out, err, frames, flags, *args|
+# super(flags: {'-e' => false, '-f' => ''}) do |inp, out, err, frames, flags,
+# *args|
 # out.puts 'in flag:'
 # out.puts "-e #{flags['-e'].to_s}"
 # out.puts "-f #{flags['-f']}"

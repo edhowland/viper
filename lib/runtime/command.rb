@@ -28,7 +28,11 @@ class Command
 
       fn = frames.functions[id]
       return fn unless fn.nil?
-      return ->(*args, env:, frames:) { frames.vm.send id.to_sym, *args, env: env, frames: frames } if frames.vm.respond_to? id.to_sym
+      if frames.vm.respond_to? id.to_sym
+        return lambda do |*args, env:, frames:|
+          frames.vm.send id.to_sym, *args, env: env, frames: frames
+        end
+      end
       begin
         thing = @@cache[id.to_sym]
         if thing.nil?

@@ -51,7 +51,12 @@ class Event
     def trigger(*args, env:, frames:)
       init
       @@proceed += 1
-      @@events.each { |e| e.call(*args, env: env, frames: frames) } if @@proceed.zero?
+      if @@proceed.zero?
+        @@events.each do |e|
+          e.call(*args, env: env,
+                        frames: frames)
+        end
+      end
       @@proceed -= 1
     end
   end
