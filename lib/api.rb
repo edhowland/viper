@@ -1,6 +1,7 @@
 # api.rb - requires for api/
 
 require_relative 'api/flag_parser'
+require_relative 'api/blankable'
 
 require_relative 'api/cloner'
 
