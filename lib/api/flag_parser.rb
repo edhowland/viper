@@ -5,6 +5,13 @@
 # class FlagHash - child of FlagParser - converts hash into hash of parsed
 # values
 
+class WrongArgCount < ArgumentError
+  def initialize(count, min = 0, max = 1)
+    super "Wrong number of arguments. got #{count}." \
+      "Expected #{min} or #{max}"
+  end
+end
+
 class FlagParser
   def initialize
     @flags = {}
@@ -39,7 +46,7 @@ class FlagParser
             param = iter.next
             arg.call param
           else
-            raise ArgumentError, "Wrong number of parameters to block for this option. Got #{arg.arity}. Expected 0 or 1"
+            raise WrongArgCount, arg.arity
           end
         else
           value << arg

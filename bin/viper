@@ -2,7 +2,8 @@
 # viper - main start for viper editor
 #
 # Rubocop triggers on:   _exit_code = 0
-# Since we are an interpreter written in an interpreter, this is ok, so we ignore
+# Since we are an interpreter written in an interpreter, this is ok, so we
+# ignore
 # rubocop:disable Lint/UnderscorePrefixedVariableName
 # TODO: Should re-archetype this
 # rubocop:disable Style/GlobalVars
@@ -34,10 +35,12 @@ oparse = OptionParser.new do |opt|
     options[:no_finish] = true
   end
   # %%LINT4
-  opt.on('-m mode', '--mode mode', String, 'Mode of editor: com: command mode, vip: (default): editor') do |mode|
+  opt.on('-m mode', '--mode mode', String,
+  'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
   end
-  opt.on('-S script', '--start script', String, 'Run script prior to load') do |script|
+  opt.on('-S script', '--start script', String,
+   'Run script prior to load') do |script|
     options[:start] << script
   end
   opt.on('-x', '--debug', 'Debugging Support') do
@@ -49,16 +52,19 @@ oparse = OptionParser.new do |opt|
     options[:start] << 'logger -s; on &() { logger :_ }'
     options[:finish] << 'logger -e'
   end
-  opt.on('-l line', '--line line', String, 'Jump to line number after load buffer') do |line|
+  opt.on('-l line', '--line line', String,
+  'Jump to line number after load buffer') do |line|
     options[:start] << "on load_event { goto :_buf #{line} | nop }"
   end
   opt.on('-s script', '--source script', 'Source script') do |script|
     options[:sources] << script
   end
-  opt.on('-e script', '--execute script', String, 'Execute this command at startup') do |script|
+  opt.on('-e script', '--execute script', String,
+   'Execute this command at startup') do |script|
     options[:execute] << script
   end
-  opt.on('--finish script', String, 'Execute this set of scripts upon exit of session') do |script|
+  opt.on('--finish script', String,
+ 'Execute this set of scripts upon exit of session') do |script|
     options[:finish] << script
   end
   opt.on('-c', '--check', 'Check syntax of Vish file or stdin') do
@@ -123,8 +129,10 @@ end
 # return list of 'fopen filename' s based on ARGV
 # if ARGV is empty, return [ 'open unnamed1 ]
 # unless some other command has set :_buf first
-def files(argv)
-  argv.empty? ? ['test -z :_buf && open unnamed1'] : argv.reverse.map { |e| "fopen #{e}" }
+def file_list(argv)
+  result = argv.reverse.map { |e| "fopen #{e}" }
+  result << 'test -z :_buf && open unnamed1' if result.empty?
+  result
 end
 
 def vishrc_files
@@ -139,14 +147,15 @@ end
 begin
   _exit_code = 0
   # setup exit handlers. Checks for existanance and syntax correctness
-  $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish]).map { |e| File.read(e) }).map { |e| Visher.parse! e }
+  $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish])
+  .map { |e| File.read(e) }).map { |e| Visher.parse! e }
 
   ((
     boot(options, $vm) + options[:sources]).map { |e| File.read(e) } +
     options[:start] +
     (scripts(options, $vm) + extensions($vm)).map { |e| File.read(e) } +
     options[:execute] +
-    files(ARGV) +
+    file_list(ARGV) +
     vishrc_files.map { |e| File.read(e) } +
     ['load_event'] +
     mode(options) +

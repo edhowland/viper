@@ -9,7 +9,8 @@ class BooleanAnd
 
   attr_reader :line_number
   def call(env:, frames:)
-    @left.call(env: env, frames: frames) && @right.call(env: env, frames: frames)
+    @left.call(env: env, frames: frames) &&
+      @right.call(env: env, frames: frames)
   end
 
   def to_s
