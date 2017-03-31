@@ -4,6 +4,7 @@
 # rubocop:disable Style/ClassVars
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Style/GlobalVars
+# rubocop:disable Metrics/AbcSize
 
 # TODO: Should fugure more reactive way to do this
 $in_virtual = false

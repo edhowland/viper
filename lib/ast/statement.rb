@@ -2,6 +2,7 @@
 # Use multiline block chain is OK
 # rubocop:disable Style/MultilineBlockChain
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
 
 require_relative 'context_constants'
 

@@ -5,6 +5,7 @@
 # rubocop:disable Style/ClassVars
 # logic herein does not support guard clause
 # rubocop:disable Style/GuardClause
+# rubocop:disable Metrics/AbcSize
 
 class CommandNotFound < RuntimeError
   def initialize(command = 'unknown')

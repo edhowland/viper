@@ -6,14 +6,10 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-
 inherit_from:
   - .rubocop.yml
 
 # Offense count: 23
-Metrics/AbcSize:
-  Max: 93
-
 
 # Offense count: 4
 Metrics/CyclomaticComplexity:
@@ -22,8 +18,8 @@ Metrics/CyclomaticComplexity:
 # Offense count: 33
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
-Metrics/LineLength:
-  Max: 80
+#Metrics/LineLength:
+  #Max: 80
 
 
 # Offense count: 4

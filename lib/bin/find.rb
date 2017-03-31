@@ -9,6 +9,7 @@
 #
 # Double negation is OK to return true/false from regex match
 # rubocop:disable Style/DoubleNegation
+# rubocop:disable Metrics/AbcSize
 
 class Find < BaseCommand
   def initialize

@@ -1,5 +1,6 @@
 # sh - class Sh - command sh - runs shell command, mapping stdin, stdout, stderr
 # to env[:in, :out, :err]. returning error code  converted into true/false
+# rubocop:disable Metrics/AbcSize
 
 class Sh < BaseCommand
   def call(*args, env:, frames:)

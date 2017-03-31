@@ -1,6 +1,7 @@
 # between.rb - class Between - command between  guard - outputs lines between
 # guard lines
 # Eg.: cat < :_buf | between xxx  # prints lines between  xxx lines, exclusive
+# rubocop:disable Metrics/AbcSize
 
 class Between < BaseCommand
   def call(*args, env:, frames:)

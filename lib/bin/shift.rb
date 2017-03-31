@@ -1,6 +1,7 @@
 # shift - class Shift - command shift - outputs first argument. See rotate fn
 # args:
 # -s <input array> : Use this input instead of :_
+# rubocop:disable Metrics/AbcSize
 
 class Shift < BaseCommand
   def call(*args, env:, frames:)
