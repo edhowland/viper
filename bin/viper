@@ -7,6 +7,8 @@
 # rubocop:disable Lint/UnderscorePrefixedVariableName
 # TODO: Should re-archetype this
 # rubocop:disable Style/GlobalVars
+# There are only as many options as this editor needs
+# rubocop:disable Metrics/BlockLength
 
 # TODO: REMOVEME
 require 'pry'

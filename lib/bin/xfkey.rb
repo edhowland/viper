@@ -6,7 +6,8 @@
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 
 # This class needs all this complexity:
-# rubocop:disable Metric/ClassLength
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength
 
 class Xfkey < BaseCommand
   def key_to_hex(values)

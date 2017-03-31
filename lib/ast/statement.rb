@@ -1,6 +1,7 @@
 # statement - classStatement - statement node in AST
 # Use multiline block chain is OK
 # rubocop:disable Style/MultilineBlockChain
+# rubocop:disable Metrics/MethodLength
 
 require_relative 'context_constants'
 

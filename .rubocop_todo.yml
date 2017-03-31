@@ -14,15 +14,6 @@ inherit_from:
 Metrics/AbcSize:
   Max: 93
 
-# Offense count: 1
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 55
-
-# Offense count: 5
-# Configuration parameters: CountComments.
-Metrics/ClassLength:
-  Max: 100
 
 # Offense count: 4
 Metrics/CyclomaticComplexity:
@@ -34,12 +25,6 @@ Metrics/CyclomaticComplexity:
 Metrics/LineLength:
   Max: 80
 
-  #Max: 158
-
-# Offense count: 37
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 112
 
 # Offense count: 4
 Metrics/PerceivedComplexity:

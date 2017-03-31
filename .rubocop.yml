@@ -46,4 +46,8 @@ Lint/UnusedMethodArgument:
 
 Style/CaseEquality:
   Enabled: false
+# This is approximately the approved maximum for Viper code
+# Here in case new/changed files exceed this
+Metrics/MethodLength:
+  Max: 30
 
