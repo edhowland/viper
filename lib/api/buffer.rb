@@ -1,6 +1,6 @@
 # buffer.rb - class Buffer
 # This class is complete and does not violate the single responsibility smell
-# rubocop:disable Metric/ClassLength
+# rubocop:disable Metrics/ClassLength
 
 # Buffer is the main buffer top level class. Almost all editor functions
 # are deferred to this class.

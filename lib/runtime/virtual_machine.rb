@@ -1,5 +1,5 @@
 # virtual_machine - class VirtualMachine - runs your stuff after parsing
-# rubocop:disable Metric/ClassLength
+# rubocop:disable Metrics/ClassLength
 
 class VirtualMachine
   class BreakCalled < RuntimeError; end

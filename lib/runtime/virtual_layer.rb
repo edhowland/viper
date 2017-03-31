@@ -2,9 +2,10 @@
 # VFS functions
 # rubocop:disable Style/AccessorMethodName
 # rubocop:disable Style/ClassVars
-# TODO: Should fugure more reactive way to do this
+# rubocop:disable Metrics/ClassLength
 # rubocop:disable Style/GlobalVars
 
+# TODO: Should fugure more reactive way to do this
 $in_virtual = false
 
 class VirtualLayer

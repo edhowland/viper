@@ -1,4 +1,5 @@
 # vfs_root - class VFSRoot - parent node of all nodes, and holder  for subtrees
+# rubocop:disable Metrics/ClassLength
 
 class VFSRoot
   def initialize
