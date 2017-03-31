@@ -5,6 +5,9 @@
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 
+# This class needs all this complexity:
+# rubocop:disable Metric/ClassLength
+
 class Xfkey < BaseCommand
   def key_to_hex(values)
     @out.write(values.bytes.map { |e| format('%0x', e) }.join(' '))
