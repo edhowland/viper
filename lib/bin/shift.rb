@@ -2,6 +2,8 @@
 # args:
 # -s <input array> : Use this input instead of :_
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
 
 class Shift < BaseCommand
   def call(*args, env:, frames:)

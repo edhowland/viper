@@ -6,6 +6,8 @@
 # logic herein does not support guard clause
 # rubocop:disable Style/GuardClause
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
 
 class CommandNotFound < RuntimeError
   def initialize(command = 'unknown')

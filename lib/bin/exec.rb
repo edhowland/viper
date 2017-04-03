@@ -1,5 +1,6 @@
 # exec - class Exec - command exec { block } - runs block of first arg
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
 
 class Exec < BaseCommand
   def call(*args, env:, frames:)

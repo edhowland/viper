@@ -9,6 +9,8 @@
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
 
 class Xfkey < BaseCommand
   def key_to_hex(values)
