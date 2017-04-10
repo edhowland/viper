@@ -1,9 +1,11 @@
 function setup_buf() {
   open xxx
+  new_clip
 }
 function teardown_buf() {
   rm /v/buf/xxx
   unset _buf
+  unset _clip
 }
 function test_cut_off_by_1() {
   echo 0123456789 > :_buf
@@ -49,7 +51,14 @@ function test_mark_cut_releases_mark() {
 }
 function test_w_no_mark_raise_w_cut() {
   echo hello world | ins :_buf
-  fin :_buf
   beg :_buf
-  assert_raises { nop }
+  fwd :_buf
+  m m
+  fwd :_buf
+  fwd :_buf
+  fwd :_buf
+  mark_cut :_buf :_mark
+  fin :_buf
+  back :_buf; back :_buf
+  assert_raises { mark_cut :_buf m }
 }
