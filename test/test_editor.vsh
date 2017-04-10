@@ -36,3 +36,20 @@ del_word_fwd :_buf
 cat < :_buf | ifs='x' read result
 assert_eq ":{result}" ' world'
 }
+function test_mark_cut_releases_mark() {
+  echo hello_world_sailor | ins :_buf
+  beg :_buf
+  fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
+  m m
+  fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
+  apply ctrl_x
+  fin :_buf
+  apply key_backspace
+  assert_eq :(cat < :_buf) 'hello_sailor'
+}
+function test_w_no_mark_raise_w_cut() {
+  echo hello world | ins :_buf
+  fin :_buf
+  beg :_buf
+  assert_raises { nop }
+}

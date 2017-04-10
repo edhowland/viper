@@ -4,6 +4,9 @@ function assert() {
   :_ || raise "expected :{_} to be true"
 }
 alias assert_true='assert test'
+function assert_raises(fn) {
+  capture :_ && raise expected exception got none
+}
 function assert_false() {
   test :_ && raise Expected true to be false
 }

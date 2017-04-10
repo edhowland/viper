@@ -26,3 +26,6 @@ function test_echo_ok_path() {
 function test_echo_empty_path() {
   nop
 }
+function test_assert_raises() {
+  assert_raises { nop }
+}
