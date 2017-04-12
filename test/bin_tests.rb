@@ -2,7 +2,6 @@
 
 require_relative 'test_helper'
 
-
 class BinTests < BaseSpike
     def set_up
     @vm = VirtualMachine.new
@@ -38,5 +37,39 @@ class BinTests < BaseSpike
   def test_dir_star_w_file
     cmd = Ls.new
     assert_eq cmd.dir_star('xx'), 'xx'
+  end
+  def test_capture_one_block
+    cmd = Capture.new
+    result = cmd.call env: @vm.ios, frames: @vm.fs
+    assert_false result
+  end
+  def test_capture_works_w_one_lambda
+    cmd = Capture.new
+    block = Block.new [ True.new ]
+    result = cmd.call block, env: @vm.ios, frames: @vm.fs
+    assert result
+  end
+  def test_capture_w_2_blocks
+    cmd = Capture.new
+        block = Block.new [ True.new ]
+        handler = Block.new [ ]
+    result = cmd.call block, handler, env: @vm.ios, frames: @vm.fs
+    assert result
+  end
+  def test_capture_w_3_blocks
+        cmd = Capture.new
+        block = Block.new [ True.new ]
+        handler = Block.new [ ]
+           fin = Block.new [ False.new ]
+    result = cmd.call block, handler, fin, env: @vm.ios, frames: @vm.fs
+    assert result
+  end
+  def test_capture_w_exception
+    cmd = Capture.new
+    block = Block.new [ Raise.new ]
+    handler = Visher.parse! 'result=ok; global result'
+    result = cmd.call block, handler, env: @vm.ios, frames: @vm.fs
+    assert_false result
+    assert_eq @vm.fs[:result], 'ok'
   end
 end
