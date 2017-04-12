@@ -7,14 +7,18 @@ require_relative 'exec'
 class Capture < Exec
   def call(*args, env:, frames:)
     begin
+      env.push
       result = super
     rescue VirtualMachine::ExitCalled => err
+      env.pop
       raise err
     rescue => err
-      env[:err].write BELL
+      env.pop
       frames.first[:last_exception] = err.message
       exception_caught = true
       result = false
+    ensure
+      env.pop
     end
     handler_clause, default_clause = args[1, 2]
     if exception_caught && args.length > 1

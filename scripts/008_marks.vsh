@@ -21,9 +21,11 @@ function mark_prev(mark) {
   goto_position :_buf :(trait_prev :_buf :mark)
 }
 function mark_apply(fn,buf, mark) {
+  test -z ":{mark}" && raise No mark set
   mpos=:(trait_first :buf :mark)
   pos=:(decr :(position :buf))
   exec :fn :buf :mpos :pos
+  unset _mark; global _mark
 }
 function mark_copy(buf, mark) {
   new_clip

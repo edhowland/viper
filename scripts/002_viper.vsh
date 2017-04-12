@@ -9,10 +9,10 @@ mkdir /v/macros/viper
 _mode=viper mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)
 _mode=viper bind :kname { ins :_buf ' ' } { echo -n space }
-_mode=viper bind move_down { capture { down :_buf; line :_buf } } { cat }
-_mode=viper bind move_up { capture { up :_buf; line :_buf } } { cat }
-_mode=viper bind move_left { capture { back :_buf } } { at :_buf }
-_mode=viper bind move_right { capture { fwd :_buf } } { at :_buf }
+_mode=viper bind move_down { capture { down :_buf; line :_buf } { bell } } { cat }
+_mode=viper bind move_up { capture { up :_buf; line :_buf } { bell } } { cat }
+_mode=viper bind move_left { capture { back :_buf } { bell } } { at :_buf }
+_mode=viper bind move_right { capture { fwd :_buf } { bell } } { at :_buf }
 _mode=viper bind ctrl_j { nop } { at :_buf }
 _mode=viper bind meta_j { word_fwd :_buf } { cat }
 ignore_undo meta_j

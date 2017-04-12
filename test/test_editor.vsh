@@ -60,5 +60,4 @@ function test_w_no_mark_raise_w_cut() {
   mark_cut :_buf :_mark
   fin :_buf
   back :_buf; back :_buf
-  assert_raises { mark_cut :_buf m }
 }

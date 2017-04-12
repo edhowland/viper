@@ -54,8 +54,10 @@ function stats() {
 }
 alias report_fails='cat < /v/tests/fails'
 alias x='echo :exit_status'
-function run_1(te) {
-  capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; echo fail }
+function run_one(te) {
+  test -f /v/tests/log && rm /v/tests/log
+  test -f /v/tests/fails && rm /v/tests/fails
+  capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; cat < /v/tests/fails }
 }
 at_exit { stats; test -f /v/tests/fails && cat < /v/tests/fails && exit 1 }
 

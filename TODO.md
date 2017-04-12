@@ -12,6 +12,7 @@ Add tests for rangify
 
 
 Major Bug:
+Bug: seems that in command: capture, not restoring stdout back to previous value when exception occurs
 Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
   >> vip mode _mode=viper
 Bug: incorrect error message when no more tab points exist. When using meta_f
