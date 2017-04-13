@@ -12,8 +12,6 @@ Add tests for rangify
 
 
 Major Bug:
-Bug: in command mode: - ivish: move_left causes exception immediately
-  >> as first key hit when launched
 Bug: seems that in command: capture, not restoring stdout back to previous value when exception occurs
 Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
   >> vip mode _mode=viper

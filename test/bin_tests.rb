@@ -91,4 +91,7 @@ class BinTests < BaseSpike
     go 'capture { raise bad } { nop } { xx=hi; global xx }'
         assert_eq @vm.fs[:xx], 'hi'
   end
+  def test_capture_w_raises_and_redirection_still_has_original_stream
+    go 'function db() { raise bad; echo ok }; capture { db >> /v/xxx } { echo caught exception :last_exception } { echo finally }'
+  end
 end

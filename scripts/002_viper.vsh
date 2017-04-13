@@ -61,9 +61,9 @@ log_key_pos move_shift_end
 _mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { trait_set :_buf _; _mark=_; global _mark } { echo -n mark set }
 _mode=viper bind fn_5 { trait_set :_buf t; _mark=t; global _mark } { echo -n mark t set }
-_mode=viper bind ctrl_c {  mark_copy :_buf :_mark } { echo -n copy }
+_mode=viper bind ctrl_c { capture { mark_copy :_buf :_mark; echo -n copy } { echo -n :last_exception } } { cat }
 store { echo ctrl_c :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_c
-_mode=viper bind ctrl_x { mark_cut :_buf :_mark } { echo -n cut }
+_mode=viper bind ctrl_x { capture { mark_cut :_buf :_mark; echo -n cut } { echo -n :last_exception } } { cat }
 store { echo ctrl_x :_clip | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_x
 _mode=viper bind ctrl_y { new_clip; line :_buf | cat > :_clip } { echo -n One line yanked }
 log_key_clip ctrl_y
