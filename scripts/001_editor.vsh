@@ -80,9 +80,6 @@ function pager() {
 r="1..:{pglines}"
 capture { for i in :r { line :_buf; down :_buf } }
 }
-function try(expr, ok) {
-ifelse { suppress { capture { exec :expr } } } { exec :ok } { bell }
-}
 mkdir /v/clip/metadata
 mkarray /v/clip/metadata/clips
 function new_clip() {

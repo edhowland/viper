@@ -1,32 +1,40 @@
-# capture - class Capture - command capture { block } - runs block, captures any
-# exceptions. If present, runs next block if result is true,
-# or, if present, runs third block if result is false or exception occurred
+# capture.rb - class Capture - command capture
 
-require_relative 'exec'
+# standalone version
+# temp cpt version - rename to class Capture
 
-class Capture < Exec
-  def call(*args, env:, frames:)
+class Capture < BaseCommand
+  def initialize
+    super
+    @defaults = [
+      ->(env:, frames:) { wrong_type_num(env:env); false },
+      ->(env:, frames:) { false },
+      ->(env:, frames:) { true }
+    ]
+  end
+
+  def wrong_type_num env:
+    error "Wrong type or number of arguments. Expected 1 to 3 1 blocks", env:env
+  end
+
+  def call *args, env:, frames:
+    trial = @defaults.zip(args).map {|e| e.select {|f| f.respond_to?(:call) } }.map {|e| e[-1] }
+    prosecute, sentence, justice = trial
     begin
       env.push
-      result = super
+      result = prosecute.call(env:env, frames:frames)
     rescue VirtualMachine::ExitCalled => err
       env.pop
       raise err
+
     rescue => err
       env.pop
       frames.first[:last_exception] = err.message
-      exception_caught = true
       result = false
+      sentence.call(env:env, frames:frames)
     ensure
-      env.pop
-    end
-    handler_clause, default_clause = args[1, 2]
-    if exception_caught && args.length > 1
-      handler_clause.call(env: env, frames: frames)
-      frames.merge
-    elsif args.length == 3
-      default_clause.call(env: env, frames: frames)
-      frames.merge
+      env.pop unless env.length <= 1
+      justice.call(env:env, frames:frames)
     end
 
     result

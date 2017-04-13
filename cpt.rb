@@ -23,6 +23,10 @@ class Cpt < BaseCommand
     begin
       env.push
       result = prosecute.call(env:env, frames:frames)
+    rescue VirtualMachine::ExitCalled => err
+      env.pop
+      raise err
+
     rescue => err
       env.pop
       frames.first[:last_exception] = err.message

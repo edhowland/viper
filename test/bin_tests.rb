@@ -9,6 +9,9 @@ class BinTests < BaseSpike
     @vm.mkdir '/v/bin', env:@vm.ios, frames:@vm.fs
     @vm.install env:@vm.ios, frames:@vm.fs
   end
+  def go command
+    @vm.call(Visher.parse!(command))
+  end
   def test_stat_examine_reports_directory
     cmd = Stat.new
     str = cmd.examine Hal, :directory?, '/v/bin'
@@ -71,5 +74,21 @@ class BinTests < BaseSpike
     result = cmd.call block, handler, env: @vm.ios, frames: @vm.fs
     assert_false result
     assert_eq @vm.fs[:result], 'ok'
+  end
+  def test_capture_sets_last_exception
+    result = go 'capture { raise bad }'
+    assert_eq @vm.fs[:last_exception], 'bad'
+  end
+  def test_capture_catch_block_runs
+    go 'capture { raise bad } { xx=hi; global xx }'
+    assert_eq @vm.fs[:xx], 'hi'
+  end
+  def test_capture_ensure_always_runs_w_no_raise
+    go 'capture { nop } { nop } { xx=hi; global xx }'
+        assert_eq @vm.fs[:xx], 'hi'
+  end
+  def test_capture_ensure_runs_with_raise
+    go 'capture { raise bad } { nop } { xx=hi; global xx }'
+        assert_eq @vm.fs[:xx], 'hi'
   end
 end

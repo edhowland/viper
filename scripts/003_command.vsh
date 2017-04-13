@@ -19,8 +19,8 @@ capture { echo; vsh -e :_status ":{cmd}" } { perr caught exception ':' :last_exc
 }
 kname=:(echo -n ' '|xfkey)
 _mode=command bind :kname { ins :_buf ' ' } { echo -n space }
-_mode=command bind move_down { capture { down :_buf; line :_buf } } { cat }
-_mode=command bind move_up { capture { up :_buf; back_of_line :_buf; line :_buf } } { cat }
+_mode=command bind move_down { capture { down :_buf; line :_buf } { bell } } { cat }
+_mode=command bind move_up { capture { up :_buf; back_of_line :_buf; line :_buf } { bell } } { cat }
 _mode=command bind move_left { back :_buf } { at :_buf }
 _mode=command bind move_right { fwd :_buf } { at :_buf }
 _mode=command bind ctrl_j { nop } { at :_buf }
