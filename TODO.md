@@ -12,9 +12,7 @@ Add tests for rangify
 
 
 Major Bug:
-Bug: seems that in command: capture, not restoring stdout back to previous value when exception occurs
 Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
-  >> vip mode _mode=viper
 Bug: incorrect error message when no more tab points exist. When using meta_f
   >> Also check meta_r
 Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
@@ -23,10 +21,6 @@ Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
 Bug: find command does not work properly
-Bug: Handle No Mark set on Ctrl-c, -v and -p
-  >> Erase :_mark after cut, copy
-  >> willtie into the above Bug to handle no mark set
-  >> Will also fix backspace and delete saying selection deleted
 Bug: Cannot edit two buffers from the same file name, but different directories
   >> This is because /v/buf/Rakefile is only a single pathname:
   >> constructed by : filename.ext of original pathname prepended with /v/buf/
@@ -82,8 +76,9 @@ In interactive Vish shell:
 test command can now take no options and set :_status, :exit_status based on first argument
 test -l checks if first arg is a Lambda
 
+In normal viper editor:
 Use 'vish' fn to enter into interactive shell from command mode
-  > Use 'vip' to return to viper mode in current buffer
+  >> Use 'vip' to return to viper mode in current buffer
 
 meta+d, c will call fn clear_line. clears contents of line without deleting the line
   > For future use in ctrl_d in command mode
@@ -96,7 +91,6 @@ Investigate: Is Vsh redundant for eval statement?
 ----
 Outstanding bugs, new features
 Bug: -c does not work to check .vsh syntax ... investigate
-Bug: problem with/backspace saying selection deleted. sometimes
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
   > Should enter vip or exit onto last line of /v/command buffer
   > Then apply ctrl_m so correct thing happens in loop
@@ -109,7 +103,6 @@ Feature: add -f option to unset command to remove functions
   > ... Would for functions to within functions, and go out of scope when left
   > ... Also, allow for blocks, lambdas to contain them and called externally
   > ... By some dot '.' notation (whithin grammar?)
-Feature: in scripts/*.vsh: move cut, copy and paste to scripts/editor.vsh
 Feature: when logging  meta_c, in addition to remembering :_clip, 
   > How would this affect other things in undo actions?
 Feature: meta_c +  move_shift_end => copy to end of line
@@ -118,11 +111,11 @@ Feature: meta_c +  move_shift_end => copy to end of line
   > meta_c + move_shift_pgdn => copy to end of buffer
   > meta_c + w => copy word forward
   > meta_c + W => copy word back
+
 Feature: Implement ins_fwd method in api/buffer.rb
 Feature: comment/uncomment blocks that are marked
   > Use comment style as defined by .ext. E.g. .rb => '#'. .js => '//'
   > Work at current indent level
-Feature: Implement simple lint checker, like in Viper version 1.x
 
 
 Feature: complete coding of undo/redo:
