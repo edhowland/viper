@@ -104,4 +104,27 @@ class TraitTests < BaseSpike
     var = @buf.trait_exists 'm'
     assert_eq @buf.position, 0
   end
+  def test_trait_first_finds_actual_one_given_multiple_traits_set
+    create 'hello world sailor, there'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    result = @buf.trait_first 'm'
+    assert_eq result, 2
+  end
+  def test_trait_first_w_different_marks_finds_first_expected
+    create 'goodbye cruel world'
+    @buf.trait_set 'm'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'n'
+        @buf.fwd; @buf.fwd
+    @buf.trait_set 'o'
+        @buf.fwd; @buf.fwd
+    @buf.trait_set 'n'
+    result = @buf.trait_first 'n'
+    assert_eq result, 2
+  end
 end
