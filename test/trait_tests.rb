@@ -127,4 +127,16 @@ class TraitTests < BaseSpike
     result = @buf.trait_first 'n'
     assert_eq result, 2
   end
+  def test_trait_next_w_no_trait_set_raises_buffer_exceeded
+    create 'hello'
+    assert_raises BufferExceeded do
+      @buf.trait_next 'm'
+    end
+    def test_trait_prev_raises_buffer_exceeded_w_no_further_marks_found
+      create 'hello'
+      assert_raises BufferExceeded do
+        @buf.trait_prev 'm'
+      end
+    end
+  end
 end

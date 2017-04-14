@@ -55,12 +55,16 @@ class Buffer
   # must offset result by 1 to make up for starting at @b_buff[1]
   def trait_next(trait)
     trait = trait.to_sym
-    @b_buff[1..-1].index { |c| c.includes_trait? trait } + position + 1
+    found = @b_buff[1..-1].index { |c| c.includes_trait? trait }
+    raise BufferExceeded if found.nil?
+    found + position + 1
   end
 
   def trait_prev(trait)
     trait = trait.to_sym
-    @a_buff.rindex { |c| c.includes_trait? trait }
+    found = @a_buff.rindex { |c| c.includes_trait? trait }
+    raise BufferExceeded if found.nil?
+    found
   end
 
   def trait_exists(trait)

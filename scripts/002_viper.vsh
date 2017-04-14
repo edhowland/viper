@@ -113,9 +113,9 @@ ignore_undo fn_3
 _mode=viper bind meta_p { position :_buf } { echo -n position :(cat) }
 _mode=viper bind meta_period { apply :(peek_keylog) } { cat }
 ignore_undo meta_period
-_mode=viper bind meta_r { save_pos; mark_prev :_mark } { line :_buf }
+_mode=viper bind meta_r { save_pos; capture { mark_prev :_mark; line :_buf } { echo -n No further previous marks found } } { cat }
 log_key_pos meta_r
-_mode=viper bind meta_f { save_pos; mark_next :_mark } { line :_buf }
+_mode=viper bind meta_f { save_pos; capture { mark_next :_mark; line :_buf } { echo -n No further marks found } } { cat }
 log_key_pos meta_f
 _mode=viper bind meta_m { perr -n set mark; key=:(raw - | xfkey); _mode=mark apply :key } { cat }
 log_key_mark meta_m

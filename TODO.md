@@ -13,9 +13,6 @@ Add tests for rangify
 
 Major Bug:
 Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
-Bug: incorrect error message when no more tab points exist. When using meta_f
-  >> Also check meta_r
-Bug: when starting Viper w/no input files: buffer is unnamed1. Cannot save it or exit and be asked to save it
 
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
