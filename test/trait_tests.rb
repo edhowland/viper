@@ -66,4 +66,42 @@ class TraitTests < BaseSpike
     @buf.fin
     assert_eq @buf.trait_first('m'), 2
   end
+  def test_first_does_move_position
+    create 'hello'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    @buf.beg
+    var = @buf.trait_first 'm'
+    assert_eq @buf.position, 0
+  end
+  def test_trait_next_does_change_position
+    create 'hello'
+    @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    @buf.beg
+    @buf.fwd
+    var = @buf.trait_next 'm'
+    assert_eq @buf.position, 1
+  end
+  def test_trait_prev_does_change_position
+    create 'hello'
+    @buf.fwd
+    @buf.trait_set 'm'
+    @buf.fin
+    @buf.trait_prev 'm'
+    assert_eq @buf.position, 5
+  end
+  def test_trait_exists_does_not_change_position
+    create 'hello'
+    @buf.fwd; @buf.fwd; @buf.fwd
+    @buf.trait_set 'm'
+    @buf.beg
+    var = @buf.trait_exists 'm'
+    assert_eq @buf.position, 0
+  end
+  def test_trait_exists_w_no_mark_set_does_not_change_position
+    create 'hello'
+    var = @buf.trait_exists 'm'
+    assert_eq @buf.position, 0
+  end
 end
