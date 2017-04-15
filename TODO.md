@@ -12,7 +12,10 @@ Add tests for rangify
 
 
 Major Bug:
-Bug: Now raising BufferExceeded when  either fwd  or back called not being caught in
+Bug: wc -w seems to send its output to ??? stderr? or what?
+  >> wc -l apparently works
+Bug: :oldpwd is not being set. also cd - does not work
+  >> :oldpwd is being set to :pwd after cd ...
 
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods

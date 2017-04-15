@@ -13,7 +13,7 @@ class Wc < BaseCommand
         method = :print # if args[0] == '-n'
       end
       if @options[:w]
-        @output.send(method, @in.read.split(/\b/)
+        @out.send(method, @in.read.split(/\b/)
           .map(&:strip).reject(&:empty?).length)
       elsif @options[:l]
         @out.puts @in.read.each_line.to_a.length

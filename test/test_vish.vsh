@@ -29,3 +29,23 @@ function test_echo_empty_path() {
 function test_assert_raises() {
   assert_raises { raise bad }
 }
+function test_wc_sends_output_to_stdout() {
+  result=:(echo hello | wc)
+  assert_eq :result 6
+}
+function test_wc_option_l_sends_output_to_stdout() {
+  result=:(echo hello | wc -l)
+  assert_eq :result 1
+}
+function test_wc_w_option_w_sends_output_to_stdout() {
+  result=:(echo hello world | wc -w)
+  assert_eq :result 2
+}
+function test_grep_returns_true_w_match_occurs() {
+  echo hello | grep hello | nop
+  assert_true :exit_status
+}
+function test_grep_w_no_match_returns_false() {
+  echo xxx | grep -q hello
+  assert_false :exit_status
+}
