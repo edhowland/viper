@@ -6,7 +6,7 @@ function sim(name) {
   echo :result
 }
 function open(fname) {
-bname=:(sim :fname)
+bname=:(basename :fname)
 _buf=/v/buf/:{bname}
 mkbuf :_buf
 global _buf

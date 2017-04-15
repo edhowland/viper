@@ -12,8 +12,6 @@ Add tests for rangify
 
 
 Major Bug:
-Bug: wc -w seems to send its output to ??? stderr? or what?
-  >> wc -l apparently works
 Bug: :oldpwd is not being set. also cd - does not work
   >> :oldpwd is being set to :pwd after cd ...
 
