@@ -1,10 +1,3 @@
-function sim(name) {
-  name=:(basename :name)
-  cnt=:(cd /v/buf; count &(x) { echo :x | grep -q :name } *)
-  result=:name
-  not { eq 0 :cnt } && result=":{name}-:{cnt}"
-  echo :result
-}
 function open(fname) {
 bname=:(basename :fname)
 _buf=/v/buf/:{bname}
