@@ -2,7 +2,6 @@
 
 require_relative 'test_helper'
 
-
 class VirtualLayerTests < BaseSpike
   def set_up
     @vm = VirtualMachine.new
@@ -46,11 +45,17 @@ class VirtualLayerTests < BaseSpike
     contents = new_file.string
     assert_eq contents, 'hello'
   end
-  def test_mv
+  def test_mv_w_full_path
     VirtualLayer.touch '/v/aa'
     VirtualLayer.mkdir_p '/v/xxx'
     VirtualLayer.mv '/v/aa', '/v/xxx'
     assert VirtualLayer.exist?('/v/xxx/aa')
+  end
+  def test_mv_w_relative_path
+    VirtualLayer.touch 'jj'
+    VirtualLayer.mv 'jj', 'kk'
+    assert VirtualLayer.exist?('/v/kk'), 'Expected VirtualLayer.mv to move /v/jj to /v/kk'
+    assert_false VirtualLayer.exist?('/v/jj')
   end
   def test_cp_same_file_raises_argument_error_same_file
     VirtualLayer.touch 'x'
@@ -62,5 +67,17 @@ class VirtualLayerTests < BaseSpike
     assert_raises Errno::ENOENT  do
       VirtualLayer.cp 'zzyyx', 'xxyyz'
     end
+  end
+  def test_rm_works_w_full_path
+    VirtualLayer.touch '/v/xx'
+    assert VirtualLayer.exist?('/v/xx'), 'Expected VirtualLayer.touch to create file'
+    VirtualLayer.rm '/v/xx'
+        assert_false VirtualLayer.exist?('/v/xx')
+  end
+  def test_rm_w_relative_path_removes_file
+    VirtualLayer.touch 'xx'
+    assert VirtualLayer.exist?('xx'), 'Expected VirtualLayer.touch to create file'
+    VirtualLayer.rm 'xx'
+    assert_false VirtualLayer.exist?('xx')
   end
 end

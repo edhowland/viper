@@ -19,9 +19,19 @@ function test_cd_virtual_should_be_bad() {
   assert eq :pwd /v/buf
 }
 function test_echo_ok_path() {
+  cd /v
   aa=aa
   echo > :aa
   rm aa
+  test -f aa
+  assert_false :exit_status
+}
+function test_mv_changes_name() {
+  cd /v
+  touch jj
+  mv jj kk
+  test -f kk; assert_true :exit_status
+  test -f jj; assert_false :exit_status
 }
 function test_echo_empty_path() {
   nop

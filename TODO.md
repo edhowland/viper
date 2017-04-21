@@ -12,6 +12,8 @@ Add tests for rangify
 
 
 Major Bug:
+Bug:   rm in VFS does not error out when no file exists
+Bug: Going to end of command buffer raises uncaught BufferExceeded
 Bug: :oldpwd is not being set. also cd - does not work
   >> :oldpwd is being set to :pwd after cd ...
 

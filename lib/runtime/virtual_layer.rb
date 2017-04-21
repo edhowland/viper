@@ -129,6 +129,7 @@ class VirtualLayer
     end
 
     def rm(path)
+      path = realpath(path)
       dir, file = split_path path
       node = @@root[dir]
       node.list.delete file
