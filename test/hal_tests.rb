@@ -63,6 +63,17 @@ class HalTest < BaseSpike
     Hal.rm '/v/xxx'
     assert_false Hal.exist?('/v/xxx')
   end
+  def test_rm_raises_err_w_no_such_file_physical
+    assert_raises Errno::ENOENT do 
+      Hal.rm 'xyzzy'
+    end
+  end
+  def test_rm_raises_no_such_file_e_virtual
+    assert_raises Errno::ENOENT do 
+      Hal.rm '/v/xxyyz'
+    end
+
+  end
   def test_cp_virtual_file
     Hal.chdir '/v'
     Hal.touch 'x'
