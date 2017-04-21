@@ -21,11 +21,22 @@ rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
 test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
 }
+function pathname(buf) {
+  cat < ":{buf}/.pathname"
+}
 function clone_buf(src, dest) {
   cp :src :dest
   bname=:(basename :dest)
   echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
 }
+function kill_buffer(buf) {
+  rm :buf
+  deq /v/modes/viper/metadata/buffers | nop
+  _buf=:(peek /v/modes/viper/metadata/buffers)
+  global _buf
+  echo -n Buffer is now :(basename :_buf)
+}
+  alias k='kill_buffer :_buf'
 function o(fname) { fopen :fname; (test -f :fname && apply fn_2) || echo -n new file ':' :fname }
 function applyf(key, data) { exec "/v/modes/:{_mode}/:{key}" :data }
 function applys(key, data) { exec "/v/views/:{_mode}/:{key}" :data }

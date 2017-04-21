@@ -44,8 +44,7 @@ ignore_undo meta_t
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { buffer_name }
-_mode=viper bind meta_2 { nop } { buffer_name; echo -n more stuff }
-ignore_undo fn_2
+_mode=viper bind meta_2 { nop } { buffer_name; echo -n ' path ' :(pathname :_buf) }
 _mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
 _mode=viper bind move_shift_pgup { _pos=:(position :_buf); beg :_buf; global _pos } { line :_buf }
 log_key_pos move_shift_pgup
