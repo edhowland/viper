@@ -31,9 +31,8 @@ function clone_buf(src, dest) {
 }
 function kill_buffer(buf) {
   rm :buf
-  deq /v/modes/viper/metadata/buffers | nop
-  _buf=:(peek /v/modes/viper/metadata/buffers)
-  global _buf
+  next
+  pop /v/modes/viper/metadata/buffers | nop
   echo -n Buffer is now :(basename :_buf)
 }
   alias k='kill_buffer :_buf'
