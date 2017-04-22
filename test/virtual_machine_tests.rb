@@ -55,4 +55,32 @@ class VirtualMachineTests < BaseSpike
         result = @vm.cd '/v/xxxyyyzzz', env:@vm.ios, frames:@vm.fs
         assert_false result
   end
+  def test_type_responds_ok
+    assert @vm.respond_to?(:type)
+  end
+  def test_type_raises_argument_error_if_no_args
+    assert_raises ArgumentError do
+      @vm.type env:@vm.ios, frames:@vm.fs
+    end
+  end
+  def test_type_reports_unknown_w_no_match
+    @vm.type 'jj', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, 'unknown'
+  end
+  def test_type_finds_alias
+    @vm.fs.aliases['kk'] = 'kk'
+    @vm.type 'kk', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, 'alias'
+  end
+  def test_type_function_ok
+    @vm.fs.functions['fn'] = Function.new([], Block.new([]))
+    @vm.type 'fn', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, 'function'
+  end
+  def test_type_w_both_names_gives_priority_to_alias
+    @vm.fs.functions['fn'] = Function.new([], Block.new([]))
+    @vm.fs.aliases['fn'] = 'kk'
+    @vm.type 'fn', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, 'alias'
+  end
 end

@@ -197,6 +197,20 @@ class VirtualMachine
     end
   end
 
+  # type arg - reports type of arg, either alias function or alias or unknown
+  def type *args, env:, frames:
+    raise ArgumentError, 'Expected 1 argumnet' if args.empty?
+    result = 'unknown'
+    #binding.pry
+    if frames.aliases.has_key? args[0]
+      result = 'alias'
+    elsif frames.functions.has_key?(args[0])
+      result = 'function'
+    end
+    env[:out].puts result
+    true
+  end
+
   def _break(*_args, env:, frames:)
     raise VirtualMachine::BreakCalled
   end

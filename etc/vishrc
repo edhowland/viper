@@ -2,6 +2,7 @@ mount /v
 mkdir /v/bin
 install
 mkdir /v/buf
+_bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
 proj=:pwd
 function ifelse(expr, icl, ecl) { (exec :expr || (exec :ecl && false)) && exec :icl }
