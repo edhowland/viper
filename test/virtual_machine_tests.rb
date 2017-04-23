@@ -67,6 +67,15 @@ class VirtualMachineTests < BaseSpike
     @vm.type 'jj', env:@vm.ios, frames:@vm.fs
     assert_eq @vm.ios[:out].string.chomp, 'unknown'
   end
+  def test_type_returns_false_w_no_match
+    result = @vm.type 'jj', env:@vm.ios, frames:@vm.fs
+    assert_false result
+  end
+  def test_type_returns_true_w_found
+    @vm.fs.aliases['kk'] = 'kk'
+    result = @vm.type 'kk', env:@vm.ios, frames:@vm.fs
+    assert result
+  end
   def test_type_finds_alias
     @vm.fs.aliases['kk'] = 'kk'
     @vm.type 'kk', env:@vm.ios, frames:@vm.fs
@@ -82,5 +91,15 @@ class VirtualMachineTests < BaseSpike
     @vm.fs.aliases['fn'] = 'kk'
     @vm.type 'fn', env:@vm.ios, frames:@vm.fs
     assert_eq @vm.ios[:out].string.chomp, 'alias'
+  end
+  def test_type_cd_returns_builtin
+    @vm.type 'cd', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, 'builtin'
+  end
+  def test_type_w_command_returns_command
+    @vm.mkdir '/v/bin', env:@vm.ios, frames:@vm.fs
+    @vm.install env:@vm.ios, frames:@vm.fs
+    @vm.type 'basename', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string.chomp, '/v/bin/basename'
   end
 end

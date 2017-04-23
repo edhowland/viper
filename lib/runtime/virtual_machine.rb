@@ -200,15 +200,26 @@ class VirtualMachine
   # type arg - reports type of arg, either alias function or alias or unknown
   def type *args, env:, frames:
     raise ArgumentError, 'Expected 1 argumnet' if args.empty?
-    result = 'unknown'
-    #binding.pry
+    message = 'unknown'
+    result = false
     if frames.aliases.has_key? args[0]
-      result = 'alias'
+      message = 'alias'
+      result = true
     elsif frames.functions.has_key?(args[0])
-      result = 'function'
+      message = 'function'
+      result = true
+    elsif self.respond_to? args[0].to_sym
+      message = 'builtin'
+      result = true
+    else
+      thing = Command.command_from_path "/v/bin/#{args[0]}", frames:frames
+      if thing.class.ancestors.member? BaseCommand
+        message = "/v/bin/#{args[0]}"
+        result = true
+      end
     end
-    env[:out].puts result
-    true
+    env[:out].puts message
+    result
   end
 
   def _break(*_args, env:, frames:)
