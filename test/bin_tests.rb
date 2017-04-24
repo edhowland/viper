@@ -4,7 +4,15 @@ require_relative 'test_helper'
 
 class BinTests < BaseSpike
     def set_up
+  @orig_dir = File.dirname(File.expand_path(__FILE__))
     @vm = VirtualMachine.new
+    @errbuf = StringIO.new
+    @outbuf = StringIO.new
+    @vm = VirtualMachine.new
+    @vm.ios[:err] = @errbuf
+    @vm.ios[:out] = @outbuf
+        @vm.cd @orig_dir, env:@vm.ios, frames:@vm.fs
+
     @vm.mount '/v', env:@vm.ios, frames:@vm.fs
     @vm.mkdir '/v/bin', env:@vm.ios, frames:@vm.fs
     @vm.install env:@vm.ios, frames:@vm.fs
@@ -93,5 +101,9 @@ class BinTests < BaseSpike
   end
   def test_capture_w_raises_and_redirection_still_has_original_stream
     go 'function db() { raise bad; echo ok }; capture { db >> /v/xxx } { echo caught exception :last_exception } { echo finally }'
+  end
+  def test_stat_ok
+    go 'stat /v/bin'
+    assert_eq @outbuf.string, "stat\n/v/bin\nvirtual? true\ndirectory? true\nVFSNode: directory node: bin\n"
   end
 end
