@@ -5,6 +5,7 @@ class Stat < FlaggedCommand
     super(flags: {'-s' => false }) do |inp, out, err, frames, flags, *args|
       env = {in: inp, out: out, err: err}
     path = args[0]
+    unless flags['-s']
     info path, *([:virtual?, :directory?]
       .map { |e| examine(Hal, e, path) }), env: env, sep: "\n"
     if Hal.virtual? path
@@ -13,7 +14,13 @@ class Stat < FlaggedCommand
       out.puts "#{node.class.name}: #{node}"
       out.puts "length: #{node.length}" if node.instance_of?(Array)
     end
-    true
+    else
+      root = frames[:vroot]
+      node = root[path]
+      out.puts node.to_s
+    end
+        true
+
     end
   end
 
