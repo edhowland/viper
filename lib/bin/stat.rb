@@ -1,6 +1,6 @@
 # stat - class Stat - command stat file - info about path
 
-class Stat < BaseCommand
+class Stat < FlaggedCommand
   def examine(rxr, method, *args)
     method.to_s + ' ' + rxr.send(method, *args).to_s
   end
