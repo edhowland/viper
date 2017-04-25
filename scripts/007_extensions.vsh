@@ -8,7 +8,7 @@ function resolve_ext(name) {
 test -z :name && perr resolve_ext missing argument && return false
 exec /v/exts/default/pre_hook
 _ext=/v/exts/default; global _ext
-ext=:(pathmap '%x' :name)
+ext=:(pathmap '%x' :(pathname :name))
 test -z :ext && return
 extp="/v/exts/:{ext}"
 test -f :extp || return
