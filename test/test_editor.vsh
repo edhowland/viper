@@ -1,9 +1,10 @@
 function setup_buf() {
   open xxx
+  __obuf=:_buf; global __obuf
   new_clip
 }
 function teardown_buf() {
-  rm /v/buf/xxx
+  rm :__obuf
   unset _buf
   unset _clip
 }
