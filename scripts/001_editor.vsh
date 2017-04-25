@@ -197,8 +197,14 @@ store { echo ":{key},:{_clip},:{_sup}" | enq ":{_buf}/.keylog" } "/v/klogs/viper
 function log_key_mark(key) {
 store { echo ":{key},:{_mark}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
 }
+function same_count() {
+  match=:(basename :(pathname))
+  count &(y) { eq :match :y } :(map &(x) { basename :(pathname :x) } :(buffers))
+}
 function buffer_name() {
-  echo -n buffer :(basename :(pathname)) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
+  echo -n buffer :(basename :(pathname))
+  is_dirty  :_buf && echo -n '*'
+  eq 1 :(same_count) || pathname
 }
 function g(num) {
   goto :_buf :num
