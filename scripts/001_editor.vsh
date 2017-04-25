@@ -197,7 +197,7 @@ function log_key_mark(key) {
 store { echo ":{key},:{_mark}" | enq ":{_buf}/.keylog" } "/v/klogs/viper/:{key}"
 }
 function buffer_name() {
-  echo -n buffer :(basename :_buf) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
+  echo -n buffer :(basename :(pathname)) :(map &(f) { is_dirty :f && echo '*' } :_buf) }
 }
 function g(num) {
   goto :_buf :num
