@@ -7,8 +7,6 @@ gem 'kpeg'
 # This gem is needed for runtime, and testing
 gem 'remedy'
 
-# this gem is only needed for testing
-gem 'aruba'
 
 # this gem is only for checking/linting code
 gem 'rubocop'
