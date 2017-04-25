@@ -12,6 +12,7 @@ Add tests for rangify
 
 
 Major Bug:
+Bug: All vunit unit tests fail, after /v/buf/xx fails to exist after :_buf changeout
 Bug: Going to end of command buffer raises uncaught BufferExceeded
 Bug: :oldpwd is not being set. also cd - does not work
   >> :oldpwd is being set to :pwd after cd ...
