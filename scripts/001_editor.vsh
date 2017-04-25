@@ -7,6 +7,7 @@ mkarray ":{_buf}/.keylog"
 mkarray ":{_buf}/.undones"
 echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
 cat < :_buf | digest_sha1 > ":{_buf}/.digest"
+echo ":{pwd}/:{bname}" > ":{_buf}/.pathname"
 }
 function fopen(fname) {
 open :fname
@@ -15,6 +16,7 @@ echo :rpath > ":{_buf}/.pathname"
 test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
 }
 function pathname(buf) {
+  test -z :buf && buf=:_buf
   cat < ":{buf}/.pathname"
 }
 function clone_buf(src, dest) {
@@ -36,6 +38,10 @@ function applyk(key, opt) {
 (test -f "/v/klogs/:{_mode}/:{key}" && exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
 }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
+function bound(key) {
+  echo bind :key :(stat -s "/v/modes/:{_mode}/:{key}") :(stat -s "/v/views/:{_mode}/:{key}")
+}
+alias bk='echo -n Type a key to hear its bound action; bound :(raw - | xfkey)'
 _keysink=.keylog; global _keysink
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function log_key() {
