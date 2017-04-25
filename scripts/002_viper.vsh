@@ -37,15 +37,15 @@ function rmbuf() {
   resolve_ext :_buf
   buffer_name
 }
-_mode=viper bind ctrl_t { next } { echo -n buffer is now :(basename :_buf) }
+_mode=viper bind ctrl_t { next } { echo -n now in :(buffer_name) }
 ignore_undo ctrl_t
-_mode=viper bind meta_t { prev } { echo -n buffer is now :(basename :_buf) }
+_mode=viper bind meta_t { prev } { echo -n   now in  :(buffer_name) }
 ignore_undo meta_t
 _mode=viper bind ctrl_i { handle_tab } { cat }
 _mode=viper bind key_backtab { handle_backtab } { echo -n back tab }
 _mode=viper bind fn_2 { nop } { buffer_name }
 _mode=viper bind meta_2 { nop } { buffer_name; echo -n ' path ' :(pathname :_buf) }
-_mode=viper bind ctrl_s { save } { echo -n buffer :(basename :_buf) saved to :(cat < ":{_buf}/.pathname") }
+_mode=viper bind ctrl_s { save } { echo -n :(buffer_name) saved to :(pathname) }
 _mode=viper bind move_shift_pgup { _pos=:(position :_buf); beg :_buf; global _pos } { line :_buf }
 log_key_pos move_shift_pgup
 _mode=viper bind move_shift_pgdn { _pos=:(position :_buf); fin :_buf; global _pos } { echo -n bottom of buffer }

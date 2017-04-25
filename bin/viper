@@ -19,7 +19,7 @@ require_relative '../lib/viper'
 options = {
   no_start: false,
   no_finish: false,
-  mode: 'echo -n buffer :(basename :_buf); meta vip',
+  mode: 'echo -n :(buffer_name); meta vip',
   start: [],
   sources: [],
   execute: [],

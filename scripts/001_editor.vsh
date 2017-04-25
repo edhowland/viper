@@ -1,11 +1,12 @@
 function open(fname) {
 bname=:(basename :fname)
-_buf=/v/buf/:{bname}
+rbuf=:(rand -c 0 5)
+_buf=/v/buf/:{rbuf}
 mkbuf :_buf
 global _buf
 mkarray ":{_buf}/.keylog"
 mkarray ":{_buf}/.undones"
-echo "/v/buf/:{bname}" | enq /v/modes/viper/metadata/buffers
+echo :_buf | enq /v/modes/viper/metadata/buffers
 cat < :_buf | digest_sha1 > ":{_buf}/.digest"
 echo ":{pwd}/:{bname}" > ":{_buf}/.pathname"
 }
@@ -28,7 +29,7 @@ function kill_buffer(buf) {
   rm :buf
   next
   pop /v/modes/viper/metadata/buffers | nop
-  echo -n Buffer is now :(basename :_buf)
+  echo -n   now in :(buffer_name)
 }
   alias k='kill_buffer :_buf'
 function o(fname) { fopen :fname; (test -f :fname && apply fn_2) || echo -n new file ':' :fname }
@@ -114,7 +115,7 @@ function rew() {
   cat < :(cat < ":{_buf}/.pathname") > :_buf
 mkarray ":{_buf}/.keylog"
   digest_sha1 -f :(cat < ":{_buf}/.pathname") > ":{_buf}/.digest"
-  echo -n :(basename :_buf) restored 
+  echo -n :(buffer_name) restored 
 }
 mkdir /v/editor
 mkarray /v/editor/bufstack
