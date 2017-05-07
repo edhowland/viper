@@ -10,6 +10,10 @@ Current line in .rubocop_todo.yml:
 Add tests for rangify
 --- Skipping over global variables for now
 
+Implement new option: -B, --boot
+  >> This runs boot script : etc/vishrc, then if -s scripts, if present
+  >> Implement -E, --exit ... early exit
+  >> replaces -e exit pattern
 
 Major Bug:
 Bug: in scratch mode, when quiting, still asks to save full path.

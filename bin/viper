@@ -106,19 +106,25 @@ if options[:check]
   exit rvalue
 end
 
+# run method, gets script from block, runs it in vm with rescued exceptions
+def run vm=VirtualMachine.new, &blk
+  begin
+    block = Visher.parse!(yield)
+vm.call block
+rescue VirtualMachine::ExitCalled => err
+    evalue = 0
+  rescue => err
+    puts err.class.name
+    puts err.message
+    puts err.backtrace
+  end
+end
 
 # run only scripts and exit
 unless options[:only].empty?
-  scripts = 'mount /v; mkdir /v/bin; install;'
-scripts += options[:only].join(';')
-  begin
-    block = Visher.parse!(scripts)
-    vm = VirtualMachine.new
-    vm.call block
-rescue VirtualMachine::ExitCalled => err
-    eval = 0
-  rescue => err
-    $stderr.puts err.message
+  run do
+    scripts = 'mount /v; mkdir /v/bin; install;'
+    scripts + options[:only].join(';')
   end
   exit
 end
@@ -167,6 +173,8 @@ $vm = VirtualMachine.new
 at_exit do
   $exit_handlers.each { |e| $vm.call e }
 end
+
+# Main start
 begin
   _exit_code = 0
   # setup exit handlers. Checks for existanance and syntax correctness
