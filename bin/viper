@@ -25,7 +25,8 @@ options = {
   execute: [],
   finish: [],
   debug: false,
-  check: false
+  check: false,
+  only: []
 }
 oparse = OptionParser.new do |opt|
   opt.banner = 'Viper - Scriptible code editor'
@@ -72,6 +73,9 @@ oparse = OptionParser.new do |opt|
   opt.on('-c', '--check', 'Check syntax of Vish file or stdin') do
     options[:check] = true
   end
+  opt.on('-O script', '--only script', String, 'Only run these script(s), then exit') do |script|
+    options[:only] << script
+  end
   opt.separator ''
   opt.on('-h', '--help', 'Display this help and exit') do
     puts opt
@@ -100,6 +104,23 @@ if options[:check]
     end
   end
   exit rvalue
+end
+
+
+# run only scripts and exit
+unless options[:only].empty?
+  scripts = 'mount /v; mkdir /v/bin; install;'
+scripts += options[:only].join(';')
+  begin
+    block = Visher.parse!(scripts)
+    vm = VirtualMachine.new
+    vm.call block
+rescue VirtualMachine::ExitCalled => err
+    eval = 0
+  rescue => err
+    $stderr.puts err.message
+  end
+  exit
 end
 
 def boot(opt, vm)
