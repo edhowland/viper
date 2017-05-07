@@ -12,9 +12,8 @@ Add tests for rangify
 
 Implement new option: -B, --boot
   >> This runs boot script : etc/vishrc, then if -s scripts, if present
-  >> Implement -E, --exit ... early exit
-  >> replaces -e exit pattern
-
+  >> Implemented -R --run options to run any loaded scripts then exit
+  >> Must implement -V, --viper ... loads entire set of editor scripts
 Major Bug:
 Bug: in scratch mode, when quiting, still asks to save full path.
   >> Identify scratch buffers w/  .nosave in /v/buf/jsk3rf  buffer name
