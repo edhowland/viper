@@ -26,8 +26,12 @@ options = {
   finish: [],
   debug: false,
   check: false,
-  only: []
+  only: [],
+  boot: false,
+  run: false,
+  viper: false
 }
+
 oparse = OptionParser.new do |opt|
   opt.banner = 'Viper - Scriptible code editor'
   opt.separator ''
@@ -76,6 +80,12 @@ oparse = OptionParser.new do |opt|
   opt.on('-O script', '--only script', String, 'Only run these script(s), then exit') do |script|
     options[:only] << script
   end
+  opt.on('-B', '--boot', 'Runs boot script. Use with -R, --run option') do
+    options[:boot] = true
+  end
+  opt.on('-R', '--run', 'Runs loaded scripts, then exits') do
+    options[:run] = true
+  end
   opt.separator ''
   opt.on('-h', '--help', 'Display this help and exit') do
     puts opt
@@ -109,9 +119,11 @@ end
 # run method, gets script from block, runs it in vm with rescued exceptions
 def run vm=VirtualMachine.new, &blk
   begin
-    block = Visher.parse!(yield)
-vm.call block
-rescue VirtualMachine::ExitCalled => err
+    block = Visher.parse!(yield(vm))
+    vm.call block
+  rescue VishSyntaxError => err
+    puts err.message
+  rescue VirtualMachine::ExitCalled => err
     evalue = 0
   rescue => err
     puts err.class.name
@@ -120,18 +132,32 @@ rescue VirtualMachine::ExitCalled => err
   end
 end
 
+
+def boot(opt, vm)
+  opt[:no_start] ? [] : [vm.fs[:vhome] + '/etc/vishrc']
+end
+
+
+# run any loaded scripts, then exit
+if options[:run]
+  run do |vm|
+    files = []
+    files += boot(options, vm) if options[:boot]
+    files += options[:sources]
+    files.map {|f| File.read(f) }.join(';')
+  end
+  exit
+end
+
 # run only scripts and exit
 unless options[:only].empty?
-  run do
+  run do |vm|
     scripts = 'mount /v; mkdir /v/bin; install;'
     scripts + options[:only].join(';')
   end
   exit
 end
 
-def boot(opt, vm)
-  opt[:no_start] ? [] : [vm.fs[:vhome] + '/etc/vishrc']
-end
 
 def scripts(_opt, vm)
   Dir[vm.fs[:vhome] + '/scripts/*.vsh']
