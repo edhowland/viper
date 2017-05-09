@@ -8,6 +8,10 @@ class ContextTests < BaseSpike
     block = Visher.parse! string
     vm.call block
   end
+  def get_path vm, path
+    root = vm.fs[:vroot]
+    root[path]
+  end
   def set_up
     @vm = VirtualMachine.new
     run 'mount /v; mkdir /v/bin; install', @vm
@@ -23,9 +27,37 @@ function for(a, b, c, d, e, f) {
 }
 EOS
     run fn, @vm
+    xx= <<-EOS
+function xx() {
+  eq :aa 11 || return false
+}
+EOS
+    run xx, @vm
   end
   def test_first_arg_is_zero
     result = run 'for i in  0 1 2 3', @vm
     assert result
+  end
+  def test_assignment_works
+    result = run 'aa=11;xx', @vm
+    assert result
+  end
+  def test_assignment_overrides
+    result = run 'aa=11 xx', @vm
+    assert result
+  end
+  def test_assignment_overrides_previous_value
+    result = run 'aa=22; aa=11 xx', @vm
+    assert result
+  end
+  def test_redirection_before_command
+    run '> /v/xx echo hi', @vm
+    f = get_path @vm, '/v/xx'
+    assert_is f, StringIO
+  end
+  def test_redir_after_command
+    run 'echo hi > /v/xx', @vm
+    f = get_path @vm, '/v/xx'
+    assert_is f, StringIO
   end
 end
