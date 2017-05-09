@@ -22,5 +22,6 @@ require_relative 'statement_tests'
 require_relative 'pipe_tests'
 require_relative 'blankable_tests'
 require_relative 'trait_tests'
+require_relative 'context_tests'
 
 
