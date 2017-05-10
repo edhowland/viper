@@ -70,4 +70,10 @@ class StatementTest < BaseSpike
     ctx = s.perform_derefs ctx, env:@vm.ios, frames:@vm.fs
     assert_eq ctx, ['echo', 'vish', '>']
   end
+  def test_prepare
+    s = parse 'echo hello > :aa'
+    @vm.fs[:aa] = '/v/xx'
+    ctx = s.prepare s.context, env:@vm.ios, frames:@vm.fs
+    assert_eq ctx, ['echo', 'hello']
+  end
 end

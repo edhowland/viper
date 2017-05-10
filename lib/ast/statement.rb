@@ -30,9 +30,18 @@ class Statement
     end
   end
 
-def perform_derefs(ctx, env:, frames:)
-  ctx.map {|e| e.call(env:env, frames:frames) }.flatten
-end
+  # perform any dereferences
+  def perform_derefs(ctx, env:, frames:)
+    ctx.map {|e| e.call(env:env, frames:frames) }.flatten
+  end
+
+
+  def prepare ctx, env:, frames:
+    ctx = perform_redirs ctx, env:env, frames:frames
+    ctx = perform_assigns ctx, env:env, frames:frames
+    perform_derefs ctx, env:env, frames:frames
+  end
+
   def call_expanded(env:, frames:)
     string = @context.map(&:to_s).join(' ')
     block = Visher.parse! string
