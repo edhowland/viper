@@ -35,11 +35,37 @@ class Statement
     ctx.map {|e| e.call(env:env, frames:frames) }.flatten
   end
 
-
+  # prepare statement context by dereferenceing redirections, assignments and variable dereferences
   def prepare ctx, env:, frames:
     ctx = perform_redirs ctx, env:env, frames:frames
     ctx = perform_assigns ctx, env:env, frames:frames
     perform_derefs ctx, env:env, frames:frames
+  end
+  
+  def execute env:, frames:
+      local_vars = frames
+      local_vars.push
+      local_ios = env
+      local_ios.push
+
+    ctx = prepare @context, env: local_ios, frames: local_vars
+          c, *args = ctx
+    # TODO: Is this correct? Shouldn't use local_ios and local_vars
+      command = Command.resolve(c, env: env, frames: frames)
+      # closers = local_ios.values
+      # local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
+      closers = open_redirs env: local_ios
+      begin
+        result = command.call(*args, env: local_ios, frames: local_vars)
+      ensure
+        # closers.each {|f| f.close }
+        close_redirs closers
+        local_ios.pop
+        local_vars.pop
+        frames[:exit_status] = result
+        frames.first[:pipe_status] = [result]
+      end
+      result
   end
 
   def call_expanded(env:, frames:)

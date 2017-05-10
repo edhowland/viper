@@ -76,4 +76,9 @@ class StatementTest < BaseSpike
     ctx = s.prepare s.context, env:@vm.ios, frames:@vm.fs
     assert_eq ctx, ['echo', 'hello']
   end
+  def test_execute
+    s = parse 'echo hello'
+    result = s.execute env:@vm.ios, frames:@vm.fs
+    assert result
+  end
 end
