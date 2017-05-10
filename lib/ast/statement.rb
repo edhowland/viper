@@ -14,6 +14,25 @@ class Statement
     @line_number = line_number
   end
   attr_reader :context, :line_number
+  # given context array, perform any redirections, remove them and return ctx
+  def perform_redirs(ctx, env:, frames:)
+    ctx.reject do |e|
+      redirectable?(e) &&
+        redirect(e, env: env, frames: frames)
+               end
+  end
+
+  # perform any variable assignments
+  def perform_assigns(ctx, env:, frames:)
+    ctx.reject do |e|
+      e.ordinal == ASSIGN &&
+        e.call(env:env, frames:frames).nil?
+    end
+  end
+
+def perform_derefs(ctx, env:, frames:)
+  ctx.map {|e| e.call(env:env, frames:frames) }.flatten
+end
   def call_expanded(env:, frames:)
     string = @context.map(&:to_s).join(' ')
     block = Visher.parse! string
@@ -36,13 +55,18 @@ class Statement
       local_ios.push
 
       sorted = @context.sort_by(&:ordinal)
-      sorted = sorted
-               .reject do |e|
-                 redirectable?(e) &&
-                   redirect(e, env: local_ios, frames: local_vars)
-               end.map { |e| e.call env: local_ios, frames: local_vars }
+#      sorted = sorted
+#               .reject do |e|
+#                 redirectable?(e) &&
+#                   redirect(e, env: local_ios, frames: local_vars)
+#               end
+      sorted = perform_redirs(sorted, env:local_ios, frames:local_vars)
+      sorted = sorted.map { |e| e.call env: local_ios, frames: local_vars }
       sorted.flatten!
       sorted.reject!(&:nil?)
+#      sorted = perform_assigns(sorted, env:local_ios, frames:local_vars)
+#      sorted = perform_derefs(sorted, env:local_ios, frames:local_vars)
+
       c, *args = sorted
       command = Command.resolve(c, env: env, frames: frames)
       # closers = local_ios.values

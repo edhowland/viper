@@ -33,6 +33,13 @@ function xx() {
 }
 EOS
     run xx, @vm
+    jj = <<-EOS
+function jj(aa) {
+  eq :aa 11 || return false
+  return true
+}
+EOS
+    run jj, @vm
   end
   def test_first_arg_is_zero
     result = run 'for i in  0 1 2 3', @vm
@@ -59,5 +66,9 @@ EOS
     run 'echo hi > /v/xx', @vm
     f = get_path @vm, '/v/xx'
     assert_is f, StringIO
+  end
+  def test_variable_deref
+    result = run 'cc=11; jj :cc', @vm
+    assert result
   end
 end
