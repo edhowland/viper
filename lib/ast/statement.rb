@@ -18,7 +18,7 @@ class Statement
   def perform_redirs(ctx, env:, frames:)
     ctx.reject do |e|
       redirectable?(e) &&
-        redirect(e, env: env, frames: frames)
+        redirect(e, env: env, frames: frames).nil?
                end
   end
 

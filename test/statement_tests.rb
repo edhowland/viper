@@ -3,6 +3,10 @@
 require_relative 'test_helper'
 
 class StatementTest < BaseSpike
+  def parse string
+    b = Visher.parse! string
+    b.statement_list.first
+  end
   def set_up
     @vm = VirtualMachine.new
     block = Visher.parse! 'mount /v;mkdir /v/bin;install'
@@ -39,5 +43,31 @@ class StatementTest < BaseSpike
     c = Visher.parse! 'false'
     assert_false @vm.call c
     end
+  end
+  def test_redir_is_present
+    s = parse 'echo hello > /v/xx'
+    assert_eq s.context.map(&:ordinal), [COMMAND, COMMAND, REDIR]
+  end
+  def test_perform_redirs
+    s = parse 'echo hello > /v/xx'
+    ctx = s.perform_redirs s.context, env:@vm.ios, frames:@vm.fs
+    assert_eq ctx.length, 2
+  end
+  def test_perform_assigns
+    s = parse 'aa=11 echo hello > /v/xx'
+    ctx = s.perform_assigns s.context, env:@vm.ios, frames:@vm.fs
+    assert_eq ctx.length, 3
+  end
+  def test_perform_derefs
+    s = parse 'echo :prompt'
+    ctx = s.perform_derefs s.context, env:@vm.ios, frames:@vm.fs
+    assert_eq ctx, ['echo', 'vish', '>']
+  end
+  def test_perform_all
+    s = parse '> /v/xx aa=bb echo :prompt'
+    ctx = s.perform_redirs s.context, env:@vm.ios, frames:@vm.fs
+    ctx = s.perform_assigns ctx, env:@vm.ios, frames:@vm.fs
+    ctx = s.perform_derefs ctx, env:@vm.ios, frames:@vm.fs
+    assert_eq ctx, ['echo', 'vish', '>']
   end
 end
