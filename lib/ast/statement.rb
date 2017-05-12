@@ -41,7 +41,27 @@ class Statement
     ctx = perform_assigns ctx, env:env, frames:frames
     perform_derefs ctx, env:env, frames:frames
   end
+
+  def bump_frames env:, frames:, &blk
+    env.push
+    frames.push
+    yield env, frames
+    ensure
+      env.pop
+      frames.pop
+  end
   
+  def wrap_streams env:, frames:, &blk
+      closers = open_redirs env: env
+      begin
+      yield env, frames
+    ensure
+    fail 'nil found for closers' if closers.nil?
+      close_redirs closers  
+    end
+  end
+
+  # prepare context and resolve command or function and call with args and env
   def execute env:, frames:
       local_vars = frames
       local_vars.push
