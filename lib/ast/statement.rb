@@ -62,29 +62,21 @@ class Statement
   end
 
   # prepare context and resolve command or function and call with args and env
+  # This eventually becomes def call
+  # MISSInG: TODO: add alias handling
   def execute env:, frames:
-      local_vars = frames
-      local_vars.push
-      local_ios = env
-      local_ios.push
-
-    ctx = prepare @context, env: local_ios, frames: local_vars
-          c, *args = ctx
+    result = true
+    bump_frames(env:env, frames:frames) do |ios, fs|
+      ctx = prepare @context, env: ios, frames: fs
+      c, *args = ctx
     # TODO: Is this correct? Shouldn't use local_ios and local_vars
       command = Command.resolve(c, env: env, frames: frames)
-      # closers = local_ios.values
-      # local_ios.top.each_pair {|k, v| local_ios[k] = v.open }
-      closers = open_redirs env: local_ios
-      begin
-        result = command.call(*args, env: local_ios, frames: local_vars)
-      ensure
-        # closers.each {|f| f.close }
-        close_redirs closers
-        local_ios.pop
-        local_vars.pop
+      wrap_streams(env:ios, frames:fs) do |ios, fs|
+        result = command.call(*args, env: ios, frames: fs)
+      end
+    end
         frames[:exit_status] = result
         frames.first[:pipe_status] = [result]
-      end
       result
   end
 
