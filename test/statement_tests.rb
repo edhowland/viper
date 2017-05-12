@@ -177,4 +177,33 @@ class StatementTest < BaseSpike
     result = s.execute env:@vm.ios, frames:@vm.fs
     assert result
   end
+  def test_execute_returns_false
+    s = parse 'false'
+    result = s.execute env:@vm.ios, frames:@vm.fs
+    assert_false result
+  end
+  def test_execute_sets_exit_status
+    s = parse 'false'
+    s.execute env:@vm.ios, frames:@vm.fs
+    assert_false @vm.fs[:exit_status]
+    assert_eq @vm.fs[:pipe_status], [false]
+  end
+  def test_execute_w_assignments
+    s = parse 'aa=bb nop'
+    @vm.fs[:aa] = ''
+    s.execute env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.fs[:bb], ''
+  end
+  def test_execute_w_local_assigns_can_globalize_them
+    s = parse 'aa=bb global aa'
+        s.execute env:@vm.ios, frames:@vm.fs
+        assert_eq @vm.fs[:aa], 'bb'
+  end
+  def test_execute_w_redir_to_stdout
+    s = parse '> /v/xx echo hello'
+            s.execute env:@vm.ios, frames:@vm.fs
+    vroot = @vm.fs[:vroot]
+    assert_eq vroot['/v/xx'].string, "hello\n"
+
+  end
 end
