@@ -14,6 +14,19 @@ class Statement
     @line_number = line_number
   end
   attr_reader :context, :line_number
+
+  def command_ndx
+    @context.index {|e| e.ordinal == COMMAND }
+  end
+
+  def has_alias?(frames:)
+    ndx = command_ndx
+    unless ndx.nil?
+      !frames.aliases[@context[ndx].to_s].nil?
+    else
+      false
+    end
+  end
   # given context array, perform any redirections, remove them and return ctx
   def perform_redirs(ctx, env:, frames:)
     ctx.reject do |e|
@@ -85,6 +98,13 @@ class Statement
     block = Visher.parse! string
     block.call env: env, frames: frames
     frames.vm.seen.pop
+  end
+  def thing(env:, frames:)
+    if has_alias?(frames: frames)
+      call_expanded(env: env, frames: frames)
+    else
+      execute(env: env, frames: frames)
+    end
   end
 
   # sort the @context array by ordinal numbertake any command args and move them

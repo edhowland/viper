@@ -206,4 +206,40 @@ class StatementTest < BaseSpike
     assert_eq vroot['/v/xx'].string, "hello\n"
 
   end
+  def test_command_ndx
+    s = parse 'echo hello'
+    assert_eq s.command_ndx, 0
+  end
+  def test_command_ndx_w_preceeding_stuff
+    s = parse 'aa=bb > xx echo hello'
+    assert_eq s.command_ndx, 2
+  end
+  def test_command_ndx_w_no_command_returns_nil
+    s = parse 'aa=bb'
+    assert_nil s.command_ndx
+  end
+  def test_has_alias_is_false_when_no_command
+    s = parse 'aa=bb'
+    assert_false s.has_alias?(frames:@vm.fs)
+  end
+  def test_has_alias_w_command_is_not_aliased
+    s = parse 'aa=bb > xx echo hello'
+    assert_false s.has_alias?(frames:@vm.fs)
+  end
+  def test_has_alias_w_aliased_e_is_echo
+    @vm.fs.aliases['e'] = 'echo'
+    s = parse 'e hello'
+    assert s.has_alias?(frames:@vm.fs)
+  end
+  def test_doit_w_true_returns_true
+    s = parse 'true'
+    result = s.thing env:@vm.ios, frames: @vm.fs
+    assert result
+  end
+  def test_thing_w_f_is_false_returns_false
+    @vm.fs.aliases['f'] = 'false'
+    s = parse 'f'
+    result = s.thing(env: @vm.ios, frames: @vm.fs)
+    assert_false result
+  end
 end
