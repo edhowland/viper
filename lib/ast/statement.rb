@@ -27,6 +27,25 @@ class Statement
       false
     end
   end
+
+  def expand_alias(frames:)
+    str = @context[command_ndx].to_s
+    frames.aliases[str]
+  end
+
+  def embed_alias(frames:)
+    str = expand_alias(frames: frames)
+    lit = StringLiteral.new str
+    @context[command_ndx] = lit
+    @context.map(&:to_s).join(' ')
+  end
+  
+  def expand_and_call(env:, frames:)
+    block = Visher.parse!(embed_alias(frames: frames))
+    block.call(env: env, frames: frames)
+  end
+
+
   # given context array, perform any redirections, remove them and return ctx
   def perform_redirs(ctx, env:, frames:)
     ctx.reject do |e|
@@ -101,7 +120,7 @@ class Statement
   end
   def thing(env:, frames:)
     if has_alias?(frames: frames)
-      call_expanded(env: env, frames: frames)
+      expand_and_call(env: env, frames: frames)
     else
       execute(env: env, frames: frames)
     end

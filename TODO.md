@@ -2,18 +2,14 @@
 
 Version : Viper 1.99-rc0
 
-Rubocop stuff
-command: rubo.todo.cop
-individual command: rubo.todo.cop -D lib/... /... .rb
-Current line in .rubocop_todo.yml:
-~ 155 
-Add tests for rangify
---- Skipping over global variables for now
+Major reimplementation of Statement class
+  >> current thing stands in for def call
+  >> implements alias and non-alias statements w/redirection and variable assignments
+  >> TODO: handle recursive alias references
+  >> alias foo=bar; alias bar=baz; alias baz=foo
+  >> 'foo' will raise new RecursiveAliasError
 
-Implement new option: -B, --boot
-  >> This runs boot script : etc/vishrc, then if -s scripts, if present
-  >> Implemented -R --run options to run any loaded scripts then exit
-  >> Must implement -V, --viper ... loads entire set of editor scripts
+
 Major Bug:
 Bug: in scratch mode, when quiting, still asks to save full path.
   >> Identify scratch buffers w/  .nosave in /v/buf/jsk3rf  buffer name

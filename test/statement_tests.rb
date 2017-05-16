@@ -236,6 +236,41 @@ class StatementTest < BaseSpike
     result = s.thing env:@vm.ios, frames: @vm.fs
     assert result
   end
+  def test_alias_f_false_seen_w_has_alias
+        @vm.fs.aliases['f'] = 'false'
+    s = parse 'f'
+    assert s.has_alias?(frames: @vm.fs)
+  end
+  def test_expand_laias_w_f_false
+            @vm.fs.aliases['f'] = 'false'
+    s = parse 'f'
+    result = s.expand_alias(frames: @vm.fs)
+    assert_eq result, 'false'
+  end
+  def test_expand_alias_w_complicated_expansion
+    @vm.fs.aliases['nonce'] = 'echo hello; echo world'
+    s = parse 'nonce'
+    result = s.expand_alias(frames: @vm.fs)
+    assert_eq result, 'echo hello; echo world'
+  end
+  def test_embed_alias_returns_new_statement_string
+    @vm.fs.aliases['e'] = 'echo'
+    s = parse '< xx aa=bb > yy e hello'
+    result = s.embed_alias(frames: @vm.fs)
+    assert_eq result, '< xx aa=bb > yy echo hello'
+  end
+  def test_embed_alias_w_multi_statement_alias
+    @vm.fs.aliases['c'] = 'cat | cat >'
+    s = parse  '< xx c vv'
+    result = s.embed_alias(frames: @vm.fs)
+    assert_eq result, '< xx cat | cat > vv'
+  end
+  def test_expand_and_call
+    @vm.fs.aliases['f'] = 'false'
+    s = parse 'f'
+    result = s.expand_and_call(env: @vm.ios, frames: @vm.fs)
+    assert_false result
+  end
   def test_thing_w_f_is_false_returns_false
     @vm.fs.aliases['f'] = 'false'
     s = parse 'f'
