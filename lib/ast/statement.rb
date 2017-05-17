@@ -6,6 +6,12 @@
 
 require_relative 'context_constants'
 
+class AliasStackTooDeep < RuntimeError
+  def initialize message='Alias stack too deep'
+    super message
+  end
+end
+
 class Statement
   include Redirectable
 
@@ -44,7 +50,12 @@ class Statement
   end
   
   def expand_and_call(env:, frames:)
-    frames.vm.seen.push expand_alias(frames: frames)
+    al = expand_alias(frames: frames)
+    if frames.vm.seen.member? al
+      frames.vm.seen.clear
+      raise AliasStackTooDeep.new
+    end
+    frames.vm.seen.push al
     block = Visher.parse!(embed_alias(frames: frames))
     result = block.call(env: env, frames: frames)
     frames.vm.seen.pop

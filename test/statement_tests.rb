@@ -313,4 +313,13 @@ class StatementTest < BaseSpike
     result = s.call(env: @vm.ios, frames: @vm.fs)
     assert_false result
   end
+  def test_recursive_alias_calls_raise_alias_stack_too_deep
+    @vm.fs.aliases['foo'] = 'bar'
+    @vm.fs.aliases['bar'] = 'baz'
+    @vm.fs.aliases['baz'] = 'echo bad juju;foo'
+    s = parse 'foo'
+    assert_raises AliasStackTooDeep do
+      s.call(env: @vm.ios, frames: @vm.fs)
+    end
+  end
 end
