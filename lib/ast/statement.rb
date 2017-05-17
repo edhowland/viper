@@ -35,14 +35,17 @@ class Statement
 
   def embed_alias(frames:)
     str = expand_alias(frames: frames)
-    lit = StringLiteral.new str
+    lit = Glob.new str
     @context[command_ndx] = lit
     @context.map(&:to_s).join(' ')
   end
   
   def expand_and_call(env:, frames:)
+    frames.vm.seen.push expand_alias(frames: frames)
     block = Visher.parse!(embed_alias(frames: frames))
-    block.call(env: env, frames: frames)
+    result = block.call(env: env, frames: frames)
+    frames.vm.seen.pop
+    result
   end
 
 

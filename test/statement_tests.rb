@@ -37,6 +37,7 @@ class StatementTest < BaseSpike
     block = Visher.parse! 'mount /v;mkdir /v/bin;install'
     @vm.call block
   end
+  attr_accessor :vm
   def test_stub_works
     stub m: 1 do |o|
       assert_eq o.m, 1
@@ -269,6 +270,41 @@ class StatementTest < BaseSpike
     @vm.fs.aliases['f'] = 'false'
     s = parse 'f'
     result = s.expand_and_call(env: @vm.ios, frames: @vm.fs)
+    assert_false result
+  end
+  def test_expand_and_call_w_non_recursive_alias
+    @vm.fs.aliases['foo'] = 'bar'
+    @vm.fs.aliases['bar'] = 'baz'
+    @vm.fs.aliases['baz'] = 'nop'
+    s = parse 'foo'
+    result = s.expand_and_call(env: @vm.ios, frames:@vm.fs)
+    assert result
+  end
+  def test_execute_w_function_declaration
+        blk = Visher.parse! 'function baz() { return false }'
+    @vm.call blk
+    s = parse 'baz'
+    result = s.execute(env: @vm.ios, frames: @vm.fs)
+    assert_false result
+  end
+  def test_foo_alias_to_baz_is_a_function
+            blk = Visher.parse! 'function baz() { return false }'
+    @vm.call blk
+    @vm.fs.aliases['foo'] = 'baz'
+    s = parse 'foo'
+    result = s.has_alias?(frames: @vm.fs)
+    assert result
+    result = s.thing(env: @vm.ios, frames: @vm.fs)
+    assert_false result
+  end
+  def test_foo_w_function_declaration_w_aliases
+    #skip 'examine this'
+    blk = Visher.parse! 'function baz() { return false }'
+    @vm.call blk
+    @vm.fs.aliases['foo'] = 'baq'
+    @vm.fs.aliases['baq'] = 'baz'
+    s = parse 'foo'
+    result = s.thing env: @vm.ios, frames: @vm.fs
     assert_false result
   end
   def test_thing_w_f_is_false_returns_false
