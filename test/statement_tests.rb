@@ -234,7 +234,7 @@ class StatementTest < BaseSpike
   end
   def test_doit_w_true_returns_true
     s = parse 'true'
-    result = s.thing env:@vm.ios, frames: @vm.fs
+    result = s.call env:@vm.ios, frames: @vm.fs
     assert result
   end
   def test_alias_f_false_seen_w_has_alias
@@ -294,7 +294,7 @@ class StatementTest < BaseSpike
     s = parse 'foo'
     result = s.has_alias?(frames: @vm.fs)
     assert result
-    result = s.thing(env: @vm.ios, frames: @vm.fs)
+    result = s.call(env: @vm.ios, frames: @vm.fs)
     assert_false result
   end
   def test_foo_w_function_declaration_w_aliases
@@ -304,13 +304,13 @@ class StatementTest < BaseSpike
     @vm.fs.aliases['foo'] = 'baq'
     @vm.fs.aliases['baq'] = 'baz'
     s = parse 'foo'
-    result = s.thing env: @vm.ios, frames: @vm.fs
+    result = s.call env: @vm.ios, frames: @vm.fs
     assert_false result
   end
   def test_thing_w_f_is_false_returns_false
     @vm.fs.aliases['f'] = 'false'
     s = parse 'f'
-    result = s.thing(env: @vm.ios, frames: @vm.fs)
+    result = s.call(env: @vm.ios, frames: @vm.fs)
     assert_false result
   end
 end

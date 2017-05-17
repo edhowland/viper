@@ -24,7 +24,11 @@ class Exec < BaseCommand
         env[:err].puts "got: #{node.class.name}"
         return false
       end
-      result = node.call(*args, env: env, frames: frames)
+      if node.instance_of? Block
+        result = node.call(env: env, frames: frames)
+      else
+        result = node.call(*args, env: env, frames: frames)
+      end
     when nil
       env[:err].puts 'exec: first argument must not be nil'
       return false

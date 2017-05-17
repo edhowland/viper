@@ -39,7 +39,7 @@ del_word_fwd :_buf
 cat < :_buf | ifs='x' read result
 assert_eq ":{result}" ' world'
 }
-function test_mark_cut_releases_mark() {
+function x_test_mark_cut_releases_mark() {
   echo hello_world_sailor | ins :_buf
   beg :_buf
   fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
@@ -62,3 +62,18 @@ function test_w_no_mark_raise_w_cut() {
   fin :_buf
   back :_buf; back :_buf
 }
+function x_test_simple_apply() {
+  echo hello | ins :_buf
+  beg :_buf
+  _mode=viper applyf move_right
+}
+function test_apply_key_d() {
+  echo hello | ins :_buf
+  apply key_d
+}
+function test_new_fn() {
+  function dim(key) { exec "/v/modes/:{_mode}/:{key}" jj }
+  scratch
+  _mode=viper dim fn_2
+}
+

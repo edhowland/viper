@@ -14,7 +14,10 @@ class Statement
     @line_number = line_number
   end
   attr_reader :context, :line_number
-
+  
+  # comment these out to restore old call method
+ # alias_method :old_call, :call
+#  alias_method :call, :_call
   def command_ndx
     @context.index {|e| e.ordinal == COMMAND }
   end
@@ -97,8 +100,6 @@ class Statement
   end
 
   # prepare context and resolve command or function and call with args and env
-  # This eventually becomes def call
-  # MISSInG: TODO: add alias handling
   def execute env:, frames:
     result = true
     bump_frames(env:env, frames:frames) do |ios, fs|
@@ -121,7 +122,8 @@ class Statement
     block.call env: env, frames: frames
     frames.vm.seen.pop
   end
-  def thing(env:, frames:)
+  # def thing
+  def _call(env:, frames:)
     if has_alias?(frames: frames)
       expand_and_call(env: env, frames: frames)
     else
@@ -187,4 +189,9 @@ class Statement
   def to_s
     @context.map(&:to_s).join(' ')
   end
+ 
+  # comment these out to restore old call method functionality 
+     alias_method :old_call, :call
+  alias_method :call, :_call
+
 end
