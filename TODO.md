@@ -11,8 +11,6 @@ Major reimplementation of Statement class
 
 
 Major Bug:
-Bug: in scratch mode, when quiting, still asks to save full path.
-  >> Identify scratch buffers w/  .nosave in /v/buf/jsk3rf  buffer name
 Bug: Going to end of command buffer raises uncaught BufferExceeded
 Bug: :oldpwd is not being set. also cd - does not work
   >> :oldpwd is being set to :pwd after cd ...

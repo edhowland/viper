@@ -8,9 +8,13 @@ function buf_names() {
 function scratch(say) {
 ss=:(count &(c) { echo :c | grep -q scratch  } :(buf_names))
 ns=:(expr 1 '+' :ss)
-pth="/v/buf/scratch:{ns}"
-open :(basename :pth)
+pth="scratch:{ns}"
+open :pth
+touch ":{_buf}/.no_ask2_save"
 test -z :say || echo -n buffer is now :(basename :pth)
+}
+function ask2_save(buf) {
+  not { test -f ":{buf}/.no_ask2_save" }
 }
 function is_dirty(buf) {
   not { eq :(cat < ":{buf}/.digest") :(digest_sha1 < :buf) }

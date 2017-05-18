@@ -77,6 +77,6 @@ function test_new_fn() {
   _mode=viper dim fn_2
 }
 function test_should_ask2_save() {
-  ask2_save
+  ask2_save :_buf
     assert_true :exit_status
 }

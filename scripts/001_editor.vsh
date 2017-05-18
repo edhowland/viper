@@ -211,4 +211,4 @@ function g(num) {
   line :_buf
 }
 alias buffer='apply fn_2'
-alias ask2_save='not { test -f ":{_buf}/.no_ask2_save" }'
+
