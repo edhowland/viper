@@ -207,6 +207,8 @@ function buffer_name() {
   eq 1 :(same_count) || pathname
 }
 function g(num) {
-  goto :_buf :num
+  goto :_buf :num | nop
+  line :_buf
 }
 alias buffer='apply fn_2'
+alias ask2_save='not { test -f ":{_buf}/.no_ask2_save" }'

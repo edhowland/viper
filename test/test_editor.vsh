@@ -76,4 +76,7 @@ function test_new_fn() {
   scratch
   _mode=viper dim fn_2
 }
-
+function test_should_ask2_save() {
+  ask2_save
+    assert_true :exit_status
+}

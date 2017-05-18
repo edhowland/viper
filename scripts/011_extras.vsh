@@ -1,6 +1,12 @@
 alias snips='echo available snippets are; (b=:(pathmap "%f" :_ext); cd "/v/macros/:{b}"; ls)'
+function base_buffer(buf) {
+  basename :(cat < ":{buf}/.pathname")
+}
+function buf_names() {
+  map &(x) { base_buffer :x } :(buffers)
+}
 function scratch(say) {
-ss=:(cd /v/buf; count &(c) { not { eq 'scratch*' :c } } scratch*)
+ss=:(count &(c) { echo :c | grep -q scratch  } :(buf_names))
 ns=:(expr 1 '+' :ss)
 pth="/v/buf/scratch:{ns}"
 open :(basename :pth)
