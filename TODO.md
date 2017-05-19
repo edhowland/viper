@@ -11,9 +11,8 @@ Major reimplementation of Statement class
 
 
 Major Bug:
-Bug: Going to end of command buffer raises uncaught BufferExceeded
 Bug: :oldpwd is not being set. also cd - does not work
-  >> :oldpwd is being set to :pwd after cd ...
+:oldpwd is being set to :pwd after cd ...
 
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
@@ -24,15 +23,12 @@ Bug: better error handle of trying to open a directory
 Current Task:
 
 A. Make test/all_test.vsh work within bin/viper
-  >> Move attic/Rakefile to ./Rakefile. 
     >>>> Make kpeg compile work within lib/vish
-    >>>> Check current Rakefile for things... Probably just runs old specs
   >> Copy old debugging support to somewhere
 
 
 
 Notes:
-Should implement pwd method in lib/runtime/hal.rb via method_missing
 :: objects returned from various ...Facade  class, must implement the print method (and the write method?)
 
 Remember Vish is a Bash-clone: This means spaces are significant esp. when dereferencing variables
@@ -44,23 +40,18 @@ Remember Vish is a Bash-clone: This means spaces are significant esp. when deref
 #->(env: _, frames: _) { puts }
 
 Addded  keys:
-  meta_less - bound to outdent range
-  meta_greater - bound to indent range
-  meta_number - will be bound to comment range
-indenting/outdenting, commenting commands:
+# indenting/outdenting, commenting commands:
 in <mark> will indent to previous mark
 out <mark> will outdent to previous mark
 cmt <mark> will comment all lines to previous mark
-Evaluate buffer:
+
+# Evaluate buffer:
 In command mode: 
 evalvsh - Will parse and evaluate contents of buffer: :_buf
 echo some Vish stuff | vsh_parse varname - ; eval :varname - parse and evaluate stdin
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 
-> added meta_r, meta_f to goto previous, next mark based on :_mark
-> These can be undone/redone
-> Added meta_m + (printable) - sets named mark at current char
 
 meta_d captures key, _clip and _sup for undo and macro playback
 Added meta_p: reports absolute current position
@@ -74,15 +65,13 @@ In normal viper editor:
 Use 'vish' fn to enter into interactive shell from command mode
   >> Use 'vip' to return to viper mode in current buffer
 
-meta+d, c will call fn clear_line. clears contents of line without deleting the line
-  > For future use in ctrl_d in command mode
 
 F3, fn_3 reports on existing meta modes. Changed from meta_m
 
 Investigations:
 Investigate: Is Vsh redundant for eval statement?
   > If so, then replace vsh w/eval
-----
+# --
 Outstanding bugs, new features
 Bug: -c does not work to check .vsh syntax ... investigate
 Bug: in command mode/commander mode: ctrl_d should not just push vip on modestack
@@ -90,8 +79,6 @@ Bug: in command mode/commander mode: ctrl_d should not just push vip on modestac
   > Then apply ctrl_m so correct thing happens in loop
 Feature: Remove buf_node: BufNode < VFSNode.
   >> make mkbuf extend mknode or mkdir and add new Buffer to buffer key
-Feature/Bug: Make the echo be both builtin and a real command in /v/bin.
-  >> This conforms to Bash like behaviour.
 Feature: add -f option to unset command to remove functions
   > Possible enhancement: allow for the function hash to be a part of the frame stack
   > ... Would for functions to within functions, and go out of scope when left
