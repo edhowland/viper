@@ -57,6 +57,16 @@ mkdir /v/modes/:{m}
 mkdir /v/views/:{m} 
 mkdir /v/klogs/:{m}
 }
+function printable() {
+uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'
+echo :lc :uc :nu :pu1 :pu2 :pu3 :pu4
+}
+function mode_keys() {
+for i in :_ {
+key=:(echo -n :i | xfkey)
+bind :key &() { ins :_buf :i } &() { echo -n :i }
+}
+}
 mkmode viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
@@ -70,16 +80,6 @@ _mode=viper
 loop {
 fn=:(raw -|xfkey)
   (key_exists :fn && apply :fn) || echo key :fn is not bound 
-}
-}
-function printable() {
-uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'
-echo :lc :uc :nu :pu1 :pu2 :pu3 :pu4
-}
-function mode_keys() {
-for i in :_ {
-key=:(echo -n :i | xfkey)
-bind :key &() { ins :_buf :i } &() { echo -n :i }
 }
 }
 function apply_times(n, key) {
