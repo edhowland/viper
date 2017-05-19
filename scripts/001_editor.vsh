@@ -69,11 +69,16 @@ bind :key &() { ins :_buf :i } &() { echo -n :i }
 }
 mkmode init
 _mode=init mode_keys :(printable)
-mkmode viper
+function clone_init(m) {
+  cp /v/modes/init "/v/modes/:{m}"
+  cp /v/views/init "/v/views/:{m}"
+  cp /v/klogs/init "/v/klogs/:{m}"
+}
+clone_init viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
-mkmode search
-mkmode command
+clone_init search
+clone_init command
 indent=2; global indent
 pglines=10; global pglines
 function vip() {

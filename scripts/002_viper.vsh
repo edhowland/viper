@@ -6,7 +6,6 @@ function del_cut() {
 (mark_exists :_buf && cut_mark) || del_char
 }
 mkdir /v/macros/viper
-_mode=viper mode_keys :(printable)
 kname=:(echo -n ' '|xfkey)
 _mode=viper bind :kname { ins :_buf ' ' } { echo -n space }
 _mode=viper bind move_down { capture { down :_buf; line :_buf } { bell } } { cat }

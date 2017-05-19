@@ -1,7 +1,6 @@
 mkbuf /v/command
 mkarray /v/command/bufstack
 mkarray /v/command/modestack
-_mode=command mode_keys :(printable)
 function com() {
 true;_status=:exit_status;global _status
 loop {
