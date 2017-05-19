@@ -67,6 +67,8 @@ key=:(echo -n :i | xfkey)
 bind :key &() { ins :_buf :i } &() { echo -n :i }
 }
 }
+mkmode init
+_mode=init mode_keys :(printable)
 mkmode viper
 mkdir /v/modes/viper/metadata; mkarray /v/modes/viper/metadata/buffers
 mkmode delete
