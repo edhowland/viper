@@ -48,5 +48,5 @@ bell && return false
 function do_delete() {
 key=:(raw -|xfkey)
 _sup=:key; global _sup
-perform_delete :key
+capture { perform_delete :key } { bell }
 }
