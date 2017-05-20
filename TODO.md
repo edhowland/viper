@@ -17,7 +17,6 @@ Bug: :oldpwd is not being set. also cd - does not work
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
-Bug: find command does not work properly
 
 Bug: better error handle of trying to open a directory
 Current Task:
