@@ -20,3 +20,4 @@ _mode=viper mkhelp fn_3 F3 asks for key and speaks its action
 _mode=viper mkhelp fn_2 F2 speaks the name of the current buffer with possible star if it is modifie
 _mode=viper mkhelp fn_1 F1 speaks the status of the editor with number of buffers open
 _mode=viper mkhelp fn_4 F4 Sets the default mark underline at the current character position
+_mode=viper mkhelp meta_semicolon Enters command returns after commands have been entered and executed
