@@ -1,5 +1,4 @@
 mkdir /v/keys/viper
-echo F3 asks for keypress and displays help message > /v/keys/viper/fn_3
 function help_key(key) {
   pth="/v/keys/:{_mode}/:{key}"
   ifelse { test -f :pth } { 
@@ -13,4 +12,7 @@ function key_prompt() {
 }
 function help() {
   echo in help
+}
+function mkhelp(key) {
+  echo :_ > "/v/keys/:{_mode}/:{key}"
 }
