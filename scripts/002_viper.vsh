@@ -107,7 +107,7 @@ _mode=viper bind ctrl_n { scratch true } { cat }
 ignore_undo ctrl_n
 _mode=viper bind fn_1 { buffers | wc -l } { echo -n Viper Editor buffers :(cat) }
 ignore_undo fn_1
-_mode=viper bind fn_3 { meta_modes } { echo  meta modes; cat }
+_mode=viper bind fn_3 { key_prompt } { cat }
 ignore_undo fn_3
 _mode=viper bind meta_p { position :_buf } { echo -n position :(cat) }
 _mode=viper bind meta_period { apply :(peek_keylog) } { cat }
