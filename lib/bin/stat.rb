@@ -17,10 +17,14 @@ class Stat < FlaggedCommand
     else
       root = frames[:vroot]
       node = root[path]
-      out.puts node.to_s
+      if node.respond_to? :identy
+        message = node.identy
+      else
+        message = :to_s
+      end
+      out.puts node.send message
     end
         true
-
     end
   end
 
