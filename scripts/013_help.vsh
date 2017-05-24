@@ -14,7 +14,7 @@ function help() {
   echo in help
 }
 function mkhelp(key) {
-  echo :_ > "/v/keys/:{_mode}/:{key}"
+  echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
 function load_key_help() {
   json -r "/v/keys/:{_mode}" < ":{_mode}.json"
