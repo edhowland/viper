@@ -10,7 +10,11 @@ def to_vfs(parent, name, h)
     node[k] = if Hash === v
                 to_vfs(node, k, v)
               else
-                v
+                if v.instance_of? String
+                  StringIO.new(v)
+                else
+                  v
+                end
               end
   end
   node
