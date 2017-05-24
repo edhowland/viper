@@ -22,3 +22,4 @@ function load_key_help() {
 function save_key_help() {
   json "/v/keys/:{_mode}" > ":{vhome}/doc/keys/:{_mode}.json"
 }
+_mode=viper load_key_help
