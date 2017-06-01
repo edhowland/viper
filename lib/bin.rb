@@ -63,3 +63,5 @@ require_relative 'bin/vsh_parse'
 require_relative 'bin/vsh'
 require_relative 'bin/wc'
 require_relative 'bin/xfkey'
+require_relative 'bin/hunt'
+

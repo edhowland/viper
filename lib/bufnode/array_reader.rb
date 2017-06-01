@@ -5,6 +5,8 @@ class ArrayReader
     @io = io
   end
 
+  attr_accessor :io
+
   def read
     @io.join('')
   end
