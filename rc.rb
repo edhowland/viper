@@ -86,15 +86,17 @@ def readme
 end
 
 def doit
-  p = start
-  text = readme
   arr = []
+  p = start arr
+  text = readme
   p.render text
+  arr
 end
 
 
 
-def types arr
+# gets the class of each item in arr
+def blocks arr
   arr.map(&:class)
 end
 binding.pry
