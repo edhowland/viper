@@ -23,13 +23,18 @@ class MdBlock
   end
 end
 
-
 class Para < MdBlock
   #
 end
 
 class Head < MdBlock
-  #
+  def initialize type, contents
+    @type = type
+    super contents
+  end
+  def to_s
+    "Heading #{@type} #{@contents}"
+  end
 end
 
 class ListType < MdBlock
@@ -37,6 +42,9 @@ class ListType < MdBlock
     @type = type
   end
   attr_reader :type
+  def to_s
+    "List #{@type.to_s}"
+  end
 end
 
 class ListItem < MdBlock
@@ -46,7 +54,7 @@ class ListItem < MdBlock
   end
   attr_reader :contents, :type
   def to_s
-    "#{type} #{contents}"
+    @contents
   end
 end
 
@@ -57,7 +65,7 @@ class MdRender < Redcarpet::Render::Base
   end
   attr_accessor :storage
   def header(text, level)
-    storage << Head.new( "Heading level #{level} #{text}")
+    storage << Head.new(level, text)
     ''
   end
   def paragraph(text)
