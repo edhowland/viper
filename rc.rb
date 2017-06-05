@@ -13,28 +13,64 @@
 # list_item does not yet work
 require 'redcarpet'
 
+class MdBlock
+  def initialize text
+    @contents = text
+  end
+
+  def to_s
+    @contents
+  end
+end
+
+
+class Para < MdBlock
+  #
+end
+
+class Head < MdBlock
+  #
+end
+
 class MdRender < Redcarpet::Render::Base
+  def initialize
+    @storage =  []
+    super
+  end
+  attr_accessor :storage
   def header(text, level)
-    "Heading level #{level} #{text}\n"
+    storage << Head.new( "Heading level #{level} #{text}")
+    ''
   end
   def paragraph(text)
-    text + "\n"
+    storage << Para.new(text)
+    ''
   end
   def list(contents, type)
-    "List #{type}\n"
+    #    "List #{type}\n"
+    nil
   end
   def list_item(text, type)
     "bullet #{text}\n"
   end
 end
 
-def start
-  Redcarpet::Markdown.new(MdRender.new)
+def start storage=[]
+  rend = MdRender.new
+  rend.storage = storage
+    Redcarpet::Markdown.new(rend)
 end
 
 
 def readme
   File.read('r.md')
+end
+
+def doit
+  p = start
+  text = readme
+  arr = []
+  p.render text
 end
 
 binding.pry
