@@ -32,6 +32,24 @@ class Head < MdBlock
   #
 end
 
+class ListType < MdBlock
+  def initialize type
+    @type = type
+  end
+  attr_reader :type
+end
+
+class ListItem < MdBlock
+  def initialize type, contents
+    @type = type
+    @contents = contents
+  end
+  attr_reader :contents, :type
+  def to_s
+    "#{type} #{contents}"
+  end
+end
+
 class MdRender < Redcarpet::Render::Base
   def initialize
     @storage =  []
@@ -47,11 +65,12 @@ class MdRender < Redcarpet::Render::Base
     ''
   end
   def list(contents, type)
-    #    "List #{type}\n"
-    nil
+    storage << ListType.new(type)
+    ''
   end
   def list_item(text, type)
-    "bullet #{text}\n"
+    storage << ListItem.new(type, text)
+    ''
   end
 end
 
@@ -73,4 +92,9 @@ def doit
   p.render text
 end
 
+
+
+def types arr
+  arr.map(&:class)
+end
 binding.pry
