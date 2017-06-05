@@ -26,6 +26,7 @@ Some limited testing has been done on the Mac's OS/X Terminal.app. YMMV!
 3 list item 3
 
 
+___
 
 - First item
 - Second item

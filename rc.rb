@@ -27,6 +27,12 @@ class Para < MdBlock
   #
 end
 
+class HRule < MdBlock
+  def to_s
+    'Horizontal Rule'
+  end
+end
+
 class Head < MdBlock
   def initialize type, contents
     @type = type
@@ -66,6 +72,10 @@ class MdRender < Redcarpet::Render::Base
   attr_accessor :storage
   def header(text, level)
     storage << Head.new(level, text)
+    ''
+  end
+  def hrule
+    storage << HRule.new('')
     ''
   end
   def paragraph(text)
