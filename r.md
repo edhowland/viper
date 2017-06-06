@@ -34,6 +34,6 @@ ___
 - Fourth item
 
 
-```
+```ruby
 This is a code block
 ```

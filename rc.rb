@@ -45,7 +45,13 @@ end
 
 
 class Code < MdBlock
-  #
+  def initialize code, lang
+    @code = code
+    @lang = lang
+  end
+  def to_s
+    "Code #{@lang}\n#{@code}"
+  end
 end
 
 class ListType < MdBlock
@@ -80,7 +86,7 @@ class MdRender < Redcarpet::Render::Base
     ''
   end
   def block_code(code, language)
-    storage << Code.new(code)
+    storage << Code.new(code, language)
     ''
   end
   def hrule
