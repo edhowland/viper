@@ -56,11 +56,12 @@ class Footnote < MdBlock
   #
 end
 
-class Code < MdBlock
+class BlockCode < MdBlock
   def initialize code, lang
     @code = code
     @lang = lang
   end
+  attr_reader :code, :lang
   def to_s
     "Code #{@lang}\n#{@code}"
   end
@@ -133,7 +134,7 @@ class MdRender < Redcarpet::Render::Base
     ''
   end
   def block_code(code, language)
-    storage << Code.new(code, language)
+    storage << BlockCode.new(code, language)
     ''
   end
   def hrule
@@ -185,4 +186,10 @@ end
 def blocks arr
   arr.map(&:class)
 end
+# types returns items of that klass (class)
+def types(klass, arr)
+  arr.select {|e| klass === e }
+end
+
+
 binding.pry
