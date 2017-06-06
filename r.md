@@ -37,3 +37,16 @@ ___
 ```ruby
 This is a code block
 ```
+
+
+> This is a block quote
+> This is still the same block quote
+> and this is as well
+
+
+This is a sentence .[1]
+
+
+[1]: This is a footnote.
+
+

@@ -44,7 +44,13 @@ class Head < MdBlock
 end
 
 class BlockQuote < MdBlock
-  #
+  def initialize quote
+    @quote = quote
+  end
+  attr_reader :quote
+  def to_s
+    "Blockquote #{@quote}"
+  end
 end
 class Footnote < MdBlock
   #
@@ -91,7 +97,7 @@ class MdRender < Redcarpet::Render::Base
     storage << Head.new(level, text)
     ''
   end
-  def block_quote quote
+  def block_quote(quote)
     storage << BlockQuote.new(quote)
     ''
   end
@@ -124,7 +130,7 @@ end
 def start storage=[]
   rend = MdRender.new
   rend.storage = storage
-    Redcarpet::Markdown.new(rend, :fenced_code_blocks => true, :disable_indented_code_blocks => true)
+    Redcarpet::Markdown.new(rend, :fenced_code_blocks => true, :disable_indented_code_blocks => true, :footnotes =>true)
 end
 
 
