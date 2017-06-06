@@ -43,6 +43,11 @@ class Head < MdBlock
   end
 end
 
+
+class Code < MdBlock
+  #
+end
+
 class ListType < MdBlock
   def initialize type
     @type = type
@@ -72,6 +77,10 @@ class MdRender < Redcarpet::Render::Base
   attr_accessor :storage
   def header(text, level)
     storage << Head.new(level, text)
+    ''
+  end
+  def block_code(code, language)
+    storage << Code.new(code)
     ''
   end
   def hrule
