@@ -95,7 +95,7 @@ end
 def start storage=[]
   rend = MdRender.new
   rend.storage = storage
-    Redcarpet::Markdown.new(rend)
+    Redcarpet::Markdown.new(rend, :fenced_code_blocks => true, :disable_indented_code_blocks => true)
 end
 
 
