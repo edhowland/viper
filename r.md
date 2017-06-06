@@ -25,6 +25,9 @@ Some limited testing has been done on the Mac's OS/X Terminal.app. YMMV!
 2 list item 2
 3 list item 3
 
+This is a praragraph with a link embedded in it
+Here it is: [https://github.com/edhowland/viper_ruby](https://github.com/edhowland/viper_ruby)
+Did we se it?
 
 ___
 

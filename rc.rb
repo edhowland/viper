@@ -87,6 +87,33 @@ class ListItem < MdBlock
   end
 end
 
+
+# Scan level elements
+
+class MdSpan
+  def initialize contents
+    @contents = contents
+  end
+
+  attr_accessor :contents
+
+  def to_s
+    "#{@contents}"
+  end
+end
+
+class Link < MdSpan
+  def initialize link, title, content
+    @link = link
+    @title = title
+    @contents = content
+  end
+  attr_reader :link, :title, :content
+  def to_s
+    "Link #{title} #{link} #{content}"
+  end
+end
+
 class MdRender < Redcarpet::Render::Base
   def initialize
     @storage =  []
@@ -123,6 +150,12 @@ class MdRender < Redcarpet::Render::Base
   end
   def list_item(text, type)
     storage << ListItem.new(type, text)
+    ''
+  end
+  
+  # scan level elements
+  def link(link, title, content) 
+    storage << Link.new(link, title, content)
     ''
   end
 end
