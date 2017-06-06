@@ -43,6 +43,12 @@ class Head < MdBlock
   end
 end
 
+class BlockQuote < MdBlock
+  #
+end
+class Footnote < MdBlock
+  #
+end
 
 class Code < MdBlock
   def initialize code, lang
@@ -83,6 +89,14 @@ class MdRender < Redcarpet::Render::Base
   attr_accessor :storage
   def header(text, level)
     storage << Head.new(level, text)
+    ''
+  end
+  def block_quote quote
+    storage << BlockQuote.new(quote)
+    ''
+  end
+   def footnote_def(content, number)
+    storage << Footnote.new(content)
     ''
   end
   def block_code(code, language)
