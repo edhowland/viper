@@ -19,4 +19,17 @@ class HuntTests < BaseSpike
     assert_eq @array.length, 1
     assert_is @array.first, BlockHead
   end
+  def test_can_parse_para
+    @parser.render "This is some text\n"
+    assert_is @array.first, Para
+  end
+  def test_can_parse_code_blocks
+    @parser.render "```\nthis is code\n```\n"
+    assert_is @array.first, BlockCode
+  end
+  def test_can_parse_ul_lists
+    @parser.render "- item 1\n- item 2\n"
+    assert_eq @array.length, 3
+    assert_eq @array.map(&:class), [ListItem, ListItem, ListType]
+  end
 end
