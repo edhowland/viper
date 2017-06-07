@@ -1,6 +1,7 @@
 # md_parse.rb - tests for MdBlock, MdSpan, etc
 
 require_relative 'test_helper'
+require_relative '../lib/api/md_block'
 
 
 

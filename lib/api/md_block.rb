@@ -152,3 +152,10 @@ class MdRender < Redcarpet::Render::Base
     ''
   end
 end
+
+
+def parse_md storage=[]
+  rend = MdRender.new
+  rend.storage = storage
+    Redcarpet::Markdown.new(rend, :fenced_code_blocks => true, :disable_indented_code_blocks => true, :footnotes =>true)
+end
