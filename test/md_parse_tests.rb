@@ -38,4 +38,11 @@ class HuntTests < BaseSpike
     assert_is @array[0], Link
     assert_is @array[1], Para
   end
+  def test_can_parse_blockquote
+    @parser.render "> quote line 1\n> line 2\n"
+    assert_eq @array.length, 2
+    assert_is @array[1], BlockQuote
+    #assert_eq @array[1].to_s, ''
+    assert_eq @array[1].quote, ''
+  end
 end

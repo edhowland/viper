@@ -117,8 +117,11 @@ class MdRender < Redcarpet::Render::Base
     storage << BlockHead.new(level, text)
     ''
   end
-  def block_quote(quote)
-    storage << BlockQuote.new(quote)
+
+  # FIXME: Redcarpet gem seems to put contents into Para element, and this text
+  # param is empty string
+  def block_quote(text)
+    storage << BlockQuote.new(text)
     ''
   end
    def footnote_def(content, number)
