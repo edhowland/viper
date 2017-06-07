@@ -25,6 +25,8 @@ require_relative 'trait_tests'
 require_relative 'context_tests'
 require_relative 'identy_tests'
 require_relative 'hunt_tests'
+require_relative 'md_parse_tests'
+
 
 
 

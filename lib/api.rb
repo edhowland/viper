@@ -18,3 +18,5 @@ require_relative 'api/character_traits'
 require_relative 'api/regexify'
 require_relative 'api/rangify'
 require_relative 'api/head_or_all'
+require_relative 'api/md_block'
+
