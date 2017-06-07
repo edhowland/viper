@@ -32,4 +32,10 @@ class HuntTests < BaseSpike
     assert_eq @array.length, 3
     assert_eq @array.map(&:class), [ListItem, ListItem, ListType]
   end
+  def test_can_parse_link
+    @parser.render '[https://github.com/edhowland/viper_ruby](https://github.com/edhowland/viper_ruby)'
+    assert_eq @array.length, 2
+    assert_is @array[0], Link
+    assert_is @array[1], Para
+  end
 end
