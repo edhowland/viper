@@ -1,6 +1,8 @@
 # hunt_test.rb - tests for  command hunt - searches class and rotates array
 
 require_relative 'test_helper'
+require_relative '../lib/api/md_block'
+
 
 class HuntTest < BaseSpike
   def set_up

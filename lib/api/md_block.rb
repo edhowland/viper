@@ -25,7 +25,7 @@ class HRule < MdBlock
   end
 end
 
-class Head < MdBlock
+class BlockHead < MdBlock
   def initialize type, contents
     @type = type
     super contents
@@ -114,7 +114,7 @@ class MdRender < Redcarpet::Render::Base
   end
   attr_accessor :storage
   def header(text, level)
-    storage << Head.new(level, text)
+    storage << BlockHead.new(level, text)
     ''
   end
   def block_quote(quote)
