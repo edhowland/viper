@@ -45,4 +45,8 @@ class HuntTests < BaseSpike
     #assert_eq @array[1].to_s, ''
     assert_eq @array[1].quote, ''
   end
+  def test_hrule_creates_hrule_object
+    @parser.render "___\n"
+    assert_is @array.first, HRule
+  end
 end
