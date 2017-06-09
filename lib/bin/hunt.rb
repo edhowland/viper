@@ -3,8 +3,9 @@
 
 class Hunt < FlaggedCommand
   def initialize
-    super(flags: {'-r' => false}) do |inp, out, err, flags, *args|
+    super(flags: {'-r' => false}) do |inp, out, err, frames, flags, *args|
       arr, klass_s = args
+#binding.pry
       arr = Hal.open(arr, 'r').io
       klass = Kernel.const_get klass_s
       offset = arr.index {|e| klass === e }
