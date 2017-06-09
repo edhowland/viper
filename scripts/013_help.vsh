@@ -24,6 +24,8 @@ function help() {
     echo -n back to previous mode :_mode
 }
 _mode=help bind key_space { rotate /v/help/001_help; peek /v/help/001_help } { cat }
+_mode=help bind ctrl_i { hunt /v/help/001_help BlockHead; peek /v/help/001_help } { cat }
+_mode=help bind key_backspace { rotate -r /v/help/001_help ; peek /v/help/001_help } { cat }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
