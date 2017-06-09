@@ -11,7 +11,12 @@ function key_prompt() {
   help_key :key
 }
 function help() {
-  echo in help
+  echo -n Now in help loop
+  _mode=help loop {
+      key=:(raw - |xfkey)
+      eq :key escape && break
+    }
+    echo -n back to previous mode :_mode
 }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
