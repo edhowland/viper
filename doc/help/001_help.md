@@ -9,4 +9,5 @@ Press Tab or down arrow to go to the next topic.
 This is the help browser. You can move around via the arrow keys on thekeyboard.
 Alternatively,  you can use the space bar to proceed to the next item or backpace to return to previous item.
 You can use Tab to advance to the next topic or back tab to return the previous topic.
- 
+You can exit help at any time by pressing the Escape key.
+
