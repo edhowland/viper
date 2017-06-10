@@ -25,9 +25,13 @@ function help() {
     echo -n back to previous mode :_mode
 }
 _mode=help bind key_space { rotate :_help; peek :_help } { cat }
+_mode=help bind move_right { rotate :_help; peek :_help } { cat }
 _mode=help bind ctrl_i { hunt :_help BlockHead; peek :_help } { cat }
+_mode=help bind move_down { hunt :_help BlockHead; peek :_help } { cat }
 _mode=help bind key_backtab { hunt -r :_help BlockHead; peek :_help } { cat }
+_mode=help bind move_up { hunt -r :_help BlockHead; peek :_help } { cat }
 _mode=help bind key_backspace { rotate -r :_help; peek :_help } { cat }
+_mode=help bind move_left { rotate -r :_help; peek :_help } { cat }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
