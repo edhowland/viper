@@ -8,13 +8,17 @@ class Hunt < FlaggedCommand
 #binding.pry
       arr = Hal.open(arr, 'r').io
       klass = Kernel.const_get klass_s
-      offset = arr.index {|e| klass === e }
+    fwd arr, klass
+      true
+    end
+  end
+
+  def fwd arr, klass
+          offset = arr.index {|e| klass === e }
       if offset.zero?
         arr.rotate!
         offset = arr.index {|e| klass === e }
       end      
     arr.rotate!(offset)
-      true
-    end
   end
 end
