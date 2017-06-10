@@ -13,9 +13,10 @@ function key_prompt() {
   help_key :key
 }
 function help() {
-  mdparse ":{vhome}/doc/help/001_help.md" /v/help/001_help
+  _help=/v/help/001_help
+  mdparse ":{vhome}/doc/help/001_help.md" :_help
   echo -n Now in help loop
-  peek /v/help/001_help
+  peek :_help
   _mode=help loop {
       key=:(raw - |xfkey)
       eq :key escape && break
@@ -23,10 +24,10 @@ function help() {
     }
     echo -n back to previous mode :_mode
 }
-_mode=help bind key_space { rotate /v/help/001_help; peek /v/help/001_help } { cat }
-_mode=help bind ctrl_i { hunt /v/help/001_help BlockHead; peek /v/help/001_help } { cat }
-_mode=help bind key_backtab { hunt -r /v/help/001_help BlockHead; peek /v/help/001_help } { cat }
-_mode=help bind key_backspace { rotate -r /v/help/001_help ; peek /v/help/001_help } { cat }
+_mode=help bind key_space { rotate :_help; peek :_help } { cat }
+_mode=help bind ctrl_i { hunt :_help BlockHead; peek :_help } { cat }
+_mode=help bind key_backtab { hunt -r :_help BlockHead; peek :_help } { cat }
+_mode=help bind key_backspace { rotate -r :_help; peek :_help } { cat }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
