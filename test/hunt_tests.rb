@@ -18,9 +18,15 @@ class HuntTest < BaseSpike
     assert_eq arr.first, 'world'
   end
   def test_hunt_reverse_actually_reverses_array
-    skip 'until refactor'
-    @cmd.call '-r', '/v/xx', String, env: @vmios, frames: @vm.fs
-    arr = Hal.open('/v/xx', 'r').io
-    assert_eq array.first, 'sailor'
+    #skip 'until refactor'
+    @cmd.call '-r', '/v/xx', 'String', env: @vm.ios, frames: @vm.fs
+    array = Hal.open('/v/xx', 'r').io
+    assert_eq array.first.to_s, 'sailor'
+  end
+  def test_back_works
+      array = Hal.open('/v/xx', 'r').io
+
+    @cmd.back array, String
+    assert_eq array.first.to_s, 'sailor'
   end
 end

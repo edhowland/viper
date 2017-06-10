@@ -8,7 +8,11 @@ class Hunt < FlaggedCommand
 #binding.pry
       arr = Hal.open(arr, 'r').io
       klass = Kernel.const_get klass_s
-    fwd arr, klass
+      if flags['-r']
+        back arr, klass
+      else
+        fwd arr, klass
+      end
       true
     end
   end
@@ -20,5 +24,10 @@ class Hunt < FlaggedCommand
         offset = arr.index {|e| klass === e }
       end      
     arr.rotate!(offset)
+  end
+  def back arr, klass
+    offset = arr.rindex {|e| klass === e}
+    rotation = (arr.length - offset) * -1
+    arr.rotate!(rotation)
   end
 end
