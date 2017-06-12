@@ -19,3 +19,5 @@ You can exit help at any time by pressing the Escape key.
 - Tab or Down arrow : Advances to next Topic or Heading. Cycles around to first  Heading if at end of document.
 - Backtab or Up arrow : Returns to previous heading or Topic
 - Control L : Repeats the last spoken text of the current item
+- Shift Page Up : Moves to first element in the current document
+- Shift Page Down : Moves to the last element in the current document
