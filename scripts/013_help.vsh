@@ -33,6 +33,8 @@ _mode=help bind move_up { hunt -r :_help BlockHead; peek :_help } { cat }
 _mode=help bind key_backspace { rotate -r :_help; peek :_help } { cat }
 _mode=help bind move_left { rotate -r :_help; peek :_help } { cat }
 _mode=help bind ctrl_l { peek :_help } { cat }
+_mode=help bind move_shift_pgup { hunt -t :_help Para; peek :_help } { cat }
+_mode=help bind move_shift_pgdn { hunt -t :_help MdBlock; hunt -r :_help MdBlock; peek :_help } { cat }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
