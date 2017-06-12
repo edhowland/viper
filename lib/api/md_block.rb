@@ -76,7 +76,7 @@ class ListItem < MdBlock
   end
   attr_reader :contents, :type
   def to_s
-    @contents
+    'Bullet ' + @contents
   end
 end
 

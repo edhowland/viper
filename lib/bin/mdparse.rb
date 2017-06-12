@@ -9,6 +9,7 @@ class Mdparse < BaseCommand
     parser = parse_md(array)
     file = File.read(fname)
     parser.render file
+    array.reject! {|e| ListType === e }
     st = Store.new
     st.call array, apath, env: env, frames: frames
     true
