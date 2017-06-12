@@ -29,4 +29,14 @@ class HuntTest < BaseSpike
     @cmd.back array, String
     assert_eq array.first.to_s, 'sailor'
   end
+  def test_dash_t_hunts_to_top
+    array = Hal.open('/v/xx', 'r').io
+    array.clear
+    bh = BlockHead.new(1, 'First')
+    bh.top = true
+    array.unshift bh
+    array.rotate!(-2)
+    @cmd.call '-t', '/v/xx', 'String', env: @vm.ios, frames: @vm.fs
+    assert_eq array.first.to_s, 'Heading 1 First'
+  end
 end
