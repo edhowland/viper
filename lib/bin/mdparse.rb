@@ -10,6 +10,7 @@ class Mdparse < BaseCommand
     file = File.read(fname)
     parser.render file
     array.reject! {|e| ListType === e }
+    array.first.top = true unless array.empty?
     st = Store.new
     st.call array, apath, env: env, frames: frames
     true

@@ -1,14 +1,17 @@
 # md_block.rb - class MdBlock, MdSpan - containers for Redcarpet parsing
 #
 # BUGS:
-# list_item does not yet work
+# list_item does not yet work for OL or ordedered items. Could be test Markdown doc
 
 require 'redcarpet'
 
 class MdBlock
   def initialize text
     @contents = text
+    @top = false
   end
+  
+  attr_accessor :top
 
   def to_s
     @contents

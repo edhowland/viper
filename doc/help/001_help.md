@@ -14,8 +14,8 @@ You can exit help at any time by pressing the Escape key.
 ### Help Browser Keys
 
 - Escape : Exits help browser and returns to previous session
-- Space : Advances to next item or parargraph
-- Backspace : Returns to previous item or paragraph
-- Tab : Advances to next Topic or Heading. Cycles around to first  Heading if at end of document.
-- Backtab : Returns to previous heading or Topic
+- Space or Right arrow : Advances to next item or parargraph
+- Backspace or Left arrow : Returns to previous item or paragraph
+- Tab or Down arrow : Advances to next Topic or Heading. Cycles around to first  Heading if at end of document.
+- Backtab or Up arrow : Returns to previous heading or Topic
 - Control L : Repeats the last spoken text of the current item
