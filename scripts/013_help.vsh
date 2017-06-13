@@ -12,10 +12,11 @@ function key_prompt() {
   key=:(raw - | xfkey)
   help_key :key
 }
-function help() {
-  _help=/v/help/001_help
-  mdparse ":{vhome}/doc/help/001_help.md" :_help
-  echo -n Now in help loop
+function help(doc) {
+  test -z :doc && doc=help
+  _help="/v/help/:{doc}"
+  global _help
+  mdparse ":{vhome}/doc/help/:{doc}.md" :_help
   peek :_help
   _mode=help loop {
       key=:(raw - |xfkey)
