@@ -25,7 +25,6 @@ function help(doc) {
   _mode=help loop {
       key=:(raw - |xfkey)
       eq :key escape && break
-      eq :key key_s && (help_parse vish; _help=/v/help/vish; global _help)
       apply :key
     }
     echo -n back to previous mode :_mode
@@ -41,10 +40,13 @@ _mode=help bind move_left { rotate -r :_help; peek :_help } { cat }
 _mode=help bind ctrl_l { peek :_help } { cat }
 _mode=help bind move_shift_pgup { hunt -t :_help Para; peek :_help } { cat }
 _mode=help bind move_shift_pgdn { hunt -t :_help MdBlock; hunt -r :_help MdBlock; peek :_help } { cat }
-_mode=help bind key_v { help_parse viper; unset _help; _help=/v/help/viper; global _help; peek :_help } { cat; _help=/v/help/viper; global _help }
-_mode=help bind key_h { help_parse help; unset _help; _help=/v/help/help; global _help; peek :_help } { cat }
-_mode=help bind key_c { help_parse command; unset _help; _help=/v/help/command; global _help; peek :_help } { cat }
-_mode=help bind key_s { nop } { nop; pry }
+function help_qlaunch(doc) {
+  help_parse :doc; unset _help; _help="/v/help/:{doc}"; global _help
+}
+_mode=help bind key_v { help_qlaunch viper;  peek :_help } { cat }
+_mode=help bind key_h { help_qlaunch help; peek :_help } { cat }
+_mode=help bind key_c { help_qlaunch command; peek :_help } { cat }
+_mode=help bind key_s { help_qlaunch vish; peek :_help } { cat }
 _mode=help bind fn_2 { echo -n Help Document ':' :(basename :_help) } { cat }
 _mode=help bind ctrl_q { exit } { nop }
 _mode=help bind fn_1 { xxx=hello; global xxx } { nop }

@@ -18,6 +18,7 @@ You can quickly go to another help document via these keys:
 - v : Launch Viper Editor help
 - h : Launch Help for Help browser
 - c : Launch help for Command mode
+- s : Launch Vish shell help
 
 ### Help Browser Keys
 
