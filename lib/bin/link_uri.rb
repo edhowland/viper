@@ -3,7 +3,11 @@
 
 class LinkUri < BaseCommand
   def call *args, env:, frames:
-    raise 'Nothing to link to yet'
+    path = args.first
+    array = Hal.open(path, 'r').io
+    item = array.first
+    raise 'No link here' unless Link === item
+    env[:out].puts item.link
     true
   end
 end

@@ -51,7 +51,8 @@ _mode=help bind fn_2 { echo -n Help Document ':' :(basename :_help) } { cat }
 _mode=help bind ctrl_q { exit } { nop }
 _mode=help bind fn_1 { xxx=hello; global xxx } { nop }
 _mode=help exec {
-  bind ctrl_space { capture { link_uri :_help } { perr :last_exception } { echo -n ' ' } } { cat }
+  bind ctrl_space { capture { help_qlaunch :(link_uri :_help); peek :_help } { perr :last_exception } { echo -n ' ' } } { cat }
+  bind key_k { help_qlaunch keys; peek :_help } { cat }
 }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
