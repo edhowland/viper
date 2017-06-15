@@ -42,8 +42,9 @@ class Xfkey < BaseCommand
 
       return true
     end
-    # check for possible meta key
+    # check for possible meta key or additional values
     meta_keys = {
+      [0] => 'ctrl_space',
       [226, 132, 162] => 'meta_2',
       [195, 184] => 'meta_o',
       [226, 136, 130] => 'meta_d',
