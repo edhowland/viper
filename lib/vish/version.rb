@@ -2,6 +2,7 @@
 
 class Vish
   VERSION = '1.99-rc0'.freeze
+  RELEASE = 'Cleo'.freeze
   DESCRIPTION = <<-EOD.freeze
 Viper version #{Vish::VERSION}
 Runs scripts in the Vish command language  implement a code editor.

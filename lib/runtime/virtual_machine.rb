@@ -29,6 +29,7 @@ class VirtualMachine
     @fs[:prompt] = 'vish >'
     @fs[:oldpwd] = Hal.pwd
     @fs[:version] = Vish::VERSION
+    @fs[:release] = Vish::RELEASE
     @fs[:ifs] = ' '
     @fs[:ofs] = ' '
     @fs[:_debug] = false
