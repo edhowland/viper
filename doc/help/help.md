@@ -16,6 +16,7 @@ You can exit help at any time by pressing the Escape key.
 You can quickly go to another help document via these keys:
 
 - v : Launch Viper Editor help
+- k : Launch keys help for editor mode
 - h : Launch Help for Help browser
 - c : Launch help for Command mode
 - s : Launch Vish shell help
