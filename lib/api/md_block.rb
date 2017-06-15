@@ -99,14 +99,14 @@ class MdSpan
 end
 
 class Link < MdSpan
-  def initialize link, title, content
+  def initialize link, title, description
     @link = link
     @title = title
-    @contents = content
+    @description = description
   end
-  attr_reader :link, :title, :content
+  attr_reader :link, :title, :description
   def to_s
-    "Link #{title} #{link} #{content}"
+    "#{@description} : #{@link}"
   end
 end
 
@@ -153,9 +153,9 @@ class MdRender < Redcarpet::Render::Base
   end
   
   # scan level elements
-  def link(link, title, content) 
-    storage << Link.new(link, title, content)
-    ''
+  def link(link, title, description) 
+    storage << Link.new(link, title, description)
+    "Contents: #{description} Title: #{title} Link: #{link}"
   end
 end
 

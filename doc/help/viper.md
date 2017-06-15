@@ -8,7 +8,9 @@ You can exit this help browser by pressing the Escape key.
 
 The following list of keys list Viper editor actions. They are listed in decreasing order of 
 frequency of use. E.g. Saving and quiting, followed by 
-less common activities.
+less common activities. The complete list
+can be examined by following this link: [Keys for Viper Editor](keys)
+
 
 - Control S : Save the current buffer
 - Control Q : Quit the editor, asking to ask to save any unsaved buffers.
