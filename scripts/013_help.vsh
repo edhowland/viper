@@ -2,7 +2,7 @@ mkdir /v/help
 mkdir /v/history
 mkarray /v/history/help
 mkmode help
-mkdir /v/keys/viper
+each &(mode) { mkdir "/v/keys/:{mode}" } viper help
 function help_hist(doc, ignore) {
   eq :ignore ignore || (echo :doc | enq /v/history/help)
     }
@@ -71,3 +71,4 @@ function save_key_help() {
   json "/v/keys/:{_mode}" > ":{vhome}/doc/keys/:{_mode}.json"
 }
 _mode=viper load_key_help
+_mode=help load_key_help
