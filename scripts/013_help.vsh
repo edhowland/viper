@@ -1,4 +1,6 @@
 mkdir /v/help
+mkdir /v/history
+mkarray /v/history/help
 mkmode help
 mkdir /v/keys/viper
 function help_key(key) {
@@ -42,6 +44,7 @@ _mode=help bind move_shift_pgup { hunt -t :_help Para; peek :_help } { cat }
 _mode=help bind move_shift_pgdn { hunt -t :_help MdBlock; hunt -r :_help MdBlock; peek :_help } { cat }
 function help_qlaunch(doc) {
   help_parse :doc; unset _help; _help="/v/help/:{doc}"; global _help
+    echo :doc | enq /v/history/help
 }
 _mode=help bind key_v { help_qlaunch viper;  peek :_help } { cat }
 _mode=help bind key_h { help_qlaunch help; peek :_help } { cat }
