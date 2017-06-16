@@ -123,6 +123,7 @@ _mode=viper bind meta_greater { indent_line :_buf } { echo -n line indented }
 _mode=viper bind meta_less { outdent_line :_buf } { echo -n line outdented }
 _mode=viper bind meta_number { comment_line :_buf } {line :_buf  }
 _mode=viper bind meta_3 { uncomment_line :_buf } { line :_buf }
+_mode=viper bind meta_h { nop } { help }
 function search_vip_rev() {
 searcher
 compose_srch_cmd srch_back

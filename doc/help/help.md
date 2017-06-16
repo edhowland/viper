@@ -4,6 +4,9 @@ This is main help document for the Viper code editor. Presss Escape at any time 
 Press space or right arrow to proceed to the next item.
 Press Tab or down arrow to go to the next topic.
 
+This help browser can be reached from the main Viper editor session by Alt h.
+Alternatively, you can enter command mode via alt semicolon. Then type help and Return.
+
 ## Help for Help
 
 This is the help browser. You can move around via the arrow keys on thekeyboard.
@@ -30,6 +33,9 @@ You can quickly go to another help document via these keys:
 - Tab or Down arrow : Advances to next Topic or Heading. Cycles around to first  Heading if at end of document.
 - Backtab or Up arrow : Returns to previous heading or Topic
 - Control L : Repeats the last spoken text of the current item
+- Control space : On a link, proceeds to this page
+- Right bracket : Returns to the previous page, if any.
+- Left bracket : Proceeds to next document in history, if any.
 - Shift Page Up : Moves to first element in the current document
 - Shift Page Down : Moves to the last element in the current document
 

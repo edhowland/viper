@@ -19,8 +19,18 @@ See below for explanations of modes, key names, control actions and view actions
 
 ## Key names
 
-## Control actions
+When keys are pressed, they are converted into canonical key name strings. The general syntax is key type underscore key value.
+E.g Control A would be ctrl_a. And Function 9 would be fn_9.
+See below for canonical key type names, along with some examples:
 
+
+- key_ : Normal printable ASCII characters. E.g. key_a, key_B, key_period, key_lbracket
+- ctrl_ : Control. E.g. ctrl_a, ctrl_space, etc.
+- meta_ : Alt keys. E.g. meta_d, meta_comma
+- fn_ : Function keys. E.g. fn_1, fn_2, fn_3 ... fn_12
+- move_ : Movement keys. E.g. move_left, move_up, move_shift_home, move_shift_pgdn
+
+## Control actions
 
 ## View actions
 

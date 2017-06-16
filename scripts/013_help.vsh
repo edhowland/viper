@@ -46,6 +46,7 @@ _mode=help bind move_shift_pgdn { hunt -t :_help MdBlock; hunt -r :_help MdBlock
 function help_qlaunch(doc, ignore) {
   help_parse :doc; unset _help; _help="/v/help/:{doc}"; global _help
   help_hist :doc :ignore
+  echo -n now in; _mode=help apply fn_2
 }
 _mode=help bind key_v { help_qlaunch viper;  peek :_help } { cat }
 _mode=help bind key_h { help_qlaunch help; peek :_help } { cat }
@@ -58,6 +59,7 @@ _mode=help exec {
   bind ctrl_space { capture { help_qlaunch :(link_uri :_help); peek :_help } { perr :last_exception } { echo -n ' ' } } { cat }
   bind key_k { help_qlaunch keys; peek :_help } { cat }
   bind key_rbracket { rotate /v/history/help; help_qlaunch :(peek /v/history/help) ignore; peek :_help } { cat }
+  bind key_lbracket { rotate -r /v/history/help; help_qlaunch :(peek /v/history/help) ignore; peek :_help } { cat }
 }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
