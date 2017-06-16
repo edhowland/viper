@@ -60,6 +60,7 @@ _mode=help exec {
   bind key_k { help_qlaunch keys; peek :_help } { cat }
   bind key_rbracket { rotate /v/history/help; help_qlaunch :(peek /v/history/help) ignore; peek :_help } { cat }
   bind key_lbracket { rotate -r /v/history/help; help_qlaunch :(peek /v/history/help) ignore; peek :_help } { cat }
+  bind fn_3 { key_prompt } { cat }
 }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
