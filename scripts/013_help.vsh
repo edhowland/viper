@@ -3,6 +3,9 @@ mkdir /v/history
 mkarray /v/history/help
 mkmode help
 mkdir /v/keys/viper
+function help_hist(doc, ignore) {
+  eq :ignore ignore || (echo :doc | enq /v/history/help)
+    }
 function help_key(key) {
   pth="/v/keys/:{_mode}/:{key}"
   ifelse { test -f :pth } { 
@@ -40,9 +43,9 @@ _mode=help bind move_left { rotate -r :_help; peek :_help } { cat }
 _mode=help bind ctrl_l { peek :_help } { cat }
 _mode=help bind move_shift_pgup { hunt -t :_help Para; peek :_help } { cat }
 _mode=help bind move_shift_pgdn { hunt -t :_help MdBlock; hunt -r :_help MdBlock; peek :_help } { cat }
-function help_qlaunch(doc) {
+function help_qlaunch(doc, ignore) {
   help_parse :doc; unset _help; _help="/v/help/:{doc}"; global _help
-    echo :doc | enq /v/history/help
+  help_hist :doc :ignore
 }
 _mode=help bind key_v { help_qlaunch viper;  peek :_help } { cat }
 _mode=help bind key_h { help_qlaunch help; peek :_help } { cat }
@@ -54,6 +57,7 @@ _mode=help bind fn_1 { xxx=hello; global xxx } { nop }
 _mode=help exec {
   bind ctrl_space { capture { help_qlaunch :(link_uri :_help); peek :_help } { perr :last_exception } { echo -n ' ' } } { cat }
   bind key_k { help_qlaunch keys; peek :_help } { cat }
+  bind key_rbracket { rotate /v/history/help; help_qlaunch :(peek /v/history/help) ignore; peek :_help } { cat }
 }
 function mkhelp(key) {
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
