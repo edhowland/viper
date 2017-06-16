@@ -20,9 +20,7 @@ function help_parse(doc) {
 }
 function help(doc) {
   test -z :doc && doc=help
-  _help="/v/help/:{doc}"
-  global _help
-  help_parse :doc
+  help_qlaunch :doc
   peek :_help
   _mode=help loop {
       key=:(raw - |xfkey)
