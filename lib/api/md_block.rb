@@ -10,16 +10,21 @@ class MdBlock
     @contents = text
     @top = false
   end
-  
+
   attr_accessor :top
 
+  def expand
+    self
+  end
   def to_s
     @contents
   end
 end
 
 class Para < MdBlock
-  #
+  def expand
+    @contents.split /\{|\}/
+  end
 end
 
 class HRule < MdBlock
@@ -113,9 +118,21 @@ end
 class MdRender < Redcarpet::Render::Base
   def initialize
     @storage =  []
+    @links = {}
     super
   end
-  attr_accessor :storage
+  attr_accessor :storage, :links
+
+  # expands @storage into subnodes, thens flattens them
+  def expand
+  return @storage if @storage.empty?
+    @storage.first.top = true 
+    @storage.reject! {|e| ListType === e }
+
+    @storage.map(&:expand).flatten
+  end
+
+  # render actions called from Redcarpet parser
   def header(text, level)
     storage << BlockHead.new(level, text)
     ''
@@ -154,14 +171,15 @@ class MdRender < Redcarpet::Render::Base
   
   # scan level elements
   def link(link, title, description) 
-    storage << Link.new(link, title, description)
-    "Contents: #{description} Title: #{title} Link: #{link}"
+    #storage << Link.new(link, title, description)
+    cnt = @links.keys.length
+    @links[cnt] =  Link.new(link, title, description)
+    "{#{cnt}}"
   end
 end
 
 
-def parse_md storage=[]
-  rend = MdRender.new
+def parse_md storage=[], rend = MdRender.new
   rend.storage = storage
     Redcarpet::Markdown.new(rend, :fenced_code_blocks => true, :disable_indented_code_blocks => true, :footnotes =>true)
 end

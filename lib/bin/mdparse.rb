@@ -6,11 +6,13 @@ class Mdparse < BaseCommand
   def call(*args, env:, frames:)
     fname, apath = args
     array = []
-    parser = parse_md(array)
+    rend = MdRender.new
+    parser = parse_md(array, rend)
     file = File.read(fname)
     parser.render file
-    array.reject! {|e| ListType === e }
-    array.first.top = true unless array.empty?
+    rend = parser.renderer
+    array = rend.expand
+
     st = Store.new
     st.call array, apath, env: env, frames: frames
     true
