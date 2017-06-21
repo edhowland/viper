@@ -184,7 +184,7 @@ class MdRender < Redcarpet::Render::Base
   def link(link, title, description) 
     #storage << Link.new(link, title, description)
     cnt = @links.keys.length
-    @links[cnt] =  Link.new(link, title, description)
+    @links[cnt.to_s] =  Link.new(link, title, description)
     "{#{cnt}}"
   end
 end
