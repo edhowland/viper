@@ -137,7 +137,7 @@ class MdRender < Redcarpet::Render::Base
 
     @storage.reject! {|e| ListType === e }
 
-    @storage = @storage.map(&:expand).flatten
+    @storage = @storage.map(&:expand).flatten.map {|e| @links[e] || e }
         @storage.each {|e| e.extend Toppable }
     @storage.first.top = true
     @storage
