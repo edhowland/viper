@@ -5,13 +5,23 @@
 
 require 'redcarpet'
 
+module Toppable
+  def top= value
+    @top = value
+  end
+
+  def top?
+    !! @top
+  end
+end
+
 class MdBlock
   def initialize text
     @contents = text
-    @top = false
+    #@top = false
   end
 
-  attr_accessor :top
+  #attr_accessor :top
 
   def expand
     self
@@ -126,10 +136,13 @@ class MdRender < Redcarpet::Render::Base
   # expands @storage into subnodes, thens flattens them
   def expand
   return @storage if @storage.empty?
-    @storage.first.top = true 
+
     @storage.reject! {|e| ListType === e }
 
-    @storage.map(&:expand).flatten
+    @storage = @storage.map(&:expand).flatten
+        @storage.each {|e| e.extend Toppable }
+    @storage.first.top = true
+    @storage
   end
 
   # render actions called from Redcarpet parser

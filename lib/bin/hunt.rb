@@ -33,7 +33,7 @@ class Hunt < FlaggedCommand
     arr.rotate!(rotation)
   end
   def top array
-    offset = array.index {|e| e.top }
+    offset = array.index {|e| e.top? }
     array.rotate!  offset
   end
 end

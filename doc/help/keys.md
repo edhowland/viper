@@ -11,6 +11,7 @@ Users are free to bind these to new actions. [Go to binding keys help](bind)
 
 - Control A  : Selects all text of current buffer
 - Control B : Unbound
+
 ## Movement keys
 
 ## Function keys
