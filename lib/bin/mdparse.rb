@@ -5,9 +5,7 @@
 class Mdparse < BaseCommand
   def call(*args, env:, frames:)
     fname, apath = args
-    array = []
-    rend = MdRender.new
-    parser = parse_md(array, rend)
+    parser = parse_md
     file = File.read(fname)
     parser.render file
     rend = parser.renderer

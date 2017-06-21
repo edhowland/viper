@@ -18,10 +18,8 @@ end
 class MdBlock
   def initialize text
     @contents = text
-    #@top = false
   end
 
-  #attr_accessor :top
 
   def expand
     self
