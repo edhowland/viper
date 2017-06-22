@@ -3,7 +3,7 @@
 require_relative 'test_helper'
 #require_relative '../lib/api/md_block'
 
-class HuntTests < BaseSpike
+class MdParseTests < BaseSpike
   def set_up
     @array = []
         @parser = parse_md(@array)
@@ -34,13 +34,17 @@ class HuntTests < BaseSpike
   end
   def test_can_parse_link
     @parser.render '[https://github.com/edhowland/viper_ruby](https://github.com/edhowland/viper_ruby)'
-    assert_eq @array.length, 2
-    assert_is @array[0], Link
-    assert_is @array[1], Para
+    rend = @parser.renderer
+    arr = rend.expand
+    assert_eq arr.length, 2
+    assert_is arr[1], Link
+    assert_is arr[0], String
   end
   def test_link_has_description
     @parser.render '[description](url)'
-    assert_eq @array.first.description, 'description'
+    rend = @parser.renderer
+    arr = rend.expand
+    assert_eq arr[1].description, 'description'
   end
   def test_can_parse_blockquote
     @parser.render "> quote line 1\n> line 2\n"

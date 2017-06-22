@@ -33,6 +33,7 @@ class HuntTest < BaseSpike
     array = Hal.open('/v/xx', 'r').io
     array.clear
     bh = BlockHead.new(1, 'First')
+    bh.extend Toppable
     bh.top = true
     array.unshift bh
     array.rotate!(-2)
