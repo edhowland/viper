@@ -5,7 +5,7 @@ Control keys, Movement keys, Function keys and Alt keys.
 Within each group, all items are sorted alphanumerically
 
 Unbound keys are listed as : Unbound. 
-Users are free to bind these to new actions. [Go to binding keys help](bind)
+Users are free to bind these to new actions. [binding keys help](bind)
 
 ## Control keys
 

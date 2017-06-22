@@ -2,8 +2,9 @@
 
 The bind function can be used to map a particular key name, like ctrl_b, to some action.
 You must state the _mode variable befor calling the bind function.
-The bind function takes 2 arguments:
+The bind function takes 3 arguments:
 
+- The canonical name of the key. E.g. ctrl_a, key_F, meta_j or fn_3 etc.
 - The control action which can be either an anonomous function or a block.
 - The View action which can be either an anonomous function or a block.
 

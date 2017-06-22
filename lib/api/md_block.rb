@@ -119,7 +119,7 @@ class Link < MdSpan
   end
   attr_reader :link, :title, :description
   def to_s
-    "#{@description} : #{@link}"
+    "Link : #{@description} : #{@link}"
   end
 end
 
