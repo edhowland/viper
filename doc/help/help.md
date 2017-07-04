@@ -1,4 +1,4 @@
-# Viper help
+# Viper help. Press space to proceed.
 
 This is main help document for the Viper code editor. Presss Escape at any time to return to the previous session.
 Press space or right arrow to proceed to the next item.

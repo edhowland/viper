@@ -11,6 +11,7 @@ Major reimplementation of Statement class
 
 
 Major Bug:
+Bug: Get Command not found when at end oof buffer and try to do any movements in that direction
 Bug: Should global variable first unset variable so any pushed frame stacks unset it as well?
   >> Check out in Bash first, remember that it uses local instead of global
 Bug: :oldpwd is not being set. also cd - does not work
