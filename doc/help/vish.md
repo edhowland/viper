@@ -165,4 +165,115 @@ bar whats up dude
 #  dude
 ```
 
+#### Lexical scoping
 
+A feature in Vish but not in Bash are anonymous functions, also called lambda functions or just lambdas.
+Variables set in the enclosing scope wherein a lambda is defined
+are lexically scoped within the body of the lambda. Those same variables
+may go out of scope once the enclosing scope is destroyed. However, if referenced within a saved lambda,
+the body of the lambda retains the value of that variable, even though it does
+no longer in scope of the surrounding context.
+
+The usefulness of this type of scoping might not be readily  apparent.
+But it comes useful when computing a range of values that you want to save in laambda functions.
+
+In  the Viper editor, we compute the actual values of characters for canonical 
+key names and create lambda functions to insert these character values into the current buffer.
+
+An example might be helpful:
+
+```
+function make_and_bind(key, char) {
+bind :key &() { echo -n :char | ins :_buf } &() { echo -n :char }
+}
+_mode=viper make_bind key_d 'd'
+_mode=viper make_and_bind key_f 'f'
+```
+
+#### Statement scoping
+
+For completeness sake, the following example is submitted, althoughthe usage tracks that of Bash.
+
+When variables are set before the name of a command, they are in scope only during the execution of that command.
+They go out of scope after the command terminates.
+
+```
+function foo() { echo :aa :bb }
+aa=hello bb=world foo
+# hello world
+echo :aa :bb
+#
+```
+
+Note: the same variables cannot be referenced as arguments to that same command.
+
+```
+aa=hello bb=world echo :aa :bb
+#
+```
+
+#### Unsetting variables
+
+Use the unset keyword to unset a variable. E.g.
+
+```
+aa=hello
+echo :aa
+# hello
+unset aa
+echo :aa
+#
+```
+
+#### Listing all set variables
+
+Use the declare keyword to print out the names and values of all currently set varibles.
+
+```
+declare
+# exit_status=false
+# pwd=/home/vagrant/src/viper2
+# vhome=/home/vagrant/src/viper2
+# prompt=vish >
+# oldpwd=/home/vagrant/src/viper2
+# version=1.99-rc0
+# release=Cleo
+#ifs= 
+# ...
+```
+
+
+### Variable ranges
+
+A range can be set when a variable is defined. Then, when dereferenced, it is expanded.
+
+```
+aa=1..5
+echo :aa
+# 1 2 3 4 5
+```
+
+## Alias
+
+Any valid statement or statement list can be aliased as a single command.
+When encountered wherever a normal command would be, the aliasis expanded.
+This includes multiple statements separated by semicolons or combined in pipelines or grouped by boolean connectors.
+
+Note: In Vish, aliases are treated exactly as in Bash. As such, there is no need
+for further explanation. However, here is a simple example:
+
+
+```
+alias hi='echo hello'
+hi world
+# hello world
+alias hi
+# alias hi='echo hello'
+unalias hi
+alias hi
+#
+alias
+# alias k="kill_buffer :_buf"
+# alias bk="echo -n Type a key to hear its bound action; bound :(raw - | xfkey)"
+# ...
+```
