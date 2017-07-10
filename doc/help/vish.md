@@ -80,178 +80,6 @@ A false exit status from a left command in and operation will not execute the ri
 This fact can be used to implement a simple if / then construct.
 Or an unless tehn construct.
 
-### Vish variables
-
-Unlike Bash or similar shells, Vish uses the ':' sigil to represent 
-a variable dereference, where Bash would a dollar sign '$' for the same thing.
-
-```
-aa=hello bb=world;echo :aa :bb
-# hello world
-```
-
-
-#### Variable scopes
-
-Vish also differs from Bash in that variables are locally scoped by default but can be made global if needed.
-This only occurs within Vish functions, otherwise, the variable scoping rules match those of Bash.
-
-E.g.
-
-```
-aa="hello world"
-function hi() {
-aa="goodbye world"
-echo :aa
-}
-hi; echo :aa
-# goodbye world
-# hellow world
-```
-
-
-#### Setting a global variable with global keyword
-
-```
-aa=bb
-function setme() {
-aa=cc
-global aa
-}
-echo :aa
-setme; echo :aa
-# bb
-# cc
-```
-
-#### Function parameters vs. variables
-
-Another difference with Bash is that function parameters are named instead of positionally bound and referenced with numerals.
-Within the body of the function, these parameter names behave like regular Vish variables and go out of scope 
-once the function exits. 
-
-The following examples show the difference between Bash and Vish:
-
-```
-# Bash syntax
-function foo() {
-echo $1 $2 $3
-}
-foo hello there sailor
-# hello there sailor
-# Vish syntax:
-function foo(gt, pr, name) {
-echo :gt :pre :name
-}
-foo hello world sailor
-# hello there sailor
-```
-
-
-#### Referring to all passed arguments to a Vish function
-
-In Bash, you would either refer to allpassed arguments to a function with either $@ or $*.
-In Vish this is accomplished with the :_ special variable.
-You can use the shift keyword to set a single argument to a new local variable, like in Bash.
-
-```
-function bar() {
-shift aa; shift bb
-echo :aa :bb
-echo :_ 
-}
-bar whats up dude
-# whats up
-#  dude
-```
-
-#### Lexical scoping
-
-A feature in Vish but not in Bash are anonymous functions, also called lambda functions or just lambdas.
-Variables set in the enclosing scope wherein a lambda is defined
-are lexically scoped within the body of the lambda. Those same variables
-may go out of scope once the enclosing scope is destroyed. However, if referenced within a saved lambda,
-the body of the lambda retains the value of that variable, even though it does
-no longer in scope of the surrounding context.
-
-The usefulness of this type of scoping might not be readily  apparent.
-But it comes useful when computing a range of values that you want to save in laambda functions.
-
-In  the Viper editor, we compute the actual values of characters for canonical 
-key names and create lambda functions to insert these character values into the current buffer.
-
-An example might be helpful:
-
-```
-function make_and_bind(key, char) {
-bind :key &() { echo -n :char | ins :_buf } &() { echo -n :char }
-}
-_mode=viper make_bind key_d 'd'
-_mode=viper make_and_bind key_f 'f'
-```
-
-#### Statement scoping
-
-For completeness sake, the following example is submitted, althoughthe usage tracks that of Bash.
-
-When variables are set before the name of a command, they are in scope only during the execution of that command.
-They go out of scope after the command terminates.
-
-```
-function foo() { echo :aa :bb }
-aa=hello bb=world foo
-# hello world
-echo :aa :bb
-#
-```
-
-Note: the same variables cannot be referenced as arguments to that same command.
-
-```
-aa=hello bb=world echo :aa :bb
-#
-```
-
-#### Unsetting variables
-
-Use the unset keyword to unset a variable. E.g.
-
-```
-aa=hello
-echo :aa
-# hello
-unset aa
-echo :aa
-#
-```
-
-#### Listing all set variables
-
-Use the declare keyword to print out the names and values of all currently set varibles.
-
-```
-declare
-# exit_status=false
-# pwd=/home/vagrant/src/viper2
-# vhome=/home/vagrant/src/viper2
-# prompt=vish >
-# oldpwd=/home/vagrant/src/viper2
-# version=1.99-rc0
-# release=Cleo
-#ifs= 
-# ...
-```
-
-
-### Variable ranges
-
-A range can be set when a variable is defined. Then, when dereferenced, it is expanded.
-
-```
-aa=1..5
-echo :aa
-# 1 2 3 4 5
-```
 
 ## Alias
 
@@ -277,3 +105,156 @@ alias
 # alias bk="echo -n Type a key to hear its bound action; bound :(raw - | xfkey)"
 # ...
 ```
+
+## Functions
+
+Vish functions follow the syntax of Bash shell functions. They must be declared explicitly
+with the function keyword. Also, parameters to thefunction can be named
+and are bound to variables within the function body.
+
+```
+function greet(name) {
+  echo hello :name
+}
+hi Ed
+# hello Ed
+```
+
+
+Within the body of the function, anyvalid Vish code can be executed. Variables declared as well the value of parameters
+go out of scope after the function returns.
+
+### Exit status and return values
+
+Any function or command sets the :exit_status value to true or false upon exit of the function or command.
+This differs from Bash which sets $0 to 0 or non-zero correspondingly.
+The exit status is used to direct actions in a conditional expression.
+
+```
+function good() { true }
+function bad() { false }
+bad || echo got bad
+good && echo got good
+```
+
+Note: In the above examples, the :exit_status of the last  command or function is returned as the :exit_status of the function.
+
+If you want to exit early from a function, use the return keyword.
+
+```
+function early() {
+echo started
+return true
+echo past return
+}
+early; echo past early
+# started
+# past early
+```
+
+
+## Variables
+
+In Vish, variables differ from Bash in some significant ways.
+The main difference is the use of the ':' sigil, instead of '$' sigil in Bash to
+dereference a variable. Otherwise, actions with variables follow Bash closely.
+There are some minor scoping rule differences, though. See [Go to variables](variables)
+for more information.
+
+
+## Commands
+
+In Vish, builtin primitives are called commands. You might have seen 'echo' and 'cat' above examples.
+You can think of Vish looking a type of BusyBox executable where the
+commands are built in the Bash shell directly. Most of Vish commands look like
+their Unix/Linux equivalents.
+Each command is implemented as a class in Ruby subclassed from the BaseCommand class. It must
+implement the call method to be a working command.
+
+Note: You may create your  own commands an link
+to Vish by use of the require and install_cmd commands. E.g.
+
+```
+require mycommand
+install_cmd Mycommand /v/bin
+mycommand arg1 arg2
+```
+
+## Anonymous functions or Lambdas
+
+Vish supports a type of function called a a lambda function or just lambda. These are also called
+anonymous functions since they do not have a function name. You can set a variable to a lambda or pass a lambda to a command or function.
+
+```
+aa=&(var) { echo hi :var }
+exec :aa sailor
+#  hi sailor
+```
+
+Passing to another function:
+
+```
+function grabit(fn, name) {
+  exec :fn :name
+}
+grabit &(name) { echo "Hi there, :{name}" } Jack
+# Hi there, Jac
+```
+
+## Blocks
+
+Statements in Vish can be grouped in a block by enclosing them in curly braces.
+Blocks can be directly executed with the exec keyword or passed as an
+argument to a function, lambda or command.
+Blocks differ from lambdas in that they are  not allowed
+to take parameters.
+Usually blocks are used in control expressions.
+
+```
+loop {
+  echo in loop
+  break
+}
+# in loop
+```
+
+## Subshells
+
+Statements in Vish can be grouped in a subshell  and are executed as a group.  
+This can be useful in conditionals.
+
+```
+aa=12
+eq :aa 12 && (echo got value as 12;  echo great)
+# got value as 12
+# great
+```
+
+## Subshell expansion
+
+In Vish, you can execute a subshell and its standard output will be returned for storing
+in a variable or passed as an argument to a function, lambda or command.
+
+```
+name=Betty
+aa=:(echo this is my name :name)
+echo :aa
+# this is my name Betty
+```
+
+## Control structures
+
+Vish only has one major control structure, the loop primitive. This can be passed
+an block expression which execute infinitely until a break keyword is encountered.
+Othere control structures can be composed with this loop and/or conditional expressions.
+
+```
+function ifelse(expr, icl, ecl) { (exec :expr || (exec :ecl && false)) && exec :icl }
+#
+ifelse { false }  } {
+  echo got true } {
+ echo got false
+}
+# got false
+```
+
