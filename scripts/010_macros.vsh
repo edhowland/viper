@@ -57,3 +57,13 @@ function macros() {
 _mode=macros bind meta_m &(data) { trait_set :_buf :data; _mark=:data; global _mark } &(data) { nop }
 store { echo "meta_m,:{_mark}" | enq ":{_buf}/.keylog" } /v/klogs/macros/meta_m
 _mode=macros bind meta_d &(data) { new_clip; perform_delete :_sup } &(data) { nop }
+function perform_macro() {
+  each &(key) { apply :key } :_
+}
+function bind_macro() {
+  shift key
+  macro=:_
+  bind :key &() { perform_macro :macro } { cat }
+}
+alias bm=bind_macro
+}
