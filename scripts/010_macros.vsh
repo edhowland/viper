@@ -66,4 +66,10 @@ function bind_macro() {
   bind :key &() { perform_macro :macro } { cat }
 }
 alias bm=bind_macro
+function splitch() {
+  ruby "puts args.join('').chars.join(' ')" :_
+}
+function bind_string() {
+  shift key
+  bind_macro :key :(map &(x) { echo -n :x | xfkey } :(splitch :_) )
 }

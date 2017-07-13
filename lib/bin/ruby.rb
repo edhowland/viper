@@ -10,7 +10,7 @@ class Ruby < BaseCommand
     begin
       $stdin = env[:in]
       $stdout = env[:out]
-      code = args.first
+      code = args.shift
       result = instance_eval(code)
     ensure
       $stdout = @orig_out
