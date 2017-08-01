@@ -137,14 +137,6 @@ def run vm=VirtualMachine.new, &blk
 end
 
 
-def _boot(opt, vm)
-  opt[:no_start] ? [] : [vm.fs[:vhome] + '/etc/vishrc']
-end
-
-def _scripts(_opt, vm)
-  Dir[vm.fs[:vhome] + '/scripts/*.vsh']
-end
-
 
 def mode(opt)
   [opt[:mode]]
