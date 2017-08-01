@@ -12,3 +12,5 @@ require_relative 'bufnode'
 require_relative 'bin'
 
 require_relative 'vish'
+require_relative 'loader'
+
