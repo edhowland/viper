@@ -34,7 +34,9 @@ class VirtualMachine
     @fs[:ofs] = ' '
     @fs[:_debug] = false
     @fs[:term] = ENV['TERM']
-    @fs[:term_program] = ENV['TERM_PROGRAM']
+    term_match = @fs[:term].match(/([^\-]+).*/)
+    @fs[:term_simple] = term_match[1]
+    @fs[:term_program] = ENV['TERM_PROGRAM'] || @fs[:term_simple]
     @fs[:termfile] = "#{@fs[:vhome]}/etc/keymaps/#{@fs[:term_program]}.json"
     @ios = env
     @seen = [] # seen aliases during dealias
