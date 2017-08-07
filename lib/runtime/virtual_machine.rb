@@ -33,6 +33,9 @@ class VirtualMachine
     @fs[:ifs] = ' '
     @fs[:ofs] = ' '
     @fs[:_debug] = false
+    @fs[:term] = ENV['TERM']
+    @fs[:term_program] = ENV['TERM_PROGRAM']
+    @fs[:termfile] = "#{@fs[:vhome]}/etc/keymaps/#{@fs[:term_program]}.json"
     @ios = env
     @seen = [] # seen aliases during dealias
   end
