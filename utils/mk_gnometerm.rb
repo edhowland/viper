@@ -8,4 +8,4 @@
 require 'json'
 
 
-puts( ('a'..'z').to_a.map { |e| [[27, e.ord], "meta_#{e}"] }.to_h.to_json)  
+puts((('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }.to_h.to_json)  
