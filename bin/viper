@@ -188,10 +188,6 @@ def file_list(argv)
   result
 end
 
-def vishrc_files
-  Dir[ENV['HOME'] + '/.vishrc'] + Dir['./.vishrc']
-end
-
 $vm = VirtualMachine.new
 
 at_exit do

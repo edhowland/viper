@@ -3,6 +3,8 @@
 
 require_relative 'loader/boot'
 require_relative 'loader/scripts'
+require_relative 'loader/vishrc_files'
+
 
 
 
