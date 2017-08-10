@@ -15,8 +15,7 @@
 class Xfkey < BaseCommand
   def initialize
     super
-        @meta_keys =  nil
-        @_meta_keys = {
+        @meta_keys = {
       [0] => 'ctrl_space',
       [203, 153] => 'meta_h',
       [226, 132, 162] => 'meta_2',
@@ -199,11 +198,8 @@ class Xfkey < BaseCommand
   def call(*args, env:, frames:)
     @out = env[:out]
     values = env[:in].read
-    
-    if @meta_keys.nil?
-      @meta_keys = JSON.parse(File.read(frames[:termfile]))
-      binding.pry
-    end
+
+    @meta_keys = frames[:metakeys]
 
     if args[0] == '-h'
       name_to_human values

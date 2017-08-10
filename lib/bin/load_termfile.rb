@@ -8,7 +8,7 @@ class LoadTermfile < BaseCommand
       env[:err].puts 'load_termfile: expected filename argument'
       return false
     else
-      frames.first[:metakeys] = JSON.parse(File.read(args[0]))
+      frames.first[:metakeys] = parse_termfile(args[0])
     end
     true
   end

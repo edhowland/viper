@@ -199,6 +199,8 @@ class Xfkey < BaseCommand
     @out = env[:out]
     values = env[:in].read
 
+    @meta_keys = frames[:metakeys]
+
     if args[0] == '-h'
       name_to_human values
     elsif args[0] == '-u'

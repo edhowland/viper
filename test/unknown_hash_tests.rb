@@ -7,9 +7,9 @@ class UnknownHashTests < BaseSpike
     @u = UnknownHash.new
   end
   def test_returns_unknown
-    assert_eq @u[:thing] , 'unknown'
+    assert_eq @u[:thing] , nil
   end
   def test_still_returns_unknown
-    assert_eq @u[[200, 11, 44]], 'unknown'
+    assert_eq @u[[200, 11, 44]], nil
   end
 end

@@ -1,6 +1,7 @@
-# unknown_hash.rb - class 
+# unknown_hash.rb - class  UnknownHash - returns nil fro all keys
+
 class UnknownHash
   def [] key
-    'unknown'
+    nil #'unknown'
   end
 end
