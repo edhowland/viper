@@ -16,7 +16,7 @@ eq :fn ctrl_m && break
 capture { echo; vsh -e :_status ":{cmd}" } { perr caught exception ':' :last_exception } { _status=:exit_status; global _status }
 }
 }
-kname=:(echo -n ' '|xfkey)
+kname=key_space
 _mode=command bind :kname { ins :_buf ' ' } { echo -n space }
 _mode=command bind move_down { capture { down :_buf; line :_buf } { bell } } { cat }
 _mode=command bind move_up { capture { up :_buf; back_of_line :_buf; line :_buf } { bell } } { cat }

@@ -24,7 +24,7 @@ global xf
 keys=:(map :xf :(printable))
 global keys
 each &(k) { _mode=undo bind :k { _mode=viper applyf fake_backspace } { echo -n delete :(echo -n :key | xfkey -h)} } :keys
-kname=:(echo -n ' '|xfkey)
+kname=key_space
 _mode=undo bind :kname { _mode=viper applyf fake_backspace } { echo -n delete space }
 _mode=undo bind move_right { _mode=viper applyf move_left } { at :_buf }
 _mode=undo bind move_left { _mode=viper applyf move_right } { at :_buf }

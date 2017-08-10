@@ -17,7 +17,7 @@ apply :key
 }
 at_fin /v/search && echo | ins /v/search | nop
 }
-kname=:(echo -n ' '|xfkey)
+kname=key_space
 _mode=search bind :kname { ins :_buf ' ' } { echo -n space }
 _mode=search bind move_down { capture { down :_buf; line :_buf } { bell } } { cat }
 _mode=search bind move_up { capture { up :_buf; back_of_line :_buf; line :_buf } { bell } } { cat }

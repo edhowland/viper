@@ -205,9 +205,9 @@ begin
     boot(options, $vm) + options[:sources]).map { |e| File.read(e) } +
     options[:start] +
     (scripts(options, $vm) + extensions($vm)).map { |e| File.read(e) } +
+    vishrc_files.map { |e| File.read(e) } +
     options[:execute] +
     file_list(ARGV) +
-    vishrc_files.map { |e| File.read(e) } +
     ['load_event'] +
     mode(options) +
     ['exit_event']

@@ -33,6 +33,7 @@ class VirtualMachine
     @fs[:ifs] = ' '
     @fs[:ofs] = ' '
     @fs[:_debug] = false
+    @fs[:metakeys] = UnknownHash.new
     @fs[:term] = ENV['TERM']
     term_match = @fs[:term].match(/([^\-]+).*/)
     @fs[:term_simple] = term_match[1]
