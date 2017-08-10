@@ -29,7 +29,8 @@ options = {
   only: [],
   boot: false,
   run: false,
-  viper: false
+  viper: false,
+termfile: 'load_termfile :termfile'
 }
 
 oparse = OptionParser.new do |opt|
@@ -45,6 +46,9 @@ oparse = OptionParser.new do |opt|
   opt.on('-m mode', '--mode mode', String,
   'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
+  end
+opt.on('-t file', '--termfile file', 'Loads file as term file, overriding value of :termfile variable', String) do |file|
+  options[:termfile] = "load_termfile #{file}"
   end
   opt.on('-S script', '--start script', String,
    'Run script prior to load') do |script|
@@ -206,6 +210,7 @@ begin
     options[:start] +
     (scripts(options, $vm) + extensions($vm)).map { |e| File.read(e) } +
     vishrc_files.map { |e| File.read(e) } +
+    [ options[:termfile] ]  +
     options[:execute] +
     file_list(ARGV) +
     ['load_event'] +

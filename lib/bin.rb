@@ -1,5 +1,7 @@
 require_relative 'bin/basename'
 require_relative 'bin/bell'
+require_relative 'bin/load_termfile'
+
 require_relative 'bin/between'
 require_relative 'bin/capture'
 require_relative 'bin/cat'
