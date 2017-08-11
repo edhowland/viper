@@ -7,5 +7,19 @@
 # They get translated to meta_a, meta_b, meta_c ... meta_z
 require 'json'
 
+#'!../' pu2=':..@' pu3='[..`' pu4='{..~'
 
-puts((('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }.to_h.to_json)  
+def pu(value, name)
+  [[27, value.ord], "meta_#{name}"]
+end
+
+def metas
+a = (('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }
+a << pu(',', 'comma')
+a << pu('.', 'period')
+a << pu(';', 'semicolon')
+a.unshift [0, 'ctrl_space']
+  a
+end
+binding.pry
+#p a.to_h.to_json
