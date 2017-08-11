@@ -18,8 +18,8 @@ a = (('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }
 a << pu(',', 'comma')
 a << pu('.', 'period')
 a << pu(';', 'semicolon')
-a.unshift [0, 'ctrl_space']
+a.unshift [[0], 'ctrl_space']
   a
 end
-binding.pry
-#p a.to_h.to_json
+
+puts metas.to_h.to_json
