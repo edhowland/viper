@@ -9,4 +9,10 @@ _mode=viper exec {
   alias_key meta_8 fn_8
   alias_key meta_9 fn_9
   alias_key meta_0 fn_10
+  cp "/v/keys/:{_mode}/fn_1" "/v/keys/:{_mode}/meta_1"  cp "/v/keys/:{_mode}/fn_1" "/v/keys/:{_mode}/meta_1"
+  cp "/v/keys/:{_mode}/fn_2" "/v/keys/:{_mode}/meta_2"
+  cp "/v/keys/:{_mode}/fn_3" "/v/keys/:{_mode}/meta_3"
+  cp "/v/keys/:{_mode}/fn_4" "/v/keys/:{_mode}/meta_4"
+  cp "/v/keys/:{_mode}/fn_5" "/v/keys/:{_mode}/meta_5"
+  cp "/v/keys/:{_mode}/fn_6" "/v/keys/:{_mode}/meta_6"
 }
