@@ -24,6 +24,32 @@ Viper requires Ruby versions:
 
 Or similar versions of Ruby.
 
+### Note on keyboard and Terminal emulators
+
+Viper makes liberal use of  the Meta or Alt key for many of its functions.
+Some terminal emulators need to be reconfigured to output the correct sequence
+of bytes for a Alt modifier plus key combination.
+
+Before trying to use Viper, check for your terminal emulator's keyboard profile or shortcut settings.
+Below find help for terminal emulators that can be used with Viper:
+
+### Gnome Terminal when using the Orca screen reader
+
+Gnome terminal should work out of the box with the Alt key as the meta key.
+You may want to change the function key setup, though.
+As an alternative to changing the function keys, you may substitute Alt plus 1, 2, 3 ... 0 for  F 1, F 2, F 3 ... F ten.
+
+### Mac Terminal app using Voice Over
+
+Many of the default Option plus key combinations in the Mac OS Terminal application,
+output extended characters like the Euro symbol, elipsis, etc.
+Voice over will output the names of these keys.
+To get the meta key behaviour, open the prefrences dialog
+by pressing the Command key (the Apple key) plus comma
+Select the keyboard tab. Move down until you hear:
+Use Option as Meta key checked
+Make sure the  option is checked. Exit the dialog by pressing the Escape key.
+
 
 ## Contributing
 
