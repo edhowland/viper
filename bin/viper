@@ -30,7 +30,8 @@ options = {
   boot: false,
   run: false,
   viper: false,
-termfile: 'load_termfile :termfile'
+termfile: 'load_termfile :termfile',
+  stdin: false
 }
 
 oparse = OptionParser.new do |opt|
@@ -43,6 +44,10 @@ oparse = OptionParser.new do |opt|
     options[:no_finish] = true
   end
   # %%LINT4
+  opt.on('-i', '--in', 'Read from standard input. Stored in :stdin variable') do
+    options[:stdin] = true
+options[:execute] << 'open_stdin'
+  end
   opt.on('-m mode', '--mode mode', String,
   'Mode of editor: com: command mode, vip: (default): editor') do |mode|
     options[:mode] = mode
@@ -201,6 +206,12 @@ end
 # Main start
 begin
   _exit_code = 0
+
+  # possibly
+  if options[:stdin]
+    $vm.fs.first[:stdin] = $stdin.read
+    $stdin.reopen(File.open('/dev/tty'))
+  end
   # setup exit handlers. Checks for existanance and syntax correctness
   $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish])
   .map { |e| File.read(e) }).map { |e| Visher.parse! e }

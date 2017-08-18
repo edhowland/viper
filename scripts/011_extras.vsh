@@ -58,3 +58,6 @@ function alias_key(nk, ok) {
   each &(type) { test -f "/v/:{type}/:{_mode}/:{ok}" && cp "/v/:{type}/:{_mode}/:{ok}" "/v/:{type}/:{_mode}/:{nk}" } modes views klogs
 }
 alias ak=alias_key
+function open_stdin() {
+  o stdin; echo :stdin | ins :_buf; beg :_buf
+}
