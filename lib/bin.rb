@@ -68,5 +68,6 @@ require_relative 'bin/xfkey'
 require_relative 'bin/hunt'
 require_relative 'bin/mdparse'
 require_relative 'bin/link_uri'
+require_relative 'bin/write'
 
 

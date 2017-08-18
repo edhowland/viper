@@ -59,5 +59,5 @@ function alias_key(nk, ok) {
 }
 alias ak=alias_key
 function open_stdin() {
-  o stdin; echo :stdin | ins :_buf; beg :_buf
+  o stdin; echo -n :stdin | ins :_buf; beg :_buf
 }
