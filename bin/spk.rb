@@ -5,4 +5,8 @@
 
 include ESpeak
 speech = Speech.new("YO!")
-speech.speak # invokes espeak
+#speech.speak 
+#sleep(5)
+p speech.public_methods
+
+
