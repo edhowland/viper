@@ -17,7 +17,7 @@ class Speachcfg < BaseCommand
   attr_reader :meths
 
   def errm parm, env:
-    raise 'speachcfg: unknown flag'
+    env[:err].puts 'speachcfg: Unknown flag'
   end
   def to_meth(chunk)
     @meths[chunk[0]] || :errm
@@ -36,9 +36,7 @@ class Speachcfg < BaseCommand
       env[:err].puts 'speachcfg: requires at least one flag and argument'
       return false
     end
-    opt, parm = args
-    setout(parm, env:env) if opt == '-o'
-    seterr(parm, env:env) if opt == '-e'
+    chunkify(args).map {|e| [to_meth(e), e[1]] }.each {|e| self.send *e, env:env }
     true
   end
 end
