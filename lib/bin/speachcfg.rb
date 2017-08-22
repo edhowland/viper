@@ -8,11 +8,21 @@
 
 class Speachcfg < BaseCommand
   def initialize
-    lambs = {
-      '-o': nil,
-      '-e': nil
+    @meths = {
+      '-o' => :setout,
+      '-e' => :seterr
     }
   end
+
+  attr_reader :meths
+
+  def errm parm, env:
+    raise 'speachcfg: unknown flag'
+  end
+  def to_meth(chunk)
+    @meths[chunk[0]] || :errm
+  end
+
   def setout arg, env:
     env.first[:out] = $stdout
   end
