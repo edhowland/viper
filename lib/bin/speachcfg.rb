@@ -10,11 +10,17 @@ class Speachcfg < BaseCommand
   def initialize
     @meths = {
       '-o' => :setout,
-      '-e' => :seterr
+      '-e' => :seterr,
+      'bad juju' => :erra
     }
   end
 
   attr_reader :meths
+
+
+  def erra parm, env:
+    env[:err].puts 'speachcfg: wrong number of arguments. Requires at least one flag [-o, -e] and argument'
+  end
 
   def errm parm, env:
     env[:err].puts 'speachcfg: Unknown flag'
@@ -26,16 +32,13 @@ class Speachcfg < BaseCommand
   def setout arg, env:
     env.first[:out] = $stdout
   end
-  
+
   def seterr arg, env:
     env.first[:err] = $stderr
   end
 
   def call *args, env:, frames:
-    if args.length < 2
-      env[:err].puts 'speachcfg: requires at least one flag and argument'
-      return false
-    end
+    args += ['bad juju', ''] if args.length < 2
     chunkify(args).map {|e| [to_meth(e), e[1]] }.each {|e| self.send *e, env:env }
     true
   end
