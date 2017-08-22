@@ -18,4 +18,5 @@ require_relative 'api/rangify'
 require_relative 'api/head_or_all'
 require_relative 'api/md_block'
 require_relative 'api/unknown_hash'
+require_relative 'api/chunkify'
 

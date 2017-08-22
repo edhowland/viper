@@ -1,9 +1,18 @@
 # speachcfg.rb - class  Speachcfg - command speachcfg
+# speachcfg allows user to set text to speach engine used by Viper.
+# Currently, only stdout and stderr IO classes are supported
+# eventually support for GNU espeak engine 
 # options
 # -o stdout or class name of TTS engine, E.g. EspeakIO
 # -e stderr or ...
 
 class Speachcfg < BaseCommand
+  def initialize
+    lambs = {
+      '-o': nil,
+      '-e': nil
+    }
+  end
   def setout arg, env:
     env.first[:out] = $stdout
   end
