@@ -30,7 +30,13 @@ class Speachcfg < BaseCommand
   end
 
   def setout arg, env:
-    env.first[:out] = $stdout
+    if arg == 'stdout'
+      env.first[:out] = $stdout
+    elsif arg == 'EspeakIF'
+      env.first[:out] = EspeakIF.new
+    else
+      env[:err].puts "cannot set speach engine to #{arg}. Unknown class name"
+    end
   end
 
   def seterr arg, env:
