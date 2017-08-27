@@ -22,7 +22,11 @@ Bug: :oldpwd is not being set. also cd - does not work
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
-
+Feature: Use of :__NAME__ for the name of the function itself within a function
+  >> can represents the name of the function itself. E.g. Bash echo $0 within a function
+Feature: Use of :__FUNCTION__ is true if in a function.
+  >> is blank otherwise
+  >> Will be true in ivish (interactive Vish) and within  command prompt
 Bug: better error handle of trying to open a directory
 Current Task:
 

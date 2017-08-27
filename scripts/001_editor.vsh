@@ -119,9 +119,11 @@ function next_clip() {
   global _clip
 }
 function rew() {
-  cat < :(cat < ":{_buf}/.pathname") > :_buf
+  cline=:(line_number :_buf)
+    cat < :(cat < ":{_buf}/.pathname") > :_buf
 mkarray ":{_buf}/.keylog"
   digest_sha1 -f :(cat < ":{_buf}/.pathname") > ":{_buf}/.digest"
+  g :cline
   echo -n :(buffer_name) restored 
 }
 mkdir /v/editor
@@ -214,7 +216,7 @@ function buffer_name() {
   eq 1 :(same_count) || pathname
 }
 function g(num) {
-  goto :_buf :num | nop
+  suppress { goto :_buf :num }
   line :_buf
 }
 alias buffer='apply fn_2'
