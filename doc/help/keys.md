@@ -7,7 +7,6 @@ Within each group, all items are sorted alphanumerically
 Unbound keys are listed as : Unbound. 
 Users are free to bind these to new actions. [binding keys help](bind)
 
-Press F 3 to hear prompt for next key and hear its action.
 
 
 ## Printable characters
@@ -64,11 +63,16 @@ An example is F 3, ehich
 
 ## Function keys
 
+Note: If your terminal emulator does send function keys to the application,
+you can get the same effect by holding the Alt or meta key and pressing 1 through 0
+which are mapped to F 1 through F ten.
+
+
 - Fn 1 : Reports status of Viper editor with number of open buffers
 - Fn 2 : Reports Name of current buffer and a star if it has any unsaved changes
 - Fn 3 : Prompts for next key and reports its action. Key help.
 - Fn 4 : Sets a mark at current cursor position
-- Fn 5 :
+- Fn 5 : sets special mark t for use e in macro recording
 - Fn 6 : Starts macro recording. Press Fn 6 again to stop macro recording.
 
 
@@ -87,6 +91,12 @@ An example is F 3, ehich
 - Alt p : Speaks the current character position in current buffer.
 - Alt r : Moves to previous set mark position. See Alt f.
 - Alt w : Moves cursor one word back in current buffer. See Control w.
+- Alt 1  : Reports status of Viper editor with number of open buffers
+- Alt 2 : Reports Name of current buffer and a star if it has any unsaved changes
+- Alt 3 : Prompts for next key and reports its action. Key help.
+- Alt 4 :Sets a mark at current cursor position
+- Alt 5 :
+- Alt 6 : Starts macro recording. Press Fn 6 again to stop macro recording.
 
 ## Delete keys
 

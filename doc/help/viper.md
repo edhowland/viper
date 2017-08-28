@@ -7,7 +7,7 @@ You can exit this help browser by pressing the Escape key.
 ## Viper Control Keys
 
 The following list of keys list Viper editor actions. They are listed in decreasing order of 
-frequency of use. E.g. Saving and quiting, followed by 
+frequency of use. E.g. Saving and quitting, followed by 
 less common activities. The complete list
 can be examined by following this link: [Keys for Viper Editor](keys)
 
