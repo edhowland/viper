@@ -4,11 +4,12 @@
 
 ### Version 2.0.0
 
+Releas : cleo
 
 ## Abstract
 
 This is a simple editor in Ruby that works with screen readers, esp. like VoiceOver 
-in Mac OS/X, or with Orca in Linux with Gnome desktops.
+in Mac OS, or with Orca in Linux with Gnome desktops.
 Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
 
 
@@ -39,13 +40,23 @@ Gnome terminal should work out of the box with the Alt key as the meta key.
 You may want to change the function key setup, though.
 As an alternative to changing the function keys, you may substitute Alt plus 1, 2, 3 ... 0 for  F 1, F 2, F 3 ... F ten.
 
+In addition, the Orca screenreader does not always echo the output from Viper when certain keys are pressed.
+This affects the cursor movement keys, the back tab (Shift Tab) and the backspace (Delete back).
+As an alternative to these keys, you can alias unbound meta (Alt+) to these keys.
+The file in the Viper package orca_alias.vsh maps these for you.
+Add the following line to your ~/.vishrc
+
+```
+source ":{vhome}/etc/keymaps/orca_alias.vsh"
+```
+
 ### Mac Terminal app using Voice Over
 
 Many of the default Option plus key combinations in the Mac OS Terminal application,
 output extended characters like the Euro symbol, elipsis, etc.
 Voice over will output the names of these keys.
-To get the meta key behaviour, open the prefrences dialog
-by pressing the Command key (the Apple key) plus comma
+To get the meta key behaviour, open the Terminal app preferences dialog
+by pressing the Command key (the Apple key) plus comma while in the Terminal app.
 Select the keyboard tab. Move down until you hear:
 Use Option as Meta key checked
 Make sure the  option is checked. Exit the dialog by pressing the Escape key.
