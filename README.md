@@ -50,6 +50,17 @@ Add the following line to your ~/.vishrc
 source ":{vhome}/etc/keymaps/orca_alias.vsh"
 ```
 
+
+### Orca help
+
+To see a list of what these keys are mapped to: Invoke command mode by
+pressing Alt pluss semicolon and entering the following commmand and then pressing Enter.
+
+```
+help orca
+```
+
+
 ### Mac Terminal app using Voice Over
 
 Many of the default Option plus key combinations in the Mac OS Terminal application,
@@ -61,6 +72,14 @@ Select the keyboard tab. Move down until you hear:
 Use Option as Meta key checked
 Make sure the  option is checked. Exit the dialog by pressing the Escape key.
 
+In addition, you should also add the Page Up and Page Down keys to the keys table.
+Set them to output the following text when pressed.
+
+- PageUp : Esc [5~
+- PageDown : Esc [6~
+
+Alternatively, you can press Shift plus PageUp or Shift plus PageDown
+to get the same effect temporarily.
 
 ## Contributing
 

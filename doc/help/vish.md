@@ -37,7 +37,7 @@ from the outer shell. Just type exit and press the Return key.
 
 Vish commands follow the Bash syntax structure closely.
 
-you can enter commands optionally preceeded with variable assignments. Then the name of the command
+you can enter commands optionally preceded with variable assignments. Then the name of the command
 which can be a builtin command, a function or an alias. After the command, you can place any number of arguments separated
 by spaces.
 
