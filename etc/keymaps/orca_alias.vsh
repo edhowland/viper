@@ -1,4 +1,5 @@
-_mode=viper exec {
+for mode in viper search command help {
+  _mode=:mode exec {
   alias_key meta_y move_left
   alias_key meta_u move_up
   alias_key meta_i move_down
@@ -10,4 +11,5 @@ _mode=viper exec {
   alias_key meta_J move_shift_pgdn
   alias_key meta_K move_shift_pgup
   alias_key meta_L move_shift_end
-}
+} }
+
