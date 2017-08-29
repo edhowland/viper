@@ -14,7 +14,7 @@ def pu(value, name)
 end
 
 def metas
-a = (('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }
+  a = (('A'..'Z').to_a +  ('a'..'z').to_a + ('0'..'9').to_a).map { |e| [[27, e.ord], "meta_#{e}"] }
 a << pu(',', 'comma')
 a << pu('.', 'period')
 a << pu(';', 'semicolon')
