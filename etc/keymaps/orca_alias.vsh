@@ -7,7 +7,7 @@ _mode=viper exec {
   alias_key meta_n key_backspace
   alias_key meta_N key_delete
   alias_key meta_H move_shift_home
-  alias_key meta_j move_shift_pgdn
+  alias_key meta_J move_shift_pgdn
   alias_key meta_K move_shift_pgup
   alias_key meta_L move_shift_end
 }
