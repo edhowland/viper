@@ -134,7 +134,16 @@ class Buffer
     fwd if at == NL
     ''
   end
+  def line_start
+    result = @a_buff.rindex("\n") || 0
+    offset = 0
+    offset += 1 if @a_buff[result] == "\n"
+    result + offset
+  end
 
+  def line_end
+    @a_buff.length +    (@b_buff.index("\n")  || @b_buff.length)
+  end
   def back_of_line
     fwd @b_buff.count_nl
     ''
@@ -303,4 +312,14 @@ class Buffer
   def clone
     self.class.new to_s
   end
+  def del_line
+    self.slice(self.line_start..self.line_end)
+  end
+  def empty?
+    @a_buff.empty? && @b_buff.empty?
+  end
+  def length
+    a_buff.length + b_buff.length
+  end
+  alias size length
 end

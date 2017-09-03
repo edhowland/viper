@@ -1,7 +1,7 @@
 # buffer_test.rb - class BufferTest - tests for class Buffer
 require_relative 'test_helper'
 
-class BufferTest < BaseSpike
+class BufferTests < BaseSpike
   def set_up
     @buffer = Buffer.new ''
   end
@@ -234,5 +234,20 @@ end
     assert_raises BufferExceeded do
       b.fwd
     end
+  end
+
+  def test_length_0
+    b = Buffer.new
+    assert_eq 0, b.length
+  end
+  def test_length_5
+    b = Buffer.new 'hello'
+    assert_eq 5, b.length
+  end
+  def test_length_10_when_not_at_either_end
+    b = Buffer.new
+    b.ins '0123456789'
+    b.back; b.back; b.back
+    assert_eq 10, b.size
   end
 end

@@ -4,9 +4,9 @@ require_relative 'api_tests'
 require_relative 'flag_parser_tests'
 
 
-require_relative 'buffer_test'
-require_relative 'redirection_test'
-require_relative 'deref_test'
+require_relative 'buffer_tests'
+require_relative 'redirection_tests'
+require_relative 'deref_tests'
 require_relative 'frame_stack_tests'
 require_relative 'vfs_tests'
 require_relative 'buf_node_tests'
@@ -28,4 +28,6 @@ require_relative 'hunt_tests'
 require_relative 'md_parse_tests'
 require_relative 'viper_tests'
 require_relative 'unknown_hash_tests'
+require_relative 'delete_tests'
+
 
