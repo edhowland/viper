@@ -87,6 +87,7 @@ class Clear < NoArgBufferCommand; end
 
 class Position < NoArgBufferCommand; end
 class LineNumber < NoArgBufferCommand; end
+class DelLine <NoArgBufferCommand; end 
 class Del < NoArgBufferCommand; end
 class DelAt < NoArgBufferCommand; end
 class Fwd < NoArgBufferCommand; end

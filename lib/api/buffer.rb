@@ -313,7 +313,7 @@ class Buffer
     self.class.new to_s
   end
   def del_line
-    self.slice(self.line_start..self.line_end)
+    self.slice(self.line_start..self.line_end).join('')
   end
   def empty?
     @a_buff.empty? && @b_buff.empty?
