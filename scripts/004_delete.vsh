@@ -1,8 +1,5 @@
 function delete_line() {
-front_of_line :_buf
-pos=:(position :_buf)
-  down :_buf
-   slice :_buf :pos :(decr :(position :_buf)) | cat > :_clip
+  del_line :_buf | cat > :_clip
 }
 function delete_front() {
   pos=:(decr :(position :_buf))
