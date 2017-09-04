@@ -3,7 +3,7 @@ function base_buffer(buf) {
   basename :(cat < ":{buf}/.pathname")
 }
 function buf_names() {
-  map &(x) { base_buffer :x } :(buffers)
+  map &(x) { base_buffer :x } :(bufs)
 }
 function scratch(say) {
 ss=:(count &(c) { echo :c | grep -q scratch  } :(buf_names))

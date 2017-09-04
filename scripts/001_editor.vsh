@@ -184,6 +184,9 @@ srch_back :_buf "/[^\w]\w+/"
 fwd :_buf
 }
 autoindent=false; global autoindent
+function bufs() {
+  for i in :(cd /v/buf;ls) { echo "/v/buf/:{i}" }
+}
 function buffers() {
 names=:(cd /v/buf; echo *)
 for i in :names { echo "/v/buf/:{i}" }
