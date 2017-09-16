@@ -8,7 +8,7 @@ class SubShell
     @redirections = redirections
     @pwd = ''
     @oldpwd = ''
-    @vm = nil
+#    @vm = nil
   end
 
   def line_number
@@ -30,27 +30,66 @@ class SubShell
   end
 
   def call(env:, frames:)
-    @vm = frames.vm
-    save_pwd @vm
-    vm = @vm._clone
-    local_vars = frames
+    klone = frames.vm._clone
+#    binding.pry
+    klone.ios[:out] = env[:out]
+    klone.ios[:in] = env[:in]
+    klone.ios[:err] = env[:err]
+
+    klone.ios.push
+    @redirections.each { |e| redirect(e, env: klone.ios, frames: frames) }
+    closers = open_redirs env: klone.ios
+
+     # start to make local frames
+#    binding.pry
+    klone.fs = frames._clone
+    klone.fs.push
+#    frames.top.each_pair {|k,v| klone.fs[k] = v }
+    result = true
+    begin
+      result = klone.call(@block)
+#    rescue VirtualMachine::BreakCalled
+#      return true
+    ensure
+      frames.vm.restore_pwd 
+      close_redirs closers
+    klone.ios.pop
+      frames[:exit_status] = result
+      result
+    end
+  end
+
+
+
+  def _call(env:, frames:)
+    _vm = frames.vm
+#    save_pwd _vm
+    vm = _vm._clone
+    local_vars = vm.fs
+    local_ios = vm.ios
+#    local_vars = frames
     local_vars.push
-    local_ios = env
+#    local_ios = env
     local_ios.push
     @redirections.each { |e| redirect(e, env: local_ios, frames: local_vars) }
-    vm.ios = local_ios
-    vm.fs = local_vars
+#    vm.ios = local_ios
+#    vm.fs = local_vars
     closers = open_redirs env: local_ios
     begin
-      vm.call @block
+      result = vm.call @block
     rescue VirtualMachine::BreakCalled
       return true
     ensure
-      restore_pwd @vm
+      #restore_pwd @vm
+#binding.pry
+      _vm.restore_pwd
       close_redirs closers
-      local_vars.pop
-      local_ios.pop
+#      local_vars.pop
+#      local_ios.pop
     end
+#binding.pry
+frames[:exit_status] = result
+    result
   end
 
   def ordinal
@@ -58,6 +97,6 @@ class SubShell
   end
 
   def to_s
-    '(' + @block.to_s + ')'
+    '(' + @block.to_s + ')' + @redirections.map {|r| r.to_s }.join(' ')
   end
 end

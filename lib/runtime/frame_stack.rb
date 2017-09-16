@@ -16,6 +16,11 @@ class FrameStack
         i
       end
     end
+    if result.instance_of?(Proc)
+      result = result.call
+    else
+      result
+    end
     result # .to_s
   end
 
@@ -48,6 +53,10 @@ class FrameStack
 
   def top
     @frames[-1]
+  end
+
+  def top=(h)
+    @frames[-1] = h
   end
 
   def first
@@ -104,6 +113,19 @@ class FrameStack
 
   def slice(range)
     @frames[range]
+  end
+  # returns array of one hash with the top-most level values for unique  keys
+  # Can be used in constructing closures like those in Lambda  objects
+  def flatten
+    @frames.reduce({}) {|i, j| j.each_pair {|k,v| i[k] = v } }
+  end
+    def index_of &blk
+    result = @frames.find(&blk) if block_given?
+    if result
+      @frames.index result
+    else
+      nil
+    end
   end
 end
 

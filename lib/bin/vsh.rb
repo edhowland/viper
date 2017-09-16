@@ -21,7 +21,9 @@ class Vsh < BaseValueCommand
       # binding.pry
       result = vm.call block
       # globalize any variables gathered via above execution
-      frames.keys.each { |k| frames.first[k] = frames[k] }
+      vm.fs.top.each_pair {|k,v| vm.fs.first[k] = v }
+#      frames.keys.each { |k| frames.first[k] = frames[k] }
+
       result
     end
   end

@@ -13,6 +13,17 @@ Implement new option: -B, --boot
   >> Implemented -R --run options to run any loaded scripts then exit
   >> Must implement -V, --viper ... loads entire set of editor scripts
 
+ >> If no scripts loaded, just runs the boot scripts in ./etc/vishrc, then exits:
+ >> ./bin/viper -B -R
+ >> echo $?
+ >> 0
+ 
+  >> if used with -s, runs that scripts and exits
+  >> ./bin/viper -B -R -s file.vsh
+  >> ...
+  >> Useful for debugging
+ 
+
 # Scratch  function implementation
 Starting:
 >> use -e 'open x; scratch'

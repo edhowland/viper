@@ -12,7 +12,8 @@ class Function
   def call(*args, env:, frames:)
     frames.push
     frames[:__FUNCTION__] = true
-    frames[:__NAME__] = @name
+    frames[:__FUNCTION_NAME__] = @name
+    frames[:__FUNCTION_TYPE__] = 'function'
     bound = @args.zip(args).to_h # bind any passed arguments to this hash
     # these are now variables within this context
     frames.top.merge! bound

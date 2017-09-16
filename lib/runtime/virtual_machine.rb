@@ -16,18 +16,17 @@ class VirtualMachine
     end
     attr_reader :return_code
   end
-  # %%LINT4 - ignore this long line
-  def initialize(
-    env: FrameStack.new(frames: [{ in: $stdin, out: $stdout, err: $stderr }]),
-    frames: FrameStack.new
-  )
-    @fs = frames
+
+  def _init
+    #
     @fs[:exit_status] = true
     @fs.vm = self
     @fs[:pwd] = Hal.pwd
+    @fs[:pw0] = ->() { @cdbuf[0] }
+    @fs[:pw1] = ->() { @cdbuf[1] }
     @fs[:vhome] = PhysicalLayer.realpath(Hal.dirname(__FILE__) + '/../..')
     @fs[:prompt] = 'vish >'
-    @fs[:oldpwd] = Hal.pwd
+#    @fs[:oldpwd] = Hal.pwd
     @fs[:version] = Vish::VERSION
     @fs[:release] = Vish::RELEASE
     @fs[:ifs] = ' '
@@ -39,10 +38,23 @@ class VirtualMachine
     @fs[:term_simple] = term_match[1]
     @fs[:term_program] = ENV['TERM_PROGRAM'] || @fs[:term_simple]
     @fs[:termfile] = "#{@fs[:vhome]}/etc/keymaps/#{@fs[:term_program]}.json"
-    @ios = env
-    @seen = [] # seen aliases during dealias
   end
-  attr_accessor :fs, :ios, :seen
+
+  # %%LINT4 - ignore this long line
+  def initialize(
+    env: FrameStack.new(frames: [{ in: $stdin, out: $stdout, err: $stderr }]),
+    frames: FrameStack.new
+  )
+    @fs = frames
+    @ios = env
+    _init
+    @seen = [] # seen aliases during dealias
+
+    # setup cdbuf for storing :oldpwd and eventually :pwd
+    @cdbuf = [Hal.pwd, Hal.pwd]
+    @fs[:oldpwd] = ->() { @cdbuf[-1] }
+  end
+  attr_accessor :fs, :ios, :seen, :cdbuf
 
   def call(block)
     block.call env: @ios, frames: @fs
@@ -50,10 +62,12 @@ class VirtualMachine
 
   # implement a dir stack so cd -, pushd, popd work
   def _chdir(path)
-    @fs.first[:oldpwd] = @fs[:pwd]
+#    @fs.first[:oldpwd] = @fs[:pwd]
+_saved_old = Hal.pwd
     result = true
     begin
       Hal.chdir path, @fs[:pwd]
+      @cdbuf[-1] = _saved_old
     rescue Errno::ENOENT => exc
       raise exc
     rescue => err
@@ -61,8 +75,15 @@ class VirtualMachine
       result = false
     ensure
       @fs.first[:pwd] = Hal.pwd
+      @cdbuf[0] = Hal.pwd
     end
     result
+  end
+
+  # swap @cdvuf to get :oldpwd and :pwd and then chdir there there
+  def _swapcd
+    @cdbuf.rotate!
+    Hal.chdir(*@cdbuf)
   end
 
   # export args into global environment
@@ -88,6 +109,12 @@ class VirtualMachine
     env[:err].puts "cd: #{err.message}"
     false
   end
+  # restore_pwd - changes physical pwd to saved pwd if not equal
+   def restore_pwd
+     saved_old = @cdbuf[1]
+    cd(@cdbuf[0], env:@ios, frames:@fs) if Hal.pwd != @cdbuf[0]
+    @cdbuf[1] = saved_old
+   end
 
   def mount(*args, env:, frames:)
     root = VFSRoot.new
@@ -261,7 +288,10 @@ class VirtualMachine
   def _clone
     nfs = @fs._clone
     nios = @ios._clone
-    VirtualMachine.new(env: nios, frames: nfs)
+    vm = VirtualMachine.new(env: nios, frames: nfs)
+    vm.cdbuf = @cdbuf.clone
+    vm.fs.vm = vm
+    vm
   end
 
   def inspect

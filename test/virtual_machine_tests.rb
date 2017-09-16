@@ -9,6 +9,7 @@ class VirtualMachineTests < BaseSpike
     @outbuf = StringIO.new
     @vm = VirtualMachine.new
     @vm.cd @orig_dir, env:@vm.ios, frames:@vm.fs
+    @vm.cdbuf[1] = @orig_dir
     @vm.ios[:err] = @errbuf
     @vm.ios[:out] = @outbuf
         @vm.mount '/v', env:@vm.ios, frames:@vm.fs
@@ -101,5 +102,33 @@ class VirtualMachineTests < BaseSpike
     @vm.install env:@vm.ios, frames:@vm.fs
     @vm.type 'basename', env:@vm.ios, frames:@vm.fs
     assert_eq @vm.ios[:out].string.chomp, '/v/bin/basename'
+  end
+  def test_vm_restore_pwd_if_different
+    path = File.expand_path('./lib')
+    @vm.cd path,    env:@vm.ios, frames:@vm.fs
+    Hal.chdir(ENV['HOME'], Hal.pwd)
+    @vm.restore_pwd
+    assert_eq Hal.pwd, path
+  end
+  def test_restore_pwd_does_nothing_if_already_at_pwd
+    path = Hal.pwd
+    @vm.restore_pwd
+    assert_eq path, Hal.pwd
+  end
+  def test_cloned_vm_does_not_change_pwd_in_parent_vm
+    pwd = @vm.cdbuf[0]
+    oldpwd = @vm.cdbuf[1]
+    nvm = @vm._clone
+    nvm.cd 'lib', env:nvm.ios, frames:nvm.fs
+    @vm.restore_pwd
+    assert_eq pwd, @vm.cdbuf[0]
+  end
+  def test_cloned_vm_has_not_changed_parents_oldpwd
+      pwd = @vm.cdbuf[0]
+    oldpwd = @vm.cdbuf[1]
+    nvm = @vm._clone
+    nvm.cd 'lib', env:nvm.ios, frames:nvm.fs
+    @vm.restore_pwd
+    assert_eq oldpwd, @vm.cdbuf[1]
   end
 end
