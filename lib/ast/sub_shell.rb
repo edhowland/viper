@@ -42,7 +42,12 @@ class SubShell
 
      # start to make local frames
 #    binding.pry
-    klone.fs = frames._clone
+nf = frames._clone
+    #klone.fs = frames._clone
+    klone.fs.frames = nf.frames
+    # need to reset internal lambdas for :pid, :ppid
+    #  vars after originally dumping framestack
+    klone.restore_pids
     klone.fs.push
 #    frames.top.each_pair {|k,v| klone.fs[k] = v }
     result = true

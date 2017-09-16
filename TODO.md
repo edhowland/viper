@@ -11,16 +11,13 @@ Major reimplementation of Statement class
 
 
 Major Bug:
+
 Bug: MAJOR: vunit fails on every test
 Bug: sometimes get no method for NilClass, esp when scripts/at_exit/001_shutdown.vsh
 Bug: Get Command not found when at end oof buffer and try to do any movements in that direction
 Bug: Should global variable first unset variable so any pushed frame stacks unset it as well?
   >> Check out in Bash first, remember that it uses local instead of global
-Bug: :oldpwd is not being set. also cd - does not work
-:oldpwd is being set to :pwd after cd ...
-  >> This only seems to happen after ivish shell moves to new command
-  >> E.g. cd /v;echo :oldpwd  # works fine
-  >> But, in ivish, it immediately gets set back to :pwd somewhere?
+
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler

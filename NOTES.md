@@ -30,3 +30,27 @@ Starting:
 >> Or use Ctrl-n to create new scratch buffers
 >> Will not ask to save buffer if /.no_ask2_save is present
 >> But can still with save or Ctrl-s
+
+
+## PID, PPID
+
+This is the new functionality of process id and parent process id, without actual processes
+The first VirtualMachine ppid is 0, its pid is 1. 
+Every _clone child advances pid by one. 
+But the ppid is the pid of the original parent of the clone
+
+ ### :pid, :ppid
+ variables are :pid for PID and :ppid are PPID as above. Eg.:
+ echo :pid;echo :ppid
+ (echo :pid; echo :ppid)
+ echo :pid; echo :ppid
+ # returns :
+ 1
+ 0
+ 2
+ 1
+ 1
+ 0
+ 
+  
+

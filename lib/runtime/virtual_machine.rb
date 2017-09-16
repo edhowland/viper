@@ -53,8 +53,19 @@ class VirtualMachine
     # setup cdbuf for storing :oldpwd and eventually :pwd
     @cdbuf = [Hal.pwd, Hal.pwd]
     @fs[:oldpwd] = ->() { @cdbuf[-1] }
+
+    # setup our simulated PID.
+    @@pid_frame ||= 0
+    @ppid = @@pid_frame
+    @@pid_frame += 1
+    @pid = @@pid_frame
+    # setup :pid, :ppid variables
+    @fs[:pid] = ->() { @pid }
+    @fs[:ppid] = ->() { @ppid }
   end
   attr_accessor :fs, :ios, :seen, :cdbuf
+  attr_reader  :pid, :ppid
+
 
   def call(block)
     block.call env: @ios, frames: @fs
@@ -110,10 +121,12 @@ _saved_old = Hal.pwd
     false
   end
   # restore_pwd - changes physical pwd to saved pwd if not equal
-   def restore_pwd
+  def restore_pwd
+    Log.say("cdbuf 1: #{@cdbuf.inspect}")
      saved_old = @cdbuf[1]
     cd(@cdbuf[0], env:@ios, frames:@fs) if Hal.pwd != @cdbuf[0]
     @cdbuf[1] = saved_old
+        Log.say("cdbuf 2: #{@cdbuf.inspect}")
    end
 
   def mount(*args, env:, frames:)
@@ -291,10 +304,23 @@ _saved_old = Hal.pwd
     vm = VirtualMachine.new(env: nios, frames: nfs)
     vm.cdbuf = @cdbuf.clone
     vm.fs.vm = vm
+    # set child's ppid to our pi and reset both :pid, :ppid variablesd
+    vm.ppid = @pid
+    vm.restore_pids
     vm
   end
 
+  def restore_pids
+    @fs[:pid] = ->() { @pid }
+    @fs[:ppid] = ->() { @ppid }
+  end
+
   def inspect
-    'intentionally blank'
+    'intentionally blank : from class VirtualMachine.inspect'
+  end
+
+  protected
+  def ppid=(num)
+    @ppid = num
   end
 end
