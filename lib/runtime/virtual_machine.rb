@@ -122,11 +122,9 @@ _saved_old = Hal.pwd
   end
   # restore_pwd - changes physical pwd to saved pwd if not equal
   def restore_pwd
-    Log.say("cdbuf 1: #{@cdbuf.inspect}")
      saved_old = @cdbuf[1]
     cd(@cdbuf[0], env:@ios, frames:@fs) if Hal.pwd != @cdbuf[0]
     @cdbuf[1] = saved_old
-        Log.say("cdbuf 2: #{@cdbuf.inspect}")
    end
 
   def mount(*args, env:, frames:)

@@ -12,7 +12,7 @@ apply :fn
 eq :fn ctrl_m && break
 }
 (eq "exit" ":{cmd}") && exit
-(eq 'vip' ":{cmd}") && _mode=viper apply fn_2 && break
+exec { eq 'vip' ":{cmd}" } && _mode=viper apply fn_2 && break
 capture { echo; vsh -e :_status ":{cmd}" } { perr caught exception ':' :last_exception } { _status=:exit_status; global _status }
 }
 }

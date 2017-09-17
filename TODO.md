@@ -11,7 +11,15 @@ Major reimplementation of Statement class
 
 
 Major Bug:
-
+Uber BUG: should not use subshells like there are candy
+  >> E.g.
+  >> (key_exists :key && apply :key) || echo bad juju
+  >> above construct was a cheap if/then/else statement
+  >> Instead use:
+  >> exec { key_exists :key && apply :key } || echo bad juju
+  >> Eventually, the bare '{statement1;statement2}' construct will work in parser for Vish removing need for exec
+Bug: no method error in meta_semicolon and using up arrow.
+Bug: sometimes quitting when unsaved dirty buffers errors in echo command
 Bug: MAJOR: vunit fails on every test
 Bug: sometimes get no method for NilClass, esp when scripts/at_exit/001_shutdown.vsh
 Bug: Get Command not found when at end oof buffer and try to do any movements in that direction
