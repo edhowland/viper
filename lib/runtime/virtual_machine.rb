@@ -125,6 +125,7 @@ _saved_old = Hal.pwd
      saved_old = @cdbuf[1]
     cd(@cdbuf[0], env:@ios, frames:@fs) if Hal.pwd != @cdbuf[0]
     @cdbuf[1] = saved_old
+    @fs[:oldpwd] = ->() { @cdbuf[1] }
    end
 
   def mount(*args, env:, frames:)
@@ -295,6 +296,10 @@ _saved_old = Hal.pwd
     false
   end
 
+  def restore_oldpwd
+    @fs[:oldpwd] = ->() { @cdbuf[1] }
+  end
+
   # create a deep copy of me
   def _clone
     nfs = @fs._clone
@@ -305,6 +310,8 @@ _saved_old = Hal.pwd
     # set child's ppid to our pi and reset both :pid, :ppid variablesd
     vm.ppid = @pid
     vm.restore_pids
+    vm.fs[:oldpwd] = ->() { vm.cdbuf[1] }
+
     vm
   end
 

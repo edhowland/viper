@@ -66,4 +66,20 @@ class FrameStackTest < BaseSpike
     idx = fs.index_of {|e| e[:aa] }
     assert_eq idx, 1
   end
+  def test_delete_works
+    fs = FrameStack.new
+    fs[:aa] = :bb
+    assert_eq fs[:aa], :bb
+    fs.delete :aa
+    assert_eq fs[:aa], ''
+  end
+  def test_delete_with_2_levels
+    fs = FrameStack.new
+    fs[:aa] = :bb
+    fs.push
+    fs[:aa] = :cc
+    assert_eq fs[:aa], :cc
+    fs.delete :aa
+        assert_eq fs[:aa], ''
+  end
 end

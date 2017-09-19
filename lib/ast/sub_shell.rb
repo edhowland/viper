@@ -48,8 +48,9 @@ nf = frames._clone
     # need to reset internal lambdas for :pid, :ppid
     #  vars after originally dumping framestack
     klone.restore_pids
+    klone.restore_oldpwd
     klone.fs.push
-#    frames.top.each_pair {|k,v| klone.fs[k] = v }
+
     result = true
     begin
       result = klone.call(@block)

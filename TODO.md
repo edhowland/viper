@@ -18,7 +18,8 @@ Uber BUG: should not use subshells like there are candy
   >> Instead use:
   >> exec { key_exists :key && apply :key } || echo bad juju
   >> Eventually, the bare '{statement1;statement2}' construct will work in parser for Vish removing need for exec
-Bug: no method error in meta_semicolon and using up arrow.
+Bug: marks not working for esp. snippet expansion
+Bug: no method error in meta_semicolon (internal command mode)  and using up arrow.
 Bug: sometimes quitting when unsaved dirty buffers errors in echo command
 Bug: MAJOR: vunit fails on every test
 Bug: sometimes get no method for NilClass, esp when scripts/at_exit/001_shutdown.vsh

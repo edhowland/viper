@@ -170,4 +170,12 @@ class VirtualMachineTests < BaseSpike
     baby=@vm._clone
     assert_eq baby.fs[:ppid], baby.ppid
   end
+  def test_restore_oldpwd_sets_current_framestack
+    fs = @vm.fs._clone
+    k = @vm._clone
+    fs[:oldpwd] = 'xxx'
+    k.fs = fs
+    k.restore_oldpwd
+    assert_eq k.fs[:oldpwd], k.cdbuf[1]
+  end
 end
