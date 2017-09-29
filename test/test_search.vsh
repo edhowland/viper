@@ -6,7 +6,6 @@ function test_embed() {
   echo -n bye sailor | ins /v/search
   unset srch_cmd
   compose_srch_cmd srch_fwd
-  assert_not_empty :srch_cmd 
   exec :srch_cmd
   assert_true :exit_status
   result=:(line :_buf)
