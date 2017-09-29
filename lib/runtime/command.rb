@@ -10,9 +10,10 @@
 # rubocop:disable Metrics/PerceivedComplexity
 
 class CommandNotFound < RuntimeError
-  def initialize(command = 'unknown')
-    super "Command: #{command}: not found"
+  def initialize(command = 'unknown', line_number:0)
+    super "Command: #{command}: not found: #{line_number}"
   end
+  attr_accessor :line_number
 end
 
 class Command
@@ -23,7 +24,7 @@ class Command
     end
 
     # fake it till you make it
-    def resolve(id, env:, frames:)
+    def resolve(id, env:, frames:, line_number:0)
       @@cache ||= {}
       return Null.new if id.nil? || id.empty?
       id = '_break' if id == 'break'
@@ -43,7 +44,7 @@ class Command
           thing = command_from_path cpath, frames: frames
         end
         if thing.nil?
-          raise CommandNotFound, id # RuntimeError.new ''
+          raise CommandNotFound.new(id, line_number:line_number) 
         else
           @@cache[id.to_sym] ||= thing
           return thing

@@ -82,4 +82,39 @@ class FrameStackTest < BaseSpike
     fs.delete :aa
         assert_eq fs[:aa], ''
   end
+  def test_rindex_of_finds_previous_frames_where_block_is_true
+    fs = FrameStack.new
+    fs.first[:aa] = 99
+    fs.push
+    fs[:aa] = 88
+    fs.push
+    fs[:aa] = 77
+    result = fs.rindex_of {|e| e[:aa] == 88 }
+    assert_eq result, 1
+  end
+  def test_rindex_of_returns_nil_when_nothing_matches
+    fs = FrameStack.new
+    fs.push
+    fs.push
+    fs.push
+    fs[:aa] = 99
+    result = fs.rindex_of {|e| e[:aa] == 0 }
+    assert_nil result
+  end
+  def test_rindex_of_given_4_levels_deep_still_finds_correct_index
+    fs = FrameStack.new
+    fs.first[:aa] = 0
+    fs.push
+    fs[:aa] = 1
+    fs.push
+    fs[:aa] = 2
+    fs.push
+    fs[:aa] = 3
+    result = fs.rindex_of {|e| e[:aa] == 2 }
+    assert_eq result, 2
+  end
+  def test_empty_predicate
+    fs = FrameStack.new
+    assert(!fs.empty?)
+  end
 end

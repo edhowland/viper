@@ -54,3 +54,34 @@ But the ppid is the pid of the original parent of the clone
  
   
 
+
+## Subshells, chdirs, oldpwd
+
+cd inside a subshell gets a clone of the parent vm. and it maintains  its own dir history.
+After returning to parent vm, old cd history is restored. Works like in Bash.
+## important aliases
+
+### at_exit
+
+```
+alias at_exit="on exit_event"
+```
+
+This sets an event handler  that occurs when the  exit_event  happens, as part
+of the final steps after a script runs. E.g. to fire when all units have been
+parsed in test/vunit.vsh
+
+The argument must be a block/lambda
+
+```
+at_exit { echo goodbye }
+```
+
+Note: Must run the full ./bin/viper, either with o without --no-finish to get this event to fire.
+
+```
+./bin/viper --no-finish -m nop -e 'at_exit { echo goodbye }'
+```
+
+Note: can only do 1 of these at the moment
+

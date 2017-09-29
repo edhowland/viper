@@ -4,6 +4,10 @@ function assert() {
   :_ || raise "expected :{_} to be true"
 }
 alias assert_true='assert test'
+alias assert_empty='assert test -z'
+function assert_not_empty() {
+  not { test -z :_ }  || raise expected :_ to not be empty but was
+}
 function assert_raises(fn) {
   capture :_ && raise expected exception got none
 }
@@ -44,6 +48,9 @@ function failures() {
 function fails() {
   filter &(f) { not { eq :f pass } } :_
 }
+function all_fails() {
+  cat < /v/tests/fails
+}
 function stats() {
   set=:(run_units)
   eq 0 :(failures :set) || (echo Failures; each &(x) { echo :x } :(fails :set))
@@ -59,5 +66,8 @@ function run_one(te) {
   test -f /v/tests/fails && rm /v/tests/fails
   capture { run_befores; :te >> /v/tests/log; run_afters;  echo pass } { echo :te ':' :last_exception >> /v/tests/fails; cat < /v/tests/fails }
 }
-at_exit { stats; test -f /v/tests/fails && cat < /v/tests/fails && exit 1 }
+at_exit { 
+  stats
+  test -f /v/tests/fails && cat < /v/tests/fails && exit 1 
+}
 

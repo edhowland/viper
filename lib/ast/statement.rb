@@ -117,7 +117,7 @@ class Statement
       ctx = prepare @context, env: ios, frames: fs
       c, *args = ctx
     # TODO: Is this correct? Shouldn't use local_ios and local_vars
-      command = Command.resolve(c, env: env, frames: frames)
+      command = Command.resolve(c, env: env, frames: frames, line_number:@line_number)
       wrap_streams(env:ios, frames:fs) do |ios, fs|
         result = command.call(*args, env: ios, frames: fs)
       end

@@ -119,13 +119,28 @@ class FrameStack
   def flatten
     @frames.reduce({}) {|i, j| j.each_pair {|k,v| i[k] = v } }
   end
+  # index_of returns index of @frames where given block returns true
     def index_of &blk
+    result = false
     result = @frames.find(&blk) if block_given?
     if result
       @frames.index result
     else
       nil
     end
+  end
+  # rindex_of returns index of @frames where matches block true starting from the back
+  def rindex_of &blk
+    result = false
+    result = @frames.reverse.find(&blk) if block_given?
+    if result
+      @frames.rindex(result)
+    else
+      nil
+    end
+  end
+  def empty?
+    @frames.empty?
   end
 end
 

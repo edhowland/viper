@@ -21,7 +21,8 @@ Uber BUG: should not use subshells like there are candy
 Bug: marks not working for esp. snippet expansion
 Bug: no method error in meta_semicolon (internal command mode)  and using up arrow.
 Bug: sometimes quitting when unsaved dirty buffers errors in echo command
-Bug: MAJOR: vunit fails on every test
+Bug: MAJOR: vunit has 3 failures ONLY if test_editor.vsh is commented out
+  >> the set_up, teardown cause every test to fail
 Bug: sometimes get no method for NilClass, esp when scripts/at_exit/001_shutdown.vsh
 Bug: Get Command not found when at end oof buffer and try to do any movements in that direction
 Bug: Should global variable first unset variable so any pushed frame stacks unset it as well?

@@ -8,13 +8,15 @@ class LambdaDeclaration
   end
 
   def call(*_args, env:, frames:)
-    #  save the environment of of us back to  first function on stack or 0 or global level
+    #  save the environment of of us back to  first lambda on stack or  or just our own environment frames[-1]
 #    binding.pry
-    idx = frames.index_of {|e| e[:__FUNCTION__] }
-    idx ||= 0
-    klone = frames._clone
-    fr = klone.slice (idx..-1)
+#    idx = frames.index_of {|e| e[:__FUNCTION_NAME__] == 'anonymous' }
+#    idx ||= -1
+#    klone = frames._clone
+#    fr = klone.slice (idx..-1)
 #    fr = frames.back(:__FUNCTION__)
+
+  fr = Closure.close(frames)
     Lambda.new(@args, @block, frames: fr)
   end
 

@@ -33,4 +33,8 @@ class Block
   def to_s
     '{ ' + @statement_list.map(&:to_s).join(';') + ' }'
   end
+  
+  def empty?
+    @statement_list.empty?
+  end
 end

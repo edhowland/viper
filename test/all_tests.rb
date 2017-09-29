@@ -29,5 +29,6 @@ require_relative 'md_parse_tests'
 require_relative 'viper_tests'
 require_relative 'unknown_hash_tests'
 require_relative 'delete_tests'
+require_relative 'closure_tests'
 
 

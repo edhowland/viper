@@ -13,8 +13,9 @@ class Lambda
   def call(*args, env:, frames:)
     #fr = frames + @frames # fr is now current frame stack + the saved context
 #    binding.pry
-fr = frames._clone
+fr = frames
     fr.frames += @frames
+    extra = @frames.length
 #    binding.pry
 #    fr = frames
     fr.push
@@ -27,7 +28,13 @@ fr = frames._clone
     fr[:__FUNCTION_TYPE__] = 'lambda'
     fr[:__FUNCTION_NAME__] = 'anonymous'
     # Now call the parsed block we got from LambdaDeclaration
-    @block.call env: env, frames: fr
+    begin
+      result = @block.call env: env, frames: fr
+    ensure
+      fr.pop
+      extra.times { fr.pop }
+    end
+    result 
   end
 
   def to_s

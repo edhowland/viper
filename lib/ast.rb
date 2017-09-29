@@ -1,4 +1,5 @@
 # ast.rb - requires for ast/
+require_relative 'ast/closure'
 require_relative 'ast/redirectable.rb'
 require_relative 'ast/alias_declaration.rb'
 require_relative 'ast/argument.rb'
