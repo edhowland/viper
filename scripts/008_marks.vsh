@@ -1,10 +1,13 @@
 mkmode mark
+function mac_bind_key(ky, let) {
+  bind :ky &() { trait_set :_buf :let; _mark=:let; global _mark } &() { echo -n mark :let set }
+  store { nop } "/v/klogs/:{_mode}/:{ky}"
+}
 function mark_keys() {
   for i in :_ {
 key=:(echo -n :i | xfkey)
-bind :key &() { trait_set :_buf :i; _mark=:i; global _mark } &() { echo -n mark :i set }
-store { nop } "/v/klogs/:{_mode}/:{key}"
-  }
+    mac_bind_key :key :i
+    }
 }
 _mode=mark mark_keys :(printable)
 function m(mark) {

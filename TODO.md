@@ -11,6 +11,7 @@ Major reimplementation of Statement class
 
 
 Major Bug:
+Bug: Some proplem in setting marks in macro replay in Ruby .rb settings
 Uber BUG: should not use subshells like there are candy
   >> E.g.
   >> (key_exists :key && apply :key) || echo bad juju
