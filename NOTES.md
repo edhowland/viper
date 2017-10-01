@@ -85,3 +85,14 @@ Note: Must run the full ./bin/viper, either with o without --no-finish to get th
 
 Note: can only do 1 of these at the moment
 
+## Some notes on macros
+
+Use meta_n (Alt n) to insert a character  at the current position. without moving
+the cursor. (Uses ins_at :_buf key function)
+Then can use F5 (fn_5) to set mark t for position point.
+
+
+### Modifications to macro recording.
+
+Currently, F6 (fn_6) sets this value in klog. The keystrokes between fn_6 's are the contents of the 
+macro and are used in save_macro function.
