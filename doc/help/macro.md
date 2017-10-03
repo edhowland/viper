@@ -60,3 +60,10 @@ This macro can then be invoked at any future time via enter 'exp' followed by Al
 Once you have created one or more macros, you can save them for future Viper sessions.
 Enter Alt semicolon to start a command entry. Type
 'dump_macros.
+
+
+## Setting cursor positions
+
+You can set bookmarks in your macro and then use the 
+bookmark movement keys to position the initial cursor position. See [Bookmarks](bookmarks)
+
