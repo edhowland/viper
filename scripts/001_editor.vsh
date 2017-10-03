@@ -45,8 +45,8 @@ function bound(key) {
 alias bk='echo -n Type a key to hear its bound action; bound :(raw - | xfkey)'
 _keysink=.keylog; global _keysink
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
-function log_key() {
-test -f ":{_buf}/:{_keysink}" && echo :_ | enq ":{_buf}/:{_keysink}"
+function log_key(key, op) {
+  test -f ":{_buf}/:{_keysink}" && ifelse { test -z :op } { echo :key | enq ":{_buf}/:{_keysink}" } { echo ":{key} :{op}" | enq ":{_buf}/:{_keysink}" }
 }
 function apply(ch, data) {
   applyf :ch :data | tee -e { applyk :ch } | applys :ch :data

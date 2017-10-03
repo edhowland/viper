@@ -5,9 +5,9 @@ require_relative 'test_helper'
 class BinTests < BaseSpike
     def set_up
   @orig_dir = File.dirname(File.expand_path(__FILE__))
-    @vm = VirtualMachine.new
     @errbuf = StringIO.new
     @outbuf = StringIO.new
+    @inbuf = StringIO.new
     @vm = VirtualMachine.new
     @vm.ios[:err] = @errbuf
     @vm.ios[:out] = @outbuf
@@ -105,5 +105,39 @@ class BinTests < BaseSpike
   def test_stat_ok
     go 'stat /v/bin'
     assert_eq @outbuf.string, "stat\n/v/bin\nvirtual? true\ndirectory? true\nVFSNode: directory node: bin\n"
+  end
+  def betx(inp, mtch)
+    btw = Between.new
+    @inbuf = StringIO.new inp
+    @vm.ios[:in] = @inbuf
+    btw.call mtch, env:@vm.ios, frames:@vm.fs
+    @vm.ios[:out].string
+  end
+  def test_between_w_no_fence_posts
+    btw = Between.new
+    expected = "line1\nline2\nline3\n"
+    @inbuf = StringIO.new expected
+    @vm.ios[:in] = @inbuf
+    btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string, expected
+  end
+  def test_between_w_single_fence_post
+    @inbuf = StringIO.new "key_d\nfn_6\nkey_e\nkey_f\n"
+    @vm.ios[:in] = @inbuf
+    btw = Between.new
+    btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string, "key_e\nkey_f\n"
+  end
+  def test_between_gets_every_thing_between_2_fence_posts
+    @inbuf = StringIO.new "key_h\nfn_6\nkey_e\nkey_l\nkey_l\nfn_6\nkey_o\n"
+    btw = Between.new
+    @vm.ios[:in] = @inbuf
+    btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
+    assert_eq @vm.ios[:out].string, "key_e\nkey_l\nkey_l\n"
+  end
+
+  def test_between_just_one_fence_post
+    actual = betx("fn_6\n", 'fn_6')
+    assert_eq actual, ''
   end
 end
