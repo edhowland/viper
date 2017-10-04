@@ -11,8 +11,6 @@ Major reimplementation of Statement class
 
 
 Major Bug:
-Bug: Some proplem in setting marks in macro replay in Ruby .rb settings
-  >> Change: Instead of looking for fn_6 's in klog,
   >> Use character traits in current buffer ??!??!!!
 Uber BUG: should not use subshells like there are candy
   >> E.g.
@@ -21,7 +19,6 @@ Uber BUG: should not use subshells like there are candy
   >> Instead use:
   >> exec { key_exists :key && apply :key } || echo bad juju
   >> Eventually, the bare '{statement1;statement2}' construct will work in parser for Vish removing need for exec
-Bug: marks not working for esp. snippet expansion
 Bug: no method error in meta_semicolon (internal command mode)  and using up arrow.
 Bug: sometimes quitting when unsaved dirty buffers errors in echo command
 Bug: sometimes get no method for NilClass, esp when scripts/at_exit/001_shutdown.vsh
@@ -40,10 +37,12 @@ alias scratch='vn -e scratch'
    >> { echo hello } > file.txt
      >> This construct should be at same level as SubShell (and also take redirections
        >> ... add method ordinal to Block. it should return  COMMAND
-
-Feature: Use of :__NAME__ for the name of the function itself within a function
+  >> But : requires changes to Vish grammar file.
+Feature: Use of :__FUNCTION_NAME__ for the name of the function itself within a function
   >> can represents the name of the function itself. E.g. Bash echo $0 within a function
+  >> In the case of a lambda expression, reports 'anonymous' when executed.
 Feature: Use of :__FUNCTION__ is true if in a function.
+Feature : Use of __FUNCTION_TYPE__ as either function or lambda.
   >> is blank otherwise
   >> Will be true in ivish (interactive Vish) and within  command prompt
 Bug: better error handle of trying to open a directory
@@ -130,3 +129,7 @@ Feature: complete coding of undo/redo:
   > keep checking on possible undo stuff ...
   > such as after run_snip, via handle_tab
 
+## New keys
+
+Meta N : Prompts for a key and inserts it at the current cursor position without advancing the cursor.
+>> Bug: Missing properly key logging method.
