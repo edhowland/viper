@@ -7,6 +7,10 @@ Press Tab or down arrow to go to the next topic.
 This help browser can be reached from the main Viper editor session by Alt h.
 Alternatively, you can enter command mode via alt semicolon. Then type help and Return.
 
+## Table of Contents
+
+[Topics : Complete list of help topics](topics)
+
 ## Help for Help
 
 This is the help browser. You can move around via the arrow keys on thekeyboard.
