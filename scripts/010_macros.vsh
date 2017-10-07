@@ -55,6 +55,7 @@ function macros() {
   cd - | nop
 }
 _mode=macros bind meta_m &(data) { trait_set :_buf :data; _mark=:data; global _mark } &(data) { nop }
+_mode=macros bind meta_n &(data) { ins_at :_buf :data } &(data) { nop }
 store { echo "meta_m,:{_mark}" | enq ":{_buf}/.keylog" } /v/klogs/macros/meta_m
 _mode=macros bind meta_d &(data) { new_clip; perform_delete :_sup } &(data) { nop }
 function perform_macro() {

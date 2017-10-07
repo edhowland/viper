@@ -125,6 +125,7 @@ _mode=viper bind meta_number { comment_line :_buf } {line :_buf  }
 _mode=viper bind meta_3 { uncomment_line :_buf } { line :_buf }
 _mode=viper bind meta_h { nop } { help }
 _mode=viper bind meta_n { perr -n press a key; key=:(raw -); ins_at :_buf :key } { cat }
+store { ch=:(cat); echo "meta_n :{ch}" | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/meta_n
 function search_vip_rev() {
 searcher
 compose_srch_cmd srch_back

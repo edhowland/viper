@@ -139,4 +139,16 @@ class TraitTests < BaseSpike
       end
     end
   end
+  def test_trait_list_is_empty
+    assert_empty @buf.trait_list
+  end
+  def test_trait_list_returns_one_trait
+    @buf.ins_at('a')
+    @buf.trait_set 'j'
+    assert_eq @buf.trait_list, [:j]
+  end
+  def test_trait_list_still_empty_when_no_trait_on_single_char
+    @buf.ins_at('B')
+    assert_empty @buf.trait_list
+  end
 end

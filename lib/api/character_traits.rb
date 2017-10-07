@@ -71,4 +71,8 @@ class Buffer
     pos = trait_first(trait)
     to_a[pos].includes_trait? trait.to_sym
   end
+  def trait_list
+    return [] if @b_buff.first.nil?
+    @b_buff.first.traits.to_a
+  end
 end
