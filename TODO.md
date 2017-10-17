@@ -27,6 +27,7 @@ Bug: Should global variable first unset variable so any pushed frame stacks unse
   >> Check out in Bash first, remember that it uses local instead of global
 
 Bug/Feature: Investigate how to properly handle option errors
+Bug:feature: Make sure echo >> :_buf works esp. with tests
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
 Feature: unset -f option needed to delete a declared fucton.
