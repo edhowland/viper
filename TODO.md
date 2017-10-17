@@ -29,6 +29,7 @@ Bug: Should global variable first unset variable so any pushed frame stacks unse
 Bug/Feature: Investigate how to properly handle option errors
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
+Feature: unset -f option needed to delete a declared fucton.
 Feature: del_line :_buf to delete a line. Outputs line to stdout
 Feature: To implement scratch: Use -e scratch
 alias scratch='vn -e scratch'
