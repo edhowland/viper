@@ -1,6 +1,6 @@
 mkmode ins_at
 function log_ins_at(key) {
-  echo -n "ins_at,:{key}" | enq ":{_buf}/.keylog"
+  echo "ins_at,:{key}" | enq ":{_buf}/.keylog"
 }
 function bind_ins(canon,value) {
   bind :canon &() { ins_at :_buf :value } { cat }

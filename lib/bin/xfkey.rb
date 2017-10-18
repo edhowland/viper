@@ -1,7 +1,9 @@
 # xfkey - class Xfkey - command xfkey - maps bytes to string representsations
+# TODO : Clean this up
 # arg: [-h] :  print human readable version
 # -d : prints decimal representation of keystroke
 # -u : prints Unicode representation of keystroke
+# -r reverses key name into character
 # Usage: raw - | xfkey  # generates key_j if j pressed. ctrl_q if Ctrol-Q hit.
 # echo key_space | xfkey -h  # prints human understandable character: "space"
 
@@ -195,6 +197,84 @@ class Xfkey < BaseCommand
     end
   end
 
+  def name_to_char values
+  symbols = {
+      "\e" => 'escape',
+      "\u007F" => 'key_backspace',
+      # punctuation
+      ' ' => 'key_space',
+      '.' => 'key_period',
+      ',' => 'key_comma',
+      '<' => 'key_less',
+      '>' => 'key_greater',
+      '/' => 'key_slash',
+      '?' => 'key_question',
+      "'" => 'key_apostrophe',
+      '"' => 'key_quote',
+      ';' => 'key_semicolon',
+      ':' => 'key_colon',
+      ']' => 'key_rbracket',
+      '}' => 'key_rbrace',
+      '[' => 'key_lbracket',
+      '{' => 'key_lbrace',
+      '\\' => 'key_backslash',
+      '|' => 'key_pipe',
+      '=' => 'key_equals',
+      '+' => 'key_plus',
+      '-' => 'key_dash',
+      '_' => 'key_underline',
+      ')' => 'key_rparen',
+      '(' => 'key_lparen',
+      '*' => 'key_star',
+      '&' => 'key_ampersand',
+      '^' => 'key_caret',
+      '%' => 'key_percent',
+      '$' => 'key_dollar',
+      '#' => 'key_number',
+      '@' => 'key_at',
+      '!' => 'key_exclaim',
+      '`' => 'key_accent',
+      '~' => 'key_tilde',
+      # movement keys
+      "\u001b" + "\u005b" + "\u0044" => 'move_left',
+      "\u001b" + "\u005b" + "\u0043" => 'move_right',
+      "\u001b" + "\u005b" + "\u0041" => 'move_up',
+      "\u001b" + "\u005b" + "\u0042" => 'move_down',
+      "\u001b" + "\u005b" + "\u0031" + "\u003b" + "\u0032" \
+      "\u0043" => 'move_shift_right',
+      "\u001b" + "\u005b" + "\u0031" \
+      "\u003b" + "\u0032" + "\u0044" => 'move_shift_left',
+      "\u001b" + "\u005b" + "\u0035" + "\u007e" => 'move_shift_pgup',
+      "\u001b" + "\u005b" + "\u0036" + "\u007e" => 'move_shift_pgdn',
+      "\u001b" + "\u005b" + "\u0048" => 'move_shift_home',
+      "\u001b" + "\u005b" + "\u0046" => 'move_shift_end',
+      # forward delete
+      "\u001b" + "\u005b" + "\u0033" + "\u007e" => 'key_delete',
+      # backtab
+      "\u001b" + "\u005b" + "\u005a" => 'key_backtab',
+      # function keys
+      "\u001b" + "\u004f" + "\u0050" => 'fn_1',
+      "\u001b" + "\u004f" + "\u0051" => 'fn_2',
+      "\u001b" + "\u004f" + "\u0052" => 'fn_3',
+      "\u001b" + "\u004f" + "\u0053" => 'fn_4',
+      "\u001b" + "\u005b" + "\u0031" + "\u0035" + "\u007e" => 'fn_5',
+      "\u001b" + "\u005b" + "\u0031" + "\u0037" + "\u007e" => 'fn_6',
+      "\u001b" + "\u005b" + "\u0031" + "\u0038" + "\u007e" => 'fn_7',
+      "\u001b" + "\u005b" + "\u0031" + "\u0039" + "\u007e" => 'fn_8',
+      "\u001b" + "\u005b" + "\u0032" + "\u0030" + "\u007e" => 'fn_9',
+      "\u001b" + "\u005b" + "\u0032" + "\u0031" + "\u007e" => 'fn_10',
+      # fn_11 is Mac special key
+      "\u001b" + "\u005b" + "\u0032" + "\u0034" + "\u007e" => 'fn_12',
+
+      # meta keys
+      # [e2,88,82] => 'meta_d'
+
+    }
+    (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).each_with_object(symbols) { |e, o| o[e] = "key_#{e}" }
+    @out.write symbols.invert[values]
+    true
+  end
+
   def call(*args, env:, frames:)
     @out = env[:out]
     values = env[:in].read
@@ -209,6 +289,8 @@ class Xfkey < BaseCommand
       key_to_hex  values
     elsif args[0] == '-d'
       key_to_decimal values
+    elsif args[0] == '-r'
+      name_to_char values
     else
       key_to_name values
     end
