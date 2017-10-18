@@ -63,3 +63,4 @@ _mode=undo bind meta_comma { undo_macro } { echo -n macro expansion reversed }
 _mode=undo bind meta_less { indent_line :_buf } { echo -n outdent reversednted }
 _mode=undo bind meta_number { uncomment_line :_buf } { line :_buf }
 _mode=undo bind meta_3 { comment_line :_buf } { line :_buf }
+_mode=undo bind ins_at &(data) { del_at :_buf } &(data) { name=:(echo :data | xfkey -h); echo -n :name deleted }

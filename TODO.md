@@ -11,10 +11,6 @@ Major reimplementation of Statement class
 
 
 Major Bug:
-Bug: Test if empty buffer, then F6, one keystroe.
-  >> Test with: apply fn_6; apply key_d; apply fn_6; save_macro dd; cat < /v/macros/viper/dd.
-  >> Should not have any fn_6 in the array
-  >> Use character traits in current buffer ??!??!!!
 Uber BUG: should not use subshells like there are candy
   >> E.g.
   >> (key_exists :key && apply :key) || echo bad juju

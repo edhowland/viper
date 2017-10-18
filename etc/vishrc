@@ -1,6 +1,8 @@
 mount /v
 mkdir /v/bin
 install
+alias rem=nop
+rem Use this line as pattern for all comments
 mkdir /v/buf
 _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
