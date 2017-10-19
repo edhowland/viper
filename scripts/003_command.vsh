@@ -31,6 +31,8 @@ _mode=command bind move_shift_home { front_of_line :_buf } { at :_buf }
 _mode=command bind move_shift_end { back_of_line :_buf } { at :_buf }
 _mode=command bind move_shift_pgup { beg /v/search } { line /v/search }
 _mode=command bind move_shift_pgdn { fin /v/search } { echo -n bottom of search buffer }
+_mode=command bind fn_1 { echo -n Vish shell.; echo -n buffers :(buffers | wc -l) } { cat }
+_mode=command bind fn_2 { nop } { echo -n Buffer Command }
 _mode=command bind ctrl_m { cmd=:(line /v/command); global cmd; at_fin /v/command && not { test -z :cmd } && echo | ins :_buf } { nop }
 _mode=command bind ctrl_b { break } { nop }
 _mode=command bind ctrl_q { exit } { nop }

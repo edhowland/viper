@@ -115,3 +115,16 @@ scratch; _mode=viper bound ctrl_b > :_buf
 
 You will be placed in a new scratch buffer with the contents of the bound function. You can move aound and edit to your liking.
 Now, press control e to evaluate the contents of the scratch buffer. 
+
+
+# Help text for bound keys
+
+After you ue the bind function above to bind a key to some action,
+you might want to help yourself or other users by exposing the key
+to the F3 or Alt 3 key help function. You cn use the 'mkhelp' function
+to perform this:
+
+```
+_mode=viper mkhelp ctrl_b Speaks the current date and time
+```
+
