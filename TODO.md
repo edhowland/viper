@@ -81,6 +81,7 @@ cmt <mark> will comment all lines to previous mark
 In command mode: 
 evalvsh - Will parse and evaluate contents of buffer: :_buf
 echo some Vish stuff | vsh_parse varname - ; eval :varname - parse and evaluate stdin
+  >> Bound to ctrl_e
 Have added meta_period to repeat the last command.
 > m <mark name> - sets given mark at current position. Can be reused with meta_period
 

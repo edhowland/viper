@@ -21,7 +21,7 @@ An example is F 3, ehich
 - Control B : Unbound
 - Control C  :  Copy marked section
 - Control D : Unbound
-- Control E : Unbound
+- Control E : Evaluates the contents of the current buffer in the Vish language and runs the commands therein.
 - Control F : Search Forward. Enter search term and press enter.
 - Control G : Search again in last search direction.
 - Control H : Unbound
@@ -37,11 +37,11 @@ An example is F 3, ehich
 - Control R : Search reverse. Enter search term and press Enter.
 - Control S : Save current buffer.
 - Control T : Switches to next buffer in buffer ring. Rotates around if at end of ring.
-- Control U : Redo last undone action with Control Z.
+- Control U : Unbound
 - Control V : Paste contents of clipboard at current position.
 - Control w : Moves forward one word in buffer.
 - Control X : Cuts marked section to clipboard.
-- Control Y : Yanks current line intoclipboard.
+- Control Y : Yanks or copies current line intoclipboard.
 - Control Z : Undoes last action.
 
 ## Movement keys
@@ -97,7 +97,7 @@ which are mapped to F 1 through F ten.
 - Alt 2 : Reports Name of current buffer and a star if it has any unsaved changes
 - Alt 3 : Prompts for next key and reports its action. Key help.
 - Alt 4 :Sets a mark at current cursor position
-- Alt 5 :
+- Alt 5 : Sets mark t at current cursor position.
 - Alt 6 : Starts macro recording. Press Fn 6 again to stop macro recording.
 
 ## Delete keys
