@@ -1,12 +1,15 @@
 # Bind keys in various modes
 
 The bind function can be used to map a particular key name, like ctrl_b, to some action.
-You must state the _mode variable befor calling the bind function.
+You might normally add this command to your ~/.vishrc command. Or, you
+mightonly only run this command for your current Viper session. In this case,  enter command mode first with the Alt semicolon key.
+
+You must set the _mode variable befor calling the bind function.
 The bind function takes 3 arguments:
 
 - The canonical name of the key. E.g. ctrl_a, key_F, meta_j or fn_3 etc.
-- The control action which can be either an anonomous function or a block.
-- The View action which can be either an anonomous function or a block.
+- The control action which can be either an anonomous function (alsoe called a lambda) or a block.
+- The View action which can be either an anonomous function (called a lambda) or a block.
 
 See below for explanations of modes, key names, control actions and view actions.
 
@@ -33,7 +36,7 @@ See below for canonical key type names, along with some examples:
 
 ## Control actions
 
-The first argument to the bind function is either a block or a lambda function.
+The second argument to the bind function is either a block or a lambda function.
 What happens within this block or lambda is the desired action when the key
 is pressed. For instance, a movement key might be as follows:
 
@@ -44,7 +47,7 @@ is pressed. For instance, a movement key might be as follows:
 
 ## View actions
 
-The View action is the second argument to the bind function. It  is either a block
+The View action is the third argument to the bind function. It  is either a block
 or a lambda function. The action is what is desired
 to speak once the Control action has been completed.
 
@@ -111,4 +114,4 @@ scratch; _mode=viper bound ctrl_b > :_buf
 ```
 
 You will be placed in a new scratch buffer with the contents of the bound function. You can move aound and edit to your liking.
-Now 
+Now, press control e to evaluate the contents of the scratch buffer. 

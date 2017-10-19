@@ -15,4 +15,4 @@ loadvsh
 function evalvsh() {
   capture { vsh_parse aa < :_buf } { echo Syntax error } {  exec :aa }
 }
-
+_mode=viper bind ctrl_e { evalvsh } { cat }
