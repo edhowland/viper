@@ -63,7 +63,7 @@ _mode=help exec {
   bind fn_3 { key_prompt } { cat }
 }
 function mkhelp(key) {
-  eq  :_argc 1 && exec { echo "_mode=:{_mode}" mkhelp :key ' '; help_key :key; return true } 
+  eq  :_argc 1 && exec { echo "_mode=:{_mode}" mkhelp :key :(help_key :key); return true; return false }
   echo -n :_ > "/v/keys/:{_mode}/:{key}"
 }
 function load_key_help() {

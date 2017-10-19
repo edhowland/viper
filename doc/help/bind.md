@@ -128,3 +128,39 @@ to perform this:
 _mode=viper mkhelp ctrl_b Speaks the current date and time
 ```
 
+## Editing the key help
+
+You can perform an edit step  with the following command:
+
+```
+scratch; _mode=viper mkhelp ctrl_b > :_buf
+```
+
+Now in the new scratch buffer, you can move around and edit as needed.
+When you want to set new key help, press control e to evaluate and run the contents of
+the scratch buffer. Then press F3 and test it out.
+
+## Getting the key help via the command method:
+
+```
+_mode=viper help_key ctrl_b
+```
+
+### notes for Viper developers
+
+Once you have bound keys and set the key help for the key with the mkhelp
+function, use the save_key_help function to store it permanently.
+Remember to 'git commit' your changes.
+
+```
+_mode=viper save_key_help
+```
+
+The key helps are saved in ./doc/keys/viper.json (for viper mode)
+
+You can restore the contents of the key helps via the load_key_help function:
+
+```
+_mode=viper load_key_help
+```
+
