@@ -88,9 +88,11 @@ which are mapped to F 1 through F ten.
 - Alt k : Speaks the current indent level of the current line.
 - l : Speaks the current line number.
 - m : Starts Set mark dialog. Next character typed will be the name of the mark. Mark will be set at current position.
+- Alt n : Prompts for next key which will be inserted at current cursor position without moving crsor.
 - Alt p : Speaks the current character position in current buffer.
 - Alt r : Moves to previous set mark position. See Alt f.
 - Alt w : Moves cursor one word back in current buffer. See Control w.
+- Alt z : Redoes last undone action that happened with Control Z.
 - Alt 1  : Reports status of Viper editor with number of open buffers
 - Alt 2 : Reports Name of current buffer and a star if it has any unsaved changes
 - Alt 3 : Prompts for next key and reports its action. Key help.

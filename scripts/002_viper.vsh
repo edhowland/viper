@@ -126,6 +126,7 @@ _mode=viper bind meta_3 { uncomment_line :_buf } { line :_buf }
 _mode=viper bind meta_h { nop } { help }
 _mode=viper bind meta_n { perr -n press a key; do_ins_at } { cat }
 ignore_undo meta_n
+_mode=viper bind ins_at &(data) { ch=:(echo -n :data | xfkey -r); ins_at :_buf :ch } &(data) { name=:(echo -n :data | xfkey -h); echo -n :name }
 function search_vip_rev() {
 searcher
 compose_srch_cmd srch_back

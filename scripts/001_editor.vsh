@@ -40,7 +40,8 @@ function applyk(key, opt) {
 }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
 function bound(key) {
-  echo bind :key :(stat -s "/v/modes/:{_mode}/:{key}") :(stat -s "/v/views/:{_mode}/:{key}")
+  test -f "/v/modes/:{_mode}/:{key}" || exec { perr -e :key is not bound; return false }
+  echo "_mode=:{_mode}" bind :key :(stat -s "/v/modes/:{_mode}/:{key}") :(stat -s "/v/views/:{_mode}/:{key}")
 }
 alias bk='echo -n Type a key to hear its bound action; bound :(raw - | xfkey)'
 _keysink=.keylog; global _keysink

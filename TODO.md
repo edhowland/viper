@@ -11,6 +11,9 @@ Major reimplementation of Statement class
 
 
 Major Bug:
+Bug: variable settings cannot exist after the actual command.
+  >> echo _mode=:_mode  -- This should not set the _mode variable, just output the string
+Bug: Do not understand undo/redo cycle. How does keysink variable play into it?
 Uber BUG: should not use subshells like there are candy
   >> E.g.
   >> (key_exists :key && apply :key) || echo bad juju
@@ -25,6 +28,8 @@ Bug: Get Command not found when at end oof buffer and try to do any movements in
 Bug: Should global variable first unset variable so any pushed frame stacks unset it as well?
   >> Check out in Bash first, remember that it uses local instead of global
 
+Feature: Implement the copy, cut and paste key binding in command mode.
+  >> These work the same as in _mode=viper, with buffer in /v/command
 Bug/Feature: Investigate how to properly handle option errors
 Bug:feature: Make sure echo >> :_buf works esp. with tests
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
