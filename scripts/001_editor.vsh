@@ -39,13 +39,16 @@ function applyk(key, opt) {
 (test -f "/v/klogs/:{_mode}/:{key}" && exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
 }
 function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
+function is_bound(key) {
+  test -f "/v/modes/:{_mode}/:{key}"
+}
 function bound(key) {
-  test -f "/v/modes/:{_mode}/:{key}" || exec { perr -e :key is not bound; return false }
+  is_bound :key || exec { perr -e :key is not bound; return false }
   echo "_mode=:{_mode}" bind :key :(stat -s "/v/modes/:{_mode}/:{key}") :(stat -s "/v/views/:{_mode}/:{key}")
 }
 alias bk='echo -n Type a key to hear its bound action; bound :(raw - | xfkey)'
 function unbind(key) {
-  test -f "/v/modes/:{_mode}/:{key}" || exec { perr :key is not bound; return false }
+  is_bound :key || exec { perr :key is not bound; return false }
   rm "/v/modes/:{_mode}/:{key}"
   rm "/v/views/:{_mode}/:{key}"
   test -f "/v/klogs/:{_mode}/:{key}" && rm "/v/klogs/:{_mode}/:{key}"

@@ -190,3 +190,19 @@ you want to unbind a normally letter or punction key.
 Once you unbind a key, the F3 action will report the key is unbound.
 But, if you later you bind the key to some other action, the previous help text will be restored.
 In this case, remember to use te mkhelp function to set the new help text.
+
+# Testing boundness of key in Vish scripts
+
+When writing your own Vish scripts (*.vsh): You can test 
+if a key is bound before doing some action.
+
+The function to do this is the 'is_bound key' function. It returns true if
+the key is bound or else it returns false. E.g.:
+
+```
+_mode=viper unbind ctrl_b
+_mode=viper is_bound ctrl_b || echo ctrl_b is not yet bound
+ctrl_b isnot yet bound
+```
+
+

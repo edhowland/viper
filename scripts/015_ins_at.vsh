@@ -16,6 +16,7 @@ _mode=ins_at mode_ins_at :(printable)
 name=key_space
 _mode=ins_at bind :name { ins_at :_buf ' ' } { echo -n space }
 store { log_ins_at key_space } /v/klogs/ins_at/key_space
+_mode=ins_at bind ctrl_m { echo | ins_at :_buf } { echo -n newline }
 function do_ins_at() {
   key=:(raw - | xfkey)
   capture { _mode=ins_at apply :key } { bell }

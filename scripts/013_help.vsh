@@ -7,7 +7,7 @@ function help_hist(doc, ignore) {
   eq :ignore ignore || (echo :doc | enq /v/history/help)
     }
 function help_key(key) {
-  test -f "/v/modes/:{_mode}/:{key}" || exec { perr -n :key is not bound; return  false }
+  is_bound :key || exec { perr -n :key is not bound; return  false }
   pth="/v/keys/:{_mode}/:{key}"
   ifelse { test -f :pth } { 
   cat < :pth } {
