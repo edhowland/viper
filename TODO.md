@@ -11,6 +11,7 @@ Major reimplementation of Statement class
 
 
 Major Bug:
+Bug: insert at or at current position with ins_at :_buf can be redone. But not redone with Alt/meta z
 Bug: variable settings cannot exist after the actual command.
   >> echo _mode=:_mode  -- This should not set the _mode variable, just output the string
 Bug: Do not understand undo/redo cycle. How does keysink variable play into it?
