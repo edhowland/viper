@@ -201,6 +201,7 @@ class Xfkey < BaseCommand
   symbols = {
       "\e" => 'escape',
       "\u007F" => 'key_backspace',
+      "\n" => 'ctrl_m',
       # punctuation
       ' ' => 'key_space',
       '.' => 'key_period',

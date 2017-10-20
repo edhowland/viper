@@ -17,6 +17,7 @@ name=key_space
 _mode=ins_at bind :name { ins_at :_buf ' ' } { echo -n space }
 store { log_ins_at key_space } /v/klogs/ins_at/key_space
 _mode=ins_at bind ctrl_m { echo | ins_at :_buf } { echo -n newline }
+store { echo "ins_at,ctrl_m" | enq ":{_buf}/.keylog" } /v/klogs/ins_at/ctrl_m
 function do_ins_at() {
   key=:(raw - | xfkey)
   capture { _mode=ins_at apply :key } { bell }
