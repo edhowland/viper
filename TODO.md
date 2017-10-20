@@ -32,6 +32,7 @@ Feature: Implement the copy, cut and paste key binding in command mode.
   >> These work the same as in _mode=viper, with buffer in /v/command
 Bug/Feature: Investigate how to properly handle option errors
 Bug:feature: Make sure echo >> :_buf works esp. with tests
+  >> This is appending to end of the buffer.
 Bug:/Feature: Need tests for frame_stack.rb - Has many methods
   >> in OptionParser - w/custom error handler
 Feature: unset -f option needed to delete a declared fucton.
