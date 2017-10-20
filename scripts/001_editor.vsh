@@ -44,6 +44,12 @@ function bound(key) {
   echo "_mode=:{_mode}" bind :key :(stat -s "/v/modes/:{_mode}/:{key}") :(stat -s "/v/views/:{_mode}/:{key}")
 }
 alias bk='echo -n Type a key to hear its bound action; bound :(raw - | xfkey)'
+function unbind(key) {
+  test -f "/v/modes/:{_mode}/:{key}" || exec { perr :key is not bound; return false }
+  rm "/v/modes/:{_mode}/:{key}"
+  rm "/v/views/:{_mode}/:{key}"
+  test -f "/v/klogs/:{_mode}/:{key}" && rm "/v/klogs/:{_mode}/:{key}"
+}
 _keysink=.keylog; global _keysink
 function key_exists(key) { test -f "/v/modes/:{_mode}/:{key}" }
 function log_key(key, op) {

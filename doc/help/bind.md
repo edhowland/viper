@@ -164,3 +164,29 @@ You can restore the contents of the key helps via the load_key_help function:
 _mode=viper load_key_help
 ```
 
+
+
+# Unbinding a bound key
+
+You might want to unbind a key that is bound to some action that you
+do not want to accidently press. Or for any other reason. You can do this with
+the 'unbind' function:
+
+```
+_mode=viper unbind ctrl_p
+_mode=viper bound ctrl_p
+ctrl_p is not bound
+```
+
+### Warnings
+
+Unbinding a key will make that key unusable for future editing. Be careful if 
+you want to unbind a normally letter or punction key.
+
+
+
+#### Remember to also reset any key help
+
+Once you unbind a key, the F3 action will report the key is unbound.
+But, if you later you bind the key to some other action, the previous help text will be restored.
+In this case, remember to use te mkhelp function to set the new help text.
