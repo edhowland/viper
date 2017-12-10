@@ -40,8 +40,8 @@ This executes the main editor loop. To exit, hit Ctrl-Q at any time.
 ### Use the following control characters for some actions:
 
 - Ctrl-S: Saves the current buffer.
-- Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi
-- Ctrl-H - Brings up Help text
+- Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirty.
+- Ctrl-H - Brings up Help text.
 F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the editor session.
 
 ## Command line options
@@ -55,13 +55,13 @@ F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the ed
 ## Features:
 
 
-- Snippets - Ability to record and playback short snippets of commonly used texts. 
-- Copy and Paste: Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. 
-- Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
-- Replace Replace text in conjunction with search.
-- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. 
+- Snippets: Ability to record and playback short snippets of commonly used texts. 
+- Copy and Paste: Shift+right, left arrows to select text and Ctrl-C, X and V to Copy, Cut and Paste. 
+- Search and Reverse Search: (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.
+- Replace: Replace text in conjunction with search.
+- Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them if needed. 
 - Package Support: Extends Viper with multiple packages including Viper commands,Aliases and  Ruby library code.
-- Help system, including keyboard help(like VO+k in Mac VoiceOver)
+- Help system: including keyboard help (like VO+k in Mac VoiceOver)
 
 Note: SimpleCov support has been moved to viper_simplecov Viper package. No changes were made to the load_cov, cov or cov_report commands.
 The only new requirement is to load the viper_simplecov package either with the 'package viper_simplecov' command

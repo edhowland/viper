@@ -54,22 +54,13 @@ gem 'simplecov', :require => false, :group => :test
 gem 'simplecov-json', :require => false
 ```
 
-para
-Then, run 'bundle' to install. 
+Then, run 'bundle' to install.  
 
+## Reporting Bugs 
 
+Please use the GitHub issue tracker at [https://github.com/edhowland/viper/issues](https://github.com/edhowland/viper/issues) 
 
-## Reporting Bugs
-
-
-Please use the GitHub issue tracker at [https://github.com/edhowland/viper/issues](https://github.com/edhowland/viper/issues)
-
-
-
-
-
-## Pull Requests
-
+## Pull Requests 
 
 Before submitting a PR, make sure the following steps complete successfully:
 
@@ -88,7 +79,7 @@ In the top level directory, viper, run 'rake'. All tests should pass with no fai
 ### Rubocop
 
 
-Viper attempts to adhere to the Ruby style guide as used by the Rubocop lint checker. Currently there some configurationsettings in the top level
+Viper attempts to adhere to the Ruby style guide as used by the Rubocop lint checker. Currently there some configuration settings in the top level
 viper directory. The file is .rubocop_todo.yml
 You can run rubocop with this configuration with the following command:
 
@@ -193,11 +184,18 @@ If you want to become a core maintainer, see below.
 ### Or, how do I get commit rights on the main viper repo?
 
 
-I am very willing to get as many extra helping hands with Viper as I can get. So if you are willing to help, you will probably be on a fast track to becoming
-a core commiter. The first thing is to enter a issue on the GitHub issue tracker with some bug fix or feature request. Then, fork a copy of viper to your own GitHub account. Use the issue to comment on 
-the problem and proposed solution. Use the comment field to report on your progress with implementing it or fixing the bug. Whhen you have a good enough release, merge it into master and issue a pull request. I or one of theother
-maintainers will review it and if approved, commit it into either master or the current feature branch.
-State in an issue comment that you are willing to helpand you will probably get commit rights. No promises, though. :)
+I am very willing to get as many extra helping hands with Viper as I can
+get. So if you are willing to help, you will probably be on a fast track
+to becoming a core commiter. The first thing is to enter a issue on the
+GitHub issue tracker with some bug fix or feature request. Then, fork a
+copy of viper to your own GitHub account. Use the issue to comment on 
+the problem and proposed solution. Use the comment field to report on
+your progress with implementing it or fixing the bug. Whhen you have a
+good enough release, merge it into master and issue a pull request. I or
+one of the other maintainers will review it and if approved, commit it
+into either master or the current feature branch.  State in an issue
+comment that you are willing to help and you will probably get commit
+rights. No promises, though. :)
 
 
 ## The structure of the Viper project tree.
@@ -252,7 +250,7 @@ The commands: n, p and k! move forward, backward and kill the head of the ring, 
 ### Key Mappings
 
 Each possible keystroke is mapped to a Ruby symbol. Normal letters and numbers are mapped to: key_a..key_z, key_A..key_Z and key_0..key_9. All punction keys, control keys, function keys and 
- special keys like left, right, up and down arrows are mapped to symbolicnames like: :space, :backspace, :up, :fn_1, etc. See the file lib/mappings/key_mappings.rb for a complete list.
+ special keys like left, right, up and down arrows are mapped to symbolic names like: :space, :backspace, :up, :fn_1, etc. See the file lib/mappings/key_mappings.rb for a complete list.
 
 
 ### Bindings
@@ -266,7 +264,7 @@ These bindings can be found in the file: ./lib/bindings/make_bindings.rb.
 ### Command Bindings
 
 
-Some key combinations, which are called key chords, perform other actions. For example, Alt+d starts a sequencethat can be followed by the keys: d, home, end, PgUp or PgDn. These perform actions to delete the current line,
+Some key combinations, which are called key chords, perform other actions. For example, Alt+d starts a sequence that can be followed by the keys: d, home, end, PgUp or PgDn. These perform actions to delete the current line,
 delete to the front of theline, delete to the end of the line, delete to the top of the buffer and
 delete to the bottom of the buffer, respectfully.
 
@@ -276,7 +274,7 @@ These commands are bound to other procs in the file ./lib/bindings/command_bindi
 
 
 These commands can also be operated on by Viper outside of the main editor loop. For instance, the 'viper' executable checks for the existance of
-~/.viperrc or ./.viperrc. These filesare loaded and any commands found there are executed as if they entered in the CommandBuffer
+~/.viperrc or ./.viperrc. These files are loaded and any commands found there are executed as if they entered in the CommandBuffer
 after Alt+;.
 
 
