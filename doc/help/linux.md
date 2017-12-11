@@ -47,12 +47,40 @@ machine setups.
 
 ### System Requirements
 
-- OS version : Windows 10 running Anniversary or Creators Update.
-- Screen Reader : Windows Narrotor : Start with Windows or Super key plus Enter key.
+- OS version : Windows 10 running Fall Creators Update. Build 1709
+- Screen Reader : Windows Narrotor : Start with Windows or Super key plus Control plus Enter key. *Note: 1
 -  Windows Subsystem for Linux : WSL
-- Ruby version 2.2 or greater.
+- Ruby version 2.2 or greater. FCU will install Ruby version 2.3
 
-Notes: Getting the correct version of Ruby on Windows 10 + WSL
+Notes:
+
+The Win10 Narrator start key sequence changed from simply the Windows/Super key plus th Enter key in previous version of Windows 10.
+Now you must also use the Control key. E.g. Control + Windows + Enter  ... Will turn on Narrator.
+The Narrator function key is Caps lock. Press Caps lock and Escape to turn off Naraator.
+To to resume the old function of Caps lock while in Narrator, simply quickly tap the Caps lock twice.
+
+For help with narrator keys:
+
+- Caps Lock + F1 :Start Narator key list. With search box
+- Caps Lock + left, right keysto move around
+- Caps Lock + Enter : Activate a button or link
+
+### Setting up the Ruby development environment
+
+Perform these steps once you have Ubuntu for Windows (WSL) installed:
+
+- sudo apt update
+- sudo apt install build-essential
+- sudo apt install ruby ruby-dev
+- sudo gem install bundler
+
+Once you have gotten this far, you can clone the Viper project from the GitHub path:
+
+[https://github.com/edhowland/viper](https://github.com/edhowland/viper.git)
+
+Stay tuned for more help with this step!
+
+Development of Viper
 may require quite a lot of work. As Viper development progresses
 We may provide guidance about setting up Viper on Windows 10.
 
