@@ -1,0 +1,2 @@
+p=mkprompt(); %p('ok?')
+
