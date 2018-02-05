@@ -4,6 +4,14 @@
 defn st_ev(st, ev) { mksym(xmit(:st, to_s:) + '_' + xmit(:ev, to_s:)) }
 
 
-# mktrans(state, fn) - returns fn that runs fn w/world and 
+# newstate(state, fn) - returns fn that runs fn w/world and 
 #and returns tuple [result, state] . Expects result to be world
-defn mktrans(state, fn) { ->(e) { [%fn(:e), :state] } }
+defn newstate(state, fn) { ->(e) { [%fn(:e), :state] } }
+
+
+#
+# mktrans(state, evnet, next, fn) - combines st_ev(:state, :event), new(state(:next, :fn)
+defn mktrans(state, event, next, fn) {
+  mkpair(st_ev(:state, :event), newstate(:next, :fn))
+}
+
