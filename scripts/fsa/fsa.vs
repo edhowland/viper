@@ -1,7 +1,5 @@
 # fsa.vs - functions for finite state automata
 #
-# st_ev - new symbol by combining two symbols joined with '_'
-defn st_ev(st, ev) { mksym(xmit(:st, to_s:) + '_' + xmit(:ev, to_s:)) }
 
 
 # newstate(state, fn) - returns fn that runs fn w/world and 
@@ -15,3 +13,9 @@ defn mktrans(state, event, next, fn) {
   mkpair(st_ev(:state, :event), newstate(:next, :fn))
 }
 
+
+# transit(world, fsa, state, event) - new world and new state from input
+defn transit(world, fsa, state, event) {
+  y=:fsa[st_ev(:state, :event)]
+%y(:world)
+}
