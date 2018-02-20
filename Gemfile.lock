@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     micromachine (3.0.0)
+    wisper (2.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   micromachine
+  wisper (= 2.0.0)
 
 BUNDLED WITH
    1.12.3
