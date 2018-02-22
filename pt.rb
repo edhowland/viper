@@ -45,5 +45,17 @@ class PieceTable
     piece = @table.shift
     @table = [ante(piece, offset: offset), post(piece, offset: offset, length: length)]
   end
+  # insert - triplicate the the piece
+  def insert(string, offset:)
+    piece = @table.shift
+    peri = PieceDescript.new(APPEND, @append.length, string.length)
+    @append << string
+    @table = [
+      ante(piece, offset: offset),
+      peri,
+      post(piece, offset: offset, length: (piece.length - offset))
+    ]
+#    @table = [ante(piece, offset: offset), peri, post(piece, offset: offset, piece.length - offset)]
+ end
 end
 
