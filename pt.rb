@@ -35,27 +35,33 @@ class PieceTable
     PieceDescript.new(descript.buff, 0, offset)
   end
 
+  def peri string
+        PieceDescript.new(APPEND, @append.length, string.length)
+  end
+
   # post - teh bit after the deletion or insert
-  def post(descript, offset:, length:)
+  def post(descript, offset:)
 #  binding.pry
 
-    PieceDescript.new(descript.buff, offset+length, descript.length - (offset + length))
+    PieceDescript.new(ORIG, offset, (descript.length - offset))
   end
   def delete(offset, length)
     piece = @table.shift
-    @table = [ante(piece, offset: offset), post(piece, offset: offset, length: length)]
+    @table = [
+      ante(piece, offset: offset), 
+      post(piece, offset: offset+length)
+    ]
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
     piece = @table.shift
-    peri = PieceDescript.new(APPEND, @append.length, string.length)
-    @append << string
     @table = [
       ante(piece, offset: offset),
-      peri,
-      post(piece, offset: offset, length: (piece.length - offset))
+      peri(string),
+      post(piece, offset: offset)
     ]
-#    @table = [ante(piece, offset: offset), peri, post(piece, offset: offset, piece.length - offset)]
+
+    @append << string
  end
 end
 
