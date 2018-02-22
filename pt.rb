@@ -45,21 +45,29 @@ class PieceTable
 
     PieceDescript.new(ORIG, offset, (descript.length - offset))
   end
+
+  def within offset, length=-1
+    des = @table.find {|p| p.offset <= offset }
+    ndx = @table.index des
+  end
   def delete(offset, length)
-    piece = @table.shift
+    piece = @table[within(offset, length)]
     @table = [
       ante(piece, offset: offset), 
       post(piece, offset: offset+length)
     ]
+    @table.flatten!
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
-    piece = @table.shift
+    piece = @table[within(offset)]
+
     @table = [
       ante(piece, offset: offset),
       peri(string),
       post(piece, offset: offset)
     ]
+    @table.flatten!
 
     @append << string
  end

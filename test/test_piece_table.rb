@@ -27,4 +27,8 @@ class TestPieceTable < BaseSpike
     @pt.insert 'def', offset: 7
     assert_eq @pt.to_s, '0123ABCdef789'
   end
+  def test_can_find_descript_within_range
+    ndx = @pt.within 4, 3
+    assert_eq ndx, 0
+  end
 end
