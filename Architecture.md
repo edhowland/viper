@@ -112,3 +112,14 @@ Note: Still in delete-mode.
 
 Next valid key outputs its stuff :delete_clear_line  ... .etc
 And FSM returns to idle state
+
+
+## Improvements over 2.0
+
+- File associations expanded beyond just file extensions
+- Tab completion Should work in command mode as well
+
+These attributes worked in version 1.x
+
+Tab completion replacesmeta+,
+For macro expansion. See the Logger heading above.

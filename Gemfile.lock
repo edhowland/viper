@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    basic-rope (0.0.2)
     micromachine (3.0.0)
     wisper (2.0.0)
 
@@ -8,6 +9,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  basic-rope
   micromachine
   wisper (= 2.0.0)
 
