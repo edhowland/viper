@@ -51,8 +51,9 @@ class PieceTable
     ndx = @table.index des
   end
   def delete(offset, length)
-    piece = @table[within(offset, length)]
-    @table = [
+    ndx = within(offset, length)
+    piece = @table[ndx]
+    @table[ndx] = [
       ante(piece, offset: offset), 
       post(piece, offset: offset+length)
     ]
@@ -60,9 +61,10 @@ class PieceTable
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
-    piece = @table[within(offset)]
+    ndx = within(offset)
+    piece = @table[ndx]
 
-    @table = [
+    @table[ndx] = [
       ante(piece, offset: offset),
       peri(string),
       post(piece, offset: offset)
