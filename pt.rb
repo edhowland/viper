@@ -91,18 +91,22 @@ class PieceTable
     @table.flatten!
   end
 
-  def delete(offset, length)
+
+  # given offset, length return found ndx, piece and logical range
+  def piece_index_of(offset, length=0)
     ndx = within(offset, length)
     logical_rng  = ranges[ndx]
-    piece = @table[ndx]
+    return ndx, logical_rng, piece = @table[ndx]
+  end
+
+  def delete(offset, length)
+    ndx, logical_rng, piece = piece_index_of(offset, length)
     r1, r2 =  left_right(piece, logical_rng, offset, length)
     table_inject(ndx) {  [PieceDescript.from_range(piece.buff, r1), PieceDescript.from_range(piece.buff, r2)] }
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
-    ndx = within(offset)
-    logical_rng  = ranges[ndx]
-    piece = @table[ndx]
+ndx, logical_rng, piece = piece_index_of(offset)
     r1, r2 =  left_right(piece, logical_rng, offset)
 
     table_inject(ndx) { [PieceDescript.from_range(piece.buff, r1),       peri(string), PieceDescript.from_range(piece.buff, r2)] }
