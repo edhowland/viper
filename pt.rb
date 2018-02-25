@@ -82,8 +82,8 @@ class PieceTable
     span.index des
   end
 
-  def left_right
-    #
+  def left_right(piece, logical_rng, offset, length=0)
+    split_range(piece.to_range, offset_of(logical_rng, piece.to_range, offset), length)  
   end
 
   def table_inject(ndx, &blk) 
@@ -95,7 +95,7 @@ class PieceTable
     ndx = within(offset, length)
     logical_rng  = ranges[ndx]
     piece = @table[ndx]
-    r1, r2 = split_range(piece.to_range, offset_of(logical_rng, piece.to_range, offset), length)  
+    r1, r2 =  left_right(piece, logical_rng, offset, length)
     table_inject(ndx) {  [PieceDescript.from_range(piece.buff, r1), PieceDescript.from_range(piece.buff, r2)] }
   end
   # insert - triplicate the the piece
@@ -103,7 +103,8 @@ class PieceTable
     ndx = within(offset)
     logical_rng  = ranges[ndx]
     piece = @table[ndx]
-    r1, r2 = split_range(piece.to_range, offset_of(logical_rng, piece.to_range, offset), 0)  
+    r1, r2 =  left_right(piece, logical_rng, offset)
+
     table_inject(ndx) { [PieceDescript.from_range(piece.buff, r1),       peri(string), PieceDescript.from_range(piece.buff, r2)] }
 
     @append << string
