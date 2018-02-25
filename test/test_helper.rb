@@ -2,6 +2,6 @@
 
 require_relative '../../vish/test/lib/spike_load'
 
-
-
 require_relative '../pt'
+require_relative '../range_functions'
+
