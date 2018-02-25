@@ -82,15 +82,21 @@ class PieceTable
     span.index des
   end
 
+  def left_right
+    #
+  end
+
+  def table_inject(ndx, &blk) 
+    @table[ndx] = yield
+    @table.flatten!
+  end
 
   def delete(offset, length)
     ndx = within(offset, length)
     logical_rng  = ranges[ndx]
     piece = @table[ndx]
     r1, r2 = split_range(piece.to_range, offset_of(logical_rng, piece.to_range, offset), length)  
-#    binding.pry
-    @table[ndx] = [PieceDescript.from_range(piece.buff, r1), PieceDescript.from_range(piece.buff, r2)]
-    @table.flatten!
+    table_inject(ndx) {  [PieceDescript.from_range(piece.buff, r1), PieceDescript.from_range(piece.buff, r2)] }
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
@@ -98,8 +104,7 @@ class PieceTable
     logical_rng  = ranges[ndx]
     piece = @table[ndx]
     r1, r2 = split_range(piece.to_range, offset_of(logical_rng, piece.to_range, offset), 0)  
-    @table[ndx] = [PieceDescript.from_range(piece.buff, r1),       peri(string), PieceDescript.from_range(piece.buff, r2)]
-    @table.flatten!
+    table_inject(ndx) { [PieceDescript.from_range(piece.buff, r1),       peri(string), PieceDescript.from_range(piece.buff, r2)] }
 
     @append << string
   end
