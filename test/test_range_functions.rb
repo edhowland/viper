@@ -73,4 +73,26 @@ class TestRangeFunctions < BaseSpike
     result = offset_of(0..9, 0..4, 3)
     assert_eq result, 3
   end
+
+  # test join ranges for undo actions
+  def test_join_range_restores_origanl
+    range = 0..9
+    l, r = split_range(range, 5,0)
+    assert_eq join_range(l, r), range
+  end
+  def test_join_range_w_larger_beginning_spot
+    range = 9..100
+    l, r = split_range(range, 59, 0)
+    assert_eq join_range(l, r), range
+  end
+  def test_join_range_with_hole_from_delete
+    range = 0..9
+    l, r = split_range(range, 4, 3)
+        assert_eq join_range(l, r), range
+  end
+  def test_join_range_w_larger_start_and_large_hole
+    range = 100..999
+    l, r = split_range(range, 101, 997)
+        assert_eq join_range(l, r), range
+  end
 end

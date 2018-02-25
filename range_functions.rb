@@ -4,6 +4,10 @@ def split_range(r, inter, pos)
   return Range.new(r.first, inter - 1), Range.new(inter+pos, r.last)
 end
 
+def join_range(left, right)
+  (left.first)..(right.last)
+end
+
 
 # offset_of given 2 ranges, a logical and concrete, and a logical offset, return
 #  concrete offset

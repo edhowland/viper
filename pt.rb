@@ -41,6 +41,9 @@ class PieceTable
   end
   attr_reader :orig, :table
   attr_accessor :append
+  def at_start?
+    @table.length == 1 && @table[0].buff == ORIG && @table[0].offset.zero? && @table[0].length == @orig.length
+  end
 
   def ranges
     result = []
@@ -103,6 +106,8 @@ class PieceTable
     ndx, logical_rng, piece = piece_index_of(offset, length)
     r1, r2 =  left_right(piece, logical_rng, offset, length)
     table_inject(ndx) {  [PieceDescript.from_range(piece.buff, r1), PieceDescript.from_range(piece.buff, r2)] }
+    # return stuff to undo this
+    return :undo_delete, ndx, ndx+1
   end
   # insert - triplicate the the piece
   def insert(string, offset:)
@@ -112,10 +117,20 @@ ndx, logical_rng, piece = piece_index_of(offset)
     table_inject(ndx) { [PieceDescript.from_range(piece.buff, r1),       peri(string), PieceDescript.from_range(piece.buff, r2)] }
 
     @append << string
+    return :undo_insert, ndx, ndx+1, ndx+2
   end
 
   def []=(ndx, string)
     insert string, offset: ndx
+  end
+
+  # undo/redo methods
+  def undo_delete(l_ndx, r_ndx)
+    l, r = @table[l_ndx..r_ndx]
+    range = join_range(l.to_range, r.to_range)
+    piece = PieceDescript.from_range(l.buff, range)
+    @table.delete_at(r_ndx)
+    @table[l_ndx] = piece
   end
 end
 

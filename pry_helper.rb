@@ -10,3 +10,8 @@ end
 def hello
   PieceTable.new 'hello world'
 end
+
+def do_undo(pt, meth)
+  method, *args = meth
+  pt.send method, *args
+end
