@@ -70,19 +70,11 @@ class PieceTable
   end
 
   # ante - the part of buff before the descript
-  def ante(descript, length:)
-    PieceDescript.new(descript.buff, descript.offset, length)
-  end
 
   def peri string
         PieceDescript.new(APPEND, @append.length, string.length)
   end
 
-  # post - teh bit after the deletion or insert
-  def post(descript, addnl:)
-    np = descript.to_range.last - addnl + 1
-    PieceDescript.new(descript.buff, np, addnl)
-  end
 
   def within offset, length=-1
     span = ranges
@@ -90,9 +82,7 @@ class PieceTable
     span.index des
   end
 
-  def split(piece, offset:, length:)
-    return ante(piece, length: offset),        post(piece,  addnl: length)
-  end
+
   def delete(offset, length)
     ndx = within(offset, length)
     logical_rng  = ranges[ndx]
