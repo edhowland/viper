@@ -23,7 +23,8 @@ class PieceDescript
     not @buff
   end
   def to_range offset=@offset
-    Range.new(offset, offset + @length-1)
+    final = offset + (@length.zero? ? 0 : @length - 1)
+    Range.new(offset, final)   # offset + @length-1)
   end
   def to_a
     [to_range.first, to_range.last]
@@ -125,12 +126,28 @@ ndx, logical_rng, piece = piece_index_of(offset)
   end
 
   # undo/redo methods
+  # undo_delete, left_index, right_index. Given 2 entries in table reverse them
+  # return everything needed to redo the original action: :delete, offset, length
   def undo_delete(l_ndx, r_ndx)
     l, r = @table[l_ndx..r_ndx]
     range = join_range(l.to_range, r.to_range)
     piece = PieceDescript.from_range(l.buff, range)
     @table.delete_at(r_ndx)
     @table[l_ndx] = piece
+    return :delete, l.to_range.last+1, (r.to_range.first - (l.to_range.last + 1))
+  end
+
+  # undo insert, prepare for redo_insert instead of :insert
+  def undo_insert(l_ndx, i_ndx, r_ndx)
+    l, i, r = @table[l_ndx..r_ndx]
+    range = join_range(l.to_range, r.to_range)
+    piece = PieceDescript.from_range(l.buff, range)
+
+@table.delete(r)
+@table.delete(i)
+@table[l_ndx] = piece
+# return the special :redo_insert, since we already have the inserted text in @append
+return :redo_insert, r.to_range.first, i.length
   end
 end
 

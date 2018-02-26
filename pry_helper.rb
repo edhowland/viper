@@ -15,3 +15,7 @@ def do_undo(pt, meth)
   method, *args = meth
   pt.send method, *args
 end
+
+def ept
+  PieceTable.new ''
+end

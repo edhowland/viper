@@ -105,4 +105,58 @@ class TestPieceTable < BaseSpike
     assert @pt.at_start?
     assert_eq @pt.to_s, @source
   end
+  # redo some undone deletes
+  def test_redo_1_undo
+    u = @pt.delete 5,2
+    interim = @pt.to_s
+    meth, *args = u
+    r =  @pt.send meth, *args
+    meth, *args = r
+    @pt.send meth, *args
+    assert_eq @pt.to_s, interim
+  end
+
+  # test undo insert
+  def test_undo_insert_one_time_is_at_start_after_undo
+    meth, * args = @pt.insert '___', offset: 4
+    @pt.send meth, *args
+    assert @pt.at_start?
+  end
+  def test_after_undo_insert_buffer_is_restored
+        meth, * args = @pt.insert '___', offset: 4
+    @pt.send meth, *args#
+    assert_eq @pt.to_s, @source
+  end
+  def test_after_first_delete_then_insert_every_step_preserved_after_2_undo_actions
+    ud = @pt.delete 4, 3
+    interim = @pt.to_s
+    ui = @pt.insert('___', offset:4)
+    meth, *args = ui
+    @pt.send meth, *args
+    assert_eq @pt.to_s, interim
+    meth, *args = ud
+    @pt.send meth, *args
+    assert @pt.at_start?
+    assert_eq @pt.to_s, @source
+  end
+
+  # delete and undelete entire buffer
+  def test_delete_entire_buffer_and_undo_this_delete
+    len = @pt.to_s.length
+    ud = @pt.delete 0, len
+    assert_empty @pt.to_s
+    meth, *args = ud
+    @pt.send meth, *args
+    assert_eq @pt.to_s, @source
+  end
+  # insert at start
+  def test_can_insert_at_start
+    @pt.insert 'XXX', offset: 0
+    assert_eq @pt.to_s, 'XXX' + @source
+  end
+  # test inserting on an empty buffer
+  def test_can_insert_to_empty_buffer
+    pt = PieceTable.new ''
+    pt.insert 'hello', offset: 0
+  end
 end
