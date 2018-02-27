@@ -1,7 +1,13 @@
 # range_functions.rb - Various range functions
 
+# make an empty range, when, applied to a string or array, returns emtpy 
+def empty_range
+  (-1..0)
+end
+
 def split_range(r, inter, pos)
-  return Range.new(r.first, inter - 1), Range.new(inter+pos, r.last)
+  l_fin = (inter.zero? ? 0 : inter - 1)
+  return Range.new(r.first, l_fin), Range.new(inter+pos, r.last)
 end
 
 def join_range(left, right)

@@ -19,3 +19,6 @@ end
 def ept
   PieceTable.new ''
 end
+def delete_all pt
+  pt.delete 0, pt.to_s.length
+end

@@ -157,6 +157,19 @@ class TestPieceTable < BaseSpike
   # test inserting on an empty buffer
   def test_can_insert_to_empty_buffer
     pt = PieceTable.new ''
-    pt.insert 'hello', offset: 0
+    src = 'hello world'
+    pt.insert src, offset: 0
+    assert_eq pt.to_s, src
+  end
+  def test_delete_entire_and_re_insert_it
+    @pt.delete 0, @pt.to_s.length
+    assert_eq @pt.to_s.length, 0
+    @pt.insert @source, offset: 0
+    assert_eq @pt.to_s, @source
+  end
+  def test_delete_abc_then_reinsert_it_back
+    @pt.delete 4, 3
+    @pt.insert @source[4..6], offset: 4
+    assert_eq @pt.to_s, @source
   end
 end

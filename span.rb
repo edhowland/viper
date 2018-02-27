@@ -1,0 +1,50 @@
+# span.rb - class Span operations  on span of string
+
+class Span
+  def initialize range
+    @range = range
+  end
+  attr_reader :range
+
+  def first
+    @range.first
+  end
+  def last
+    @range.last
+  end
+
+  # arithmetic operations
+  # + : Union of 2 spans
+  # from first of left span to last of right span
+  def +(span)
+    self.class.new(self.first..span.last)
+  end
+  #
+  # - : Intersection of 2 spans
+  # Assuming left is larger subtracts from smaller on right
+  def -(right)
+    Span.new(right.first..self.first - 1)
+  end
+  def outer(span)
+    Span.new((last + 1)..(span.last))
+  end
+
+  def inspect
+    "#{self.class.name}: #{@range}"
+  end
+end
+
+# EmptySpan - Helpful for exactly split splices
+# E.g. sl = Slice.new '0123456789'
+# sl.split EmptySpan.new(5) = '01234', '56789'
+class EmptySpan < Span
+  def initialize offset
+    super(Range.new(offset,0))
+  end
+  def last
+    first 
+  end
+  def outer(right)
+    Span.new(first..right.last)
+  end
+end

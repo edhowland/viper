@@ -95,4 +95,11 @@ class TestRangeFunctions < BaseSpike
     l, r = split_range(range, 101, 997)
         assert_eq join_range(l, r), range
   end
+
+  # test split of 0 length range
+  def test_split_range_returns_2_0_length_ranges
+    l,r = split_range(0..0, 0, 0)
+    assert_eq l, 0..0
+assert_eq r, 0..0
+  end
 end
