@@ -48,3 +48,24 @@ class EmptySpan < Span
     Span.new(first..right.last)
   end
 end
+
+class LeftSpan < Span
+  def initialize
+    super(-1..0)
+  end
+  def -(other)
+    self
+  end
+  def outer(span)
+    span
+  end
+end
+
+class RightSpan < EmptySpan
+  def -(span)
+    span
+  end
+  def outer(span)
+    self
+  end
+end

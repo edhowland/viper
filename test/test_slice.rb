@@ -43,4 +43,25 @@ class TestSlice < BaseSpike
 
     assert_eq r.to_s, '56789'
   end
+  # terst for outer edge and internal splits
+  def test_split_at_left_edge
+    ls = LeftSpan.new
+    l,r  = @sl.split ls
+    assert_eq l.to_s, ''
+  end
+  def test_left_edge_right_is_original_slice
+    ls = LeftSpan.new
+    l,r  = @sl.split ls
+    assert_eq r.to_s, @sl.to_s
+  end
+  def test_right_edge_left_is_original_string
+   rs = RightSpan.new 10
+   l,r = @sl.split rs
+   assert_eq l.to_s, @sl.to_s
+  end
+  def test_right_edge_right_after_split_is_empty_string
+       rs = RightSpan.new 10
+   l,r = @sl.split rs
+   assert r.to_s.empty?
+  end
 end
