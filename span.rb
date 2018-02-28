@@ -12,6 +12,9 @@ class Span
   def last
     @range.last
   end
+  def start_at(offset)
+    Range.new(offset, (@range.size-1) + offset)
+  end
 
   # arithmetic operations
   # + : Union of 2 spans
@@ -59,6 +62,9 @@ class LeftSpan < Span
   def outer(span)
     span
   end
+  def start_at(offset)
+    Range.new(offset, 0)
+  end
 end
 
 class RightSpan < EmptySpan
@@ -67,5 +73,8 @@ class RightSpan < EmptySpan
   end
   def outer(span)
     self
+  end
+  def start_at(offset)
+    Range.new(offset, 0)
   end
 end
