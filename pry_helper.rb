@@ -1,24 +1,8 @@
-# pry_helper.rb - methods to automate pry stuff
-require_relative 'range_functions'
-require_relative 'pt'
+# pry_slice.rb - pry helper for Slice and friends
 
+require_relative 'slice'
 
-def npt
-  PieceTable.new "0123ABC789"
-end
-
-def hello
-  PieceTable.new 'hello world'
-end
-
-def do_undo(pt, meth)
-  method, *args = meth
-  pt.send method, *args
-end
-
-def ept
-  PieceTable.new ''
-end
-def delete_all pt
-  pt.delete 0, pt.to_s.length
+def zero_9
+  s = '0123456789'
+  return s, Slice.new(s)
 end
