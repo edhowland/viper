@@ -11,7 +11,7 @@ class Slice
   attr_reader :string, :span
 
   def to_s
-    @string.slice(@span.range)
+    @span.span { @string }
   end
 
   def empty?
@@ -29,7 +29,6 @@ class Slice
   # split gap : Span
   # returns 2 new Slices w spans gapped
   def split(gap)
-#  binding.pry
     return self.class.new(@string, (gap - @span)),
      self.class.new(@string, gap.outer(@span))
   end

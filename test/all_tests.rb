@@ -2,6 +2,7 @@
 
 require_relative 'test_span'
 require_relative 'test_slice'
+require_relative 'test_slice_table'
 
 
 #require_relative 'test_range_functions'

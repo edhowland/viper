@@ -12,6 +12,10 @@ class Span
   def last
     @range.last
   end
+
+  def span &blk
+    yield.slice((first)..( last))
+  end
   def start_at(offset)
     Range.new(offset, (@range.size-1) + offset)
   end
@@ -26,10 +30,18 @@ class Span
   # - : Intersection of 2 spans
   # Assuming left is larger subtracts from smaller on right
   def -(right)
-    Span.new(right.first..self.first - 1)
+    if self.first.zero?
+      LeftSpan.new
+    else
+      Span.new(right.first..self.first - 1)
+    end
   end
   def outer(span)
-    Span.new((last + 1)..(span.last))
+    if self.last == span.last
+      RightSpan.new(self.first)
+    else
+      Span.new((last + 1)..(span.last))
+    end
   end
 
   def inspect
@@ -44,6 +56,9 @@ class EmptySpan < Span
   def initialize offset
     super(Range.new(offset,0))
   end
+  def span(&blk)
+    ""
+  end
   def last
     first 
   end
@@ -55,6 +70,9 @@ end
 class LeftSpan < Span
   def initialize
     super(-1..0)
+  end
+  def span &blk
+    ""#
   end
   def -(other)
     self
@@ -68,6 +86,9 @@ class LeftSpan < Span
 end
 
 class RightSpan < EmptySpan
+def span(&blk)
+  ""
+end
   def -(span)
     span
   end
