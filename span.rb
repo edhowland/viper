@@ -38,7 +38,7 @@ class Span
   end
   def outer(span)
     if self.last == span.last
-      RightSpan.new(self.first)
+      RightSpan.new(self.first..self.last)
     else
       Span.new((last + 1)..(span.last))
     end
@@ -88,7 +88,7 @@ class LeftSpan < Span
   end
 end
 
-class RightSpan < EmptySpan
+class RightSpan < Span
 def span(&blk)
   ""
 end
