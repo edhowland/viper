@@ -26,4 +26,26 @@ class TestSliceTable < BaseSpike
     @st.split_at(Span.new(5..9))
     assert_eq @st.to_s, '01234'
   end
+
+  # test join stuff
+  def test_join_previous_split_retains_integrity
+    @st.split_at(EmptySpan.new(5))
+    @st.join(0, 1)
+    assert_eq @st.to_s, @source
+  end
+  def test_join_after_split_w_gap_restores_original_contetnts
+    @st.split_at(Span.new(4..6))
+    @st.join(0,1)
+    assert_eq @st.to_s, @source
+  end
+  def test_left_edge_stills_joins_ok
+    @st.split_at(Span.new(0..4))
+    @st.join(0,1)
+    assert_eq @st.to_s, @source
+  end
+  def test_split_at_right_edge_joins_cleanly_back
+    @st.split_at(Span.new(5..9))
+        @st.join(0,1)
+    assert_eq @st.to_s, @source
+  end
 end

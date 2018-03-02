@@ -28,6 +28,13 @@ class SliceTable
     @table[ndx] = piece.split(span)
     @table.flatten!
   end
+  def join(left, right)
+    l = @table[left]
+    r = @table[right]
+    c = l.join(r)
+    @table[left] = c
+    @table.delete_at(right)
+  end
   def to_s
     @table.map(&:to_s).join
   end

@@ -24,7 +24,7 @@ class Span
   # + : Union of 2 spans
   # from first of left span to last of right span
   def +(span)
-    self.class.new(self.first..span.last)
+    Span.new(self.first..span.last)
   end
   #
   # - : Intersection of 2 spans
@@ -74,6 +74,9 @@ class LeftSpan < Span
   def span &blk
     ""#
   end
+  def +(span)
+    Span.new(0..(span.last))
+  end
   def -(other)
     self
   end
@@ -88,6 +91,9 @@ end
 class RightSpan < EmptySpan
 def span(&blk)
   ""
+end
+def +(span)
+  Span.new(first..(span.last))
 end
   def -(span)
     span
