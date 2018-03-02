@@ -24,8 +24,19 @@ class SliceTable
   # split_at span
   def split_at(span)
     ndx = within(span.first)
-    piece = @table[ndx]
-    @table[ndx] = piece.split(span)
+    r_ndx = within(span.last)
+    if ndx == r_ndx
+      piece = @table[ndx]
+      @table[ndx] = piece.split(span)
+    else
+    # TODO: Make these adjust to value in passed span
+      l_piece = @table[ndx]
+      r_piece = @table[r_ndx]
+      l1, r1 = l_piece.split(l_piece.span)
+      l2, r2 = r_piece.split(r_piece.span)
+      @table[ndx] = [l1, r1]
+      @table[r_ndx] = [l2, r2]
+    end
     @table.flatten!
   end
   def join(left, right)

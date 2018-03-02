@@ -59,4 +59,11 @@ class TestSliceTable < BaseSpike
         @st.join(0,1)
         assert_eq @st.to_s, @source
   end
+
+  # test multiple overlapping deletes
+  def test_inner_delete_followed_by_delete_all
+    @st.split_at Span.new(4..6)
+    @st.split_at Span.new(0..6)
+    assert_empty @st.to_s
+  end
 end
