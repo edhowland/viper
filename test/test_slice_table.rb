@@ -48,4 +48,15 @@ class TestSliceTable < BaseSpike
         @st.join(0,1)
     assert_eq @st.to_s, @source
   end
+
+  # delete the whole buffer: delete_all
+  def test_can_delete_entire_buffer
+    @st.split_at(Span.new(0..9))
+    assert_empty @st.to_s
+  end
+  def test_can_delete_all_and_rejoin_back_to_gether
+        @st.split_at(Span.new(0..9))
+        @st.join(0,1)
+        assert_eq @st.to_s, @source
+  end
 end
