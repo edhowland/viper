@@ -12,6 +12,15 @@ class Span
   def last
     @range.last
   end
+  def <=>(other)
+    if last < other.first
+      -1
+    elsif first > other.last
+      1
+    else
+      0
+    end
+  end
 
   def span &blk
     yield.slice((first)..( last))

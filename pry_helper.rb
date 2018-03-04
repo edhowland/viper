@@ -8,3 +8,8 @@ def zero_9
   s = '0123456789'
   return s, Slice.new(s)
 end
+
+def st_9
+  s, = zero_9
+  SliceTable.new s
+end

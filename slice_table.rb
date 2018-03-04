@@ -31,9 +31,13 @@ class SliceTable
     else
     # TODO: Make these adjust to value in passed span
       l_piece = @table[ndx]
+    l_sp = Span.new(l_piece.span.start_at(span.first))
+
       r_piece = @table[r_ndx]
-      l1, r1 = l_piece.split(l_piece.span)
-      l2, r2 = r_piece.split(r_piece.span)
+      r_sp = span.outer(r_piece.span) # .outer(span)
+#binding.pry
+      l1, r1 = l_piece.split(l_sp)
+      l2, r2 = r_piece.split(r_sp)
       @table[ndx] = [l1, r1]
       @table[r_ndx] = [l2, r2]
     end
