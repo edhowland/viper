@@ -13,11 +13,7 @@ class Span
     @range.last
   end
   def overlap?(other)
-    if last >= other.first and other.last >= first
-      true
-    else
-      false
-    end
+    last >= other.first and other.last >= first
   end
 
   # Spaceship: <=>. -1 if we are totally less than other. 0 if within or
