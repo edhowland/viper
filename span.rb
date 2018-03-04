@@ -12,6 +12,9 @@ class Span
   def last
     @range.last
   end
+  def length
+    last - first + 1
+  end
   def overlap?(other)
     last >= other.first and other.last >= first
   end
@@ -57,6 +60,12 @@ class Span
     else
       Span.new((last + 1)..(span.last))
     end
+  end
+  def from_right(length)
+    Span.new((first)..(last - length))
+  end
+  def from_left(length)
+    Span.new((first + length)..(last))
   end
 
   def inspect
@@ -116,7 +125,9 @@ end
   def outer(span)
     self
   end
+  # TODO, make these Spans, not ranges
   def start_at(offset)
     Range.new(offset, 0)
   end
+
 end

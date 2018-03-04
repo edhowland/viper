@@ -9,6 +9,9 @@ class Slice
     @span = span
   end
   attr_reader :string, :span
+  def with_span(spn)
+    Slice.new(@string, spn)
+  end
 
   def to_s
     @span.span { @string }

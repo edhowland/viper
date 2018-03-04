@@ -125,4 +125,14 @@ end
   def test_last_edge_touches_self_first_is_true
     assert Span.new(5..9).overlap?(Span.new(0..5))
   end
+
+  def test_length_0_2_is_3
+    assert_eq Span.new(0..2).length, 3
+  end
+  def test_length_of_sp_is_10
+    assert_eq @sp.length, 10
+  end
+  def test_length_of_single_range_4_4_is_0
+    assert_eq Span.new(4..4).length, 1
+  end
   end
