@@ -105,4 +105,24 @@ end
     rsp = Span.new 7..9
     assert_eq rsp <=> lsp, 1
   end
+
+  # test for overlap?
+  def test_non_overlapping_spans_return_false
+    assert_false Span.new(0..3).overlap?(Span.new(7..9))
+  end
+  def test_reversed_non_overlapping_is_stil_false
+    assert_false Span.new(7..9).overlap?(Span.new(0..3))
+  end
+  def test_overlapping_smaller_for_larger_returns_true_on_boundary
+    assert Span.new(0..6).overlap?(Span.new(6..9))
+  end
+  def test_span_completewithin_outer_span
+    assert Span.new(5..6).overlap?(Span.new(3..9))
+  end
+  def test_other_span_is_totally_left_of_self
+    assert_false Span.new(5..9).overlap?(Span.new(0..3))
+  end
+  def test_last_edge_touches_self_first_is_true
+    assert Span.new(5..9).overlap?(Span.new(0..5))
+  end
   end
