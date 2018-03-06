@@ -66,4 +66,11 @@ class TestSliceTable < BaseSpike
     @st.split_at Span.new(0..6)
     assert_empty @st.to_s
   end
+
+  # test split_2 given an overlapping regin
+  def test_split_2_after_split_at_overlap_gap
+    @st.split_at(Span.new(5..6))
+    @st.split_2(Span.new(2..6))
+    assert_eq @st.to_s, '019'
+  end
 end

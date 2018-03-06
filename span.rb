@@ -67,6 +67,16 @@ class Span
   def from_left(length)
     Span.new((first + length)..(last))
   end
+  def overlap(other)
+    their = other.range.to_a
+    both = []
+    their.each do |e|
+      if self.range.include? e
+        both << e
+      end
+    end
+    Span.new (both.first)..(both.last)
+  end
 
   def inspect
     "#{self.class.name}: #{@range}"

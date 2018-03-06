@@ -135,4 +135,19 @@ end
   def test_length_of_single_range_4_4_is_0
     assert_eq Span.new(4..4).length, 1
   end
+
+  # test from_{right,left}
+  def test_from_right_w_len_5
+    assert_eq @sp.from_right(5).range, 0..4
+  end
+  def test_from_left_w_5_is_5_9
+    assert_eq @sp.from_left(5).range, 5..9
+  end
+
+  # test overlap
+  def test_overlap_0_4_w_2_6
+    left = Span.new 0..4
+    right = Span.new 2..6
+    assert left.overlap(right).range, 2..4
+  end
   end

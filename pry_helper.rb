@@ -13,3 +13,10 @@ def st_9
   s, = zero_9
   SliceTable.new s
 end
+
+def sd
+  s = st_9
+  s.split_at(Span.new(5..6))
+  s
+end
+

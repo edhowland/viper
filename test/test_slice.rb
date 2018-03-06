@@ -64,4 +64,18 @@ class TestSlice < BaseSpike
    l,r = @sl.split rs
    assert r.to_s.empty?
   end
+
+  # with_span: New Slice with new slice
+  def test_with_span_2_6
+    sl = @sl.with_span Span.new(2..6)
+    assert_eq sl.to_s, '23456'
+  end
+  def test_with_span_left_outer_edge
+    sl = @sl.with_span Span.new(0..4)
+    assert_eq sl.to_s, '01234'
+  end
+  def test_with_span_right_outer_edge
+    sl =  @sl.with_span Span.new(6..9)
+    assert_eq sl.to_s, '6789'
+  end
 end
