@@ -150,4 +150,21 @@ end
     right = Span.new 2..6
     assert left.overlap(right).range, 2..4
   end
+  def test_complete_overlap_returns_left_span
+    assert_is @sp.from_right(10), LeftSpan
   end
+  def test_from_left_with_complete_overlap_returns_right_span_with_last_correct
+    rs = @sp.from_left(10)
+        assert_is rs, RightSpan
+  end
+  def test_from_left_w_overlap_length_has_correct_first
+    rs = @sp.from_left(@sp.length)
+    assert_eq rs.first, @sp.first
+  end
+  def test_from_left_w_overlap_length_has_matching_last
+        rs = @sp.from_left(@sp.length)
+    assert_eq rs.last, @sp.last
+  end
+  end
+
+

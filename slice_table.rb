@@ -41,9 +41,7 @@ class SliceTable
     l_sp = l_gap.overlap(gap)
     r_sp = gap.overlap(r_gap)
     return l_sp, r_sp
-#    lsp =  #gap - l_reg[0]
-#    rsp = gap.outer(r_reg[0])
-#    return lsp, rsp
+
   end
 
   def indexes_of_gap(gap)

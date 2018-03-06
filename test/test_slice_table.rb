@@ -73,4 +73,14 @@ class TestSliceTable < BaseSpike
     @st.split_2(Span.new(2..6))
     assert_eq @st.to_s, '019'
   end
+  def test_split_2_with_one_longer_gap
+    @st.split_at Span.new(5..6)
+    @st.split_2 Span.new(1..6)
+    assert_eq @st.to_s, '09'
+  end
+  def test_slice_2_w_complete_overlapping_range_is_empty_to_s
+    @st.split_at Span.new(3..5)
+    @st.split_2 Span.new 0..6
+    assert @st.to_s.empty?
+  end
 end

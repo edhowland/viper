@@ -62,10 +62,18 @@ class Span
     end
   end
   def from_right(length)
-    Span.new((first)..(last - length))
+    if self.length == length
+      LeftSpan.new
+    else
+      Span.new((first)..(last - length))
+    end
   end
   def from_left(length)
-    Span.new((first + length)..(last))
+    if self.length == length
+      RightSpan.new(self.range)
+    else
+      Span.new((first + length)..(last))
+    end
   end
   def overlap(other)
     their = other.range.to_a
