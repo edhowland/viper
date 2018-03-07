@@ -35,6 +35,11 @@ class Slice
     return self.class.new(@string, (gap - @span)),
      self.class.new(@string, gap.outer(@span))
   end
+  def cleave(offset)
+    lsp = Span.new((span.first)..(span.first + offset - 1))
+    rsp = Span.new((span.last - (offset - 1))..(span.last))
+    [ with_span(lsp), with_span(rsp) ]
+  end
 
   def inspect
     "#{self.class.name}: #{to_s}"

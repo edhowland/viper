@@ -77,19 +77,20 @@ class SliceTable
       piece = @table[ndx]
       @table[ndx] = piece.split(span)
     else
-    # TODO: Make these adjust to value in passed span
-      l_piece = @table[ndx]
-    l_sp = Span.new(l_piece.span.start_at(span.first))
-
-      r_piece = @table[r_ndx]
-      r_sp = span.outer(r_piece.span) # .outer(span)
-#binding.pry
-      l1, r1 = l_piece.split(l_sp)
-      l2, r2 = r_piece.split(r_sp)
-      @table[ndx] = [l1, r1]
-      @table[r_ndx] = [l2, r2]
+      split_2(span)
     end
     @table.flatten!
+  end
+
+  # cleave_at offset of piece_table and offset of slice therin
+  def cleave_at(p_off, s_off)
+    piece = @table[p_off]
+    @table[p_off] = piece.cleave(s_off)
+    @table.flatten!
+  end
+
+  def insert_at(index, string)
+    @table.insert(index, Slice.new(string))
   end
   def join(left, right)
     l = @table[left]

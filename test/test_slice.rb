@@ -78,4 +78,10 @@ class TestSlice < BaseSpike
     sl =  @sl.with_span Span.new(6..9)
     assert_eq sl.to_s, '6789'
   end
+
+  # cleave with 0 gap length
+  def test_cleave_5_is_2_5_length_slices
+    l, r = @sl.cleave(5)
+    assert_eq l.to_s, '01234'
+  end
 end
