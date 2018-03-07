@@ -65,8 +65,7 @@ class SliceTable
   end
   def split_2(gap)
     l, lndx, r, rndx = actual_adjusted(gap) 
-    @table[lndx] = l
-    @table[rndx] = r
+    @table = @table.select {|e| @table.index(e) < lndx } + [l] + [r] + @table.select { |e| @table.index(e) > rndx }
   end
 
   # split_at span
