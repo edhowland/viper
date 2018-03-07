@@ -83,4 +83,17 @@ class TestSliceTable < BaseSpike
     @st.split_2 Span.new 0..6
     assert @st.to_s.empty?
   end
+
+  # inserting
+  def test_insert_after_cleave_at
+    @st.cleave_at 0, 5
+    @st.insert_at 1, 'ABCDEF'
+    assert_eq @st.to_s, '01234ABCDEF56789'
+  end
+  def test_delete_after_insert_w_overlap_regions
+    @st.cleave_at(0, 5)
+    @st.insert_at(1, 'ABCDEF')
+    @st.split_at Span.new(1..14)
+    assert_eq @st.to_s, '09'
+  end
 end
