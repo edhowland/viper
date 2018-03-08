@@ -104,4 +104,23 @@ class TestSliceTable < BaseSpike
     @st.split_at Span.new(8..10)
     assert_eq @st.to_s, '01234ABCGHI56789'
   end
+
+  def test_insert_delete_entire_insert_becomes_source
+    @st.cleave_at 0,5
+    @st.insert_at 1, 'ABC'
+    @st.split_at Span.new(5..7)
+    assert_eq @st.to_s, @source
+  end
+  def test_after_insert_delete_all_w_additional_right_slice
+    @st.cleave_at 0,5
+    @st.insert_at 1, 'ABC'
+    @st.split_at Span.new 5..11
+    assert_eq @st.to_s, '012349'
+  end
+  def test_after_insert_delete_entire_thing_w_some_left_slice
+    @st.cleave_at 0,5
+    @st.insert_at 1, 'ABC'
+    @st.split_at Span.new(1..7)
+    assert_eq @st.to_s, '056789'
+  end
 end
