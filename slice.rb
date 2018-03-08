@@ -37,7 +37,7 @@ class Slice
   end
   def cleave(offset)
     lsp = Span.new((span.first)..(span.first + offset - 1))
-    rsp = Span.new((span.last - (offset - 1))..(span.last))
+    rsp = Span.new((span.first+offset)..span.last)
     [ with_span(lsp), with_span(rsp) ]
   end
 

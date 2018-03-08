@@ -84,4 +84,14 @@ class TestSlice < BaseSpike
     l, r = @sl.cleave(5)
     assert_eq l.to_s, '01234'
   end
+
+  # cleave with larger and smaller offsets
+  def test_cleave_w_1
+    x = @sl.cleave(1)
+    assert_eq x.first.to_s, '0'
+  end
+  def test_cleave_1_right_is_123456789
+    x = @sl.cleave 1
+    assert_eq x.last.to_s, '123456789'
+  end
 end

@@ -123,4 +123,25 @@ class TestSliceTable < BaseSpike
     @st.split_at Span.new(1..7)
     assert_eq @st.to_s, '056789'
   end
+
+  # multiple inserts
+  def test_insert_within_early_insert
+    @st.cleave_at 0,5
+    @st.insert_at 1, 'ABCD'
+    @st.cleave_at 1, 2
+    @st.insert_at 2, 'III'
+    assert_eq @st.to_s, '01234ABIIICD56789'
+  end
+  def test_multiple_inserts_then_delete_all
+        @st.cleave_at 0,5
+    @st.insert_at 1, 'ABCD'
+    @st.cleave_at 1, 2
+    @st.insert_at 2, 'III'
+    @st.split_at Span.new(0..(@st.to_s.length - 1))
+    assert_empty @st.to_s
+  end
+  def test_cleave_at_0_1_is_ok
+    @st.cleave_at 0, 1
+    assert_eq @st.to_s, @source
+  end
 end
