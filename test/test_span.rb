@@ -165,6 +165,40 @@ end
         rs = @sp.from_left(@sp.length)
     assert_eq rs.last, @sp.last
   end
+
+  # equality
+  def test_equality_is_true
+    x = Span.new @sp.first..@sp.last
+    assert x == @sp
+  end
+  def test_inequality_is_false
+    x = @sp.from_left 4
+    assert_false x == @sp
+  end
+  def test_less_than_is_true
+    x = @sp.from_left 2
+    assert @sp < x
+  end
+  def test_greater_than_is_true
+    x = Span.new (100)..(900)
+    assert x > @sp
   end
 
-
+  # contains?
+  def test_contains_is_true
+    assert @sp.contains?(Span.new(2..4))
+  end
+  def test_overlaps_but_not_contained
+    assert_false @sp.contains?(Span.new(2..14))
+  end
+  def test_not_contained_left_not_overlapping_is_false_for_contains
+    assert_false Span.new(0..3).contains?(Span.new(5..9))
+  end
+  def test_right_outer_non_overlapping_does_not_contain
+    assert_false @sp.contains?(Span.new(99..100))
+  end
+  def test_contains_where_exactly_equal
+    x = Span.new @sp.first..@sp.last
+    assert @sp.contains?(x)
+  end
+end

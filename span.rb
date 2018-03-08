@@ -85,6 +85,19 @@ class Span
     end
     Span.new (both.first)..(both.last)
   end
+  def contains?(other)
+    self.first <= other.first && other.last <= self.last
+  end
+
+  def ==(other)
+    self.first == other.first && self.last == other.last
+  end
+  def  <(other)
+    self.first < other.first
+  end
+  def >(other)
+    self.first > other.first
+  end
 
   def inspect
     "#{self.class.name}: #{@range}"

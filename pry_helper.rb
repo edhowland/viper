@@ -14,9 +14,17 @@ def st_9
   SliceTable.new s
 end
 
-def sd
+def s_56
   s = st_9
   s.split_at(Span.new(5..6))
   s
 end
 
+
+
+def si
+  x = st_9
+  x.cleave_at(0,5)
+  x.insert_at 1, 'ABCD'
+  x
+end

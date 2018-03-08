@@ -21,6 +21,32 @@ class SliceTable
     span.index des
   end
 
+  # EXPERIMENTAL
+  # Use map on @table to detect overlaps
+  def zipper gap
+    def from_p(r, g)
+      if r.contains?(g)
+        ->(x) { x.split(g) }
+      elsif g.contains?(r)
+        ->(x) { [] }
+      elsif r < g
+        ->(x) { x.with_span(x.span.from_right(r.last - g.first + 1)) }
+      elsif r > g
+        ->(x) { x.with_span(x.span.from_left(g.last - r.first + 1)) }
+      else
+        raise RuntimeError.new "something went wrong: r: #{r.inspect}, g: #{g.inspect}"
+      end
+    end
+    r = ranges.map {|r| Span.new(r) }.map {|r| gap.overlap?(r) ? from_p(r, gap) : ->(x) { x } }
+    @table.zip(r)
+  end
+  def applyp(gap)
+    zipper(gap).map {|sl, p| p[sl] }
+  end
+  def split_at(gap)
+    @table = applyp(gap).flatten
+  end
+
   # returns array of tuples of  logical Spans along with offset within @table
   def ranges_w_offsets
     ranges.map {|e| Span.new(e) }.zip((0..@table.length-1).to_a)
@@ -69,7 +95,7 @@ class SliceTable
   end
 
   # split_at span
-  def split_at(span)
+  def _split_at(span)
     ndx = within(span.first)
     r_ndx = within(span.last)
     if ndx == r_ndx
