@@ -11,7 +11,7 @@ class TestSliceTable < BaseSpike
     assert_eq @st.to_s, @source
   end
   def test_empty_span_splits_clean_left_is_5
-    @st.split_at(EmptySpan.new(5))
+    @st.cleave_at(0,5)
         assert_eq @st.to_s, @source
   end
   def test_split_w_gap_in_middle
@@ -29,7 +29,7 @@ class TestSliceTable < BaseSpike
 
   # test join stuff
   def test_join_previous_split_retains_integrity
-    @st.split_at(EmptySpan.new(5))
+    @st.cleave_at(0,5)
     @st.join(0, 1)
     assert_eq @st.to_s, @source
   end
@@ -95,5 +95,13 @@ class TestSliceTable < BaseSpike
     @st.insert_at(1, 'ABCDEF')
     @st.split_at Span.new(1..14)
     assert_eq @st.to_s, '09'
+  end
+
+  # delete inner inserted part
+  def test_can_split_inner_inserted_portion
+    @st.cleave_at 0,5
+    @st.insert_at 1, 'ABCDEFGHI'
+    @st.split_at Span.new(8..10)
+    assert_eq @st.to_s, '01234ABCGHI56789'
   end
 end

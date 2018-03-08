@@ -98,6 +98,15 @@ class Span
   def >(other)
     self.first > other.first
   end
+  def shiftl(offset)
+    Span.new((first - offset)..(last - offset))
+  end
+  def translate(r, g)
+  offset = g.first - r.first
+    start = first + offset
+    fin = start + g.length - 1
+    Span.new start..fin
+  end
 
   def inspect
     "#{self.class.name}: #{@range}"

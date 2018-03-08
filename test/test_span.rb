@@ -201,4 +201,23 @@ end
     x = Span.new @sp.first..@sp.last
     assert @sp.contains?(x)
   end
+
+  # shiftl
+  def test_shiftl_2
+    s = Span.new 5..7
+    assert_eq s.shiftl(2), Span.new(3..5)
+  end
+  # translate gap given other range
+  def test_translate_range_6_7_given_5_8_to_1_2
+    x = Span.new 0..4
+    r = Span.new 5..9
+    gap = Span.new 6..7
+    assert_eq x.translate(r, gap), Span.new(1..2)
+  end
+  def test_left_gap_touches_range_left
+    x = Span.new 0..4
+    r = Span.new 5..9
+    gap = Span.new 5..6
+    assert_eq x.translate(r,gap), Span.new(0..1) 
+  end
 end

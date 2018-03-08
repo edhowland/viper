@@ -26,7 +26,8 @@ class SliceTable
   def zipper gap
     def from_p(r, g)
       if r.contains?(g)
-        ->(x) { x.split(g) }
+#        ->(x) { x.split(g) }
+        ->(x) { x.split(x.span.translate(r, g)) }
       elsif g.contains?(r)
         ->(x) { [] }
       elsif r < g
