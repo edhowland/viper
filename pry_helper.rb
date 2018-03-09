@@ -2,6 +2,7 @@
 
 require_relative 'slice'
 require_relative 'slice_table'
+require_relative 'sliced_buffer'
 
 
 def zero_9

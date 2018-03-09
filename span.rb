@@ -35,7 +35,7 @@ class Span
     yield.slice((first)..( last))
   end
   def start_at(offset)
-    Range.new(offset, (@range.size-1) + offset)
+    Span.new(Range.new(offset, (@range.size-1) + offset))
   end
 
   # arithmetic operations

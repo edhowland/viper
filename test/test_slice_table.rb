@@ -67,20 +67,20 @@ class TestSliceTable < BaseSpike
     assert_empty @st.to_s
   end
 
-  # test split_2 given an overlapping regin
-  def test_split_2_after_split_at_overlap_gap
+  # test split_at given an overlapping regin
+  def test_split_at_after_split_at_overlap_gap
     @st.split_at(Span.new(5..6))
-    @st.split_2(Span.new(2..6))
+    @st.split_at(Span.new(2..6))
     assert_eq @st.to_s, '019'
   end
-  def test_split_2_with_one_longer_gap
+  def test_split_at_with_one_longer_gap
     @st.split_at Span.new(5..6)
-    @st.split_2 Span.new(1..6)
+    @st.split_at Span.new(1..6)
     assert_eq @st.to_s, '09'
   end
   def test_slice_2_w_complete_overlapping_range_is_empty_to_s
     @st.split_at Span.new(3..5)
-    @st.split_2 Span.new 0..6
+    @st.split_at Span.new 0..6
     assert @st.to_s.empty?
   end
 
@@ -143,5 +143,14 @@ class TestSliceTable < BaseSpike
   def test_cleave_at_0_1_is_ok
     @st.cleave_at 0, 1
     assert_eq @st.to_s, @source
+  end
+
+  # helper for sliced_buffer: offset_of
+  def test_offset_of_initial_index_is_0
+    assert_eq @st.offset_of(3), 0
+  end
+  def test_after_one_split_is_second_offset
+    @st.cleave_at 0, 5
+    assert_eq @st.offset_of(8), 1
   end
 end

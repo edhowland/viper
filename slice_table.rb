@@ -20,6 +20,10 @@ class SliceTable
     des = span.find {|e| e.include? offset }
     span.index des
   end
+  def offset_of(index)
+    ranges.index{|e| e.overlap?(Span.new(index..index)) } 
+  end
+  # TODO: remove this following comment
 
   # EXPERIMENTAL
   # Use map on @table to detect overlaps
@@ -38,7 +42,7 @@ class SliceTable
         raise RuntimeError.new "something went wrong: r: #{r.inspect}, g: #{g.inspect}"
       end
     end
-    r = ranges.map {|r| Span.new(r) }.map {|r| gap.overlap?(r) ? from_p(r, gap) : ->(x) { x } }
+    r = ranges.map {|r| gap.overlap?(r) ? from_p(r, gap) : ->(x) { x } }
     @table.zip(r)
   end
   def applyp(gap)
