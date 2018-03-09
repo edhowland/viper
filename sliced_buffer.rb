@@ -28,6 +28,8 @@ class SlicedBuffer
 
   def insert(position, string)
     offset = @slices.offset_of(position)
+    range = @slices.ranges[offset]
+    position = position - range.first
     @slices.cleave_at(offset, position)
     @slices.insert_at(offset+1, string)
   end

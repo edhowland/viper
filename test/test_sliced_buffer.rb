@@ -25,4 +25,9 @@ class TestSlicedBuffer < BaseSpike
     @sb.insert(5, ' there')
     assert_eq @sb.to_s, 'hello there world'
   end
+  def test_can_delete_then_insert
+    @sb.delete_at(5)
+    @sb.insert(7, 'abc')
+    assert_eq @sb.to_s, 'hellowoabcrld'
+  end
 end
