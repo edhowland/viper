@@ -2,8 +2,25 @@
 # and  SliceTable
 
 # NullSliceTable - End of ring buffer
-class NullSliceTable; end
+class NullSliceTable
+  def inspect
+    self.class.name
+  end
+end
 
+
+# exceptions
+class UndoStackUnderflowError < RuntimeError
+  def initialize
+    super "#{self.class.name}: Can perform no more undo operations"
+  end
+end
+
+class RedoStackOverflowError < RuntimeError
+  def initialize
+    super "#{self.class.name}: Can perform no more redo operations"
+  end
+end
 class SlicedBuffer
   def initialize string=''
     @buffer = string.freeze
@@ -11,6 +28,7 @@ class SlicedBuffer
     # TODO: Change this to ring buffer for undo/redo
     @slices = [NullSliceTable.new, SliceTable.new(@buffer)]
   end
+  attr_reader :slices
 
   def slices_start
     @slices.last
@@ -42,5 +60,19 @@ class SlicedBuffer
     # temporay storage for cleave_at result. In case it explodes
     temp = SliceTable.from_a(slices_start.perform_cleave_at(offset, position))
     @slices << SliceTable.from_a(temp.perform_insert_at(offset+1, string))
+  end
+
+  # Undo/Redo operations
+  def undo
+    raise UndoStackUnderflowError if @slices[-2].instance_of?(NullSliceTable)
+    @slices.rotate!(-1)
+  end
+  def redo
+    raise RedoStackOverflowError.new if @slices[0].instance_of?(NullSliceTable)
+    @slices.rotate!
+  end
+
+  def inspect
+    "#{self.class.name}: slices length: #{@slices.length}"
   end
 end
