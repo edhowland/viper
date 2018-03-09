@@ -19,17 +19,6 @@ class Span
     last >= other.first and other.last >= first
   end
 
-  # Spaceship: <=>. -1 if we are totally less than other. 0 if within or
-  # overlapping. And 1 if we are completely > other
-  def <=>(other)
-    if last < other.first
-      -1
-    elsif first > other.last
-      1
-    else
-      0
-    end
-  end
 
   def span &blk
     yield.slice((first)..( last))

@@ -71,22 +71,6 @@ end
     assert_eq result.range, rs.range
   end
 
-  # test spaceship operator: <=>
-  def test_left_span_less_than_right_span
-    lsp = Span.new 0..3
-    rsp = Span.new 7..9
-    assert_eq lsp <=> rsp, -1
-  end
-  def test_2_spans_are_equal_and_return_0
-    lsp = Span.new 4..6
-    rsp =  Span.new(lsp.range)
-    assert lsp.<=>(rsp).zero?
-  end
-  def test_right_span_is_greater_than_left_span
-    lsp = Span.new 0..3
-    rsp = Span.new 7..9
-    assert_eq rsp <=> lsp, 1
-  end
 
   # test for overlap?
   def test_non_overlapping_spans_return_false
