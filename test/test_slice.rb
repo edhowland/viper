@@ -39,7 +39,7 @@ class TestSlice < BaseSpike
     assert_eq l.to_s, '01234'
   end
   def test_split_ungapped_is_2_halves_right_term_is_second_halve
-    l,r = @sl.split EmptySpan.new(5)
+    l,r = @sl.cleave(5)
 
     assert_eq r.to_s, '56789'
   end

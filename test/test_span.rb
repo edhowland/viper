@@ -45,24 +45,6 @@ class TestSpan < BaseSpike
     assert_eq o.first, 7
 end
 
-  # Test EmptySpan
-  def test_empty_span_subtracting_longer_span_returns_
-    e = EmptySpan.new 5
-    sp = Span.new 0..9
-    result = e - sp
-    assert_eq result.range, 0..4
-  end
-  # For inserting at end of buffer, insertion point is length of buffer, or 10 here
-  def test_empty_span_at_right_edge
-    e=EmptySpan.new 10
-    result = e - @sp
-    assert_eq result.range, 0..9
-  end
-  def test_empty_span_outer_calculates_correct_span
-    e = EmptySpan.new 5
-    result = e.outer(@sp)
-    assert_eq result.range, 5..9
-  end
 
 
   # Test LeftSpan - left outer edge of a slice

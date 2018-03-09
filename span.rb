@@ -113,24 +113,6 @@ class Span
   end
 end
 
-# EmptySpan - Helpful for exactly split splices
-# E.g. sl = Slice.new '0123456789'
-# sl.split EmptySpan.new(5) = '01234', '56789'
-class EmptySpan < Span
-  def initialize offset
-    super(Range.new(offset,0))
-  end
-  def span(&blk)
-    ""
-  end
-  def last
-    first 
-  end
-  def outer(right)
-    Span.new(first..right.last)
-  end
-end
-
 class LeftSpan < Span
   def initialize
     super(-1..0)
