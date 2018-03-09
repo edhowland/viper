@@ -29,3 +29,7 @@ def si
   x.insert_at 1, 'ABCD'
   x
 end
+
+def hello
+  SlicedBuffer.new 'hello world'
+end

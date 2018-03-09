@@ -62,4 +62,23 @@ class TestSlicedBuffer < BaseSpike
     @sb.redo; @sb.redo; @sb.redo
     assert_eq @sb.to_s, 'hello great big wonderful world'
   end
+
+  # test append
+  def test_can_append
+    string = "\nthis is fun\n"
+    @sb << string
+    assert_eq @sb.to_s, @source +string 
+  end
+  def test_can_append_3_strings
+    s1 = '0123456789'
+    s2 = s1 * 2
+    s3 = s1 * 3
+    @sb << s1; @sb << s2; @sb << s3
+    assert_eq @sb.to_s, @source + s1 + s2 + s3 
+  end
+  def test_can_append_twice_then_delete_somethings
+    @sb << '01234'; @sb << '56789'
+    @sb.delete_at @source.length + 5
+    assert_eq @sb.to_s.length, @source.length + 10 - 1
+  end
 end

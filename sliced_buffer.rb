@@ -61,6 +61,9 @@ class SlicedBuffer
     temp = SliceTable.from_a(slices_start.perform_cleave_at(offset, position))
     @slices << SliceTable.from_a(temp.perform_insert_at(offset+1, string))
   end
+  def <<(string)
+    @slices << SliceTable.from_a(slices_start.table + [ Slice.new(string) ])
+  end
 
   # Undo/Redo operations
   def undo
