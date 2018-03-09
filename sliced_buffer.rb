@@ -1,16 +1,24 @@
 # buffer sliced_buffer.rb - class SlicedBuffer - triple of string, append string 
 # and  SliceTable
 
+# NullSliceTable - End of ring buffer
+class NullSliceTable; end
+
 class SlicedBuffer
   def initialize string=''
     @buffer = string.freeze
     # No need for append buffer. Use Slice with new string instead
     # TODO: Change this to ring buffer for undo/redo
-    @slices = SliceTable.new(@buffer)
+    @slices = [NullSliceTable.new, SliceTable.new(@buffer)]
   end
 
+  def slices_start
+    @slices.last
+  end
+
+
   def to_s
-    @slices.to_s
+    slices_start.to_s
   end
 
   # modifieres
@@ -23,14 +31,14 @@ class SlicedBuffer
     else
       raise RuntimeError.new "Wrong type of argument for delete_at: #{object.class.name}"
     end
-    @slices.split_at(gap)
+    slices_start.split_at(gap)
   end
 
   def insert(position, string)
-    offset = @slices.offset_of(position)
-    range = @slices.ranges[offset]
+    offset = slices_start.offset_of(position)
+    range = slices_start.ranges[offset]
     position = position - range.first
-    @slices.cleave_at(offset, position)
-    @slices.insert_at(offset+1, string)
+    slices_start.cleave_at(offset, position)
+    slices_start.insert_at(offset+1, string)
   end
 end
