@@ -47,24 +47,4 @@ class Slice
 end
 
 
-#class EmptySlice < Slice
-#  def initialize string
-#    super string, 0, 0
-#  end
-#
-#  def to_s
-#    ''
-#  end
-#
-#  def empty?
-#    true
-#  end
-#
-#  def length
-#    0
-#  end
-#
-#  def +(other)
-#    other
-#  end
-#end
+
