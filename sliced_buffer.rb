@@ -40,6 +40,9 @@ class SlicedBuffer
   end
 
   # modifieres
+  def wrap(&blk)
+    SliceTable.from_a(yield)
+  end
   def delete_at(object)
     case object
     when Integer
@@ -49,7 +52,7 @@ class SlicedBuffer
     else
       raise RuntimeError.new "Wrong type of argument for delete_at: #{object.class.name}"
     end
-    @slices << SliceTable.from_a(slices_start.applyp(gap))
+    @slices << wrap {slices_start.applyp(gap)} 
   end
 
   def insert(position, string)
@@ -58,11 +61,11 @@ class SlicedBuffer
     position = position - range.first
 
     # temporay storage for cleave_at result. In case it explodes
-    temp = SliceTable.from_a(slices_start.perform_cleave_at(offset, position))
-    @slices << SliceTable.from_a(temp.perform_insert_at(offset+1, string))
+    temp = wrap { slices_start.perform_cleave_at(offset, position) }
+    @slices << wrap { temp.perform_insert_at(offset+1, string) }
   end
   def <<(string)
-    @slices << SliceTable.from_a(slices_start.table + [ Slice.new(string) ])
+    @slices << wrap {slices_start.table + [ Slice.new(string) ] } 
   end
 
   # Undo/Redo operations
