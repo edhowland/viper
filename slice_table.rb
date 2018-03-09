@@ -1,8 +1,13 @@
 # slice_table.rb - class  SliceTable - Holds Slices, can split, join them
 
 class SliceTable
-  def initialize string
+  def initialize string=''
     @table = [Slice.new(string)]
+  end
+  def self.from_a(array)
+    result = self.new
+    result.table = array
+    result
   end
   attr_reader :table
   def ranges
@@ -78,5 +83,10 @@ class SliceTable
   end
   def inspect
     "#{self.class.name}: length: #{@table.length}"
+  end
+
+
+  def table=(array)
+    @table = array
   end
 end

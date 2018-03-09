@@ -31,14 +31,16 @@ class SlicedBuffer
     else
       raise RuntimeError.new "Wrong type of argument for delete_at: #{object.class.name}"
     end
-    slices_start.split_at(gap)
+    @slices << SliceTable.from_a(slices_start.applyp(gap))
   end
 
   def insert(position, string)
     offset = slices_start.offset_of(position)
     range = slices_start.ranges[offset]
     position = position - range.first
-    slices_start.cleave_at(offset, position)
-    slices_start.insert_at(offset+1, string)
+
+    # temporay storage for cleave_at result. In case it explodes
+    temp = SliceTable.from_a(slices_start.perform_cleave_at(offset, position))
+    @slices << SliceTable.from_a(temp.perform_insert_at(offset+1, string))
   end
 end
