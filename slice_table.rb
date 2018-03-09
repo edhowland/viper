@@ -19,9 +19,7 @@ class SliceTable
   def offset_of(index)
     ranges.index{|e| e.overlap?(Span.new(index..index)) } 
   end
-  # TODO: remove this following comment
 
-  # EXPERIMENTAL
   # Use map on @table to detect overlaps
   def zipper gap
     def from_p(r, g)
@@ -48,14 +46,17 @@ class SliceTable
     @table = applyp(gap).flatten
   end
 
-
+  def perform_at(offset, &blk)
+    @table.zip((0..(@table.length - 1)).to_a).map {|e, i| i == offset ? blk[e] : e }.flatten
+  end
 
 
   # cleave_at offset of piece_table and offset of slice therin
-  def cleave_at(p_off, s_off)
-    piece = @table[p_off]
-    @table[p_off] = piece.cleave(s_off)
-    @table.flatten!
+  def perform_cleave_at(offset, s_off)
+    perform_at(offset) { |e| e.cleave(s_off) }
+  end
+  def cleave_at(offset, s_off)
+    @table = perform_cleave_at(offset, s_off)
   end
 
   def insert_at(index, string)

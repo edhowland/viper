@@ -4,7 +4,7 @@
 class SlicedBuffer
   def initialize string=''
     @buffer = string.freeze
-    @append = ''
+    # No need for append buffer. Use Slice with new string instead
     # TODO: Change this to ring buffer for undo/redo
     @slices = SliceTable.new(@buffer)
   end
