@@ -40,10 +40,10 @@ class SliceTable
     @table.zip(r)
   end
   def applyp(gap)
-    zipper(gap).map {|sl, p| p[sl] }
+    zipper(gap).map {|sl, p| p[sl] }.flatten
   end
   def split_at(gap)
-    @table = applyp(gap).flatten
+    @table = applyp(gap)
   end
 
   def perform_at(offset, &blk)
@@ -59,8 +59,12 @@ class SliceTable
     @table = perform_cleave_at(offset, s_off)
   end
 
-  def insert_at(index, string)
-    @table.insert(index, Slice.new(string))
+  def perform_insert_at(offset, string)
+    perform_at(offset) { |e| [Slice.new(string), e] }
+  end
+
+  def insert_at(offset, string)
+    @table = perform_insert_at(offset, string)
   end
   def join(left, right)
     l = @table[left]
