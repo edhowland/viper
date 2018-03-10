@@ -68,6 +68,20 @@ class SlicedBuffer
     @slices << wrap {slices_start.table + [ Slice.new(string) ] } 
   end
 
+  # query methods
+  def [](object)
+    span = case object
+    when Integer
+      Span.new(object..object)
+    when Range
+      Span.new(object)
+    else
+      raise RuntimeError.new 'Invalid type of index expression. Only integer and range allowed'
+    end
+
+  slices_start.with_span(span).join
+  end
+
   # Undo/Redo operations
   def undo
     raise UndoStackUnderflowError if @slices[-2].instance_of?(NullSliceTable)

@@ -71,12 +71,32 @@ class SliceTable
   def insert_at(offset, string)
     @table = perform_insert_at(offset, string)
   end
-  def join(left, right)
-    l = @table[left]
-    r = @table[right]
-    c = l.join(r)
-    @table[left] = c
-    @table.delete_at(right)
+
+
+  # query methods
+  #
+  # span_p: given a range and span, return proc to handle it
+  def span_p(range, gap)
+    preds = [
+      ->(r, g) { ! r.overlap?(g) },
+      ->(r, g) { r.contains?(g) },
+      ->(r, g) { g.contains?(r) },
+      ->(r, g) { r < g },
+      ->(r, g) { r > g }
+    ]
+    procs = [
+      ->(s) { '' },
+      ->(s) { s.with_span(s.span.translate(range, gap)).to_s },
+      ->(s) { s.to_s },
+      ->(s) { s.with_span(s.span.from_left((gap - range).length)).to_s },
+      ->(s) { s.with_span(s.span.from_right((range.last - gap.last))).to_s }
+    ]
+    x = preds.zip(procs).find {|q, p| q[range, gap] }
+    x
+  end
+  def with_span(gap, &blk)
+    l = ranges.map {|r| span_p(r, gap).last }
+    @table.zip(l).map {|s, p| p[s] }
   end
   def to_s
     @table.map(&:to_s).join
