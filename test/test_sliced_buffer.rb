@@ -81,4 +81,42 @@ class TestSlicedBuffer < BaseSpike
     @sb.delete_at @source.length + 5
     assert_eq @sb.to_s.length, @source.length + 10 - 1
   end
+
+  # query method
+  def test_can_query_within_stuff_of_buffer
+    assert_eq @sb[0], 'h'
+  end
+  def test_can_reach_last_char
+    offset = @sb.to_s.length - 1
+    assert_eq @sb[offset], 'd'
+  end
+  def test_can_query_entire_string
+    offset = @source.length - 1
+    assert_eq @sb[0..offset], @source
+  end
+  def test_can_query_part_of_string
+    assert_eq @sb[4..7], @source[4..7]
+  end
+  def test_query_still_holds_after_delete
+    @sb.delete_at(4..6)
+    ch = @source.chars
+    # We have to delete at start of range, because its shifts left after each one
+    (4..6).each do |e|
+      ch.delete_at(4)
+    end
+    source = ch.join
+
+    assert_eq @sb[0..6], source[0..6]
+  end
+  def test_can_query_after_insert
+    @sb.insert 5, ' there '
+    offset = @sb.to_s.length - 1
+    assert_eq @sb[0..offset], @sb.to_s
+  end
+  def test_can_query_after_insert_then_delete
+    @sb.insert 5, ' another '
+    @sb.delete_at 6..14
+
+    assert_eq @sb[0..10], @source
+  end
 end
