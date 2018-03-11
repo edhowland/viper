@@ -58,9 +58,10 @@ class TestSlicedBuffer < BaseSpike
     @sb.insert 5, ' there '
     @sb.delete_at 5..12
     @sb.insert 5, ' great big wonderful '
+    assert_eq @sb.to_s, 'hello great big wonderful world'
     @sb.undo; @sb.undo; @sb.undo
     @sb.redo; @sb.redo; @sb.redo
-    assert_eq @sb.to_s, 'hello great big wonderful world'
+#    assert_eq @sb.to_s, 'hello great big wonderful world'
   end
 
   # test append
@@ -118,5 +119,12 @@ class TestSlicedBuffer < BaseSpike
     @sb.delete_at 6..14
 
     assert_eq @sb[0..10], @source
+  end
+
+  # test insert at front
+  def test_insert_1_char_at_start
+    sb = SlicedBuffer.new '0123456789'
+    sb.insert 0, 'X'
+    assert_eq sb.to_s, 'X0123456789'
   end
 end

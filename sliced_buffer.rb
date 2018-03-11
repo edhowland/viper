@@ -56,13 +56,20 @@ class SlicedBuffer
   end
 
   def insert(position, string)
+    if position.zero?
+      self.>>(string)
+    else
     offset = slices_start.offset_of(position)
     range = slices_start.ranges[offset]
     position = position - range.first
+      # temporay storage for cleave_at result. In case it explodes
+      temp = wrap { slices_start.perform_cleave_at(offset, position) }
+      @slices << wrap { temp.perform_insert_at(offset+1, string) }
+    end
+  end
 
-    # temporay storage for cleave_at result. In case it explodes
-    temp = wrap { slices_start.perform_cleave_at(offset, position) }
-    @slices << wrap { temp.perform_insert_at(offset+1, string) }
+  def >>(string)
+    @slices <<  wrap { slices_start.table.unshift(Slice.new(string)) }
   end
   def <<(string)
     @slices << wrap {slices_start.table + [ Slice.new(string) ] } 
