@@ -127,4 +127,19 @@ class TestSlicedBuffer < BaseSpike
     sb.insert 0, 'X'
     assert_eq sb.to_s, 'X0123456789'
   end
+
+  # test append with call to insert @end
+  def test_after_insert_at_right_edge
+    @sb.insert 11, 'abcde'
+    assert_eq @sb.to_s, @source + 'abcde'
+  end
+  def test_insert_just_one_short_of_right_edge
+    @sb.insert 10, 'X'
+    assert_eq @sb.to_s, 'hello worlXd'
+  end
+  # @sb.insert 199, 'XXX' => 'hello worldXXXX'
+  def test_very_long_away_from_right_edge_of_source_justs_adds_to_actual_append_right_edge
+    @sb.insert 199, 'XXXX'
+    assert_eq @sb.to_s, @source + 'XXXX'
+  end
 end

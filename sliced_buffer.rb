@@ -58,6 +58,8 @@ class SlicedBuffer
   def insert(position, string)
     if position.zero?
       self.>>(string)
+    elsif position >= slices_start.length
+      self.<<(string)
     else
     offset = slices_start.offset_of(position)
     range = slices_start.ranges[offset]

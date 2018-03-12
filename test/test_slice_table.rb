@@ -132,4 +132,18 @@ class TestSliceTable < BaseSpike
     @st.cleave_at 0, 5
     assert_eq @st.offset_of(8), 1
   end
+
+  # length quick
+  def test_length_is_quickly_obtained
+    assert_eq @st.length, 10
+  end
+  def test_length_after_insert
+    @st.cleave_at 0, 5
+    @st.insert_at 0, 'ABCD'
+    assert_eq @st.length, 14
+  end
+  def test_length_after_delete
+    @st.split_at Span.new 2..6
+    assert_eq @st.length, 5
+  end
 end

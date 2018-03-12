@@ -109,4 +109,8 @@ class SliceTable
   def table=(array)
     @table = array
   end
+
+  def length
+    ranges.last.last + 1
+  end
 end
