@@ -64,12 +64,13 @@ class SliceTable
     @table = perform_cleave_at(offset, s_off)
   end
 
-  def perform_insert_at(offset, string)
-    perform_at(offset) { |e| [Slice.new(string), e] }
+  def perform_insert_at(offset, slice)
+    perform_at(offset) { |e| [slice, e] }
   end
 
   def insert_at(offset, string)
-    @table = perform_insert_at(offset, string)
+    slice = Slice.new(string)
+    @table = perform_insert_at(offset, slice)
   end
 
 

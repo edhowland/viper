@@ -21,10 +21,11 @@ class RedoStackOverflowError < RuntimeError
     super "#{self.class.name}: Can perform no more redo operations"
   end
 end
+
 class SlicedBuffer
   def initialize string=''
     @buffer = string.freeze
-    # No need for append buffer. Use Slice with new string instead
+    @append = ''
     # TODO: Change this to ring buffer for undo/redo
     @slices = [NullSliceTable.new, SliceTable.new(@buffer)]
   end
@@ -37,6 +38,11 @@ class SlicedBuffer
 
   def to_s
     slices_start.to_s
+  end
+
+  def span_after_append(string)
+    @append << string
+    Span.new(@append.length - (string.length)..(@append.length - 1))
   end
 
   # modifieres
@@ -66,15 +72,20 @@ class SlicedBuffer
     position = position - range.first
       # temporay storage for cleave_at result. In case it explodes
       temp = wrap { slices_start.perform_cleave_at(offset, position) }
-      @slices << wrap { temp.perform_insert_at(offset+1, string) }
+      span = span_after_append(string)
+      slice = Slice.new(@append, span)
+      @slices << wrap { temp.perform_insert_at(offset+1, slice) }
     end
   end
 
   def >>(string)
-    @slices <<  wrap { slices_start.table.unshift(Slice.new(string)) }
+  span = span_after_append(string)
+
+    @slices <<  wrap { slices_start.table.unshift(Slice.new(@append, span)) }
   end
   def <<(string)
-    @slices << wrap {slices_start.table + [ Slice.new(string) ] } 
+  span = span_after_append(string)
+    @slices << wrap {slices_start.table + [ Slice.new(@append, span) ] } 
   end
 
   # query methods
