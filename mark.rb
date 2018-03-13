@@ -6,4 +6,7 @@ class Mark
     @position = position
   end
   attr_reader :string, :position
+  def inspect
+    "#{self.class.name}: string length: #{@string.length}, position: #{@position}"
+  end
 end

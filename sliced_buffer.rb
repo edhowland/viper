@@ -1,5 +1,6 @@
 # buffer sliced_buffer.rb - class SlicedBuffer - triple of string, append string 
 # and  SliceTable
+DEFAULT_MARK=:_
 
 # NullSliceTable - End of ring buffer
 class NullSliceTable
@@ -26,16 +27,32 @@ class SlicedBuffer
   def initialize string=''
     @buffer = string.freeze
     @append = ''
-    # TODO: Change this to ring buffer for undo/redo
+
     @slices = [NullSliceTable.new, SliceTable.new(@buffer)]
+    @marks = {}
   end
-  attr_reader :slices
+  attr_reader :slices, :marks
 
   def slices_start
     @slices.last
   end
 
 
+  def set_mark(name=DEFAULT_MARK, position=0)
+    @marks[name] = Mark.new(*slices_start.logical_to_physical(position))
+  end
+  def region_of(mark_name, position)
+    mark = @marks[mark_name]
+    logical = slices_start.physical_to_logical(mark.string, mark.position)
+    unless logical.nil?
+      if position >= logical
+        return Span.new(logical..(position - 1))
+      else
+        return Span.new(position..(logical - 1))
+      end
+    end
+    return nil
+  end
   def to_s
     slices_start.to_s
   end
@@ -55,10 +72,14 @@ class SlicedBuffer
       gap = Span.new(object..object)
     when Range
       gap = Span.new(object)
+    when Span
+      gap = object
     else
       raise RuntimeError.new "Wrong type of argument for delete_at: #{object.class.name}"
     end
+    contents = self[gap.range]
     @slices << wrap {slices_start.applyp(gap)} 
+    contents
   end
 
   def insert(position, string)
