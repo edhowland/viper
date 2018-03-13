@@ -146,4 +146,39 @@ class TestSliceTable < BaseSpike
     @st.split_at Span.new 2..6
     assert_eq @st.length, 5
   end
+
+
+  # support for mark calcs
+  def test_logical_toPhysical
+    s, p = @st.logical_to_physical(4)
+    assert_eq s, @source
+    assert_eq p, 4
+  end
+  def test_logical_to_physical_after_delete
+    @st.split_at Span.new(1..4)
+    s, p = @st.logical_to_physical(5)
+    assert_eq p, 9
+  end
+  def test_logical_to_physical_after_insert
+    insertted = 'happy'
+    @st.cleave_at(0, 3)
+    @st.insert_at(1, insertted)
+    s, p = @st.logical_to_physical(5)
+    assert_eq s, insertted
+    assert_eq p, 2
+  end
+  def test_physical_to_logical
+    n = @st.physical_to_logical(@source, 6)
+    assert_eq n, 6
+  end
+  def test_different_mark_position
+    n = @st.physical_to_logical(@source, 2)
+    assert_eq n, 2
+  end
+  def test_round_trip_with_delete_between
+    s, p = @st.logical_to_physical(3)
+    @st.split_at Span.new(1..6)
+    n = @st.physical_to_logical(s, p)
+    assert_eq n, nil
+  end
 end

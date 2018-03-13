@@ -99,6 +99,32 @@ class SliceTable
     l = ranges.map {|r| span_p(r, gap).last }
     @table.zip(l).map {|s, p| p[s] }
   end
+
+  # mark support
+  def logical_to_physical(point)
+  span = Span.new(point..point)
+  r = ranges.find {|e| e.overlap?(span) }
+  string, physical = [nil, nil]
+  unless r.nil?
+    offset = point - r.first
+    ndx = ranges.index r
+    sl = @table[ndx]
+    physical = sl.span.first + offset
+    string = sl.string
+  end
+    return string, physical
+  end
+  def physical_to_logical(string, physical)
+  span = Span.new(physical..physical)
+    sl = @table.find {|s| s.string == string && s.span.overlap?(span) }
+    unless sl.nil?
+      offset = physical - sl.span.first
+      ndx = @table.index(sl)
+      r = ranges[ndx]
+      return r.first + offset
+    end
+    return nil
+  end
   def to_s
     @table.map(&:to_s).join
   end
