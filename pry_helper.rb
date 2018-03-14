@@ -4,6 +4,8 @@ require_relative 'slice'
 require_relative 'slice_table'
 require_relative 'mark'
 require_relative 'sliced_buffer'
+require_relative 'grid_query'
+
 
 
 def zero_9
@@ -33,4 +35,9 @@ end
 
 def hello
   SlicedBuffer.new 'hello world'
+end
+
+def qlines
+  sb=SlicedBuffer.new "line 1\nline 2\nline 3\nline 4\n"
+  GridQuery.new sb
 end

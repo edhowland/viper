@@ -116,6 +116,8 @@ class SlicedBuffer
       Span.new(object..object)
     when Range
       Span.new(object)
+    when Span
+    object
     else
       raise RuntimeError.new 'Invalid type of index expression. Only integer and range allowed'
     end
