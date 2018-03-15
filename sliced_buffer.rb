@@ -134,6 +134,9 @@ class SlicedBuffer
     raise RedoStackOverflowError.new if @slices[0].instance_of?(NullSliceTable)
     @slices.rotate!
   end
+  def length
+    slices_start.length
+  end
 
   def inspect
     "#{self.class.name}: slices length: #{@slices.length}"

@@ -27,4 +27,23 @@ class GridQuery
     nspan = line_spans[ndx + 1]
     @cursor = Span.new nspan.first..nspan.first
   end
+  def up
+        lspan = line
+    ndx = line_spans.index lspan
+    nspan = line_spans[ndx - 1]
+    @cursor = Span.new nspan.first..nspan.first
+  end
+  def right
+    @cursor = Span.new((@cursor.first+1)..(@cursor.first+1))
+  end
+  def left
+    @cursor = Span.new((@cursor.first-1)..(@cursor.first-1))
+  end
+  def top
+    @cursor = Span.new(0..0)
+  end
+  def bottom
+    limit = @buffer.length - 1
+    @cursor = Span.new(limit..limit)
+  end
 end
