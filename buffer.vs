@@ -12,5 +12,8 @@ slice(:b, :sp)
   }, s: ->() {
     sp=line(:q)
 slice(:b, :sp)
+  }, q: ->() {
+  prints('exiting')
+    exit
   }}
 }

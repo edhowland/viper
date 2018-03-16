@@ -7,12 +7,9 @@ buf=Buffer(:b, :q)
 defn rsym() {
   readc() | sym()
 }
-# Main loop
-%buf.s | prints()
-ch='x'
-loop {
-  (:ch == q:) && break
+# perform action
+defn run(b) {
   ch=rsym()
-%buf[:ch] | prints()
+  %b[:ch] | prints()
 }
 
