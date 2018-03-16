@@ -45,4 +45,30 @@ class TestGridQuery < BaseSpike
     sp = @gq.line
     assert_eq @sb[sp], "line 3\n"
   end
+
+  # start of line/end of line methods
+  def test_right_right_then_sol
+    @gq.right; @gq.right
+    @gq.sol
+    assert_eq @gq.cursor, Span.new(0..0)
+  end
+  def test_2_down_then_3_right_then_sol
+    2.times { @gq.down }
+    3.times { @gq.right }
+    sp = @gq.line
+
+    @gq.sol
+    assert_eq @gq.cursor, Span.new(sp.first..sp.first)
+  end
+  def test_eol_points_to_newline
+    sp = @gq.eol
+    assert_eq @sb[sp], "\n"
+  end
+  def test_bottom_sol_then_eol
+    @gq.bottom
+    @gq.sol
+    sp = @gq.line
+    @gq.eol
+    assert_eq @gq.cursor, Span.new(sp.last..sp.last)
+  end
 end

@@ -46,4 +46,14 @@ class GridQuery
     limit = @buffer.length - 1
     @cursor = Span.new(limit..limit)
   end
+
+  # start/end of line
+  def sol
+    sp = line
+    @cursor = Span.new(sp.first..sp.first)
+  end
+  def eol
+    sp = line
+    @cursor = Span.new(sp.last..sp.last)
+  end
 end
