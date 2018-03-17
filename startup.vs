@@ -5,7 +5,7 @@ q=mkq(:b)
 buf=Buffer(:b, :q)
 # read symbol
 defn rsym() {
-  readc() | sym()
+  readc() | tr()  # sym()
 }
 # perform action
 defn run(b) {

@@ -98,6 +98,10 @@ class SlicedBuffer
       @slices << wrap { temp.perform_insert_at(offset+1, slice) }
     end
   end
+  def insert_at(span, string)
+    position = span.first
+    insert(position, string)
+  end
 
   def >>(string)
   span = span_after_append(string)

@@ -19,5 +19,24 @@ slice(:b, :sp)
     sp=line(:q)
 slice(:b, :sp) | clip!()
     prints('one line yanked')
-}}
+}, h: ->() {
+    sp=left(:q)
+    slice(:b, :sp) | prints()
+  }, l: ->() {
+    sp=right(:q)
+slice(:b, :sp) | prints()
+  }, sol: ->() {
+    sp=sol(:q)
+slice(:b, :sp) | prints()
+  }, eol: ->() {
+    sp=eol(:q)
+slice(:b, :sp) | prints()
+  }, unbound: ->() {
+    prints('key not bound')
+  }, p: ->() {
+    eol(:q); sp=right(:q)
+    clip() | insert(:b, :sp)
+    sp=line(:q)
+slice(:b, :sp) | prints()
+  }}
 }

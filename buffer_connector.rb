@@ -46,6 +46,24 @@ module  BufferConnector
   def self.bottom(query)
     query.bottom
   end
+  # modification commands
+  def self.insert(string, buffer, span)
+    buffer.insert_at(span, string)
+  end
+
+  # helpers for chars not likely to translate to symbols: 0, $, etc.
+  def self.tr(ch)
+    case ch
+    when '0'
+      :sol
+      when '$'
+        :eol
+        when 'h', 'j', 'k','l','y','p','s','q'
+          ch.to_sym
+      else
+        :unbound
+    end
+  end
 end
 
 Dispatch << BufferConnector
