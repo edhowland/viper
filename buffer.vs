@@ -15,5 +15,9 @@ slice(:b, :sp)
   }, q: ->() {
   prints('exiting')
     exit
-  }}
+  }, y: ->() {
+    sp=line(:q)
+slice(:b, :sp) | clip!()
+    prints('one line yanked')
+}}
 }
