@@ -14,6 +14,18 @@ module Env
   def self.sym(string)
     string.to_sym
   end
+  #
+  # input read loop
+  def self.getchars()
+    result = ''
+    ch = ' '
+    until ch.ord == 27
+      ch = $stdin.getch
+      print ch
+      result << ch unless ch.ord == 27
+    end
+    result
+  end
   end
 
   Dispatch << Env

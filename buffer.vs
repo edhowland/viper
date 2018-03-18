@@ -54,5 +54,10 @@ prints('undone')
   }, r: ->() {
     redo(:b)
 prints('redone')
+  }, i: ->() {
+    prints('insert')
+sp=cursor(:q)
+getchars() | insert(:b, :sp)
+sp=line(:q); slice(:b, :sp) | prints()
   }}
 }
