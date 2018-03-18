@@ -50,6 +50,15 @@ module  BufferConnector
   def self.insert(string, buffer, span)
     buffer.insert_at(span, string)
   end
+  def self.delete(span, buffer)
+    buffer.delete_at(span)
+  end
+  def self.undo(buffer)
+    buffer.undo
+  end
+  def self.redo(buffer)
+    buffer.redo
+  end
 
   # helpers for chars not likely to translate to symbols: 0, $, etc.
   def self.tr(ch)
@@ -58,7 +67,7 @@ module  BufferConnector
       :sol
       when '$'
         :eol
-        when 'h', 'j', 'k','l','y','p','s','q'
+        when 'h', 'j', 'k','l','y','p','s','q','g','G','d','x','u','r'
           ch.to_sym
       else
         :unbound

@@ -38,5 +38,21 @@ slice(:b, :sp) | prints()
     clip() | insert(:b, :sp)
     sp=line(:q)
 slice(:b, :sp) | prints()
+  }, g: ->() {
+    top(:q); sp=line(:q)
+slice(:b, :sp) | prints()
+  }, G: ->() {
+    bottom(:q)
+prints('bottom of buffer')
+  }, d: ->() {
+    sp=line(:q); slice(:b, :sp) | clip!()
+delete(:sp, :b)
+prints('one line deleted')
+  }, u: ->() {
+    undo(:b)
+prints('undone')
+  }, r: ->() {
+    redo(:b)
+prints('redone')
   }}
 }
