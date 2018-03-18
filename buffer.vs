@@ -59,5 +59,10 @@ prints('redone')
 sp=cursor(:q)
 getchars() | insert(:b, :sp)
 sp=line(:q); slice(:b, :sp) | prints()
+  }, o: ->() {
+    prints('open line')
+    eol(:q); sp=right(:q)
+    getchars() + "\n" | insert(:b, :sp)
+    ""
   }}
 }
