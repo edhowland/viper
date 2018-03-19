@@ -23,14 +23,21 @@ class GridQuery
   end
   def down
     lspan = line
+    return bottom if lspan.nil?
     ndx = line_spans.index lspan
     nspan = line_spans[ndx + 1]
+    return bottom if nspan.nil?
+
     @cursor = Span.new nspan.first..nspan.first
   end
   def up
         lspan = line
+        return top if lspan.nil?
     ndx = line_spans.index lspan
+    return top if ndx.zero?
     nspan = line_spans[ndx - 1]
+        return top if nspan.nil?
+
     @cursor = Span.new nspan.first..nspan.first
   end
   def right

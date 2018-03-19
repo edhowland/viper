@@ -71,4 +71,19 @@ class TestGridQuery < BaseSpike
     @gq.eol
     assert_eq @gq.cursor, Span.new(sp.last..sp.last)
   end
+
+  # return sensible for moves past some boundary, like up past top, bottom
+  # if down past bottom
+  def test_down_past_bottom_returns_bottom
+    bot = @gq.bottom
+    @gq.up
+    @gq.down
+    @gq.down
+    assert_eq @gq.down, bot
+  end
+  def test_up_returns_top_if_already_at_first_line
+    @gq.right; @gq.right
+    top = Span.new(0..0)
+    assert_eq @gq.up, top
+  end
 end
