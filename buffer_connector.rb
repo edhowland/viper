@@ -63,11 +63,13 @@ module  BufferConnector
   # helpers for chars not likely to translate to symbols: 0, $, etc.
   def self.tr(ch)
     case ch
+    when ' ' # space
+      :l  # right
     when '0'
       :sol
       when '$'
         :eol
-        when 'h', 'j', 'k','l','y','p','s','q','g','G','d','x','u','r','i','o'
+        when 'h', 'j', 'k','l','y','p','L','q','g','G','d','x','u','r','i','o','f'
           ch.to_sym
       else
         :unbound

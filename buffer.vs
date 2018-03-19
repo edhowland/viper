@@ -9,9 +9,9 @@ defn Buffer(b, q) {
     up(:q)
 sp=line(:q)
 slice(:b, :sp)
-  }, s: ->() {
+  }, L: ->() {
     sp=line(:q)
-slice(:b, :sp)
+slice(:b, :sp) | prints()
   }, q: ->() {
   prints('exiting')
     exit
@@ -54,7 +54,10 @@ prints('undone')
   }, r: ->() {
     redo(:b)
 prints('redone')
-  }, i: ->() {
+  },  f: ->() {
+    sp=cursor(:q)
+slice(:b, :sp) | prints()
+}, i: ->() {
     prints('insert')
 sp=cursor(:q)
 getchars() | insert(:b, :sp)
