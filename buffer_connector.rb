@@ -59,6 +59,10 @@ module  BufferConnector
   def self.redo(buffer)
     buffer.redo
   end
+  # output entire buffer
+  def self.contents(buffer)
+    buffer.to_s
+  end
 
   # helpers for chars not likely to translate to symbols: 0, $, etc.
   def self.tr(ch)
@@ -69,7 +73,7 @@ module  BufferConnector
       :sol
       when '$'
         :eol
-        when 'h', 'j', 'k','l','y','p','L','q','g','G','d','x','u','r','i','o','f'
+        when 'h', 'j', 'k','l','y','p','L','q','g','G','d','x','u','r','i','o','f','Z'
           ch.to_sym
       else
         :unbound

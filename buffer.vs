@@ -1,6 +1,6 @@
 # buffer.vs - class Buffer - holds SlicedBuffer and GridQuery
-defn Buffer(b, q) {
-  mkattr(b:, :b) + mkattr(q:, :q) +
+defn Buffer(b, q, f) {
+  mkattr(b:, :b) + mkattr(q:, :q) + mkattr(fname:, :f) + 
   ~{j: ->() {
     down(:q)
     sp=line(:q)
@@ -67,5 +67,9 @@ sp=line(:q); slice(:b, :sp) | prints()
     eol(:q); sp=right(:q)
     getchars() + "\n" | insert(:b, :sp)
     ""
+  }, Z: ->() {
+    contents(:b) | fwrite(:f)
+prints("File :{:f} saved")
+exit
   }}
 }

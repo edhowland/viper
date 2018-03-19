@@ -2,7 +2,7 @@
 a=getargs()
 b=openf(:a[0])
 q=mkq(:b)
-buf=Buffer(:b, :q)
+buf=Buffer(:b, :q, :a[0])
 # read symbol
 defn rsym() {
   readc() | tr()  # sym()
