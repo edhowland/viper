@@ -1,4 +1,4 @@
 # vim.sh - load stuff into Vish scripts in ivs REPL
-ivs -r ./env -r ./buffer_connector -l openf.vs -l clip.vs -l buffer.vs -l startup.vs -l loop.vs $1
+ivs -r ./env -r ./buffer_connector -l openf.vs -l clip.vs -l buffer.vs -l marks.vs -l startup.vs -l loop.vs $1
 
 

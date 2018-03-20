@@ -4,15 +4,17 @@ defn Buffer(b, q, f) {
   ~{j: ->() {
     down(:q)
     sp=line(:q)
-    slice(:b, :sp)
+    slice(:b, :sp) | prints()
   }, k: ->() {
     up(:q)
 sp=line(:q)
-slice(:b, :sp)
+    slice(:b, :sp) | prints()
+
+#slice(:b, :sp)
   }, L: ->() {
     sp=line(:q)
 slice(:b, :sp) | prints()
-  }, q: ->() {
+  }, Q: ->() {
   prints('exiting')
     exit
   }, y: ->() {
@@ -71,5 +73,11 @@ sp=line(:q); slice(:b, :sp) | prints()
     contents(:b) | fwrite(:f)
 prints("File :{:f} saved")
 exit
+  }, m: ->() {
+    mark_a(:b, :q)
+prints('mark set')
+  }, Y: ->() {
+    clip_region_a(:b, :q)
+    prints('region yanked')
   }}
 }
