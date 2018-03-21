@@ -73,7 +73,7 @@ module  BufferConnector
       :sol
       when '$'
         :eol
-        when 'h', 'j', 'k','l','y','p','L','Q','g','G','d','x','u','r','i','o','f','Z','Y','m'
+        when 'h', 'j', 'k','l','y','p','L','Q','g','G','d','x','u','r','i','o','f','Z','Y','m','a','A','I'
           ch.to_sym
       else
         :unbound

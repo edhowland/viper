@@ -1,6 +1,6 @@
 # buffer.vs - class Buffer - holds SlicedBuffer and GridQuery
 defn Buffer(b, q, f) {
-  mkattr(b:, :b) + mkattr(q:, :q) + mkattr(fname:, :f) + 
+  mkattr(buf:, :b) + mkattr(qry:, :q) + mkattr(fname:, :f) + 
   ~{j: ->() {
     down(:q)
     sp=line(:q)
@@ -63,11 +63,28 @@ slice(:b, :sp) | prints()
     prints('insert')
 sp=cursor(:q)
 getchars() | insert(:b, :sp)
-sp=line(:q); slice(:b, :sp) | prints()
-  }, o: ->() {
+    prints(' normal ')
+  },  I: ->() {
+    prints(' insert before ')
+    sp=sol(:q)
+getchars() | insert(:b, :sp)
+    prints(' normal ')
+  }, a: ->() {
+    prints(' append ')
+sp=right(:q)
+getchars() | insert(:b, :sp)
+    prints(' normal ')
+  },  A: ->() {
+    prints(' append after ')
+sp=eol(:q)
+getchars() | insert(:b, :sp)
+    prints(' normal ')
+  },o: ->() {
     prints('open line')
     eol(:q); sp=right(:q)
     getchars() + "\n" | insert(:b, :sp)
+    prints(' normal ')
+
     ""
   }, Z: ->() {
     contents(:b) | fwrite(:f)
@@ -79,5 +96,12 @@ prints('mark set')
   }, Y: ->() {
     clip_region_a(:b, :q)
     prints('region yanked')
+  }, x: ->() {
+    sp=cursor(:q)
+    ch=slice(:b, :sp)
+    delete(:sp, :b)
+    clip!(:ch)
+
+    prints(" :{:ch} deleted "); ''
   }}
 }

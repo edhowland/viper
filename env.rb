@@ -26,6 +26,17 @@ module Env
     end
     result
   end
+
+  # list stuff from scheme
+  def self.car(pair)
+    pair.key
+  end
+  def self.cdr(pair)
+    pair.value
+  end
+  def self.cons(ar, dr)
+    PairType.new(key: ar, value: dr)
+  end
   end
 
   Dispatch << Env
