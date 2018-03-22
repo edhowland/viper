@@ -19,8 +19,27 @@ defn mkregister() {
 }
 _rg1=mkregister()
 defn reg1() { %_rg1[0] }
-defn reg1!(st) { %_rg1[1](:st) }
 # the tiny register for non lines
 _rgt=mkregister()
 defn tinyr() { %_rgt[0] }
-defn tinyr!(st) { %_rgt[1](:st) }
+#
+#
+# setup for type of put, either put_line or put_tiny
+defn put_tiny(b, q) {
+  sp=cursor(:q)
+  tinyr() | insert(:b, :sp)
+}
+#
+#defn put_line(b, q) {
+#  eol(:q); sp=right(:q)
+#  reg1() | insert_:b, :sp)
+#}
+#
+_preg=:put_tiny
+defn putreg(b, q) {
+  %_preg(:b, :q)
+}
+#
+defn tinyr!(st) { _preg=:put_tiny;  %_rgt[1](:st) }
+defn reg1!(st) { _preg=:put_line;  %_rg1[1](:st) }
+
