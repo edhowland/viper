@@ -186,4 +186,12 @@ end
     gap = Span.new 5..6
     assert_eq x.translate(r,gap), Span.new(0..1) 
   end
+
+  # ZeroSpan
+  def test_zero_span_is_0_0
+    assert_eq ZeroSpan.new, Span.new(0..0)
+  end
+  def test_zero_span_does_not_equal_another_span
+    assert_false(ZeroSpan.new == Span.new(99..999))
+  end
 end

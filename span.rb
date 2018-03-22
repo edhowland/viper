@@ -140,5 +140,12 @@ end
   def start_at(offset)
     Range.new(offset, 0)
   end
+end
 
+
+# ZeroSpan - represents beginning of any buffer
+class ZeroSpan < Span
+  def initialize
+    super(0..0)
+  end
 end

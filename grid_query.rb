@@ -41,9 +41,12 @@ class GridQuery
     @cursor = Span.new nspan.first..nspan.first
   end
   def right
+      limit = @buffer.length - 1
+      return bottom if @cursor.first == limit
     @cursor = Span.new((@cursor.first+1)..(@cursor.first+1))
   end
   def left
+    return ZeroSpan.new if @cursor == ZeroSpan.new
     @cursor = Span.new((@cursor.first-1)..(@cursor.first-1))
   end
   def top
