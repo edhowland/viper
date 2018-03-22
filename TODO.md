@@ -13,4 +13,9 @@ sb.to_s
 # => 'goodbye world'
 ```
 
+## the args to compiled vim.vsc  script match  normal shell script
+
+E.g $0 is command, $1, $2 are args to script. This is ok.
+
+Need to get the file(s) to edit via getargs([1] ...
 
