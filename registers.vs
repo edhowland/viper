@@ -30,10 +30,10 @@ defn put_tiny(b, q) {
   tinyr() | insert(:b, :sp)
 }
 #
-#defn put_line(b, q) {
-#  eol(:q); sp=right(:q)
-#  reg1() | insert_:b, :sp)
-#}
+defn put_line(b, q) {
+  eol(:q); sp=right(:q)
+  reg1() | insert(:b, :sp)
+}
 #
 _preg=:put_tiny
 defn putreg(b, q) {
