@@ -54,10 +54,20 @@ module  BufferConnector
     buffer.delete_at(span)
   end
   def self.undo(buffer)
-    buffer.undo
+    begin
+      buffer.undo
+      'Undone'
+    rescue => err
+      err.message
+    end
   end
   def self.redo(buffer)
-    buffer.redo
+    begin
+      buffer.redo
+      'Redone'
+    rescue => err
+      err.message
+    end
   end
   # output entire buffer
   def self.contents(buffer)

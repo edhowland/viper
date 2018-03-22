@@ -51,11 +51,9 @@ prints('bottom of buffer')
 delete(:sp, :b)
 prints('one line deleted')
   }, u: ->() {
-    undo(:b)
-prints('undone')
+    undo(:b) | prints()
   }, r: ->() {
-    redo(:b)
-prints('redone')
+    redo(:b) | prints()
   },  f: ->() {
     sp=cursor(:q)
 slice(:b, :sp) | prints()
