@@ -19,7 +19,7 @@ slice(:b, :sp) | prints()
     exit
   }, y: ->() {
     sp=line(:q)
-slice(:b, :sp) | clip!()
+slice(:b, :sp) | reg1!()
     prints('one line yanked')
 }, h: ->() {
     sp=left(:q)
@@ -37,7 +37,7 @@ slice(:b, :sp) | prints()
     prints('key not bound')
   }, p: ->() {
     eol(:q); sp=right(:q)
-    clip() | insert(:b, :sp)
+    reg1() | insert(:b, :sp)
     sp=line(:q)
 slice(:b, :sp) | prints()
   }, g: ->() {
@@ -47,7 +47,7 @@ slice(:b, :sp) | prints()
     bottom(:q)
 prints('bottom of buffer')
   }, d: ->() {
-    sp=line(:q); slice(:b, :sp) | clip!()
+    sp=line(:q); slice(:b, :sp) | reg1!()
 delete(:sp, :b)
 prints('one line deleted')
   }, u: ->() {
@@ -98,8 +98,7 @@ prints('mark set')
     sp=cursor(:q)
     ch=slice(:b, :sp)
     delete(:sp, :b)
-    clip!(:ch)
-
-    prints(" :{:ch} deleted "); ''
+    tinyr!(:ch)
+    slice(:b, :sp) | prints()
   }}
 }
