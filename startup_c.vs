@@ -1,6 +1,6 @@
 # startup.vs - tie all together
-myfname='file.txt'
 a=getargs()
+myfname=:a[1] # 'file.txt'
 b=openf(:myfname)
 q=mkq(:b)
 buf=Buffer(:b, :q, :myfname)
