@@ -18,8 +18,7 @@ slice(:b, :sp) | prints()
   prints('exiting')
     exit
   }, y: ->() {
-    sp=line(:q)
-slice(:b, :sp) | reg1!()
+    yank_line(:b, :q)
     prints('one line yanked')
 }, h: ->() {
     sp=left(:q)
@@ -36,10 +35,7 @@ slice(:b, :sp) | prints()
   }, unbound: ->() {
     prints('key not bound')
   }, p: ->() {
-    eol(:q); sp=right(:q)
-    reg1() | insert(:b, :sp)
-    sp=line(:q)
-slice(:b, :sp) | prints()
+    putreg(:b, :q) | prints()
   }, g: ->() {
     top(:q); sp=line(:q)
 slice(:b, :sp) | prints()
@@ -47,8 +43,7 @@ slice(:b, :sp) | prints()
     bottom(:q)
 prints('bottom of buffer')
   }, d: ->() {
-    sp=line(:q); slice(:b, :sp) | reg1!()
-delete(:sp, :b)
+    delete_line(:b, :q)
 prints('one line deleted')
   }, u: ->() {
     undo(:b) | prints()
@@ -95,10 +90,7 @@ prints('mark set')
     clip_region_a(:b, :q)
     prints('region yanked')
   }, x: ->() {
-    sp=cursor(:q)
-    ch=slice(:b, :sp)
-    delete(:sp, :b)
-    tinyr!(:ch)
+    sp=delete_char(:b, :q)
     slice(:b, :sp) | prints()
   }}
 }

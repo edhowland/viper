@@ -66,4 +66,8 @@ class GridQuery
     sp = line
     @cursor = Span.new(sp.last..sp.last)
   end
+
+  def inspect
+    "#{self.class.name}: cursor: #{@cursor.inspect}"
+  end
 end

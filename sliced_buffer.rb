@@ -143,6 +143,6 @@ class SlicedBuffer
   end
 
   def inspect
-    "#{self.class.name}: slices length: #{@slices.length}"
+    "#{self.class.name}: slices length: #{slices_start.length}"
   end
 end

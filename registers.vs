@@ -26,13 +26,15 @@ defn tinyr() { %_rgt[0] }
 #
 # setup for type of put, either put_line or put_tiny
 defn put_tiny(b, q) {
-  sp=cursor(:q)
+  sp=right(:q)
   tinyr() | insert(:b, :sp)
+  tinyr()
 }
 #
 defn put_line(b, q) {
   eol(:q); sp=right(:q)
   reg1() | insert(:b, :sp)
+  reg1()
 }
 #
 _preg=:put_tiny
@@ -42,4 +44,23 @@ defn putreg(b, q) {
 #
 defn tinyr!(st) { _preg=:put_tiny;  %_rgt[1](:st) }
 defn reg1!(st) { _preg=:put_line;  %_rg1[1](:st) }
+# yanking
+defn yank_line(b, q) {
+    sp=line(:q)
+slice(:b, :sp) | reg1!()
+}
+#
+defn delete_char(b, q) {
+      sp=cursor(:q)
+    ch=slice(:b, :sp)
+    delete(:sp, :b)
+    tinyr!(:ch)
+  :sp
+}
+#
+defn delete_line(b, q) {
+    sp=line(:q); slice(:b, :sp) | reg1!()
+delete(:sp, :b)
+}
+
 
