@@ -1,5 +1,7 @@
 # viper_api.rb - various API editor functions
 
+require_relative 'buffer_requires'
+
 module ViperApi
   def self.getcmd()
     parse = {
@@ -30,6 +32,34 @@ result = x[y]
     end
     result
   end
+
+  # API functions
+  def self.mkbuf(string)
+    SlicedBuffer.new(string)
+  end
+
+  def self.mkquery(buffer)
+    GridQuery.new(buffer)
+  end
+  
+  def self.right(b, q)
+    sp=q.right
+    b[sp]
+  end
+  def self.left(b, q)
+    sp = q.left
+    b[sp]
+  end
+def self.up(b, q)
+  sp = q.up
+  line = q.line
+  b[line]
+end
+def self.down(b, q)
+  sp = q.down
+  line = q.line
+  b[line]
+end
 end
 
 Dispatch << ViperApi
