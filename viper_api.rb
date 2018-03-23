@@ -9,11 +9,13 @@ module ViperApi
       'k' => :k,
       'h' => :h,
       'l' => :l,
+      'L' => :L,
       'd' => {
         'd' => :dd,
         'w' => :dw
       },
       'g' => { 'g' => :gg },
+      'G' => :G,
       'y' => { 'y' => :yy },
       'c' => {
         'c' => :cc,
@@ -50,6 +52,10 @@ result = x[y]
     sp = q.left
     b[sp]
   end
+  def self.line(b, q)
+    ln = q.line
+    b[ln]
+  end
 def self.up(b, q)
   sp = q.up
   line = q.line
@@ -60,6 +66,15 @@ def self.down(b, q)
   line = q.line
   b[line]
 end
+
+  def self.top(b, q)
+    sp = q.top
+    line(b, q)
+  end
+  def self.bottom(b, q)
+    sp = q.bottom
+    line(b, q)
+  end
 end
 
 Dispatch << ViperApi
