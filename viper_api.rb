@@ -5,6 +5,7 @@ require_relative 'buffer_requires'
 module ViperApi
   def self.getcmd()
     parse = {
+      'f' => :f,
       'j' => :j,
       'k' => :k,
       'h' => :h,
@@ -17,6 +18,7 @@ module ViperApi
       'g' => { 'g' => :gg },
       'G' => :G,
       'y' => { 'y' => :yy },
+      'Y' => :yy,
       'c' => {
         'c' => :cc,
         'w' => :cw
@@ -43,7 +45,12 @@ result = x[y]
   def self.mkquery(buffer)
     GridQuery.new(buffer)
   end
-  
+
+  def self.char(b, q)
+    sp = q.cursor
+    b[sp]
+  end
+
   def self.right(b, q)
     sp=q.right
     b[sp]
@@ -74,6 +81,13 @@ end
   def self.bottom(b, q)
     sp = q.bottom
     line(b, q)
+  end
+
+  # register stuff
+  def self.yank_line(b, q)
+    $registers.r1 = line(b, q)
+    count = 1 # for later
+    "#{count} line yanked"
   end
 end
 

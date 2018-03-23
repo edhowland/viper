@@ -1,10 +1,12 @@
 # pry_slice.rb - pry helper for Slice and friends
 
-require_relative 'slice'
-require_relative 'slice_table'
-require_relative 'mark'
-require_relative 'sliced_buffer'
-require_relative 'grid_query'
+#require_relative 'slice'
+#require_relative 'slice_table'
+#require_relative 'mark'
+#require_relative 'sliced_buffer'
+#require_relative 'grid_query'
+
+require_relative 'buffer_requires'
 
 
 
