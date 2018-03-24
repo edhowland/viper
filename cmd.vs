@@ -20,6 +20,10 @@ defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
 defn zero(b, q) { sol(:b, :q) }
 defn dollar(b, q) { eol(:b, :q) }
 
+# undo/redo stuff
+defn u(b, q) { undo(:b, :q) }
+defn ctrl_r(b, q) { redo(:b, :q) }
+
 #defn dd() { 'pressed dd' }
 #defn yy() { 'pressed yy' }
 

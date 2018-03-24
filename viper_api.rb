@@ -5,6 +5,7 @@ require_relative 'buffer_requires'
 module ViperApi
   def self.getcmd()
     parse = {
+      "\u0012" => :ctrl_r,
       'f' => :f,
       'j' => :j,
       'k' => :k,
@@ -131,6 +132,16 @@ end
     $registers.r1 = line(b, q)
     count = 1 # for later
     "#{count} line yanked"
+  end
+
+  # undo/redo stuff
+  def self.undo(b, q)
+    b.undo
+    ' undone '
+  end
+  def self.redo(b, q)
+    b.redo
+    ' redone '
   end
 end
 
