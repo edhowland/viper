@@ -11,6 +11,14 @@ module ViperApi
       'h' => :h,
       'l' => :l,
       'L' => :L,
+      'i' => :i,
+      'a' => :a,
+      'A' => :A,
+      'u' => :u,
+      'r' => :r,
+      '0' => :zero,
+      '$' => :dollar,
+      'p' => :p,
       'd' => {
         'd' => :dd,
         'w' => :dw
@@ -23,6 +31,7 @@ module ViperApi
         'c' => :cc,
         'w' => :cw
       },
+      'x' => :x,
       'Z' => { 'Z' => :ZZ },
     'q' => :q
     }
@@ -73,6 +82,15 @@ def self.down(b, q)
   line = q.line
   b[line]
 end
+  # line stuff
+  def self.eol(b, q)
+    sp=q.eol
+    char(b, q)
+  end
+  def self.sol(b, q)
+    sp = q.sol
+    char(b, q)
+  end
 
   def self.top(b, q)
     sp = q.top
@@ -80,6 +98,31 @@ end
   end
   def self.bottom(b, q)
     sp = q.bottom
+    line(b, q)
+  end
+
+  # insertion/append, etc.
+  def self.insert(string, b, q)
+    sp = q.cursor
+    b.insert_at(sp, string)
+  end
+  def self.put(b, q, method)
+    self.send(method, b, q)
+  end
+  def self.put_tiny(b, q)
+    q.right
+    insert($registers.tiny, b, q)
+    char(b, q)
+  end
+  def self.delete_char(b, q)
+    sp = q.cursor
+    $registers.tiny = b[sp]
+    b.delete_at(sp)
+    char(b, q)
+  end
+  def self.put_line(b, q)
+    down(b, q)
+    insert($registers.r1, b, q)
     line(b, q)
   end
 

@@ -8,6 +8,9 @@ class Register
     @n = Array.new(26, '')
   end
   attr_reader :tiny, :r0, :r, :n
+  def tiny=(val)
+    @tiny = val
+  end
 
   def r0=(val)
     @r0 = val

@@ -1,4 +1,9 @@
 # cmd.vs - get and process viper cmd
+#
+# the current put method
+putm=put_tiny:
+# putm=put_line:
+
 defn f(b, q) { char(:b, :q) }
 defn j(b, q) { down(:b, :q) }
 defn k(b, q) { up(:b, :q) }
@@ -9,14 +14,18 @@ defn gg(b, q) { top(:b, :q) }
 defn G(b, q) { bottom(:b, :q) }
 
 # register stuff
-defn yy(b, q) { yank_line(:b, :q) }
+defn yy(b, q) { putm=put_line:; yank_line(:b, :q) }
+defn p(b, q) { put(:b, :q, :putm) }
+defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
+defn zero(b, q) { sol(:b, :q) }
+defn dollar(b, q) { eol(:b, :q) }
 
 #defn dd() { 'pressed dd' }
 #defn yy() { 'pressed yy' }
 
 defn ZZ(b, q) { exit }
 
-defn r(b, q) {
+defn command(b, q) {
   cmd=getcmd()
   bind=binding()
 fn=:bind[:cmd]
@@ -25,7 +34,7 @@ fn=:bind[:cmd]
 
 defn go() {
   line(:b, :q) | prints()
-  loop { r(:b, :q) }
+  loop { command(:b, :q) }
 }
 
 
