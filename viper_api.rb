@@ -145,6 +145,7 @@ end
   end
 
   def self.delete_line(b, q)
+    $registers.r1 = line(b, q)
     ln = q.line
     b.delete_at(ln)
     line(b, q)
