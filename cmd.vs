@@ -15,6 +15,8 @@ defn G(b, q) { bottom(:b, :q) }
 
 # register stuff
 defn yy(b, q) { putm=put_line:; yank_line(:b, :q) }
+defn yquote_m(b, q) { putm=put_tiny:; yank_region(:b, :q, region_of(:b, :q, m:)) }
+defn dquote_m(b, q) { putm=put_tiny:; delete_region(:b, :q, region_of(:b, :q, m:)) }
 defn p(b, q) { put(:b, :q, :putm) }
 defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
 defn zero(b, q) { sol(:b, :q) }
@@ -25,7 +27,9 @@ defn u(b, q) { undo(:b, :q) }
 defn ctrl_r(b, q) { redo(:b, :q) }
 
 defn dd(b, q) { putm=put_line:; delete_line(:b, :q) }
-#defn yy() { 'pressed yy' }
+
+# mark stuff
+defn mm(b, q) { mark(:b, :q, m:) }
 
 defn ZZ(b, q) { exit }
 

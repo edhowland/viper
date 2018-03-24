@@ -20,13 +20,18 @@ module ViperApi
       '0' => :zero,
       '$' => :dollar,
       'p' => :p,
+      'm' => { 'm' => :mm },
       'd' => {
         'd' => :dd,
-        'w' => :dw
+        'w' => :dw,
+        "'" => :dquote_m
       },
       'g' => { 'g' => :gg },
       'G' => :G,
-      'y' => { 'y' => :yy },
+      'y' => { 
+        'y' => :yy,
+        "'" => :yquote_m
+       },
       'Y' => :yy,
       'c' => {
         'c' => :cc,
@@ -149,6 +154,27 @@ end
     ln = q.line
     b.delete_at(ln)
     line(b, q)
+  end
+
+  # mark and region stuff
+  def self.mark(b, q, name)
+    c = q.cursor
+    pos = c.first
+    b.set_mark(name, pos)
+    " mark #{name} set"
+  end
+  def self.region_of(b, q, name)
+  pos = q.cursor.first
+    b.region_of(name, pos)
+  end
+  def self.yank_region(b, q, span)
+    $registers.tiny = b[span]
+    ' region yanked '
+  end
+  def self.delete_region(b, q, span)
+    yank_region(b, q, span)
+    b.delete_at(span)
+    ' region deleted '
   end
 end
 
