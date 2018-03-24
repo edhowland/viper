@@ -27,6 +27,12 @@ defn u(b, q) { undo(:b, :q) }
 defn ctrl_r(b, q) { redo(:b, :q) }
 
 defn dd(b, q) { putm=put_line:; delete_line(:b, :q) }
+#
+# insertion/append
+defn i(b, q) { prints(' insert mode '); getchars() | insert(:b, :q); ' normal mode ' }
+defn a(b, q) { right(:b, :q); i(:b, :q) }
+defn A(b, q) { eol(:b, :q); i(:b, :q) }
+
 
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
