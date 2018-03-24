@@ -143,6 +143,12 @@ end
     b.redo
     ' redone '
   end
+
+  def self.delete_line(b, q)
+    ln = q.line
+    b.delete_at(ln)
+    line(b, q)
+  end
 end
 
 Dispatch << ViperApi

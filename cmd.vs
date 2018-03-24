@@ -24,7 +24,7 @@ defn dollar(b, q) { eol(:b, :q) }
 defn u(b, q) { undo(:b, :q) }
 defn ctrl_r(b, q) { redo(:b, :q) }
 
-#defn dd() { 'pressed dd' }
+defn dd(b, q) { delete_line(:b, :q) }
 #defn yy() { 'pressed yy' }
 
 defn ZZ(b, q) { exit }
