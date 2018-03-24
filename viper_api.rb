@@ -11,6 +11,7 @@ module ViperApi
       'k' => :k,
       'h' => :h,
       'l' => :l,
+      ' ' => :l,
       'L' => :L,
       'i' => :i,
       'I' => :I,
