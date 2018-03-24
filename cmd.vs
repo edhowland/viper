@@ -33,7 +33,10 @@ defn i(b, q) { prints(' insert mode '); getchars() | insert(:b, :q); ' normal mo
 defn I(b, q) { sol(:b, :q); i(:b, :q) }
 defn a(b, q) { right(:b, :q); i(:b, :q) }
 defn A(b, q) { eol(:b, :q); i(:b, :q) }
-
+defn o(b, q) { eol(:b, :q);  insert("\n", :b, :q); a(:b, :q) }
+defn _i_nl(b, q) { getchars() + "\n" | insert(:b, :q) }
+defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' normal mode ') }
+#
 
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
