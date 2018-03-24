@@ -30,6 +30,7 @@ defn dd(b, q) { putm=put_line:; delete_line(:b, :q) }
 #
 # insertion/append
 defn i(b, q) { prints(' insert mode '); getchars() | insert(:b, :q); ' normal mode ' }
+defn I(b, q) { sol(:b, :q); i(:b, :q) }
 defn a(b, q) { right(:b, :q); i(:b, :q) }
 defn A(b, q) { eol(:b, :q); i(:b, :q) }
 
