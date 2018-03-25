@@ -44,7 +44,9 @@ defn o(b, q) { eol(:b, :q);  insert("\n", :b, :q); a(:b, :q) }
 defn _i_nl(b, q) { getchars() + "\n" | insert(:b, :q) }
 defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' normal mode ') }
 #
-
+# word stuff
+defn F(b, q) { word(:b, :q) }
+defn w(b, q) { word_fwd(:b, :q) }
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
 

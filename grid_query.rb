@@ -73,4 +73,29 @@ class GridQuery
   def inspect
     "#{self.class.name}: cursor: #{@cursor.inspect}"
   end
+
+  # word queries
+  def word
+sp = @cursor
+sp = Span.new(sp.first..limit)
+#binding.pry
+ahead = @buffer[sp]
+match_data = ahead.match(/^(\w+)/)
+    unless match_data.nil?
+    _word =  match_data[1]
+    s = sp.first #ahead.index _word
+    e = s + _word.length
+
+    Span.new(s..e)
+  else
+    cursor
+  end
+
+  end
+  def word_fwd
+    sp = word
+#    binding.pry
+    @cursor = Span.new((sp.last + 1)..(sp.last + 1))
+    word
+  end
 end

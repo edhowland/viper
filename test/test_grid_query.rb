@@ -91,4 +91,14 @@ class TestGridQuery < BaseSpike
   def test_limit_is
     assert_eq @gq.limit, 27
   end
+
+  # search stuff
+  # word searches
+  def test_word_
+      sp = @gq.word
+    assert_eq sp, Span.new(0..4)
+  end
+  def test_word_fwd
+    assert_eq @gq.word_fwd, Span.new(5..6)
+  end
 end

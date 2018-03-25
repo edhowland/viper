@@ -7,6 +7,9 @@ module ViperApi
     parse = {
       "\u0012" => :ctrl_r,
       'f' => :f,
+      'F' => :F,
+      'w' => :w,
+      'W' => :W,
       'j' => :j,
       'k' => :k,
       'h' => :h,
@@ -222,6 +225,16 @@ end
     sp = Span.new(ln.first..(ln.last - 1))
     b.delete_at(sp)
     line(b, q)
+  end
+
+  # word stuff
+  def self.word(b, q)
+    sp = q.word
+    b[sp]
+  end
+  def self.word_fwd(b, q)
+    sp = q.word_fwd
+    b[sp]
   end
 end
 
