@@ -28,7 +28,11 @@ module ViperApi
       'd' => {
         'd' => :dd,
         'w' => :dw,
-        "'" => :dquote_m
+        "'" => :dquote_m,
+        'G' => :dG,
+        '0' => :d0,
+        '$' => :d_dollar,
+        'g' => :dg
       },
       'g' => { 'g' => :gg },
       'G' => :G,
@@ -64,7 +68,17 @@ result = x[y]
   def self.mkquery(buffer)
     GridQuery.new(buffer)
   end
-
+  # contents of buffer
+  def self.contents(b)
+    b.to_s
+  end
+  # the current cursor
+  def self.cursor(q)
+    q.cursor
+  end
+  def self.span_of(b, span)
+    b[span]
+  end
   def self.char(b, q)
     sp = q.cursor
     b[sp]
@@ -179,6 +193,27 @@ end
     yank_region(b, q, span)
     b.delete_at(span)
     ' region deleted '
+  end
+
+  # larger spans
+  def self.delete_span(b, span)
+    b.delete_at(span)
+  end
+  def self.to_bottom(q)
+    q.cursor + Span.new(q.limit..q.limit)
+  end
+  def self.to_top(q)
+    Span.new(0..0) + q.cursor
+  end
+  def self.to_eol(q)
+  ln = q.line
+    eol = Span.new(ln.last..(ln.last - 1))
+    q.cursor + eol
+  end
+  def self.to_sol(q)
+  ln = q.line
+  sol = Span.new(ln.first..ln.first)
+    sol + q.cursor
   end
 end
 

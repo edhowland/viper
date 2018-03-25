@@ -86,4 +86,9 @@ class TestGridQuery < BaseSpike
     top = Span.new(0..0)
     assert_eq @gq.up, top
   end
+
+  # limit stuff
+  def test_limit_is
+    assert_eq @gq.limit, 27
+  end
 end

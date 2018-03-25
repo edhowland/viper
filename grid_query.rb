@@ -21,6 +21,11 @@ class GridQuery
   def line
     line_spans.find {|s| s.overlap?(@cursor) }
   end
+  # limit
+  def limit
+    @buffer.length - 1
+  end
+
   def down
     lspan = line
     return bottom if lspan.nil?
@@ -41,7 +46,6 @@ class GridQuery
     @cursor = Span.new nspan.first..nspan.first
   end
   def right
-      limit = @buffer.length - 1
       return bottom if @cursor.first == limit
     @cursor = Span.new((@cursor.first+1)..(@cursor.first+1))
   end
@@ -53,7 +57,6 @@ class GridQuery
     @cursor = Span.new(0..0)
   end
   def bottom
-    limit = @buffer.length - 1
     @cursor = Span.new(limit..limit)
   end
 
