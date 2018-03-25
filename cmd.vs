@@ -32,6 +32,9 @@ defn d_dollar(b, q) { putm=put_tiny:; delete_span(:b, to_eol(:q)); ' delete to e
 defn dg(b, q) { putm=put_tiny:; delete_span(:b, to_top(:q)); ' delete to top of buffer ' }
 defn dG(b, q) { putm=put_tiny:; delete_span(:b, to_bottom(:q)); ' delete to bottom of buffer ' }
 #
+# change stuff
+defn cc(b, q) { putm=put_tiny:; delete_inner_line(:b, :q); i(:b, :q) }
+#
 # insertion/append
 defn i(b, q) { prints(' insert mode '); getchars() | insert(:b, :q); ' normal mode ' }
 defn I(b, q) { sol(:b, :q); i(:b, :q) }

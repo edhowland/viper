@@ -215,6 +215,14 @@ end
   sol = Span.new(ln.first..ln.first)
     sol + q.cursor
   end
+
+  # more specific modifications
+  def self.delete_inner_line(b, q)
+    ln = q.line
+    sp = Span.new(ln.first..(ln.last - 1))
+    b.delete_at(sp)
+    line(b, q)
+  end
 end
 
 Dispatch << ViperApi
