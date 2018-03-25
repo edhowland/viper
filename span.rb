@@ -119,7 +119,7 @@ class LeftSpan < Span
     span
   end
   def start_at(offset)
-    Range.new(offset, 0)
+Span.new(offset..offset)
   end
 end
 
@@ -136,9 +136,9 @@ end
   def outer(span)
     self
   end
-  # TODO, make these Spans, not ranges
+  # TODO make sure these return the right type of Span
   def start_at(offset)
-    Range.new(offset, 0)
+    Span.new(offset..offset)
   end
 end
 

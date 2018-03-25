@@ -194,4 +194,17 @@ end
   def test_zero_span_does_not_equal_another_span
     assert_false(ZeroSpan.new == Span.new(99..999))
   end
+
+  # test start_at
+  def test_start_at_w_2
+    assert_eq @sp.start_at(2), Span.new(2..11)
+  end
+  def test_start_at_in_left_span
+    sp = LeftSpan.new
+    assert_eq sp.start_at(2), Span.new(2..2)
+  end
+  def test_start_at_w_right_span
+    sp = RightSpan.new 5..5
+    assert_eq sp.start_at(2), Span.new(2..2)
+  end
 end

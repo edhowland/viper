@@ -142,4 +142,16 @@ class TestSlicedBuffer < BaseSpike
     @sb.insert 199, 'XXXX'
     assert_eq @sb.to_s, @source + 'XXXX'
   end
+
+  # test for delete to buffer outer boundaries
+  def test_can_delete_to_top_of_buffer_then_get_some_offset
+    @sb.delete_at(Span.new(0..5))
+    @sb[Span.new(6..6)]
+  end
+  def test_can_delete_to_end_of_buffer_then_get_some_offset
+    len = @sb.length
+    sp = Span.new(6..(len - 1))
+        @sb.delete_at(sp)
+        @sb[Span.new(0..0)]
+  end
 end
