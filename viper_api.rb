@@ -236,6 +236,12 @@ end
     sp = q.word_fwd
     b[sp]
   end
+  def self.delete_word(b, q)
+    $registers.tiny = word(b, q)
+    sp = q.word
+    b.delete_at(sp)
+    char(b, q)
+  end
 end
 
 Dispatch << ViperApi

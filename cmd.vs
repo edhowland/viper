@@ -47,6 +47,8 @@ defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' norm
 # word stuff
 defn F(b, q) { word(:b, :q) }
 defn w(b, q) { word_fwd(:b, :q) }
+defn dw(b, q) { delete_word(:b, :q) }
+defn cw(b, q) { dw(:b, :q); i(:b, :q) }
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
 
