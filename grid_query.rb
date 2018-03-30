@@ -73,12 +73,15 @@ class GridQuery
   def inspect
     "#{self.class.name}: cursor: #{@cursor.inspect}"
   end
-
+  def top_to_cursor
+    Span.new(0..(@cursor.first))
+  end
+  def cursor_to_bottom
+    Span.new(@cursor.first..limit)
+  end
   # word queries
   def word
-sp = @cursor
-sp = Span.new(sp.first..limit)
-#binding.pry
+sp = cursor_to_bottom   #top_to_cursor #Span.new(sp.first..limit)
 ahead = @buffer[sp]
 match_data = ahead.match(/^(\w+)/)
     unless match_data.nil?
@@ -92,9 +95,14 @@ match_data = ahead.match(/^(\w+)/)
   end
 
   end
+  def word_back
+    sp = top_to_cursor
+    behind = @buffer[sp]
+    offset = behind.rindex(/\s/)
+    Span.new(offset..@cursor.first)
+  end
   def word_fwd
     sp = word
-#    binding.pry
     @cursor = Span.new((sp.last + 1)..(sp.last + 1))
     word
   end
