@@ -51,7 +51,18 @@ defn dw(b, q) { delete_word(:b, :q) }
 defn cw(b, q) { dw(:b, :q); i(:b, :q) }
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
+defn fslash(b, q) {
+  prints(' search ')
+  term=read()
+  prints(" you want to search for  :{:term}")
+}
+defn bslash(b, q) {
+  prints(' reverse search ')
+  term=read()
+  prints(" you want to search for  :{:term}")
+}
 
+# final
 defn ZZ(b, q) { exit }
 
 defn command(b, q) {

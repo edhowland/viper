@@ -6,6 +6,8 @@ module ViperApi
   def self.getcmd()
     parse = {
       "\u0012" => :ctrl_r,
+      '/' => :fslash,
+      '?' => :bslash,
       'f' => :f,
       'F' => :F,
       'w' => :w,
