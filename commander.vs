@@ -1,6 +1,9 @@
 # commander.vs - commander(c, b, q)
 defn commands() {
-  defn w(b, q) { prints('save file') }
+  defn w(b, q) {
+  contents(:b) | fwrite(:file_name)
+   prints("save file :{:file_name}")
+}
 
   binding()
 }

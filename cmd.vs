@@ -74,7 +74,7 @@ defn N(b, q) {
 defn colon(b, q) {
   prints('command')
   read() | commander(:b, :q) | prints()
-  L(:b, :q)
+#  L(:b, :q)
 }
 # final
 defn ZZ(b, q) { exit }
