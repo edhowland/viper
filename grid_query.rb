@@ -5,6 +5,7 @@ class GridQuery
   def initialize sliced_buffer
     @buffer = sliced_buffer
     @cursor = Span.new(0..0)
+    @search_results = []
   end
   attr_reader :buffer
   attr_accessor :cursor
@@ -105,5 +106,16 @@ match_data = ahead.match(/^(\w+)/)
     sp = word
     @cursor = Span.new((sp.last + 1)..(sp.last + 1))
     word
+  end
+
+  # search stuff
+  def search_spans regx
+    @search_results = @buffer.to_s.to_enum(:scan, regx).map { Regexp.last_match }.map {|m| [m.begin(0), m.end(0) ] }.map {|f, l| Span.new(f..l) }
+  end
+  def next_result
+    @search_results.find {|r| r.first > @cursor.first }
+  end
+  def prev_result
+    @search_results.reverse.find {|r| r.first < @cursor.first }#
   end
 end

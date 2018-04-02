@@ -7,7 +7,9 @@ module ViperApi
     parse = {
       "\u0012" => :ctrl_r,
       '/' => :fslash,
-      '?' => :bslash,
+      'n' => :n,
+      'N' => :N,
+      '?' => :question,
       'f' => :f,
       'F' => :F,
       'w' => :w,
@@ -243,6 +245,22 @@ end
     sp = q.word
     b.delete_at(sp)
     char(b, q)
+  end
+
+  # search stuff
+  # search(query, regexp) - list of matching Spans for matches
+  def self.search(regx, query)
+    query.search_spans(regx)
+  end
+  def self.next(query)
+    sp = query.next_result
+    sp = Span.new(sp.first..sp.first)
+    query.cursor = sp
+  end
+  def self.prev(query)
+    sp = query.prev_result
+    sp = Span.new(sp.first..sp.first)
+    query.cursor = sp
   end
 end
 

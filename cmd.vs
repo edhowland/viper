@@ -54,14 +54,23 @@ defn mm(b, q) { mark(:b, :q, m:) }
 defn fslash(b, q) {
   prints(' search ')
   term=read()
-  prints(" you want to search for  :{:term}")
+  regex(:term) | search(:q)
+  n(:b, :q)
 }
-defn bslash(b, q) {
+defn question(b, q) {
   prints(' reverse search ')
   term=read()
-  prints(" you want to search for  :{:term}")
+  regex(:term) | search(:q)
+  N(:b, :q)
 }
-
+defn n(b, q) {
+  next(:q)
+  F(:b, :q)
+}
+defn N(b, q) {
+  prev(:q)
+  F(:b, :q)
+}
 # final
 defn ZZ(b, q) { exit }
 

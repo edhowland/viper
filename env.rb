@@ -33,6 +33,11 @@ module Env
   def self.cons(ar, dr)
     PairType.new(key: ar, value: dr)
   end
+
+  # convert string to regex
+  def self.regex(string)
+    Regexp.new(string)
+  end
   end
 
   Dispatch << Env
