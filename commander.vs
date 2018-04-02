@@ -4,6 +4,10 @@ defn commands() {
   contents(:b) | fwrite(:file_name)
    prints("save file :{:file_name}")
 }
+  defn q!(b, q) {
+    exit
+  }
+  defn wq(b, q) { w(:b, :q); q!(:b, :q) }
 
   binding()
 }
