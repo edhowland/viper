@@ -279,6 +279,16 @@ end
       Env.error('reverse search not found')
     end
   end
+
+  # buffer restore stuff
+  def self.rewind(buffer)
+    begin
+      loop { buffer.undo }
+    rescue UndoStackUnderflowError
+      'buffer restored'
+    end
+
+  end
 end
 
 Dispatch << ViperApi

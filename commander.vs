@@ -9,6 +9,7 @@ defn commands() {
   }
   defn wq(b, q) { w(:b, :q); q!(:b, :q) }
 
+  defn rew(b, q) { rewind(:b) }
   binding()
 }
 defn commander(c, b, q) {
