@@ -166,12 +166,20 @@ end
 
   # undo/redo stuff
   def self.undo(b, q)
-    b.undo
-    ' undone '
+    begin
+      b.undo
+      ' undone '
+    rescue UndoStackUnderflowError
+      'no more undos'
+    end
   end
   def self.redo(b, q)
-    b.redo
-    ' redone '
+    begin
+      b.redo
+      ' redone '
+    rescue RedoStackOverflowError
+      'no more redos'
+    end
   end
 
   def self.delete_line(b, q)
@@ -254,13 +262,21 @@ end
   end
   def self.next(query)
     sp = query.next_result
-    sp = Span.new(sp.first..sp.first)
-    query.cursor = sp
+    unless sp.nil?
+      sp = Span.new(sp.first..sp.first)
+      query.cursor = sp
+    else
+      Env.error('search not found')
+    end
   end
   def self.prev(query)
     sp = query.prev_result
-    sp = Span.new(sp.first..sp.first)
-    query.cursor = sp
+    unless sp.nil?
+      sp = Span.new(sp.first..sp.first)
+      query.cursor = sp
+    else
+      Env.error('reverse search not found')
+    end
   end
 end
 

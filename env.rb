@@ -5,6 +5,10 @@ module Env
   def self.prints(string)
     print string
   end
+  # error(string) prints string w/padded spaces to stderr
+  def self.error(string)
+    $stderr.print " #{string} "
+  end
 
   # sym(string) - Symbolize any string
   def self.sym(string)
