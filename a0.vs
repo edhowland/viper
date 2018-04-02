@@ -6,5 +6,9 @@ defn file_txt(file) {
 args=getargs()
 b=file_txt(:args[1])
 q=mkquery(:b)
+# utility functions
+defn undefined?(o) {
+  :o == 'undefined'
+}
 
 

@@ -71,9 +71,14 @@ defn N(b, q) {
   prev(:q)
   F(:b, :q)
 }
+defn colon(b, q) {
+  prints('command')
+  read() | commander(:b, :q) | prints()
+  L(:b, :q)
+}
 # final
 defn ZZ(b, q) { exit }
-
+# Main
 defn command(b, q) {
   cmd=getcmd()
   bind=binding()
