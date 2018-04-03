@@ -34,12 +34,6 @@ defn dg(b, q) { putm=put_tiny:; delete_span(:b, to_top(:q)); ' delete to top of 
 defn dG(b, q) { putm=put_tiny:; delete_span(:b, to_bottom(:q)); ' delete to bottom of buffer ' }
 #
 
-  binding()
-}
-
-
-
-
 # change stuff
 defn cc(b, q) { putm=put_tiny:; delete_inner_line(:b, :q); i(:b, :q) }
 #
@@ -49,6 +43,7 @@ defn I(b, q) { sol(:b, :q); i(:b, :q) }
 defn a(b, q) { right(:b, :q); i(:b, :q) }
 defn A(b, q) { eol(:b, :q); i(:b, :q) }
 defn o(b, q) { eol(:b, :q);  insert("\n", :b, :q); a(:b, :q) }
+
 defn _i_nl(b, q) { getchars() + "\n" | insert(:b, :q) }
 defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' normal mode ') }
 #
@@ -57,6 +52,14 @@ defn F(b, q) { word(:b, :q) }
 defn w(b, q) { word_fwd(:b, :q) }
 defn dw(b, q) { delete_word(:b, :q) }
 defn cw(b, q) { dw(:b, :q); i(:b, :q) }
+
+  binding()
+}
+
+
+
+
+
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
 defn fslash(b, q) {
