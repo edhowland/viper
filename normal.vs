@@ -4,8 +4,9 @@
 putm=put_tiny:
 # putm=put_line:
 
-defn f(b, q) { char(:b, :q) }
-defn j(b, q) { down(:b, :q) }
+defn normal() {
+  defn f(b, q) { char(:b, :q) }
+  defn j(b, q) { down(:b, :q) }
 defn k(b, q) { up(:b, :q) }
 defn h(b, q) { left(:b, :q) }
 defn l(b, q) { right(:b, :q) }
@@ -32,6 +33,13 @@ defn d_dollar(b, q) { putm=put_tiny:; delete_span(:b, to_eol(:q)); ' delete to e
 defn dg(b, q) { putm=put_tiny:; delete_span(:b, to_top(:q)); ' delete to top of buffer ' }
 defn dG(b, q) { putm=put_tiny:; delete_span(:b, to_bottom(:q)); ' delete to bottom of buffer ' }
 #
+
+  binding()
+}
+
+
+
+
 # change stuff
 defn cc(b, q) { putm=put_tiny:; delete_inner_line(:b, :q); i(:b, :q) }
 #
