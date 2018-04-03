@@ -80,6 +80,15 @@ defn colon(b, q) {
   read() | commander(:b, :q) | prints()
 #  L(:b, :q)
 }
+  defn langle(b, q) {
+    outdent(:shift_width, :b, :q)
+' line outdented '
+  }
+  defn rangle(b, q) {
+    indent(:shift_width, :b, :q)
+' line indented '
+  }
+  defn hash(b, q) { inspect(cursor(:q)) }
 # final
 defn ZZ(b, q) { exit }
 

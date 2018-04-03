@@ -6,6 +6,9 @@ module ViperApi
   def self.getcmd()
     parse = {
       "\u0012" => :ctrl_r,
+      '#' => :hash,
+      '<' => :langle,
+      '>' => :rangle,
       ':' => :colon,
       '/' => :fslash,
       'n' => :n,
@@ -288,6 +291,31 @@ end
       'buffer restored'
     end
 
+  end
+
+  # indentation stuff
+  def self.indented?(count, b, q)
+    sp = q.line
+    sp = Span.new(sp.first..(sp.first+count - 1))
+    b[sp] == (' ' * count)
+  end
+  def self.indent(count, b, q)
+    sp = q.line
+    c = Span.new(sp.first..sp.first)
+    q.cursor = c
+    insert((' ' * count), b, q)
+    l = q.line
+    c = Span.new(l.first..l.first)
+    q.cursor = c
+  end
+  def self.outdent(count, b, q)
+    if indented?(count, b, q)
+      sp = q.line
+      sp = Span.new(sp.first..(sp.first + count - 1))
+      b.delete_at(sp)
+      sp = q.line
+      q.cursor = Span.new(sp.first..sp.first)
+    end
   end
 end
 

@@ -42,6 +42,20 @@ module Env
   def self.regex(string)
     Regexp.new(string)
   end
+
+  # return this many spaces
+  def self.spaces(count)
+    ' ' * count
+  end
+  # is a space?
+  def self.space?(char)
+    char == ' '
+  end
+
+  # is zero
+  def self.zero?(number)
+    number.zero?
+  end
   end
 
   Dispatch << Env
