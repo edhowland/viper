@@ -94,8 +94,9 @@ defn ZZ(b, q) { exit }
 # Main
 defn command(b, q) {
   cmd=getcmd()
-  bind=binding()
+  bind=normal()    # binding()
 fn=:bind[:cmd]
+  undefined?(:fn) && { error('key not found'); return ''}
   %fn(:b, :q) | prints()
 }
 
