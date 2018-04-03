@@ -53,13 +53,6 @@ defn w(b, q) { word_fwd(:b, :q) }
 defn dw(b, q) { delete_word(:b, :q) }
 defn cw(b, q) { dw(:b, :q); i(:b, :q) }
 
-  binding()
-}
-
-
-
-
-
 # mark stuff
 defn mm(b, q) { mark(:b, :q, m:) }
 defn fslash(b, q) {
@@ -89,6 +82,15 @@ defn colon(b, q) {
 }
 # final
 defn ZZ(b, q) { exit }
+
+  binding()
+}
+
+
+
+
+
+
 # Main
 defn command(b, q) {
   cmd=getcmd()
