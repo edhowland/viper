@@ -1,4 +1,4 @@
-# cmd.vs - get and process viper cmd
+# normal.vs - get and process viper cmd for normal mode
 #
 # the current put method
 putm=put_tiny:
