@@ -17,8 +17,11 @@ end
 
 def vim
   Grammar.build do
-    rule(:single) { str('h') | str('j') | str('k') | str('l') | str('$') | str('"') | str("'") | str('#') | str('/') | str('?') | str('^') | str('%') | str('@') | str('!') | str('*') }
-    rule(:double) { str('dd') | str('dw') | str('cc') | str('cw') | str('ma') | str('mm') }
+    rule(:single) { str('h') | str('j') | str('k') | str('l') | str('$') | str('"') | str("'") | str('#') | str('/') | str('?') | str('^') | str('%') |  str('!') | str('*') }
+    rule(:mark) { str('m') >> anyLetter }
+    rule(:rec_macro) { str('q') >> anyLetter }
+    rule(:play_macro) { str('@') >> (anyLetter | str('@')) }
+    rule(:double) { str('dd') | str('dw') | str('cc') | str('cw') | rule(:mark) | rule(:rec_macro) | rule(:play_macro) }
     rule(:triple) { str('diw') | str('ciw') | str('caw') | str('daw') }
     rule(:command) { rule(:triple) | rule(:double) | rule(:single) }
 
