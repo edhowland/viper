@@ -19,7 +19,7 @@ def vim
   Grammar.build do
     # the 'G' when proceeded with a number, like 12G : means goto line 12
     rule(:single) { str('G') | str('e') | str('E') | str('b') | str('B') | str('_') |
-    str('.') | str('n') | str('N') | str('<') | str('>') |
+    str('.') | str('n') | str('N') | str('<') | str('>') | str(':') | str('{') | str('}') | str('(') | str(')') |
       str('h') | str('j') | str('k') | str('l') | str('$')  | str('#') | str('/') | str('?') | str('^') | str('%') |  str('!') | str('*') | str('x') | str('f') | str('F') | str('w') | str('W')| str('i') | str('I') | str('a') | str('A') | str('o') | str('O') | str('p') | str('P') | str('L') | str('u')}
 
     rule(:mark) { str('m') >> anyLetter }
