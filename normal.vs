@@ -89,6 +89,7 @@ defn normal() {
     ' line indented '
   }
   defn hash(b, q) { inspect(cursor(:q)) }
+  defn period(b, q) { nosave_perf_command(:b, :q, last_cmd()) }
   # final
   defn ZZ(b, q) { exit }
 
@@ -103,9 +104,21 @@ defn normal() {
 # Main
 defn command(b, q) {
   cmd=getcmd()
-  bind=normal()    # binding()
+perf_command(:b, :q, :cmd)
+}
+defn nosave_perf_command(b, q, cmd) {
+    bind=normal()
 fn=:bind[:cmd]
   undefined?(:fn) && { error('key not found'); return ''}
+  %fn(:b, :q) | prints()
+}
+
+defn perf_command(b, q, cmd) {
+  bind=normal()
+fn=:bind[:cmd]
+  undefined?(:fn) && { error('key not found'); return ''}
+  # do not save period
+  (:cmd != period:) && save_cmd(:cmd)
   %fn(:b, :q) | prints()
 }
 

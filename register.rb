@@ -6,8 +6,13 @@ class Register
     @r0 = ''
     @r = Array.new(9, '')
     @n = Array.new(26, '')
+    @last_cmd = 'undefined'
   end
-  attr_reader :tiny, :r0, :r, :n
+  attr_reader :tiny, :r0, :r, :n, :last_cmd
+
+  def last_cmd=(sym)
+    @last_cmd = sym.to_sym
+  end
   def tiny=(val)
     @tiny = val
   end

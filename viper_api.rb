@@ -14,6 +14,7 @@ module ViperApi
       'n' => :n,
       'N' => :N,
       '?' => :question,
+      '.' => :period,
       'f' => :f,
       'F' => :F,
       'w' => :w,
@@ -72,6 +73,12 @@ result = x[y]
   end
 
   # API functions
+  def self.save_cmd(cmd)
+    $registers.last_cmd = cmd
+  end
+  def self.last_cmd
+    $registers.last_cmd
+  end
   def self.mkbuf(string)
     SlicedBuffer.new(string)
   end
