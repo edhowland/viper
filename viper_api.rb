@@ -69,7 +69,7 @@ result = x[y]
     else
       result = parse[ch]
     end
-    result
+    [1, result]
   end
 
   # API functions

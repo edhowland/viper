@@ -103,8 +103,10 @@ defn normal() {
 
 # Main
 defn command(b, q) {
-  cmd=getcmd()
-perf_command(:b, :q, :cmd)
+  result=getcmd()
+count=:result[0]
+cmd=:result[1]
+perf_command(:b, :q, :count, :cmd)
 }
 defn nosave_perf_command(b, q, cmd) {
     bind=normal()
@@ -113,13 +115,13 @@ fn=:bind[:cmd]
   %fn(:b, :q) | prints()
 }
 
-defn perf_command(b, q, cmd) {
+defn perf_command(b, q, count, cmd) {
   bind=normal()
 fn=:bind[:cmd]
   undefined?(:fn) && { error('key not found'); return ''}
   # do not save period
   (:cmd != period:) && save_cmd(:cmd)
-  %fn(:b, :q) | prints()
+  times(:count, {%fn(:b, :q) | prints()})
 }
 
 defn go() {
