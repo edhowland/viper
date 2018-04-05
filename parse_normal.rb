@@ -21,7 +21,13 @@ def vim
     rule(:mark) { str('m') >> anyLetter }
     rule(:rec_macro) { str('q') >> anyLetter }
     rule(:play_macro) { str('@') >> (anyLetter | str('@')) }
-    rule(:double) { str('dd') | str('dw') | str('cc') | str('cw') | rule(:mark) | rule(:rec_macro) | rule(:play_macro) }
+    
+    rule(:text_objects) { str('W') | str('w') | str('G') | str('$') | str('0') | str('^') }
+    rule(:delete) { (str('dd') | (str('d') >> rule(:text_objects))) }
+    rule(:change) { str('cc') | (str('c') >> rule(:text_objects)) }
+    rule(:yank) { str('yy') | (str('y') >> rule(:text_objects)) }
+
+    rule(:double) { str('ZZ') | rule(:delete) |rule(:change) | rule(:yank) | rule(:mark) | rule(:rec_macro) | rule(:play_macro) }
     rule(:triple) { str('diw') | str('ciw') | str('caw') | str('daw') }
     rule(:command) { rule(:triple) | rule(:double) | rule(:single) }
 
