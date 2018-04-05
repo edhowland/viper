@@ -35,7 +35,9 @@ def vim
   rule(:goto) { str('gg') | str('g$') | str('g_') }
 
     rule(:double) { str('ZZ') | rule(:delete) |rule(:change) | rule(:yank) | rule(:mark) | rule(:rec_macro) | rule(:play_macro) | rule(:goto) | rule(:goto_mark) }
-    rule(:triple) { str('diw') | str('ciw') | str('caw') | str('daw') }
+
+    rule(:yank_region) { str('y') >> str("'") >> anyLetter }
+    rule(:triple) { str('diw') | str('ciw') | str('caw') | str('daw') | rule(:yank_region) }
     rule(:command) { rule(:triple) | rule(:double) | rule(:single) }
 
     start(:command)
