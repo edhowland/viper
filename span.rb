@@ -100,6 +100,9 @@ class Span
   def inspect
     "#{self.class.name}: #{@range}"
   end
+  def incr(n)
+    @range = Range.new(@range.first+n, @range.last+n)
+  end
 end
 
 class LeftSpan < Span

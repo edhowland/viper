@@ -299,7 +299,13 @@ end
     sp = Span.new(sp.first..(sp.first+count - 1))
     b[sp] == (' ' * count)
   end
+  def self.cursor_save(q, &blk)
+    c = q.cursor
+    yield
+    q.cursor = c
+  end
   def self.indent(count, b, q)
+  cursor_save(q) do
     sp = q.line
     c = Span.new(sp.first..sp.first)
     q.cursor = c
@@ -307,6 +313,8 @@ end
     l = q.line
     c = Span.new(l.first..l.first)
     q.cursor = c
+    end
+    q.cursor.incr(count)
   end
   def self.outdent(count, b, q)
     if indented?(count, b, q)
