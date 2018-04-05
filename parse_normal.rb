@@ -19,7 +19,7 @@ def vim
   Grammar.build do
     # the 'G' when proceeded with a number, like 12G : means goto line 12
     rule(:single) { str('G') | str('e') | str('E') | str('b') | str('B') | str('_') |
-    str('.') | str('n') | str('N') |
+    str('.') | str('n') | str('N') | str('<') | str('>') |
       str('h') | str('j') | str('k') | str('l') | str('$')  | str('#') | str('/') | str('?') | str('^') | str('%') |  str('!') | str('*') | str('x') | str('f') | str('F') | str('w') | str('W')| str('i') | str('I') | str('a') | str('A') | str('o') | str('O') | str('p') | str('P') | str('L') | str('u')}
 
     rule(:mark) { str('m') >> anyLetter }
@@ -27,7 +27,7 @@ def vim
     rule(:rec_macro) { str('q') >> anyLetter }
     rule(:play_macro) { str('@') >> (anyLetter | str('@')) }
     
-    rule(:text_objects) { str('W') | str('w') | str('G') | str('$') | str('0') | str('^') }
+    rule(:text_objects) { str('W') | str('w') | str('G') | str('$') | str('0') | str('^') | str('s') | str('p') }
     rule(:delete) { (str('dd') | (str('d') >> rule(:text_objects))) }
     rule(:change) { str('cc') | (str('c') >> rule(:text_objects)) }
     rule(:yank) { str('yy') | (str('y') >> rule(:text_objects)) }
@@ -37,7 +37,14 @@ def vim
     rule(:double) { str('ZZ') | rule(:delete) |rule(:change) | rule(:yank) | rule(:mark) | rule(:rec_macro) | rule(:play_macro) | rule(:goto) | rule(:goto_mark) }
 
     rule(:yank_region) { str('y') >> str("'") >> anyLetter }
-    rule(:triple) { str('diw') | str('ciw') | str('caw') | str('daw') | rule(:yank_region) }
+
+    rule(:inner_object) { str('i') >> rule(:text_objects) }
+    rule(:all_object) { str('a') >> rule(:text_objects) }
+    rule(:delete3) { str('d') >> (rule(:inner_object) |  rule(:all_object)) }
+    rule(:change3) { str('c') >> (rule(:inner_object) | rule(:all_object)) }
+    rule(:yank3) { str('y') >> (rule(:inner_object) | rule(:all_object)) }
+
+    rule(:triple) { rule(:delete3) | rule(:change3) | rule(:yank3) | rule(:yank_region) }
     rule(:command) { rule(:triple) | rule(:double) | rule(:single) }
 
     start(:command)
