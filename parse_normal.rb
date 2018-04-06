@@ -77,7 +77,7 @@ def vim
 
     rule(:inner_object) { str('i') >> rule(:text_objects) }
     rule(:all_object) { str('a') >> rule(:text_objects) }
-    rule(:delete3) { str('d') >> (rule(:inner_object) |  rule(:all_object)) }
+    rule(:delete3) { str('d') >> (str('gg') | rule(:inner_object) |  rule(:all_object)) }
     rule(:change3) { str('c') >> (rule(:inner_object) | rule(:all_object)) }
     rule(:yank3) { str('y') >> (rule(:inner_object) | rule(:all_object)) }
 
