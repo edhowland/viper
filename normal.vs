@@ -97,6 +97,13 @@ defn normal() {
     until({ ! space?(char(:b, :q))}, { right(:b, :q) })
     char(:b, :q)
   }
+  defn e(b, q) {
+       until({ space?(char(:b, :q))}, { right(:b, :q) })
+    left(:b, :q)
+  }
+  defn b(buf, q) {
+    word_back(:buf, :q)
+  }
   defn period(b, q) { nosave_perf_command(:b, :q, last_cmd()) }
   # final
   defn ZZ(b, q) { exit }
@@ -133,8 +140,8 @@ fn=:bind[:cmd]
 }
 
 defn go() {
-  line(:b, :q) | prints()
-  loop { command(:b, :q) }
+  line(:buf, :q) | prints()
+  loop { command(:buf, :q) }
 }
 
 

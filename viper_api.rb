@@ -196,6 +196,10 @@ end
     sp = q.word_fwd
     b[sp]
   end
+  def self.word_back(b, q)
+    sp = q.word_back
+    b[sp]
+  end
   def self.delete_word(b, q)
     $registers.tiny = word(b, q)
     sp = q.word

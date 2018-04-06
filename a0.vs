@@ -8,8 +8,8 @@ defn file_txt(file) {
 shift_width=2
 args=getargs()
 file_name=:args[1]
-b=file_txt(:args[1])
-q=mkquery(:b)
+buf=file_txt(:args[1])
+q=mkquery(:buf)
 # utility functions
 defn until(e, blk) {
   %e && return ''
