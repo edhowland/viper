@@ -2,4 +2,8 @@ line 1
 hello world
 Another line
 line 4
+line 5
+some more lines
+This is a very long line: how do you like it? Great? Right?
+This is line some number. I do not remember which.
 last line
