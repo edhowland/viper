@@ -12,10 +12,19 @@ b=file_txt(:args[1])
 q=mkquery(:b)
 # utility functions
 defn times(count, fn) {
+  (:count < 2) && return %fn
+  %fn
+  times(:count - 1, :fn)
+}
+
+
+defn _times(count, fn) {
+result=''
   loop {
-    zero?(:count) && return ''
+    zero?(:count) && return :result
 count=:count - 1
-    %fn
+    result=%fn
+print(:result)
   }
 }
 defn undefined?(o) {

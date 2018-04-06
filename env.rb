@@ -51,11 +51,6 @@ module Env
   def self.space?(char)
     char == ' '
   end
-
-  # is zero
-  def self.zero?(number)
-    number.zero?
-  end
   end
 
   Dispatch << Env

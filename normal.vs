@@ -121,7 +121,7 @@ fn=:bind[:cmd]
   undefined?(:fn) && { error('key not found'); return ''}
   # do not save period
   (:cmd != period:) && save_cmd(:cmd)
-  times(:count, {%fn(:b, :q) | prints()})
+  times(:count, {%fn(:b, :q)}) | prints()
 }
 
 defn go() {
