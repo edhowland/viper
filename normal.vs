@@ -92,6 +92,11 @@ defn normal() {
     ' line indented '
   }
   defn hash(b, q) { inspect(cursor(:q)) }
+  defn caret(b, q) {
+    sol(:b, :q)
+    until({ ! space?(char(:b, :q))}, { right(:b, :q) })
+    char(:b, :q)
+  }
   defn period(b, q) { nosave_perf_command(:b, :q, last_cmd()) }
   # final
   defn ZZ(b, q) { exit }

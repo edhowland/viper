@@ -11,6 +11,11 @@ file_name=:args[1]
 b=file_txt(:args[1])
 q=mkquery(:b)
 # utility functions
+defn until(e, blk) {
+  %e && return ''
+  %blk
+  until(:e, :blk)
+}
 defn times(count, fn) {
   (:count < 2) && return %fn
   %fn

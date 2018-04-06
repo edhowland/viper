@@ -1,6 +1,6 @@
 line 1
 world
-Another   line
+    Another   line
 line 4
 line 5
 some more lines
