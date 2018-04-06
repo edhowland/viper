@@ -17,6 +17,8 @@ defn normal() {
   # register stuff
   defn yy(b, q) { putm=put_line:; yank_line(:b, :q) }
   defn yquote_m(b, q) { putm=put_tiny:; yank_region(:b, :q, region_of(:b, :q, m:)) }
+  defn y0(b, q) { putm=put_tiny:; yank_region(:b, :q, to_sol(:q)); ' yanked to fron of line ' }
+  defn ydollar(b, q) { putm=put_tiny:;  yank_region(:b, :q, to_eol(:q)); ' yanked to end of line ' }
   defn dquote_m(b, q) { putm=put_tiny:; delete_region(:b, :q, region_of(:b, :q, m:)) }
   defn p(b, q) { put(:b, :q, :putm) }
   defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
@@ -46,6 +48,7 @@ defn normal() {
 
   defn _i_nl(b, q) { getchars() + "\n" | insert(:b, :q) }
   defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' normal mode ') }
+  defn P(b, q) { sol(:b, :q); put(:b, :q, :putm); line(:b, :q) }
   #
   # word stuff
   defn F(b, q) { word(:b, :q) }
