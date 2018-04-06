@@ -100,11 +100,15 @@ match_data = ahead.match(/^(\w+)/)
     sp = top_to_cursor
     behind = @buffer[sp]
     offset = behind.rindex(/\s/)
-    Span.new(offset..@cursor.first)
+    sp=Span.new(offset..@cursor.first)
+    @cursor = Span.new(sp.first..sp.first)
+    sp
   end
   def word_fwd
     sp = word
-    @cursor = Span.new((sp.last + 1)..(sp.last + 1))
+    @cursor = Span.new(sp.first..sp.first)
+
+#    @cursor = Span.new((sp.last + 1)..(sp.last + 1))
     word
   end
 

@@ -193,6 +193,7 @@ end
     b[sp]
   end
   def self.word_fwd(b, q)
+    right(b, q)
     sp = q.word_fwd
     b[sp]
   end
