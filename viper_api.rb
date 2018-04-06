@@ -1,9 +1,14 @@
 # viper_api.rb - various API editor functions
 
 require_relative 'buffer_requires'
+require_relative 'parse_normal'
 
 module ViperApi
   def self.getcmd()
+    parse_normal()
+  end
+
+  def self._getcmd()
     parse = {
       "\u0012" => :ctrl_r,
       '#' => :hash,

@@ -1,13 +1,46 @@
 # vim.rb - parser for Vim parser
 
 require_relative '../parser-combinator/test/spec_helpers'
-require_relative 'xfkey'
 
 # xform input to cannonical name, if not a letter or number
 def xform_ch(ch)
-  xk = Xfkey.new
-  result = xk.key_to_name ch
-  if result == 'unknown'
+  specials = {
+        ' ' => 'space',
+      '.' => 'period',
+      ',' => 'comma',
+      '<' => 'less',
+      '>' => 'greater',
+      '/' => 'slash',
+      '?' => 'question',
+      "'" => 'apostrophe',
+      '"' => 'quote',
+      ';' => 'semicolon',
+      ':' => 'colon',
+      ']' => 'rbracket',
+      '}' => 'rbrace',
+      '[' => 'lbracket',
+      '{' => 'lbrace',
+      '\\' => 'backslash',
+      '|' => 'pipe',
+      '=' => 'equals',
+      '+' => 'plus',
+      '-' => 'dash',
+      '_' => 'underline',
+      ')' => 'rparen',
+      '(' => 'lparen',
+      '*' => 'star',
+      '&' => 'ampersand',
+      '^' => 'caret',
+      '%' => 'percent',
+      '$' => 'dollar',
+      '#' => 'number',
+      '@' => 'at',
+      '!' => 'exclaim',
+      '`' => 'accent',
+      '~' => 'tilde',
+  }
+  result = specials[ch]
+  if result.nil?
     ch
   else
     result
