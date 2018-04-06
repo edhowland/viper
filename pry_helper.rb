@@ -7,6 +7,8 @@
 #require_relative 'grid_query'
 
 require_relative 'buffer_requires'
+require_relative 'parse_normal'
+
 
 
 

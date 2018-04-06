@@ -29,7 +29,7 @@ defn normal() {
 
   defn dd(b, q) { putm=put_line:; delete_line(:b, :q) }
   defn d0(b, q) { put=put_tiny:; delete_span(:b, to_sol(:q)); ' delete to start of line ' }
-  defn d_dollar(b, q) { putm=put_tiny:; delete_span(:b, to_eol(:q)); ' delete to end of line ' }
+  defn ddollar(b, q) { putm=put_tiny:; delete_span(:b, to_eol(:q)); ' delete to end of line ' }
   defn dg(b, q) { putm=put_tiny:; delete_span(:b, to_top(:q)); ' delete to top of buffer ' }
   defn dG(b, q) { putm=put_tiny:; delete_span(:b, to_bottom(:q)); ' delete to bottom of buffer ' }
   #

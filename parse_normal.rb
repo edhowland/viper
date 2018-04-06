@@ -1,4 +1,4 @@
-# vim.rb - parser for Vim parser
+# parse_normal.rb - parser for Vim parser
 
 require_relative '../parser-combinator/test/spec_helpers'
 
@@ -8,9 +8,9 @@ def xform_ch(ch)
         ' ' => 'space',
       '.' => 'period',
       ',' => 'comma',
-      '<' => 'less',
-      '>' => 'greater',
-      '/' => 'slash',
+      '<' => 'langle',
+      '>' => 'rangle',
+      '/' => 'fslash',
       '?' => 'question',
       "'" => 'apostrophe',
       '"' => 'quote',
@@ -53,7 +53,7 @@ def vim
     # the 'G' when proceeded with a number, like 12G : means goto line 12
     rule(:single) { str('G') | str('e') | str('E') | str('b') | str('B') | str('_') |
     str('.') | str('n') | str('N') | str('<') | str('>') | str(':') | str('{') | str('}') | str('(') | str(')') |
-      str('h') | str('j') | str('k') | str('l') | str('$')  | str('#') | str('/') | str('?') | str('^') | str('%') |  str('!') | str('*') | str('x') | str('f') | str('F') | str('w') | str('W')| str('i') | str('I') | str('a') | str('A') | str('o') | str('O') | str('p') | str('P') | str('L') | str('u')}
+      str('h') | str('j') | str('k') | str('l') | str('$')  | str('#') | str('/') | str('?') | str('^') | str('%') |  str('!') | str('*') | str('x') | str('f') | str('F') | str('w') | str('W')| str('i') | str('I') | str('a') | str('A') | str('o') | str('O') | str('p') | str('P') | str('L') | str('u')| str('/') }
 
     rule(:mark) { str('m') >> anyLetter }
     rule(:goto_mark) { str("'") >> anyLetter }
@@ -130,5 +130,7 @@ end
 def parse_normal
   m,r = get_digits
   c = get_cmd(r)
-  [floor(m.to_i), xform_ch(c).to_sym]
+#binding.pry
+  c = c.chars.map {|e| xform_ch(e) }.join
+  [floor(m.to_i), c.to_sym]
 end
