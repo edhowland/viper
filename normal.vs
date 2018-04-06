@@ -16,10 +16,10 @@ defn normal() {
 
   # register stuff
   defn yy(b, q) { putm=put_line:; yank_line(:b, :q) }
-  defn yquote_m(b, q) { putm=put_tiny:; yank_region(:b, :q, region_of(:b, :q, m:)) }
+  defn yquotem(b, q) { putm=put_tiny:; yank_region(:b, :q, region_of(:b, :q, m:)) }
   defn y0(b, q) { putm=put_tiny:; yank_region(:b, :q, to_sol(:q)); ' yanked to fron of line ' }
   defn ydollar(b, q) { putm=put_tiny:;  yank_region(:b, :q, to_eol(:q)); ' yanked to end of line ' }
-  defn dquote_m(b, q) { putm=put_tiny:; delete_region(:b, :q, region_of(:b, :q, m:)) }
+  defn dquotem(b, q) { putm=put_tiny:; delete_region(:b, :q, region_of(:b, :q, m:)) }
   defn p(b, q) { put(:b, :q, :putm) }
   defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
   defn zero(b, q) { sol(:b, :q) }
@@ -134,3 +134,9 @@ defn go() {
 
 
 
+
+# utility stuff
+defn key_bound?(fn) {
+  x=normal()
+  ! undefined?(:x[:fn])
+}
