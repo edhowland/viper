@@ -5,108 +5,108 @@ putm=put_tiny:
 # putm=put_line:
 
 defn normal() {
-  defn f(b, q) { char(:b, :q) }
-  defn j(b, q) { down(:b, :q) }
-  defn k(b, q) { up(:b, :q) }
-  defn h(b, q) { left(:b, :q) }
-  defn l(b, q) { right(:b, :q) }
-  defn L(b, q) { line(:b, :q) }
-  defn gg(b, q) { top(:b, :q) }
-  defn G(b, q) { bottom(:b, :q) }
+  defn f(_b, q) { char(:_b, :q) }
+  defn j(_b, q) { down(:_b, :q) }
+  defn k(_b, q) { up(:_b, :q) }
+  defn h(_b, q) { left(:_b, :q) }
+  defn l(_b, q) { right(:_b, :q) }
+  defn L(_b, q) { line(:_b, :q) }
+  defn gg(_b, q) { top(:_b, :q) }
+  defn G(_b, q) { bottom(:_b, :q) }
 
   # register stuff
-  defn yy(b, q) { putm=put_line:; yank_line(:b, :q) }
-  defn yquotem(b, q) { putm=put_tiny:; yank_region(:b, :q, region_of(:b, :q, m:)) }
-  defn y0(b, q) { putm=put_tiny:; yank_region(:b, :q, to_sol(:q)); ' yanked to fron of line ' }
-  defn ydollar(b, q) { putm=put_tiny:;  yank_region(:b, :q, to_eol(:q)); ' yanked to end of line ' }
-  defn dquotem(b, q) { putm=put_tiny:; delete_region(:b, :q, region_of(:b, :q, m:)) }
-  defn p(b, q) { put(:b, :q, :putm) }
-  defn x(b, q) { putm=put_tiny:; delete_char(:b, :q) }
-  defn zero(b, q) { sol(:b, :q) }
-  defn dollar(b, q) { eol(:b, :q) }
+  defn yy(_b, q) { putm=put_line:; yank_line(:_b, :q) }
+  defn yquotem(_b, q) { putm=put_tiny:; yank_region(:_b, :q, region_of(:_b, :q, m:)) }
+  defn y0(_b, q) { putm=put_tiny:; yank_region(:_b, :q, to_sol(:q)); ' yanked to fron of line ' }
+  defn ydollar(_b, q) { putm=put_tiny:;  yank_region(:_b, :q, to_eol(:q)); ' yanked to end of line ' }
+  defn dquotem(_b, q) { putm=put_tiny:; delete_region(:_b, :q, region_of(:_b, :q, m:)) }
+  defn p(_b, q) { put(:_b, :q, :putm) }
+  defn x(_b, q) { putm=put_tiny:; delete_char(:_b, :q) }
+  defn zero(_b, q) { sol(:_b, :q) }
+  defn dollar(_b, q) { eol(:_b, :q) }
 
   # undo/redo stuff
-  defn u(b, q) { undo(:b, :q) }
-  defn ctrl_r(b, q) { redo(:b, :q) }
+  defn u(_b, q) { undo(:_b, :q) }
+  defn ctrl_r(_b, q) { redo(:_b, :q) }
 
-  defn dd(b, q) { putm=put_line:; delete_line(:b, :q) }
-  defn d0(b, q) { put=put_tiny:; delete_span(:b, to_sol(:q)); ' delete to start of line ' }
-  defn ddollar(b, q) { putm=put_tiny:; delete_span(:b, to_eol(:q)); ' delete to end of line ' }
-  defn dg(b, q) { putm=put_tiny:; delete_span(:b, to_top(:q)); ' delete to top of buffer ' }
-  defn dG(b, q) { putm=put_tiny:; delete_span(:b, to_bottom(:q)); ' delete to bottom of buffer ' }
+  defn dd(_b, q) { putm=put_line:; delete_line(:_b, :q) }
+  defn d0(_b, q) { put=put_tiny:; delete_span(:_b, to_sol(:q)); ' delete to start of line ' }
+  defn ddollar(_b, q) { putm=put_tiny:; delete_span(:_b, to_eol(:q)); ' delete to end of line ' }
+  defn dg(_b, q) { putm=put_tiny:; delete_span(:_b, to_top(:q)); ' delete to top of buffer ' }
+  defn dG(_b, q) { putm=put_tiny:; delete_span(:_b, to_bottom(:q)); ' delete to bottom of buffer ' }
   #
 
   # change stuff
-  defn cc(b, q) { putm=put_tiny:; delete_inner_line(:b, :q); i(:b, :q) }
+  defn cc(_b, q) { putm=put_tiny:; delete_inner_line(:_b, :q); i(:_b, :q) }
   #
   # insertion/append
-  defn i(b, q) { prints(' insert mode '); getchars() | insert(:b, :q); ' normal mode ' }
-  defn I(b, q) { sol(:b, :q); i(:b, :q) }
-  defn a(b, q) { right(:b, :q); i(:b, :q) }
-  defn A(b, q) { eol(:b, :q); i(:b, :q) }
-  defn o(b, q) { eol(:b, :q);  insert("\n", :b, :q); a(:b, :q) }
+  defn i(_b, q) { prints(' insert mode '); getchars() | insert(:_b, :q); ' normal mode ' }
+  defn I(_b, q) { sol(:_b, :q); i(:_b, :q) }
+  defn a(_b, q) { right(:_b, :q); i(:_b, :q) }
+  defn A(_b, q) { eol(:_b, :q); i(:_b, :q) }
+  defn o(_b, q) { eol(:_b, :q);  insert("\n", :_b, :q); a(:_b, :q) }
 
-  defn _i_nl(b, q) { getchars() + "\n" | insert(:b, :q) }
-  defn O(b, q) { sol(:b, :q); prints(' open above '); _i_nl(:b, :q); prints(' normal mode ') }
-  defn P(b, q) { sol(:b, :q); put(:b, :q, :putm); line(:b, :q) }
+  defn _i_nl(_b, q) { getchars() + "\n" | insert(:_b, :q) }
+  defn O(_b, q) { sol(:_b, :q); prints(' open above '); _i_nl(:_b, :q); prints(' normal mode ') }
+  defn P(_b, q) { sol(:_b, :q); put(:_b, :q, :putm); line(:_b, :q) }
   #
   # word stuff
-  defn F(b, q) { word(:b, :q) }
-  defn w(b, q) { word_fwd(:b, :q) }
-  defn dw(b, q) { delete_word(:b, :q) }
-  defn cw(b, q) { dw(:b, :q); i(:b, :q) }
+  defn F(_b, q) { word(:_b, :q) }
+  defn w(_b, q) { word_fwd(:_b, :q) }
+  defn dw(_b, q) { delete_word(:_b, :q) }
+  defn cw(_b, q) { dw(:_b, :q); i(:_b, :q) }
 
   # mark stuff
-  defn mm(b, q) { mark(:b, :q, m:) }
-  defn fslash(b, q) {
+  defn mm(_b, q) { mark(:_b, :q, m:) }
+  defn fslash(_b, q) {
     prints(' search ')
     term=read()
     regex(:term) | search(:q)
-    n(:b, :q)
+    n(:_b, :q)
   }
-  defn question(b, q) {
+  defn question(_b, q) {
     prints(' reverse search ')
     term=read()
     regex(:term) | search(:q)
-    N(:b, :q)
+    N(:_b, :q)
   }
-  defn n(b, q) {
+  defn n(_b, q) {
     next(:q)
-    F(:b, :q)
+    F(:_b, :q)
   }
-  defn N(b, q) {
+  defn N(_b, q) {
     prev(:q)
-    F(:b, :q)
+    F(:_b, :q)
   }
-  defn colon(b, q) {
+  defn colon(_b, q) {
     prints('command')
-    read() | commander(:b, :q) | prints()
-    #  L(:b, :q)
+    read() | commander(:_b, :q) | prints()
+    #  L(:_b, :q)
   }
-  defn langle(b, q) {
-    outdent(:shift_width, :b, :q)
+  defn langle(_b, q) {
+    outdent(:shift_width, :_b, :q)
     ' line outdented '
   }
-  defn rangle(b, q) {
-    indent(:shift_width, :b, :q)
+  defn rangle(_b, q) {
+    indent(:shift_width, :_b, :q)
     ' line indented '
   }
-  defn hash(b, q) { inspect(cursor(:q)) }
-  defn caret(b, q) {
-    sol(:b, :q)
-    until({ ! space?(char(:b, :q))}, { right(:b, :q) })
-    char(:b, :q)
+  defn hash(_b, q) { inspect(cursor(:q)) }
+  defn caret(_b, q) {
+    sol(:_b, :q)
+    until({ ! space?(char(:_b, :q))}, { right(:_b, :q) })
+    char(:_b, :q)
   }
-  defn e(b, q) {
-       until({ space?(char(:b, :q))}, { right(:b, :q) })
-    left(:b, :q)
+  defn e(_b, q) {
+       until({ space?(char(:_b, :q))}, { right(:_b, :q) })
+    left(:_b, :q)
   }
-  defn b(buf, q) {
-    word_back(:buf, :q)
+  defn b(_b, q) {
+    word_back(:_b, :q)
   }
-  defn period(b, q) { nosave_perf_command(:b, :q, last_cmd()) }
+  defn period(_b, q) { nosave_perf_command(:_b, :q, last_cmd()) }
   # final
-  defn ZZ(b, q) { exit }
+  defn ZZ(_b, q) { exit }
 
   binding()
 }
@@ -151,4 +151,8 @@ defn go() {
 defn key_bound?(fn) {
   x=normal()
   ! undefined?(:x[:fn])
+}
+defn get_keyfn(name) {
+  bind=normal()
+  :bind[:name]
 }
