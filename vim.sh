@@ -1,4 +1,3 @@
-# vim.sh - load stuff into Vish scripts in ivs REPL
-ivs -r ./env -r ./viper_api -l a0.vs -l commander.vs -l normal.vs $1
-
-
+#!/bin/bash
+# vim.sh - run ivs REPL with viper stuff
+ivs -r ./env -r ./viper_api a1.vs normal.vs commander.vs util.vs

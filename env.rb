@@ -8,6 +8,7 @@ module Env
   # error(string) prints string w/padded spaces to stderr
   def self.error(string)
     $stderr.print " #{string} "
+    raise string
   end
 
   # sym(string) - Symbolize any string
@@ -27,16 +28,6 @@ module Env
     result
   end
 
-  # list stuff from scheme
-  def self.car(pair)
-    pair.key
-  end
-  def self.cdr(pair)
-    pair.value
-  end
-  def self.cons(ar, dr)
-    PairType.new(key: ar, value: dr)
-  end
 
   # convert string to regex
   def self.regex(string)

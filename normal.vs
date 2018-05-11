@@ -110,7 +110,8 @@ defn normal() {
 
   binding()
 }
-
+# norm is the BindingType that holds the  key bindings  in normal mode
+norm=normal()
 
 
 
@@ -121,7 +122,9 @@ defn command(b, q) {
   result=getcmd()
 count=:result[0]
 cmd=:result[1]
-perf_command(:b, :q, :count, :cmd)
+perf_command(:b, :q, :count, :cmd, :norm)
+#print("trying %{:result}")
+#  gf(:cmd)
 }
 defn nosave_perf_command(b, q, cmd) {
     bind=normal()
@@ -130,13 +133,12 @@ fn=:bind[:cmd]
   %fn(:b, :q) | prints()
 }
 
-defn perf_command(b, q, count, cmd) {
-  bind=normal()
+defn perf_command(b, q, count, cmd, bind) {
 fn=:bind[:cmd]
   undefined?(:fn) && { error('key not found'); return ''}
   # do not save period
   (:cmd != period:) && save_cmd(:cmd)
-  times(:count, {%fn(:b, :q)}) | prints()
+  times(:count, :{%fn(:b, :q)}) | prints()
 }
 
 defn go() {

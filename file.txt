@@ -1,5 +1,6 @@
 line 1
-world
+line 2
+hello world
     Another   line
 line 4
 line 5

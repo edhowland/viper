@@ -1,15 +1,16 @@
-# a0.vs - first test of stuff
+# a1.vs - first test of stuff
+# w/o getargs stuff
 
 defn file_txt(file) {
   fread(:file) | mkbuf()
 }
-
+defn openf(fname) {
+  b=file_txt(:fname)
+  q=mkquery(:b)
+  [:b, :q]
+}
 # some settings
 shift_width=2
-args=getargs()
-file_name=:args[0]
-buf=file_txt(:args[1])
-q=mkquery(:buf)
 # utility functions
 defn until(e, blk) {
   %e && return ''
