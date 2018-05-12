@@ -7,7 +7,7 @@ defn file_txt(file) {
 defn openf(fname) {
   b=file_txt(:fname)
   q=mkquery(:b)
-  [:b, :q]
+  [:b, :q, :fname]
 }
 # some settings
 shift_width=2

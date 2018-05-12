@@ -2,7 +2,7 @@
 defn commands() {
   defn w(b, q) {
   contents(:b) | fwrite(:file_name)
-   prints("save file :{:file_name}")
+   prints("save file %{:file_name}")
 }
   defn q!(b, q) {
     exit
