@@ -1,9 +1,13 @@
 # pry_helper.rb - setup for VCL parser stuff
+# import some Vish internals
+require_relative '/home/vagrant/dev/vish/lib/runtime'
 
 require_relative 'vcl_parser'
+require_relative 'command_transform'
+
 
 def vcl
-  VCLParser.new
+  [VCLParser.new, CommandTransform.new]
 end
 #around -   capture syntax failure
 def around &blk
