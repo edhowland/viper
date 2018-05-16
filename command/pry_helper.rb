@@ -27,3 +27,26 @@ def around &blk
     puts failure.parse_failure_cause.ascii_tree
 
 end
+
+def car(x)
+  x.key
+end
+def cdr(x)
+  x.value
+end
+def cadr(x)
+  car(cdr(x))
+end
+def caadr(x)
+  car(cadr(x))
+end
+def cddr(x)
+  cdr(cdr(x))
+end
+def caddr(x)
+  car(cddr(x))
+end
+
+# utility fns from Builtins
+
+

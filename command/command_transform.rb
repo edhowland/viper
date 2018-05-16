@@ -217,7 +217,7 @@ class CommandTransform < Parslet::Transform
   rule(command: simple(:name), arglist: sequence(:args)) { slambdacall(name, args) } 
 
 #  rule(arglist: simple(:arglist), arg: simple(:arg)) { mksexp(:arg, arg) }
-  rule(arg: simple(:arg)) { mksexp(:string, arg) }
+  rule(arg: simple(:arg)) { sstrlit(arg) }
   # pipes, logical and, or
   rule(l: simple(:lvalue), o: simple(:op), r: simple(:rvalue)) { mkarith(op, lvalue, rvalue) }
 
