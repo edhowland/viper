@@ -15,7 +15,13 @@ class VCLParser < Parslet::Parser
    [pipe, 1, :left]) }
 
   # A statement is an identifier with possible arguments separated with one or more spaces
-  rule(:statement) { space? >> identifier.as(:command) >> (space! >> bare_string.as(:arg)).repeat >> space? }
+  rule(:complex_statement) { space? >> identifier.as(:command) >> space! >> arglist.as(:arglist) }
+  rule(:arg_atoms) { arg >> (space! >> arg).repeat }
+  rule(:arg) { bare_string.as(:arg) }
+  rule(:arglist) { arg_atoms |  space?   }
+
+  rule(:simple_statement) { identifier.as(:command) >> space? }
+  rule(:statement) { space? >> (complex_statement | simple_statement | empty) }
   # an identifier is any string not beginning with a digit
   rule(:ident_head) { match(/[_a-zA-Z]/) }
   rule(:ident_tail) { match(/[a-zA-Z0-9_\?!]/).repeat(1) }
@@ -40,6 +46,8 @@ class VCLParser < Parslet::Parser
   rule(:notnl) { match(/[^\n]/).repeat }
   rule(:octo) { str('#') }
 
+  # empty string
+  rule(:empty) { str('').as(:empty) }
 
 
 

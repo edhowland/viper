@@ -2,9 +2,17 @@
 # import some Vish internals
 require_relative '/home/vagrant/dev/vish/lib/runtime'
 
+
 require_relative 'vcl_parser'
 require_relative 'command_transform'
 
+# for comparison
+require_relative 'vish_parser'
+require_relative 'sexp_transform'
+
+def ps
+  [VishParser.new, SexpTransform.new]
+end
 
 def vcl
   [VCLParser.new, CommandTransform.new]
