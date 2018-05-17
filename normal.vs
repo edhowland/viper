@@ -79,9 +79,7 @@ defn normal() {
     F(:_b, :q)
   }
   defn colon(_b, q) {
-    prints('command')
-    read() | commander(:_b, :q) | prints()
-    #  L(:_b, :q)
+    %com
   }
   defn langle(_b, q) {
     outdent(:shift_width, :_b, :q)
