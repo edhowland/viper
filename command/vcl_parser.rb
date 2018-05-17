@@ -33,7 +33,7 @@ class VCLParser < Parslet::Parser
   rule(:space) { match(/[\t ]/).repeat(1) }
 
   # bare_string is a string atom w/o any surrounding quotes
-  rule(:bare_string) { match(/[0-9a-zA-Z]/).repeat }
+  rule(:bare_string) { match(/[0-9a-zA-Z\/\.]/).repeat }
   rule(:logical_and) { ampersand >> ampersand >> space? }
   rule(:logical_or) { pipe >> pipe >> space? }
   rule(:pipe) { str('|') }
