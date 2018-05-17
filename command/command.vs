@@ -11,7 +11,8 @@ defn o(fn) {
 }
 # quitting
 defn q!() {
-  "exiting without saving"
+  print("exiting without saving")
+exit
 }
 # saving
 defn w() {
