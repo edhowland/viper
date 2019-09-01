@@ -8,7 +8,7 @@ gem 'kpeg'
 # these gems are needed for runtime, and testing
 gem 'remedy'
 gem 'pry'
-gem 'redcarpet'
-gem "espeak-ruby", require: "espeak"
+#gem 'redcarpet'
+#gem "espeak-ruby", require: "espeak"
 # this gem is only for checking/linting code
-gem 'rubocop'
+# gem 'rubocop'
