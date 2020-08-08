@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+$VERBOSE=nil
 # viper - main start for viper editor
 #
 # Rubocop triggers on:   _exit_code = 0
