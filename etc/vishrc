@@ -1,0 +1,54 @@
+mount /v
+mkdir /v/bin
+install
+alias rem=nop
+rem Use this line as pattern for all comments
+mkdir /v/buf
+_bufd=/v/buf; global _bufd
+version=:(ruby 'puts Vish::VERSION')
+proj=:pwd
+function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
+function debugging() { false }
+function filter() {
+shift fn
+for e in :_ { exec :fn :e && echo -n :e ' ' }
+}
+function reject() {
+shift fn
+for e in :_ { exec :fn :e || echo -n :e ' ' }
+}
+function reduce() {
+shift fn
+shift init
+for e in :_ {
+init=:(exec :fn :init :e)
+}
+echo :init
+}
+function map() {
+shift fn
+for e in :_ { echo -n :(exec :fn :e) ' ' }
+}
+function each() {
+shift fn
+for e in :_ { exec :fn :e }
+}
+function count() {
+shift fn
+cnt=0
+for i in :_ { exec :fn :i && cnt=:(expr 1 '+' :cnt) }
+echo :cnt
+}
+function decr(x) {
+  expr :x '-' 1
+}
+function incr(x) {
+  expr :x '+' 1
+}
+function first() {
+  shift item
+  echo :item
+}
+function load_event() { nop }
+function exit_event() { nop }
+alias at_exit="on exit_event"

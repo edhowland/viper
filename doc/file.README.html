@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+<script type="text/javascript">
+  pathId = "README";
   relpath = '';
-  framesUrl = "frames.html#!file.README.html";
 </script>
 
 
@@ -28,220 +27,107 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
+      <div id="content"><div id='filecontents'>
+<h1 id="label-VIPER">VIPER</h1>
 
-    <div id="content"><div id='filecontents'><h1>VIPER</h1>
+<h2 id="label-Text+and+Code+editor+for+use+with+screen+readers">Text and Code editor for use with screen readers</h2>
 
-<h2>Visually Impaired Programmer&#39;s Editor in Ruby</h2>
+<h3 id="label-Version+2.0.0">Version 2.0.0</h3>
 
-<h3>Version 0.9.8</h3>
+<p>Releas : cleo</p>
 
-<h2>Abstract</h2>
+<h2 id="label-Abstract">Abstract</h2>
 
-<p>This is simple editor in Ruby that works with screen readers, esp. like VoiceOver 
-in Mac OS/X. 
-Viper only attempts an audible interface. Sighted users of the programwill only see confusing giberish on the screen.</p>
+<p>This is a simple editor in Ruby that works with screen readers, esp. like VoiceOver in Mac OS, or with Orca in Linux with Gnome desktops. Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.</p>
 
-<h2>System requirements</h2>
+<h2 id="label-Source">Source</h2>
 
-<p>Viper has been tested with Ubuntu 14.04, Ruby 2.2 and the terminal type: xterm-256color.</p>
+<p><a href="https://github.com/edhowland/viper">github.com/edhowland/viper</a></p>
 
-<h2>Installation</h2>
+<h2 id="label-Dockerfile">Dockerfile</h2>
 
-<p>Clone this repository. Possibly add &#39;viper/bin&#39; to your PATH
-or alias viper to your cloned path &#39;bin/viper&#39;. </p>
+<p><a href="https://github.com/edhowland/viper/blob/feature/2.0.0/docker/Dockerfile">github.com/edhowland/viper/blob/feature/2.0.0/docker/Dockerfile</a></p>
 
-<h2>Usage:</h2>
+<h2 id="label-System+requirements">System requirements</h2>
 
-<pre class="code ruby"><code class="ruby">
-./bin/viper file.rb
+<p>Viper requires Ruby versions: 2.2 and above</p>
 
+<h3 id="label-Note+on+keyboard+and+Terminal+emulators">Note on keyboard and Terminal emulators</h3>
+
+<p>Viper makes liberal use of the Meta or Alt key for many of its functions. Some terminal emulators need to be reconfigured to output the correct sequence of bytes for a Alt modifier plus key combination.</p>
+
+<p>Before trying to use Viper, check for your terminal emulator&#39;s keyboard profile or shortcut settings. Below find help for terminal emulators that can be used with Viper:</p>
+
+<h3 id="label-Gnome+Terminal+when+using+the+Orca+screen+reader">Gnome Terminal when using the Orca screen reader</h3>
+
+<p>Gnome terminal should work out of the box with the Alt key as the meta key. You may want to change the function key setup, though. As an alternative to changing the function keys, you may substitute Alt plus 1, 2, 3 … 0 for F 1, F 2, F 3 … F ten.</p>
+
+<p>In addition, the Orca screenreader does not always echo the output from Viper when certain keys are pressed. This affects the cursor movement keys, the back tab (Shift Tab) and the backspace (Delete back). As an alternative to these keys, you can alias unbound meta (Alt+) to these keys. The file in the Viper package orca_alias.vsh maps these for you. Add the following line to your ~/.vishrc</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:{vhome}/etc/keymaps/orca_alias.vsh</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
-<p>This executes the main editor loop. To exit, hit Ctrl-Q at ant time.</p>
+<h3 id="label-Orca+help">Orca help</h3>
 
-<h3>Use the following control characters for some actions:</h3>
+<p>To see a list of what these keys are mapped to: Invoke command mode by pressing Alt pluss semicolon and entering the following commmand and then pressing Enter.</p>
 
-<ul>
-<li>Ctrl-S: Saves the current buffer.</li>
-<li>Ctrl-Q: Exits the main editor loop and asks to save the current buffer, if dirtyi</li>
-<li>Ctrl-H - Brings up Help text
-F3 starts keyboard help. Press Ctrl-Q to quit keyboard help and return to the editor session.</li>
-</ul>
-
-<h2>Command line options</h2>
-
-<pre class="code ruby"><code class="ruby">./bin/viper --help
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_help'>help</span> <span class='id identifier rubyid_orca'>orca</span>
 </code></pre>
 
-<h2>Features:</h2>
+<h3 id="label-Mac+Terminal+app+using+Voice+Over">Mac Terminal app using Voice Over</h3>
 
-<ul>
-<li>Snippets - Ability to record and playback short snippets of commonly used texts. </li>
-<li>Copy and Paste: Limited Shift+right, left arrows to select text and Ctrl-C, X and V to Coy, Cut and Paste. </li>
-<li>Search and Reverse Search. (Ctrl-F. Ctrl-R). Ctrl-G to continue searching in the last direction.</li>
-<li>Undo/Redo: Ctrl-Z and Ctrl-U will undo the last editor action, and replay them uf needed. </li>
-<li>Help system, including keyboard help(like VO+k in Mac VoiceOver)</li>
-<li>Little Linter :(Use Rubocop! rather than rely on this.)</li>
-<li>SimpleCov support: Can parse simplecov JSON reports for the entire body of code or an individual file.</li>
-</ul>
+<p>Many of the default Option plus key combinations in the Mac OS Terminal application, output extended characters like the Euro symbol, elipsis, etc. Voice over will output the names of these keys. To get the meta key behaviour, open the Terminal app preferences dialog by pressing the Command key (the Apple key) plus comma while in the Terminal app. Select the keyboard tab. Move down until you hear: Use Option as Meta key checked Make sure the option is checked. Exit the dialog by pressing the Escape key.</p>
 
-<p>Since the search enter area is another buffer, can use regular editor commands within it. E.g. Ctrl-V to paste in some 
-  text to be search to be for.
-Also, up and down arrows work like in Bash readline to recover the last thing you searched for.</p>
+<p>In addition, you should also add the Page Up and Page Down keys to the keys table. Set them to output the following text when pressed.</p>
+<ul><li>
+<p>PageUp : Esc [5~</p>
+</li><li>
+<p>PageDown : Esc [6~</p>
+</li></ul>
 
-<p>Ctrl-A: Selects the entire buffer.
-Ctrl-Y - Yanks the current line into the clipboard.
-Fn4: Sets/Unsets a mark. Cursor movements from there selects and highlights text.
-The Meta key is Alt or Option depending on your keyboard layout.
-Meta+D - Starts a Delete sequence:</p>
+<p>Alternatively, you can press Shift plus PageUp or Shift plus PageDown to get the same effect temporarily.</p>
 
-<ul>
-<li>&#39;d&#39; - Deletes the current line.</li>
-<li>Shift+Home - Deletes to the front of the current line.</li>
-<li>Shift+End - Deletes to end of the current line.</li>
-<li>Shift+PgUp - Deletes to the top of the buffer.</li>
-<li>Shift+PgDn - Deletes to the bottom of the buffer.</li>
-</ul>
+<h2 id="label-Contributing">Contributing</h2>
 
-<p>Debug mode: For debugging the editor itself.
-Note: First use -r, --require pry on command line to load Pry debugger and interactive shell.
-  Ctrl-D enters pry, where you can look around. Ctrl-D again to return to editor loop.</p>
-
-<h2>Command Entry</h2>
-
-<p>Option/Alt+&#39;;&#39; enters command mode where you can run some some editor functions.
-These are very vim-like in form and syntax.
-E.g.  w filename - writes the current buffer to filename. rew! re-reads the current file back
-into the current buffer, overwriting any changes.
-check - performs a Ruby syntax check on the current buffer.
-lint - performs limited lint on current buffer. Ensures every line is indented with an even number of spaces.</p>
-
-<h6>Note: -c, --check-syntax performs the same function on editor exit</h6>
-
-<h2>Help</h2>
-
-<p>Meta help brings up a help buffer. You can
-return to the previous buffer with either Ctrl-T or meta+n, meta+p to rotate through buffers.
-k! will delete the current buffer without saving it first. This is
-like Close Tab in a browser.</p>
-
-<h2>Managing Snippets</h2>
-
-<p>Initially, there are no snippets loaded, but there is a default snippet collection. Viper ships with a number of snippet collections: ruby, spec and markdown.
-These collections are stored in ./config/*.json. You can create new snippets and play them back using the command interface which is invoked with Option/Alt+; .
-Snippet collections can be automatically associated with path/file/ext patterns. E.g. &#39;.rb&#39; can be associated with the ruby collection.
-These associations can be either file part literals or regular expressions. E.g. /.+<em>spec.rb/ can be associated with the spec collection.
-The most specific association wins in any constest between loaded associations. For example, in the above association, if it was loaded along with the ruby association, myfile</em>spec.rb would be associated with the spec collection, not the ruby collection.
-But any other file.rb would still be associated with ruby.</p>
-
-<p>Here is an example session with creating a snippet, saving it and using it in a file.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_load'>load</span> <span class='id identifier rubyid_markdown'>markdown</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='id identifier rubyid_assocx'>assocx</span> <span class='period'>.</span><span class='id identifier rubyid_md'>md</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='comment'># now create a new snippet: the h6 heading
-</span><span class='id identifier rubyid_new'>new</span>
-<span class='comment'># enter: \n###### ^.\n
-</span><span class='id identifier rubyid_snip'>snip</span> <span class='id identifier rubyid_h6'>h6</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='id identifier rubyid_dump'>dump</span> <span class='id identifier rubyid_markdown'>markdown</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='comment'># Ctrl-T to return to previous buffer with Markdown content
-</span><span class='id identifier rubyid_h6TAB'>h6TAB</span>
-<span class='comment'># snippet h6 is played back and cursor is positioned at start of typing
-</span></code></pre>
-
-<p>In the above session, we loaded the ./config/markdown.json and loaded into the markdown collection.
-Then we associated it with the &#39;.md&#39; file extension. Next, we created a new scratch buffer with the :new command.
-After creating our snippet, we saved it with the &#39;h6&#39; abbreviation name into the markdown collection with the :snip command.
-Next, we saved our current markdown collection back to the ./config/markdown.json file.
-Lastly, we returned to our previous file buffer and invoked the snippet with the h6+TAB combination.</p>
-
-<p>That&#39;s all there is to it!</p>
-
-<h3>Editing an existing snippet:</h3>
-
-<p>Use the :sedit command to load an existing snippet into a buffer to edit it. Use the :snip when done editing it to return it to the collection. You can return to your previous buffer
-to test it out. When satisfied, remember to dump it back into the .json file.</p>
-
-<p>Here is a sample editing session:</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_new'>new</span>
-<span class='id identifier rubyid_sedit'>sedit</span> <span class='id identifier rubyid_h6'>h6</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='comment'># Now edit the snippet&#39;s contents.
-</span><span class='id identifier rubyid_snip'>snip</span> <span class='id identifier rubyid_h6'>h6</span> <span class='id identifier rubyid_markdown'>markdown</span>
-<span class='id identifier rubyid_k!'>k!</span>
-<span class='comment'># You are now in your previous buffer. Try out the new h6 snippet with: 
-</span><span class='id identifier rubyid_h6TAB'>h6TAB</span>
-<span class='comment'># It works! Now save it
-</span><span class='id identifier rubyid_dump'>dump</span> <span class='id identifier rubyid_markdown'>markdown</span> <span class='id identifier rubyid_markdown'>markdown</span>
-</code></pre>
-
-<h3>Tab points</h3>
-
-<p>Within the contents of the snippet, you can set Tab points (stops) with the &#39;^.&#39; combination. You can set as many of these as you need. For example, ifelif might have 5 of these for the if condition, the 
-if stanza, the elsif condition, the elsif stanza and the else stanza.
-When a snippet is first invoked, the buffer will automatically advance to the first tab point, if any.</p>
-
-<p>Note: Remember to make sure to keeping hittingthe tab key to advance to any subsequent tab points. Tab will first erase the &#39;^.&#39; in the buffer so you can start typing from the tab point.
-If you forget to clear all the tab points, you might get a syntax error in your code.
-You can find any left over tab points by Ctrl-F and entering ^.Return</p>
-
-<h3>Automating the load and association of Snippet Collections</h3>
-
-<p>Viper will check for a ~/.viperrc file. If it exists, it will attempt to execute commands contained within, one per line.
-You can also create a .viperrc file in any directory. It will be loaded last. You should only put any commands there that do not require a buffer to operate. Also, any quiting commands with not operate. Also, you will not hear any output in audio, so do not put list, reporting commands there.</p>
-
-<h2>Code Coverage</h2>
-
-<p>You can use the &#39;load_cov coverage/coverage.json&#39; command to load a JSON file
-generated with the simplecov gem. You should put this in a local .viperrc file so it will be available to the program whenever you generate the coverage report.
-Once loaded, use the &#39;cov_report&#39; command to get an overall report of the project coverage. The file list in this new buffer
-is sorted in ascended numerical order by code coverage percent. Search forward for 100.0 to get the first file that was covered completely. Then work backward from there.
-Once you have determined a file that needs to be covered, load that file with the &#39;o filepath&#39; command. Next, run the &#39;cov&#39; command. This will open another buffer with the individual
-file report. Search forward for &#39;hits: 0&#39; to find the lines you should address.</p>
-
-<h2>Contributing</h2>
-
-<p>Please see the file CONTRIBUTING.md for information on contributing to the Viper project. 
-I am looking forward to your support and welcome any help. Together, we can make Viper a great project
-for all visually impaired or blind programmers.  I am especially requesting help from programmers in other programming languages like Python, Golang, Javascript, etc.</p>
+<p>Please see the file CONTRIBUTING.md for information on contributing to the Viper project. I am looking forward to your support and welcome any help. Together, we can make Viper a great project for all visually impaired or blind programmers. I am especially requesting help from programmers in other programming languages like Python, Golang, Javascript, etc.</p>
 </div></div>
 
-    <div id="footer">
-  Generated on Fri Feb 26 22:38:11 2016 by
+      <div id="footer">
+  Generated on Tue Sep  1 20:12:36 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.2).
+  0.9.25 (ruby-2.7.1).
 </div>
 
+    </div>
   </body>
 </html>

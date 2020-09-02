@@ -1,2 +1,2 @@
-# associate this executable with ruby
-assocf viper ruby
+# for debugging purposes
+set prompt vish<
