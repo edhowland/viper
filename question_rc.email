@@ -1,0 +1,28 @@
+Hello all,
+
+I am writing to this list because there are so many helpful people here! And it is a Ruby project, though not a strictly Ruby question
+
+I am writing a Ruby gem, let's call it 'mygem' (*See below).
+It has an executable program called 'mygem'. When 'mygem' is launched, it looks in the folder: ~/ for any 
+startup/configuration files. 
+
+Ok, so far, so good. Now, what I am asking is should I put '~/.mygemrc' there or in:
+'~/.mygem/mygemrc'. IOW, if there isjust one file, then the former scheme seems preferred. But if you have
+a lot of installable  packages, then putting them in '~/.mygem/...' would be the way to go.
+
+Since the latter is usually the case for 'mygem', should I give guidance to always put the 'rc' inside the  ~/.mygem' folder?
+Or, should I check for both possiblities? Would having both be confusing for new users?
+At the expense of users who only need a single config file? Making those users
+create an entire directory for a single file seems a bit extreme.
+
+I know I haven't spelled out what 'mygem' does, but this is just a general question that might apply to multiple gems I might write.
+
+Thanks in advance,
+Ed
+
+* There seems to me to be a lot of name collisions in Rubygems' namespace. 
+What do people do if the project's name is already taken? 
+Here is what I found online about this:
+http://guides.rubygems.org/name-your-gem/
+
+

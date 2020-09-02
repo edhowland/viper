@@ -1,183 +1,243 @@
 #!/usr/bin/env ruby
-# viper - Main entry for Viper editor
+$VERBOSE=nil
+# viper - main start for viper editor
+#
+# Rubocop triggers on:   _exit_code = 0
+# Since we are an interpreter written in an interpreter, this is ok, so we
+# ignore
+# rubocop:disable Lint/UnderscorePrefixedVariableName
+# TODO: Should re-archetype this
+# rubocop:disable Style/GlobalVars
+# There are only as many options as this editor needs
+# rubocop:disable Metrics/BlockLength
 
-require_relative '../lib/viper'
+# TODO: REMOVEME
+require 'pry'
+
 require 'optparse'
+require_relative '../lib/viper'
 
-def lib_path
-  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../lib/')
-end
+options = {
+  no_start: false,
+  no_finish: false,
+  mode: 'echo -n :(buffer_name); meta vip',
+  start: [],
+  sources: [],
+  execute: [],
+  finish: [],
+  debug: false,
+  check: false,
+  only: [],
+  boot: false,
+  run: false,
+  viper: false,
+termfile: 'load_termfile :termfile',
+  stdin: false
+}
 
-options = { read_only: false, check_syntax: false, safe: false }
-
-parser = OptionParser.new do |opt|
-  opt.banner = 'Viper - Editor in Ruby for visually impaired programmers'
-  opt.separator '-'
-  opt.on('--safe', 'Run in safe mode. No initialization of .viperrc files or packages') do
-    options[:safe] = true
+oparse = OptionParser.new do |opt|
+  opt.banner = 'Viper - Scriptible code editor'
+  opt.separator ''
+  opt.on('-n', '--no-start', 'Do not execute startup scripts') do
+    options[:no_start] = true
   end
-  opt.on('-r library', '--require library', String, 'Require library or gem') do |lib|
-    require lib
+  opt.on('--no-finish', 'Do not execute scripts at exit') do
+    options[:no_finish] = true
   end
-
-  opt.on('-e expr', '--evaluate expr', String, 'Evaluate expression as a command string') do |expr|
-    options[:evaluate] = expr
+  # %%LINT4
+  opt.on('-i', '--in', 'Read from standard input. Stored in :stdin variable') do
+    options[:stdin] = true
+options[:execute] << 'open_stdin'
   end
-
-  opt.on('-m file', '--command file', String, 'Execute commandsin a .viper file. Runs after file buffers loaded and .viper syntax check') do |file|
-    options[:command_file] = file
+  opt.on('-m mode', '--mode mode', String,
+  'Mode of editor: com: command mode, vip: (default): editor') do |mode|
+    options[:mode] = mode
   end
-
-  opt.on('-p pkg', '--package pkg', String, 'Loads pkg package') do |pkg|
-    package = Viper::Package.new pkg
-    suppress_audio do
-      package.load
-    end
+opt.on('-t file', '--termfile file', 'Loads file as term file, overriding value of :termfile variable', String) do |file|
+  options[:termfile] = "load_termfile #{file}"
   end
-
-  opt.on('--lib-path', 'Print the Viper library path and exit. Useful for setting $LOAD_PATH') do
-    puts lib_path
-    exit
+  opt.on('-S script', '--start script', String,
+   'Run script prior to load') do |script|
+    options[:start] << script
   end
-
-  opt.on('--load-viper', 'Prints the load path for Viper library and exits. Useful for -r require in Ruby programs like Pry and IRB') do
-    puts lib_path + '/viper.rb'
-    exit
+  opt.on('-x', '--debug', 'Debugging Support') do
+    options[:debug] = true
+    require_relative 'debugging_support'
   end
-
-  opt.on('--bin-path-rb', 'Outputs Ruby file with method viper_bin_path to stdout, then exits.') do
-    puts <<-EOC  # Ruby code for bin/viper executable
-# viper_bin_path.rb - method viper_bin_path path to viper executable
-def viper_bin_path
-  "#{File.expand_path(__FILE__)}"
-end
-EOC
-    exit
+  opt.on('-L', '--log', 'Start logging to vish.log') do
+    options[:log] = true
+    options[:start] << 'logger -s; on &() { logger :_ }'
+    options[:finish] << 'logger -e'
   end
-
-  opt.on('--ok', 'Exits with zero status. Useful for checking if viper is installed properly.') do
-    exit(0)
+  opt.on('-l line', '--line line', String,
+  'Jump to line number after load buffer') do |line|
+    options[:start] << "on load_event { goto :_buf #{line} | nop }"
   end
-  opt.on('-c', '--check-syntax', 'Check syntax of buffer when exiting') do
-    options[:check_syntax] = true
+  opt.on('-s script', '--source script', 'Source script') do |script|
+    options[:sources] << script
   end
-  opt.on('--ro', 'Treat file as Read-only') do
-    options[:read_only] = true
+  opt.on('-e script', '--execute script', String,
+   'Execute this command at startup') do |script|
+    options[:execute] << script
   end
-  opt.on('-l lineno', '--line lineno', Integer, 'Gotos the lineno in the file') do |lineno|
-    options[:line] = lineno
+  opt.on('--finish script', String,
+ 'Execute this set of scripts upon exit of session') do |script|
+    options[:finish] << script
   end
-  opt.separator '-'
-  opt.on('-h', '--help', 'Displays this help') do
+  opt.on('-c', '--check', 'Check syntax of Vish file or stdin') do
+    options[:check] = true
+  end
+  opt.on('-O script', '--only script', String, 'Only run these script(s), then exit') do |script|
+    options[:only] << script
+  end
+  opt.on('-B', '--boot', 'Runs boot script. Use with -R, --run option') do
+    options[:boot] = true
+  end
+  opt.on('-V', '--viper', 'Load Viper editor scripts. Use with -R, --run option') do
+    options[:viper] = true
+  end
+  opt.on('-R', '--run', 'Runs loaded scripts, then exits') do
+    options[:run] = true
+  end
+  opt.separator ''
+  opt.on('-h', '--help', 'Display this help and exit') do
     puts opt
     exit
   end
-  opt.on('-v', '--version', 'Displays the version of Viper') do
-    puts 'Viper VIP Editor in Ruby'
-    puts "version #{Viper::VERSION}"
+  opt.on('-v', '--version', 'Display version of Vish shell and exit') do
+    puts 'Vish version'
+    puts Vish::VERSION
+puts
+puts "Release name : #{Vish::RELEASE}"
+    puts
+    puts Vish::DESCRIPTION
     exit
   end
 end
+oparse.parse!
 
-parser.parse!
-
-# possibly open ~/.viperrc and process any commands found there
-unless options[:safe]
-  tmp_buff = ScratchBuffer.new
-  suppress_audio do
-    # load system-wide commands here
-    load_rc(config_path + 'viperrc') do |l|
-      perform!(l) { tmp_buff }
-    end
-
-    # load user's possible ~/.viperrc
-    load_rc do |l|
-      perform!(l) { tmp_buff }
-    end
-
-    # possibly load ./.viperrc
-    load_rc './.viperrc', silent: true do |l|
-      perform!(l) { tmp_buff }
+# possibly check all input files for syntax correctness
+if options[:check]
+  rvalue = 0
+  ARGV.each do |f|
+    begin
+      Visher.parse!(File.read(f))
+      puts "#{f}: Syntax OK"
+    rescue VishSyntaxError => err
+      $stderr.puts "#{f}: #{err.message}"
+      rvalue = 1
     end
   end
+  exit rvalue
 end
 
-# set up the buffer ring
-# @buffer_ring = []
-if ARGV.length == 0
-  $buffer_ring << FileBuffer.new('Unnamed')
-elsif options[:read_only]
-  $buffer_ring = ARGV.map { |f| ReadOnlyFileBuffer.new(f) }
-else
-  $buffer_ring = ARGV.map { |f| FileBuffer.new(f) }
-end
-
-# return the head of the @buffer_ring
-def fbuffer
-  $buffer_ring.first
-end
-
-@search_line = Viper::Readline.new
-@command_line = Viper::Readline.new
-
-# possibly jump to a specific line in the file
-
-fbuffer.goto options[:line] unless options[:line].nil?
-
-# run any .viper file used from the --command file.viper option here
-if options[:command_file]
-  suppress_audio do
-    load_rc(options[:command_file], silent: true) do |l|
-      perform!(l) { fbuffer }
-    end
-  end
-end
-# run any --evaluate strings as a command expression here
-suppress_audio do
-  perform! options[:evaluate] { fbuffer } if options[:evaluate]
-end
-# Inject a hook into control hook for pry debugging
-
-# setup the @buffer for below
-@buffer = fbuffer
-# Executes this block for each character typed in the console
-Viper::Control.loop do |worker|
+# run method, gets script from block, runs it in vm with rescued exceptions
+def run vm=VirtualMachine.new, &blk
   begin
-    ch = worker.getch
-    prc = worker.bound_proc_for ch
-    result = prc.call(@buffer)
-    # Give external packages a way to hook into this loop
-    worker.intra_hook(binding, ch, result)
-
-    if result.to_s =~ /^cmd_/
-      command = convert_cmd result
-      exec_cmd command, @buffer
-    end
-    case result
-    when :quit
-      break
-
-    when :command
-      say 'command '
-      quitting = repl(@command_line) { fbuffer }
-
-    end
-    break if quitting == :quit
-    @buffer = fbuffer # restore the @buffer pointer
-  rescue BufferExceeded
-    say BELL
+    yield(vm).map {|s| Visher.parse!(s) }.each {|b| vm.call(b) }
+  rescue VishSyntaxError => err
+    puts err.message
+  rescue VirtualMachine::ExitCalled => err
+    evalue = 0
   rescue => err
-    say err.message
+    puts err.class.name
+    puts err.message
+    puts err.backtrace
   end
 end
 
-# possibly save dirty buffer
-$buffer_ring.select(&:should_save?).map do |buf|
-  if confirm?("Save #{buf.name}? ")
-    buf.save
-    say "#{buf.name} saved"
+
+
+def mode(opt)
+  [opt[:mode]]
+end
+
+
+
+# run any loaded scripts, then exit
+if options[:run]
+  run do |vm|
+    files = []
+    files += boot(options, vm) if options[:boot]
+    files += scripts(options, vm) if options[:viper]
+    files += options[:sources]
+    files.map {|f| File.read(f) } + options[:execute]
+  end
+  exit
+end
+
+# run only scripts and exit
+unless options[:only].empty?
+  run do |vm|
+    ['mount /v; mkdir /v/bin; install;'] + options[:only]
+  end
+  exit
+end
+
+
+# return list of extension file.vsh in :vhome/ext/*/*.vsh
+def extensions(vm)
+  Dir[vm.fs[:vhome] + '/ext/*/*.vsh']
+end
+
+# return list of final scripts to be run at system exit
+def final_scripts(vm, no_finish: false)
+  if no_finish
+    []
+  else
+    Dir[vm.fs[:vhome] + '/scripts/at_exit/*.vsh']
   end
 end
 
-# possibly check syntax of buffer
-check_lang_syntax(fbuffer) if options[:check_syntax]
+# return list of 'fopen filename' s based on ARGV
+# if ARGV is empty, return [ 'open unnamed1 ]
+# unless some other command has set :_buf first
+def file_list(argv)
+  result = argv.reverse.map { |e| "fopen #{e}" }
+  result << 'test -z :_buf && open unnamed1' if result.empty?
+  result
+end
+
+$vm = VirtualMachine.new
+
+at_exit do
+  $exit_handlers.each { |e| $vm.call e }
+end
+
+# Main start
+begin
+  _exit_code = 0
+
+  # possibly
+  if options[:stdin]
+    $vm.fs.first[:stdin] = $stdin.read
+    $stdin.reopen(File.open('/dev/tty'))
+  end
+  # setup exit handlers. Checks for existanance and syntax correctness
+  $exit_handlers = (final_scripts($vm, no_finish: options[:no_finish])
+  .map { |e| File.read(e) }).map { |e| Visher.parse! e }
+
+  ((
+    boot(options, $vm) + options[:sources]).map { |e| File.read(e) } +
+    options[:start] +
+    (scripts(options, $vm) + extensions($vm)).map { |e| File.read(e) } +
+    vishrc_files.map { |e| File.read(e) } +
+    [ options[:termfile] ]  +
+    options[:execute] +
+    file_list(ARGV) +
+    ['load_event'] +
+    mode(options) +
+    ['exit_event']
+  ).map { |e| Visher.parse!(e) }.each { |e| $vm.call(e) }
+rescue VirtualMachine::ExitCalled => err
+  _exit_code = err.code
+rescue VishSyntaxError => err
+  puts 'Syntax error occured during load'
+  puts err.message
+rescue => err
+  puts err.class.name
+  puts err.message
+  puts err.backtrace
+ensure
+  exit(_exit_code)
+end

@@ -1,0 +1,56 @@
+# Add  these 2 lines to .rubocop_todo.yml 
+
+#inherit_from:
+#  - .rubocop.yml
+# then uncomment them
+
+# ext/rb/** contains files meant for Ruby language support
+# Ignored because not part of Viper core
+# Can rubocop them separately
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - 'bin/viper'
+  Exclude:
+    - 'test/**/*'
+    - 'lib/vish/**'
+    - 'ext/rb/**'
+
+Style/Documentation:
+  Enabled: false
+
+
+# Since Little  Linter cannot really parse Ruby code
+# Multi-line method calls cannot be aligned the way Rubocop likes them
+Style/AlignParameters:
+  Enabled: false
+# where the above config gives an offense
+#  Exclude:
+#    'lib/bin/exec.rb'
+
+
+# method line length for BaseCommand must be longer than 10 lines for initialize
+# for the same  reason, ABC complexity
+#
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/bin/find.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/bin/find.rb'
+
+# Ignore unused env: or frames: keywords
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
+# This is approximately the approved maximum for Viper code
+# Here in case new/changed files exceed this
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 20
+
