@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: SubShell
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+<script type="text/javascript">
+  pathId = "SubShell";
   relpath = '';
-  framesUrl = "frames.html#!SubShell.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index (S)</a> &raquo;
     
     
     <span class="title">SubShell</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: SubShell
+      <div id="content"><h1>Class: SubShell
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">Object</span>
       
         <ul class="fullTree">
@@ -83,25 +79,30 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
-    
+    </dd>
+  </dl>
   
-  
-    
-  
-    
-      <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="Redirectable.html" title="Redirectable (module)">Redirectable</a></span></dd>
-      
-    
+
   
   
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/ast/sub_shell.rb</dd>
   
-</dl>
-<div class="clear"></div>
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Redirectable.html" title="Redirectable (module)">Redirectable</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/ast/sub_shell.rb</dd>
+  </dl>
+  
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -128,7 +129,7 @@
   
     <h2>
       Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -136,7 +137,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#call-instance_method" title="#call (instance method)">- (Object) <strong>call</strong>(env:, frames:) </a>
+      <a href="#_call-instance_method" title="#_call (instance method)">#<strong>_call</strong>(env:, frames:)  &#x21d2; Object </a>
     
 
     
@@ -158,7 +159,29 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (SubShell) <strong>initialize</strong>(block, redirections = []) </a>
+      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>(env:, frames:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(block, redirections = [])  &#x21d2; SubShell </a>
     
 
     
@@ -184,7 +207,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#line_number-instance_method" title="#line_number (instance method)">- (Object) <strong>line_number</strong> </a>
+      <a href="#line_number-instance_method" title="#line_number (instance method)">#<strong>line_number</strong>  &#x21d2; Object </a>
     
 
     
@@ -206,7 +229,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ordinal-instance_method" title="#ordinal (instance method)">- (Object) <strong>ordinal</strong> </a>
+      <a href="#ordinal-instance_method" title="#ordinal (instance method)">#<strong>ordinal</strong>  &#x21d2; Object </a>
     
 
     
@@ -228,7 +251,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#restore_pwd-instance_method" title="#restore_pwd (instance method)">- (Object) <strong>restore_pwd</strong>(vm) </a>
+      <a href="#restore_pwd-instance_method" title="#restore_pwd (instance method)">#<strong>restore_pwd</strong>(vm)  &#x21d2; Object </a>
     
 
     
@@ -250,7 +273,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save_pwd-instance_method" title="#save_pwd (instance method)">- (Object) <strong>save_pwd</strong>(vm) </a>
+      <a href="#save_pwd-instance_method" title="#save_pwd (instance method)">#<strong>save_pwd</strong>(vm)  &#x21d2; Object </a>
     
 
     
@@ -272,7 +295,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; Object </a>
     
 
     
@@ -311,7 +334,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="SubShell (class)">SubShell</a></span></tt>) <strong>initialize</strong>(block, redirections = []) 
+    #<strong>initialize</strong>(block, redirections = [])  &#x21d2; <tt><span class='object_link'><a href="" title="SubShell (class)">SubShell</a></span></tt> 
   
 
   
@@ -320,7 +343,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of SubShell</p>
+<p>Returns a new instance of SubShell.</p>
 
 
   </div>
@@ -345,13 +368,13 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_block'>block</span><span class='comma'>,</span> <span class='id identifier rubyid_redirections'>redirections</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_block'>block</span><span class='comma'>,</span> <span class='id identifier rubyid_redirections'>redirections</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
   <span class='ivar'>@redirections</span> <span class='op'>=</span> <span class='id identifier rubyid_redirections'>redirections</span>
   <span class='ivar'>@pwd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='ivar'>@oldpwd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
-  <span class='ivar'>@vm</span> <span class='op'>=</span> <span class='kw'>nil</span>
-<span class='kw'>end</span></pre>
+<span class='comment'>#    @vm = nil
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -365,9 +388,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="call-instance_method">
+  <h3 class="signature first" id="_call-instance_method">
   
-    - (<tt>Object</tt>) <strong>call</strong>(env:, frames:) 
+    #<strong>_call</strong>(env:, frames:)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -379,9 +402,90 @@
       <pre class="lines">
 
 
-29
-30
-31
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 70</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid__call'>_call</span><span class='lparen'>(</span><span class='label'>env:</span><span class='comma'>,</span> <span class='label'>frames:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid__vm'>_vm</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span><span class='period'>.</span><span class='id identifier rubyid_vm'>vm</span>
+<span class='comment'>#    save_pwd _vm
+</span>  <span class='id identifier rubyid_vm'>vm</span> <span class='op'>=</span> <span class='id identifier rubyid__vm'>_vm</span><span class='period'>.</span><span class='id identifier rubyid__clone'>_clone</span>
+  <span class='id identifier rubyid_local_vars'>local_vars</span> <span class='op'>=</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span>
+  <span class='id identifier rubyid_local_ios'>local_ios</span> <span class='op'>=</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span>
+<span class='comment'>#    local_vars = frames
+</span>  <span class='id identifier rubyid_local_vars'>local_vars</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
+<span class='comment'>#    local_ios = env
+</span>  <span class='id identifier rubyid_local_ios'>local_ios</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
+  <span class='ivar'>@redirections</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='label'>env:</span> <span class='id identifier rubyid_local_ios'>local_ios</span><span class='comma'>,</span> <span class='label'>frames:</span> <span class='id identifier rubyid_local_vars'>local_vars</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='comment'>#    vm.ios = local_ios
+</span><span class='comment'>#    vm.fs = local_vars
+</span>  <span class='id identifier rubyid_closers'>closers</span> <span class='op'>=</span> <span class='id identifier rubyid_open_redirs'>open_redirs</span> <span class='label'>env:</span> <span class='id identifier rubyid_local_ios'>local_ios</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='ivar'>@block</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="VirtualMachine.html" title="VirtualMachine (class)">VirtualMachine</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="VirtualMachine/BreakCalled.html" title="VirtualMachine::BreakCalled (class)">BreakCalled</a></span></span>
+    <span class='kw'>return</span> <span class='kw'>true</span>
+  <span class='kw'>ensure</span>
+    <span class='comment'>#restore_pwd @vm
+</span><span class='comment'>#binding.pry
+</span>    <span class='id identifier rubyid__vm'>_vm</span><span class='period'>.</span><span class='id identifier rubyid_restore_pwd'>restore_pwd</span>
+    <span class='id identifier rubyid_close_redirs'>close_redirs</span> <span class='id identifier rubyid_closers'>closers</span>
+<span class='comment'>#      local_vars.pop
+</span><span class='comment'>#      local_ios.pop
+</span>  <span class='kw'>end</span>
+<span class='comment'>#binding.pry
+</span><span class='id identifier rubyid_frames'>frames</span><span class='lbracket'>[</span><span class='symbol'>:exit_status</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="call-instance_method">
+  
+    #<strong>call</strong>(env:, frames:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 32
 33
 34
@@ -401,32 +505,59 @@
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 32</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span> <span class='label'>env:</span><span class='comma'>,</span> <span class='label'>frames:</span>
-  <span class='ivar'>@vm</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span><span class='period'>.</span><span class='id identifier rubyid_vm'>vm</span>
-  <span class='id identifier rubyid_save_pwd'>save_pwd</span> <span class='ivar'>@vm</span>
-  <span class='id identifier rubyid_vm'>vm</span> <span class='op'>=</span> <span class='ivar'>@vm</span><span class='period'>.</span><span class='id identifier rubyid__clone'>_clone</span>
-  <span class='id identifier rubyid_local_vars'>local_vars</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span>
-  <span class='id identifier rubyid_local_vars'>local_vars</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
-  <span class='id identifier rubyid_local_ios'>local_ios</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span>
-  <span class='id identifier rubyid_local_ios'>local_ios</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
-  <span class='ivar'>@redirections</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='label'>env:</span><span class='id identifier rubyid_local_ios'>local_ios</span><span class='comma'>,</span> <span class='label'>frames:</span><span class='id identifier rubyid_local_vars'>local_vars</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span> <span class='op'>=</span> <span class='id identifier rubyid_local_ios'>local_ios</span>
-  <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span> <span class='op'>=</span> <span class='id identifier rubyid_local_vars'>local_vars</span>
-  <span class='id identifier rubyid_closers'>closers</span> <span class='op'>=</span> <span class='id identifier rubyid_open_redirs'>open_redirs</span> <span class='label'>env:</span><span class='id identifier rubyid_local_ios'>local_ios</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='label'>env:</span><span class='comma'>,</span> <span class='label'>frames:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_klone'>klone</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span><span class='period'>.</span><span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid__clone'>_clone</span>
+<span class='comment'>#    binding.pry
+</span>  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='lbracket'>[</span><span class='symbol'>:out</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:out</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='lbracket'>[</span><span class='symbol'>:in</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:in</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='lbracket'>[</span><span class='symbol'>:err</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='symbol'>:err</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
+  <span class='ivar'>@redirections</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='label'>env:</span> <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='comma'>,</span> <span class='label'>frames:</span> <span class='id identifier rubyid_frames'>frames</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_closers'>closers</span> <span class='op'>=</span> <span class='id identifier rubyid_open_redirs'>open_redirs</span> <span class='label'>env:</span> <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span>
+
+   <span class='comment'># start to make local frames
+</span><span class='comment'>#    binding.pry
+</span><span class='id identifier rubyid_nf'>nf</span> <span class='op'>=</span> <span class='id identifier rubyid_frames'>frames</span><span class='period'>.</span><span class='id identifier rubyid__clone'>_clone</span>
+  <span class='comment'>#klone.fs = frames._clone
+</span>  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span><span class='period'>.</span><span class='id identifier rubyid_frames'>frames</span> <span class='op'>=</span> <span class='id identifier rubyid_nf'>nf</span><span class='period'>.</span><span class='id identifier rubyid_frames'>frames</span>
+  <span class='comment'># need to reset internal lambdas for :pid, :ppid
+</span>  <span class='comment'>#  vars after originally dumping framestack
+</span>  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_restore_pids'>restore_pids</span>
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_restore_oldpwd'>restore_oldpwd</span>
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span>
+
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='kw'>begin</span>
-    <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='ivar'>@block</span>
-  <span class='kw'>rescue</span> <span class='const'>VirtualMachine</span><span class='op'>::</span><span class='const'>BreakCalled</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_err'>err</span>
-    <span class='kw'>return</span> <span class='kw'>true</span>
-  <span class='kw'>ensure</span>
-    <span class='id identifier rubyid_restore_pwd'>restore_pwd</span> <span class='ivar'>@vm</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@block</span><span class='rparen'>)</span>
+<span class='comment'>#    rescue VirtualMachine::BreakCalled
+</span><span class='comment'>#      return true
+</span>  <span class='kw'>ensure</span>
+    <span class='id identifier rubyid_frames'>frames</span><span class='period'>.</span><span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_restore_pwd'>restore_pwd</span> 
     <span class='id identifier rubyid_close_redirs'>close_redirs</span> <span class='id identifier rubyid_closers'>closers</span>
-    <span class='id identifier rubyid_local_vars'>local_vars</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
-    <span class='id identifier rubyid_local_ios'>local_ios</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+  <span class='id identifier rubyid_klone'>klone</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+    <span class='id identifier rubyid_frames'>frames</span><span class='lbracket'>[</span><span class='symbol'>:exit_status</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
+    <span class='id identifier rubyid_result'>result</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -437,7 +568,7 @@
       <div class="method_details ">
   <h3 class="signature " id="line_number-instance_method">
   
-    - (<tt>Object</tt>) <strong>line_number</strong> 
+    #<strong>line_number</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -475,7 +606,7 @@
       <div class="method_details ">
   <h3 class="signature " id="ordinal-instance_method">
   
-    - (<tt>Object</tt>) <strong>ordinal</strong> 
+    #<strong>ordinal</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -487,15 +618,15 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ordinal'>ordinal</span>
-  <span class='const'>COMMAND</span>
+  <span class='const'><span class='object_link'><a href="top-level-namespace.html#COMMAND-constant" title="COMMAND (constant)">COMMAND</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -505,7 +636,7 @@
       <div class="method_details ">
   <h3 class="signature " id="restore_pwd-instance_method">
   
-    - (<tt>Object</tt>) <strong>restore_pwd</strong>(vm) 
+    #<strong>restore_pwd</strong>(vm)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -517,16 +648,16 @@
       <pre class="lines">
 
 
-25
-26
 27
-28</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_restore_pwd'>restore_pwd</span> <span class='id identifier rubyid_vm'>vm</span>
-  <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_cd'>cd</span> <span class='ivar'>@pwd</span><span class='comma'>,</span> <span class='label'>env:</span><span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='comma'>,</span> <span class='label'>frames:</span><span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_restore_pwd'>restore_pwd</span><span class='lparen'>(</span><span class='id identifier rubyid_vm'>vm</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_cd'>cd</span> <span class='ivar'>@pwd</span><span class='comma'>,</span> <span class='label'>env:</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_ios'>ios</span><span class='comma'>,</span> <span class='label'>frames:</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span>
   <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span><span class='lbracket'>[</span><span class='symbol'>:oldpwd</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@oldpwd</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -537,7 +668,7 @@
       <div class="method_details ">
   <h3 class="signature " id="save_pwd-instance_method">
   
-    - (<tt>Object</tt>) <strong>save_pwd</strong>(vm) 
+    #<strong>save_pwd</strong>(vm)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -549,15 +680,15 @@
       <pre class="lines">
 
 
-21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 22</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_pwd'>save_pwd</span> <span class='id identifier rubyid_vm'>vm</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_save_pwd'>save_pwd</span><span class='lparen'>(</span><span class='id identifier rubyid_vm'>vm</span><span class='rparen'>)</span>
   <span class='ivar'>@pwd</span> <span class='op'>=</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span><span class='lbracket'>[</span><span class='symbol'>:pwd</span><span class='rbracket'>]</span>
   <span class='ivar'>@oldpwd</span> <span class='op'>=</span> <span class='id identifier rubyid_vm'>vm</span><span class='period'>.</span><span class='id identifier rubyid_fs'>fs</span><span class='lbracket'>[</span><span class='symbol'>:oldpwd</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
@@ -569,7 +700,7 @@
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
   
-    - (<tt>Object</tt>) <strong>to_s</strong> 
+    #<strong>to_s</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -581,15 +712,15 @@
       <pre class="lines">
 
 
-55
-56
-57</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/ast/sub_shell.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='ivar'>@block</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>)</span><span class='tstring_end'>&#39;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='ivar'>@block</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>)</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='ivar'>@redirections</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -600,11 +731,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Wed Feb 22 19:37:46 2017 by
+      <div id="footer">
+  Generated on Tue Sep  1 20:12:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.2).
+  0.9.25 (ruby-2.7.1).
 </div>
 
+    </div>
   </body>
 </html>

@@ -12,3 +12,7 @@ gem 'pry'
 #gem "espeak-ruby", require: "espeak"
 # this gem is only for checking/linting code
 # gem 'rubocop'
+
+
+# This gem is only used to generate documentation
+gem 'yard'

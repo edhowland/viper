@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: Vish
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+<script type="text/javascript">
+  pathId = "Vish";
   relpath = '';
-  framesUrl = "frames.html#!Vish.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index (V)</a> &raquo;
     
     
     <span class="title">Vish</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: Vish
+      <div id="content"><h1>Class: Vish
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">KPeg::CompiledParser</span>
       
         <ul class="fullTree">
@@ -85,23 +81,27 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
-    
+    </dd>
+  </dl>
   
-  
-    
-  
-    
+
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/vish/version.rb<span class="defines">,<br />
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/vish/version.rb<span class="defines">,<br />
   lib/vish/vish.kpeg.rb</span>
 </dd>
+  </dl>
   
-</dl>
-<div class="clear"></div>
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -115,8 +115,12 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
   
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
     <dl class="constants">
       
         <dt id="VERSION-constant" class="">VERSION =
@@ -124,15 +128,21 @@
         </dt>
         <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.99-rc0</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
+        <dt id="RELEASE-constant" class="">RELEASE =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cleo</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
         <dt id="DESCRIPTION-constant" class="">DESCRIPTION =
           
         </dt>
-        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;-EOD</span>
-<span class='tstring_content'>Viper version </span><span class='embexpr_beg'>#{</span><span class='const'>Vish</span><span class='op'>::</span><span class='const'>VERSION</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;-EOD</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
+<span class='tstring_content'>Viper version </span><span class='embexpr_beg'>#{</span><span class='const'>Vish</span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#VERSION-constant" title="Vish::VERSION (constant)">VERSION</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>
 Runs scripts in the Vish command language  implement a code editor.
 The editor scripts are in the Viper Home/scripts directory. Each is a numbered
 file (E.g.: 001_editor.vsh, 002_*.vsh).
-Use -h to see a list of options. By default, viper will open a buffer called : unnamed1
+Use -h to see a list of options. By default, viper will open a
+buffer called : unnamed1
 Any non option arguments are treated as files to be edited.
 Use the --mode mode option to start another mode besides : vip.
 -m com  : starts the command REPL.
@@ -154,13 +164,13 @@ to load a script on the command line.
 
 
 
-  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
     
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#result-instance_method" title="#result (instance method)">- (Object) <strong>result</strong> </a>
+      <a href="#result-instance_method" title="#result (instance method)">#<strong>result</strong>  &#x21d2; Object </a>
     
 
     
@@ -192,7 +202,7 @@ to load a script on the command line.
   
     <h2>
       Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -200,7 +210,7 @@ to load a script on the command line.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#__hyphen_-instance_method" title="#__hyphen_ (instance method)">- (Object) <strong>__hyphen_</strong> </a>
+      <a href="#__hyphen_-instance_method" title="#__hyphen_ (instance method)">#<strong>__hyphen_</strong>  &#x21d2; Object </a>
     
 
     
@@ -225,7 +235,7 @@ to load a script on the command line.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_argument-instance_method" title="#_argument (instance method)">- (Object) <strong>_argument</strong> </a>
+      <a href="#_argument-instance_method" title="#_argument (instance method)">#<strong>_argument</strong>  &#x21d2; Object </a>
     
 
     
@@ -240,11 +250,7 @@ to load a script on the command line.
 
   
     <span class="summary_desc"><div class='inline'>
-<p>argument = (glob:g { g } | “&amp;(” - function_args:a - “)” - “- block:b
-- “” { LambdaDeclaration.new(a, b) } | string:s { Argument.new(s) } |
-bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | “:(” -
-block:b - “)” { SubShellExpansion.new(b) } | “ws* block:b ws* “” {
-LazyArgument.new(b) }).</p>
+<p>argument = (glob:g { g } | “&amp;(” - function_args:a - “)” - “- block:b - “” { LambdaDeclaration.new(a, b) } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | “:(” - block:b - “)” { SubShellExpansion.new(b) } | “ws* block:b ws* “” { LazyArgument.new(b) }).</p>
 </div></span>
   
 </li>
@@ -253,7 +259,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_assignment-instance_method" title="#_assignment (instance method)">- (Object) <strong>_assignment</strong> </a>
+      <a href="#_assignment-instance_method" title="#_assignment (instance method)">#<strong>_assignment</strong>  &#x21d2; Object </a>
     
 
     
@@ -277,7 +283,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_bare_string-instance_method" title="#_bare_string (instance method)">- (Object) <strong>_bare_string</strong> </a>
+      <a href="#_bare_string-instance_method" title="#_bare_string (instance method)">#<strong>_bare_string</strong>  &#x21d2; Object </a>
     
 
     
@@ -292,7 +298,7 @@ LazyArgument.new(b) }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>bare_string =  { StringLiteral.new(text) }.</p>
+<p>bare_string = &lt; /[/.-<a href="\/\.\-{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/ &gt; { StringLiteral.new(text) }.</p>
 </div></span>
   
 </li>
@@ -301,7 +307,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_block-instance_method" title="#_block (instance method)">- (Object) <strong>_block</strong> </a>
+      <a href="#_block-instance_method" title="#_block (instance method)">#<strong>_block</strong>  &#x21d2; Object </a>
     
 
     
@@ -325,7 +331,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_comment-instance_method" title="#_comment (instance method)">- (Object) <strong>_comment</strong> </a>
+      <a href="#_comment-instance_method" title="#_comment (instance method)">#<strong>_comment</strong>  &#x21d2; Object </a>
     
 
     
@@ -349,7 +355,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_context-instance_method" title="#_context (instance method)">- (Object) <strong>_context</strong> </a>
+      <a href="#_context-instance_method" title="#_context (instance method)">#<strong>_context</strong>  &#x21d2; Object </a>
     
 
     
@@ -373,7 +379,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_element-instance_method" title="#_element (instance method)">- (Object) <strong>_element</strong> </a>
+      <a href="#_element-instance_method" title="#_element (instance method)">#<strong>_element</strong>  &#x21d2; Object </a>
     
 
     
@@ -397,7 +403,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_eps-instance_method" title="#_eps (instance method)">- (Object) <strong>_eps</strong> </a>
+      <a href="#_eps-instance_method" title="#_eps (instance method)">#<strong>_eps</strong>  &#x21d2; Object </a>
     
 
     
@@ -421,7 +427,7 @@ LazyArgument.new(b) }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_expression-instance_method" title="#_expression (instance method)">- (Object) <strong>_expression</strong> </a>
+      <a href="#_expression-instance_method" title="#_expression (instance method)">#<strong>_expression</strong>  &#x21d2; Object </a>
     
 
     
@@ -436,15 +442,7 @@ LazyArgument.new(b) }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>expression = (line:line expression:l - “|” - expression:r { [ <a
-href="0">Pipe.new(l</a>, <a href="0">r</a>, line) ] } | line:line
-expression:l - “&amp;&amp;” - expression:r { [ <a
-href="0">BooleanAnd.new(l</a>, <a href="0">r</a>, line) ] } | line:line
-expression:l - “||” - expression:r { [ <a href="0">BooleanOr.new(l</a>, <a
-href="0">r</a>, line) ] } | subshell_command:s { [ s ] } | “alias” space+
-function_name:f “=” argument:a {[ AliasDeclaration.new(f, a) ] } |
-line:line “function” - function_name:i “(” - function_args:a - “)” - “ws* block:b ws* “” { [ FunctionDeclaration.new(i, a, b, line) ] } |
-line:line context:c { [ Statement.new(c, line) ] }).</p>
+<p>expression = (line:line expression:l - “|” - expression:r { [ <a href="0">Pipe.new(l</a>, <a href="0">r</a>, line) ] } | line:line expression:l - “&amp;&amp;” - expression:r { [ <a href="0">BooleanAnd.new(l</a>, <a href="0">r</a>, line) ] } | line:line expression:l - “||” - expression:r { [ <a href="0">BooleanOr.new(l</a>, <a href="0">r</a>, line) ] } | subshell_command:s { [ s ] } | “alias” space+ function_name:f “=” argument:a {[ AliasDeclaration.new(f, a) ] } | line:line “function” - function_name:i “(” - function_args:a - “)” - “ws* block:b ws* “” { [ FunctionDeclaration.new(i, a, b, line) ] } | line:line context:c { [ Statement.new(c, line) ] }).</p>
 </div></span>
   
 </li>
@@ -453,7 +451,7 @@ line:line context:c { [ Statement.new(c, line) ] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_function_args-instance_method" title="#_function_args (instance method)">- (Object) <strong>_function_args</strong> </a>
+      <a href="#_function_args-instance_method" title="#_function_args (instance method)">#<strong>_function_args</strong>  &#x21d2; Object </a>
     
 
     
@@ -468,8 +466,7 @@ line:line context:c { [ Statement.new(c, line) ] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>function_args = (function_args:a1 - “,” - function_args:a2 { a1 + a2 } |
-identifier:a { [ a ] } | eps { [] }).</p>
+<p>function_args = (function_args:a1 - “,” - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] }).</p>
 </div></span>
   
 </li>
@@ -478,7 +475,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_function_name-instance_method" title="#_function_name (instance method)">- (Object) <strong>_function_name</strong> </a>
+      <a href="#_function_name-instance_method" title="#_function_name (instance method)">#<strong>_function_name</strong>  &#x21d2; Object </a>
     
 
     
@@ -493,7 +490,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>function_name =  { text }.</p>
+<p>function_name = &lt; valid_id &gt; { text }.</p>
 </div></span>
   
 </li>
@@ -502,7 +499,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_glob-instance_method" title="#_glob (instance method)">- (Object) <strong>_glob</strong> </a>
+      <a href="#_glob-instance_method" title="#_glob (instance method)">#<strong>_glob</strong>  &#x21d2; Object </a>
     
 
     
@@ -517,7 +514,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>glob =  { Glob.new(StringLiteral.new(text)) }.</p>
+<p>glob = &lt; /[/.-*<a href="\/\.\-*{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/ &gt; { Glob.new(StringLiteral.new(text)) }.</p>
 </div></span>
   
 </li>
@@ -526,7 +523,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_identifier-instance_method" title="#_identifier (instance method)">- (Object) <strong>_identifier</strong> </a>
+      <a href="#_identifier-instance_method" title="#_identifier (instance method)">#<strong>_identifier</strong>  &#x21d2; Object </a>
     
 
     
@@ -541,7 +538,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>identifier =  { text.to_sym }.</p>
+<p>identifier = &lt; valid_id &gt; { text.to_sym }.</p>
 </div></span>
   
 </li>
@@ -550,7 +547,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_line-instance_method" title="#_line (instance method)">- (Object) <strong>_line</strong> </a>
+      <a href="#_line-instance_method" title="#_line (instance method)">#<strong>_line</strong>  &#x21d2; Object </a>
     
 
     
@@ -574,7 +571,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_nl-instance_method" title="#_nl (instance method)">- (Object) <strong>_nl</strong> </a>
+      <a href="#_nl-instance_method" title="#_nl (instance method)">#<strong>_nl</strong>  &#x21d2; Object </a>
     
 
     
@@ -598,7 +595,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_not_nl-instance_method" title="#_not_nl (instance method)">- (Object) <strong>_not_nl</strong> </a>
+      <a href="#_not_nl-instance_method" title="#_not_nl (instance method)">#<strong>_not_nl</strong>  &#x21d2; Object </a>
     
 
     
@@ -622,7 +619,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_redirect_op-instance_method" title="#_redirect_op (instance method)">- (Object) <strong>_redirect_op</strong> </a>
+      <a href="#_redirect_op-instance_method" title="#_redirect_op (instance method)">#<strong>_redirect_op</strong>  &#x21d2; Object </a>
     
 
     
@@ -637,7 +634,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>redirect_op = (&gt;|&amp;2)?|&gt;&amp;2|2&gt;&amp;1|2&gt;/ &gt; { text }.</p>
+<p>redirect_op = &lt; /&lt;|&gt;(&gt;|&amp;2)?|&gt;&amp;2|2&gt;&amp;1|2&gt;/ &gt; { text }.</p>
 </div></span>
   
 </li>
@@ -646,7 +643,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_redirection-instance_method" title="#_redirection (instance method)">- (Object) <strong>_redirection</strong> </a>
+      <a href="#_redirection-instance_method" title="#_redirection (instance method)">#<strong>_redirection</strong>  &#x21d2; Object </a>
     
 
     
@@ -670,7 +667,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_redirection_list-instance_method" title="#_redirection_list (instance method)">- (Object) <strong>_redirection_list</strong> </a>
+      <a href="#_redirection_list-instance_method" title="#_redirection_list (instance method)">#<strong>_redirection_list</strong>  &#x21d2; Object </a>
     
 
     
@@ -685,8 +682,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>redirection_list = (redirection_list:r1 - redirection_list:r2 { [ r1, r2 ]
-} | redirection:r { [ r ] }).</p>
+<p>redirection_list = (redirection_list:r1 - redirection_list:r2 { [ r1, r2 ] } | redirection:r { [ r ] }).</p>
 </div></span>
   
 </li>
@@ -695,7 +691,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_root-instance_method" title="#_root (instance method)">- (Object) <strong>_root</strong> </a>
+      <a href="#_root-instance_method" title="#_root (instance method)">#<strong>_root</strong>  &#x21d2; Object </a>
     
 
     
@@ -719,7 +715,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_space-instance_method" title="#_space (instance method)">- (Object) <strong>_space</strong> </a>
+      <a href="#_space-instance_method" title="#_space (instance method)">#<strong>_space</strong>  &#x21d2; Object </a>
     
 
     
@@ -743,7 +739,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_statement_list-instance_method" title="#_statement_list (instance method)">- (Object) <strong>_statement_list</strong> </a>
+      <a href="#_statement_list-instance_method" title="#_statement_list (instance method)">#<strong>_statement_list</strong>  &#x21d2; Object </a>
     
 
     
@@ -758,8 +754,7 @@ identifier:a { [ a ] } | eps { [] }).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>statement_list = (statement_list:s1 - “;” - statement_list:s2 { s1 + s2 } |
-statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
+<p>statement_list = (statement_list:s1 - “;” - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
 </div></span>
   
 </li>
@@ -768,7 +763,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_string-instance_method" title="#_string (instance method)">- (Object) <strong>_string</strong> </a>
+      <a href="#_string-instance_method" title="#_string (instance method)">#<strong>_string</strong>  &#x21d2; Object </a>
     
 
     
@@ -783,8 +778,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>string = (“&#39;”  “&#39;” { QuotedString.new(text) } | “&quot;”  “&quot;”
-{StringLiteral.new(text) }).</p>
+<p>string = (“&#39;” &lt; /[^&#39;]*/ &gt; “&#39;” { QuotedString.new(text) } | “&quot;” &lt; /[^“]*/ &gt; ”&quot;“ {StringLiteral.new(text) }).</p>
 </div></span>
   
 </li>
@@ -793,7 +787,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_subshell-instance_method" title="#_subshell (instance method)">- (Object) <strong>_subshell</strong> </a>
+      <a href="#_subshell-instance_method" title="#_subshell (instance method)">#<strong>_subshell</strong>  &#x21d2; Object </a>
     
 
     
@@ -817,7 +811,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_subshell_command-instance_method" title="#_subshell_command (instance method)">- (Object) <strong>_subshell_command</strong> </a>
+      <a href="#_subshell_command-instance_method" title="#_subshell_command (instance method)">#<strong>_subshell_command</strong>  &#x21d2; Object </a>
     
 
     
@@ -832,10 +826,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression).</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>subshell_command = (redirection_list:r1 - subshell:s - redirection_list:r2
-{ SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s {
-SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
-} | subshell:s { SubShell.new(s) }).</p>
+<p>subshell_command = (redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s { SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r) } | subshell:s { SubShell.new(s) }).</p>
 </div></span>
   
 </li>
@@ -844,7 +835,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_valid_id-instance_method" title="#_valid_id (instance method)">- (Object) <strong>_valid_id</strong> </a>
+      <a href="#_valid_id-instance_method" title="#_valid_id (instance method)">#<strong>_valid_id</strong>  &#x21d2; Object </a>
     
 
     
@@ -868,7 +859,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_variable-instance_method" title="#_variable (instance method)">- (Object) <strong>_variable</strong> </a>
+      <a href="#_variable-instance_method" title="#_variable (instance method)">#<strong>_variable</strong>  &#x21d2; Object </a>
     
 
     
@@ -883,7 +874,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
 
   
     <span class="summary_desc"><div class='inline'>
-<p>variable = “:”  { Deref.new(text.to_sym) }.</p>
+<p>variable = “:” &lt; valid_id &gt; { Deref.new(text.to_sym) }.</p>
 </div></span>
   
 </li>
@@ -892,7 +883,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#_ws-instance_method" title="#_ws (instance method)">- (Object) <strong>_ws</strong> </a>
+      <a href="#_ws-instance_method" title="#_ws (instance method)">#<strong>_ws</strong>  &#x21d2; Object </a>
     
 
     
@@ -926,7 +917,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details first">
   <h3 class="signature first" id="result-instance_method">
   
-    - (<tt>Object</tt>) <strong>result</strong> 
+    #<strong>result</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -935,7 +926,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the value of attribute result</p>
+<p>Returns the value of attribute result.</p>
 
 
   </div>
@@ -974,7 +965,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details first">
   <h3 class="signature first" id="__hyphen_-instance_method">
   
-    - (<tt>Object</tt>) <strong>__hyphen_</strong> 
+    #<strong>__hyphen_</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1028,7 +1019,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details ">
   <h3 class="signature " id="_argument-instance_method">
   
-    - (<tt>Object</tt>) <strong>_argument</strong> 
+    #<strong>_argument</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1037,11 +1028,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>argument = (glob:g { g } | “&amp;(” - function_args:a - “)” - “- block:b
-- “” { LambdaDeclaration.new(a, b) } | string:s { Argument.new(s) } |
-bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | “:(” -
-block:b - “)” { SubShellExpansion.new(b) } | “ws* block:b ws* “” {
-LazyArgument.new(b) })</p>
+<p>argument = (glob:g { g } | “&amp;(” - function_args:a - “)” - “- block:b - “” { LambdaDeclaration.new(a, b) } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | “:(” - block:b - “)” { SubShellExpansion.new(b) } | “ws* block:b ws* “” { LazyArgument.new(b) })</p>
 
 
   </div>
@@ -1384,7 +1371,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>LambdaDeclaration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="LambdaDeclaration.html" title="LambdaDeclaration (class)">LambdaDeclaration</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="LambdaDeclaration.html#initialize-instance_method" title="LambdaDeclaration#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
@@ -1403,7 +1390,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Argument</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Argument.html" title="Argument (class)">Argument</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Argument.html#initialize-instance_method" title="Argument#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
@@ -1422,7 +1409,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save4'>_save4</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Argument</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Argument.html" title="Argument (class)">Argument</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Argument.html#initialize-instance_method" title="Argument#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save4'>_save4</span>
@@ -1441,7 +1428,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save5'>_save5</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Argument</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Argument.html" title="Argument (class)">Argument</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Argument.html#initialize-instance_method" title="Argument#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save5'>_save5</span>
@@ -1480,7 +1467,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save6'>_save6</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>SubShellExpansion</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="SubShellExpansion.html" title="SubShellExpansion (class)">SubShellExpansion</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SubShell.html#initialize-instance_method" title="SubShell#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save6'>_save6</span>
@@ -1527,7 +1514,7 @@ LazyArgument.new(b) })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save7'>_save7</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>LazyArgument</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="LazyArgument.html" title="LazyArgument (class)">LazyArgument</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Argument.html#initialize-instance_method" title="Argument#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save7'>_save7</span>
@@ -1551,7 +1538,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_assignment-instance_method">
   
-    - (<tt>Object</tt>) <strong>_assignment</strong> 
+    #<strong>_assignment</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1631,7 +1618,7 @@ LazyArgument.new(b) })</p>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Assignment</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Assignment.html" title="Assignment (class)">Assignment</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Assignment.html#initialize-instance_method" title="Assignment#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -1650,7 +1637,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_bare_string-instance_method">
   
-    - (<tt>Object</tt>) <strong>_bare_string</strong> 
+    #<strong>_bare_string</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1659,8 +1646,7 @@ LazyArgument.new(b) })</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>bare_string = &lt; /[/.-<a href="\/\.\-{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/
-&gt; { StringLiteral.new(text) }</p>
+<p>bare_string = &lt; /[/.-<a href="\/\.\-{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/ &gt; { StringLiteral.new(text) }</p>
 
 
   </div>
@@ -1715,7 +1701,7 @@ LazyArgument.new(b) })</p>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>StringLiteral</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="StringLiteral.html" title="StringLiteral (class)">StringLiteral</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="QuotedString.html#initialize-instance_method" title="QuotedString#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -1734,7 +1720,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_block-instance_method">
   
-    - (<tt>Object</tt>) <strong>_block</strong> 
+    #<strong>_block</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1792,7 +1778,7 @@ LazyArgument.new(b) })</p>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Block</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Block.html" title="Block (class)">Block</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Block.html#initialize-instance_method" title="Block#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -1811,7 +1797,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_comment-instance_method">
   
-    - (<tt>Object</tt>) <strong>_comment</strong> 
+    #<strong>_comment</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1892,7 +1878,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_context-instance_method">
   
-    - (<tt>Object</tt>) <strong>_context</strong> 
+    #<strong>_context</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -2065,7 +2051,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_element-instance_method">
   
-    - (<tt>Object</tt>) <strong>_element</strong> 
+    #<strong>_element</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -2138,7 +2124,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_eps-instance_method">
   
-    - (<tt>Object</tt>) <strong>_eps</strong> 
+    #<strong>_eps</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -2183,7 +2169,7 @@ LazyArgument.new(b) })</p>
       <div class="method_details ">
   <h3 class="signature " id="_expression-instance_method">
   
-    - (<tt>Object</tt>) <strong>_expression</strong> 
+    #<strong>_expression</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -2192,15 +2178,7 @@ LazyArgument.new(b) })</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>expression = (line:line expression:l - “|” - expression:r { [ <a
-href="0">Pipe.new(l</a>, <a href="0">r</a>, line) ] } | line:line
-expression:l - “&amp;&amp;” - expression:r { [ <a
-href="0">BooleanAnd.new(l</a>, <a href="0">r</a>, line) ] } | line:line
-expression:l - “||” - expression:r { [ <a href="0">BooleanOr.new(l</a>, <a
-href="0">r</a>, line) ] } | subshell_command:s { [ s ] } | “alias” space+
-function_name:f “=” argument:a {[ AliasDeclaration.new(f, a) ] } |
-line:line “function” - function_name:i “(” - function_args:a - “)” - “ws* block:b ws* “” { [ FunctionDeclaration.new(i, a, b, line) ] } |
-line:line context:c { [ Statement.new(c, line) ] })</p>
+<p>expression = (line:line expression:l - “|” - expression:r { [ <a href="0">Pipe.new(l</a>, <a href="0">r</a>, line) ] } | line:line expression:l - “&amp;&amp;” - expression:r { [ <a href="0">BooleanAnd.new(l</a>, <a href="0">r</a>, line) ] } | line:line expression:l - “||” - expression:r { [ <a href="0">BooleanOr.new(l</a>, <a href="0">r</a>, line) ] } | subshell_command:s { [ s ] } | “alias” space+ function_name:f “=” argument:a {[ AliasDeclaration.new(f, a) ] } | line:line “function” - function_name:i “(” - function_args:a - “)” - “ws* block:b ws* “” { [ FunctionDeclaration.new(i, a, b, line) ] } | line:line context:c { [ Statement.new(c, line) ] })</p>
 
 
   </div>
@@ -2600,7 +2578,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'>Pipe</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="Pipe.html" title="Pipe (class)">Pipe</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pipe.html#initialize-instance_method" title="Pipe#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
@@ -2646,7 +2624,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'>BooleanAnd</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="BooleanAnd.html" title="BooleanAnd (class)">BooleanAnd</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BooleanAnd.html#initialize-instance_method" title="BooleanAnd#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
@@ -2692,7 +2670,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'>BooleanOr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="BooleanOr.html" title="BooleanOr (class)">BooleanOr</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="BooleanOr.html#initialize-instance_method" title="BooleanOr#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
@@ -2761,7 +2739,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save5'>_save5</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span> <span class='lbracket'>[</span> <span class='const'>AliasDeclaration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span> <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="AliasDeclaration.html" title="AliasDeclaration (class)">AliasDeclaration</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="AliasDeclaration.html#initialize-instance_method" title="AliasDeclaration#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save5'>_save5</span>
@@ -2861,7 +2839,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save7'>_save7</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'>FunctionDeclaration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="FunctionDeclaration.html" title="FunctionDeclaration (class)">FunctionDeclaration</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FunctionDeclaration.html#initialize-instance_method" title="FunctionDeclaration#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save7'>_save7</span>
@@ -2886,7 +2864,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save10'>_save10</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'>Statement</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="Statement.html" title="Statement (class)">Statement</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Statement.html#initialize-instance_method" title="Statement#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span> <span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save10'>_save10</span>
@@ -2910,7 +2888,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
       <div class="method_details ">
   <h3 class="signature " id="_function_args-instance_method">
   
-    - (<tt>Object</tt>) <strong>_function_args</strong> 
+    #<strong>_function_args</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -2919,8 +2897,7 @@ line:line context:c { [ Statement.new(c, line) ] })</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>function_args = (function_args:a1 - “,” - function_args:a2 { a1 + a2 } |
-identifier:a { [ a ] } | eps { [] })</p>
+<p>function_args = (function_args:a1 - “,” - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] })</p>
 
 
   </div>
@@ -3120,7 +3097,7 @@ identifier:a { [ a ] } | eps { [] })</p>
       <div class="method_details ">
   <h3 class="signature " id="_function_name-instance_method">
   
-    - (<tt>Object</tt>) <strong>_function_name</strong> 
+    #<strong>_function_name</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3203,7 +3180,7 @@ identifier:a { [ a ] } | eps { [] })</p>
       <div class="method_details ">
   <h3 class="signature " id="_glob-instance_method">
   
-    - (<tt>Object</tt>) <strong>_glob</strong> 
+    #<strong>_glob</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3212,8 +3189,7 @@ identifier:a { [ a ] } | eps { [] })</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>glob = &lt; /[/.-*<a href="\/\.\-*{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/ &gt; {
-Glob.new(StringLiteral.new(text)) }</p>
+<p>glob = &lt; /[/.-*<a href="\/\.\-*{\}:_0-9A-Za-z">_0-9A-Za-z]</a>*/ &gt; { Glob.new(StringLiteral.new(text)) }</p>
 
 
   </div>
@@ -3268,7 +3244,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Glob</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>StringLiteral</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Glob.html" title="Glob (class)">Glob</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Glob.html#initialize-instance_method" title="Glob#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="StringLiteral.html" title="StringLiteral (class)">StringLiteral</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="QuotedString.html#initialize-instance_method" title="QuotedString#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -3287,7 +3263,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_identifier-instance_method">
   
-    - (<tt>Object</tt>) <strong>_identifier</strong> 
+    #<strong>_identifier</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3370,7 +3346,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_line-instance_method">
   
-    - (<tt>Object</tt>) <strong>_line</strong> 
+    #<strong>_line</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3417,7 +3393,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_nl-instance_method">
   
-    - (<tt>Object</tt>) <strong>_nl</strong> 
+    #<strong>_nl</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3462,7 +3438,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_not_nl-instance_method">
   
-    - (<tt>Object</tt>) <strong>_not_nl</strong> 
+    #<strong>_not_nl</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3507,7 +3483,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_redirect_op-instance_method">
   
-    - (<tt>Object</tt>) <strong>_redirect_op</strong> 
+    #<strong>_redirect_op</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3516,8 +3492,7 @@ Glob.new(StringLiteral.new(text)) }</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>redirect_op = &lt; /&lt;|&gt;(&gt;|&amp;2)?|&gt;&amp;2|2&gt;&amp;1|2&gt;/
-&gt; { text }</p>
+<p>redirect_op = &lt; /&lt;|&gt;(&gt;|&amp;2)?|&gt;&amp;2|2&gt;&amp;1|2&gt;/ &gt; { text }</p>
 
 
   </div>
@@ -3591,7 +3566,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_redirection-instance_method">
   
-    - (<tt>Object</tt>) <strong>_redirection</strong> 
+    #<strong>_redirection</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3671,7 +3646,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Redirection</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Redirection.html" title="Redirection (class)">Redirection</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Redirection.html#initialize-instance_method" title="Redirection#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -3690,7 +3665,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_redirection_list-instance_method">
   
-    - (<tt>Object</tt>) <strong>_redirection_list</strong> 
+    #<strong>_redirection_list</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3699,8 +3674,7 @@ Glob.new(StringLiteral.new(text)) }</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>redirection_list = (redirection_list:r1 - redirection_list:r2 { [ r1, r2 ]
-} | redirection:r { [ r ] })</p>
+<p>redirection_list = (redirection_list:r1 - redirection_list:r2 { [ r1, r2 ] } | redirection:r { [ r ] })</p>
 
 
   </div>
@@ -3844,7 +3818,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_root-instance_method">
   
-    - (<tt>Object</tt>) <strong>_root</strong> 
+    #<strong>_root</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3921,7 +3895,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_space-instance_method">
   
-    - (<tt>Object</tt>) <strong>_space</strong> 
+    #<strong>_space</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3966,7 +3940,7 @@ Glob.new(StringLiteral.new(text)) }</p>
       <div class="method_details ">
   <h3 class="signature " id="_statement_list-instance_method">
   
-    - (<tt>Object</tt>) <strong>_statement_list</strong> 
+    #<strong>_statement_list</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -3975,8 +3949,7 @@ Glob.new(StringLiteral.new(text)) }</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>statement_list = (statement_list:s1 - “;” - statement_list:s2 { s1 + s2 } |
-statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
+<p>statement_list = (statement_list:s1 - “;” - statement_list:s2 { s1 + s2 } | statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
 
 
   </div>
@@ -4188,7 +4161,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
       <div class="method_details ">
   <h3 class="signature " id="_string-instance_method">
   
-    - (<tt>Object</tt>) <strong>_string</strong> 
+    #<strong>_string</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4197,8 +4170,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>string = (“&#39;” &lt; /[^&#39;]*/ &gt; “&#39;” { QuotedString.new(text) }
-| “&quot;” &lt; /[^“]*/ &gt; ”&quot;“ {StringLiteral.new(text) })</p>
+<p>string = (“&#39;” &lt; /[^&#39;]*/ &gt; “&#39;” { QuotedString.new(text) } | “&quot;” &lt; /[^“]*/ &gt; ”&quot;“ {StringLiteral.new(text) })</p>
 
 
   </div>
@@ -4316,7 +4288,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>QuotedString</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="QuotedString.html" title="QuotedString (class)">QuotedString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="QuotedString.html#initialize-instance_method" title="QuotedString#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
@@ -4348,7 +4320,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span> <span class='const'>StringLiteral</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span> <span class='const'><span class='object_link'><a href="StringLiteral.html" title="StringLiteral (class)">StringLiteral</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="QuotedString.html#initialize-instance_method" title="QuotedString#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
@@ -4372,7 +4344,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
       <div class="method_details ">
   <h3 class="signature " id="_subshell-instance_method">
   
-    - (<tt>Object</tt>) <strong>_subshell</strong> 
+    #<strong>_subshell</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4489,7 +4461,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
       <div class="method_details ">
   <h3 class="signature " id="_subshell_command-instance_method">
   
-    - (<tt>Object</tt>) <strong>_subshell_command</strong> 
+    #<strong>_subshell_command</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4498,10 +4470,7 @@ statement_list:s1 - nl - statement_list:s2 { s1 + s2 } | expression)</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>subshell_command = (redirection_list:r1 - subshell:s - redirection_list:r2
-{ SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s {
-SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
-} | subshell:s { SubShell.new(s) })</p>
+<p>subshell_command = (redirection_list:r1 - subshell:s - redirection_list:r2 { SubShell.new(s, r1 + r2) } | redirection_list:r - subshell:s { SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r) } | subshell:s { SubShell.new(s) })</p>
 
 
   </div>
@@ -4684,7 +4653,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>SubShell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r1'>r1</span> <span class='op'>+</span> <span class='id identifier rubyid_r2'>r2</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="SubShell.html" title="SubShell (class)">SubShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SubShell.html#initialize-instance_method" title="SubShell#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r1'>r1</span> <span class='op'>+</span> <span class='id identifier rubyid_r2'>r2</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save1'>_save1</span>
@@ -4714,7 +4683,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>SubShell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="SubShell.html" title="SubShell (class)">SubShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SubShell.html#initialize-instance_method" title="SubShell#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save2'>_save2</span>
@@ -4744,7 +4713,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>SubShell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="SubShell.html" title="SubShell (class)">SubShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SubShell.html#initialize-instance_method" title="SubShell#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save3'>_save3</span>
@@ -4763,7 +4732,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save4'>_save4</span>
         <span class='kw'>break</span>
       <span class='kw'>end</span>
-      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>SubShell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+      <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="SubShell.html" title="SubShell (class)">SubShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SubShell.html#initialize-instance_method" title="SubShell#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
       <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
       <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save4'>_save4</span>
@@ -4787,7 +4756,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details ">
   <h3 class="signature " id="_valid_id-instance_method">
   
-    - (<tt>Object</tt>) <strong>_valid_id</strong> 
+    #<strong>_valid_id</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4832,7 +4801,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details ">
   <h3 class="signature " id="_variable-instance_method">
   
-    - (<tt>Object</tt>) <strong>_variable</strong> 
+    #<strong>_variable</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4906,7 +4875,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
-    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'>Deref</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
+    <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>begin</span><span class='semicolon'>;</span>  <span class='const'><span class='object_link'><a href="Deref.html" title="Deref (class)">Deref</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Deref.html#initialize-instance_method" title="Deref#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span> <span class='semicolon'>;</span> <span class='kw'>end</span>
     <span class='id identifier rubyid__tmp'>_tmp</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid__tmp'>_tmp</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='id identifier rubyid__save'>_save</span>
@@ -4925,7 +4894,7 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
       <div class="method_details ">
   <h3 class="signature " id="_ws-instance_method">
   
-    - (<tt>Object</tt>) <strong>_ws</strong> 
+    #<strong>_ws</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -4993,11 +4962,12 @@ SubShell.new(s, r) } | subshell:s - redirection_list:r { SubShell.new(s, r)
 
 </div>
 
-    <div id="footer">
-  Generated on Wed Feb 22 19:37:46 2017 by
+      <div id="footer">
+  Generated on Tue Sep  1 20:12:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.2).
+  0.9.25 (ruby-2.7.1).
 </div>
 
+    </div>
   </body>
 </html>

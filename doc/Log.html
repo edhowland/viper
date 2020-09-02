@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: Log
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+<script type="text/javascript">
+  pathId = "Log";
   relpath = '';
-  framesUrl = "frames.html#!Log.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index (L)</a> &raquo;
     
     
     <span class="title">Log</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: Log
+      <div id="content"><h1>Class: Log
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">Object</span>
       
         <ul class="fullTree">
@@ -83,21 +79,25 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
-    
+    </dd>
+  </dl>
   
-  
-    
-  
-    
+
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/runtime/log.rb</dd>
   
-</dl>
-<div class="clear"></div>
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/runtime/log.rb</dd>
+  </dl>
+  
+</div>
 
 
 
@@ -109,7 +109,7 @@
   
     <h2>
       Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -117,7 +117,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dump-class_method" title="dump (class method)">+ (Object) <strong>dump</strong>(collection, joiner = &quot;\n\t&quot;) </a>
+      <a href="#dump-class_method" title="dump (class method)">.<strong>dump</strong>(collection, joiner = &quot;\n\t&quot;)  &#x21d2; Object </a>
     
 
     
@@ -139,7 +139,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#finish-class_method" title="finish (class method)">+ (Object) <strong>finish</strong> </a>
+      <a href="#finish-class_method" title="finish (class method)">.<strong>finish</strong>  &#x21d2; Object </a>
     
 
     
@@ -161,7 +161,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#log-class_method" title="log (class method)">+ (Object) <strong>log</strong>(&amp;blk) </a>
+      <a href="#log-class_method" title="log (class method)">.<strong>log</strong>(&amp;blk)  &#x21d2; Object </a>
     
 
     
@@ -183,7 +183,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#remove-class_method" title="remove (class method)">+ (Object) <strong>remove</strong> </a>
+      <a href="#remove-class_method" title="remove (class method)">.<strong>remove</strong>  &#x21d2; Object </a>
     
 
     
@@ -205,7 +205,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#say-class_method" title="say (class method)">+ (Object) <strong>say</strong>(message, prefix = &#39;&#39;) </a>
+      <a href="#say-class_method" title="say (class method)">.<strong>say</strong>(message, prefix = &#39;&#39;)  &#x21d2; Object </a>
     
 
     
@@ -227,7 +227,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#say_time-class_method" title="say_time (class method)">+ (Object) <strong>say_time</strong>(message) </a>
+      <a href="#say_time-class_method" title="say_time (class method)">.<strong>say_time</strong>(message)  &#x21d2; Object </a>
     
 
     
@@ -249,7 +249,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#start-class_method" title="start (class method)">+ (Object) <strong>start</strong> </a>
+      <a href="#start-class_method" title="start (class method)">.<strong>start</strong>  &#x21d2; Object </a>
     
 
     
@@ -271,7 +271,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#time_of_day-class_method" title="time_of_day (class method)">+ (Object) <strong>time_of_day</strong> </a>
+      <a href="#time_of_day-class_method" title="time_of_day (class method)">.<strong>time_of_day</strong>  &#x21d2; Object </a>
     
 
     
@@ -302,7 +302,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="dump-class_method">
   
-    + (<tt>Object</tt>) <strong>dump</strong>(collection, joiner = &quot;\n\t&quot;) 
+    .<strong>dump</strong>(collection, joiner = &quot;\n\t&quot;)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -314,15 +314,15 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 34</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_dump'>dump</span> <span class='id identifier rubyid_collection'>collection</span><span class='comma'>,</span> <span class='id identifier rubyid_joiner'>joiner</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\t</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_joiner'>joiner</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='id identifier rubyid_collection'>collection</span><span class='comma'>,</span> <span class='id identifier rubyid_joiner'>joiner</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\t</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_joiner'>joiner</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -332,7 +332,7 @@
       <div class="method_details ">
   <h3 class="signature " id="finish-class_method">
   
-    + (<tt>Object</tt>) <strong>finish</strong> 
+    .<strong>finish</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -344,15 +344,15 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finish'>finish</span>
-  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_time_of_day'>time_of_day</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> Log stopped</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='id identifier rubyid_time_of_day'>time_of_day</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> Log stopped</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -362,7 +362,7 @@
       <div class="method_details ">
   <h3 class="signature " id="log-class_method">
   
-    + (<tt>Object</tt>) <strong>log</strong>(&amp;blk) 
+    .<strong>log</strong>(&amp;blk)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -381,8 +381,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 11</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_log'>log</span> <span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span>
-  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='const'>LOGF</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_log'>log</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#LOGF-constant" title="LOGF (constant)">LOGF</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -392,7 +392,7 @@
       <div class="method_details ">
   <h3 class="signature " id="remove-class_method">
   
-    + (<tt>Object</tt>) <strong>remove</strong> 
+    .<strong>remove</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -404,15 +404,15 @@
       <pre class="lines">
 
 
-32
-33
-34</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span>
-  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_unlink'>unlink</span> <span class='const'>LOGF</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_unlink'>unlink</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#LOGF-constant" title="LOGF (constant)">LOGF</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -422,7 +422,7 @@
       <div class="method_details ">
   <h3 class="signature " id="say-class_method">
   
-    + (<tt>Object</tt>) <strong>say</strong>(message, prefix = &#39;&#39;) 
+    .<strong>say</strong>(message, prefix = &#39;&#39;)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -434,17 +434,17 @@
       <pre class="lines">
 
 
-22
-23
-24
-25</pre>
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 25</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_say'>say</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_log'>log</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -454,7 +454,7 @@
       <div class="method_details ">
   <h3 class="signature " id="say_time-class_method">
   
-    + (<tt>Object</tt>) <strong>say_time</strong>(message) 
+    .<strong>say_time</strong>(message)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -466,14 +466,14 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_say_time'>say_time</span> <span class='id identifier rubyid_message'>message</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_say_time'>say_time</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_time_of_day'>time_of_day</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -484,7 +484,7 @@
       <div class="method_details ">
   <h3 class="signature " id="start-class_method">
   
-    + (<tt>Object</tt>) <strong>start</strong> 
+    .<strong>start</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -496,14 +496,14 @@
       <pre class="lines">
 
 
-14
 15
 16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
   <span class='id identifier rubyid_log'>log</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
@@ -518,7 +518,7 @@
       <div class="method_details ">
   <h3 class="signature " id="time_of_day-class_method">
   
-    + (<tt>Object</tt>) <strong>time_of_day</strong> 
+    .<strong>time_of_day</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -530,15 +530,15 @@
       <pre class="lines">
 
 
+7
 8
-9
-10</pre>
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/log.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_time_of_day'>time_of_day</span>
-  <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%m/%d/%y %H:%M</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%m/%d/%y %H:%M</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -549,11 +549,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Wed Feb 22 19:37:45 2017 by
+      <div id="footer">
+  Generated on Tue Sep  1 20:12:37 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.2).
+  0.9.25 (ruby-2.7.1).
 </div>
 
+    </div>
   </body>
 </html>

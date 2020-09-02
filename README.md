@@ -12,18 +12,22 @@ This is a simple editor in Ruby that works with screen readers, esp. like VoiceO
 in Mac OS, or with Orca in Linux with Gnome desktops.
 Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
 
+## Source
+
+<https://github.com/edhowland/viper>
+
+## Dockerfile
+
+<https://github.com/edhowland/viper/blob/feature/2.0.0/docker/Dockerfile>
+
+
 
 ## System requirements
 
 
 
-Viper requires Ruby versions:
+Viper requires Ruby versions: 2.2 and above
 
-- ruby 2.2.2p95
-- ruby 2.3.1p112
-- ruby 2.4.1p111
-
-Or similar versions of Ruby.
 
 ### Note on keyboard and Terminal emulators
 

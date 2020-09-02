@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: Hal
   
-    &mdash; Documentation by YARD 0.8.7.6
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+<script type="text/javascript">
+  pathId = "Hal";
   relpath = '';
-  framesUrl = "frames.html#!Hal.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index (H)</a> &raquo;
     
     
     <span class="title">Hal</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: Hal
+      <div id="content"><h1>Class: Hal
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">Object</span>
       
         <ul class="fullTree">
@@ -83,23 +79,38 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/runtime/hal.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
     
-  
-  
-    
-  
-    
-  
-  
-  
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/runtime/hal.rb</dd>
-  
-</dl>
-<div class="clear"></div>
+<p>hal - class Hal - Hardware Abstraction Layer - dispatches to file or VFS TODO: Should figure a better way to not use global vars rubocop:disable Style/GlobalVars</p>
 
 
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -109,7 +120,7 @@
   
     <h2>
       Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -117,7 +128,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%5B%5D-class_method" title="[] (class method)">+ (Object) <strong>[]</strong>(path) </a>
+      <a href="#[]-class_method" title="[] (class method)">.<strong>[]</strong>(path)  &#x21d2; Object </a>
     
 
     
@@ -141,7 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#basename-class_method" title="basename (class method)">+ (Object) <strong>basename</strong>(path) </a>
+      <a href="#_dispatch-class_method" title="_dispatch (class method)">.<strong>_dispatch</strong>(arg, within = false)  &#x21d2; Object </a>
     
 
     
@@ -163,7 +174,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#chdir-class_method" title="chdir (class method)">+ (Object) <strong>chdir</strong>(path, current_pwd) </a>
+      <a href="#basename-class_method" title="basename (class method)">.<strong>basename</strong>(path)  &#x21d2; Object </a>
     
 
     
@@ -185,7 +196,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#directory%3F-class_method" title="directory? (class method)">+ (Boolean) <strong>directory?</strong>(path) </a>
+      <a href="#chdir-class_method" title="chdir (class method)">.<strong>chdir</strong>(path, current_pwd = pwd)  &#x21d2; Object </a>
     
 
     
@@ -207,7 +218,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dirname-class_method" title="dirname (class method)">+ (Object) <strong>dirname</strong>(path) </a>
+      <a href="#dirname-class_method" title="dirname (class method)">.<strong>dirname</strong>(path)  &#x21d2; Object </a>
     
 
     
@@ -229,7 +240,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#exist%3F-class_method" title="exist? (class method)">+ (Boolean) <strong>exist?</strong>(path) </a>
+      <a href="#method_missing-class_method" title="method_missing (class method)">.<strong>method_missing</strong>(name, *args)  &#x21d2; Object </a>
     
 
     
@@ -251,51 +262,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#mkdir_p-class_method" title="mkdir_p (class method)">+ (Object) <strong>mkdir_p</strong>(path) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#mv-class_method" title="mv (class method)">+ (Object) <strong>mv</strong>(src, dest) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#open-class_method" title="open (class method)">+ (Object) <strong>open</strong>(path, mode) </a>
+      <a href="#open-class_method" title="open (class method)">.<strong>open</strong>(path, mode)  &#x21d2; Object </a>
     
 
     
@@ -319,7 +286,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pwd-class_method" title="pwd (class method)">+ (Object) <strong>pwd</strong> </a>
+      <a href="#pwd-class_method" title="pwd (class method)">.<strong>pwd</strong>  &#x21d2; Object </a>
     
 
     
@@ -341,7 +308,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#realpath-class_method" title="realpath (class method)">+ (Object) <strong>realpath</strong>(path) </a>
+      <a href="#relative%3F-class_method" title="relative? (class method)">.<strong>relative?</strong>(path)  &#x21d2; Boolean </a>
     
 
     
@@ -363,7 +330,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#relative%3F-class_method" title="relative? (class method)">+ (Boolean) <strong>relative?</strong>(path) </a>
+      <a href="#respond_to_missing%3F-class_method" title="respond_to_missing? (class method)">.<strong>respond_to_missing?</strong>(name, private = false)  &#x21d2; Boolean </a>
     
 
     
@@ -385,7 +352,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rm-class_method" title="rm (class method)">+ (Object) <strong>rm</strong>(path) </a>
+      <a href="#touch-class_method" title="touch (class method)">.<strong>touch</strong>(path)  &#x21d2; Object </a>
     
 
     
@@ -407,29 +374,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#touch-class_method" title="touch (class method)">+ (Object) <strong>touch</strong>(path) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#virtual%3F-class_method" title="virtual? (class method)">+ (Boolean) <strong>virtual?</strong>(path) </a>
+      <a href="#virtual%3F-class_method" title="virtual? (class method)">.<strong>virtual?</strong>(path)  &#x21d2; Boolean </a>
     
 
     
@@ -462,7 +407,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="[]-class_method">
   
-    + (<tt>Object</tt>) <strong>[]</strong>(path) 
+    .<strong>[]</strong>(path)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -496,11 +441,49 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='op'>[]</span> <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='gvar'>$in_virtual</span> <span class='op'>||</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-    <span class='const'>VirtualLayer</span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
   <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="_dispatch-class_method">
+  
+    .<strong>_dispatch</strong>(arg, within = false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid__dispatch'>_dispatch</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='comma'>,</span> <span class='id identifier rubyid_within'>within</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_arg'>arg</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_within'>within</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span>
+  <span class='kw'>else</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -511,7 +494,7 @@
       <div class="method_details ">
   <h3 class="signature " id="basename-class_method">
   
-    + (<tt>Object</tt>) <strong>basename</strong>(path) 
+    .<strong>basename</strong>(path)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -523,15 +506,15 @@
       <pre class="lines">
 
 
-71
-72
-73</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 61</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_basename'>basename</span> <span class='id identifier rubyid_path'>path</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span> <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_basename'><span class='object_link'><a href="PhysicalLayer.html#basename-class_method" title="PhysicalLayer.basename (method)">basename</a></span></span> <span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -541,7 +524,7 @@
       <div class="method_details ">
   <h3 class="signature " id="chdir-class_method">
   
-    + (<tt>Object</tt>) <strong>chdir</strong>(path, current_pwd) 
+    .<strong>chdir</strong>(path, current_pwd = pwd)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -553,8 +536,6 @@
       <pre class="lines">
 
 
-26
-27
 28
 29
 30
@@ -567,78 +548,16 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 28</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_chdir'>chdir</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_current_pwd'>current_pwd</span>
-<span class='comment'>#  binding.pry
-</span>  <span class='id identifier rubyid_in_virtual'>in_virtual</span> <span class='op'>=</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_current_pwd'>current_pwd</span><span class='rparen'>)</span>
-<span class='comment'>#    if in_virtual
-</span>  <span class='kw'>if</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_relative?'>relative?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_in_virtual'>in_virtual</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_current_pwd'>current_pwd</span> <span class='op'>=</span> <span class='id identifier rubyid_pwd'>pwd</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_in_virtual'>in_virtual</span> <span class='op'>=</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_current_pwd'>current_pwd</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_relative?'>relative?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_in_virtual'>in_virtual</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
     <span class='gvar'>$in_virtual</span> <span class='op'>=</span> <span class='kw'>true</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='id identifier rubyid_path'>path</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_chdir'><span class='object_link'><a href="VirtualLayer.html#chdir-class_method" title="VirtualLayer.chdir (method)">chdir</a></span></span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>else</span>
     <span class='gvar'>$in_virtual</span> <span class='op'>=</span> <span class='kw'>false</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="directory?-class_method">
-  
-    + (<tt>Boolean</tt>) <strong>directory?</strong>(path) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-57
-58
-59
-60
-61
-62
-63</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 57</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_directory?'>directory?</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span> <span class='id identifier rubyid_path'>path</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_chdir'><span class='object_link'><a href="PhysicalLayer.html#chdir-class_method" title="PhysicalLayer.chdir (method)">chdir</a></span></span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -649,7 +568,7 @@
       <div class="method_details ">
   <h3 class="signature " id="dirname-class_method">
   
-    + (<tt>Object</tt>) <strong>dirname</strong>(path) 
+    .<strong>dirname</strong>(path)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -661,14 +580,14 @@
       <pre class="lines">
 
 
-74
-75
-76</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 65</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_dirname'>dirname</span> <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span> <span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -677,69 +596,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="exist?-class_method">
+  <h3 class="signature " id="method_missing-class_method">
   
-    + (<tt>Boolean</tt>) <strong>exist?</strong>(path) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-98
-99
-100
-101
-102
-103
-104</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 98</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_path'>path</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-          <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_path'>path</span>
-        <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="mkdir_p-class_method">
-  
-    + (<tt>Object</tt>) <strong>mkdir_p</strong>(path) 
+    .<strong>method_missing</strong>(name, *args)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -751,60 +610,24 @@
       <pre class="lines">
 
 
-42
-43
-44
-45
-46
-47
-48</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 42</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_mkdir_p'>mkdir_p</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="mv-class_method">
-  
-    + (<tt>Object</tt>) <strong>mv</strong>(src, dest) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
+81
+82
+83
 84
 85
 86
 87
-88
-89
-90</pre>
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 81</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mv'>mv</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dest'>dest</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_src'>src</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_mv'>mv</span><span class='lparen'>(</span><span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span><span class='lparen'>(</span><span class='id identifier rubyid_dest'>dest</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid__dispatch'>_dispatch</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='comment'># , $in_virtual
+</span>    <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_mv'>mv</span> <span class='id identifier rubyid_src'>src</span><span class='comma'>,</span> <span class='id identifier rubyid_dest'>dest</span>
+    <span class='kw'>super</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -815,7 +638,7 @@
       <div class="method_details ">
   <h3 class="signature " id="open-class_method">
   
-    + (<tt>Object</tt>) <strong>open</strong>(path, mode) 
+    .<strong>open</strong>(path, mode)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -838,22 +661,22 @@
       <pre class="lines">
 
 
+45
+46
+47
+48
+49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 45</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_open'>open</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span>
-<span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span> <span class='op'>||</span> <span class='gvar'>$in_virtual</span>
-  <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
-<span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='gvar'>$in_virtual</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="VirtualLayer.html#open-class_method" title="VirtualLayer.open (method)">open</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_open'><span class='object_link'><a href="PhysicalLayer.html#open-class_method" title="PhysicalLayer.open (method)">open</a></span></span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -864,7 +687,7 @@
       <div class="method_details ">
   <h3 class="signature " id="pwd-class_method">
   
-    + (<tt>Object</tt>) <strong>pwd</strong> 
+    .<strong>pwd</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -876,60 +699,22 @@
       <pre class="lines">
 
 
-15
 16
 17
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pwd'>pwd</span>
   <span class='kw'>if</span> <span class='gvar'>$in_virtual</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_pwd'><span class='object_link'><a href="VirtualLayer.html#pwd-class_method" title="VirtualLayer.pwd (method)">pwd</a></span></span>
   <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="realpath-class_method">
-  
-    + (<tt>Object</tt>) <strong>realpath</strong>(path) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-77
-78
-79
-80
-81
-82
-83</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 77</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_realpath'>realpath</span> <span class='id identifier rubyid_path'>path</span>
-<span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-  <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span> <span class='id identifier rubyid_path'>path</span>
-<span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span> <span class='id identifier rubyid_path'>path</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_pwd'><span class='object_link'><a href="PhysicalLayer.html#pwd-class_method" title="PhysicalLayer.pwd (method)">pwd</a></span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -940,7 +725,7 @@
       <div class="method_details ">
   <h3 class="signature " id="relative?-class_method">
   
-    + (<tt>Boolean</tt>) <strong>relative?</strong>(path) 
+    .<strong>relative?</strong>(path)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -974,15 +759,15 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_relative?'>relative?</span> <span class='id identifier rubyid_path'>path</span>
-   <span class='id identifier rubyid_path'>path</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_relative?'>relative?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -990,37 +775,51 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="rm-class_method">
+  <h3 class="signature " id="respond_to_missing?-class_method">
   
-    + (<tt>Object</tt>) <strong>rm</strong>(path) 
-  
-
+    .<strong>respond_to_missing?</strong>(name, private = false)  &#x21d2; <tt>Boolean</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-91
-92
-93
-94
-95
-96
-97</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 77</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_rm'>rm</span> <span class='id identifier rubyid_path'>path</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-          <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_rm'>rm</span><span class='lparen'>(</span><span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_realpath'>realpath</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
-        <span class='kw'>else</span>
-          <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_rm'>rm</span> <span class='id identifier rubyid_path'>path</span>
-        <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_private'>private</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1030,7 +829,7 @@
       <div class="method_details ">
   <h3 class="signature " id="touch-class_method">
   
-    + (<tt>Object</tt>) <strong>touch</strong>(path) 
+    .<strong>touch</strong>(path)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1042,22 +841,22 @@
       <pre class="lines">
 
 
-64
-65
-66
-67
-68
-69
-70</pre>
+53
+54
+55
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 53</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_touch'>touch</span> <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_touch'>touch</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='gvar'>$in_virtual</span> <span class='op'>||</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_touch'>touch</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_touch'><span class='object_link'><a href="VirtualLayer.html#touch-class_method" title="VirtualLayer.touch (method)">touch</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='const'>PhysicalLayer</span><span class='period'>.</span><span class='id identifier rubyid_touch'>touch</span> <span class='id identifier rubyid_path'>path</span>
+    <span class='const'><span class='object_link'><a href="PhysicalLayer.html" title="PhysicalLayer (class)">PhysicalLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_touch'><span class='object_link'><a href="PhysicalLayer.html#touch-class_method" title="PhysicalLayer.touch (method)">touch</a></span></span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1068,7 +867,7 @@
       <div class="method_details ">
   <h3 class="signature " id="virtual?-class_method">
   
-    + (<tt>Boolean</tt>) <strong>virtual?</strong>(path) 
+    .<strong>virtual?</strong>(path)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1104,15 +903,15 @@
       <pre class="lines">
 
 
-39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/runtime/hal.rb', line 40</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
-    <span class='const'>VirtualLayer</span><span class='period'>.</span><span class='id identifier rubyid_virtual?'>virtual?</span> <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_virtual?'>virtual?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="VirtualLayer.html" title="VirtualLayer (class)">VirtualLayer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_virtual?'><span class='object_link'><a href="VirtualLayer.html#virtual%3F-class_method" title="VirtualLayer.virtual? (method)">virtual?</a></span></span> <span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1123,11 +922,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Wed Feb 22 19:37:45 2017 by
+      <div id="footer">
+  Generated on Tue Sep  1 20:12:37 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.2).
+  0.9.25 (ruby-2.7.1).
 </div>
 
+    </div>
   </body>
 </html>
