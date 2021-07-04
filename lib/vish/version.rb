@@ -1,7 +1,7 @@
 # version - class Vish::VERSION - version of Vish shell
 
 class Vish
-  VERSION = '1.99-rc0'.freeze
+  VERSION = '2.0.0'.freeze
   RELEASE = 'Cleo'.freeze
   DESCRIPTION = <<-EOD.freeze
 Viper version #{Vish::VERSION}

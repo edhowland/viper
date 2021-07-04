@@ -98,7 +98,7 @@ lib/bin/suppress.rb aee1a17bb9b117a7d4bd2953000e47ca8ef76c2b
 lib/bufnode/mark.rb 4537f09e2f4eeefbfa699f656ff94624540777a2
 lib/bufnode/peek.rb c80fb8957eda24865bbeba762804c030fc97dc75
 lib/bufnode/push.rb 97911e4ea29caee71506ceee641c609beb3db66d
-lib/vish/version.rb 29de7421e5f94c31d2c037f2ff9edf0621fff68f
+lib/vish/version.rb 6c726d795c87f228bd4d6269c08d12ecd1d6a12c
 lib/api/blankable.rb d819788cd6ae4b6358fb8281ff8e57398870f067
 lib/api/constants.rb 765ee45446b459ec77a084ccf1671af945fd3f44
 lib/ast/statement.rb 0b55d9ee899ece336830afc9ee15a4645f05dd08
