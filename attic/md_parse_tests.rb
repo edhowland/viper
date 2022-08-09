@@ -8,6 +8,9 @@ class MdParseTests < BaseSpike
     @array = []
         @parser = parse_md(@array)
   end
+  def test_setup_ok
+    assert true
+    end
   def test_can_parse_empty_string
     @parser.render ''
   end

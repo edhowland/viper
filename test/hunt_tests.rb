@@ -29,6 +29,9 @@ class HuntTest < BaseSpike
     @cmd.back array, String
     assert_eq array.first.to_s, 'sailor'
   end
+
+  # Since we removed Markdown parsing, this test not longer applies
+=begin
   def test_dash_t_hunts_to_top
     array = Hal.open('/v/xx', 'r').io
     array.clear
@@ -40,4 +43,5 @@ class HuntTest < BaseSpike
     @cmd.call '-t', '/v/xx', 'String', env: @vm.ios, frames: @vm.fs
     assert_eq array.first.to_s, 'Heading 1 First'
   end
+=end
 end
