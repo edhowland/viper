@@ -16,6 +16,8 @@ class VirtualMachine
     end
     attr_reader :return_code
   end
+  class IOError < RuntimeError
+  end
 
   def _init
     #
@@ -129,6 +131,7 @@ _saved_old = Hal.pwd
    end
 
   def mount(*args, env:, frames:)
+    raise IOError.new('Argument to mount cannot be empty') if args.length.zero?
     root = VFSRoot.new
     VirtualLayer.set_root root
     root.mkdir_p  args[0]
