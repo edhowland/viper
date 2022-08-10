@@ -2,8 +2,9 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.0
+### Version 2.0.2
 
+See the file CHANGELOG.md for updates.
 Releas : cleo
 
 ## Abstract

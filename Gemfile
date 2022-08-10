@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 # these gems are for runtime/development use:
-gem 'kpeg'
+gem 'kpeg', '1.1.0'
 
 # these gems are needed for runtime, and testing
 gem 'remedy'
