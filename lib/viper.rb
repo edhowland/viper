@@ -2,6 +2,7 @@
 require 'rake'
 require 'open3'
 require 'stringio'
+require 'set'
 
 require_relative 'api'
 require_relative 'ast'

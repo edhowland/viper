@@ -7,9 +7,9 @@
 # These traits are implemented as a refinement to the String class
 
 module CharacterTraits
-  refine String do
+  #refine String do
     def traits
-      @traits || @traits = Set.new
+      @traits || @traits = ::Set.new
     end
 
     def includes_trait?(trait)
@@ -23,11 +23,15 @@ module CharacterTraits
     def remove_trait(trait)
       traits.delete trait
     end
-  end
+  #end
 end
 
+class String
+  include CharacterTraits
+  end
+  
 class Buffer
-  using CharacterTraits
+  #using CharacterTraits
 
   def trait_set(trait)
     trait = trait.to_sym

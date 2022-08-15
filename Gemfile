@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gem 'kpeg', '1.1.0'
 
 # these gems are needed for runtime, and testing
-gem 'remedy'
+gem 'remedy', '0.2.0'
 gem 'pry'
 #gem 'redcarpet'
 #gem "espeak-ruby", require: "espeak"

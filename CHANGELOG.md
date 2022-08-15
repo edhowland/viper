@@ -1,4 +1,17 @@
 # Changelog for Viper project
+
+## 2022-08-15
+
+Release 2.0.3
+
+- Added require 'set' to lib/viper.rb : Fixes problem w/Ruby 3.1+
+
+All tests now pass
+Somehow lib/api/character_traits.rb:12       @traits || @traits = ::Set.new
+The Set constant could not be found or  w/o the ::Set, assumed
+CharacterTraits::Set. Unclear what changed from Ruby 3.0 to 3.1
+
+
 ## 2022-08-10
 
 Release 2.0.2
