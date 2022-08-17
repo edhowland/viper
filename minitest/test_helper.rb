@@ -2,6 +2,8 @@
 require_relative '../lib/viper'
 # Put test helper classes and modules here
 require_relative 'lib/my_mock'
+require_relative 'lib/my_stub'
+
 
 
 
@@ -33,6 +35,9 @@ def assert_not_empty obj
 end
 
 
+def assert_not_nil obj
+  assert !obj.nil?
+end
 # Probably ok, too
 def assert_is obj, klass
   assert obj.instance_of?(klass)

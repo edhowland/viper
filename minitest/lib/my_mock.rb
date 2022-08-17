@@ -15,7 +15,7 @@ class MyMock
   def unexpect name
         instance_eval "undef :#{name}" if self.respond_to? name
   end
-  def expect name, *args, **keywords
+  def expect name, *args, **keywords, &blk
     wont name
     @expects << [name, args, keywords]
   end
