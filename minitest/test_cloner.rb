@@ -2,6 +2,8 @@
 
 require_relative 'test_helper'
 
+
+
 class ClonerTests < MiniTest::Test
   def test_calls_clone
     m = MiniTest::Mock.new
@@ -9,12 +11,15 @@ class ClonerTests < MiniTest::Test
     b2 = cloner m
     m.verify
   end
-  def test_calls_under_line_clone
-    m = MiniTest::Mock.new
-    #m.wont :clone
-    m.expect :_clone, true
+  def test_clone_is_not_called_when_dunder_clone_is_called
+
+    m = MyMock.new
+    #m.extend NeverCallable
+
+    m.expect :_clone   #, true
+    m.unexpect :clone   # should never call clone
     b1 = cloner m
-    m.verify
+    m.verify!
   end
   def test_calls_deep_clone_first
     m = MiniTest::Mock.new
