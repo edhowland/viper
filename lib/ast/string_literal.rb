@@ -12,13 +12,13 @@ class StringLiteral < QuotedString
   protected
 
   def decurlify(arg)
-    m = arg.match(/:{([_\w]+)\}/)
+    m = arg.match(/:\{([_a-zA-Z0-9]+)\}/)
     return '' if m.nil?
     m.captures.first
   end
 
   def interpolate(string, frames:)
-    string.gsub(/:\{[_\w]+\}/).each do |v|
+    string.gsub(/:\{[_a-zA-Z0-9]+\}/).each do |v|
       var_s = decurlify(v)
       if var_s.nil?
         ''
