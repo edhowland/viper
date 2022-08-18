@@ -4,9 +4,12 @@ require_relative 'test_helper'
 
 class PipeTests < MiniTest::Test
   def mk_stmnt command, &blk
-    my_stub ordinal: COMMAND, call: command do |o|
-      s = Statement.new [ o ]
-      yield s if block_given?
+    arg = Argument.new ''
+    arg.stub(:ordinal, COMMAND) do
+      arg.stub(:call, command) do
+      s = Statement.new [ arg ]
+        yield s if block_given?
+      end
     end
   end
   def mk_params left, right, &blk

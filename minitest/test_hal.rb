@@ -42,9 +42,9 @@ class HalTest < MiniTest::Test
     end
   end
   def test_chdir_non_existant_physical_raises_no_such_file_or_dir
-            assert_raises Errno::ENOENT do 
-              Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
-            end 
+    assert_raises Errno::ENOENT do 
+      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
+    end 
   end
   def test_realpathequals_here
     home_dir do
@@ -57,12 +57,7 @@ class HalTest < MiniTest::Test
     Hal.rm '/v/xxx'
     assert_false Hal.exist?('/v/xxx')
   end
-  def test_rm
-    Hal.touch '/v/xxx'
-    assert Hal.exist?( '/v/xxx')
-    Hal.rm '/v/xxx'
-    assert_false Hal.exist?('/v/xxx')
-  end
+
   def test_rm_raises_err_w_no_such_file_physical
     assert_raises Errno::ENOENT do 
       Hal.rm 'xyzzy'

@@ -38,11 +38,7 @@ class StatementTest < MiniTest::Test
     @vm.call block
   end
   attr_accessor :vm
-  def test_stub_works
-    my_stub m: 1 do |o|
-      assert_eq o.m, 1
-    end
-  end
+
   def test_statement_new
     _ = Statement.new [ 'nop' ]
   end
@@ -128,9 +124,8 @@ class StatementTest < MiniTest::Test
     ferr.expect :close
     merr = MyMock.new
     merr.expect(:open) { ferr }
-      begin
-
-    s.bump_frames env:@vm.ios, frames:@vm.fs do |ios, fs|
+    begin
+      s.bump_frames env:@vm.ios, frames:@vm.fs do |ios, fs|
       ios[:in] = m
       ios[:out] = mout
       ios[:err] = merr
@@ -138,7 +133,7 @@ class StatementTest < MiniTest::Test
         raise NullException.new
       end
     end
-    rescue NullException  => err
+    rescue NullException  => _err
     end
     fin.verify!
     m.verify!

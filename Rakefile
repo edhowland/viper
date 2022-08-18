@@ -3,7 +3,7 @@
 require 'rake/testtask'
 
 Rake::TestTask.new do|t|
-  t.test_files = FileList['minitest/test_*.rb']
+  t.test_files = FileList['minitest/test_*.rb'].reject {|e| e.match(/test_helper/) }
 end
 
 
