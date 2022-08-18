@@ -117,7 +117,7 @@ class VirtualMachineTests < MiniTest::Test
   end
   def test_cloned_vm_does_not_change_pwd_in_parent_vm
     pwd = @vm.cdbuf[0]
-    oldpwd = @vm.cdbuf[1]
+    _oldpwd = @vm.cdbuf[1]
     nvm = @vm._clone
     nvm.cd 'lib', env:nvm.ios, frames:nvm.fs
     @vm.restore_pwd

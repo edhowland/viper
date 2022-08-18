@@ -35,7 +35,8 @@ class VirtualLayerTests < MiniTest::Test
   end
   def test_cp_file_to_existing_object
     file = VirtualLayer.touch 'file'
-    old = VirtualLayer.touch 'old'
+    #old = 
+    VirtualLayer.touch 'old'
     file.print 'hello'
     file.rewind
     assert_eq file.string, 'hello'

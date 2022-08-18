@@ -12,7 +12,7 @@ class TraitTest < MiniTest::Test
   def test_ok
     assert true
   end
-    def test_w_no_trait_set_has_returns_false
+  def test_w_no_trait_set_has_returns_false
       create 'hello'
       assert_false @buf.trait_has 'm'
   end
@@ -70,7 +70,7 @@ class TraitTest < MiniTest::Test
     @buf.fwd; @buf.fwd
     @buf.trait_set 'm'
     @buf.beg
-    var = @buf.trait_first 'm'
+    _var = @buf.trait_first 'm'
     assert  @buf.position.zero?
   end
   def test_trait_next_does_change_position
@@ -79,7 +79,7 @@ class TraitTest < MiniTest::Test
     @buf.trait_set 'm'
     @buf.beg
     @buf.fwd
-    var = @buf.trait_next 'm'
+    _var = @buf.trait_next 'm'
     assert_equal @buf.position, 1
   end
   def test_trait_prev_does_change_position
@@ -95,12 +95,12 @@ class TraitTest < MiniTest::Test
     @buf.fwd; @buf.fwd; @buf.fwd
     @buf.trait_set 'm'
     @buf.beg
-    var = @buf.trait_exists 'm'
+    _var = @buf.trait_exists 'm'
     assert_equal @buf.position, 0
   end
   def test_trait_exists_w_no_mark_set_does_not_change_position
     create 'hello'
-    var = @buf.trait_exists 'm'
+    _var = @buf.trait_exists 'm'
     assert_equal @buf.position, 0
   end
   def test_trait_first_finds_actual_one_given_multiple_traits_set

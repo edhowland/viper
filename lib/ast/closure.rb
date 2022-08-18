@@ -32,8 +32,8 @@ class Sorty
 end
 
 
- class Closure  
-   class << self
+class Closure  
+  class << self
     def floor(stack)
       (stack.rindex_of {|e| e[:__FUNCTION_TYPE__] == 'function'}) || BFN::Max
     end
