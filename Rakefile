@@ -1,5 +1,4 @@
 # Rakefile for running tests
-#require 'bundler/gem_tasks'
 require 'rake/testtask'
 
 Rake::TestTask.new do|t|
@@ -10,18 +9,17 @@ end
 
 import './lib/vish/compile.rake'
 
-task :test_rb do
-  sh 'ruby test/all_tests.rb'
-end
 
+desc 'Tests Vish commands'
 task :test_vsh do
-  sh './bin/viper --no-finish -m nop -s test/all_tests.vsh'
+  sh './bin/viper --no-finish -m nop -s vshtest/all_tests.vsh'
 end
+desc 'Run all tests. Including Ruby and Vish tests'
+task all_tests: [:test, :test_vsh]
 
-#task test: [:test_rb, :test_vsh]
+task default: [:all_tests]
 
-task default: [:test]
-
+desc 'Build documentation'
 task :yard do
   sh 'yardoc -o ./doc'
 end
