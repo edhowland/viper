@@ -55,8 +55,8 @@ end
 
       stack.frames[rng]
     end
-      def closed?(start, fin)
+    def closed?(start, fin)
       !(start == fin)
+    end
   end
-  end
- end
+end

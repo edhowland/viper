@@ -3,15 +3,15 @@
 require_relative 'test_helper'
 
 class BinTests < MiniTest::Test
-    def setup
-  @orig_dir = File.dirname(File.expand_path(__FILE__))
+  def setup
+    @orig_dir = File.dirname(File.expand_path(__FILE__))
     @errbuf = StringIO.new
     @outbuf = StringIO.new
     @inbuf = StringIO.new
     @vm = VirtualMachine.new
     @vm.ios[:err] = @errbuf
     @vm.ios[:out] = @outbuf
-        @vm.cd @orig_dir, env:@vm.ios, frames:@vm.fs
+    @vm.cd @orig_dir, env:@vm.ios, frames:@vm.fs
 
     @vm.mount '/v', env:@vm.ios, frames:@vm.fs
     @vm.mkdir '/v/bin', env:@vm.ios, frames:@vm.fs
@@ -84,7 +84,7 @@ class BinTests < MiniTest::Test
     assert_eq @vm.fs[:result], 'ok'
   end
   def test_capture_sets_last_exception
-    result = go 'capture { raise bad }'
+    go 'capture { raise bad }'
     assert_eq @vm.fs[:last_exception], 'bad'
   end
   def test_capture_catch_block_runs

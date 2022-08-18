@@ -120,7 +120,7 @@ class FrameStack
     @frames.reduce({}) {|i, j| j.each_pair {|k,v| i[k] = v } }
   end
   # index_of returns index of @frames where given block returns true
-    def index_of &blk
+  def index_of &blk
     result = false
     result = @frames.find(&blk) if block_given?
     if result

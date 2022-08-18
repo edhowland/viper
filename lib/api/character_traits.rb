@@ -7,7 +7,6 @@
 # These traits are implemented as a refinement to the String class
 
 module CharacterTraits
-  #refine String do
     def traits
       @traits || @traits = ::Set.new
     end
@@ -23,13 +22,12 @@ module CharacterTraits
     def remove_trait(trait)
       traits.delete trait
     end
-  #end
 end
 
 class String
   include CharacterTraits
-  end
-  
+end
+
 class Buffer
   #using CharacterTraits
 

@@ -40,7 +40,7 @@ class Speachcfg < BaseCommand
   end
 
   def seterr arg, env:
-  if arg == 'stderr'
+    if arg == 'stderr'
       env.first[:err] = $stderr
     elsif arg == 'EspeakIF'
       env.first[:err] = EspeakIF.new

@@ -9,8 +9,8 @@ class HalTest < MiniTest::Test
     yield
     Dir.chdir old
   end
-    def setup
-      @orig_dir = File.dirname(File.expand_path(__FILE__))
+  def setup
+    @orig_dir = File.dirname(File.expand_path(__FILE__))
     @vm = VirtualMachine.new
     @vm.mount '/v', env:@vm.ios, frames:@vm.fs
     @vroot = @vm.fs[:vroot]
@@ -57,7 +57,7 @@ class HalTest < MiniTest::Test
     Hal.rm '/v/xxx'
     assert_false Hal.exist?('/v/xxx')
   end
-    def test_rm
+  def test_rm
     Hal.touch '/v/xxx'
     assert Hal.exist?( '/v/xxx')
     Hal.rm '/v/xxx'

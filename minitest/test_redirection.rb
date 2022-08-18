@@ -49,7 +49,7 @@ assert_eq @ios[:out].mode, 'w'
     @frames[:pathn] = 'xxyyzz'
     var = Deref.new :pathn
     redir = Redirection.new '<', var
-    result = redir.call env:@ios, frames:@frames
+    _ = redir.call env:@ios, frames:@frames
     assert_is @ios[:in], ObjectRedir
     #assert_eq @ios[:in].target, 'xxyyzz'
     assert_eq @ios[:in].target, 'xxyyzz'
@@ -59,7 +59,7 @@ assert_eq @ios[:out].mode, 'w'
     var = Deref.new :pathn
     redir = Redirection.new '<', var
     assert_raises AmbigousRedirection do 
-      result = redir.call env:@ios, frames:@frames
+      _ = redir.call env:@ios, frames:@frames
     end
   end
 end

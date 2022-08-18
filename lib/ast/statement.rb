@@ -20,7 +20,7 @@ class Statement
     @line_number = line_number
   end
   attr_reader :context, :line_number
-  
+
   # comment these out to restore old call method
  # alias_method :old_call, :call
 #  alias_method :call, :_call
@@ -48,7 +48,7 @@ class Statement
     @context[command_ndx] = lit
     @context.map(&:to_s).join(' ')
   end
-  
+
   def expand_and_call(env:, frames:)
     al = expand_alias(frames: frames)
     if frames.vm.seen.member? al
@@ -68,7 +68,7 @@ class Statement
     ctx.reject do |e|
       redirectable?(e) &&
         redirect(e, env: env, frames: frames).nil?
-               end
+    end
   end
 
   # perform any variable assignments
@@ -95,19 +95,17 @@ class Statement
     env.push
     frames.push
     yield env, frames
-    ensure
-      env.pop
-      frames.pop
+  ensure
+    env.pop
+    frames.pop
   end
-  
+
   def wrap_streams env:, frames:, &blk
       closers = open_redirs env: env
-      begin
-      yield env, frames
-    ensure
+    yield env, frames
+  ensure
     fail 'nil found for closers' if closers.nil?
-      close_redirs closers  
-    end
+    close_redirs closers  
   end
 
   # prepare context and resolve command or function and call with args and env

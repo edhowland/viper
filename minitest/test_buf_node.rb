@@ -17,11 +17,11 @@ class BufNodeTests < MiniTest::Test
     assert_is node, BufNode
     buffer = node['buffer']
     assert_is buffer, Buffer
-   end
-   def test_deep_clone_creates_cloned_object
-         result = @mkbuf.call '/v/buf/xxx', env:@vm.ios, frames:@vm.fs
+  end
+  def test_deep_clone_creates_cloned_object
+    _ = @mkbuf.call '/v/buf/xxx', env:@vm.ios, frames:@vm.fs
     node = @vroot['/v/buf/xxx']
-         cnode =  node.deep_clone
-         assert_neq cnode.object_id, node.object_id
-   end
+    cnode =  node.deep_clone
+    assert_neq cnode.object_id, node.object_id
+  end
 end

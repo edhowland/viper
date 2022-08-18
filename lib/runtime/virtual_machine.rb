@@ -128,7 +128,7 @@ _saved_old = Hal.pwd
     cd(@cdbuf[0], env:@ios, frames:@fs) if Hal.pwd != @cdbuf[0]
     @cdbuf[1] = saved_old
     @fs[:oldpwd] = ->() { @cdbuf[1] }
-   end
+  end
 
   def mount(*args, env:, frames:)
     raise IOError.new('Argument to mount cannot be empty') if args.length.zero?
