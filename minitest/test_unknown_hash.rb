@@ -7,9 +7,9 @@ class UnknownHashTests < MiniTest::Test
     @u = UnknownHash.new
   end
   def test_returns_unknown
-    assert_eq @u[:thing] , nil
+    assert_nil @u[:thing]
   end
   def test_still_returns_unknown
-    assert_eq @u[[200, 11, 44]], nil
+    assert_nil @u[[200, 11, 44]]
   end
 end

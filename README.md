@@ -27,7 +27,7 @@ Viper only attempts an audible interface. Sighted users of the program will only
 
 
 
-Viper requires Ruby versions: 2.2 and above
+Viper requires Ruby versions: 2.4 and above
 
 
 ### Note on keyboard and Terminal emulators

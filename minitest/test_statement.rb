@@ -32,6 +32,14 @@ class StatementTest < MiniTest::Test
     b = Visher.parse! string
     b.statement_list.first
   end
+  def arg_stub(ord, cmd, &blk)
+    arg = Argument.new('foo')
+    arg.stub(:ordinal, ord) do
+      arg.stub(:call, cmd) do
+        blk.call(arg)
+      end
+    end
+  end
   def setup
     @vm = VirtualMachine.new
     block = Visher.parse! 'mount /v;mkdir /v/bin;install'
@@ -43,19 +51,19 @@ class StatementTest < MiniTest::Test
     _ = Statement.new [ 'nop' ]
   end
   def test_can_call_call
-    my_stub ordinal: COMMAND, call: nil do |o|
+    arg_stub(COMMAND, nil) do |o|
       s = Statement.new [ o ]
     s.call env:@vm.ios, frames:@vm.fs
     end
   end
   def test_call_something_returns_command_name
-    my_stub ordinal: COMMAND, call: 'true' do |o|
+    arg_stub(COMMAND, 'true') do |o|
       s = Statement.new [ o ]
          s.call env:@vm.ios, frames:@vm.fs
     end
   end
   def test_false_returns_false
-    my_stub ordinal: COMMAND, call: 'false' do |o|
+    arg_stub(COMMAND, 'false') do |o|
       s = Statement.new [ o ]
       assert_false( s.call( env:@vm.ios, frames:@vm.fs))
     end
@@ -110,20 +118,19 @@ class StatementTest < MiniTest::Test
       assert_eq result, 55
   end
   def test_wrap_streams_w_exception_closes_streams
-    skip "Because unknown error occurs here. Probably due to Mock"
     s = Statement.new
-    fin = MyMock.new
-    fin.expect :close
-    m = MyMock.new
-    m.expect(:open) { fin }
-    fout = MyMock.new
-    fout.expect(:close)
-    mout = MyMock.new
-    mout.expect(:open) { fout }
-    ferr = MyMock.new
-    ferr.expect :close
-    merr = MyMock.new
-    merr.expect(:open) { ferr }
+    fin = MiniTest::Mock.new
+    fin.expect :close, nil
+    m = MiniTest::Mock.new
+    m.expect(:open, fin)
+    fout = MiniTest::Mock.new
+    fout.expect(:close, nil)
+    mout = MiniTest::Mock.new
+    mout.expect(:open, fout)
+    ferr = MiniTest::Mock.new
+    ferr.expect :close, nil
+    merr = MiniTest::Mock.new
+    merr.expect(:open, ferr)
     begin
       s.bump_frames env:@vm.ios, frames:@vm.fs do |ios, fs|
       ios[:in] = m
@@ -135,12 +142,12 @@ class StatementTest < MiniTest::Test
     end
     rescue NullException  => _err
     end
-    fin.verify!
-    m.verify!
-    mout.verify!
-    fout.verify!
-    merr.verify!
-    ferr.verify!
+    fin.verify
+    m.verify
+    mout.verify
+    fout.verify
+    merr.verify
+    ferr.verify
   end
   def test_perform_redirs
     s = parse 'echo hello > /v/xx'

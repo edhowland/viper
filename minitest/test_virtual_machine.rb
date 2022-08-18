@@ -124,7 +124,8 @@ class VirtualMachineTests < MiniTest::Test
     assert_eq pwd, @vm.cdbuf[0]
   end
   def test_cloned_vm_has_not_changed_parents_oldpwd
-      pwd = @vm.cdbuf[0]
+
+            _pwd = @vm.cdbuf[0]
     oldpwd = @vm.cdbuf[1]
     nvm = @vm._clone
     nvm.cd 'lib', env:nvm.ios, frames:nvm.fs
@@ -132,7 +133,7 @@ class VirtualMachineTests < MiniTest::Test
     assert_eq oldpwd, @vm.cdbuf[1]
   end
   def test_pid_starts_at_two_because_of_global_vm
-    assert_is @vm.pid, Fixnum
+    assert_is @vm.pid,Integer 
   end
   def test_pid_increments_after_clone_once
     old = @vm.pid

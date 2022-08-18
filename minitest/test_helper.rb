@@ -2,7 +2,7 @@
 require_relative '../lib/viper'
 # Put test helper classes and modules here
 require_relative 'lib/my_mock'
-require_relative 'lib/my_stub'
+
 
 
 
