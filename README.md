@@ -2,10 +2,12 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.3
+### Version 2.0.9
 
 See the file CHANGELOG.md for updates.
-Releas : cleo
+
+Release 2.1: Indy pre-release candidate #1
+
 
 ## Abstract
 
@@ -86,6 +88,22 @@ Set them to output the following text when pressed.
 Alternatively, you can press Shift plus PageUp or Shift plus PageDown
 to get the same effect temporarily.
 
+## Usage
+
+Run ./bin/viper --help to see a list of command line flags.
+Without any non-flag arguments, Viper starts up in editor mode on the buffer : "unnamed1'.
+Otherwise, any non-flag arguments on the command line are assumed to be files
+or will become new files. Viper, upon startup, will announce the current buffer.
+If there are more than one non-flag arguments, the other files will be opened
+in subsequent buffers. You can move between them with the : Ctrl-T key. (The Buffer tab key)
+
+### Editing
+
+Type any printable key and it will be added to the current buffer. Control and Meta keys
+can be used to control the Viper editor. See the file: CommandKeys.md
+E.g. ctrl_s will save the current buffer into the current filename. And ctrl_q
+will exit the Viper editor andask to save any modified buffers.
+F2 speaks the name of the current buffer with its filename.
 ## Contributing
 
 
