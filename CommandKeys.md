@@ -26,13 +26,22 @@ F3: Prompts for you to press some key. Speaks the action of that key.
 - ctrl_a: Selects the entire buffer
 - ctrl_c: Copies the selection into the clipboard
 - ctrl_e: Evaluates the content of the current buffer in the Vish language. See the file Vish.md
-- ctrl_f: Enter search forward mode. Waits for regex search term followed by newline.
+- ctrl_f: Enter search forward mode. Waits for regex search term followed by newline. See Searching.md
 - ctrl_g: Repeats the last search in the last search direction.
 - ctrl_i: Inserts spaces
 - ctrl_j: Speaks the character under the cursor
 - ctrl_k: Speaks the current column position
 - ctrl_l: Speaks the entire current line
-
+ctrl_m: Inserts a newline at the current cursor
+- ctrl_n: Opens a new scratch buffer
+- ctrl_o: Opens a new line under the currnet line
+- ctrl_q: Wuits Viper asking to save any modified buffers but not scratch buffers.
+- ctrl_r: Enters search reverse mode. See ctrl_f, but searches backward in the buffer.
+- ctrl_s: Saves the current buffer
+- ctrl_t: Switches to next buffer tab or next file entered on Viper's command line
+- ctrl_x: Cuts the current selection intothe clipboard. If a selection has been marked, both backspace and forward delete will also perform this action.
+- ctrl_y: Yanks the current line into the clipboard
+- ctrl_z: Undoes the last action
 
 
 ## Meta keys
