@@ -21,6 +21,10 @@
 F3: Prompts for you to press some key. Speaks the action of that key.
 - F4: Sets a standard mark. All cursor movements after that will select that text.
 
+## Control keys
+
+
+
 ## Meta keys
 
 Meta keys can be pressed by holding the 'Alt' key and the key listed below.
@@ -34,10 +38,14 @@ Meta keys can be pressed by holding the 'Alt' key and the key listed below.
   * k: Deletes to top of buffer
   * l: Deletes to end of line
   * w: Deletes word forward
+- meta_f: Moves to the next tab point
 - meta_j: Speaks the current word under the cursor.
 - meta_k: Speaks the current indent level.
 - meta_l: Speaks the current line number.
+- meta_m: Waits for a letter and sets a mard with that name.
+- meta_n: Insert a character before the current cursor. Like move left 1 position and insert.
 - meta_p: Speaks the current cursor position.
 - meta_w: Moves one word back
+- meta_z: Redoes the last undone action
 - meta_';': Pressing 'Alt'+';' will open  command mode. Any single line Vish command can be entered here. E.g. 'o filename' will open  filename in a new buffer and switch to that buffer.
 
