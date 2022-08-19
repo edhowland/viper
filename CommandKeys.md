@@ -23,6 +23,16 @@ F3: Prompts for you to press some key. Speaks the action of that key.
 
 ## Control keys
 
+- ctrl_a: Selects the entire buffer
+- ctrl_c: Copies the selection into the clipboard
+- ctrl_e: Evaluates the content of the current buffer in the Vish language. See the file Vish.md
+- ctrl_f: Enter search forward mode. Waits for regex search term followed by newline.
+- ctrl_g: Repeats the last search in the last search direction.
+- ctrl_i: Inserts spaces
+- ctrl_j: Speaks the character under the cursor
+- ctrl_k: Speaks the current column position
+- ctrl_l: Speaks the entire current line
+
 
 
 ## Meta keys
