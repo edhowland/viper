@@ -293,6 +293,10 @@ function key_prompt() {
 }
 ```
 
+Note: In Vish mode or at the command prompt, using the help_key function
+and the canonical key name will print the help for that function in the current mode.
+This is another way to get help for  a key.
+
 ## Putting it all together
 
 

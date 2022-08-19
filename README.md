@@ -61,7 +61,7 @@ source ":{vhome}/etc/keymaps/orca_alias.vsh"
 ### Orca help
 
 To see a list of what these keys are mapped to: Invoke command mode by
-pressing Alt pluss semicolon and entering the following commmand and then pressing Enter.
+pressing Alt pluss semicolon and entering the following command and then pressing Enter.
 
 ```
 help orca
@@ -71,7 +71,7 @@ help orca
 ### Mac Terminal app using Voice Over
 
 Many of the default Option plus key combinations in the Mac OS Terminal application,
-output extended characters like the Euro symbol, elipsis, etc.
+output extended characters like the Euro symbol, ellipsis , etc.
 Voice over will output the names of these keys.
 To get the meta key behaviour, open the Terminal app preferences dialog
 by pressing the Command key (the Apple key) plus comma while in the Terminal app.
@@ -104,6 +104,35 @@ can be used to control the Viper editor. See the file: CommandKeys.md
 E.g. ctrl_s will save the current buffer into the current filename. And ctrl_q
 will exit the Viper editor andask to save any modified buffers.
 F2 speaks the name of the current buffer with its filename.
+Ctrl+T will switch to next file entered on the command line.
+
+### Editor modes
+
+- Insert mode (also called viper mode): The standard mode. This mode is activated when Viper starts up.
+- Search mode:  Activated when either ctrl_f (forward search) or ctrl_r (reverse). Previous search queries can be accessed with the up and  down arrows. See Searching.md
+- Command mode: Enter a single line of Vish script and it will be executed. See Vish.md
+  * This mode is also used to open a new filename with the 'o' command.
+  * You can also save and exit the Viper editor with: 'save; exit'
+
+#### Extra modes
+
+These modes can be entered with first entering command mode.
+
+- vish mode: Enters the Vish language REPL. Enter commands or define functions, set variables and inspect things. Hit ctrl_d to exit this mode.
+- pry mode. Enters the pry Ruby debugger. This mode is for advanced debugging. Hit ctrl_d to exit this mode.
+
+
+
+#### Extra modes
+
+See the file: Modes.md for a more complete list of various modes.
+
+### Other activation modes for Viper
+
+- ./bin/vish : Runs a script a file with extension: .vsh.
+- ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press ctrl_d to exit or type 'exit' and press Enter.
+
+
 ## Contributing
 
 

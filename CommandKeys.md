@@ -34,7 +34,7 @@ F3: Prompts for you to press some key. Speaks the action of that key.
 - ctrl_l: Speaks the entire current line
 ctrl_m: Inserts a newline at the current cursor
 - ctrl_n: Opens a new scratch buffer
-- ctrl_o: Opens a new line under the currnet line
+- ctrl_o: Opens a new line under the current line
 - ctrl_q: Wuits Viper asking to save any modified buffers but not scratch buffers.
 - ctrl_r: Enters search reverse mode. See ctrl_f, but searches backward in the buffer.
 - ctrl_s: Saves the current buffer
@@ -49,7 +49,7 @@ ctrl_m: Inserts a newline at the current cursor
 Meta keys can be pressed by holding the 'Alt' key and the key listed below.
 
 - meta_a: Speaks and moves the current line and the next 10 lines. The cursor ends up on the first column of the 11th line after the current line.
-- meta_d: Starts delete mode. The next character pressed must be one of the folloing.
+- meta_d: Starts delete mode. The next character pressed must be one of the following:
   * c: Clears the current line, leaving the linefeed in place
   * d: Deletes the current line
   * h: Deletes to front of line
