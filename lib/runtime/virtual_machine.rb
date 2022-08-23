@@ -216,7 +216,7 @@ _saved_old = Hal.pwd
   def declare_single_variable(var, env:)
     ident = var.to_sym
     fr = @fs.frames.reduce({ident => "Undefined"}) {|f, j| j.key?(ident) ? j : f  }
-    if fr[var] == "Undefined"
+    if fr[ident] == "Undefined"
       return false
     else
       env[:out].puts("#{var}=#{fr[ident]}")
