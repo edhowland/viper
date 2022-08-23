@@ -19,6 +19,12 @@ Viper only attempts an audible interface. Sighted users of the program will only
 
 <https://github.com/edhowland/viper>
 
+### Wiki
+
+The corresponding Wiki for this project is:
+
+[https://github.com/edhowland/viper/wiki](https://github.com/edhowland/viper/wiki)
+
 ## Dockerfile
 
 <https://github.com/edhowland/viper/blob/feature/2.0.0/docker/Dockerfile>

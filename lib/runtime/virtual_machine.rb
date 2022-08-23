@@ -213,7 +213,15 @@ _saved_old = Hal.pwd
       end
     end
   end
-
+  def declare_single_variable(var, env:)
+    ident = var.to_sym
+    fr = @fs.frames.reduce({ident => "Undefined"}) {|f, j| j.key?(ident) ? j : f  }
+    if fr[var] == "Undefined"
+      return false
+    else
+      env[:out].puts("#{var}=#{fr[ident]}")
+    end
+  end
   def declare_variables(env:)
     @fs.each do |fr|
       fr.each_pair { |k, v| env[:out].puts "#{k}=#{v}" }
@@ -241,6 +249,8 @@ _saved_old = Hal.pwd
       declare_functions env: env
     elsif args.length > 1 && args[0] == '-f'
       declare_single_function args[1], env: env
+    elsif args.length > 1 && args[0] == '-p'
+      declare_single_variable(args[1], env: env)
     else
       declare_variables env: env
     end
@@ -256,6 +266,9 @@ _saved_old = Hal.pwd
       result = true
     elsif frames.functions.has_key?(args[0])
       message = 'function'
+      result = true
+    elsif  !frames[args[0].to_sym].empty?
+      message = 'variable'
       result = true
     elsif self.respond_to? args[0].to_sym
       message = 'builtin'
@@ -323,7 +336,7 @@ _saved_old = Hal.pwd
     @fs[:ppid] = ->() { @ppid }
   end
 
-  def inspect
+  def _inspect
     'intentionally blank : from class VirtualMachine.inspect'
   end
 
