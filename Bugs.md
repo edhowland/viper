@@ -1,5 +1,28 @@
 # Viper and Vish Bugs
 
+## global statement does not appear to work, but can be made to ...
+
+Make a test for this
+
+
+```
+function foo() { global b; b=3 }
+foo
+echo :b
+```
+
+
+How it actually does work
+
+```
+function se(p1) { a=:p1; global a }
+se 22
+echo :a
+22
+```
+
+
+
 ## Should handle control plus c in Vish REPL.
 
 And also control plus u to delete the contents of the buffer
