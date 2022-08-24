@@ -40,4 +40,7 @@ fr = frames
   def to_s
     '&(' + @args.join(', ') + ') ' + @block.to_s
   end
+  def empty?
+    false
+  end
 end
