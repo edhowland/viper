@@ -1,5 +1,11 @@
 # Viper and Vish Bugs
 
+## Bad code smell: lib/bin/capture.rb
+
+There are 3 code blocks passed to capture in *args:
+These are named prosecute, sentence and trial
+BAD names: Rename to try_block, exception_block and final_block 
+
 # Implement relative require for Vish 'require' command
 
 source ./lib/bin/require.rb
