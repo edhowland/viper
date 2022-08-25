@@ -1,5 +1,10 @@
 # Viper and Vish Bugs
 
+# Implement relative require for Vish 'require' command
+
+source ./lib/bin/require.rb
+
+
 ## global statement does not appear to work, but can be made to ...
 
 Make a test for this
