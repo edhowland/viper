@@ -43,4 +43,7 @@ fr = frames
   def empty?
     false
   end
+  def inspect
+    self.to_s
+  end
 end

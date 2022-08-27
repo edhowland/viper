@@ -232,7 +232,7 @@ begin
     ['load_event'] +
     mode(options) +
     ['exit_event']
-  ).map { |e| Visher.parse!(e) }.each { |e| $vm.call(e) }
+  ).map { |e| Visher.parse!(e) }.each { |e| $vm.call(e) } # This line is where everything gets loaded and run!
 rescue VirtualMachine::ExitCalled => err
   _exit_code = err.code
 rescue VishSyntaxError => err

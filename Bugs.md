@@ -1,5 +1,32 @@
 # Viper and Vish Bugs
 
+## Logging does not work
+
+```bash
+viper -L
+```
+
+Gets:
+```
+
+/home/edh/tmp/viper/lib/runtime/frame_stack.rb:43:in `pop': stack level too deep (SystemStackError)
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:34:in `ensure in call'
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:35:in `call'
+  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
+  from /home/edh/tmp/viper/lib/ast/block.rb:22:in `block in call'
+  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `each'
+  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `call'
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:32:in `call'
+  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
+   ... 8498 levels...
+  from /home/edh/tmp/viper/lib/runtime/virtual_machine.rb:73:in `call'
+  from /home/edh/tmp/viper/bin/viper:204:in `block (2 levels) in <main>'
+  from /home/edh/tmp/viper/bin/viper:204:in `each'
+  from /home/edh/tmp/viper/bin/viper:204:in `block in <main>'
+dell 
+```
+
+
 ## Bad code smell: lib/bin/capture.rb
 
 There are 3 code blocks passed to capture in *args:

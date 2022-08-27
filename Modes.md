@@ -47,3 +47,12 @@ All of the modes are created by the initialization scripts found in the scripts 
 
 
 Note: The above list is not comprehensive. There are currently exactly 15 initialization scripts.
+
+
+## Views and klogs
+
+A view is a code block associated with a key press.
+
+A klog is a code block associated wih a key press.
+
+TODO

@@ -20,3 +20,15 @@ When Viper is invoked, it starts up in insert mode. In this mode, there are
 The Vish  language is of the form of 
 
 
+
+
+## Evaluating Vish strings as code
+
+Caveat: This is obviously a security problem. Never 'eva' user input.
+
+### The 'eval' command
+
+```
+eval "echo I am being evaluated" | cat
+I am being evaluated
+```

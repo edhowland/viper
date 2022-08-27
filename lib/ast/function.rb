@@ -34,4 +34,7 @@ class Function
   def to_s
     "(#{@args.join(', ')}) " + @block.to_s
   end
+  def inspect
+    self.to_s
+  end
 end

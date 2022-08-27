@@ -13,5 +13,8 @@ require_relative 'bufnode'
 require_relative 'bin'
 
 require_relative 'vish'
+# For debugging support
+require_relative 'debugging'
+
 require_relative 'loader'
 
