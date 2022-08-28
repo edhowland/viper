@@ -70,7 +70,7 @@ class VirtualMachine
 
 
   def call(block)
-    block.call env: @ios, frames: @fs
+    _hook(block) { block.call env: @ios, frames: @fs }
   end
 
   # implement a dir stack so cd -, pushd, popd work
@@ -340,6 +340,9 @@ _saved_old = Hal.pwd
     'intentionally blank : from class VirtualMachine.inspect'
   end
 
+  def _hook(obj, &blk)
+    yield
+  end
   protected
   def ppid=(num)
     @ppid = num

@@ -35,6 +35,20 @@ termfile: 'load_termfile :termfile',
   stdin: false
 }
 
+
+# dummy init_debug possibly replaced by getting option -x inside debugging_support.rb
+def logd(message)
+  # nop
+end
+def init_debug(&blk)
+  vm = yield
+  vm
+end
+def fin_debug(&blk)
+  #
+end
+
+
 oparse = OptionParser.new do |opt|
   opt.banner = 'Viper - Scriptible code editor'
   opt.separator ''
@@ -198,8 +212,14 @@ def file_list(argv)
   result
 end
 
-$vm = VirtualMachine.new
-
+$vm = init_debug { VirtualMachine.new }
+logd "Starting main run"
+if $vm.respond_to? :init_trace
+  $stderr.puts "tracking is installed in $vm"
+  logd "The value of tracing? is #{$vm.tracing?}"
+else
+  logd "No module Traceable is included in $vm"
+end
 at_exit do
   $exit_handlers.each { |e| $vm.call e }
 end
@@ -239,5 +259,8 @@ rescue => err
   puts err.message
   puts err.backtrace
 ensure
+  fin_debug { $vm }
+  logd "At run end: The value of tracing? is #{$vm.tracing?}" if $vm.respond_to?(:tracing?)
+
   exit(_exit_code)
 end

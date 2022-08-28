@@ -1,5 +1,40 @@
 # Viper and Vish Bugs
 
+## The builtin 'declare -f function_name'
+does not quite work properly. If the original function had a a command substitution in it like:
+
+```
+function foo(f) { b=:(basename :f); echo :b }
+```
+
+You get this:
+```
+declare -f foo
+function foo(f) { b=:({ basename :f });echo :b }
+```
+
+Notice the extra '{', '}' enclosing braces inside the ':(basename :f)'
+
+This occurs because every time there is a Block, it gets written like:
+
+```ruby
+'{' + Block.to_s + '}'
+```
+
+Work needs to be done here to understand this better.
+This, also does parse correctly, but will not load properly at runtime.
+
+### Parameter names are not working in 'declare -f fn_name'
+ Where inside, there is an lambda function with a parameter
+```
+function bar() { count &([:f]) { { echo :f } ) }
+```
+
+Notice the '[f]' inside the '&([f]) { ...'
+
+Another similar problem to  the above. *args is getting .inspect as a Ruby array.
+
+
 ## Logging does not work
 
 ```bash
