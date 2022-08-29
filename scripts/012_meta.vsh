@@ -11,6 +11,8 @@ echo :last_exception | push /v/meta
 } 
 }
 }
+rem meta_modes helper function to print out all modes
 function meta_modes() {
-  cat < /v/meta
-}
+  ifelse { test -f /v/meta  } {cat < /v/meta  } { echo /v/meta does not exist }
+  }
+  

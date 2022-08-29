@@ -1,5 +1,37 @@
 # Viper and Vish Bugs
 
+# Design flaws
+
+## Vish when loaded should have a prelude
+
+- standard Vish and Os environment variables
+  * like HOME, XDG_ star, if needed
+  * :vhome, :vroot, etc.
+- a sort of standard library, composed of more than things in /v/bin/ commands
+- access to ARGV, ARGC, even ARGF
+  * would allow for command flag processing within Vish
+  * Should work for Vish scripts
+- A way to process flags and command line arguments
+  * Should work for Vish scripts as well
+  * Should work for Vish functions
+
+The latter might be a sort of getopt like function in Bash, Ruby, Python and others.
+
+## In support of processing. Make a switch/case or match like functionality
+
+Right now, we can use the 'eq' command to  perform this sort of thing, but it has
+no break out early on failuer like switch statements.
+
+Proposal is to add another
+/v/bin/case command
+
+```
+case :flag { when 1 { rem action to perform when :flag is 1 }} { when 2 { rem action to perform  :flag is 2 }} { else { rem action to  be performed when no match occurs }}
+```
+
+## Add the ability to /v/bin/test to check for a code block 'test -b { nop} => true'
+
+
 ## The builtin 'declare -f function_name'
 does not quite work properly. If the original function had a a command substitution in it like:
 
