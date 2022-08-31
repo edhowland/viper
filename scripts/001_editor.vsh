@@ -236,4 +236,6 @@ function g(num) {
   line :_buf
 }
 alias buffer='apply fn_2'
+alias swmode="raise"
+
 

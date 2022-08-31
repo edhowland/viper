@@ -15,4 +15,3 @@ rem meta_modes helper function to print out all modes
 function meta_modes() {
   ifelse { test -f /v/meta  } {cat < /v/meta  } { echo /v/meta does not exist }
   }
-  

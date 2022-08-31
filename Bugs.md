@@ -1,5 +1,29 @@
 # Viper and Vish Bugs
 
+## Meta mode not quite working yet
+
+Switching and out of temporary modes is somewhat broken
+
+You can use eith the command mode/vish REPL to run the function meta_modes, or in viper mode: fn_9
+to print out the meta modes ccurrent in effect.
+
+Notice the following sequence:
+
+1. start viper: fn_9: Meta modes are: vip
+2. enter command modes, and run meta_modes. : vip / commander
+3.  fn_9 : vip
+4. command mode: vish
+5. meta_modes : vip / com
+6. Ctrl_d Back in  vip, fn_9: vip / com / vip
+
+
+## Refactors
+
+### Completly remove 'on' as the entire event handlers are not functional
+
+- Also remove the '-l', --log from options and function logger
+- The call to load_event is just a 'nop'. Ess ./etc/vishrc
+  * Remove all of that
 # Design flaws
 
 ## Vish when loaded should have a prelude
