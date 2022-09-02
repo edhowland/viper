@@ -42,7 +42,8 @@ function test_argc_1_works() {
   _www g h i
   assert_eq 3 :a
 }
-
-
-
-
+function test_lambdax() {
+  lx=&() {a=:_argc; global a }
+  exec :lx a b c 
+   assert_eq 3 :a
+}

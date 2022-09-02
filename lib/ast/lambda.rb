@@ -7,24 +7,25 @@ class Lambda
     @args = args
     @block = block
     @frames = frames
+  @arity = @args.length
   end
-  attr_reader :frames
+  attr_reader :frames, :block, :arity, :args
 
   def call(*args, env:, frames:)
     #fr = frames + @frames # fr is now current frame stack + the saved context
-#    binding.pry
 fr = frames
     fr.frames += @frames
     extra = @frames.length
-#    binding.pry
 #    fr = frames
     fr.push
     bound = @args.zip(args).to_h # bind any passed arguments to this hash
     fr.top.merge! bound # these are now variables within this context
     # the arguments to this function are collected in the :_ variable
-    fr[:_] = args
+    fr[:_] = *args[(bound.length)..]
+
     # The number of arguments are stored in :_argc
     fr[:_argc] = args.length.to_s
+    fr[:_arity] = @arity
     fr[:__FUNCTION_TYPE__] = 'lambda'
     fr[:__FUNCTION_NAME__] = 'anonymous'
     # Now call the parsed block we got from LambdaDeclaration
