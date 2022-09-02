@@ -24,7 +24,28 @@ Notice the following sequence:
 - Also remove the '-l', --log from options and function logger
 - The call to load_event is just a 'nop'. Ess ./etc/vishrc
   * Remove all of that
+
 # Design flaws
+
+## Should allow for command substitution in double qoted strings like Bash
+
+```bash
+a="$(echo 1 2)"
+echo $a
+# 1 2
+```
+
+```
+a=":(echo 1 2)"
+echo :a
+# :(echo 1 2)
+```
+
+When string interpolation happens, not only should
+brace expansion occur, command substitution should also occur.
+
+Is this a parser failure or vish runtime backend failure?
+
 
 ## Vish when loaded should have a prelude
 

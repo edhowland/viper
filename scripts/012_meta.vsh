@@ -5,7 +5,7 @@ loop {
 capture {
 test -e /v/meta && break
 :(peek -r /v/meta)
-pop /v/meta | nop
+pop_if  /v/meta
 } {
 echo :last_exception | push /v/meta
 } 

@@ -236,6 +236,7 @@ function g(num) {
   line :_buf
 }
 alias buffer='apply fn_2'
+function pop_if(m) {
+  test -f :m && test -e :m || pop :m | nop
+  }
 alias swmode="raise"
-
-

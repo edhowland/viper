@@ -12,6 +12,8 @@ class Test < BaseCommand
       result = true
       if @options[:f]
         result = Hal.exist?(a[0])
+      elsif  @options[:d]
+        result =  Hal.directory?(a[0])
       elsif @options[:z]
         result = (a[0].nil? || a[0].empty?)
       elsif  @options[:e]
