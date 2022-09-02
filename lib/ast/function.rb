@@ -17,8 +17,8 @@ class Function
     bound = @args.zip(args).to_h # bind any passed arguments to this hash
     # these are now variables within this context
     frames.top.merge! bound
-    # the arguments to this function are collected in the :_ variable
-    frames[:_] = args
+    # the remaining arguments to this function are collected in the :_ variable
+    frames[:_] = *args[(bound.length)..]
     # The number of arguments are stored in :_argc
     frames[:_argc] = args.length.to_s
     begin

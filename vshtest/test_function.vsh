@@ -37,5 +37,12 @@ function test_one_pos_one_collected() {
   assert_eq "y" :a
   assert_eq "z" :b
 }
+function test_argc_1_works() {
+  function _www() { a=:_argc; global a }
+  _www g h i
+  assert_eq 3 :a
+}
+
+
 
 
