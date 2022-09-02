@@ -5,9 +5,10 @@ class Function
     @args = args
     @block = block
     @name = name
+    @arity = @args.length  # The arity of this function is the number of the defined named parameters
   end
 
-  attr_reader :name
+  attr_reader :name, :args, :block, :arity
 
   def call(*args, env:, frames:)
     frames.push
@@ -21,6 +22,7 @@ class Function
     frames[:_] = *args[(bound.length)..]
     # The number of arguments are stored in :_argc
     frames[:_argc] = args.length.to_s
+  frames[:_arity] = @arity # The arity of the function is given in by  :_arity inside the  function call
     begin
       result = @block.call env: env, frames: frames
     rescue VirtualMachine::ReturnCalled => err
