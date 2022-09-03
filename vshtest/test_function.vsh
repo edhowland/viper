@@ -41,11 +41,6 @@ function test_argc_1_works() {
   _www g h i
   assert_eq 3 :a
 }
-function test_lambdax() {
-  lx=&() {a=:_argc; global a }
-  exec :lx a b c 
-   assert_eq 3 :a
-}
 function test_lambda_makes_function() {
   function _foo() { nop }
   type _foo; assert_true :exit_status
@@ -88,9 +83,4 @@ function test_lambda_argc_1_works() {
   function _www() { a=:_argc; global a }
   _www g h i
   assert_eq 3 :a
-}
-function test_lambda_lambdax() {
-  lx=&() {a=:_argc; global a }
-  exec :lx a b c 
-   assert_eq 3 :a
 }
