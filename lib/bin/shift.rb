@@ -8,8 +8,12 @@
 class Shift < BaseCommand
   def call(*args, env:, frames:)
     super do |*a|
+    if @options[:s]
+      src = a.shift.to_sym 
+    else
       src = '_'.to_sym
-      src = a.shift.to_sym if @options[:s]
+    end
+
       object = @fs[src]
       object = object.split(frames[:ifs]) if object.instance_of?(String)
       result = true

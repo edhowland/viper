@@ -1,4 +1,4 @@
-# bin_tests.rb - tests for bin/* commands
+# test_bin.rb - tests for bin/* commands
 
 require_relative 'test_helper'
 

@@ -2,6 +2,11 @@
 
 ## 2022-09-02
 
+Added "-d" to /v/bin/test
+
+Now returns true if path is a directory
+
+
 Fixed both functions and lambdas to properly handle rest of args like :_ to work more like Bash
 
 ```bash

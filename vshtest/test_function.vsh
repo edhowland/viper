@@ -41,6 +41,9 @@ function test_argc_1_works() {
   _www g h i
   assert_eq 3 :a
 }
+function _test_shift_fewer_args() {
+  assert_eq 1 2
+}
 function test_lambda_pass_one_arg() {
    _bar=&(a) { echo :a }
     assert_eq foo :(exec :_bar foo)
