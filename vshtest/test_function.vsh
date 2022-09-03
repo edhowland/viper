@@ -41,10 +41,6 @@ function test_argc_1_works() {
   _www g h i
   assert_eq 3 :a
 }
-function test_lambda_makes_function() {
-  function _foo() { nop }
-  type _foo; assert_true :exit_status
-}
 function test_lambda_pass_one_arg() {
   function _bar(a) { echo :a }
     assert_eq foo :(_bar foo)
