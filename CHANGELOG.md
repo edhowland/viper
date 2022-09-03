@@ -1,5 +1,28 @@
 # Changelog for Viper project
 
+## 2022-09-02
+
+Fixed both functions and lambdas to properly handle rest of args like :_ to work more like Bash
+
+```bash
+function foo() {
+  a=$1; shift; b=$1; shift
+  echo $@
+}
+foo a b c d
+# => c d
+```
+
+```
+function foo(a, b) {
+  echo :_
+}
+foo a b c d
+# => c d
+```
+
+
+
 ## 2022-08-18
 
 Release 2.0.9
