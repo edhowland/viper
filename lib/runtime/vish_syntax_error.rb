@@ -2,7 +2,7 @@
 # commands
 
 class VishSyntaxError < RuntimeError
-  def initialize
-    super 'syntax error'
+  def initialize(msg="Vish Syntax error")
+    super msg
   end
 end

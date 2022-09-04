@@ -45,7 +45,8 @@ class ShiftTest < MiniTest::Test
     #
   end
   def test_shift_errors_onno_args
-    go 'shift'
+      go 'shift'
+
     puts @vm.ios[:err].string
     assert_false @vm.ios[:err].string.empty?
   end
@@ -55,7 +56,6 @@ class ShiftTest < MiniTest::Test
     assert_eq 1, get_var(:j)
   end
   def test_shift_can_grab_two_variables
-    skip
     set_var :arr, [1,2,3]
     go 'shift -s arr j k'
     assert_eq 1, get_var(:j)
