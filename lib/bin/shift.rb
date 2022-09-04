@@ -19,11 +19,8 @@ class Shift < BaseCommand
         result = false
       else
       object = @fs[src]
-puts "object.class: #{object.class.name}. inspecting: #{object.inspect}"
     raise RuntimeError.new("shift: cannot shift non-array type") unless object.kind_of?(Array)
-      zh = a.map(&:to_sym).zip(object.shift(a.length))
-puts "zh.class: #{zh.class.name} inspecting: #{zh.inspect}"
-#      frames.top.merge(zh.to_h)
+      zh = a.map(&:to_sym).zip(object.shift(a.length)).map {|k, v| [k, v.nil? ? '' : v] }
       zh.each {|k, v| frames[k] = v }
       frames.merge
       result = true

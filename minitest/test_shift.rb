@@ -61,4 +61,11 @@ class ShiftTest < MiniTest::Test
     assert_eq 1, get_var(:j)
     assert_eq 2, get_var(:k)
   end
+  def test_shift_3_last_is_empty_string
+    set_var :f, [1,2]
+    go 'shift -s f a b c'
+    assert_eq 1, get_var(:a)
+    assert_eq 2, get_var(:b)
+    assert_eq '', get_var(:c)
+  end
 end
