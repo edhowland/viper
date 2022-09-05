@@ -6,6 +6,20 @@
 
 ## Make sure shift with no args still works ok. Like bash's shift
 
+##  Change raise RuntimeError in shift.rb to be a perr message and result = false
+
+If the object is not a kind_of Array, (or  Really responds_to?(:shift),
+then do the following
+
+```
+if !object.respond_to?(:shift)
+  perr "object cannot be shifted"
+  result = false
+else
+ ....
+```
+
+
 ## Implement 'when' command. First part of case expression
 
 This does not need a surrounding case statement first. 
