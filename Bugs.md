@@ -1,5 +1,56 @@
 # Viper and Vish Bugs
 
+# Todo list
+
+# # Complete all shift tests, esp. re: lambdas and functions
+
+## Make sure shift with no args still works ok. Like bash's shift
+
+## Implement 'when' command. First part of case expression
+
+This does not need a surrounding case statement first. 
+E.dg. 'case' can be a function
+
+when might work like
+
+```
+when :foo { echo I only execute if :foo is true }
+when { test -f /v/foo } { echo I only execute if first block is true }
+else { echo I only execute when all other things do not execute }
+```
+
+
+
+else may be harder to compute
+
+Can 'when' be a Vish function?
+
+
+
+# Bugs
+
+## doing a 'type of variable with true or false values
+
+```
+
+vish >declarespace=delete equals-pspaceb
+b=false
+vish >typespaceb
+caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+vish >
+vish >typespaceb
+caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+vish >typespacea
+caught exception : undefined method `empty?' for nil:NilClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+NoMethodError
+private method `print' called for "":String
+
+
+```
+
+
+
+
 ## Meta mode not quite working yet
 
 Switching and out of temporary modes is somewhat broken
