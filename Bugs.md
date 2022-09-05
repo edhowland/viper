@@ -20,6 +20,17 @@ else
 ```
 
 
+## Implement cond command
+
+cond works like cond in Scheme language
+
+```
+cond { test -f /v/foo } { echo foo exists } {
+  test -d /v/dir } { echo /v/dir is directory } else {
+  echo what to do if all fall thrue }
+```
+
+
 ## Implement 'when' command. First part of case expression
 
 This does not need a surrounding case statement first. 

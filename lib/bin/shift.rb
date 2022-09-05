@@ -25,28 +25,7 @@ class Shift < BaseCommand
       frames.merge
       result = true
       end
-=begin
 
-      object = object.split(frames[:ifs]) if object.instance_of?(String)
-      result = true
-      if object && object.instance_of?(Array) && !object.empty?
-        value = object.shift
-        @fs[src] = object
-      elsif object.instance_of?(String)
-        value = object
-      else
-        perr "shift: invalid argument: #{src}: #{@fs[src].class}"
-        result = false
-      end
-      if a.length.zero?
-        perr 'shift: missing variable argument'
-        result = false
-      end
-      if result
-        @fs[a[0].to_sym] = value
-        @fs.merge
-      end
-=end
       result
     end
   end
