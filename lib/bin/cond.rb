@@ -5,27 +5,33 @@
 class Cond < BaseCommand
   def call(*args, env:, frames:)
     super do |*a|
+      raise VishSyntaxError.new("cond: requires one or more of predicate, action clauses. Args length  was #{a.length}, and was not a multiple of 2") if (a.length % 2) != 0
       eblk, _else = *a.reverse
       raise VishSyntaxError.new("cond syntax error") if eblk.nil? ||  !eblk.respond_to?(:call)
       _else = _else == "else"
-      if _else
-        # what to do if else clause exists
-      else
-        raise VishSyntaxError.new("cond requires even number of clauses") if (a.length % 2) != 0
-        clauses = a.each_slice(2).to_a
+
+
+      fin = _else ? -3 : -1 
+
+        clauses = a[0..(fin)].each_slice(2).to_a
       result = clauses.reduce(false) do |i, j|
         if !i
-          if j[0].call(env: env, frames: frames)
-            j[1].call(env: env, frames: frames)
-            true
-          else
-            false
-          end
+          pred = j[0].call(env: env, frames: frames)
+          j[1].call(env: env, frames: frames) if pred
+          pred
         else
-          true
+#        puts "in else inside reduce block"
+          false
         end
       end
+#      puts "result : #{result}"
+      if !result && _else
+#        puts "should run else clause"
+        result = eblk.call(env: env, frames: frames)
       end
-  end
+      @fs.merge
+
+      result
+    end
   end
 end
