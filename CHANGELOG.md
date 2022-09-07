@@ -1,5 +1,19 @@
 # Changelog for Viper project
 
+## 2022-09-07
+
+Added the ability to call Vish REPL: ivsh with other Viper arguments:
+
+```bash
+$ ivsh -e 'a=2'
+vish> echo :a
+2
+^D
+$ ivsh -s file.vsh
+vish> type myfunc
+function
+```
+
 ## 2022-09-06
 
 ### Added cond expression

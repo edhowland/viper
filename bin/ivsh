@@ -3,4 +3,4 @@
 
 VIPER_PATH=$(dirname $(readlink -f $BASH_SOURCE))
 
-${VIPER_PATH}/viper --no-finish -e '_mode=command bind ctrl_d { exit }' -m com
+${VIPER_PATH}/viper --no-finish -e '_mode=command bind ctrl_d { exit }' -m com $@
