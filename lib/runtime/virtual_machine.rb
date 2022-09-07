@@ -267,7 +267,7 @@ _saved_old = Hal.pwd
     elsif frames.functions.has_key?(args[0])
       message = 'function'
       result = true
-    elsif  !frames[args[0].to_sym].empty?
+    elsif  frames.key? args[0].to_sym
       message = 'variable'
       result = true
     elsif self.respond_to? args[0].to_sym

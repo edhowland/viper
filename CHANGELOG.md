@@ -1,5 +1,25 @@
 # Changelog for Viper project
 
+## 2022-09-06
+
+### Added cond expression
+
+```
+cond { true } { echo this clause should fire } { false } echo this clause should not fire }
+ => this clause should fire
+cond { false } { echo not fired } else { echo will fire }
+# => will fire
+```
+
+
+Note: the keyword 'if' is aliased to 'cond
+
+```
+if { true } { echo ok } else { echo not ok }
+# => ok
+```
+
+
 ## 2022-09-02
 
 Added "-d" to /v/bin/test

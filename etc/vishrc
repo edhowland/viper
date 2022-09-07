@@ -61,3 +61,4 @@ rem Set some Vish variables
 _vconfig=":{XDG_CONFIG_HOME}/vish"; global _vconfig
 rem _vpm_root is the location of all Vish Package Management files
 _vpm_root=":{_vconfig}/vpm"; global _vpm_root
+alias if=cond

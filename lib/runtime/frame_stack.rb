@@ -142,6 +142,9 @@ class FrameStack
   def empty?
     @frames.empty?
   end
+  def key?(sym)
+    @frames.any? {|f| f.key?(sym) }
+  end
 end
 
 class IosStack < FrameStack
