@@ -9,6 +9,7 @@
 # -b checks if arg is a code block
 # -x checks if pathname resolves to executable content
 #   Is the pathname a stored lambda or code block?
+
 class Test < BaseCommand
   def call(*args, env:, frames:)
     super do |*a|

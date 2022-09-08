@@ -2,6 +2,21 @@
 
 # Todo list
 
+## Add commnds: ord, and chr
+
+Does their Ruby equivalents.
+
+```
+echo -n A | ord
+65
+ord A
+65
+echo -n 65 | chr
+A
+chr 65
+A
+```
+
 # # Complete all shift tests, esp. re: lambdas and functions
 
 ## Make sure shift with no args still works ok. Like bash's shift
@@ -19,16 +34,6 @@ else
  ....
 ```
 
-
-## Implement cond command
-
-cond works like cond in Scheme language
-
-```
-cond { test -f /v/foo } { echo foo exists } {
-  test -d /v/dir } { echo /v/dir is directory } else {
-  echo what to do if all fall thrue }
-```
 
 
 ## Implement 'when' command. First part of case expression
@@ -53,6 +58,17 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## Vish parser problems
+
+### Parser stops on empty lines. Nothing is processed after a blank line
+
+```
+rem a commemt
+
+function foo() { nop }
+rem The above and the rest of the file is skipped
+```
 
 ## doing a 'type of variable with true or false values
 

@@ -36,6 +36,7 @@ class Exec < BaseCommand
       env[:err].puts 'exec: first argument must be either a block or lambda'
       return false
     end
+    frames.merge
     result
   end
 end
