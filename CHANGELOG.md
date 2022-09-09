@@ -1,5 +1,21 @@
 # Changelog for Viper project
 
+## 2022-09-09
+
+
+### cat should be able to read all files on command line just like star nix cat can
+
+```
+echo hello > h.txt
+cat h.txt
+hello
+echo hello | cat foo bar - baz
+foo
+bar
+hello
+baz
+```
+
 ## 2022-09-07
 
 Added the ability to call Vish REPL: ivsh with other Viper arguments:

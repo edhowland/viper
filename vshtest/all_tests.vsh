@@ -9,3 +9,4 @@ source test_node_commands.vsh
 source test_function.vsh
 source test_arity.vsh
 source test_cond.vsh
+source test_cat.vsh

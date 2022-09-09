@@ -67,13 +67,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## cat should be able to read all files on command line just like star nix cat can
-
-```
-echo hello > h.txt
-cat h.txt
-waits for ever
-```
 
 ## Vish parser problems
 
