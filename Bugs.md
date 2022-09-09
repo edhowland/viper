@@ -17,6 +17,14 @@ chr 65
 A
 ```
 
+## Add hex command
+
+```
+hex "a"
+41
+echo "a" | hex
+61
+```
 # # Complete all shift tests, esp. re: lambdas and functions
 
 ## Make sure shift with no args still works ok. Like bash's shift
@@ -58,6 +66,14 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## cat should be able to read all files on command line just like star nix cat can
+
+```
+echo hello > h.txt
+cat h.txt
+waits for ever
+```
 
 ## Vish parser problems
 
