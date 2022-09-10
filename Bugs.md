@@ -2,6 +2,34 @@
 
 # Todo list
 
+## Create new construct: cmdlet or CommandLet
+
+command lets are short snippets  or strings containing Ruby code
+
+They, once loaded, become like commands stored in /v/bin
+
+```
+vish> loadcmd foo '{|*args, ios, fs| ios[:out].puts "foo" }'
+vish> foo
+foo
+```
+
+
+Command lets are first class Vish objects like functions, aliases and /v/bin commands
+
+```
+type foo
+command let
+declare -c foo
+ loadcmd foo '{|*args, ios, fs| ios[:out].puts "foo" }'
+```
+
+Command lets can take optional flags:
+
+```
+loadcmd bar '{|args, flags, ios, frames| ios[:out].puts "-f flag is set' if flags[:f] ; ios[:ou].puts "bar called"}'
+```
+
 ## Add commnds: ord, and chr
 
 Does their Ruby equivalents.

@@ -339,7 +339,7 @@ _saved_old = Hal.pwd
   def _inspect
     'intentionally blank : from class VirtualMachine.inspect'
   end
-
+  # _hook wraps the actual call to our call method. Allows for tracing
   def _hook(obj, &blk)
     yield
   end
