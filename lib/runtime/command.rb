@@ -22,6 +22,7 @@ class Command
       frames[:path]
     end
     def first_in_path(cmd, frames:)
+    #binding.pry
       found = path_str(frames: frames).split(':').detect {|e|command_from_path("#{e}/#{cmd}", frames: frames) } 
       unless found.nil?
         "#{found}/#{cmd}"
@@ -51,9 +52,9 @@ class Command
       begin
         thing = @@cache[id.to_sym]
         if thing.nil?
-          cpath = "/v/bin/#{id}"
-          #thing = first_in_path(cpath, frames: frames)   #
-          thing = command_from_path cpath, frames: frames
+          #cpath = "/v/bin/#{id}"
+          cpath = id
+          thing = command_from_path first_in_path(cpath, frames: frames), frames: frames
         end
         if thing.nil?
           raise CommandNotFound.new(id, line_number:line_number) 

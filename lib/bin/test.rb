@@ -22,7 +22,7 @@ class Test < BaseCommand
         if Hal.exist?(a[0])
           root = frames[:vroot]
         node = root[a[0]]
-        result = (node.kind_of?(Lambda) || node.kind_of?(Block))
+        result = (node.kind_of?(Lambda) || node.kind_of?(Block) || node.kind_of?(BaseCommand))
         else
           result = false
         end

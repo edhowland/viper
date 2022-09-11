@@ -20,9 +20,9 @@ class CommandTests < MiniTest::Test
     assert !Command.path_str(frames: @vm.fs).empty?
   end
   def test_first_in_path_is_found
-    result = Command.first_in_path('cat', frames: @vm.fs)
+    result = Command.command_from_path(Command.first_in_path('cat', frames: @vm.fs), frames: @vm.fs)
     assert !result.nil?
-    #assert result.kind_of?(BaseCommand)
+    assert result.kind_of?(BaseCommand)
   end
   def test_resolve_echo
     result = Command.resolve 'echo', env:@vm.ios, frames:@vm.fs
@@ -33,9 +33,9 @@ class CommandTests < MiniTest::Test
     assert_eq result, '/v/bin/cat'
   end
   def test_get_command_from_path_search_normal_path
-    skip
     result = Command.command_from_path Command.first_in_path('cat', frames: @vm.fs), frames: @vm.fs
-    assert_is Cat, result
+    assert !result.nil?
+    assert_is result, Cat
   end
   def test_first_in_path_w_2_paths_is_still_found
         @vm.fs.first[:path] = '/v/cmdlet:/v/bin'
@@ -46,7 +46,6 @@ class CommandTests < MiniTest::Test
 #
   end
   def test_command_resolves_to_v_bin
-    skip
     @vm.fs.first[:path] = '/v/cmdlet:/v/bin'
     @root.creat '/v/cmdlet/ord', CommandLet.new
     result = Command.resolve('ord', env: @vm.ios, frames: @vm.fs)
