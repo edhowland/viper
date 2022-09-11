@@ -95,6 +95,7 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+
 ## Oustanding end of buffer bugs
 
 - Ctrl-o at the end of the buffer does not work

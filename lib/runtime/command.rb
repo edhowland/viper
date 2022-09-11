@@ -54,7 +54,12 @@ class Command
         if thing.nil?
           #cpath = "/v/bin/#{id}"
           cpath = id
-          thing = command_from_path first_in_path(cpath, frames: frames), frames: frames
+          loci = first_in_path(cpath, frames: frames)
+          unless loci.nil?
+            thing = command_from_path loci, frames: frames
+          else
+            thing = nil
+          end
         end
         if thing.nil?
           raise CommandNotFound.new(id, line_number:line_number) 
