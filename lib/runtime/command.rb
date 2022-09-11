@@ -18,6 +18,17 @@ end
 
 class Command
   class << self
+    def path_str(frames:)
+      frames[:path]
+    end
+    def first_in_path(cmd, frames:)
+      found = path_str(frames: frames).split(':').detect {|e|command_from_path("#{e}/#{cmd}", frames: frames) } 
+      unless found.nil?
+        "#{found}/#{cmd}"
+      else
+        found
+      end
+    end
     def command_from_path(path, frames:)
       root = frames[:vroot]
       root[path]
@@ -41,6 +52,7 @@ class Command
         thing = @@cache[id.to_sym]
         if thing.nil?
           cpath = "/v/bin/#{id}"
+          #thing = first_in_path(cpath, frames: frames)   #
           thing = command_from_path cpath, frames: frames
         end
         if thing.nil?

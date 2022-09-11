@@ -40,6 +40,8 @@ class VirtualMachine
     @fs[:term_simple] = term_match[1]
     @fs[:term_program] = ENV['TERM_PROGRAM'] || @fs[:term_simple]
     @fs[:termfile] = "#{@fs[:vhome]}/etc/keymaps/#{@fs[:term_program]}.json"
+    # Setup stuff for command, (and possibly cmdlet) name resolution
+    @fs[:path] = '/v/bin'
   end
 
   # %%LINT4 - ignore this long line

@@ -1,5 +1,50 @@
 # Changelog for Viper project
 
+## 2022-09-10
+
+# Major Bug
+
+## in latest, Viper macros fail to work
+
+1. viper foo.rb
+2 'def'
+3. meta_comma
+  * Should expand to def method with cursor at start of method
+
+Get:
+
+
+defCommand: shift:: not found: 6
+
+Problem is in function play_macro in scripts/010_macros.vsh
+
+we used :ifs to split the atom from the line of cat </v/macros/.rb/def
+This atom might be:
+
+- key_i
+- meta_r,15
+
+the 15 above is the data
+
+ifs="," shift key no longer works
+
+Correction made to scripts/010_macros.vsh: play_macro
+
+The proper way to split a string is with the split function. The output can be piped to to the read function:
+
+In play_macro, the required variables are key, data and _sup
+(where _sup is supplemental)
+Note: both data and _sup can be empty
+
+```
+split :atom "," | read key data _sup
+```
+
+replaces several brittle lines of code
+
+3. 
+
+
 ## 2022-09-09
 
 

@@ -19,11 +19,7 @@ snip=:(snip_is :snip)
   applyk macro_start
   for atom in :(cat < :mpath) {
   _=:atom
-ifs=',' shift key
-data=''
-_sup=''
-test -z :_ || shift data
-test -z :_ || shift _sup
+  split :atom "," | read key data _sup
 global _sup
 suppress { (_mode=macros key_exists :key && _mode=macros apply :key :data) || _mode=viper apply :key }
   }

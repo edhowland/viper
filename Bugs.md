@@ -95,6 +95,16 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## Oustanding end of buffer bugs
+
+- Ctrl-o at the end of the buffer does not work
+- Shift+Home, Shift+End gives similar erros
+
+
+ttom of bufferCommand: BufferExceeded: not found: 6
+
+
+
 
 ## Vish parser problems
 
