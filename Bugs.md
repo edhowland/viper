@@ -2,6 +2,18 @@
 
 # Todo list
 
+## The 'type' command has explict '/v/bin/' workings
+
+```
+type cat
+/v/bin/cat
+```
+
+Now that :path is in effect, must Command.resolve to get actual /v/*/<cmd>
+
+### Also check where else /v/bin is hardcoded
+
+
 ## Create new construct: cmdlet or CommandLet
 
 command lets are short snippets  or strings containing Ruby code

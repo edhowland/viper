@@ -74,7 +74,9 @@ class VirtualMachine
   def call(block)
     _hook(block) { block.call env: @ios, frames: @fs }
   end
-
+  def _builtins
+    self.class.instance_methods(false).reject {|m| m.to_s[0] == '_' }
+  end
   # implement a dir stack so cd -, pushd, popd work
   def _chdir(path)
 #    @fs.first[:oldpwd] = @fs[:pwd]
@@ -272,7 +274,7 @@ _saved_old = Hal.pwd
     elsif  frames.key? args[0].to_sym
       message = 'variable'
       result = true
-    elsif self.respond_to? args[0].to_sym
+    elsif _builtins.member?(args[0].to_sym)
       message = 'builtin'
       result = true
     else
