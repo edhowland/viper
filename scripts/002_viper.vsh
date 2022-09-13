@@ -57,7 +57,6 @@ _mode=viper bind move_shift_home { _pos=:(position :_buf); front_of_line :_buf; 
 log_key_pos move_shift_home
 _mode=viper bind move_shift_end { _pos=:(position :_buf);  back_of_line :_buf; global _pos } { at :_buf }
 log_key_pos move_shift_end
-_mode=viper bind ctrl_o { back_of_line :_buf; echo | ins :_buf } { at :_buf }
 _mode=viper bind fn_4 { trait_set :_buf _; _mark=_; global _mark } { echo -n mark set }
 _mode=viper bind fn_5 { trait_set :_buf t; _mark=t; global _mark } { echo -n mark t set }
 _mode=viper bind ctrl_c { capture { mark_copy :_buf :_mark; echo -n copy } { echo -n :last_exception } } { cat }
@@ -145,4 +144,6 @@ test -l :srch_cmd || bell && return false
 exec :srch_cmd
 line :_buf
 }
+_mode=viper bind ctrl_o { open_line_below :_buf } { at :_buf }
+_mode=viper bind meta_o { open_line_above :_buf } { at :_buf }
 

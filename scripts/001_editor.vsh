@@ -240,3 +240,14 @@ function pop_if(m) {
   test -f :m && test -e :m || pop :m | nop
   }
 alias swmode="raise"
+function open_line_below(buf) {
+  cond { at_fin :buf } {
+    echo | ins :buf } else {
+    back_of_line :buf; echo | ins :buf }
+}
+function open_line_above(buf) {
+  cond { at_beg :buf } {
+    echo | ins :buf } else {
+    front_of_line :buf; echo | ins :buf }
+  back :_buf
+}

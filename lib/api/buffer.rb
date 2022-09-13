@@ -321,5 +321,11 @@ class Buffer
   def length
     a_buff.length + b_buff.length
   end
+  def beg?
+    a_buff.empty?
+  end
+  def fin?
+    b_buff.empty?
+  end
   alias size length
 end
