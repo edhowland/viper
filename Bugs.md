@@ -110,7 +110,6 @@ Can 'when' be a Vish function?
 
 ## Oustanding end of buffer bugs
 
-- Ctrl-o at the end of the buffer does not work
 - Shift+Home, Shift+End gives similar erros
 
 

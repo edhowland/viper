@@ -1,5 +1,19 @@
 # Changelog for Viper project
 
+## 2022-09-13
+
+- Ctrl-o at the end of the buffer does not work
+
+
+Fixed by adding functions:
+
+- open_line_below
+- open_line_above : bound to meta_o
+
+Added help for these in ./doc/keys/viper.json
+
+
+
 ## 2022-09-10
 
 # Major Bug
