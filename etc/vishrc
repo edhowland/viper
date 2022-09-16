@@ -22,7 +22,7 @@ function reduce() {
 shift fn
 shift init
 for e in :_ {
-init=:(exec :fn :init :e)
+init=:(exec :fn ":{init}" ":{e}")
 }
 echo :init
 }
@@ -50,6 +50,8 @@ function first() {
   shift item
   echo :item
 }
+function rest(_x) { echo :_ }
+function empty() { test -z :_ }
 function load_event() { nop }
 function exit_event() { nop }
 alias at_exit="on exit_event"

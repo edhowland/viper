@@ -40,6 +40,7 @@ _mode=command bind ctrl_r { echo -n search back } { cat; raise search_com_rev }
 _mode=command bind ctrl_f { echo -n search } { cat; raise search_com_fwd }
 _mode=command bind ctrl_g { nop } { raise search_com_again }
 _mode=command bind ctrl_d { echo -n exit command } { cat; raise vip }
+_mode=command bind ctrl_u { clear_line } { echo -n clear line; at :_buf }
 function commander() {
 _mode=command _buf=/v/command loop {
 key=:(raw -|xfkey)

@@ -111,7 +111,7 @@ Can 'when' be a Vish function?
 ## Oustanding end of buffer bugs
 
 - Shift+Home, Shift+End gives similar erros
-
+- ctrl_a also gives error
 
 ttom of bufferCommand: BufferExceeded: not found: 6
 
@@ -170,14 +170,60 @@ Notice the following sequence:
 
 ## Refactors
 
+### When vim mode is enabled in the future
+
+The startup sequence should be:
+
+- no existing file or empty file
+  * empty files could be files with only newlines in them
+- When the '-l' flag is supplied to goto a specific number
+
+The editor should start up in insert mode
+
+In all other cases, the editor should start in normal mode.
+
+
 ### Completly remove 'on' as the entire event handlers are not functional
 
 - Also remove the '-l', --log from options and function logger
 - The call to load_event is just a 'nop'. Ess ./etc/vishrc
   * Remove all of that
 
+
+## changes to Vish prelude
+
+### Higher order functions like map, filter .etc
+
+These functions should eliminate the first line 'shift fn' and make it
+it a parameter.
+
+```
+function filter(fn) {
+
+...
+```
+
+
+The first line should be a check the the fn is in fact a function
+
+```
+function map(fn) {
+  test -l :fn || raise map requires first argument to be a lambda
+```
+
+
 # Design flaws
 
+##  the split function should be  be moved and fixed
+
+Currently resides in scripts/*extras.vsh
+must be moved to etc/vishrc
+
+To fix it:
+
+```
+function split(val, sep) { ifs=:sep echo :val }
+```
 ## Should allow for command substitution in double qoted strings like Bash
 
 ```bash
