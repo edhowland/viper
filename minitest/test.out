@@ -1,0 +1,14 @@
+_chdir: uninitialized class variable @@root in VirtualLayer
+Run options: --seed 63528
+
+# Running:
+
+................F................
+
+Finished in 0.024247s, 1361.0023 runs/s, 1361.0023 assertions/s.
+
+  1) Failure:
+VirtualMachineTests#test_cd_non_existant_dir_has_false_exit_status [test_virtual_machine.rb:57]:
+Expected false to be truthy.
+
+33 runs, 33 assertions, 1 failures, 0 errors, 0 skips

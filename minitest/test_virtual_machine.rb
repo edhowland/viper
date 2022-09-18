@@ -46,7 +46,7 @@ class VirtualMachineTests < MiniTest::Test
   end
   def test_cd_non_existant_dir_outputs_error_msg_to_stderr
     @vm.cd '/v/zzyyxx', env:@vm.ios, frames:@vm.fs
-    assert_equal "cd: No such file or directory - /v/zzyyxx\n", @errbuf.string
+    assert_equal "cd: No such file or directory\n",@errbuf.string  
   end
   def test_cd_ok_has_true_exit_status
     @vm.cd '/v', env:@vm.ios, frames:@vm.fs

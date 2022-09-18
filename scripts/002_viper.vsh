@@ -53,9 +53,9 @@ _mode=viper bind ctrl_q { nop } { exit }
 _mode=viper bind meta_a { _pos=:(position :_buf); global _pos; pager } { cat }
 store { echo meta_a :_pos | enq ":{_buf}/.keylog" } /v/klogs/viper/meta_a
 _mode=viper bind ctrl_p { nop } { echo -n Control p is not assigned }
-_mode=viper bind move_shift_home { _pos=:(position :_buf); front_of_line :_buf; global _pos } { at :_buf }
+_mode=viper bind move_shift_home { start_of_line :_buf } { safe_at :_buf }
 log_key_pos move_shift_home
-_mode=viper bind move_shift_end { _pos=:(position :_buf);  back_of_line :_buf; global _pos } { at :_buf }
+_mode=viper bind move_shift_end { end_of_line :_buf } { at :_buf }
 log_key_pos move_shift_end
 _mode=viper bind fn_4 { trait_set :_buf _; _mark=_; global _mark } { echo -n mark set }
 _mode=viper bind fn_5 { trait_set :_buf t; _mark=t; global _mark } { echo -n mark t set }

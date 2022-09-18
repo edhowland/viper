@@ -94,6 +94,17 @@ Set them to output the following text when pressed.
 Alternatively, you can press Shift plus PageUp or Shift plus PageDown
 to get the same effect temporarily.
 
+
+## Installation
+
+1. Clone this repository
+2. cd to the cloned directory: ./viper
+3. run bundle to install gems
+
+Note: bundler requires system permissions to install gems in your system
+Ruby. I  recommend using a Ruby version manager like 'rbenv' or 'rvm'.
+When using a Ruby version manager, your gems get installed locally.
+
 ## Usage
 
 Run ./bin/viper --help to see a list of command line flags.

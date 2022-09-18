@@ -16,6 +16,10 @@ class HalTest < MiniTest::Test
     @vroot = @vm.fs[:vroot]
     @oldpwd = @vm.fs[:pwd]
   end
+    def runit string, vm
+    block = Visher.parse! string
+    vm.call block
+  end
   def tear_down
     Dir.chdir File.dirname(File.expand_path(__FILE__))
     #Hal.chdir @oldpwd, @vm.fs[:pwd]
@@ -28,6 +32,13 @@ class HalTest < MiniTest::Test
     Hal.mkdir_p '/v/a/b'
     Hal.chdir '/v/a/b'
     assert_eq Hal.pwd, '/v/a/b'
+  end
+  def test_chdir_raises_ioerror_if_not_directory
+    Hal.touch '/v/foo'
+    assert_raises Errno::ENOTDIR do
+      Hal.chdir '/v/foo'
+    end
+    
   end
   def test_chdir_non_existant_path_raises_no_file_or_dir
         Hal.mkdir_p '/v/a/b'

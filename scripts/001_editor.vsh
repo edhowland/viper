@@ -251,3 +251,16 @@ function open_line_above(buf) {
     front_of_line :buf; echo | ins :buf }
   back :_buf
 }
+function safe_at(buf) {
+  cond { at_fin :buf } { nop } else { at :_buf }
+}
+function start_of_line(buf) {
+  save_pos
+  cond { at_beg :buf } { nop } else {
+    front_of_line :buf }
+}
+function end_of_line(buf) {
+  save_pos
+  cond { at_fin :buf } { nop } else {
+    back_of_line :buf }
+}

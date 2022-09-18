@@ -70,4 +70,4 @@ test -z :srch_meth && bell && return
 line /v/command
 }
 function vish() { pop /v/meta | nop; raise com }
-
+_mode=command bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }

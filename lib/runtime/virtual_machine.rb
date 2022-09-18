@@ -85,6 +85,9 @@ _saved_old = Hal.pwd
     begin
       Hal.chdir path, @fs[:pwd]
       @cdbuf[-1] = _saved_old
+    rescue Errno::ENOTDIR => exc
+      raise exc
+
     rescue Errno::ENOENT => exc
       raise exc
     rescue => err
@@ -122,7 +125,10 @@ _saved_old = Hal.pwd
       _chdir args[0]
     end
     true
-  rescue Errno::ENOENT => err
+  rescue Errno::ENOTDIR => err
+    env[:err].puts "cd: #{err.message}"
+    false
+      rescue Errno::ENOENT => err
     env[:err].puts "cd: #{err.message}"
     false
   end

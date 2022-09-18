@@ -107,6 +107,17 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## Tracing is incomplete
+
+Since only $vm.call is being traced, missing things like when keys cause actions
+to be executed. 
+So, only the ./scripts/001 .. 0999_*.vsh 
+
+
+- Command needs to  enable tracing
+- But probably do not trace every printable key insert
+  * But, for now, go ahead and trace everything
+
 
 ## Oustanding end of buffer bugs
 

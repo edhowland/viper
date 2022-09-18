@@ -64,6 +64,8 @@ class VirtualLayer
     end
 
     def chdir(path)
+      raise  Errno::ENOENT    unless self.exist?(path)
+      raise Errno::ENOTDIR unless self.directory?(path)
       @@root.cd path
     end
 
