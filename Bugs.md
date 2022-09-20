@@ -107,27 +107,32 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## Tracing is incomplete
-
-Since only $vm.call is being traced, missing things like when keys cause actions
-to be executed. 
-So, only the ./scripts/001 .. 0999_*.vsh 
-
-
-- Command needs to  enable tracing
-- But probably do not trace every printable key insert
-  * But, for now, go ahead and trace everything
-
 
 ## Oustanding end of buffer bugs
 
-- Shift+Home, Shift+End gives similar erros
-- ctrl_a also gives error
+Note: intentionally blank in case more of these are found
+
 
 ttom of bufferCommand: BufferExceeded: not found: 6
 
 
 
+## When autoindent is on, and first yank then paste , indent gets doubled
+
+1. goto line that is indented
+2. yank that
+line
+3. open new line
+4. paste
+
+  this line is indented
+    this line is indented
+
+indenting above is doubled
+
+## Viper flags do all not work
+
+- --finish script has no effect
 
 ## Vish parser problems
 
@@ -149,15 +154,16 @@ b=false
 vish >typespaceb
 caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
 vish >
-vish >typespaceb
+vish >type b
 caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
-vish >typespacea
+vish >type a
 caught exception : undefined method `empty?' for nil:NilClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
 NoMethodError
 private method `print' called for "":String
 
 
 ```
+
 
 
 

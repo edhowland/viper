@@ -12,7 +12,7 @@ _mode=viper bind move_down { capture { down :_buf; line :_buf } { bell } } { cat
 _mode=viper bind move_up { capture { up :_buf; line :_buf } { bell } } { cat }
 _mode=viper bind move_left { capture { back :_buf } { bell } { at :_buf } } { cat }
 _mode=viper bind move_right { capture { fwd :_buf } { bell } { at :_buf } } { cat }
-_mode=viper bind ctrl_j { nop } { at :_buf }
+_mode=viper bind ctrl_j { nop } { safe_at :_buf }
 _mode=viper bind meta_j { word_fwd :_buf } { cat }
 ignore_undo meta_j
 _mode=viper bind ctrl_k { nop } { col :_buf }
@@ -55,7 +55,7 @@ store { echo meta_a :_pos | enq ":{_buf}/.keylog" } /v/klogs/viper/meta_a
 _mode=viper bind ctrl_p { nop } { echo -n Control p is not assigned }
 _mode=viper bind move_shift_home { start_of_line :_buf } { safe_at :_buf }
 log_key_pos move_shift_home
-_mode=viper bind move_shift_end { end_of_line :_buf } { at :_buf }
+_mode=viper bind move_shift_end { end_of_line :_buf } { safe_at :_buf }
 log_key_pos move_shift_end
 _mode=viper bind fn_4 { trait_set :_buf _; _mark=_; global _mark } { echo -n mark set }
 _mode=viper bind fn_5 { trait_set :_buf t; _mark=t; global _mark } { echo -n mark t set }
@@ -83,7 +83,7 @@ ignore_undo meta_l
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind fn_8  { nop } { echo selection is; copy :_buf }
 _mode=viper bind fn_9 { echo Meta Modes are: ; meta_modes } { cat; nop }
-_mode=viper bind ctrl_a { save_pos; select_all } { echo -n select all }
+_mode=viper bind ctrl_a {  select_all_buf :_buf } { buffer_empty :_buf || echo -n select all }
 log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }

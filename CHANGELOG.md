@@ -1,5 +1,48 @@
 # Changelog for Viper project
 
+## 2022-09-20
+
+- shift+home, shift+end gave key not bound error when at end of buffer or start of buffer
+Fixed by new functions: start_of_line, end_of_line and safe_at
+
+- ctrl_a also gives error
+
+Fixed by new functions: 
+- select_all_buf :_buf 
+- buffer_empty :_buf
+
+- ctrl_j  : key ctrl_j  is not bound
+Fixed by adding safe_at to binding in view
+
+
+## Tracing is incomplete
+
+Since only $vm.call is being traced, missing things like when keys cause actions
+to be executed. 
+So, only the ./scripts/001 .. 0999_*.vsh 
+
+Should probably extend the Command class
+
+
+- Command needs to  enable tracing
+- But probably do not trace every printable key insert
+  * But, for now, go ahead and trace everything
+
+
+Fix:
+
+New version of bin/debugging_support.rb which gets required with -x  flag to viper.
+Tracing occurs at the Statement level. By defaults get written to stderr.
+Using the VISH_TRACEFILE=<file.log> env variable, redirect tracing output to <file.log>
+
+Note: There are very many long lines
+Each statement is preceeded by '>> ' and succeeded by '<< ' duplicating the same content.
+When investigating problems, maybe egrep for onely lines starting with '^>> '
+
+Another hint: pipe this egrep output into 'cut -c 1-80' to cut back on overmuch trailing content.
+
+
+
 ## 2022-09-13
 
 - Ctrl-o at the end of the buffer does not work

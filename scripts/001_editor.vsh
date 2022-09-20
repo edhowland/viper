@@ -264,3 +264,10 @@ function end_of_line(buf) {
   cond { at_fin :buf } { nop } else {
     back_of_line :buf }
 }
+function select_all_buf(buf) {
+  cond { at_beg :buf && at_fin :buf } { nop } else { save_pos; select_all }
+}
+function buffer_empty(buf) {
+  at_beg :buf && at_fin :buf
+  }
+  
