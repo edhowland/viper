@@ -11,6 +11,15 @@
 #   Is the pathname a stored lambda or code block?
 
 class Test < BaseCommand
+  def fs_object(path, frames:)
+if Hal.exist?(path)
+          root = frames[:vroot]
+        node = root[path]
+    node
+        else
+          false
+        end    
+  end
   def call(*args, env:, frames:)
     super do |*a|
       result = false
@@ -19,9 +28,8 @@ class Test < BaseCommand
       elsif  @options[:d]
         result =  Hal.directory?(a[0])
       elsif @options[:x]
-        if Hal.exist?(a[0])
-          root = frames[:vroot]
-        node = root[a[0]]
+        node = fs_object(a[0], frames: frames)
+        if node != false
         result = (node.kind_of?(Lambda) || node.kind_of?(Block) || node.kind_of?(BaseCommand))
         else
           result = false

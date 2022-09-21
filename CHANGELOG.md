@@ -2,6 +2,28 @@
 
 ## 2022-09-20
 
+## doing a 'type of variable with true or false values
+
+vish >declare   -p b
+b=false
+vish >type b
+caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+vish >
+vish >type b
+caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+vish >type a
+caught exception : undefined method `empty?' for nil:NilClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
+NoMethodError
+private method `print' called for "":String
+
+
+```
+
+
+
+
+
+
 - shift+home, shift+end gave key not bound error when at end of buffer or start of buffer
 Fixed by new functions: start_of_line, end_of_line and safe_at
 

@@ -65,6 +65,13 @@ hex "a"
 echo "a" | hex
 61
 ```
+
+## Using CommandLets, implement:
+
+- range operator : Like range in Python or Ruby Range class, '..' operator
+- printf : Like Bash or C equivalent
+- date : Maybe an alias to sh Date
+
 # # Complete all shift tests, esp. re: lambdas and functions
 
 ## Make sure shift with no args still works ok. Like bash's shift
@@ -145,28 +152,6 @@ function foo() { nop }
 rem The above and the rest of the file is skipped
 ```
 
-## doing a 'type of variable with true or false values
-
-```
-
-vish >declarespace=delete equals-pspaceb
-b=false
-vish >typespaceb
-caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
-vish >
-vish >type b
-caught exception : undefined method `empty?' for false:FalseClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
-vish >type a
-caught exception : undefined method `empty?' for nil:NilClass elsif !frames[args[0].to_sym].empty? ^^^^^^^
-NoMethodError
-private method `print' called for "":String
-
-
-```
-
-
-
-
 
 ## Meta mode not quite working yet
 
@@ -241,6 +226,8 @@ To fix it:
 ```
 function split(val, sep) { ifs=:sep echo :val }
 ```
+
+
 ## Should allow for command substitution in double qoted strings like Bash
 
 ```bash
@@ -252,7 +239,9 @@ echo $a
 ```
 a=":(echo 1 2)"
 echo :a
-# :(echo 1 2)
+# should be:  1 2
+# Actual
+":(echo 1 2)"
 ```
 
 When string interpolation happens, not only should
@@ -281,6 +270,7 @@ The latter might be a sort of getopt like function in Bash, Ruby, Python and oth
 Right now, we can use the 'eq' command to  perform this sort of thing, but it has
 no break out early on failuer like switch statements.
 
+Note: See the discussion of the when command above
 Proposal is to add another
 /v/bin/case command
 
@@ -289,6 +279,19 @@ case :flag { when 1 { rem action to perform when :flag is 1 }} { when 2 { rem ac
 ```
 
 ## Add the ability to /v/bin/test to check for a code block 'test -b { nop} => true'
+
+Note: Can currently check if it is an executable
+
+```
+cd /v/modes/viper
+test -x ctrl_a; echo :exit_status
+true
+
+test -b ctrl_a; echo :exit_status
+false
+```
+
+
 
 
 ## The builtin 'declare -f function_name'
