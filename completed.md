@@ -1,5 +1,16 @@
 # completed bugs
 
+## 2022-09-21
+
+## ctrl_g stopped working with command not found error
+
+1 Do any forward or reverse search
+2. press ctrl_g
+3. Get Command not found error
+
+
+
+
 ## 2022-09-17
 
 ### attempt to cd into array in VFS:

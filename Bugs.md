@@ -114,11 +114,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## ctrl_g stopped working with command not found error
-
-1 Do any forward or reverse search
-2. press ctrl_g
-3. Get Command not found error
 
 
 
