@@ -114,6 +114,13 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## ctrl_g stopped working with command not found error
+
+1 Do any forward or reverse search
+2. press ctrl_g
+3. Get Command not found error
+
+
 
 ## Oustanding end of buffer bugs
 
@@ -277,21 +284,6 @@ Proposal is to add another
 ```
 case :flag { when 1 { rem action to perform when :flag is 1 }} { when 2 { rem action to perform  :flag is 2 }} { else { rem action to  be performed when no match occurs }}
 ```
-
-## Add the ability to /v/bin/test to check for a code block 'test -b { nop} => true'
-
-Note: Can currently check if it is an executable
-
-```
-cd /v/modes/viper
-test -x ctrl_a; echo :exit_status
-true
-
-test -b ctrl_a; echo :exit_status
-false
-```
-
-
 
 
 ## The builtin 'declare -f function_name'

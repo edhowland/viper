@@ -5,8 +5,8 @@
 # -d  checks if argument is a directory
 # -z checks if argument is empty string
 # -e checks if array or directory  is empty
-# -l true if arg is a Lambda
-# -b checks if arg is a code block
+# -l true if arg is a Lambda or if VFS path points to stored lambda
+# -b checks if arg is a code block or if VFS path points to tored code block
 # -x checks if pathname resolves to executable content
 #   Is the pathname a stored lambda or code block?
 
@@ -42,8 +42,18 @@ if Hal.exist?(path)
         result = node.empty?
       elsif @options[:l]
         result = (Lambda === a[0])
+        if !result
+          node = fs_object(a[0], frames: frames)
+          result = (Lambda === node)
+        end
+
       elsif @options[:b]
         result = (Block === a[0])
+        if !result
+          node = fs_object(a[0], frames: frames)
+          result = ( Block === node)
+        end
+        
       else
         result = a[0]
       end

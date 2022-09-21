@@ -1,5 +1,29 @@
 # Changelog for Viper project
 
+## 2022-09-21
+
+## Add the ability to /v/bin/test to check for a code block 'test -b { nop} => true'
+
+Note: Can currently check if it is an executable
+
+```
+cd /v/modes/viper
+test -x ctrl_a; echo :exit_status
+true
+
+test -b ctrl_a; echo :exit_status
+false
+```
+
+
+
+
+
+
+This was fixed by getting the VFS node from the first argument to test
+and checking if  it is a Block (-b) or a Lambda (-l) as well as normal checks
+
+tests were added to vshtest/test_test.vsh
 ## 2022-09-20
 
 ## doing a 'type of variable with true or false values
