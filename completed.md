@@ -1,5 +1,17 @@
 # completed bugs
 
+## 2022-09-23
+
+## Should handle control plus c in Vish REPL.
+
+Fix: added correct binding to ctrl_c in 003_command.vsh.
+clears the line and reports Control-c
+
+
+
+
+
+
 ## 2022-09-21
 
 ## ctrl_g stopped working with command not found error

@@ -363,10 +363,6 @@ source ./lib/bin/require.rb
 
 
 
-## Should handle control plus c in Vish REPL.
-
-
-
 
 ## Comments cannot exist on their won a line in interactive modeAnd in scripts, strange behaviour
 
