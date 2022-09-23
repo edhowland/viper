@@ -1,5 +1,13 @@
 # Changelog for Viper project
 
+2022-09-22
+
+Changes to Vish REPL
+
+And also control plus u to delete the contents of the buffer
+
+
+
 ## 2022-09-21
 
 ## Add the ability to /v/bin/test to check for a code block 'test -b { nop} => true'

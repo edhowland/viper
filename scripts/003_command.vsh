@@ -22,6 +22,7 @@ _mode=command bind move_down { capture { down :_buf; line :_buf } { bell } } { c
 _mode=command bind move_up { capture { up :_buf; back_of_line :_buf; line :_buf } { bell } } { cat }
 _mode=command bind move_left { capture { back :_buf } { bell } } { at :_buf }
 _mode=command bind move_right { capture { fwd :_buf } { bell } } { at :_buf }
+_mode=command bind ctrl_c { sigint } { nop }
 _mode=command bind ctrl_j { nop } { at :_buf }
 _mode=command bind ctrl_k { nop } { col :_buf }
 _mode=command bind ctrl_l { nop } { line :_buf }
