@@ -19,9 +19,6 @@ function ask2_save(buf) {
 function is_dirty(buf) {
   not { eq :(cat < ":{buf}/.digest") :(digest_sha1 < :buf) }
 }
-function split(val, sep) {
-  ifs=:sep; echo :val
-}
 function indent_line(buf) {
   suppress {
     front_of_line :buf

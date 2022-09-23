@@ -65,3 +65,17 @@ rem _vpm_root is the location of all Vish Package Management files
 _vpm_root=":{_vconfig}/vpm"; global _vpm_root
 alias if=cond
 mkdir /v/options
+function split(val, sep) {
+  ifs=:sep echo :val
+}
+function join(sep) {
+  function _join(acc, sep) {
+    cond { empty :_ } { echo :acc; return true } else {
+      shift a
+      _join ":{acc}:{sep}:{a}" :sep :_
+    }
+  }
+  shift ac
+  _join :ac :sep :_
+}
+
