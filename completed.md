@@ -1,5 +1,23 @@
 # completed bugs
 
+## 2022-09-25
+
+## type does not return false if not found
+
+Reports Command not found instead of "Unknown"
+Need to capture the result of calling resolve
+
+Need to fix  minitest/test_virtual_machine.rb:69
+change assert to get from vm.ios[:err], instead of ios[:out]
+and check for "Command jjj not found"
+
+Fix: thing from Command.resolve is the actual /v/bin/false command
+def type in VirtualMachine now checks against that result
+
+Note: This is probably a bug in Command.resolve when the  output is not found
+Also, the system seems to raise CommandNotFound. But where does this get rescued?
+
+
 ## 2022-09-23
 
 ## Should handle control plus c in Vish REPL.

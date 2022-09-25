@@ -3,14 +3,7 @@
 # Todo list
 
 
-## type does not return false if not found
 
-Reports Command not found instead of "Unknown"
-Need to capture the result of calling resolve
-
-Need to fix  minitest/test_virtual_machine.rb:69
-change assert to get from vm.ios[:err], instead of ios[:out]
-and check for "Command jjj not found"
 ### Also check where else /v/bin is hardcoded
 
 
