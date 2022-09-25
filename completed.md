@@ -2,6 +2,11 @@
 
 ## 2022-09-25
 
+### Also check where else /v/bin is hardcoded
+
+
+
+
 ## type does not return false if not found
 
 Reports Command not found instead of "Unknown"

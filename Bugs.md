@@ -4,8 +4,6 @@
 
 
 
-### Also check where else /v/bin is hardcoded
-
 
 ## Create new construct: cmdlet or CommandLet
 

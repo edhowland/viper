@@ -288,7 +288,7 @@ _saved_old = Hal.pwd
       #binding.pry
       if !thing.instance_of?(False)
         if (thing.class.ancestors.member?(BaseCommand))
-          message = Command.first_in_path(args[0], frames: frames)  #"/v/bin/#{args[0]}"
+          message = Command.first_in_path(args[0], frames: frames)  
           result = true
         else
           result = false

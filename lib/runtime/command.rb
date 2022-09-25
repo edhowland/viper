@@ -52,7 +52,6 @@ class Command
       begin
         thing = @@cache[id.to_sym]
         if thing.nil?
-          #cpath = "/v/bin/#{id}"
           cpath = id
           loci = first_in_path(cpath, frames: frames)
           unless loci.nil?
