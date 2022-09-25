@@ -1,5 +1,13 @@
 # Wont fix
 
+## 2022-09-23
+
+- date : Maybe an alias to sh Date
+
+Fix: Is a alias, in my own personal ~/.vishrc
+
+
+
 
 ## 2022-09-22
 

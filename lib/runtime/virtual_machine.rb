@@ -284,11 +284,25 @@ _saved_old = Hal.pwd
       message = 'builtin'
       result = true
     else
-      thing = Command.command_from_path "/v/bin/#{args[0]}", frames:frames
-      if thing.class.ancestors.member? BaseCommand
-        message = "/v/bin/#{args[0]}"
-        result = true
+      thing = Command.resolve(args[0], env: env, frames: frames)
+      #binding.pry
+      #puts "thing from resolve was #{thing}"
+      if !thing.instance_of?(False)
+        #puts "it things thing is not false, but is actually: #{thing}"
+        if (thing.class.ancestors.member?(BaseCommand))
+#puts "found ancestor #{thing.class.name}"
+          message = Command.first_in_path(args[0], frames: frames)  #"/v/bin/#{args[0]}"
+          result = true
+        else
+          #puts "thing did not have a BaseCommand in ancestors, or returned the capital False"
+          result = false
+        end
+      else
+        #puts "thing was #{thing}"
+        result = false
       end
+      #puts "result is #{result}"
+      result
     end
     env[:out].puts message
     result

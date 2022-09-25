@@ -66,7 +66,8 @@ class VirtualMachineTests < MiniTest::Test
   end
   def test_type_reports_unknown_w_no_match
     @vm.type 'jj', env:@vm.ios, frames:@vm.fs
-    assert_eq @vm.ios[:out].string.chomp, 'unknown'
+    #assert_eq @vm.ios[:out].string.chomp, 'unknown'
+    assert_match /^Command: .*: not found: 0/,  @vm.ios[:err].string.chomp
   end
   def test_type_returns_false_w_no_match
     result = @vm.type 'jj', env:@vm.ios, frames:@vm.fs

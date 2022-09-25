@@ -11,3 +11,5 @@ source test_arity.vsh
 source test_cond.vsh
 source test_cat.vsh
 source test_test.vsh
+source test_path_expansion.vsh
+

@@ -1,5 +1,18 @@
 # Changelog for Viper project
 
+## 2022-09-24
+
+## The 'type' command has explict '/v/bin/' workings
+
+```
+type cat
+/v/bin/cat
+```
+
+Now that :path is in effect, must Command.resolve to get actual /v/*/<cmd>
+
+
+
 2022-09-22
 
 Changes to Vish REPL

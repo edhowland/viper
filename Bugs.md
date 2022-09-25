@@ -2,15 +2,15 @@
 
 # Todo list
 
-## The 'type' command has explict '/v/bin/' workings
 
-```
-type cat
-/v/bin/cat
-```
+## type does not return false if not found
 
-Now that :path is in effect, must Command.resolve to get actual /v/*/<cmd>
+Reports Command not found instead of "Unknown"
+Need to capture the result of calling resolve
 
+Need to fix  minitest/test_virtual_machine.rb:69
+change assert to get from vm.ios[:err], instead of ios[:out]
+and check for "Command jjj not found"
 ### Also check where else /v/bin is hardcoded
 
 
@@ -70,7 +70,6 @@ echo "a" | hex
 
 - range operator : Like range in Python or Ruby Range class, '..' operator
 - printf : Like Bash or C equivalent
-- date : Maybe an alias to sh Date
 
 
 ## Implement the 'defn' keyword
