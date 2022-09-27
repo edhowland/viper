@@ -2,6 +2,17 @@
 
 2022-09-27
 
+## join function should use :ofs or output field separator
+
+```
+function join(sep) {
+  ofs=:sep echo :_
+}
+```
+
+
+FIX: lib/bin/echo.rb modified to use _frames[:ofs] instead of h/c ' '
+
 
 ##  Change raise RuntimeError in shift.rb to be a perr message and result = false
 

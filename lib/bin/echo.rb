@@ -6,7 +6,7 @@ class Echo < FlaggedCommand
     super(flags: { '-n' => false, '-x' => false }) do |_inn, out, _err, _frames, flags, *args|
       result = true
       if flags['-n']
-        out.print args.join(' ')
+        out.print args.join(_frames[:ofs])
       elsif flags['-x']
         if args.length.zero?
           _err.puts "echo: -x requires exactly one argument"
@@ -15,7 +15,7 @@ class Echo < FlaggedCommand
                 out.puts  args[0].chars.map(&:ord)
         end
       else
-        out.puts args.join(' ')
+        out.puts args.join(_frames[:ofs])
       end
 result
     end

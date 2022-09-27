@@ -69,13 +69,6 @@ function split(val, sep) {
   ifs=:sep echo :val
 }
 function join(sep) {
-  function _join(acc, sep) {
-    cond { empty :_ } { echo :acc; return true } else {
-      shift a
-      _join ":{acc}:{sep}:{a}" :sep :_
-    }
-  }
-  shift ac
-  _join :ac :sep :_
+  ofs=:sep echo :_
 }
 

@@ -94,13 +94,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## join function should use :ofs or output field separator
-
-```
-function join(sep) {
-  ofs=:sep echo :_
-}
-```
 
 
 
