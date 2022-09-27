@@ -200,17 +200,6 @@ function map(fn) {
 
 # Design flaws
 
-##  the split function should be  be moved and fixed
-
-Currently resides in scripts/*extras.vsh
-must be moved to etc/vishrc
-
-To fix it:
-
-```
-function split(val, sep) { ifs=:sep echo :val }
-```
-
 
 ## Should allow for command substitution in double qoted strings like Bash
 

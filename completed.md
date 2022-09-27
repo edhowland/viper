@@ -2,6 +2,21 @@
 
 2022-09-27
 
+##  the split function should be  be moved and fixed
+
+Currently resides in scripts/*extras.vsh
+must be moved to etc/vishrc
+
+To fix it:
+
+```
+function split(val, sep) { ifs=:sep echo :val }
+```
+
+
+
+FIX: fixed several commits ago
+
 ## join function should use :ofs or output field separator
 
 ```
