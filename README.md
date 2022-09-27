@@ -2,7 +2,7 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.9
+### Version 2.0.10
 
 See the file CHANGELOG.md for updates.
 
@@ -148,6 +148,29 @@ See the file: Modes.md for a more complete list of various modes.
 
 - ./bin/vish : Runs a script a file with extension: .vsh.
 - ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press ctrl_d to exit or type 'exit' and press Enter.
+
+
+## Warnings
+
+Viper is under active development and as such there is always some possiblility
+of file corruption. It is recommended that it is only used in conjuction
+a version control system (VCS) like git. If you installe this Viper distribution
+via a 'git clone' like mentioned in the Installation section above, then
+you already have git. 
+
+One thing that you can do to help protect yourself, besides saving often and using a VCS,
+is use the command 'rew' if you get into trouble.
+
+1. Invoke Command mode with : Alt+';'
+2. Enter rew and press Enter
+
+
+This will restore the current file from its last saved version on disk.
+
+Please report any bugs encountered via the GitHub issues page for this repository.
+
+[https://github.com/edhowland/viper/issues](https://github.com/edhowland/viper/issues)
+
 
 
 ## Contributing
