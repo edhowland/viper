@@ -1,5 +1,24 @@
 # completed bugs
 
+2022-09-27
+
+
+##  Change raise RuntimeError in shift.rb to be a perr message and result = false
+
+If the object is not a kind_of Array, (or  Really responds_to?(:shift),
+then do the following
+
+```
+if !object.respond_to?(:shift)
+  perr "object cannot be shifted"
+  result = false
+else
+ ....
+```
+
+
+
+
 ## 2022-09-25
 
 ### Also check where else /v/bin is hardcoded

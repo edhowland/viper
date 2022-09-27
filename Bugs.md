@@ -70,24 +70,6 @@ This must be in lib/runtime/virtual_machine.rb.
 See the viper.wiki: PromotingLambdas.md file for a usage description.
 
 
-# # Complete all shift tests, esp. re: lambdas and functions
-
-## Make sure shift with no args still works ok. Like bash's shift
-
-##  Change raise RuntimeError in shift.rb to be a perr message and result = false
-
-If the object is not a kind_of Array, (or  Really responds_to?(:shift),
-then do the following
-
-```
-if !object.respond_to?(:shift)
-  perr "object cannot be shifted"
-  result = false
-else
- ....
-```
-
-
 
 ## Implement 'when' command. First part of case expression
 
@@ -111,6 +93,15 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## join function should use :ofs or output field separator
+
+```
+function join(sep) {
+  ofs=:sep echo :_
+}
+```
+
 
 
 

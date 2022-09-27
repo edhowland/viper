@@ -1,5 +1,17 @@
 # Wont fix
 
+2022-09-27
+
+
+## Make sure shift with no args still works ok. Like bash's shift
+
+shift works differently than Bash shift. Requires 1 or more arguments
+which must be variables to recv arguments from internal function's :_ args rest of array
+
+
+
+
+
 ## 2022-09-23
 
 - date : Maybe an alias to sh Date

@@ -1,6 +1,8 @@
-# shift - class Shift - command shift - outputs first argument. See rotate fn
+# shift - class Shift - command shift - outputs first argument. See rotate command
+# shifts from left of :_, which is the remainder of arguments past last named one
 # args:
-# -s <input array> : Use this input (which must be a variable name) instead of :_
+#  Must have at least one argument which must be a variable
+# if multiple arguments, which must all be be variables, then this mumber of arguments will be shifted off :_
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
@@ -8,11 +10,7 @@
 class Shift < BaseCommand
   def call(*args, env:, frames:)
     super do |*a|
-    if @options[:s]
-      src = a.shift.to_sym 
-    else
-      src = '_'.to_sym
-    end
+    src = '_'.to_sym
 
       if a.length.zero?
         perr 'shift: missing variable argument'

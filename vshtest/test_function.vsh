@@ -83,3 +83,15 @@ function test_lambda_argc_1_works() {
   exec :_www g h i
   assert_eq 3 :a
 }
+function test_stored_lambda_shifts_one_arg() {
+  store &() { shift aa; echo :aa } /v/mylambda
+  exec /v/mylambda 22 | read result
+  assert_eq :result 22
+}
+function test_stored_lambda_shifts_2_arguments() {
+  store &() { shift aa bb; echo ":{aa}:{bb}" } /v/l2
+  exec /v/l2 11 33 | read result
+  assert_eq :result 1133
+}
+
+

@@ -1,5 +1,17 @@
 # Changelog for Viper project
 
+2022-09-27
+
+
+# # Complete all shift tests, esp. re: lambdas and functions
+
+
+
+
+vshtest/test_function.vsh contains most tests for shift command
+shift only works with non-empty args which must be all variable names that will become results of left-most shift of :_ inside functions, lambdas or stored lambdas
+
+
 ## 2022-09-24
 
 ## The 'type' command has explict '/v/bin/' workings
