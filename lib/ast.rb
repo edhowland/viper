@@ -12,6 +12,8 @@ require_relative 'ast/context_constants.rb'
 require_relative 'ast/deref.rb'
 require_relative 'ast/function_declaration.rb'
 require_relative 'ast/function.rb'
+require_relative 'ast/lambda_function'
+
 require_relative 'ast/glob.rb'
 require_relative 'ast/lambda_declaration.rb'
 require_relative 'ast/lambda.rb'

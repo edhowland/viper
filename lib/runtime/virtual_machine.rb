@@ -266,6 +266,17 @@ _saved_old = Hal.pwd
     end
   end
 
+  # defn promote a lambda into an actual function
+  def defn(*args, env:, frames:)
+#puts "in defn: frames: #{frames.class.name}"
+    if (args.length != 2 && !args[0].kind_of?(String) && !args[1].kind_of?(Lambda))
+      env[:err].puts("defn: requires 2 arguments: A name and a lambda")
+      return false
+    else
+      frames.functions[args[0]] = LambdaFunction.new(args[1], args[0])
+      return true
+    end
+  end
   # type arg - reports type of arg, either alias function or alias or unknown
   def type *args, env:, frames:
     raise ArgumentError, 'Expected 1 argumnet' if args.empty?
