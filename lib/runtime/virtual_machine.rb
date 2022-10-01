@@ -268,12 +268,26 @@ _saved_old = Hal.pwd
 
   # defn promote a lambda into an actual function
   def defn(*args, env:, frames:)
-#puts "in defn: frames: #{frames.class.name}"
-    if (args.length != 2 && !args[0].kind_of?(String) && !args[1].kind_of?(Lambda))
-      env[:err].puts("defn: requires 2 arguments: A name and a lambda")
+    if (args.length != 2)
+      env[:err].puts("defn: requires 2 arguments: A name and a lambda or a block")
+      return false
+    elsif !args[0].kind_of?(String)
+      env[:err].puts("defn: first argument must be a string which will become the name of the function")
       return false
     else
-      frames.functions[args[0]] = LambdaFunction.new(args[1], args[0])
+      case args[1]
+      when Lambda
+        xblk = args[1]; xblk.extend LambdaFunction; xblk.name = args[0]
+        frames.functions[args[0]] =  xblk
+      when Block
+        xblk = Lambda.new([], args[1], frames: Closure.close(frames))
+        xblk.extend LambdaFunction; xblk.name = args[0]
+        frames.functions[args[0]] = xblk
+
+      else
+        env[:err].puts("defn: second argument must be either a lambda or a block")
+        return false
+      end
       return true
     end
   end

@@ -1,4 +1,4 @@
-# lambda_function.rb: class LambdaFunction < Function
+# lambda_function.rb: module LambdaFunction < Function
 # Wraps a Lambda in a Function
 # For use with the 'defn' keyword
 # defn foo &() { echo I am Foo }
@@ -6,8 +6,6 @@
 #  type foo
 # function
 
-class LambdaFunction < Function
-  def initialize(l, name='anon')
-    super(l.args, l.block, name)
-  end
+module LambdaFunction
+  attr_accessor :name
 end

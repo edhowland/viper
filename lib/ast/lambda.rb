@@ -27,7 +27,11 @@ fr = frames
     fr[:_argc] = args.length.to_s
     fr[:_arity] = @arity
     fr[:__FUNCTION_TYPE__] = 'lambda'
-    fr[:__FUNCTION_NAME__] = 'anonymous'
+    if self.respond_to?(:name)
+      fr[:__FUNCTION_NAME__] = self.name
+    else
+      fr[:__FUNCTION_NAME__] = 'anonymous'
+    end
     # Now call the parsed block we got from LambdaDeclaration
     begin
       result = @block.call env: env, frames: fr

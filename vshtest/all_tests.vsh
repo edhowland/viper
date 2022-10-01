@@ -13,4 +13,5 @@ source test_cat.vsh
 source test_test.vsh
 source test_path_expansion.vsh
 source test_type.vsh
+source test_defn.vsh
 

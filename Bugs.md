@@ -69,6 +69,24 @@ This must be in lib/runtime/virtual_machine.rb.
 
 See the viper.wiki: PromotingLambdas.md file for a usage description.
 
+### Partially implement, but does not properly implement capture closures, esp. inside REPL: ivsh
+
+```
+function foo(x) {
+  defn bar &() { echo :x }
+}
+foo 99
+bar
+
+```
+
+The last line should not be blank
+
+
+But works if using the store command from inside a function
+
+
+
 
 
 ## Implement 'when' command. First part of case expression
@@ -96,6 +114,16 @@ Can 'when' be a Vish function?
 
 
 
+## test -b when presented with a Lambda catches exception on split for path
+
+```
+l=&() { echo I am l }
+exec :l
+I am l
+test -b :l
+
+caught exception : undefined method `split' for &() { echo I am l }:Lambda elements = path.split('/') ^^^^^^
+```
 
 
 
