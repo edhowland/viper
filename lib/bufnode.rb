@@ -25,6 +25,8 @@ require_relative 'bufnode/peek'
 require_relative 'bufnode/rotate'
 require_relative 'bufnode/pop'
 require_relative 'bufnode/push'
+require_relative 'bufnode/retrv'
+
 require_relative 'bufnode/store'
 require_relative 'bufnode/mark'
 require_relative 'bufnode/mark_exists'

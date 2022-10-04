@@ -200,6 +200,16 @@ _saved_old = Hal.pwd
     true
   end
 
+  def cmdlet(*args, env:, frames:)
+    raise VishSyntaxError.new(" cmdlet: expected 3 arguments, got #{args.length}") unless args.length == 3
+    fname, code, path = args
+    clet = instance_eval(CommandLet.from_s(code))
+    vroot = frames[:vroot]
+    fqnpath = "#{path}/#{fname}"
+    vroot.creat(fqnpath, clet)
+    return true
+    return false
+  end
   def source(*args, env:, frames:)
     if args.empty?
       env[:err].puts 'source: missing argument'

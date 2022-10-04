@@ -1,5 +1,91 @@
 # Changelog for Viper project
 
+## Release 2.0.10
+
+### 2022-10-01
+
+
+- New features
+- Changes/Removals/Deprecations
+- Bug fixes
+- Minor improvements
+- Wont fixes
+
+
+### New Features
+
+- The :path variable is now used to resolve commands.
+  * The :path string is a colon delimited  list of executable paths in the virtual file system
+  * The next release : 2.0.11 will have new CommandLet type of commands which exist in different parts of the :path string paths.
+  * The :path variable is similar to Bash's $PATH, but only works with Vish commands.
+- New keyword: 'defn' to promote lambda or block to a named function.
+- New keyword 'cond' like That in the Scheme language
+  * Takes pairs of blocks, executes second block in pair if first block evals to true
+  * Final pair can be 'else' keyword as catch-all block
+- Tracing via the '-x' flag traces command calls with their arguments
+  * Use the Bash environment VISH_LOG variable to route traces to somewhere other than stderr
+
+### Changes/Removals/Deprecations
+
+- The split function moved to :vhome/etc/vishrc
+  * Complemented by its opposite number: The join function
+  *  echo command now properly understands both :ifs and :ofs, the input field separator and the output field separator
+
+### Bug fixes
+
+See all dated commits herein from the  date  starting at 2022-10-01
+until 2022-08-18
+
+
+### Minor improvements
+
+- type command  understands the :path variable
+  * type now properly reports only builtins, and not the complete set of methods  of VirtualMachine class
+- test command  has more flags for any executables, blocks or lambdas
+- cat can read from either virtual or physical paths just like *nix cat
+  * No need to use redirection to acchieve the same effect
+- Can pass start-up flags to interactive  REPL
+- Control-C, when in command mode or in Vish REPL, clears line and returns to front.
+  * Reports: Control-c
+
+
+### Wont fix
+
+- shift command will work differently in Vish than in Bash
+  * One or more mandatory arguments which will become local variables in the function body
+- global keyword works different from Bash
+  * variable must exist and be set to a value. Can use 'global var' as any following statement
+
+See the file [wontfix.md](wontfix.md)
+
+
+2022-10-01
+
+
+
+### Fixes
+
+
+## Implement the 'defn' keyword
+
+This must be in lib/runtime/virtual_machine.rb.
+
+See the viper.wiki: PromotingLambdas.md file for a usage description.
+
+```
+defn foo { echo I am foo }
+foo
+I am foo
+
+defn bar &(arg) { echo You said :arg }
+bar Hello
+You said Hello
+```
+
+
+
+
+
 2022-09-27
 
 
@@ -259,9 +345,9 @@ foo a b c d
 
 
 
-## 2022-08-18
 
-Release 2.0.9
+## Release 2.0.9
+###  2022-08-18
 
 Candidate release: Indy 2.1 pre-release candidate #1
 

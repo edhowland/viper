@@ -2,6 +2,47 @@
 
 # Todo list
 
+### Move bufnodes, esp. BufferCommands from /v/bin to /v/editor/bin
+
+
+### Move all commands like store, push, pop from /v/bin to /v/vfs
+
+Reason: To unclutter /v/bin and make it more like :vhome/lib/*.rb of requires
+
+Add all these to :path at startup
+
+### Safer at command instead of safe_at function
+
+And remove these after testing from  ./scripts/002_viper.vsh
+
+### New retrv command : opposite of /v/bin/store
+
+```
+store &() { echo foo } /v/foo
+exec /v/foo
+foo
+
+retrv /v/foo foovar
+type foovar
+variable
+defn fubar :foovar
+type fubar
+function
+
+fubar
+foo
+```
+
+
+
+Write test for these
+
+
+
+### Deprecations:
+
+- rline, class Rline, Buffer.rline.
+  * never called in any script
 
 
 
@@ -12,9 +53,11 @@ command lets are short snippets  or strings containing Ruby code
 They, once loaded, become like commands stored in /v/bin
 
 ```
-vish> loadcmd foo '{|*args, ios, fs| ios[:out].puts "foo" }'
-vish> foo
-foo
+vish>  cmdlet print_11 '{ puts 11 }' /v/cmdlet/misc
+type print_11
+/v/cmdlet/misc/print_11
+vish> print_11
+11
 ```
 
 
@@ -30,8 +73,10 @@ declare -c foo
 Command lets can take optional flags:
 
 ```
-loadcmd bar '{|args, flags, ios, frames| ios[:out].puts "-f flag is set' if flags[:f] ; ios[:ou].puts "bar called"}'
+cmdlet bar ' ...some ruby code...' 
 ```
+
+### The above should default to /v/cmdlet/misc
 
 ## Add commnds: ord, and chr
 
@@ -63,11 +108,6 @@ echo "a" | hex
 - printf : Like Bash or C equivalent
 
 
-## Implement the 'defn' keyword
-
-This must be in lib/runtime/virtual_machine.rb.
-
-See the viper.wiki: PromotingLambdas.md file for a usage description.
 
 ### Partially implement, but does not properly implement capture closures, esp. inside REPL: ivsh
 
@@ -111,6 +151,16 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## If viper -i is set, then also on exit do not ask to save the file
+
+```bash
+echo hello world | viper -i
+<Ctrl-Q>
+
+# just exits
+```
+
 
 
 

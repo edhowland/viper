@@ -1,6 +1,7 @@
 mount /v
 mkdir /v/bin
 install
+mkdir /v/cmdlet/misc
 alias rem=nop
 rem Use this line as pattern for all comments
 mkdir /v/buf
