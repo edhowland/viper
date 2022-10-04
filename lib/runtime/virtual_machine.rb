@@ -201,12 +201,14 @@ _saved_old = Hal.pwd
   end
 
   def cmdlet(*args, env:, frames:)
-    raise VishSyntaxError.new(" cmdlet: expected 3 arguments, got #{args.length}") unless args.length == 3
-    fname, code, path = args
-    clet = instance_eval(CommandLet.from_s(code))
+    raise VishSyntaxError.new(" cmdlet: expected 2 arguments, got #{args.length}") unless args.length == 2
+    fname, code = args
+    path = default_path(fname, default: '/v/cmdlet/misc')
+    clet = CommandLet.new
+    clet.code = code
+
     vroot = frames[:vroot]
-    fqnpath = "#{path}/#{fname}"
-    vroot.creat(fqnpath, clet)
+    vroot.creat(path, clet)
     return true
     return false
   end

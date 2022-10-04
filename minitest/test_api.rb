@@ -59,4 +59,12 @@ class ArrayExtenderTests < MiniTest::Test
         result = head_or_all input
         assert_eq result, input
   end
+  def test_default_path_returns_fqn_imput
+    # If default_path(/v/foo/bar', /v/foo/bar') => '/v/foo/bar'
+    assert_eq '/v/foo/bar', default_path('/v/foo/bar', default: '/v/foo/bar')
+  end
+  def test_default_path_w_just_name_returns_appended_fqn
+    # default_path 'baz', default: '/v/cmdlet/misc' => /v/cmdlet/misc/baz
+    assert_eq '/v/cmdlet/misc/baz', default_path('baz', default: '/v/cmdlet/misc')
+  end
 end

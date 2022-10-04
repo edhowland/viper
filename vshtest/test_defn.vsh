@@ -40,4 +40,17 @@ function test_defn_w_block_has_valid_name() {
   defn _fu3 { __fu3=:__FUNCTION_NAME__; global __fu3 }
   _fu3
   }
-  
+function test_defn_works_w_stored_lambda() {
+  store &(x) { echo :x } /v/ecx
+  retrv /v/ecx ecx
+  defn echo_x :ecx
+  echo_x foo | read result
+  assert_eq :result foo
+}
+function test_defn_w_stored_block() {
+store { echo bar } /v/bar
+retrv /v/bar bar
+defn echo_bar :bar
+echo_bar | read result
+assert_eq :result bar
+}

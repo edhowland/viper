@@ -52,6 +52,15 @@ The rationale for this is to prevent users  from clobbering the built-in macro s
 whenever they perform a git pull to get the latest release.
 ## 2.0.16
 
+- run prettier -ruby on code base
+- run rubocop
+- Invistigate the new Ruby type syntax
+  * DO NOT let this run down a rabbit hole
+  * Perhaps, if not easy to backport, wait until Viper 2.2
+
+
+## 2.0.17
+
 Final wrap-up 
 
 - Better documentation

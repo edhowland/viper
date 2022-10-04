@@ -2,6 +2,9 @@
 
 # Todo list
 
+## Make ruby code formatter work to clean up code base
+
+
 ### Move bufnodes, esp. BufferCommands from /v/bin to /v/editor/bin
 
 
