@@ -2,7 +2,7 @@
 
 class CommandLet < BaseCommand
   attr_accessor :block, :code
-  attr_reader :in, :out, :err, :args, :locals, :globals
+  attr_reader :inp, :out, :err, :args, :locals, :globals
   def set_block
     @block = self.instance_eval('->() ' + @code)
   end
@@ -16,12 +16,14 @@ class CommandLet < BaseCommand
       set_ios(env: env)
       set_vars(frames: frames)
       set_block
-      @block.call
+      return @block.call
     end
+  rescue => err
+    $stderr.puts err.message
   end
 
   def set_ios(env:)
-    self.in = env[:in]
+    self.inp = env[:in]
     self.out = env[:out]
     self.err = env[:err]
   end
@@ -42,8 +44,8 @@ class CommandLet < BaseCommand
   
   private
 
-  def in=(inp)
-    @in = inp
+  def inp=(inp)
+    @inp = inp
   end
   def out=(out)
     @out = out

@@ -1,5 +1,43 @@
 # Changelog for Viper project
 
+2022-10-05
+
+## Add commnds: ord, and chr
+
+Does their Ruby equivalents.
+
+```
+echo -n A | ord
+65
+ord A
+65
+echo -n 65 | chr
+A
+chr 65
+A
+```
+
+## Add hex command
+
+```
+hex "a"
+41
+echo "a" | hex
+61
+```
+
+## Using CommandLets, implement:
+
+- range operator : Like range in Python or Ruby Range class, '..' operator
+- printf : Like Bash or C equivalent
+
+
+
+
+
+
+
+
 ## Release 2.0.10
 
 ### 2022-10-01

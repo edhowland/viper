@@ -81,36 +81,27 @@ cmdlet bar ' ...some ruby code...'
 
 ### The above should default to /v/cmdlet/misc
 
-## Add commnds: ord, and chr
 
-Does their Ruby equivalents.
-
-```
-echo -n A | ord
-65
-ord A
-65
-echo -n 65 | chr
-A
-chr 65
-A
-```
-
-## Add hex command
+## Add flag parsing to cmdlets
 
 ```
-hex "a"
-41
-echo "a" | hex
-61
+cmdlet foo -f 'j,k,l:' '{ out.puts(opt[:l]) }'
+foo -l top.log
+top.log
 ```
 
-## Using CommandLets, implement:
+The -f flag takes a comma delmited string of options in the C getopt type.
 
-- range operator : Like range in Python or Ruby Range class, '..' operator
-- printf : Like Bash or C equivalent
+- single char : If present, then opt[:o] return true, false if absent
+- char with trailing ':', if present, returns the value passed , or an empty string otherwise
 
+```
+cmdlet bar -f "t" '{ out.puts("You gave me the -t flag") if opt[:t] }'
+bar -t
+You gave me the -t flag
+```
 
+### Make ord, chr and hex also  read from either stdin or use first argument
 
 ### Partially implement, but does not properly implement capture closures, esp. inside REPL: ivsh
 
@@ -207,6 +198,20 @@ indenting above is doubled
 - --finish script has no effect
 
 ## Vish parser problems
+
+
+### String interpolation should handle escaped chars
+
+```
+echo "hello\nworld"
+hello
+world
+```
+
+This just repeats:
+
+hello\nworld
+
 
 ### Parser stops on empty lines. Nothing is processed after a blank line
 

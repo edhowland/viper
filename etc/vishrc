@@ -72,4 +72,8 @@ function split(val, sep) {
 function join(sep) {
   ofs=:sep echo :_
 }
+cmdlet range '{ out.puts(((args[0].to_i)..(args[1].to_i)).to_a.join(locals[:ofs])) }'
+cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
+
+
 
