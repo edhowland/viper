@@ -1,5 +1,5 @@
-cmdlet ord '{ out.puts(inp.read.chomp.ord) }'
-cmdlet chr '{ out.puts(inp.read.to_i.chr) }'
-cmdlet hex '{ out.puts("%0x" % inp.read.chomp) }'
+cmdlet ord '{ ival= (argc.zero? ? inp.read.chomp : args[0]); out.puts ival.ord }'
+cmdlet chr '{ ival=(argc.zero? ? inp.read.chomp : args[0]);  out.puts(ival.to_i.chr) }'
+cmdlet hex '{ ival=(argc.zero? ? inp.read.chomp : args[0]);  out.puts("%0x" % ival.to_i) }'
 
 

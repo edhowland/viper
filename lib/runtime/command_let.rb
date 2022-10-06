@@ -30,6 +30,9 @@ class CommandLet < BaseCommand
   def set_args args
     @args = args
   end
+  def argc
+    @args.length
+  end
   def set_vars(frames:)
     @locals = frames
     @globals = frames.first
