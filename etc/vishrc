@@ -1,7 +1,7 @@
 mount /v
 mkdir /v/bin
 install
-mkdir /v/cmdlet/misc
+mkdir /v/cmdlet/misc; _cmdlet=":{vhome}/cmdlet"
 alias rem=nop
 rem Use this line as pattern for all comments
 mkdir /v/buf
@@ -74,6 +74,7 @@ function join(sep) {
 }
 cmdlet range '{ out.puts(((args[0].to_i)..(args[1].to_i)).to_a.join(locals[:ofs])) }'
 cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
+path=:(join ":" /v/cmdlet/misc :path)
 
 
 

@@ -1,0 +1,14 @@
+source ":{_cmdlet}/misc/utils.vsh"
+function test_cmdlet_ord_chr_undo_each_other() {
+ord f | chr | read result
+assert_eq :result f
+  chr 63 | ord | read result
+  assert_eq :result 63
+}
+function test_cmdlet_hex_dec_undo_each_other() {
+  hex 209 | dec | read result
+  assert_eq :result 209
+  dec 4e | hex | read result
+  assert_eq :result 4e
+}
+
