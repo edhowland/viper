@@ -201,10 +201,22 @@ _saved_old = Hal.pwd
   end
 
   def cmdlet(*args, env:, frames:)
-    raise VishSyntaxError.new(" cmdlet: expected 2 arguments, got #{args.length}") unless args.length == 2
-    fname, code = args
+    case args.length
+    when 2
+      fname, code = args
+      clet = CommandLet.new
+    when 4
+      if args[1] == '-f' && CommandLet.valid_flags?(args[2])
+        fname, _, flags, code = args
+        clet = CommandLet.new(flags)
+      else
+        raise VishSyntaxError.new("cmdlet: invalid -f flags opton")
+      end
+    else
+      raise VishSyntaxError.new(" cmdlet: expected 2 or 4  arguments, got #{args.length}")
+    end
+
     path = default_path(fname, default: '/v/cmdlet/misc')
-    clet = CommandLet.new
     clet.code = code
 
     vroot = frames[:vroot]

@@ -146,6 +146,56 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## The read command does not handle multi-line stdin
+
+```
+(echo hello; echo world)
+hello
+world
+(echo hello; echo world) | read r1 r2
+echo :r1
+hello
+echo :r2
+
+```
+
+
+
+```
+echo "hello world" | read r1 r2
+echo :r1
+hello
+echo :r2
+world
+```
+
+
+
+
+## Suddenly, type of a cmdlet returns Unknown
+
+```
+range 1 6
+1 2 3 4 5 6
+type range
+unknown
+```
+
+This started when the last commit removed CommandLet < BaseCommand
+
+
+
+
+## ls command behaves eradically
+
+```
+test -f /v/bin/foo; echo :exit_status
+false
+ls /v/bin/foo
+foo
+```
+
+
 ## If viper -i is set, then also on exit do not ask to save the file
 
 ```bash
