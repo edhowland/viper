@@ -2,24 +2,30 @@
 #  That is the path
 
 class CommandLet
+  class Vfs
+    def initialize vroot
+      @vroot = vroot
+    end
+    attr_reader :vroot
+    def [] path
+      @vroot[path]
+    end
+    def []= path, obj
+      @vroot.creat(path, obj)
+    end
+  end
   def initialize(flags=nil)
     @opts = Hash.new { false }
     @optparse = nil
     unless flags.nil?
-      @optparse = OptionParser.new do |p|
-        flags.split(',').each do |f|
-puts "CommandLet: processing flag: |#{f}"
-          if valid_opt?(f)
-            p.on("-#{f}", "-#{f} option")
-          else
-            p.on("-#{f} value", String, "-#{f} <value> option")
-          end
-        end
-      end
+      @optparse = optparse_from flags
     end
   end
   attr_accessor :block, :code
-  attr_reader :inp, :out, :err, :args, :locals, :globals, :opts
+  attr_reader :inp, :out, :err, :args, :locals, :globals, :opts, :vfs
+  def set_vfs(frames:)
+    @vfs = Vfs.new(frames[:vroot])
+  end
   def set_block
     @block = self.instance_eval('->() ' + @code)
   end
@@ -34,6 +40,8 @@ puts "CommandLet: processing flag: |#{f}"
       set_args args
       set_ios(env: env)
       set_vars(frames: frames)
+      set_vfs(frames: frames)
+
       set_block
       return @block.call
   rescue => err
@@ -66,6 +74,7 @@ puts "CommandLet: processing flag: |#{f}"
   end
   
   private
+  # TODO: remove valid_opt?
   def valid_opt?(ch)
     ch.length == 2 && ch[1] == ':'
   end
