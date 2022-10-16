@@ -89,3 +89,17 @@ class CommandLet
     @err = err
   end
 end
+
+
+# The Ruby version of cmdlet
+def cmdlet(fname, flags:nil, &blk)
+  vroot = get_vroot
+  raise VishRuntimeError.new("cmdlet: cannot add CommandLet to virtual file system. Perhaps the VirtualMachine needs to be initialized and the VFS needs to be mounted first") if vroot.nil?
+  raise VishSyntaxError.new("cmdlet:  The block for the CommandLet must not be empty. Perhaps give a block to call to cmdlet(fname, flags:nil, &blk)") unless block_given?
+  clet = CommandLet.new(flags)
+  clet.block = blk
+  clet.code = ''
+    path = default_path(fname, default: '/v/cmdlet/misc')
+    vroot.creat(path, clet)
+  true
+end
