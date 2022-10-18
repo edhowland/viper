@@ -336,14 +336,16 @@ _saved_old = Hal.pwd
       thing = Command.resolve(args[0], env: env, frames: frames)
       #binding.pry
       if !thing.instance_of?(False)
-        if (thing.class.ancestors.member?(BaseCommand))
+        if (thing.class.ancestors.member?(BaseCommand) || thing.class.ancestors.member?(CommandLet))
           message = Command.first_in_path(args[0], frames: frames)  
           result = true
         else
           result = false
         end
       else
-        result = false
+        #result = false
+        message = Command.first_in_path('false', frames: frames)
+        result = true
       end
       result
     end

@@ -3,3 +3,4 @@
 .yardoc/complete
 Gemfile.lock
 .vishrc
+.pryrc

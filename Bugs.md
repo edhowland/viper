@@ -146,6 +146,8 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+
+
 ## The read command does not handle multi-line stdin
 
 ```
@@ -169,19 +171,6 @@ echo :r2
 world
 ```
 
-
-
-
-## Suddenly, type of a cmdlet returns Unknown
-
-```
-range 1 6
-1 2 3 4 5 6
-type range
-unknown
-```
-
-This started when the last commit removed CommandLet < BaseCommand
 
 
 

@@ -1,6 +1,65 @@
 # Changelog for Viper project
 
-2022-10-05
+## 2022-10-18
+
+## Suddenly, type of a cmdlet returns Unknown
+
+```
+range 1 6
+1 2 3 4 5 6
+type range
+unknown
+```
+
+This started when the last commit removed CommandLet < BaseCommand
+
+
+
+
+
+Fix: Added check for thing.class.ancestors.member?(CommandLet)
+  * previously CommandLets were subclass of BaseCommand. No longer.
+Fix: properly handle type false:
+
+```
+type false
+/v/bin/false
+```
+
+
+
+## require inside Vish with syntax error exits with no message and 0 exit code
+
+````ruby
+# bad.rb: This will not pass syntax check
+}
+```
+
+```
+require bad.rb
+<bash prompt
+```
+
+
+
+## require does not work with relative paths
+
+```
+require etc/cmdlets.rb
+<bash prompt>
+```
+
+This works
+
+```
+require ":{vhome}/etc/cmdlets.rb"
+... file is loaded
+```
+
+Fix: Added Hal.realpath to args[0] to make full path
+Fix: Added rescue blocks for SyntaxError and all other possible exceptions.
+
+## 2022-10-05
 
 ## Add commnds: ord, and chr
 

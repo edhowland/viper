@@ -20,6 +20,7 @@ class CommandLet
     unless flags.nil?
       @optparse = optparse_from flags
     end
+    @block = nil
   end
   attr_accessor :block, :code
   attr_reader :inp, :out, :err, :args, :locals, :globals, :opts, :vfs
@@ -27,7 +28,7 @@ class CommandLet
     @vfs = Vfs.new(frames[:vroot])
   end
   def set_block
-    @block = self.instance_eval('->() ' + @code)
+    @block = self.instance_eval('->(s) ' + @code)
   end
   def self.valid_flags?(csv)
     !! /([a-zAZ]:?)(,\1)*/.match(csv)
@@ -42,13 +43,14 @@ class CommandLet
       set_vars(frames: frames)
       set_vfs(frames: frames)
 
-      set_block
-      return @block.call
+      set_block if @block.nil?
+      return @block.call(self)
   rescue => err
     $stderr.puts err.message
   end
 
   def set_ios(env:)
+    @_env = env
     self.inp = env[:in]
     self.out = env[:out]
     self.err = env[:err]
@@ -62,6 +64,7 @@ class CommandLet
     @args.length
   end
   def set_vars(frames:)
+    @_frames = frames
     @locals = frames
     @globals = frames.first
   end
@@ -71,6 +74,9 @@ class CommandLet
   end
   def to_s
     @code
+  end
+  def invoke(exe, *args)
+    exe.call(*args, env: @_env, frames: @_frames)
   end
   
   private
