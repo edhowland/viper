@@ -20,4 +20,8 @@ require_relative 'runtime/string_io_facade.rb'
 require_relative 'runtime/vfs_node.rb'
 require_relative 'runtime/vfs_root.rb'
 require_relative 'runtime/virtual_layer.rb'
+
+
+require_relative 'runtime/verb_finder'
+
 require_relative 'runtime/virtual_machine.rb'

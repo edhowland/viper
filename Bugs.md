@@ -2,6 +2,56 @@
 
 # Todo list
 
+## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
+
+Some commands could be done better as a commandlet instead of a a ./lib/bin/cmd.rb:
+
+- bell
+- basename
+- dirname
+- pathmap
+- realpath
+- hd
+  * Move this to ./cmdlet/misc/utils.vsh
+- rand
+  * takes the -c option.
+  * write tests for this in vshtest/
+- touch
+- mkarray
+- true
+- false
+- nop
+- not
+- eq 
+- lt, lte
+  * Alse make gt, gte
+- sleep
+- unset
+
+
+### Commands to be removed
+
+- null
+
+This command is never used. Not sure what its purpose is?
+
+### Commands to be renamed
+
+- reverse : rev
+  * leave as BaseCommand
+
+### New commandlets
+
+- mkhash
+  * hget :key /v/hash/myhash
+  * hput :key :val /v/hash/myhash
+- reverse
+  * obeys the settings of :ifs and :ofs
+  * only works on  stdin.read and args[0] .. args[.last
+  * Move to cmdlet/misc
+
+Note: Not used in any Viper scripts
+
 ## Make ruby code formatter work to clean up code base
 
 
@@ -145,6 +195,38 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## alias sr does not work:
+
+When editing a buffer, running the function run_testrb, it fails
+with the sh command not found.
+
+```bash
+viper test_api.rb
+<Command>save; run_testrb
+Command: sh not found
+```
+
+## reverse is confusing
+
+
+
+
+```
+reverse 1 2 3 4
+4 3 2 1
+for i in :(range 1 4) { echo :i >> l.out }
+reverse <l.out
+4 3 2 1
+```
+
+This is very confusing. Second example works ok like Bash/ *nix 'rev'
+Change its name to 'rev' then.
+
+See reverse in # Todo list
+
+
+
 
 
 
