@@ -4,6 +4,12 @@
 
 ## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
 
+### Some missing *nix commands could be done as aliases:
+
+Note: These should be preloaded and called from ./etc/vishrc during prelude load time.
+
+- cut : "sh -c cut"
+
 Some commands could be done better as a commandlet instead of a a ./lib/bin/cmd.rb:
 
 - bell

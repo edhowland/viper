@@ -1,3 +1,6 @@
+require_relative 'bin/piped'
+
+
 require_relative 'bin/basename'
 require_relative 'bin/bell'
 require_relative 'bin/load_termfile'
@@ -52,6 +55,8 @@ require_relative 'bin/ruby'
 require_relative 'bin/setv'
 require_relative 'bin/shift'
 require_relative 'bin/sh'
+require_relative 'bin/sh1'
+
 require_relative 'bin/sleep'
 require_relative 'bin/stat'
 require_relative 'bin/suppress'
