@@ -58,7 +58,7 @@ class VerbFinder
     end
   end
   def find(name, vm:)
-    [AliasFinder.new.find(name, vm:vm), FunctionFinder.new.find(name, vm: vm), BuiltinFinder.new.find(name, vm: vm), CommandFinder.new.find(name, vm: vm), VariableFinder.new.find(name, vm: vm)].find {|e| e.instance_of?(Array) }
+    [AliasFinder, FunctionFinder, BuiltinFinder, CommandFinder, VariableFinder].map {|k| k.new.find(name, vm: vm) }.find {|e| e.instance_of?(Array) }
     
   end
 end
