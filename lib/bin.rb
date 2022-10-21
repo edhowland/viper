@@ -55,7 +55,6 @@ require_relative 'bin/ruby'
 require_relative 'bin/setv'
 require_relative 'bin/shift'
 require_relative 'bin/sh'
-require_relative 'bin/sh1'
 
 require_relative 'bin/sleep'
 require_relative 'bin/stat'

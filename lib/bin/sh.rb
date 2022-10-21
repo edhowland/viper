@@ -4,22 +4,37 @@
 
 class Sh < BaseCommand
   def call(*args, env:, frames:)
-    opt = nil
-    opt = args.shift if args[0] == '-'
+    opt = Piped.new(args)
+
+
     command = args.join(' ')
     begin
-      stdin, stdout, stderr = Open3.popen3(command)
-
-      stdin.write(env[:in].read) unless opt.nil?
+      return_value = nil
+      frames[:exit_code] = 0
+Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+      stdin.write(env[:in].read) if opt.piped?
       stdin.close
+
+
       env[:out].write(stdout.read)
       env[:err].write(stderr.read)
+
+  return_value = wait_thr.value
+end
+    case return_value.exitstatus
+    when 0
+      return true
+    else
+      frames[:exit_code] = return_value.exitstatus
+      return false
+    end 
+
     rescue => err
       env[:err].puts "exception: #{err.class.name}: #{err.message}"
       false
     ensure
-      stdout.close unless stdout.nil?
-      stderr.close unless stderr.nil?
+      frames.merge
+
     end
   end
 end

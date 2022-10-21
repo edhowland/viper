@@ -12,4 +12,10 @@ class Piped
   def piped?
     @piped
   end
+  def inspect
+    "Does " + (piped? ? "" : "not") + " read from stdin"
+  end
+  def to_s
+    inspect
+  end
 end
