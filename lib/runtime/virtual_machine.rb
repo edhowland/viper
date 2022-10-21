@@ -321,37 +321,11 @@ _saved_old = Hal.pwd
     raise ArgumentError, 'Expected 1 argumnet' if args.empty?
     message = 'unknown'
     result = false
-    if frames.aliases.has_key? args[0]
-      message = 'alias'
-      result = true
-    elsif frames.functions.has_key?(args[0])
-      message = 'function'
-      result = true
-    elsif  frames.key? args[0].to_sym
-      message = 'variable'
-      result = true
-    elsif _builtins.member?(args[0].to_sym)
-      message = 'builtin'
-      result = true
-    else
-      thing = Command.resolve(args[0], env: env, frames: frames)
-      #binding.pry
-      if !thing.instance_of?(False)
-        if (thing.class.ancestors.member?(BaseCommand) || thing.class.ancestors.member?(CommandLet))
-          message = Command.first_in_path(args[0], frames: frames)  
-          result = true
-        else
-          result = false
-        end
-      else
-        #result = false
-        message = Command.first_in_path('false', frames: frames)
-        result = true
-      end
-      result
-    end
-    env[:out].puts message
-    result
+    vf = VerbFinder.new
+    res = vf.find(args[0], vm: self)
+    strm = (res.nil? ? :err : :out)
+    env[strm].puts (res.nil? ? 'unknown' : res)
+    !res.nil?
   end
 
   def _break(*_args, env:, frames:)

@@ -70,4 +70,6 @@ at_exit {
   stats
   test -f /v/tests/fails && cat < /v/tests/fails && exit 1 
 }
+cmdlet slice_of '{ f,l = args[0..1].map(&:to_i); src = (args[2] == "-" ? inp.read.chomp : args[2]); out.puts src[(f)..(l)] }'
+
 

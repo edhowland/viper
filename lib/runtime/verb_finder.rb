@@ -47,8 +47,18 @@ class VerbFinder
       end
     end
   end
+  class VariableFinder < self
+    def find(name, vm:)
+      res = vm.fs.key?(name.to_sym)
+      if res
+        [:variable, vm.fs[name.to_sym]]
+      else
+        nil
+      end
+    end
+  end
   def find(name, vm:)
-    [AliasFinder.new.find(name, vm:vm), FunctionFinder.new.find(name, vm: vm), BuiltinFinder.new.find(name, vm: vm), CommandFinder.new.find(name, vm: vm)].find {|e| e.instance_of?(Array) }
+    [AliasFinder.new.find(name, vm:vm), FunctionFinder.new.find(name, vm: vm), BuiltinFinder.new.find(name, vm: vm), CommandFinder.new.find(name, vm: vm), VariableFinder.new.find(name, vm: vm)].find {|e| e.instance_of?(Array) }
     
   end
 end

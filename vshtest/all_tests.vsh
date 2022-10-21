@@ -15,4 +15,5 @@ source test_path_expansion.vsh
 source test_type.vsh
 source test_defn.vsh
 source test_cmdlet.vsh
+source test_slice_of.vsh
 
