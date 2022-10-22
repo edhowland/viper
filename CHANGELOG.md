@@ -1,5 +1,30 @@
 # Changelog for Viper project
 
+## 2022-10-21
+
+## the builtin sh command does not capture the actual exit command of  its command string
+
+Or, it called something else?
+
+
+```
+sh exit 9
+echo :exit_status
+0
+```
+
+
+## alias sr does not work:
+
+When editing a buffer, running the function run_testrb, it fails
+with the sh command not found.
+
+```bash
+viper test_api.rb
+<Command>save; run_testrb
+Command: sh not found
+```
+
 ## 2022-10-18
 
 ## Suddenly, type of a cmdlet returns Unknown
