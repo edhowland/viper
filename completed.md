@@ -1,5 +1,18 @@
 # completed bugs
 
+## 2022-10-25
+
+Removed VerbFinder::AliasFinder, ::FunctionFinder, ::BuiltinFinder, ::CommandFinder and ::VariableFinder
+from class VerbFinder.
+
+Replace with procs that will become Promis s
+
+Promise.any is used to find all matchers names for the verb. E.g. 'cat', 'path', .etc
+
+The type command uses VerbFinder.find for the first matching match in the Promise.any output
+The type -a option reports all matching matches
+
+
 2022-09-27
 
 ##  the split function should be  be moved and fixed

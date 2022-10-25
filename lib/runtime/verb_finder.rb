@@ -6,59 +6,7 @@
 # VerbFinder is a single source of truth for the type and location of the verb
 
 class VerbFinder
-=begin
-  class AliasFinder < self
-    def find(name, vm:)
-      res = vm.fs.aliases[name]
-      unless res.nil?
-        [:alias, res]
-      else
-        nil
-      end
-    
-    end
-  end
-  class FunctionFinder < self
-    def find(name, vm:)
-      res = vm.fs.functions[name]
-      unless res.nil?
-        [:function, res]
-      else
-        nil
-      end
-    end
-  end
-  class BuiltinFinder < self
-    def find(name, vm:)
-      res = vm._builtins.member?(name.to_sym)
-      if res
-        [:builtin,  name]
-      else
-        nil
-      end
-    end
-  end
-  class CommandFinder < self
-    def find(name, vm:)
-      res = Command.first_in_path(name, frames: vm.fs)
-      unless res.nil?
-        [:command, res]
-      else
-        nil
-      end
-    end
-  end
-  class VariableFinder < self
-    def find(name, vm:)
-      res = vm.fs.key?(name.to_sym)
-      if res
-        [:variable, vm.fs[name.to_sym]]
-      else
-        nil
-      end
-    end
-  end
-=end
+
   def ordered_procs(name, vm:)
     [ 
     ->(p) { vm.fs.aliases.has_key?(name) ? p.resolve!([:alias, vm.fs.aliases[name]]) : p.reject!(false) },
