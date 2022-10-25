@@ -71,10 +71,9 @@ class TestVerbFinder < MiniTest::Test
     assert_eq :command, res[0]
     assert_eq '/v/cmdlet/misc/bar', res[1]
   end
-  def test_variable_finder_can_find_path
+  def test_variable_finder_can_find_path_variable
     varf = VerbFinder.new
     res = varf.find('path', vm: @vm)
-    assert !res.nil?
     assert (Array === res)
     assert_eq :variable, res[0]
   end

@@ -60,12 +60,15 @@ class VerbFinder
   def ordered_finders
     [AliasFinder, FunctionFinder, BuiltinFinder, CommandFinder, VariableFinder]
   end
+  def ordered_promises(name, vm:)
+    ordered_finders.map {|f| Promise.new {|p| res = f.new.find(name, vm: vm); res.nil? ? p.reject!(res) : p.resolve!(res) } }
+  end
   def find(name, vm:)
-    of = ordered_finders
-    of = of.map {|f| Promise.new {|p| res = f.new.find(name, vm: vm); Array === res ? p.resolve!(res) : p.reject!(res) } }
-    prom  = PromiseFinder.find(of)
-    if prom && prom.resolved?
-      prom.value
+    of = ordered_promises(name, vm: vm)
+    prom = Promise.any(of)
+
+    if prom.run.resolved?
+      prom.value.first.value
     else
       nil
     end
