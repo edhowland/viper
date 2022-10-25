@@ -57,11 +57,19 @@ class VerbFinder
       end
     end
   end
-  def ordered_finders
-    [AliasFinder, FunctionFinder, BuiltinFinder, CommandFinder, VariableFinder]
+
+  def ordered_procs(name, vm:)
+    [ 
+    ->(p) { vm.fs.aliases.has_key?(name) ? p.resolve!([:alias, vm.fs.aliases[name]]) : p.reject!(false) },
+    ->(p) { vm.fs.functions.has_key?(name) ? p.resolve!([:function, vm.fs.functions[name]]) : p.reject!(false) },
+    ->(p) { vm._builtins.member?(name.to_sym) ? p.resolve!([:builtin, name]) : p.reject!(false) },
+    ->(p) { res = Command.first_in_path(name, frames: vm.fs); res ? p.resolve!([:command, res]) : p.reject!(false) },
+    ->(p) { res = vm.fs[name.to_sym]; res.empty? ? p.reject!(false) : p.resolve!([:variable, res]) },
+    ]
   end
   def ordered_promises(name, vm:)
-    ordered_finders.map {|f| Promise.new {|p| res = f.new.find(name, vm: vm); res.nil? ? p.reject!(res) : p.resolve!(res) } }
+    #ordered_finders.map {|f| Promise.new {|p| res = f.new.find(name, vm: vm); res.nil? ? p.reject!(res) : p.resolve!(res) } }
+    ordered_procs(name, vm: vm).map {|prc| Promise.new(&prc) }
   end
   def find(name, vm:)
     of = ordered_promises(name, vm: vm)
