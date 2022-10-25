@@ -6,6 +6,7 @@
 # VerbFinder is a single source of truth for the type and location of the verb
 
 class VerbFinder
+=begin
   class AliasFinder < self
     def find(name, vm:)
       res = vm.fs.aliases[name]
@@ -57,7 +58,7 @@ class VerbFinder
       end
     end
   end
-
+=end
   def ordered_procs(name, vm:)
     [ 
     ->(p) { vm.fs.aliases.has_key?(name) ? p.resolve!([:alias, vm.fs.aliases[name]]) : p.reject!(false) },
