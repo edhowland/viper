@@ -2,6 +2,10 @@
 
  require_relative 'api/identy'
 require_relative 'api/get_vroot'
+require_relative 'api/promise'
+require_relative 'api/promise_finder'
+
+
 require_relative 'api/flag_parser'
 require_relative 'api/blankable'
 require_relative 'api/parse_termfile'

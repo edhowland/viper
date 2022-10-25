@@ -2,6 +2,35 @@
 
 # Todo list
 
+## PromiseFinder needs a thing to do if not found
+
+```ruby
+PromiseFinder.find [p1, p2, p3],  not_found: ->(list) { thing_to_do_when_all_promises_reject(list) }
+# => result of calling the not_found: lambda
+```
+
+## Promise.chain
+
+Chains a list of promises together.
+
+The .then will be set to  a lambda that passes the value of the first promise
+that is resolved. 
+
+
+If, however, any Promise in the chain, that rejects, the .catch handler is passed and
+chained to the next, and all subsequent .catch handlers of all the rest of the remaining Promises
+
+Note: This is the actual railroad design pattern
+
+## Monads
+
+Promises are the first step in the design of Monads which are  an abstraction
+of  this design pattern.
+
+How do you sequence a bunch disparate function calls that might fail, or raise an exception.
+Or, handle the side-effects in such a way, that the monads are still composable.
+
+
 ## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
 
 ### Some missing *nix commands could be done as aliases:
