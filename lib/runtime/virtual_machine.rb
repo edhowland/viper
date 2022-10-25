@@ -322,7 +322,13 @@ _saved_old = Hal.pwd
     message = 'unknown'
     result = false
     vf = VerbFinder.new
-    res = vf.find(args[0], vm: self)
+    if args[0] == "-a"
+      args.shift
+      msg = :find_all
+    else
+      msg = :find
+    end
+    res = vf.send(msg, args[0], vm: self) # find(args[0], vm: self)
     strm = (res.nil? ? :err : :out)
     env[strm].puts (res.nil? ? 'unknown' : res)
     !res.nil?

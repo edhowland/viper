@@ -73,4 +73,11 @@ class VerbFinder
       nil
     end
   end
+  def find_all(name, vm:)
+  prom = Promise.any(ordered_promises(name, vm: vm))
+  prom.run
+    return nil if prom.rejected?
+    prom.value.map(&:value)
+
+  end
 end

@@ -2,12 +2,6 @@
 
 # Todo list
 
-## PromiseFinder needs a thing to do if not found
-
-```ruby
-PromiseFinder.find [p1, p2, p3],  not_found: ->(list) { thing_to_do_when_all_promises_reject(list) }
-# => result of calling the not_found: lambda
-```
 
 ## Promise.chain
 

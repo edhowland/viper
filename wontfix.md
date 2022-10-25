@@ -1,5 +1,35 @@
 # Wont fix
 
+## 2022-10-25
+
+
+## PromiseFinder needs a thing to do if not found
+
+```ruby
+PromiseFinder.find [p1, p2, p3],  not_found: ->(list) { thing_to_do_when_all_promises_reject(list) }
+# => result of calling the not_found: lambda
+```
+
+
+Reason for wontfix: There is no Promise.find, or a Subclass PromiseFinder anymore.
+
+Currently, there is only Promise.any list_of_promises
+and Promise.all list_of_promises
+
+Both of these return a pending Promise
+when that promise is run, the promises are collected with their resolution states
+
+.any will resolve if a non-empty list  of promise.resolved? are true
+   or it will be rejected? if that list empty, and all rejected promises will be in the .error result.
+
+.all expects all promises to be .resolved? are true
+   or it will be rejected? with .error being any that are .rejected? are true.
+
+
+VerbFinder.find, find_all  uses Promise.any()
+
+The builtin type, with or without the '-a' flag,
+uses VerbFinder with .find, or .find_all when '-a' flag is present.
 2022-09-27
 
 

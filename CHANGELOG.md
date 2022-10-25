@@ -1,5 +1,23 @@
 # Changelog for Viper project
 
+## 2022-10-25
+
+
+Added 'type -a <name>' option
+
+The type -a options will find all matching names in the search hierarchy
+
+```
+type cat
+Command /v/bin/cat
+
+alias cat=bar
+type -a cat
+alias 'bar
+command /v/bin/cat
+```
+
+
 ## 2022-10-21
 
 ## the builtin sh command does not capture the actual exit command of  its command string
