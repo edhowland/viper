@@ -109,7 +109,7 @@ class Promise
         end
       end
     end
-    end
+  end
   def resolve!(obj)
     @state = :resolved
     @value = @handle_resolve.call(obj)

@@ -287,6 +287,17 @@ foo
 ```
 
 
+### if ls is run on a directory, from the parent, 
+
+Never shows contents of child folder
+
+````
+ls /v/buf
+
+vish>
+```
+
+
 ## If viper -i is set, then also on exit do not ask to save the file
 
 ```bash
