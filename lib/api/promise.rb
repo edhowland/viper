@@ -109,7 +109,22 @@ class Promise
         end
       end
     end
+    def all_selected(promises)
+      selector = self.new do |p|
+        p.resolve!(promises.map(&:run))
+      end
+      selector.extend Aggregation
+      selector
+    end
   end
+  module Aggregation
+    def aggregate_values
+      @value.select(&:resolved?).map(&:value)
+    end
+  def aggregate_errors
+    @value.select(&:rejected?).map(&:error)
+  end
+end  
   def resolve!(obj)
     @state = :resolved
     @value = @handle_resolve.call(obj)
