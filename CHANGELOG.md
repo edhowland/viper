@@ -1,5 +1,21 @@
 # Changelog for Viper project
 
+## 2022-10-29
+
+
+## mkdir does make all arguments into directories, only the first
+
+```
+cd /v
+mkdir tmp a1 b2
+rem only tmp will exist
+```
+
+
+
+Fix: iterates over  all arguments
+
+
 ## 2022-10-25
 
 

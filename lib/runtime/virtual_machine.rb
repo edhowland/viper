@@ -152,7 +152,8 @@ _saved_old = Hal.pwd
   end
 
   def mkdir(*args, env:, frames:)
-    Hal.mkdir_p args[0]
+    #Hal.mkdir_p args[0]
+    args.each {|p|  Hal.mkdir_p(p) }
     true
   end
 

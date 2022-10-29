@@ -20,12 +20,34 @@ class GlobTests < MiniTest::Test
       g.call env:@vm.ios, frames:@vm.fs
     end
   end
+  def test_glob_in_physical_layer_path_slash_star_returns_non_empty_array
+    vhome = @vm.fs[:vhome]
+    Hal.chdir(vhome)
+    StubDummy.stub(:call, 'etc/*') do |o|
+      g = Glob.new o
+      result = g.call env:@vm.ios, frames:@vm.fs
+      assert_is result, Array
+      assert !result.empty?
+    end
+  end
   def test_star_returns_non_empty_array
     Hal.chdir '/v/bin'
     StubDummy.stub :call, '*' do |o|
       g = Glob.new o
       result = g.call env:@vm.ios, frames:@vm.fs
       assert_is result, Array
+      assert !result.empty?
+      assert result.length > 1
+    end
+  end
+  def test_virtual_layer_w_path_star_returns_non_empty_array
+    Hal.chdir('/v/')
+    StubDummy.stub(:call, 'bin/*') do |o|
+      g = Glob.new o
+      result = g.call env:@vm.ios, frames:@vm.fs
+      assert_is result, Array
+      assert !result.empty?
+      assert result.length > 1
     end
   end
 end
