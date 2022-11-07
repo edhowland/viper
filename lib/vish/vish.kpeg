@@ -19,8 +19,8 @@ string = '\'' < /[^']*/ > '\'' { QuotedString.new(text) }
 variable =  ':' < valid_id > { Deref.new(text.to_sym) }
 function_name = < valid_id > { text }
 
-bare_string =  < /[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }
-glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
+bare_string =  < /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/ > { StringLiteral.new(text) }
+glob = < /[\/\.\-\*\?\[_0-9A-Za-z][\/\.\-\*\?\[\]\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
  argument = glob:g { g }
           | '&(' - function_args:a - ')' - '{' - block:b - '}' { LambdaDeclaration.new(a, b) }
           | string:s { Argument.new(s) }

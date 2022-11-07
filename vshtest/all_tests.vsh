@@ -16,4 +16,4 @@ source test_type.vsh
 source test_defn.vsh
 source test_cmdlet.vsh
 source test_slice_of.vsh
-
+source test_glob.vsh

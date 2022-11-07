@@ -6,11 +6,16 @@ class Glob
   def initialize(pattern)
     @pattern = pattern
   end
+  attr_reader :pattern
 
   def call(env:, frames:)
     derefed_pattern = @pattern.call frames: frames
     result = []
-    result = Hal[derefed_pattern] if derefed_pattern =~ /\*/
+    if derefed_pattern =~ /\*|\[|\?/
+      result = Hal[derefed_pattern]  
+    else
+
+    end
     return derefed_pattern if result.empty?
     return result[0] if result.length == 1
     result

@@ -1,5 +1,28 @@
 # Wont fix
 
+## 2022-11-03
+
+## The read command does not handle multi-line stdin
+
+```
+(echo hello; echo world)
+hello
+world
+(echo hello; echo world) | read r1 r2
+echo :r1
+hello
+echo :r2
+
+```
+
+Wontfix: The current behaviour of the Vish read command matches the behaviour of Bassh read command
+
+To change the behaviour of the read command in bash, you need to pass  the '-d <char>' option.
+By default, the read command in Bash terminates on the  new line character.
+This '-d <ch>' behaviour  option to Vish read command  will not be implemented, at least not at this time.
+
+
+
 ## 2022-10-25
 
 

@@ -265,13 +265,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # bare_string = < /[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }
+  # bare_string = < /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/ > { StringLiteral.new(text) }
   def _bare_string
 
     _save = self.pos
     while true # sequence
       _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[\/\.\-_0-9A-Za-z][\/\.\-\{\}:_0-9A-Za-z]*)/)
+      _tmp = scan(/\A(?-mix:[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*)/)
       if _tmp
         text = get_text(_text_start)
       end
@@ -291,13 +291,13 @@ class Vish < KPeg::CompiledParser
     return _tmp
   end
 
-  # glob = < /[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
+  # glob = < /[\/\.\-\*\?\[_0-9A-Za-z][\/\.\-\*\?\[\]\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
   def _glob
 
     _save = self.pos
     while true # sequence
       _text_start = self.pos
-      _tmp = scan(/\A(?-mix:[\/\.\-\*_0-9A-Za-z][\/\.\-\*\{\}:_0-9A-Za-z]*)/)
+      _tmp = scan(/\A(?-mix:[\/\.\-\*\?\[_0-9A-Za-z][\/\.\-\*\?\[\]\{\}:_0-9A-Za-z]*)/)
       if _tmp
         text = get_text(_text_start)
       end
@@ -1570,8 +1570,8 @@ class Vish < KPeg::CompiledParser
   Rules[:_string] = rule_info("string", "(\"'\" < /[^']*/ > \"'\" { QuotedString.new(text) } | \"\\\"\" < /[^\"]*/ > \"\\\"\" {StringLiteral.new(text) })")
   Rules[:_variable] = rule_info("variable", "\":\" < valid_id > { Deref.new(text.to_sym) }")
   Rules[:_function_name] = rule_info("function_name", "< valid_id > { text }")
-  Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_0-9A-Za-z][\\/\\.\\-\\{\\}:_0-9A-Za-z]*/ > { StringLiteral.new(text) }")
-  Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*_0-9A-Za-z][\\/\\.\\-\\*\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
+  Rules[:_bare_string] = rule_info("bare_string", "< /[\\/\\.\\-_\\?\\[\\]0-9A-Za-z][\\/\\.\\-\\{\\}:_\\?\\[\\]0-9A-Za-z]*/ > { StringLiteral.new(text) }")
+  Rules[:_glob] = rule_info("glob", "< /[\\/\\.\\-\\*\\?\\[_0-9A-Za-z][\\/\\.\\-\\*\\?\\[\\]\\{\\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }")
   Rules[:_argument] = rule_info("argument", "(glob:g { g } | \"&(\" - function_args:a - \")\" - \"{\" - block:b - \"}\" { LambdaDeclaration.new(a, b) } | string:s { Argument.new(s) } | bare_string:s { Argument.new(s) } | variable:v { Argument.new(v) } | \":(\" - block:b - \")\" { SubShellExpansion.new(b) } | \"{\" ws* block:b ws* \"}\" { LazyArgument.new(b) })")
   Rules[:_function_args] = rule_info("function_args", "(function_args:a1 - \",\" - function_args:a2 { a1 + a2 } | identifier:a { [ a ] } | eps { [] })")
   Rules[:_assignment] = rule_info("assignment", "identifier:i \"=\" argument:a { Assignment.new(i, a) }")

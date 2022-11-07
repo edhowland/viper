@@ -2,6 +2,29 @@
 
 # Todo list
 
+## Vish grammar problems
+
+Note: consolidate these with parser/grammar problems elsewhere in this doc
+
+### Regex matching on both bar strings and globs cause everything to be considered a Glob:
+
+
+
+```peg
+bare_string =  < /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/ > { StringLiteral.new(text) }
+glob = < /[\/\.\-\*\?\[_0-9A-Za-z][\/\.\-\*\?\[\]\{\}:_0-9A-Za-z]*/ > { Glob.new(StringLiteral.new(text)) }
+```
+
+
+1. Visher.parse! 'echo a*'
+2. Get Block: block.statement_list.first.context.first
+  * get Glob, instead of bare string
+
+Fix: Check for exhaustive tests of the parser
+Then, remove all the /\*|\?|\[|\]/ from bare_string
+All tests should pass
+
+
 
 ## Promise.chain
 
@@ -300,29 +323,58 @@ See reverse in # Todo list
 
 
 
-## The read command does not handle multi-line stdin
+
+
+## The rm command has no  way to remove files recursively
 
 ```
-(echo hello; echo world)
+rem this does not work:
+mkdir aa1/bb2/cc3
+rm -rf aa1
+Caught exception
+```
+
+
+For physical files you can do the following, and that can be aliased
+
+```
+sh rm -rf aa1
+alias rmrf='sh rm -rf'
+```
+
+
+## the rm command only takes one argument
+
+Must args.each {|e| Hal.rm(e) }
+
+That way, the globbing will also work.
+
+```
+rm *.txt
+```
+
+Currently, only the first file is removed.
+
+
+
+
+
+## The read command does not capture left over arguments into the final variable passed
+
+```
+echo hello there world | read foo bar
+echo :foo
 hello
-world
-(echo hello; echo world) | read r1 r2
-echo :r1
-hello
-echo :r2
-
+echo  :bar
+there world
 ```
 
-
+### Also, if no args given, capture the entire input into the :reply variable
 
 ```
-echo "hello world" | read r1 r2
-echo :r1
-hello
-echo :r2
-world
+echo hello world | read
+echo :reply
 ```
-
 
 
 
@@ -347,6 +399,38 @@ ls /v/buf
 vish>
 ```
 
+
+
+## wc commands does not work like its Bash cousin
+
+```
+echo hello world | wc -w
+```
+
+
+## strange behaviour of echo :exit_status in some edge cases:
+
+```
+
+exit code from glob_setup function was {:__FILE__=>"glob_mkhier.vsh", :__DIR__=>"/home/edh/tmp/viper/vshtest", :exit_status=>true}
+```
+
+The offending function was: glob_setup:
+
+
+```
+function glob_setup() {
+  mkdir /v/glob
+  (groot=":{vhome}/vshtest" source glob_mkhier.vsh)
+  (groot=/v/glob source glob_mkhier.vsh)
+}
+```
+
+The caller was:
+
+```
+  glob_setup; echo exit code from glob_setup  was :exit_status
+```
 
 ## If viper -i is set, then also on exit do not ask to save the file
 

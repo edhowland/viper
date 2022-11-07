@@ -30,6 +30,24 @@ class GlobTests < MiniTest::Test
       assert !result.empty?
     end
   end
+  def test_physical_works_w_brackets
+    vhome = @vm.fs[:vhome]
+    StubDummy.stub(:call, 'scripts/00[12]_*') do |o|
+      result = g.call env: @vm.ios, frames: @vm.fs
+      assert !result.empty?
+      assert_eq 2, result.length
+    end
+  end
+  def test_physical_works_w_question
+      vhome = @vm.fs[:vhome]
+    StubDummy.stub(:call, 'scripts/???_*') do |o|
+      g = Glob.new(o)
+      result = g.call env: @vm.ios, frames: @vm.fs
+      assert !result.empty?
+    end
+  
+
+  end
   def test_star_returns_non_empty_array
     Hal.chdir '/v/bin'
     StubDummy.stub :call, '*' do |o|
