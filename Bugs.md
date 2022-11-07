@@ -249,6 +249,14 @@ Can 'when' be a Vish function?
 # Bugs
 
 
+## cd should report its failed argument when it cannot reach a destination
+
+```
+cd /v/foo
+cd: no such filer or directory
+```
+
+Should act more like bash
 ## cd sometimes get caught and cannot escape from a VFS dir
 
 ```

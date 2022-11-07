@@ -32,7 +32,10 @@ class GlobTests < MiniTest::Test
   end
   def test_physical_works_w_brackets
     vhome = @vm.fs[:vhome]
-    StubDummy.stub(:call, 'scripts/00[12]_*') do |o|
+    Hal.chdir(vhome)
+
+    StubDummy.stub(:call, 'scripts/00[12]_*.vsh') do |o|
+      g = Glob.new o
       result = g.call env: @vm.ios, frames: @vm.fs
       assert !result.empty?
       assert_eq 2, result.length

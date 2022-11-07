@@ -127,7 +127,7 @@ def expand_all path
   if path[-1] == '/'
     filt_fn = ->(p) { VirtualLayer.directory?(p) }
   else
-    filt_fn = ->(p) { p }
+    filt_fn = ->(p) { p } # The identy lambda
   end
   result = rejoin(walk_globs(elems)).flatten.select(&filt_fn).sort
 
@@ -135,7 +135,7 @@ def expand_all path
     result
   else
     cwd = VirtualLayer.pwd
-    result.map {|p| p[(cwd.length)..] }
+    result.map {|p| p[(cwd.length+1)..] }
   end
 end
 

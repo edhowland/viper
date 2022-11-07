@@ -12,6 +12,60 @@ $in_virtual = false
 
 class VirtualLayer
   class << self
+    # imports from l1.rb
+def expand_glob glob, prefix: '/v'
+  vroot = VirtualLayer.get_root
+  ents = vroot.list(prefix)  #VirtualLayer[prefix]
+  ents.select {|e| File.fnmatch glob, e }
+end
+
+    def walk_globs list, acc: [], prefix: ''
+  if list.empty?
+    acc
+  else
+    start, *rest  = list
+    exgs = expand_glob(start, prefix: prefix) # ele_or_list()
+#    if exgs.instance_of?(Array)
+      exgs.map {|x| walk_globs(rest, acc: (acc + [x]), prefix: prefix+"/#{x}") }
+#    else
+#      walk_globs(rest, acc: (acc << start), prefix: (prefix + "/#{start}"))
+#    end
+  end
+end
+
+# should be call expand_all_globs_in_path(path). E.g. expand_all '/v/tmp/a*/*.txt'
+# TODO: Make sure this gets realpath
+def expand_all path
+  real_path = VirtualLayer.realpath(path)
+  elems = real_path.split('/'); elems.shift # throw away the first element which is empty for a FQ pathname
+  if path[-1] == '/'
+    filt_fn = ->(p) { VirtualLayer.directory?(p) }
+  else
+    filt_fn = ->(p) { p }
+  end
+  result = rejoin(walk_globs(elems)).flatten.select(&filt_fn).sort
+
+  if path[0] == '/'
+    result
+  else
+    cwd = VirtualLayer.pwd
+    result.map {|p| p[(cwd.length+1)..] }
+  end
+end
+
+
+def rejoin(list, vtop: 'v')
+  if list.first == vtop
+    "/" + list.join('/')
+  else
+    list.map {|l| rejoin(l, vtop: vtop) }
+  end
+end
+
+        # end of l1.rb imports
+    # imported from l1.rb: supporting methods for globbing
+    
+    # end of l1.rb import
     def split_path(path)
       parts = path.split('/')
       [parts[0..-2].join('/'), parts[-1]]
@@ -35,6 +89,8 @@ class VirtualLayer
     end
 
     def [](path)
+      expand_all path
+=begin
       if path == '*'
         path = '.'
         result = @@root.list(path).sort
@@ -53,6 +109,7 @@ class VirtualLayer
       else
         @@root.list(path)
       end
+=end
     end
 
     def directory?(path)
