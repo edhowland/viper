@@ -7,7 +7,7 @@ class TestVerbFinder < MiniTest::Test
   def setup
   
     @vm = VirtualMachine.new
-    boot = File.expand_path('../pry/boot.vsh')
+    boot = boot_vsh()  #File.expand_path('../pry/boot.vsh')
     src = File.read(boot)
     block = Visher.parse!(src)
     @vm.call(block)

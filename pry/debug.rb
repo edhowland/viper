@@ -49,3 +49,9 @@ module VMDebuggable
     @vmdebug = false
   end
 end
+
+## minitest debug support
+
+def what_dir
+  puts __dir__
+end
