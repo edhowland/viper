@@ -51,7 +51,6 @@ def l1 *entries
   files = vals.reject(&:directory?)
   dirs = vals.select(&:directory?)
   files.sort!
-  puts dirs
   puts files
   puts dirs
 end

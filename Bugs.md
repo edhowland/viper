@@ -2,6 +2,8 @@
 
 # Todo list
 
+## Remove the =begin/=end comment from lib/runtime/virtual_layer.rb: def [] path
+
 ## Vish grammar problems
 
 Note: consolidate these with parser/grammar problems elsewhere in this doc
