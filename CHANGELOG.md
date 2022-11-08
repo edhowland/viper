@@ -1,5 +1,31 @@
 # Changelog for Viper project
 
+## 2022-11-08
+
+## Globbing fixed for virtual file system
+
+See vshtest/test_glob.vsh, vshtest/glob_help.vsh:
+
+checks echo type globbing against the exact results of what Bash itself reports.
+This gets compared against Vish globbing on the exact same physical directory tree
+in both Bash and Vish globs. It then gets tested against a mirrored directory
+tree in /v/glob/tmp against :vhome/vshtest/tmp
+
+
+### if ls is run on a directory, from the parent, 
+
+Never shows contents of child folder
+
+````
+ls /v/buf
+
+
+```
+
+Note: ls hasn't been fixed, but globbing works for both physical filesystems and virtual filesystem.
+
+
+
 ## 2022-10-29
 
 

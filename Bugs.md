@@ -440,19 +440,18 @@ echo :reply
 test -f /v/bin/foo; echo :exit_status
 false
 ls /v/bin/foo
-foo
+
+```
+
+Note: the :exit_status should be false and an error message should be printed
+
+```
+
+ls: cannot access 'scripts/foo': No such file or directory
 ```
 
 
-### if ls is run on a directory, from the parent, 
 
-Never shows contents of child folder
-
-````
-ls /v/buf
-
-vish>
-```
 
 
 

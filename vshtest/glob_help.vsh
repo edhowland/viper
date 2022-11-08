@@ -7,6 +7,7 @@ function run_glob(glob, fn1) {
   phy=:(join ':' :(vish_glob :glob))
   vir=:(join ':' :(vfs_glob :glob))
   exec :fn1 :(ifs=':' zip ":{sys}" ":{phy}")
+  exec :fn1 :(ifs=':' zip ":{sys}" ":{vir}")
   cd -
 }
 function bash_glob(glob) {
