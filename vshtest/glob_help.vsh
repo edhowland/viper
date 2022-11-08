@@ -1,4 +1,5 @@
 source map_pairs.vsh
+source cpr_mimic.vsh
 source zip.vsh
 function run_glob(glob, fn1) {
   cd ":{vhome}/vshtest/tmp"

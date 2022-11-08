@@ -48,6 +48,22 @@ How do you sequence a bunch disparate function calls that might fail, or raise a
 Or, handle the side-effects in such a way, that the monads are still composable.
 
 
+
+## The map, filter and reduce functions should work on stdin as well.
+
+Currently, they only work for a list of passed arguments.
+
+```
+reject &(x) { test -z :x }  :foo :bar :baz
+
+rem should work like this:
+
+echo :foo :bar :baz | reject &(x) { test -z :x }
+```
+
+For this to work, the read command must capture its input into the :reply variable.
+See the Bug about this.
+
 ## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
 
 ### Some missing *nix commands could be done as aliases:
@@ -249,6 +265,37 @@ Can 'when' be a Vish function?
 # Bugs
 
 
+
+## Hal.exist? with no args dumps with no method error
+
+Do more robust input sanity checks
+
+## the test -f does not behave exactly as does the Bash cousin
+
+```bash
+mkdir foo; touch bar
+test -f foo;echo $?
+1
+test -f bar;echo $?
+0
+```
+
+
+```
+mkdir foo; touch bar
+test -f foo;echo :exit_status
+true
+test -f bar;echo :exit_status
+true
+```
+
+
+
+
+
+### The existing behaviour becomes -X, and -f becomes what -X does now
+
+Note: a lot of code relies (.vsh code) on the current existing behaviour of -f working as it does now
 ## cd should report its failed argument when it cannot reach a destination
 
 ```

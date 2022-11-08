@@ -9,6 +9,7 @@
 # -b checks if arg is a code block or if VFS path points to tored code block
 # -x checks if pathname resolves to executable content
 #   Is the pathname a stored lambda or code block?
+# -X (file and not dir) ; TODO: move this to -f. -X becomes what -f is today
 
 class Test < BaseCommand
   def fs_object(path, frames:)
@@ -53,7 +54,9 @@ if Hal.exist?(path)
           node = fs_object(a[0], frames: frames)
           result = ( Block === node)
         end
-        
+      
+    elsif @options[:X]
+      result = Hal.exist?(a[0]) && !Hal.directory?(a[0])
       else
         result = a[0]
       end
