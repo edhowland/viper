@@ -10,7 +10,10 @@
 # aa1/none.xxx
 
 # Also, the behaviour of 'ls -1' is  always  output, as the example above shows,
-# in order to aid usage with creen reader users.
+# in order to aid usage with screen reader users.
+
+## Options: none
+# A future option might be -d.
 
 class Ls < BaseCommand
 class LsDir
