@@ -1,5 +1,34 @@
 # Changelog for Viper project
 
+## 2022-11-09
+
+## Globbing fixed across the board
+## read command now acts like its Bash cousin
+## ls works more like Bash, except it does not group dirs, instead it prints full relative pathname
+
+
+
+## The read command does not capture left over arguments into the final variable passed
+
+```
+echo hello there world | read foo bar
+echo :foo
+hello
+echo  :bar
+there world
+```
+
+### Also, if no args given, capture the entire input into the :reply variable
+
+```
+echo hello world | read
+echo :reply
+```
+
+
+
+
+
 ## 2022-11-08
 
 ## Globbing fixed for virtual file system

@@ -66,6 +66,13 @@ echo :foo :bar :baz | reject &(x) { test -z :x }
 For this to work, the read command must capture its input into the :reply variable.
 See the Bug about this.
 
+
+## in vshtest/vunit.vsh: the placement of assert_eq is backwards
+
+Should match its minitest cousin
+
+If changed, will not require any  changes to existing tests
+
 ## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
 
 ### Some missing *nix commands could be done as aliases:
@@ -413,25 +420,6 @@ rm *.txt
 Currently, only the first file is removed.
 
 
-
-
-
-## The read command does not capture left over arguments into the final variable passed
-
-```
-echo hello there world | read foo bar
-echo :foo
-hello
-echo  :bar
-there world
-```
-
-### Also, if no args given, capture the entire input into the :reply variable
-
-```
-echo hello world | read
-echo :reply
-```
 
 
 

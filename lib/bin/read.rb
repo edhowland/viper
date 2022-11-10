@@ -10,12 +10,28 @@
 
 class Read < BaseCommand
   def call(*args, env:, frames:)
-    vars = env[:in].gets.chomp.split(frames[:ifs])
-    combine = args.map(&:to_sym).zip vars
-    combine.each do |e|
-      frames[e[0]] = e[1]
+    if args.length.zero?
+      frames[:reply] = env[:in].read.chomp.split(frames[:ifs]).join(frames[:ofs])
+      frames.merge
+      return true
+    else
+      list = env[:in].read.chomp.split(frames[:ifs])
+#$stderr.puts "list: #{list}, args #{args}, lt eq gt: #{list.length <=> args.length}"
+      # echo list | read [args]. Maintain this order
+      case list.length <=> args.length
+      when -1   # list.length < args.length
+        args.map(&:to_sym).zip(list).map {|e| e[1].nil? ? [e[0], ''] : e }.each {|k, v| frames[k] = v }
+      when 0
+        args.map(&:to_sym).zip(list).each {|k,v| frames[k] = v }
+      when 1
+        kargs = args.map(&:to_sym)
+        smargs = kargs[..-2]
+        smargs.zip(list[..(smargs.length)]).each {|k,v| frames[k] = v }
+        frames[kargs[-1]] = list[(kargs.length - 1)..].join(frames[:ofs])
+      end
+        frames.merge
+      return true
     end
-    frames.merge
-    true
+
   end
 end
