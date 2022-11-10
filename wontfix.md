@@ -1,5 +1,11 @@
 # Wont fix
 
+## 2022-11-09
+
+- abbreviations: Work on the Vish command line
+  * inspired by abbreviations in the Fish shell
+
+
 ## 2022-11-03
 
 ## The read command does not handle multi-line stdin

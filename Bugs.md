@@ -330,38 +330,6 @@ This is a HeisenBug, cannot replicate it
 
 
 
-## globbing in VFS does not work with *'s
-
-```
-mkdir foo
-cd foo
-touch a1 b2 c3
-cd ..
-echo foo/*
-foo/a1 foo/b2 foo/c3
-rem now try vfs
-cd /v
-mkdir tmp
-cd tmp
-touch a1 b2 c3
-cd ..
-echo tmp/*
-tmp/*
-```
-
-A bug in lib/ast/glob.rb
-
-
-## double astrix for ls, results in exception:
-
-```
-mkdir foo/d1/d2/d3
-ls foo/**
-caught exception. Wrond number of arguments, given <num>, expected 1
-```
-
-
-
 
 
 ## reverse is confusing

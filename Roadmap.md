@@ -22,8 +22,9 @@ See Bugs.md: Todo list
 - New external program: vish
   * Break out of viper executable code file
   * split :vhome/etc/vishrc into :vhome/etc/rc.?/{001-999}*.vsh
-- abbreviations: Work on the Vish command line
-  * inspired by abbreviations in the Fish shell
+
+
+
 - :argc, :argv for command line arguments
 
 ## 2.0.13
@@ -50,6 +51,8 @@ The above requires  a move to a initialization strategy upon the first step post
 
 The rationale for this is to prevent users  from clobbering the built-in macro stuff
 whenever they perform a git pull to get the latest release.
+
+
 ## 2.0.16
 
 - run prettier -ruby on code base
@@ -65,6 +68,9 @@ Final wrap-up
 
 - Better documentation
 - More help system internal help
+  * create man command to work from viper docs/wiki
+
+
 
 
 # Goals for 2.1 of Viper
