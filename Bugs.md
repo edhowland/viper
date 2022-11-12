@@ -1,3 +1,4 @@
+# Bugs
 # Viper and Vish Bugs
 
 # Todo list
@@ -272,6 +273,38 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## test -d . only works on physical FS
+
+```
+test -f .;echo :exit_status
+true
+cd /v
+test -d .;echo :exit_status
+false
+```
+
+
+### But works ok on ..
+
+```
+mkdir /v/dir/foo/bar
+cd /v/dir/foo/bar
+test -d ..;echo :exit_status
+true
+```
+
+### This also causes a problem with cp dir/file .
+
+Even both VirtualLayer.cp src,dest use realpath and that works
+
+```
+cd /v
+realpath .
+/v
+```
+
+
 
 
 

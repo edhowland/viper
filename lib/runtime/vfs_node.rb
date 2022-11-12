@@ -30,6 +30,9 @@ class VFSNode
   end
 
   def pathname
+    elements.join('/')
+=begin
+
     gather = [@name]
     node = @parent
     until node.nil?
@@ -37,6 +40,7 @@ class VFSNode
       node = node.parent
     end
     gather.reverse.join('/')
+=end
   end
 
   def to_s
@@ -57,5 +61,14 @@ class VFSNode
       that.list[k] = cloner(v)
     end
     that
+  end
+  def elements
+    gather = [@name]
+    node = @parent
+    until node.nil?
+      gather << node.name
+      node = node.parent
+    end
+    gather.reverse
   end
 end

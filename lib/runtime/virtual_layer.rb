@@ -117,7 +117,7 @@ end
     end
 
     def relative?(path)
-      path[0] != '/'
+    @@root.relative?(path)
     end
 
     def chdir(path)

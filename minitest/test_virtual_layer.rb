@@ -81,4 +81,43 @@ class VirtualLayerTests < MiniTest::Test
     VirtualLayer.rm 'xx'
     assert_false VirtualLayer.exist?('xx')
   end
+  def test_directory
+    assert VirtualLayer.directory?('/v')
+  end
+  def test_directory_with_trailing_slash
+    assert VirtualLayer.directory?('/v/')
+  end
+  def test_directory_w_inner_dir_w_trailing_slash
+    VirtualLayer.mkdir_p('/v/foo/bar')
+    assert VirtualLayer.directory?('/v/foo/bar/')
+  end
+  def test_directory_inner_directory
+    VirtualLayer.mkdir_p('/v/dir')
+    assert VirtualLayer.directory?('/v/dir')
+  end
+  def test_directory_dot_dot_is_true
+    VirtualLayer.mkdir_p('/v/dir/foo/bar')
+    VirtualLayer.chdir('/v/dir/foo/bar')
+    assert VirtualLayer.directory?('..')
+  end
+  def test_directory_dot_is_true
+        VirtualLayer.mkdir_p('/v/dir/foo/bar')
+    VirtualLayer.chdir('/v/dir/foo/bar')
+    assert VirtualLayer.directory?('.')
+  end
+  def test_realpath
+    VirtualLayer.mkdir_p '/v/dir/foo/bar'
+    assert_eq '/v/dir/foo/bar', VirtualLayer.realpath('/v/dir/foo/bar/')
+  end
+  def test_realpath_works_for_dot_dot
+    VirtualLayer.mkdir_p '/v/dir/foo/bar'
+    VirtualLayer.chdir '/v/dir/foo/bar'
+    assert_eq '/v/dir/foo', VirtualLayer.realpath('..')
+  end
+  def test_relative_is_true_for_foo_bar
+    assert VirtualLayer.relative?('foo/bar')
+  end
+  def test_relative_is_false_for_absolute_path
+    assert !VirtualLayer.relative?('/v/foo/bar')
+  end
 end

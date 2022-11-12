@@ -46,7 +46,7 @@ class PhysicalLayer
   end
 
   def mv(src, dest)
-    File.rename src, dest
+    FileUtils.mv(src, dest)
   end
 
   def rm(path)

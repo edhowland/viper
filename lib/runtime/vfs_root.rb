@@ -145,4 +145,23 @@ class VFSRoot
     start, *elements = path_to_elements path
     '/' + (parents(start).map(&:name) + elements).join('/')
   end
+  def relative?(path)
+          path[0] != '/'
+#
+  end
+  # resolve_path 'foo/bar' => /v/foo/bar  Also handles '..', and '.' occuring in pathnames
+  def resolve_path(path)
+    eles = path.split('/')
+    if relative?(path)
+      eles.pop if eles.last == '.'
+      eles = (@wd.elements + eles)
+    end
+    r, *childs = eles
+eles = [r] + childs.reject {|p| p.empty? }
+    here, *parents = eles.reverse
+    here = (here == '.' ? @wd.elements.last : here)
+    eles = (parents.reverse.reject {|e| e == '.' } + [here])
+    eles = eles.zip(eles[1..]).reject {|e| e.member?('..') }.reduce([]) {|i,j| i << j[0] }
+        eles.join('/')
+  end
 end

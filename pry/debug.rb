@@ -28,6 +28,11 @@ def mkglob pat
   Glob.new(DHold.new(pat))
 end
 
+
+def cdvm path
+  $vm.cd(path, env: $vm.ios, frames: $vm.fs)
+end
+
 def vmcd path
   vhome = $vm.fs[:vhome]
   $vm.cd("#{vhome}/#{path}", env: $vm.ios, frames: $vm.fs)
