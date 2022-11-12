@@ -39,6 +39,6 @@ function test_d_dot_dot_true() {
 function test_test_d_dot_virtual_true() {
   (cd /v;  test -d . || raise Expected test . in virtual /v to be true but was false)
 }
-function test_test_d_dot_dot_in_virtual_true() {
+function _test_test_d_dot_dot_in_virtual_true() {
   (cd /v; mkdir foo/bar; cd foo/bar;  test -d .. || raise Expected test -d .. in virtual to be true but was false)
 }

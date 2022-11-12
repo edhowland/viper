@@ -15,6 +15,12 @@ _chdir: uninitialized class variable @@root in VirtualLayer
 
 # Todo list
 
+## vshtest/test_test.vsh: function _test_test_d_dot_dot ..
+
+This test skipped because errors with Ruby error about undefined method '[]' in IOStream.
+
+- Investigate
+
 ## Remove the =begin/=end comment from lib/runtime/virtual_layer.rb: def [] path
 
 ## Vish grammar problems
