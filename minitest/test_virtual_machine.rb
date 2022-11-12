@@ -105,7 +105,7 @@ class VirtualMachineTests < MiniTest::Test
     assert_eq @vm.ios[:out].string.chomp, "command\n/v/bin/basename"
   end
   def test_vm_restore_pwd_if_different
-    path = File.expand_path('./lib')
+    path = File.expand_path(@vm.fs[:vhome] + "/lib")
     @vm.cd path,    env:@vm.ios, frames:@vm.fs
     Hal.chdir(ENV['HOME'], Hal.pwd)
     @vm.restore_pwd

@@ -46,11 +46,11 @@ class TestVfsRoot < MiniTest::Test
     my_chdir('/v/jjj/kkk/lll')
     assert_eq '/v/jjj/kkk/lll/mmm/nnn', @vroot.resolve_path('/v/jjj/kkk/lll/./mmm/nnn')
   end
-  def test_resolve_path_w_dot_at_end_becomes_current_folder
+  def test_resolve_path_w_dot_at_end_does_not_becomes_current_folder
   full = '/v/aaa/bbb/ccc/ddd'
     VirtualLayer.mkdir_p full
     my_chdir full
-    assert_eq full, @vroot.resolve_path('/v/aaa/bbb/ccc/.')
+    assert_eq '/v/aaa/bbb/ccc', @vroot.resolve_path('/v/aaa/bbb/ccc/.')
   end
   def test_resolve_path_dot_becomes_pwd
     VirtualLayer.mkdir_p('/v/zzz/yyy/xxx')

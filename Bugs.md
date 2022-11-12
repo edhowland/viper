@@ -1,4 +1,16 @@
 # Bugs
+
+##
+
+Get the folling error when running minitest_virtual_machine.rb
+
+Not sure which test does create the exception
+
+```ruby
+
+_chdir: uninitialized class variable @@root in VirtualLayer
+
+```
 # Viper and Vish Bugs
 
 # Todo list

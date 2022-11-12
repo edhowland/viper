@@ -77,7 +77,7 @@ class VFSRoot
   end
 
   def directory?(path)
-    start, *elements = path_to_elements path
+    start, *elements = path_to_elements resolve_path(path)
     mynode = node elements, start
     mynode.instance_of? VFSNode
   end
@@ -142,8 +142,9 @@ class VFSRoot
   end
 
   def realpath(path)
-    start, *elements = path_to_elements path
-    '/' + (parents(start).map(&:name) + elements).join('/')
+  resolve_path(path)
+    #start, *elements = path_to_elements path
+    #'/' + (parents(start).map(&:name) + elements).join('/')
   end
   def relative?(path)
           path[0] != '/'
@@ -158,10 +159,12 @@ class VFSRoot
     end
     r, *childs = eles
 eles = [r] + childs.reject {|p| p.empty? }
-    here, *parents = eles.reverse
-    here = (here == '.' ? @wd.elements.last : here)
-    eles = (parents.reverse.reject {|e| e == '.' } + [here])
-    eles = eles.zip(eles[1..]).reject {|e| e.member?('..') }.reduce([]) {|i,j| i << j[0] }
+#    here, *parents = eles.reverse
+    here = (here == '.' ? @wd.elements.last : here)#
+#    eles = (parents.reverse.reject {|e| e == '.' } + [here])
+    here, *childs = eles
+    eles = [here] + childs.reject {|p| p == '.' }
+    eles = eles.zip(eles[1..]).reject {|e| e.member?('..') }.map(&:first)
         eles.join('/')
   end
 end
