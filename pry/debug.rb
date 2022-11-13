@@ -33,9 +33,9 @@ def cdvm path
   $vm.cd(path, env: $vm.ios, frames: $vm.fs)
 end
 
-def vmcd path
-  vhome = $vm.fs[:vhome]
-  $vm.cd("#{vhome}/#{path}", env: $vm.ios, frames: $vm.fs)
+def vmcd path, vm: $vm
+  vhome = vm.fs[:vhome]
+  vm.cd("#{vhome}/#{path}", env: vm.ios, frames: vm.fs)
 end
 
 def cwd
@@ -59,4 +59,14 @@ end
 
 def what_dir
   puts __dir__
+end
+
+# use this to get the current vhome or the location of the invocation source dir
+def vhome(vm=$vm)
+  vm.fs[:vhome]
+end
+
+# use this to get the current vm's pwd
+def vmpwd(vm: $vm)
+  vm.fs[:pwd]
 end

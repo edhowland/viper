@@ -1,5 +1,44 @@
 # Changelog for Viper project
 
+
+## 2022-11-13
+
+
+## test -d . only works on physical FS
+
+```
+test -f .;echo :exit_status
+true
+cd /v
+test -d .;echo :exit_status
+false
+```
+
+
+### But works ok on ..
+
+```
+mkdir /v/dir/foo/bar
+cd /v/dir/foo/bar
+test -d ..;echo :exit_status
+true
+```
+
+### This also causes a problem with cp dir/file .
+
+Even both VirtualLayer.cp src,dest use realpath and that works
+
+```
+cd /v
+realpath .
+/v
+```
+
+
+
+
+
+
 ## 2022-11-09
 
 ## Globbing fixed across the board

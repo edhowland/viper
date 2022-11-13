@@ -1,5 +1,24 @@
 # completed bugs
 
+## 2022-11-13
+
+
+##
+
+Get the folling error when running minitest_virtual_machine.rb
+
+Not sure which test does create the exception
+
+```ruby
+
+_chdir: uninitialized class variable @@root in VirtualLayer
+
+```
+
+Fix: moved the @vm.mount in def setup of both test_virtual_machine.rb and test_sub_shell.rb to just  aftet @vm = VirtualMachine.new
+and before any calls to @vm.cd
+
+
 ## 2022-11-09
 
 ## double astrix for ls, results in exception:
