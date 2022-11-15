@@ -2,12 +2,12 @@
 
 class Mv < BaseCommand
   def call(*args, env:, frames:)
-    src, dest = args
-    if src.nil? || dest.nil?
-      env[:err].puts 'mv: wrong # of arguments. mv src dest'
+    #
+    if args.length < 2
+      env[:err].puts 'mv: wrong # of arguments.'
       return false
     end
-    Hal.mv src, dest
+    args[..(-2)].each {|s| Hal.mv(s, args.last) }
     true
   end
 end

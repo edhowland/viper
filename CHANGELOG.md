@@ -1,5 +1,11 @@
 # Changelog for Viper project
 
+## 2022-11-15
+
+
+mv, cp now works with ./file and ../things, especially inside of VFS
+Also, mkdir, mv, cp all works with multiple  values.
+
 
 ## 2022-11-13
 

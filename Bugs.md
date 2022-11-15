@@ -2,6 +2,13 @@
 
 # Todo list
 
+## Make a IOS (FrameStack) a stub.
+
+This is for use in MiniTest esp. test_virtual_machine.rb and others.
+
+Currently, this is being done manually by def setup/teardown.
+Investigate the MiniTest stub/mocking framework.
+
 ## vshtest/test_test.vsh: function _test_test_d_dot_dot ..
 
 This test skipped because errors with Ruby error about undefined method '[]' in IOStream.
@@ -736,4 +743,18 @@ echo spam
 ```
 
 Note: spam is not rrun
+
+
+
+## MiniTest : links
+
+### Getting started with MiniTest
+
+https://semaphoreci.com/community/tutorials/getting-started-with-minitest
+
+### Mocks and Stubs with MiniTest
+
+https://semaphoreci.com/community/tutorials/mocking-in-ruby-with-minitest
+
+
 
