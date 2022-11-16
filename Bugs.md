@@ -2,6 +2,19 @@
 
 # Todo list
 
+## in BBaseCommand (lib/runtime/base_command.rb), change def arg_error to take new required/default arg: got:
+
+```ruby
+def arg_error expected, got: 0, env
+# change error message to print what it actually got
+```
+
+
+## create rmdir command
+
+From its Bash cousin
+
+
 ## Remove instances of $in_virtual
 
 possibly make this a @@physical in PhysicalLayer, @@virtual in VirtualLayer class boolean variables
@@ -15,11 +28,6 @@ This is for use in MiniTest esp. test_virtual_machine.rb and others.
 Currently, this is being done manually by def setup/teardown.
 Investigate the MiniTest stub/mocking framework.
 
-## vshtest/test_test.vsh: function _test_test_d_dot_dot ..
-
-This test skipped because errors with Ruby error about undefined method '[]' in IOStream.
-
-- Investigate
 
 ## Remove the =begin/=end comment from lib/runtime/virtual_layer.rb: def [] path
 

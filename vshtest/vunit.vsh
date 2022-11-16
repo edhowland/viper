@@ -8,7 +8,7 @@ alias assert_empty='assert test -z'
 function assert_not_empty() {
   not { test -z :_ }  || raise expected :_ to not be empty but was
 }
-function assert_raises(fn) {
+function assert_raises() {
   capture :_ && raise expected exception got none
 }
 function assert_false() {

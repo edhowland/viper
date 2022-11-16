@@ -133,6 +133,11 @@ class HalTest < MiniTest::Test
       Hal.exist?
     end
   end
+  def test_raises_argument_error__when_arg_is_nil
+    assert_raises ::ArgumentError do
+      Hal.exist? nil
+    end
+  end
 end
 
 # eed to test all the following methods

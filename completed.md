@@ -1,5 +1,17 @@
 # completed bugs
 
+## 2022-11-16
+
+
+## vshtest/test_test.vsh: function _test_test_d_dot_dot ..
+
+This test skipped because errors with Ruby error about undefined method '[]' in IOStream.
+
+- Investigate
+
+
+Fix: made /v/foo/bar into /v/t9/bar, cannot have existing foo file and mkdir /v/foo
+
 ## 2022-11-15
 
 
