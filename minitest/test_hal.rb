@@ -106,6 +106,33 @@ class HalTest < MiniTest::Test
       Hal.xx
     end
   end
+  def test_in_virtual_is_true_when_in_v
+    Hal.chdir('/v')
+    assert $in_virtual
+  end
+  def test_in_virtual_false_when_in_physical
+    Hal.chdir('/home')
+    assert_false $in_virtual
+  end
+  # check that ::ArgumentError raised for dispatched methods with wrong number of args in method_missing
+  def test_argument_error_raised_when_wrong_arg_count_mismatch_of_dispatched
+    assert_raises ::ArgumentError do
+      Hal.exist?
+    end
+  end
+  def test_argument_error_raised_when_in_virtual_and_arity_mismatch
+    Hal.chdir('/v')
+    assert_raises ::ArgumentError do
+      Hal.exist?
+    end
+  end
+  def test_argument_error_raised_when_in_physical_and_arity_mismatch
+    Hal.chdir(@oldpwd)
+
+    assert_raises ::ArgumentError do
+      Hal.exist?
+    end
+  end
 end
 
 # eed to test all the following methods

@@ -2,6 +2,12 @@
 
 # Todo list
 
+## Remove instances of $in_virtual
+
+possibly make this a @@physical in PhysicalLayer, @@virtual in VirtualLayer class boolean variables
+Set in VirtualMachine.new
+and whenever something changes dir
+
 ## Make a IOS (FrameStack) a stub.
 
 This is for use in MiniTest esp. test_virtual_machine.rb and others.
@@ -287,9 +293,6 @@ Can 'when' be a Vish function?
 # Bugs
 
 
-## Hal.exist? with no args dumps with no method error
-
-Do more robust input sanity checks
 
 ## the test -f does not behave exactly as does the Bash cousin
 

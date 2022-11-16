@@ -1,5 +1,15 @@
 # completed bugs
 
+## 2022-11-15
+
+
+
+## Hal.exist? with no args dumps with no method error
+
+Do more robust input sanity checks
+
+
+
 ## 2022-11-13
 
 

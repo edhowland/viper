@@ -2,6 +2,9 @@
 
 ## 2022-11-15
 
+- More robust error checking in Hardware Abstraction Layer
+  * checks for arity of to be dispatched function against supplied arg count
+
 
 mv, cp now works with ./file and ../things, especially inside of VFS
 Also, mkdir, mv, cp all works with multiple  values.
