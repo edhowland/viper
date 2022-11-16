@@ -292,6 +292,32 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## HeisenBug: sometimes vshtests/all_tests.vsh fails
+
+```bash
+rake
+...
+
+test_mkdir_1 : expected block or function to return true but returned false instead /v/dir/foo not created
+rake aborted!
+
+```
+
+Running it again usually works
+
+
+
+
+## test -f with no args still gives wrong exception: No Method Error instead of of ::ArgumentError
+
+```
+test -f
+caught exception : undefined method `split' for nil:NilClass elements = path.spl
+```
+
+
+Note: was not fixed when Hal.exist? is checked
+
 
 
 ## the test -f does not behave exactly as does the Bash cousin
@@ -388,22 +414,6 @@ For physical files you can do the following, and that can be aliased
 sh rm -rf aa1
 alias rmrf='sh rm -rf'
 ```
-
-
-## the rm command only takes one argument
-
-Must args.each {|e| Hal.rm(e) }
-
-That way, the globbing will also work.
-
-```
-rm *.txt
-```
-
-Currently, only the first file is removed.
-
-
-
 
 
 

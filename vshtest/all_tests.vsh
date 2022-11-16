@@ -18,3 +18,4 @@ source test_cmdlet.vsh
 source test_slice_of.vsh
 source test_glob.vsh
 source test_read.vsh
+source test_dir_cmds.vsh

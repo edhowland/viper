@@ -6,7 +6,7 @@ class Rm < BaseCommand
       env[:err].puts 'rm: missing filename'
       return false
     end
-    Hal.rm args[0]
+    args.each {|f| Hal.rm(f) } 
     true
   end
 end

@@ -2,6 +2,22 @@
 
 ## 2022-11-15
 
+## the rm command only takes one argument
+
+Must args.each {|e| Hal.rm(e) }
+
+That way, the globbing will also work.
+
+```
+rm *.txt
+```
+
+Currently, only the first file is removed.
+
+Fix: itearates over all args in bin/rm.rb
+
+
+
 - More robust error checking in Hardware Abstraction Layer
   * checks for arity of to be dispatched function against supplied arg count
 
