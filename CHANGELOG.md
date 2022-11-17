@@ -1,5 +1,31 @@
 # Changelog for Viper project
 
+## 2022-11-17
+
+
+## test -b when presented with a Lambda catches exception on split for path
+
+```
+l=&() { echo I am l }
+exec :l
+I am l
+test -b :l
+
+caught exception : undefined method `split' for &() { echo I am l }:Lambda elements = path.split('/') ^^^^^^
+```
+
+Fix: refactored code in lib/bin/test.rb for options: -b, -l and -x
+to use Test.executable? and obj_or_path_executable? by passing variable klass_set: [Block, Lambda]
+
+-b : [Block]
+- l [Lambda]
+-x [Block, Lambda, BaseCommand, CommandLet]
+
+test -x works for stored blocks, lambda or binaries in /v/bin/* and /v/cmdlet/*/*
+
+
+
+
 ## 2022-11-15
 
 ## the rm command only takes one argument

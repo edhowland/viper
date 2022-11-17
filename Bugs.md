@@ -2,6 +2,19 @@
 
 # Todo list
 
+## Hunt down all parts where random code handle wrond number of aguments
+
+```ruby
+# retrv.rb
+# in def call ...
+raise VishSyntaxError
+```
+
+Should use new worked arg_error in  in BaseCommand instead
+
+Note: This needs redesign first
+
+
 ## in BBaseCommand (lib/runtime/base_command.rb), change def arg_error to take new required/default arg: got:
 
 ```ruby
@@ -316,17 +329,6 @@ Running it again usually works
 
 
 
-## test -f with no args still gives wrong exception: No Method Error instead of of ::ArgumentError
-
-```
-test -f
-caught exception : undefined method `split' for nil:NilClass elements = path.spl
-```
-
-
-Note: was not fixed when Hal.exist? is checked
-
-
 
 ## the test -f does not behave exactly as does the Bash cousin
 
@@ -354,14 +356,9 @@ true
 ### The existing behaviour becomes -X, and -f becomes what -X does now
 
 Note: a lot of code relies (.vsh code) on the current existing behaviour of -f working as it does now
-## cd should report its failed argument when it cannot reach a destination
 
-```
-cd /v/foo
-cd: no such filer or directory
-```
 
-Should act more like bash
+
 ## cd sometimes get caught and cannot escape from a VFS dir
 
 ```
@@ -425,26 +422,6 @@ alias rmrf='sh rm -rf'
 
 
 
-## ls command behaves eradically
-
-```
-test -f /v/bin/foo; echo :exit_status
-false
-ls /v/bin/foo
-
-```
-
-Note: the :exit_status should be false and an error message should be printed
-
-```
-
-ls: cannot access 'scripts/foo': No such file or directory
-```
-
-
-
-
-
 
 ## wc commands does not work like its Bash cousin
 
@@ -453,52 +430,6 @@ echo hello world | wc -w
 ```
 
 
-## strange behaviour of echo :exit_status in some edge cases:
-
-```
-
-exit code from glob_setup function was {:__FILE__=>"glob_mkhier.vsh", :__DIR__=>"/home/edh/tmp/viper/vshtest", :exit_status=>true}
-```
-
-The offending function was: glob_setup:
-
-
-```
-function glob_setup() {
-  mkdir /v/glob
-  (groot=":{vhome}/vshtest" source glob_mkhier.vsh)
-  (groot=/v/glob source glob_mkhier.vsh)
-}
-```
-
-The caller was:
-
-```
-  glob_setup; echo exit code from glob_setup  was :exit_status
-```
-
-## If viper -i is set, then also on exit do not ask to save the file
-
-```bash
-echo hello world | viper -i
-<Ctrl-Q>
-
-# just exits
-```
-
-
-
-
-## test -b when presented with a Lambda catches exception on split for path
-
-```
-l=&() { echo I am l }
-exec :l
-I am l
-test -b :l
-
-caught exception : undefined method `split' for &() { echo I am l }:Lambda elements = path.split('/') ^^^^^^
-```
 
 
 

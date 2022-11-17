@@ -1,5 +1,50 @@
 # Wont fix
 
+## 2022-11-16
+
+## If viper -i is set, then also on exit do not ask to save the file
+
+```bash
+echo hello world | viper -i
+<Ctrl-Q>
+
+# just exits
+```
+
+
+
+
+
+Reason: cannot duplicate
+
+
+## strange behaviour of echo :exit_status in some edge cases:
+
+```
+
+exit code from glob_setup function was {:__FILE__=>"glob_mkhier.vsh", :__DIR__=>"/home/edh/tmp/viper/vshtest", :exit_status=>true}
+```
+
+The offending function was: glob_setup:
+
+
+```
+function glob_setup() {
+  mkdir /v/glob
+  (groot=":{vhome}/vshtest" source glob_mkhier.vsh)
+  (groot=/v/glob source glob_mkhier.vsh)
+}
+```
+
+The caller was:
+
+```
+  glob_setup; echo exit code from glob_setup  was :exit_status
+```
+
+
+Reason: glob was fixed, this is a duplicate bug
+
 ## 2022-11-09
 
 - abbreviations: Work on the Vish command line

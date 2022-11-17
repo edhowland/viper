@@ -2,6 +2,56 @@
 
 ## 2022-11-16
 
+## ls command behaves eradically
+
+```
+test -f /v/bin/foo; echo :exit_status
+false
+ls /v/bin/foo
+
+```
+
+Note: the :exit_status should be false and an error message should be printed
+
+```
+
+ls: cannot access 'scripts/foo': No such file or directory
+```
+
+
+
+
+
+
+
+
+## cd should report its failed argument when it cannot reach a destination
+
+```
+cd /v/foo
+cd: no such filer or directory
+```
+
+Should act more like bash
+
+Fix: cd improved and relative paths and globbing fixes
+
+
+
+## test -f with no args still gives wrong exception: No Method Error instead of of ::ArgumentError
+
+```
+test -f
+caught exception : undefined method `split' for nil:NilClass elements = path.spl
+```
+
+
+Note: was not fixed when Hal.exist? is checked
+
+
+
+
+Fix: Hal.method_missing more robust when passed a nil value
 
 ## vshtest/test_test.vsh: function _test_test_d_dot_dot ..
 
