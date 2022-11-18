@@ -1,6 +1,40 @@
 # Changelog for Viper project
 
+## 2022-11-18
+
+The at command now gives a blank string if at the end of the buffer.
+It also returns true
+The need for the function safe_at is no longer needed.
+
+
+
 ## 2022-11-17
+
+### New retrv command : opposite of /v/bin/store
+
+```
+store &() { echo foo } /v/foo
+exec /v/foo
+foo
+
+retrv /v/foo foovar
+type foovar
+variable
+defn fubar :foovar
+type fubar
+function
+
+fubar
+foo
+```
+
+
+
+Write test for these
+
+
+
+
 
 
 ## test -b when presented with a Lambda catches exception on split for path

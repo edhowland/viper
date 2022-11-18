@@ -17,5 +17,7 @@ class BaseBufferCommand < BaseNodeCommand
       buffer = node['buffer']
       yield buffer
     end
+  rescue BufferExceeded
+    env[:err].print BELL
   end
 end

@@ -20,3 +20,4 @@ source test_glob.vsh
 source test_read.vsh
 source test_dir_cmds.vsh
 source test_test_executables.vsh
+source test_buffer.vsh

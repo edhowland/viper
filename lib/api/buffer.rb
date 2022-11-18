@@ -5,6 +5,7 @@
 # Buffer is the main buffer top level class. Almost all editor functions
 # are deferred to this class.
 class Buffer
+  include BufferExt
   def initialize(string = '')
     @a_buff = []
     @b_buff = string.chars
@@ -72,7 +73,7 @@ class Buffer
   end
 
   def at
-    @b_buff[0]
+    blank_if_nil(@b_buff[0])
   end
 
   def beg

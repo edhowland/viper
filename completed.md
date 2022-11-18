@@ -1,5 +1,21 @@
 # completed bugs
 
+## 2022-11-18
+## Safer at command instead of safe_at function
+
+CHANGE: this is handled in lib/bufnode/base_buffer_command.rb
+
+There is now a rescue for the exception for BufferExceeded
+
+BUT: Must locate the reason for getting the key is not bound when at the start/end of the buffer
+
+
+Fix: added lib/api/buffer_ext.rb: module BufferExt for buffer extensions
+has new method: blank_if_nil. Used in the Buffer.at method
+And remove these after testing from  ./scripts/002_viper.vsh
+
+
+
 ## 2022-11-16
 
 ## ls command behaves eradically

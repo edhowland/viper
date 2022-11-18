@@ -70,3 +70,7 @@ end
 def vmpwd(vm: $vm)
   vm.fs[:pwd]
 end
+
+def load_script script='scripts/001_editor.vsh'
+  source script
+end

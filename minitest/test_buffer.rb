@@ -69,7 +69,7 @@ class BufferTests < MiniTest::Test
             @buffer = Buffer.new 'Now is the time for all good men to come to the aid of their country'
   @buffer.fin
   @buffer.srch_back 'xxyyzz'
-  assert_nil @buffer.at
+  assert_eq '', @buffer.at
   end
 #describe 'del a lot of content' do
   def test_del_a_lot_of_content
