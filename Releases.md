@@ -37,5 +37,5 @@ snake in 1957. He wrongly believed it would not be fatal.
 7. Do the commit
 8. Git tag -a X.x.p (E.g. git tag -a 2.0.11 -m 'Release 2.0.11)
 9. git push
-  * origin master
+  * git push --follow-tags origin master
 
