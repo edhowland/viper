@@ -8,6 +8,10 @@
 - More robust defense coding for out-of-range bugs
   * Investigate the 'at' command
 
+
+Released on 2022-11-20
+
+
 ## 2.0.12
 
 ### 2.0.12.a

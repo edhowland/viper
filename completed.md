@@ -1,5 +1,20 @@
 # completed bugs
 
+## 2022-11-19
+
+# alt+w, ctrl+w do not work in empty buffer or at either end of buffer.
+
+Hint: probably same problem as the "at :_buf" problem from before
+
+Implement: Change the line in 102 of scripts/001_editor.vsh:
+
+Should not be a is_bound with && and then ||
+because the action in the then clause, if it returns false, still triggers the || action.
+Could prevent it witha extra true after the apply statement, but this be ugly hack.
+
+Change this to a cond statement.
+
+
 ## 2022-11-18
 ## Safer at command instead of safe_at function
 

@@ -22,7 +22,6 @@ class Command
       frames[:path]
     end
     def first_in_path(cmd, frames:)
-    #binding.pry
       found = path_str(frames: frames).split(':').detect {|e|command_from_path("#{e}/#{cmd}", frames: frames) } 
       unless found.nil?
         "#{found}/#{cmd}"

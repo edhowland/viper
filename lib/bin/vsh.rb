@@ -18,7 +18,6 @@ class Vsh < BaseValueCommand
 
       vm = frames.vm
       frames.first[:exit_status] = @options[:e] unless @options[:e].nil?
-      # binding.pry
       result = vm.call block
       # globalize any variables gathered via above execution
       vm.fs.top.each_pair {|k,v| vm.fs.first[k] = v }

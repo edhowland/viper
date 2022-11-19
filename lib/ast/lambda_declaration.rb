@@ -9,7 +9,6 @@ class LambdaDeclaration
 
   def call(*_args, env:, frames:)
     #  save the environment of of us back to  first lambda on stack or  or just our own environment frames[-1]
-#    binding.pry
 #    idx = frames.index_of {|e| e[:__FUNCTION_NAME__] == 'anonymous' }
 #    idx ||= -1
 #    klone = frames._clone

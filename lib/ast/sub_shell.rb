@@ -31,7 +31,6 @@ class SubShell
 
   def call(env:, frames:)
     klone = frames.vm._clone
-#    binding.pry
     klone.ios[:out] = env[:out]
     klone.ios[:in] = env[:in]
     klone.ios[:err] = env[:err]
@@ -41,7 +40,6 @@ class SubShell
     closers = open_redirs env: klone.ios
 
      # start to make local frames
-#    binding.pry
 nf = frames._clone
     #klone.fs = frames._clone
     klone.fs.frames = nf.frames
@@ -87,13 +85,11 @@ nf = frames._clone
       return true
     ensure
       #restore_pwd @vm
-#binding.pry
       _vm.restore_pwd
       close_redirs closers
 #      local_vars.pop
 #      local_ios.pop
     end
-#binding.pry
 frames[:exit_status] = result
     result
   end

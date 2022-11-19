@@ -1,5 +1,30 @@
 # Wont fix
 
+## 2022-11-18
+
+
+## Investigate why there is both the following 2 ways of invoking Buffer methods:
+
+1. perform env, &block
+  * runtime/base_node_command.rb subclasses BaseCommand
+2. buf_apply environment args, &block
+  * bufnode_buffer_command : subclasses BufferNodeCommand
+
+Hypothesis: The former is meant to be used for any kind of object stored
+the VFS, likes arrays, buffers and StringIO objects
+The latter is a speciallization of that for just buffers
+
+Note, the @meth member is a curried lambda that is now needing the buffer as the first argument
+
+Note: there are only NoArg and SingleArg commands. Must there was never any need for more.
+
+
+There must be some reason for this thing.
+
+
+Reason: the above stated reasons are true.
+
+
 ## 2022-11-16
 
 ## If viper -i is set, then also on exit do not ask to save the file

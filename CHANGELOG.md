@@ -1,5 +1,40 @@
 # Changelog for Viper project
 
+## Release 2.0.11
+
+2022-11-19
+
+- New features
+- Bug fixes
+- Wont fixes
+
+
+### New Features
+
+- CommandLets with both the cmdlet Vish command and the cmdlet Ruby function  
+  * range, printf are supplied CommandLets in virtual path : /v/cmdlet/misc
+  * supplied in :{vhome}/cmdlet/misc/utils.vsh
+- retrv command : opposite of store command
+  * retrieves an VFS object and assigns it to the supplied variable symbol
+
+- type -a option added to search entire possible search types
+### Bug fixes
+
+- Globbing and relative path expansion greatly improved, esp in VFS paths
+- ls command now behaves more like its *nix cousins
+- test command for executable content now works properly
+  * -b only true if a actual block or stored block
+  * -l only true for true lambdas or stored lambdas
+  * -x true for any of the above and also /v/bin commands or CommandLets in the :path, like in /v/cmdlet/misc
+- mkdir, rm, cp and mv commands now work like their *nix cousins
+  * take multiple arguments
+  * proper error checking
+- read command now works more like its *nix cousin
+  * reamining inputs stored in final variable supplied
+  * if no variables, entire input in stored in :reply variable
+- The sh command captures the exit code of the system call and properly handles stdin, stdout and stderr and routes them to Vish equivalents
+  * Used, for example, in vshtest/test_glob.vsh and vshtest/glob_helper.vsh
+- require now works properly, for relative paths and error checking
 ## 2022-11-18
 
 The at command now gives a blank string if at the end of the buffer.
@@ -200,7 +235,7 @@ Fix: iterates over  all arguments
 
 Added 'type -a <name>' option
 
-The type -a options will find all matching names in the search hierarchy
+ The type -a options will find all matching names in the search hierarchy
 
 ```
 type cat

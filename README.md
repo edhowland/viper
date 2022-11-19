@@ -2,7 +2,7 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.10
+### Version 2.0.11
 
 See the file CHANGELOG.md for updates.
 

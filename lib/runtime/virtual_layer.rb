@@ -90,26 +90,7 @@ end
 
     def [](path)
       expand_all path
-=begin
-      if path == '*'
-        path = '.'
-        result = @@root.list(path).sort
-        result
-      elsif path == '**'
-        gather = []
-        node = @@root.wd
-        until node.nil?
-          prepend = node.pathname
-          gather += node.list.keys.map { |e| "#{prepend}/#{e}" }
-          node = node['nl']
-        end
-        gather
-      elsif path =~ /\*/
-        @@root.list('.').grep(regexify(path)).sort
-      else
-        @@root.list(path)
-      end
-=end
+
     end
 
     def directory?(path)

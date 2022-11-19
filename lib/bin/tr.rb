@@ -9,7 +9,6 @@ class Tr < BaseCommand
     super do |*a|
       pat, sub = a
       pat = normalize_nl(pat)
-      # binding.pry
       @out.write(@in.read.tr(pat, sub))
       true
     end

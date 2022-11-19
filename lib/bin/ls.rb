@@ -79,9 +79,6 @@ end
 
   def call(*args, env:, frames:)
     env[:out].puts l1(*args)
-=begin
-    args.unshift '*' if args.empty?
-    env[:out].puts Hal[*(args.map { |e| dir_star(e) })]
-=end
+
   end
 end

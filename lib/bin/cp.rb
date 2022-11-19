@@ -13,14 +13,6 @@ class Cp < BaseCommand
     rescue Errno::ENOENT => err
       env[:err].puts "cp: No such file or directory. Command was cp #{args.join(' ')}"
       env[:err].puts err.message
-=begin
-    src, dest = args
-    if src.nil? || dest.nil?
-      env[:err].puts 'mv: wrong # of arguments. mv src dest'
-      return false
-    end
-    Hal.cp src, dest
-    true
-=end
+
   end
 end

@@ -31,16 +31,7 @@ class VFSNode
 
   def pathname
     elements.join('/')
-=begin
 
-    gather = [@name]
-    node = @parent
-    until node.nil?
-      gather << node.name
-      node = node.parent
-    end
-    gather.reverse.join('/')
-=end
   end
 
   def to_s

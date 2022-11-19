@@ -99,7 +99,7 @@ resolve_ext :_buf
 _mode=viper
 loop {
 fn=:(raw -|xfkey)
-  exec { key_exists :fn && apply :fn } || echo key :fn is really not bound 
+  cond { key_exists :fn } { apply :fn } else { perr -n  :fn is not bound }
 }
 }
 function apply_times(n, key) {
