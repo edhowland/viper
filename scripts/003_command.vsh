@@ -72,3 +72,5 @@ line /v/command
 }
 function vish() { pop /v/meta | nop; raise com }
 _mode=command bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | nop; echo :mypos } { echo -n paste }
+_mode=command bind ctrl_backslash { nop } { exit }
+

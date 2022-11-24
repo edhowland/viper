@@ -328,5 +328,11 @@ class Buffer
   def fin?
     b_buff.empty?
   end
+  # Mainly used for Vish command: openf. Will overwrite the entire contents of @b_buf, or the rest of the buffer after the cursor
+  def []=(ch_array=[])
+    @b_buff = ch_array
+    restore_extend
+    ''
+  end
   alias size length
 end

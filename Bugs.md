@@ -2,7 +2,31 @@
 
 # Todo list
 
+## Fast Open
 
+Current:
+
+In function fopen
+
+scripts/001_editor.vsh:14
+````
+test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
+```
+
+Proposed:
+
+```ruby
+class Openf < BaseBufferCommand
+  def call ...
+    ...
+  end
+end```
+Use Ruby fast open and read into Buffer.b_buf directly
+
+
+```
+openf :_buf :fname && digest_sha1 -f ":{_buf}/.digest"
+```
 ## Hunt down all parts where random code handle wrond number of aguments
 
 ```ruby
@@ -286,6 +310,39 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## help system is throughly broken
+
+In Command mode or vish/ivsh: run help:
+
+```
+help
+
+caught exception : undefined local variable or method `parse_md' for #<Mdparse:0x00007fac952842b0 @options={}> parser = parse_md ^^^^^^^^ Did you mean? parser
+NoMethodError
+private method `print' called for "":String
+
+        out.print args.join(_frames[:ofs])
+           ^^^^^^
+/home/edh/tmp/viper/lib/bin/echo.rb:9:in `block in initialize'
+/home/edh/tmp/viper/lib/runtime/flagged_command.rb:30:in `call'
+/home/edh/tmp/viper/lib/ast/statement.rb:120:in `block (2 levels) in execute'
+/home/edh/tmp/viper/lib/ast/statement.rb:105:in `wrap_streams'
+/home/edh/tmp/viper/lib/ast/statement.rb:119:in `block in execute'
+/home/edh/tmp/viper/lib/ast/statement.rb:97:in `bump_frames'
+/home/edh/tmp/viper/lib/ast/statement.rb:114:in `execute'
+/home/edh/tmp/viper/lib/ast/statement.rb:139:in `_call'
+/home/edh/tmp/viper/lib/ast/block.rb:23:in `block in call'
+/home/edh/tmp/viper/lib/ast/block.rb:19:in `each'
+/home/edh/tmp/viper/lib/ast/block.rb:19:in `call'
+/home/edh/tmp/viper/lib/bin/loop.rb:9:in `block in call'
+/home/edh/tmp/viper/lib/bin/loop.rb:9:in `loop'/home/edh/tmp/viper/lib/bin/loop.rb:9:in `call'/home/edh/tmp/viper/lib/ast/statement.rb:120:in `block (2 levels) in execute'/home/edh/tmp/viper/lib/ast/statement.rb:105:in `wrap_streams'/home/edh/tmp/viper/lib/ast/statement.rb:119:in `block in execute'/home/edh/tmp/viper/lib/ast/statement.rb:97:in `bump_frames'/home/edh/tmp/viper/lib/ast/statement.rb:114:in `execute'/home/edh/tmp/viper/lib/ast/statement.rb:139:in `_call'/home/edh/tmp/viper/lib/ast/block.rb:23:in `block in call'/home/edh/tmp/viper/lib/ast/block.rb:19:in `each'/home/edh/tmp/viper/lib/ast/block.rb:19:in `call'/home/edh/tmp/viper/lib/ast/function.rb:27:in `call'/home/edh/tmp/viper/lib/ast/statement.rb:120:in `block (2 levels) in execute'/home/edh/tmp/viper/lib/ast/statement.rb:105:in `wrap_streams'/home/edh/tmp/viper/lib/ast/statement.rb:119:in `block in execute'/home/edh/tmp/viper/lib/ast/statement.rb:97:in `bump_frames'/home/edh/tmp/viper/lib/ast/statement.rb:114:in `execute'/home/edh/tmp/viper/lib/ast/statement.rb:139:in `_call'/home/edh/tmp/viper/lib/ast/block.rb:23:in `block in call'/home/edh/tmp/viper/lib/ast/block.rb:19:in `each'/home/edh/tmp/viper/lib/ast/block.rb:19:in `call'/home/edh/tmp/viper/lib/runtime/virtual_machine.rb:75:in `block in call'/home/edh/tmp/viper/lib/runtime/virtual_machine.rb:396:in `_hook'/home/edh/tmp/viper/lib/runtime/virtual_machine.rb:75:in `call'/home/edh/tmp/viper/bin/viper:251:in `block in <main>'/home/edh/tmp/viper/bin/viper:251:in `each'/home/edh/tmp/viper/bin/viper:251:in `<main>'thor   viper  
+```
+
+Note: This help system relies on parsing Markdown and reads markdown files from the :vhome/doc folder. Not sure how this is supposed to work
+
+
+
 
 
 ## HeisenBug: sometimes vshtests/all_tests.vsh fails

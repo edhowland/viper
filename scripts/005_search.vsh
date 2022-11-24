@@ -34,5 +34,5 @@ _mode=search bind move_shift_pgup { beg /v/search } { line /v/search }
 _mode=search bind move_shift_pgdn { fin /v/search } { echo -n bottom of search buffer }
 _mode=search bind ctrl_b { nop } { break }
 _mode=search bind ctrl_q { nop } { perr Search aborted;  break }
-
+_mode=search bind ctrl_backslash { nop } { exit }
 

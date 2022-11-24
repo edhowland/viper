@@ -14,6 +14,11 @@ Released on 2022-11-20
 
 ## 2.0.12
 
+### 2.0.12.0: fast open
+
+See Todo list in Bugs.md for ideas on implementation.
+Basically, current File open is not the correct way to insert the file data into the buffer.
+
 ### 2.0.12.a
 
 - split up /v/bin  into:
@@ -55,6 +60,23 @@ The above requires  a move to a initialization strategy upon the first step post
 
 The rationale for this is to prevent users  from clobbering the built-in macro stuff
 whenever they perform a git pull to get the latest release.
+
+- Fix broken help system
+
+Currently based on parsing MarkDown files in :vhome/doc
+
+The help system should be made more just pure Vish code
+Of course, this requires the above Vish changes. E.g. argc, argv and locating things in .config/vish
+Help should be made portable, meaning across OSes and allowing for user contributed help strings
+
+Q: Can Vish functions contain docstrings like Python?
+
+- add man pages
+
+/v/man/1/cd,mv,tee ... .etc
+
+Also Markdown files
+Built from the RDoc strings in Ruby source code in :vhome/lib/bin/*.rb
 
 
 ## 2.0.16

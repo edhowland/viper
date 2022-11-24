@@ -146,4 +146,5 @@ line :_buf
 }
 _mode=viper bind ctrl_o { open_line_below :_buf } { at :_buf }
 _mode=viper bind meta_o { open_line_above :_buf } { at :_buf }
+_mode=viper bind ctrl_backslash { nop } { exit }
 

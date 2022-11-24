@@ -14,7 +14,7 @@ function fopen(fname) {
 open :fname
 rpath=:(realpath :fname)
 echo :rpath > ":{_buf}/.pathname"
-test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
+ cond { test -f :rpath } { openf :_buf :fname && digest_sha1 -f :fname > ":{_buf}/.digest" }
 }
 function pathname(buf) {
   test -z :buf && buf=:_buf

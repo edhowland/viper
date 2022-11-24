@@ -90,6 +90,7 @@ class Xfkey < BaseCommand
     result = {
       "\e" => 'escape',
       "\u007F" => 'key_backspace',
+      "\u001c" => 'ctrl_backslash',
       # punctuation
       ' ' => 'key_space',
       '.' => 'key_period',
