@@ -209,6 +209,8 @@ Add all these to :path at startup
 
 ### Deprecations:
 
+### Possible removal of describe command. Useless at this time
+
 - rline, class Rline, Buffer.rline.
   * never called in any script
 

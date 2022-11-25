@@ -1,5 +1,13 @@
 # completed bugs
 
+## 2022-11-25
+
+
+### Fixed bug in argument parsing in lib/bufnode/describe.rb:
+
+args must have length 1 and be a virtual path
+
+
 ## 2022-11-19
 
 # alt+w, ctrl+w do not work in empty buffer or at either end of buffer.
