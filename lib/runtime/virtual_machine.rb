@@ -160,6 +160,12 @@ _saved_old = Hal.pwd
 
   # install_cmd Class /v/bin # installs class named Class into vpath /v/bin
   # making it available to run as command
+  # Hint: when doing this in Ruby, before calling this in vish: 
+  # class ::Foo < BaseCommand
+  #  def call *args, env: frames:
+  #     env[:out].puts "in foo"
+  #    end
+  # end
   def install_cmd(*args, env:, frames:)
     klass = Kernel.const_get(args[0])
     root = frames[:vroot]
@@ -175,6 +181,7 @@ _saved_old = Hal.pwd
     BaseCommand.descendants.each do |klass|
       path[snakeize(klass.name)] = klass.new
     end
+    BinCommand::NixCommand.install_pairs.each {|fname, obj| path[fname] = obj }
     true
   end
 

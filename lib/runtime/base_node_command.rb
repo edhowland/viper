@@ -1,7 +1,7 @@
 # base_node_command - class BaseNodeCommand - base class for command primitive
 # gathers argument to node and passes to supplied block
 
-class BaseNodeCommand < BaseCommand
+class BaseNodeCommand < BinCommand::ViperCommand  #BaseCommand
   def get_node(path, frames:)
     root = frames[:vroot]
     root[path]

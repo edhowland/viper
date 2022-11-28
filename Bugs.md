@@ -2,6 +2,101 @@
 
 # Todo list
 
+## Document the H-E double hockey stix the install_cmd command
+
+```
+rem Make the klass is the top-level
+mkdir /v/local/bin
+install_cmd '::Foo' /v/local/bin
+path=/v/local/bin foo
+```
+
+## install command needs to default to /v/bin, but accept another arg
+
+```
+install
+ls /v/bin
+cd
+mv
+ls
+rm
+...
+```
+
+Alternative:
+
+```
+path=/v/local/bin
+install /v/local/bin
+ls /v/local/bin
+cp
+mv
+ls
+rm
+...
+```
+
+
+
+## Move all functions of BaseCommand into BinCommand::NixCommand that are reasonable to do
+
+### Start moving all lib/bin/*.rb over to inherit from BinCommand::NixCommand
+
+
+##  Move all methods in BaseBufferCommand over to BinCommand::ViperCommand that are reasonable to do so
+
+### Start inheriting lib/bufnode/*.rb that current inherit BaseBufferCommand to BinCommand::ViperCommand
+
+#### Many of these are two (or more) levels deep:
+
+E.g. NoArgCommand, SingleArgCommand, etc
+
+
+
+## help topics
+
+Note: some of this is mentioned elsewhere in the doc and also in Roadmap.md
+
+### cheat:
+
+A builtin function should be : cheat
+
+```
+function cheat(topic) {
+  sh curl "cheat.sh/:{topic}"
+}
+
+Then mention this in the help stuff.
+Mention that the user should have curl installed and how to get it.
+
+### Man pages
+
+A function/alias should work for :
+
+```
+man bindings
+...
+```
+
+What should happen is a text pager/browser should come up
+
+There should be a way to  list topics
+
+like the appros command or 
+
+```
+man -k topic_search_term
+...
+```
+
+```
+man man
+```
+
+... should mention all of this
+
+man help should be aliases to man man
+
 ## Fast Open
 
 Current:
@@ -312,6 +407,53 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## viper option parsing
+
+### -n, --no-start breaks
+
+Note: this is broken even in 2.0.10 and later
+
+```bash
+
+```
+
+### The -R or run only and exit option really does nothing
+
+```bash
+./bin/viper -R -e nop
+Command not found: nop
+```
+
+
+
+## conversion to BinCommand::ViperCommand:
+
+### push command, maybe pop, enq, deq etc may not work
+
+MUST: write vshtest/test_array.vsh
+
+
+
+## The sh command should prevent users from passing a VFS pathname anywhere in the arguments
+
+This includes actual binaries in /v/bin
+
+E.g. This should not work
+
+1. No pathnames in VFS:
+
+```
+sh /v/bin/cat foo bar | cat
+```
+
+2. No arguments in VFS:
+
+```
+sh cat /v/foo /v/bar | cat
+```
+
+...
 
 ## help system is throughly broken
 

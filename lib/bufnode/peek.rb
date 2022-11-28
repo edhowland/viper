@@ -2,12 +2,12 @@
 
 class Peek < BaseNodeCommand
   def call(*args, env:, frames:)
-    super do |*a|
-      if @options[:r]
+    a = args_parse! args
+
+    if @options[:r]
         perform(a[0], env: env, frames: frames) { |node| node[-1] }
-      else
+    else
         perform(a[0], env: env, frames: frames, &:first)
-      end
     end
   end
 end

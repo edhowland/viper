@@ -6,12 +6,11 @@
 
 class Rotate < BaseNodeCommand
   def call(*args, env:, frames:)
-    super do |*a|
+    a = args_parse! args
       if @options[:r]
         perform(a[0], env: env, frames: frames) { |node| node.rotate!(-1); '' }
       else
         perform(a[0], env: env, frames: frames) { |node| node.rotate!; '' }
       end
     end
-  end
 end

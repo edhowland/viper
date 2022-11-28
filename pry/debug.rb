@@ -1,9 +1,16 @@
 # debug.rb : methods: source(fname)
 
-def source fname
-    src = File.read($vm.fs[:vhome] + "/" + fname)
+
+def source(path)
+  src = File.read(path)
   bk = Visher.parse!(src)
-  $vm.call(bk)
+  $vm.call(bk)  
+end
+
+# handy means for source local files in pry debugger
+def vhome_source fname
+    source($vm.fs[:vhome] + "/" + fname)
+
 
 end
 
@@ -71,6 +78,8 @@ def vmpwd(vm: $vm)
   vm.fs[:pwd]
 end
 
-def load_script script='scripts/001_editor.vsh'
-  source script
+# vhome_script: loads a single script
+def vhome_script script , vm: $vm
+  src = vm.fs[:vhome] + '/' + script
+  source src
 end

@@ -22,7 +22,7 @@ end
 
 class Json < BaseNodeCommand
   def call(*args, env:, frames:)
-    super do |*a|
+    a = args_parse! args
       if @options[:r]
         perform_new a[0], env: env, frames: frames do |node, base|
           child = to_vfs(node, base, JSON.parse(env[:in].read))
@@ -34,6 +34,6 @@ class Json < BaseNodeCommand
           node.to_h.to_json
         end
       end
-    end
+
   end
 end
