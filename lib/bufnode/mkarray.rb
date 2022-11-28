@@ -2,11 +2,11 @@
 
 class Mkarray < BaseCommand
   def call(*args, env:, frames:)
-    super do |*a|
-      root = @fs[:vroot]
-      dnode = root.dirnode a[0]
-      base = root.basename a[0]
+    #super do |*a|
+      root = frames[:vroot]
+      dnode = root.dirnode args[0]
+      base = root.basename args[0]
       dnode[base] = []
-    end
+    #end
   end
 end

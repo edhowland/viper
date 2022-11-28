@@ -2,6 +2,18 @@
 
 # Todo list
 
+## Immediate: go through all lib/bufnode/ and remove super do |*a|
+
+replace with:
+
+```
+a = args_parse! args
+```
+
+
+Replace any usages of a[..] with args[..] if needed and no options are used in @options
+Remove the 'end' at indent 4
+
 ## Document the H-E double hockey stix the install_cmd command
 
 ```
@@ -425,13 +437,6 @@ Note: this is broken even in 2.0.10 and later
 Command not found: nop
 ```
 
-
-
-## conversion to BinCommand::ViperCommand:
-
-### push command, maybe pop, enq, deq etc may not work
-
-MUST: write vshtest/test_array.vsh
 
 
 

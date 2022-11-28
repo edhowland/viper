@@ -31,3 +31,13 @@ function test_peek() {
   res2=:(peek -r /v/pek1)
   assert_eq :res2 2
 }
+function test_rotate() {
+  mkarray /v/rot2
+  for i in front middle back { echo :i | push /v/rot2 }
+  rotate /v/rot2
+  res1=:(peek /v/rot2)
+  assert_eq :res1 middle
+  rotate -r /v/rot2
+  res2=:(peek /v/rot2)
+  assert_eq :res2 front
+}

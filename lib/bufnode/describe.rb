@@ -7,11 +7,11 @@ class Describe < BaseNodeCommand
       env[:err].puts "describe: argument error: Argument must be 1 pathname in the virtual file system"
       return false
     end
-    super do |*a|
+    #super do |*a|
       r = frames[:vroot]
-      node = r[a[0]]
+      node = r[args[0]]
       string = node.to_s
-      pout string.to_s
-    end
+      env[:out].puts string.to_s
+    #end
   end
 end

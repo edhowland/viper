@@ -1,5 +1,33 @@
 # completed bugs
 
+## 2022-11-28
+
+## conversion to BinCommand::ViperCommand:
+
+### push command, maybe pop, enq, deq etc may not work
+
+MUST: write vshtest/test_array.vsh
+
+
+
+
+Changed: Added ./local/viper/bin and in there viper.vsh
+
+New CommandLet: viper_commands gives all class names that should go into new
+:path component => /v/viper/bin
+
+```
+for i in :(viper_commands) { install_cmd :i /v/viper/bin }
+```
+
+These are all descendants of BinCommand::ViperCommand
+
+Meanwhile, all previous commands which live in /v/bin are descendants 
+of BinCommand::NixCommand.
+
+Todo: These must be re-engineered to BinCommand::NixCommand
+and lib/runtime/virtual_machine.rb:def install should only get these, not BaseCommand
+
 ## 2022-11-25
 
 
