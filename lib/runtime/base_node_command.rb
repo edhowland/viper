@@ -10,6 +10,7 @@ class BaseNodeCommand < BinCommand::ViperCommand  #BaseCommand
   def perform(path, env:, frames:)
     root = frames[:vroot]
     node = root[path]
+    return false if node.nil? 
     result = true
     output = ''
     output = yield node if block_given?

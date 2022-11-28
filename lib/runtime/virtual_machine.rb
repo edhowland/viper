@@ -178,9 +178,7 @@ _saved_old = Hal.pwd
   def install(*_args, env:, frames:)
     root = frames[:vroot]
     path = root['/v/bin'] # commands will be installed here
-    BaseCommand.descendants.each do |klass|
-      path[snakeize(klass.name)] = klass.new
-    end
+
     BinCommand::NixCommand.install_pairs.each {|fname, obj| path[fname] = obj }
     true
   end

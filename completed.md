@@ -2,6 +2,73 @@
 
 ## 2022-11-28
 
+### Move bufnodes, esp. BufferCommands from /v/bin to /v/editor/bin
+
+
+
+Fix: This was done with the introduction of BinCommand::NixCommand, BinCommand::ViperCommand.
+
+Now all commands live in /v/viper/bin and this is first in :path variable.
+
+## Fast Open
+
+Current:
+
+In function fopen
+
+scripts/001_editor.vsh:14
+````
+test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
+```
+
+Proposed:
+
+```ruby
+class Openf < BaseBufferCommand
+  def call ...
+    ...
+  end
+end```
+Use Ruby fast open and read into Buffer.b_buf directly
+
+
+```
+openf :_buf :fname && digest_sha1 -f ":{_buf}/.digest"
+```
+
+Above fixed in previous commit.  This Todo thing was duplicated.
+
+
+## Immediate: go through all lib/bufnode/ and remove super do |*a|
+
+replace with:
+
+```
+a = args_parse! args
+```
+
+
+Replace any usages of a[..] with args[..] if needed and no options are used in @options
+Remove the 'end' at indent 4
+
+
+
+## Move all functions of BaseCommand into BinCommand::NixCommand that are reasonable to do
+
+### Start moving all lib/bin/*.rb over to inherit from BinCommand::NixCommand
+
+
+##  Move all methods in BaseBufferCommand over to BinCommand::ViperCommand that are reasonable to do so
+
+### Start inheriting lib/bufnode/*.rb that current inherit BaseBufferCommand to BinCommand::ViperCommand
+
+#### Many of these are two (or more) levels deep:
+
+E.g. NoArgCommand, SingleArgCommand, etc
+
+
+
+
 ## conversion to BinCommand::ViperCommand:
 
 ### push command, maybe pop, enq, deq etc may not work

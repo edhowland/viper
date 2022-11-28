@@ -41,3 +41,17 @@ function test_rotate() {
   res2=:(peek /v/rot2)
   assert_eq :res2 front
 }
+function test_push_error() {
+  echo hi | push /v/xjklm; assert_false :exit_status
+}
+function test_pop_error() {
+  pop /v/no_array_actually_here; assert_false :exit_status
+}
+function test_peek_error() {
+  peek /v/nothing_here; assert_false :exit_status
+  peek -r /v/pek99; assert_false :exit_status
+}
+function test_rotate_error() {
+  rotate /v/nil; assert_false :exit_status
+  rotate -r /v/rot9; assert_false :exit_status
+}

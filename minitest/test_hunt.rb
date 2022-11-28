@@ -5,9 +5,9 @@ require_relative 'test_helper'
 
 class HuntTest < MiniTest::Test
   def setup
-    @vm = VirtualMachine.new
-    block = Visher.parse! 'mount /v;     mkdir /v/bin;     install; mkarray /v/xx;' + 
-      'echo -n hello | push /v/xx; echo -n world | push /v/xx; echo -n sailor | push /v/xx'
+    @vm = boot_etc
+      src = 'mkarray /v/xx; echo -n hello | push /v/xx; echo -n world | push /v/xx; echo -n sailor | push /v/xx'
+    block = Visher.parse!(src)
     @vm.call block
     @cmd = Hunt.new
   end

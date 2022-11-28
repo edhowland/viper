@@ -2,17 +2,7 @@
 
 # Todo list
 
-## Immediate: go through all lib/bufnode/ and remove super do |*a|
 
-replace with:
-
-```
-a = args_parse! args
-```
-
-
-Replace any usages of a[..] with args[..] if needed and no options are used in @options
-Remove the 'end' at indent 4
 
 ## Document the H-E double hockey stix the install_cmd command
 
@@ -48,20 +38,6 @@ rm
 ...
 ```
 
-
-
-## Move all functions of BaseCommand into BinCommand::NixCommand that are reasonable to do
-
-### Start moving all lib/bin/*.rb over to inherit from BinCommand::NixCommand
-
-
-##  Move all methods in BaseBufferCommand over to BinCommand::ViperCommand that are reasonable to do so
-
-### Start inheriting lib/bufnode/*.rb that current inherit BaseBufferCommand to BinCommand::ViperCommand
-
-#### Many of these are two (or more) levels deep:
-
-E.g. NoArgCommand, SingleArgCommand, etc
 
 
 
@@ -109,31 +85,7 @@ man man
 
 man help should be aliases to man man
 
-## Fast Open
 
-Current:
-
-In function fopen
-
-scripts/001_editor.vsh:14
-````
-test -f :rpath && cat < :fname > :_buf && digest_sha1 -f :fname > ":{_buf}/.digest"
-```
-
-Proposed:
-
-```ruby
-class Openf < BaseBufferCommand
-  def call ...
-    ...
-  end
-end```
-Use Ruby fast open and read into Buffer.b_buf directly
-
-
-```
-openf :_buf :fname && digest_sha1 -f ":{_buf}/.digest"
-```
 ## Hunt down all parts where random code handle wrond number of aguments
 
 ```ruby
@@ -303,8 +255,6 @@ Note: Not used in any Viper scripts
 
 ## Make ruby code formatter work to clean up code base
 
-
-### Move bufnodes, esp. BufferCommands from /v/bin to /v/editor/bin
 
 
 ### Move all commands like store, push, pop from /v/bin to /v/vfs/bin

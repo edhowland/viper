@@ -14,9 +14,9 @@ def vhome_source fname
 
 end
 
-def veval code
+def veval code, vm: $vm
   bk = Visher.parse! code
-  $vm.call bk
+  vm.call bk
 end
 
 
