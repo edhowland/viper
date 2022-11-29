@@ -1,5 +1,35 @@
 # completed bugs
 
+## 2022-11-29
+
+## Remove the =begin/=end comment from lib/runtime/virtual_layer.rb: def [] path
+
+Note: this was removed back in Release 2.0.11
+
+
+
+## The descendants method of BinCommand::VFSCommand results in base_node_command being installed
+
+This is because BaseNodeCommand is an actual descendant of BinCommand:VFSCommand
+
+Possibly: filter this out
+
+
+Fix: Added specific .reject to BinCommand::*.self.descendants
+
+E.g.
+
+- BinCommand::NixCommand rejects BaseCommand
+- BinCommand::VFSCommand rejects BaseNodeCommand
+- BinCommand::ViperCommand rejects BaseBufferCommand
+
+Therefore these, via snakize,  do not get installed in:
+
+NixCommand : /v/bin
+VFSCommand : /v/vfs/bin
+ViperCommand : /v/viper/bin
+
+
 ## 2022-11-28
 
 ### Move bufnodes, esp. BufferCommands from /v/bin to /v/editor/bin

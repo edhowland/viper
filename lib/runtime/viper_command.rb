@@ -7,7 +7,7 @@ class BinCommand::ViperCommand
   attr_reader :options
 
   def self.descendants
-    ObjectSpace.each_object(Class).select { |klass| klass < self }
+    ObjectSpace.each_object(Class).select { |klass| klass < self }.reject {|k| k == BaseBufferCommand }
   end
   def self.install_pairs
     descendants.map {|k| [snakeize(k.name), k.new] }

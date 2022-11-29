@@ -1,5 +1,42 @@
 # Changelog for Viper project
 
+## Release 2.0.12.a
+
+Pre-alpha interim release for 2.0.12
+
+2022-11-29
+
+
+### Features
+
+- Split out all /v/bin commands into 3 paths
+
+```
+rem this is all *nix inspired commands
+ls /v/bin
+
+rem These are commands for just the VFS parts of the Vish 
+ls /v/vfs/bin
+
+rem These are Viper buffer specific commands
+ls /v/viper/bin
+```
+
+- Added the above paths to the :path variable
+
+```
+echo :path
+/v/viper/bin:/v/vfs/bin:/v/cmdlet/misc:/v/bin
+
+```
+
+
+
+These changes were needed to decouple Vish from its Viper roots.
+Given these changes, it should now be able to just launch Vish as a stand-alone executable.
+In the case, the Viper will become just another Vish script.
+
+
 ## Release 2.0.11
 
 2022-11-19

@@ -22,11 +22,12 @@ Basically, current File open is not the correct way to insert the file data into
 ### 2.0.12.a
 
 - split up /v/bin  into:
-  * /v/viper/bin
   * /v/vfs/bin
+  * /v/viper/bin
   * Add these to paths
 
-See Bugs.md: Todo list
+
+Finished: 2022-11-29
 
 ### 2.0.12.b
 
