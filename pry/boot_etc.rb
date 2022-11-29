@@ -3,6 +3,7 @@
 def boot_etc
   vish_boot
   boot({}, $vm).each{|v| source v }
+  true
 end
 
 def _boot_etc

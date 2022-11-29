@@ -9,6 +9,7 @@ require_relative 'ast'
 require_relative 'runtime'
 require_relative 'bin'
 
+# VFS/Viper foundation
 require_relative 'bufnode'
 
 # get all the commands

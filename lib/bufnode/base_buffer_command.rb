@@ -1,7 +1,8 @@
 # base_buffer_command - class BaseBufferCommand - base class for Buffer methods
 # given a buffer path, use class name to send method call
 
-class BaseBufferCommand < BaseNodeCommand
+class BaseBufferCommand < BinCommand::ViperCommand  #BaseNodeCommand
+  include NodePerform
   def initialize
     @meth = ->(meth, buf, arg) { buf.send meth, arg }.curry.call(command_name)
     @meth0 = ->(meth, buf) { buf.send meth }.curry.call(command_name)

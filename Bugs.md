@@ -370,6 +370,12 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## The descendants method of BinCommand::VFSCommand results in base_node_command being installed
+
+This is because BaseNodeCommand is an actual descendant of BinCommand:VFSCommand
+
+Possibly: filter this out
+
 ## viper option parsing
 
 ### -n, --no-start breaks

@@ -22,19 +22,25 @@ Basically, current File open is not the correct way to insert the file data into
 ### 2.0.12.a
 
 - split up /v/bin  into:
-  * /v/editor/bin
+  * /v/viper/bin
   * /v/vfs/bin
   * Add these to paths
 
 See Bugs.md: Todo list
 
+### 2.0.12.b
+
 - New external program: vish
   * Break out of viper executable code file
   * split :vhome/etc/vishrc into :vhome/etc/rc.?/{001-999}*.vsh
 
+Note: See ./pry/load_scripts.vsh for how to do this.
+
 
 
 - :argc, :argv for command line arguments
+- Some sort of get_opt - style parsing to take ove the command line args for bin/viper : OptionParser
+
 
 ## 2.0.13
 
@@ -117,6 +123,7 @@ So, the most dynamic aspect of Emacs is probably the  elisp editor code.
 The above discussion is probably not 100% accurate, but I think it mostly holds.
 
 Viper 2 took the same approach. For Viper, substitute Ruby for C and Vish for elisp.
+Where Vish is the Viper extension language with a Bash style syntax.
 
 However, the 2.0 release did not fully embrace this approach.
 
@@ -129,3 +136,35 @@ Vish should be:
   * A interactive http client
 - Run stand-alone scripts to perform utility actions.
 - 
+
+
+## What Viper 2.1 is NOT!
+
+Viper 2.1 is not a major rewrite of Viper 2.0, despite 2.0 being about 6 years old at this point.
+
+The Ruby is quite smelly:
+
+- VFS (Virtual File System) should just be a simple Hash with both '.', and '..'
+pointers. (Not easy to do unless you introduce thunks, or defer lambdas
+
+- Vish syntax has a few definciencies:
+  * Subshells should be able to be used anywhere in a statement. The return code (:exit_status) is supplied for the argument at that argument position.
+  * There should be redirection primitives like 2>&1, or 1>&2.
+  * Within double-quoted strings, the command substitution should be interpolated:
+
+```
+echo "hello :(echo world)"
+hello world
+```
+
+
+### Viper problems
+
+- The current of meta/mode switching is truly broken.
+  * Relies on raising an exception and using a single array: /v/meta
+- Newer modes like a Vim-like mode are not able to be implemented herein.
+
+
+
+
+These, and a slew of needed refactors, need to be made, but will be reserved for 2.2 and beyond.

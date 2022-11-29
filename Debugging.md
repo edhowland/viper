@@ -1,5 +1,47 @@
 # Debugging : Hints for help with debugging Vish/Viper
 
+## Ruby debugging
+
+###  smoke test with pry:
+
+```bash
+pry
+
+>>
+^D
+
+$ pry -e boot_etc
+...
+>>
+^D
+$
+```
+
+### Further smoke tests
+
+See rake note below for step 3
+
+Step 4
+
+```bash
+ivsh
+```
+
+Step 5
+
+```bash
+scratch
+```
+
+(Or: ./bin/viper)
+### Run just  Ruby tests in ./minitest
+
+```bash
+rake test
+```
+
+
+Note: This also turns Ruby warnings on. Needed for final 2.1 release
 ## Vish debugging
 
 Hint: the :vhome var is set in lib/runtime/virtual_machine.rb $vm or VirtualMachine

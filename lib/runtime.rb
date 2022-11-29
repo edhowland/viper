@@ -1,7 +1,13 @@
+# runtime.rb: requires for ./runtime/*.rb
+
 require_relative 'runtime/vish_runtime_error'
 require_relative 'runtime/vish_syntax_error'
+
+# Parent classes for command/verb types
 require_relative 'runtime/bin_command'
+require_relative 'runtime/vfs_command'
 require_relative 'runtime/viper_command'
+require_relative 'runtime/node_perform'
 
 require_relative 'runtime/base_command.rb'
 require_relative 'runtime/flagged_command'
