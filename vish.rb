@@ -43,7 +43,19 @@ end
 
 # The Read/Eval/Print/Loop or REPL
 def repl(vm:)
-  src = get_line
-  block = Visher.parse!(src)
-  vm.call(block)
+  loop do
+    src = get_line
+    block = Visher.parse!(src)
+    vm.call(block)
+  rescue VishSyntaxError => synerr
+    $stderr.puts synerr.message
+  end
+rescue Interrupt
+  $stderr.puts "Ctrl-C"
+  exit(0)
+rescue VirtualMachine::ExitCalled => err
+
+  puts "Exitting ..."
+rescue => err
+  $stderr.puts err.message
 end
