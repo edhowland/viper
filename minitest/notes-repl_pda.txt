@@ -1,0 +1,26 @@
+Running ruby test_repl_pda.rb
+results in 2 errors according to no support, yet, for sdouble or single quotes.
+
+If in state: :S0, and get a double quote
+Move to state :S1 and push DQuote
+
+Ignore all characters in state :S1 except another double quote, 
+and look for the stack top to be DQuote
+if it it is, then move to :S0, and pop the stack
+
+Repeat this for single quote, but push (and wait for) SQuote instead
+
+- DQuote => :S1
+SQuote => :S2
+
+## Refinements
+
+- handle \", \' in respective states
+
+:S1 \ => :S3
+:S3 " => :S1
+
+:S2 \ => :S4
+:S4 ' => :S2
+
+All other :S3, :S4 will revertback to :S1, :S2 respectively.

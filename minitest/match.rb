@@ -50,41 +50,41 @@ end
 
 def match(ch, st, top)
   case [ch, st, top]
+  ##### Error state always goes to :Err
   in [_, :Err, _]
-    :Err
-  in [']', _, :"$"]
-    :Err
-  in ['}', _, :"$"]
-    :Err
-  in [')', _, :"$"]
-    :Err
-
-  in ['[', :S0, _]
-    :RBrack
+    [:Err, :nop]
+  ##### left bracket
+  in ['[', :S0, :"$"]
+    [:S0, :push, :RBrack]
+  in ['[', :S0, _] ####????
+  ##### left brace
+  in ['{', :S0, :"$"]
+    [:S0, :push, :RBrace]
   in ['{', :S0, _]
-    :RBrace
+        [:S0, :push, :RBrace]
+
+  ##### left paren
+  in ['(', :S0, :"$"]
+    [:S0, :push, :RParen]
   in ['(', :S0, _]
-    :RParen
-  in [']', :S0, :Rbrack]
-    :Ok
-  in ['}', :S0, :Rbrace]
-    :Ok
-  in [')', :S0, :Rparen]
-    :Ok
-  in [']', _, :Rbrace]
-    :Err
-  in ['}', _, :Rbrack]
-    :Err
-  in [')', _, :Rbrack]
-    :Err
-  in [']', _, :Rparen]
-    :Err
-  in ['}', _, :Rparen]
-    :Err
-  in [')', _, :Rbrace]
-    :Err
-  in [_, :S0, :"$"]
-    :ok
+      [:S0, :push, :RParen]
+
+  ##### right bracket
+  in [']', :S0, :RBrack]
+    [:S0, :pop]
+  in [']', :S0, _]
+    [:Err, :nop]
+  ##### right brace
+  in ['}', :S0, :RBrace]
+    [:S0, :pop]
+  in ['}', :S0, _]
+    [:Err, :nop]
+  ##### right paren
+  in [')', :S0, :RParen]
+    [:S0, :pop]
+  in [')', :S0, _]
+    [:Err, :nop]
+  ##### ignored characters
   else
     :err
   end

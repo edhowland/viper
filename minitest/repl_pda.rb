@@ -6,10 +6,13 @@
 # "  { ... } " : ok, .etc
 
 require 'set'
+require_relative 'stack'
+
 
 
 class ReplPDA
   def initialize
+    @stack = Stack.new; @stack << :"$"
     @states = {
       ['{', :S0] => :S1,
       ['[', :S0] => :S2,
@@ -30,27 +33,63 @@ class ReplPDA
     # :SErr is the error state
   end
   attr_reader :state, :actuals, :finals
-  def delta(ch, state)
-    if error?
-      :SErr
-    elsif !@actuals.member?(ch)
-      @state
-    elsif @states.has_key?([ch, state])
-      @states[[ch, state]]
-    else
-      :SErr
-    end
+  def delta(ch, state, top)
+  case [ch, state, top]
+  ##### Error state always goes to :Err
+  in [_, :Err, _]
+    [:Err, :nop]
+  ##### left bracket
+  in ['[', :S0, :"$"]
+    [:S0, :push, :RBrack]
+  in ['[', :S0, _] ####????
+  ##### left brace
+  in ['{', :S0, :"$"]
+    [:S0, :push, :RBrace]
+  in ['{', :S0, _]
+        [:S0, :push, :RBrace]
+
+  ##### left paren
+  in ['(', :S0, :"$"]
+    [:S0, :push, :RParen]
+  in ['(', :S0, _]
+      [:S0, :push, :RParen]
+
+  ##### right bracket
+  in [']', :S0, :RBrack]
+    [:S0, :pop]
+  in [']', :S0, _]
+    [:Err, :nop]
+  ##### right brace
+  in ['}', :S0, :RBrace]
+    [:S0, :pop]
+  in ['}', :S0, _]
+    [:Err, :nop]
+  ##### right paren
+  in [')', :S0, :RParen]
+    [:S0, :pop]
+  in [')', :S0, _]
+    [:Err, :nop]
+  ##### ignored characters
+    in [_, :S0, :"$"]
+      [:S0, :nop]
+    in [_, :S0, _]
+      [:S0, :nop]
+  else
+    [:err, :nop]
+  end
   end
   def run(str)
     @state = :S0
+    @stack = Stack.new; @stack << :"$"
     idx = 0
     until str[idx].nil? do
-      @state = delta(str[idx], @state)
+      @state, *meth = delta(str[idx], @state, @stack.peek)
+      @stack.send *meth
       idx += 1
     end
-    @finals.member? @state
+    @stack.length == 1 && @stack.peek == :"$"
   end
   def error?
-    @state == :SErr
+    @state == :Err
   end
 end

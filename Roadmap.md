@@ -31,6 +31,8 @@ Finished: 2022-11-29
 
 ### 2.0.12.b
 
+Note: See mini-2.0.12.a-Roadmap.md for extensive details on this release.
+
 - New external program: vish
   * Break out of viper executable code file
   * split :vhome/etc/vishrc into :vhome/etc/rc.?/{001-999}*.vsh

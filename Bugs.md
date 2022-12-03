@@ -369,6 +369,13 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## Copying once, then another time in the same file results in the previous contents being prepended to contents of clipboard
+
+Note: This is not handled well via the CharacterTrait object not getting reset.
+Is there another way to do marking?
+Remember, the original  idea was to allow for movement of the marked pointer
+around without losing iits position in the environment of inserts and deletes
+
 
 ## viper option parsing
 
