@@ -1,4 +1,10 @@
 # vish.rb: Vish language startup 
+# Usage
+# vm = vish_boot
+# load_vishrc vm: vm
+# repl vm: vm
+#
+# Above only gets a single of Vish syntax and parses and executes it. You need, at this time, to retype the above, if living in Pry
 require 'reline'
 
 require_relative 'lib/viper'
@@ -28,9 +34,9 @@ end
 def get_line
   prompt = 'vish>> '
   use_history = true
-
+  pda = ReplPDA.new
         text = Reline.readmultiline(prompt, use_history) do |multiline_input|
-    true
+    pda.run(multiline_input)
       end
   text
 end
