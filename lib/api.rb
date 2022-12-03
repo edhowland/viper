@@ -26,4 +26,7 @@ require_relative 'api/unknown_hash'
 require_relative 'api/chunkify'
 require_relative 'api/default_path'
 require_relative 'api/optparse_from'
+require_relative 'api/stack'
+
+require_relative 'api/repl_pda'
 

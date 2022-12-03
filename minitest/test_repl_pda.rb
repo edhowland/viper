@@ -1,8 +1,6 @@
 # test_repl_pda.rb: Tests the multi-line trigger finite state machine: 
 # push-down automata
 
-# REMOVE the next line
-require_relative 'repl_pda'
 
 require_relative 'test_helper'
 
@@ -69,6 +67,22 @@ class TestReplPDA < Minitest::Test
   end
   def test_space_lbrace_space_space_rbrace_is_true
     assert @pda.run(' {  } ')
+    assert_false @pda.error?
+  end
+  def test_single_quotes_within_balanced_double_quotes_is_true
+    assert @pda.run("  \"  '  \"  ")
+    assert_false @pda.error?
+  end
+  def test_embedded_double_quotes_inside_balanced_single_quotes_is_true
+    assert @pda.run('   \'  "  \'  ')
+    assert_false @pda.error?
+  end
+  def test_one_single_quote_returns_false
+    assert_false @pda.run("foo 'bar")
+    assert_false @pda.error?
+  end
+  def test_one_double_quote_returns_false
+    assert_false @pda.run('blah "    ')
     assert_false @pda.error?
   end
 end

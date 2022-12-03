@@ -38,6 +38,20 @@ class ReplPDA
   ##### Error state always goes to :Err
   in [_, :Err, _]
     [:Err, :nop]
+    ##### double quotes
+    in ['"', :S0, _]
+      [:S1, :push, :DQuote]
+    in ['"', :S1, :DQuote]
+      [:S0, :pop]
+    in [_, :S1, :DQuote]
+      [:S1, :nop]
+    ##### single quote
+    in ["'", :S0, _]
+      [:S2, :push, :SQuote]
+    in ["'", :S2, :SQuote]
+      [:S0, :pop]
+    in [_, :S2, :SQuote]
+      [:S2, :nop]
   ##### left bracket
   in ['[', :S0, :"$"]
     [:S0, :push, :RBrack]
