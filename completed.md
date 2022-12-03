@@ -1,5 +1,18 @@
 # completed bugs
 
+## 2022-12-03
+
+## Todo
+
+Put ./local/vfs/bin/vfs.vsh back into ./etc/vishrc 
+
+
+
+Completed: added that line  to loca/etc/vishrc
+
+
+Added ReplPDA to def get_line in ./vish.rb
+Properly, handles multi-line input
 ## 2022-11-29
 
 ## Remove the =begin/=end comment from lib/runtime/virtual_layer.rb: def [] path

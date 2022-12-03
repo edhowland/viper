@@ -12,9 +12,12 @@ In vish.rb: Use of Ruby StdLib 'reline'
 
 Use new class ReplPDA inside the def repl method
 
+- checkmark:
+
+Understand signalling in reline library.
+
+Control-C works, but Ctrl-D does not
+Ctrl-A for goto beginning of line and ctrl-e goto end of line works, but ctrl-u does not
 Need to understand how to handle errors
 Maybe beep the bell?
 
-## Todo
-
-Put ./local/vfs/bin/vfs.vsh back into ./etc/vishrc 
