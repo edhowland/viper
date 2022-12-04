@@ -31,8 +31,8 @@ def load_vishrc vm:
 end
 
 
-def get_line
-  prompt = 'vish>> '
+def get_line(prompt='vish2>')
+  #prompt = 'vish>> '
   use_history = true
   pda = ReplPDA.new
         text = Reline.readmultiline(prompt, use_history) do |multiline_input|
@@ -44,7 +44,7 @@ end
 # The Read/Eval/Print/Loop or REPL
 def repl(vm:)
   loop do
-    src = get_line
+    src = get_line(prompt=vm.fs[:prompt])
     block = Visher.parse!(src)
     vm.call(block)
   rescue VishSyntaxError => synerr

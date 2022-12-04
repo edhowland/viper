@@ -85,4 +85,10 @@ class TestReplPDA < Minitest::Test
     assert_false @pda.run('blah "    ')
     assert_false @pda.error?
   end
+  def test_paren_inside_balanced_double_quotes_is_true
+    assert @pda.run('"(foo"')
+  end
+  def test_right_brace_inside_balanced_single_quotes_is_true
+    assert @pda.run("foo('}')")
+  end
 end
