@@ -45,8 +45,10 @@ end
 def repl(vm:)
   loop do
     src = get_line(prompt=vm.fs[:prompt])
-    block = Visher.parse!(src)
-    vm.call(block)
+    unless src.empty?
+      block = Visher.parse!(src)
+      vm.call(block)
+    end
   rescue VishSyntaxError => synerr
     $stderr.puts synerr.message
   end

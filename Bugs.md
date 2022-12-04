@@ -369,6 +369,33 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+
+## The source command sets functions, but not variables.
+
+Note: This has been partially fixed
+
+There set local to the script itself. You can fix this deficiency by making them global:
+
+```
+rem this is vars.vsh
+foo=foo bar=bar;global foo bar
+```
+
+Somewhere else:
+
+```
+source vars.vsh
+echo :foo :bar
+foo bar
+```
+
+
+This should work like Base.
+
+Expect the fix is to do a fs.merge after the source has finished.
+
+
+
 ## Copying once, then another time in the same file results in the previous contents being prepended to contents of clipboard
 
 Note: This is not handled well via the CharacterTrait object not getting reset.
@@ -620,6 +647,36 @@ rem a commemt
 
 function foo() { nop }
 rem The above and the rest of the file is skipped
+```
+
+
+
+#### An empty line does not parse at all
+
+This might be what is happending above:
+
+```ruby
+Visher.parse! ''
+Exception: VishSyntaxError
+```
+### bare string interpolation does not work
+
+```
+echo :vhome
+/home/{USER]/viper/
+echo :{vhome}
+
+echo :{vhome}/lib
+
+```
+
+This works in double quoted strings.
+This causes a problem for globbing with a variable substitution
+
+Can be handled with a  bad hack:
+
+```
+mytmp=:(echo ":{vhome}/scripts"); (cd :mytemp; for i in ???_*.vsh { source :i })
 ```
 
 

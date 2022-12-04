@@ -1,5 +1,19 @@
 # completed bugs
 
+## 2022-12-04
+
+## If a Ruby integer is set into a variable, the type command does not recognize
+
+```
+rem some command that sets a global to an int
+type var
+Unknown
+```
+
+But can be fixed by converting it to a string with : value.to_s
+
+
+
 ## 2022-12-03
 
 ## Todo

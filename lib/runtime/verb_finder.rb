@@ -13,7 +13,7 @@ class VerbFinder
     ->(p) { vm.fs.functions.has_key?(name) ? p.resolve!([:function, vm.fs.functions[name]]) : p.reject!(false) },
     ->(p) { vm._builtins.member?(name.to_sym) ? p.resolve!([:builtin, name]) : p.reject!(false) },
     ->(p) { res = Command.first_in_path(name, frames: vm.fs); res ? p.resolve!([:command, res]) : p.reject!(false) },
-    ->(p) { res = vm.fs[name.to_sym]; res.empty? ? p.reject!(false) : p.resolve!([:variable, res]) },
+    ->(p) { res = vm.fs[name.to_sym]; !vm.fs.key?(name.to_sym) ? p.reject!(false) : p.resolve!([:variable, res]) },
     ]
   end
   def ordered_promises(name, vm:)

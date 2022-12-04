@@ -238,11 +238,12 @@ _saved_old = Hal.pwd
     else
       begin
         block = Visher.parse!(File.read(args[0]))
-        @fs.push
+        #@fs.push
         @fs[:__FILE__] = args[0]
         @fs[:__DIR__] = Hal.realpath(args[0]).pathmap('%d')
         call block
-        @fs.pop
+        #@fs.pop
+        @fs.merge
       rescue ExitCalled
         raise ExitCalled
       rescue ReturnCalled => r
