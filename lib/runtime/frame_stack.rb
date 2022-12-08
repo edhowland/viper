@@ -38,6 +38,9 @@ class FrameStack
     return nil if @frames.length < 2
     @frames[-2].merge! @frames[-1]
   end
+  def globalize
+    @frames.first.merge!(self.top)
+  end
 
   def pop
     @frames.pop

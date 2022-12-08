@@ -1,0 +1,1 @@
+rem Common Vish functions

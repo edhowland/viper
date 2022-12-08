@@ -117,4 +117,24 @@ class FrameStackTest < MiniTest::Test
     fs = FrameStack.new
     assert(!fs.empty?)
   end
+
+  # globalize: tests the globalize method. This method will merge the first
+  #  hash with the top of the stack. Used in the source builtin command
+  # to make sure any call to source, say within a function will expose global
+  # variables at the outer level. To replicate the behaviour of Bash
+  def test_globalize
+    fs = FrameStack.new
+    fs.first[:foo] = 9
+    fs.push
+    fs[:foo] = 8
+    fs.push
+    fs[:foo] = 7
+    fs.push
+    fs[:foo] = 10
+    fs.globalize
+    fs.pop; fs.pop; fs.pop
+    assert_eq 10, fs[:foo]
+    assert_eq 10, fs.first[:foo]
+  end
+
 end

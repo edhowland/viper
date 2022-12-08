@@ -5,6 +5,6 @@ class Raise < BaseCommand
     message = args.join(' ')
     frames.first[:last_exception] = message
     frames.first[:exit_status] = false
-    raise message
+    raise VishRuntimeError.new(message)
   end
 end

@@ -35,7 +35,7 @@ Note: See mini-2.0.12.a-Roadmap.md for extensive details on this release.
 
 - New external program: vish
   * Break out of viper executable code file
-  * split :vhome/etc/vishrc into :vhome/etc/rc.?/{001-999}*.vsh
+  * split :vhome/etc/vishrc into :vhome/local/vish/prelude/001..009_*.vsh
 
 Note: See ./pry/load_scripts.vsh for how to do this.
 

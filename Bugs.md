@@ -2,7 +2,111 @@
 
 # Todo list
 
+## Closures are not exactly equivalent to scheme closures
 
+In scheme, you can create a getter, setter closure over some parameter passed to the construction constructer
+
+Both share access to the same parameter/free variable.
+Later, calling the setter, will change it for the getter as well.
+
+### Scheme
+
+```
+(define get null)
+(define set null)
+(define (foo arg)
+  (set! get (lambda () arg))
+  (set! set (lambda (val) (set! arg val)))
+)
+(foo 9)
+(set 9)
+(get)
+9
+(set 10)
+(get)
+10
+```
+
+
+
+### The Vish problem
+
+```
+function foo(arg) {
+  store &()   echo :arg } /v/foo/get
+store &(val) { arg=val } /v/foo/set
+}
+
+foo 19
+exec /v/foo/get
+19
+exec /v/foo/set 20
+exec /v/foo/get
+19
+```
+
+
+## local/vish/prelude/005_functions.vsh while/until as functions are stacking up the :_ variables
+
+Note, if you do a shift inside a until or while body, you are shifting the remaining arguments to the until/while function
+not the outer function you wanted.
+
+This is one reason while control structures must not be functions.
+
+### Captured code from 0??_functions.vsh
+
+```
+function while(predicate, body) {
+  loop {
+    cond { not :predicate } { break }
+  exec :body
+  }
+}
+function until(predicate, body) {
+  loop {
+    cond { exec :predicate } { break }
+    exec :body
+    
+  }
+}
+```
+
+The above should be a standard command, cmdlet or future macro
+
+
+
+## :last_exception is getting set somewhere in Vish function world
+
+Only sometimes does it get recorded by an exception
+Note it does get recorded by the raise command from inside Vish
+
+
+Try this out:
+
+1. Enter Command mode by pressing meta_semicolon
+2. type: echo :last_exception    - or- using el aliaias
+3. See commander
+
+Or in vish/repl mode: see com
+
+
+
+
+
+
+
+## The grep command needs some TLC
+
+It only works in stdin imput mode
+
+```
+echo foo | grep foo;echo :exit_status
+true
+```
+
+And of cource, the single/double quoted string parsing leaves a lot of room for imporvement.
+
+You cannot properly put backslashes in there to escape them.
 
 ## Document the H-E double hockey stix the install_cmd command
 
@@ -369,6 +473,28 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## In test -e and give a dereferenced variable, can get an Undefined method error
+
+```
+test -e :argv
+
+undefined method `empty?' for nil:NilClass
+
+        result = node.empty?
+                     ^^^^^^^
+```
+
+
+## There is no rm -f command.
+
+### Also problem if no file exists and rm it, throughs exception
+
+```
+rm /v/xxx
+
+Exception thrown
+```
+
 
 ## The source command sets functions, but not variables.
 
@@ -390,11 +516,26 @@ foo bar
 ```
 
 
-This should work like Base.
+This should work like Bash.
 
 Expect the fix is to do a fs.merge after the source has finished.
 
 
+
+### If you call source within a function, it sets functions but not global variables
+
+```bash
+echo "var1=foo" > var1.vsh
+foo() {
+  source var1.vsh
+}
+foo
+echo $var1
+foo
+```
+
+
+Note: the variables declared in the source file are set within the body of the function itself.
 
 ## Copying once, then another time in the same file results in the previous contents being prepended to contents of clipboard
 

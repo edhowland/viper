@@ -45,19 +45,24 @@ end
 def repl(vm:)
   loop do
     src = get_line(prompt=vm.fs[:prompt])
+    return nil if src.nil?
     unless src.empty?
       block = Visher.parse!(src)
       vm.call(block)
     end
+  rescue Interrupt
+    $stderr.puts "Ctrl-C"
   rescue VishSyntaxError => synerr
     $stderr.puts synerr.message
+  rescue VishRuntimeError => verr
+    $stderr.puts verr.message
   end
-rescue Interrupt
   $stderr.puts "Ctrl-C"
-  exit(0)
+  #exit(0)
 rescue VirtualMachine::ExitCalled => err
-
   puts "Exitting ..."
+rescue RuntimeError => err
+  $stderr.puts err.message
 rescue => err
   $stderr.puts err.message
 end

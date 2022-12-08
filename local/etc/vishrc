@@ -72,4 +72,5 @@ cmdlet range '{ out.puts(((args[0].to_i)..(args[1].to_i)).to_a.join(locals[:ofs]
 cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
 source ":{vhome}/local/vfs/bin/vfs.vsh"
 phome=":{vhome}/local/vish/prelude";global phome
+lhome=":{vhome}/local"
 source ":{vhome}/local/vish/prelude.vsh"
