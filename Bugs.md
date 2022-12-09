@@ -473,17 +473,19 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## Super Major bug
+## Options bug: 
 
-### when starting ./vish.rb with no actual arguments get cd no such file or directory
+Value options are not truly working. They only work for simple strings
+those with no embedded spaces
 
-```bash
-./vish.rb
-
-cd: No such file or directory
-./vish.rb -s foo.vsh
-I am foo
 ```
+./vish.rb -e 'echo I am a string'
+
+```
+
+Only the echo gets evaluated above.
+
+Needed, some type of string for a file thing in /v/options/__FILE__/actual/e/
 
 
 ## Major Bug: ls does not seem to output to inner stdout

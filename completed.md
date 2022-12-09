@@ -1,5 +1,26 @@
 # completed bugs
 
+## 2022-12-09
+
+
+## Super Major bug
+
+### when starting ./vish.rb with no actual arguments get cd no such file or directory
+
+```bash
+./vish.rb
+
+cd: No such file or directory
+./vish.rb -s foo.vsh
+I am foo
+```
+
+
+
+Fix: Must test if the option has actually been supplied first
+
+
+
 ## 2022-12-04
 
 ## If a Ruby integer is set into a variable, the type command does not recognize
