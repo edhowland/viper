@@ -52,6 +52,8 @@ def repl(vm:)
     end
   rescue Interrupt
     $stderr.puts "Ctrl-C"
+  rescue ArgumentError => aerr
+    $stderr.puts aerr.message
   rescue VishSyntaxError => synerr
     $stderr.puts synerr.message
   rescue VishRuntimeError => verr

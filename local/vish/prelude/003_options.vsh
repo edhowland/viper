@@ -26,7 +26,7 @@ function getboolopt(o) {
 }
 function getvalopt(o) {
   o=:(optof :o)
-  (cd "/v/options/:{__FILE__}/actual/:{o}"; echo *)
+  actualoptq :o && (cd "/v/options/:{__FILE__}/actual/:{o}"; echo *)
 }
 function recopt(maybe_opt, maybe_val) {
   optq :maybe_opt || exec { echo :maybe_opt :maybe_val :_; return }
@@ -40,4 +40,7 @@ function recopt(maybe_opt, maybe_val) {
 }
 function parseopts() {
   argv=:(recopt :argv); global argv
+}
+function actualoptq(o) {
+  test -f "/v/options/:{__FILE__}/actual/:{o}"
 }
