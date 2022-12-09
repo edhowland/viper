@@ -24,14 +24,39 @@ Control-C works, but Ctrl-D does not
 checkmark
 
 Ctrl-A for goto beginning of line and ctrl-e goto end of line works, but ctrl-u does not
+
+Fixed: Ctrl-u now works
+
+checkmark
+
 Need to understand how to handle errors
 Maybe beep the bell?
 
+partial checkmark
 
 
 ## :argc, :argv parsing
 
-System startup
+partial checkmark
+
+### See Bug on cd error when no arguments supplied
+
+### Need to complete:
+
+- Add -e string to ./vish.rb
+- process the supplied file.vsh in :argv if any
+
+
+
+### Need to make sure the command 'vish -s vunit.vsh test_xxxx.vsh' still works.
+
+
+
+
+# System startup
+
+## Explantion
+
 
 ./local/vish/bin/boot.vsh =>
    ./local/etc/vishrc =>

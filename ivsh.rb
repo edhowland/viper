@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
-# repl.rb: The Vish REPL using the reline library;
+# ivsh.rb: The Vish REPL using the reline library;
 # Note: this does not replace ivsh. Yet.
 
-require_relative 'vish'
+require_relative 'libvish'
 
 # main
 

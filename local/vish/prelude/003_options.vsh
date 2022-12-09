@@ -26,5 +26,18 @@ function getboolopt(o) {
 }
 function getvalopt(o) {
   o=:(optof :o)
-  (cd "/v/options/:{__FILE__}/actual/:{o}"; ls)
+  (cd "/v/options/:{__FILE__}/actual/:{o}"; echo *)
+}
+function recopt(maybe_opt, maybe_val) {
+  optq :maybe_opt || exec { echo :maybe_opt :maybe_val :_; return }
+  cond { booloptq :maybe_opt } {
+    setboolopt :maybe_opt
+    recopt :maybe_val :_
+  } { valoptq :maybe_opt } {
+    setvalopt :maybe_opt :maybe_val
+    recopt :_
+  } else { raise Unexpected option :maybe_opt }
+}
+function parseopts() {
+  argv=:(recopt :argv); global argv
 }

@@ -31,7 +31,7 @@ Finished: 2022-11-29
 
 ### 2.0.12.b
 
-Note: See mini-2.0.12.a-Roadmap.md for extensive details on this release.
+Note: See mini-2.0.12.b-Roadmap.md for extensive details on this release.
 
 - New external program: vish
   * Break out of viper executable code file
@@ -43,6 +43,19 @@ Note: See ./pry/load_scripts.vsh for how to do this.
 
 - :argc, :argv for command line arguments
 - Some sort of get_opt - style parsing to take ove the command line args for bin/viper : OptionParser
+
+### 2.0.12.c
+
+Though partially noted above, this interim release will create the viper import module
+
+A new Ruby loader called viper.rb  will execute :
+
+```ruby
+veval 'import viper', vm: vm
+```
+
+Note: See mini-2.0.12.c-Roadmap.md for extensive details on this release.
+
 
 
 ## 2.0.13

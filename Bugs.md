@@ -473,6 +473,37 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## Super Major bug
+
+### when starting ./vish.rb with no actual arguments get cd no such file or directory
+
+```bash
+./vish.rb
+
+cd: No such file or directory
+./vish.rb -s foo.vsh
+I am foo
+```
+
+
+## Major Bug: ls does not seem to output to inner stdout
+
+```bash
+mkdir bla; touch bla/{t1,t2,t3}
+ls bla
+t1 t2 t3
+./ivsh.rb
+```
+
+```
+(cd bla; ls) | nop
+t1
+t2
+t3
+```
+
+
+
 ## In test -e and give a dereferenced variable, can get an Undefined method error
 
 ```
