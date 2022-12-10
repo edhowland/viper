@@ -107,6 +107,33 @@ Note: bundler requires system permissions to install gems in your system
 Ruby. I  recommend using a Ruby version manager like 'rbenv' or 'rvm'.
 When using a Ruby version manager, your gems get installed locally.
 
+### Using rbenv
+
+In this directory where you cloned the viper repository, run the following command:
+
+```bbash
+rbenv local 3.1.2
+```
+
+Make sure to use correct Ruby version number that you have installed.
+Use the highest Ruby version you can safely trust.
+
+To see which Ruby versions that rbenv knows about, do the following:
+
+```bash
+cd viper
+rbenv versions
+```
+
+
+
+
+
+See the documentation for rbenv to see how to install newer versions:
+
+[rbenv: Manage your app's Ruby environment](https://github.com/rbenv/rbenv)
+
+
 ## Usage
 
 Run ./bin/viper --help to see a list of command line flags.
