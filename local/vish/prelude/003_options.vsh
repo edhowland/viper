@@ -18,7 +18,8 @@ function setboolopt(o) {
 function setvalopt(o, val) {
   o=:(optof :o)
   mkdir "/v/options/:{__FILE__}/actual/:{o}"
-  touch "/v/options/:{__FILE__}/actual/:{o}/:{val}"
+  n=:(incr :(dircount "/v/options/:{__FILE__}/actual/:{o}"))
+  echo :val > "/v/options/:{__FILE__}/actual/:{o}/:{n}"
 }
 function getboolopt(o) {
   o=:(optof :o)
@@ -26,15 +27,15 @@ function getboolopt(o) {
 }
 function getvalopt(o) {
   o=:(optof :o)
-  actualoptq :o && (cd "/v/options/:{__FILE__}/actual/:{o}"; echo *)
+  test -d "/v/options/:{__FILE__}/actual/:{o}" && (cd "/v/options/:{__FILE__}/actual/:{o}"; cat *)
 }
 function recopt(maybe_opt, maybe_val) {
   optq :maybe_opt || exec { echo :maybe_opt :maybe_val :_; return }
   cond { booloptq :maybe_opt } {
     setboolopt :maybe_opt
-    recopt :maybe_val :_
+    recopt ":{maybe_val}" :_
   } { valoptq :maybe_opt } {
-    setvalopt :maybe_opt :maybe_val
+    setvalopt :maybe_opt ":{maybe_val}"
     recopt :_
   } else { raise Unexpected option :maybe_opt }
 }
@@ -43,4 +44,8 @@ function parseopts() {
 }
 function actualoptq(o) {
   test -f "/v/options/:{__FILE__}/actual/:{o}"
+}
+function valoptexec(o, fn) {
+  o=:(optof :o)
+  test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); exec :fn ":{src}" }) 
 }

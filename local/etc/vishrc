@@ -43,8 +43,7 @@ function decr(x) {
 function incr(x) {
   expr :x '+' 1
 }
-function first() {
-  shift item
+function first(item) {
   echo :item
 }
 function rest(_x) { echo :_ }

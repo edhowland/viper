@@ -9,6 +9,6 @@ function booloptstr(o) {
 echo The actual supplied boolean options are
 for o in -d -x { name=:(optof :o); echo -n  ":{name}"; booloptstr :o; echo  }
 echo the values of each value opt are
-for v in -f -s { name=:(optof :v); echo -n  ":{name} "; getvalopt :v; echo  }
+for v in -f -s { name=:(optof :v); echo -n  ":{name} "; valoptq :v && getvalopt :v; echo  }
 echo The remaining args are
 echo :argv
