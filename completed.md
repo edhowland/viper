@@ -2,6 +2,20 @@
 
 ## 2022-12-13
 
+## option parsing is not hygenic, cannot reuse variables within:
+
+```bash
+./vish.rb -e 'e=1' -e 'echo :e'
+echo :e
+```
+
+need to make these dunder variables
+
+
+Fix: changed local/vish/modules/init/001_process_args.vsh to construct
+a single semicolon delimited string that can be passed to eval at the top level.
+
+
 ## Removed alias at_exit, now is function in vhome/local/vish/prelude/007_events.vsh
 Will store its block or lambda in /v/events/exit/<next number in line>
 Then run_exit_procs will be called by vish.rb in its at_exit do block.

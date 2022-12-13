@@ -2,6 +2,7 @@
 
 # Todo list
 
+
 ## The on exit stuff does not work for new ./vish.rb:
 
 ```bash
@@ -537,47 +538,6 @@ Can 'when' be a Vish function?
 
 
 
-
-## eval within an execed lambda within a function does not globalize, if requested
-
-IOW:
-
-1. eval on its own at the top level will set the value of a variable at the top level.
-2. eval from within a lambda being execed at the top level will not globalize its variable value
-  * But if the string that being evaluated does a "global foo", it works
-3. But The same situation being from within afunction body being execed does not work.
-
-```
-rem bad code
-foo=foo
-function dolambda(v) {
-  s="foo=:{v};global foo"
-  exec &(e) { eval ":{e}" }
-}
-doit 33
-echo :foo
-foo
-rem should be 33
-```
-
-Note: this seems to be the only situation to make it fail
-
-eval 'foo=bar;global foo' within exec &() { lambda call to eval } => within a function body.
-
-But: works ok from old bin/vish and bin/ivsh
-
-```
-./vish.rb -s doit.vsh -s mam.vsh -e 'echo :mam' -e 'doit 88;echo :mam' -e 'echo :mam'
-99
-88
-99
-vish -s doit.vsh -s mam.vsh -e 'echo :mam' -e 'doit 88;echo :mam' -e 'echo :mam'
-99
-88
-88
-```
-
-The last example is correct.
 
 
 ## Major Bug: ls does not seem to output to inner stdout

@@ -16,7 +16,11 @@ load_vishrc vm: vm
 
 # main
 
-veval('import init', vm: vm)
+begin
+  veval('import init', vm: vm)
+rescue VirtualMachine::ExitCalled => err
+  # nop
+end
 
 
 # vm afteer all the vish code has run is passed to the at_exit do block
