@@ -2,6 +2,37 @@
 
 # Todo list
 
+## The on exit stuff does not work for new ./vish.rb:
+
+```bash
+cd vshtest
+../vish.rb -s vunit.vsh test_eval.vsh
+
+# back to prompt
+```
+
+But:
+
+```bash
+vish -s vunit.vsh test_eval.vsh
+passed 5
+failures 0
+```
+
+
+## Complete the option parsing to work with help strings
+
+
+And make stored lambdas for things like -v, --version
+
+```
+store { echo :version ; exit } /v/options/init/expected/v
+```
+
+Then, in the parseopts stuff, 
+with the actual/v, if set, call the block or lambda.
+
+
 ## Closures are not exactly equivalent to scheme closures
 
 In scheme, you can create a getter, setter closure over some parameter passed to the construction constructer
@@ -473,19 +504,47 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## Options bug: 
 
-Value options are not truly working. They only work for simple strings
-those with no embedded spaces
+## eval within an execed lambda within a function does not globalize, if requested
+
+IOW:
+
+1. eval on its own at the top level will set the value of a variable at the top level.
+2. eval from within a lambda being execed at the top level will not globalize its variable value
+  * But if the string that being evaluated does a "global foo", it works
+3. But The same situation being from within afunction body being execed does not work.
 
 ```
-./vish.rb -e 'echo I am a string'
-
+rem bad code
+foo=foo
+function dolambda(v) {
+  s="foo=:{v};global foo"
+  exec &(e) { eval ":{e}" }
+}
+doit 33
+echo :foo
+foo
+rem should be 33
 ```
 
-Only the echo gets evaluated above.
+Note: this seems to be the only situation to make it fail
 
-Needed, some type of string for a file thing in /v/options/__FILE__/actual/e/
+eval 'foo=bar;global foo' within exec &() { lambda call to eval } => within a function body.
+
+But: works ok from old bin/vish and bin/ivsh
+
+```
+./vish.rb -s doit.vsh -s mam.vsh -e 'echo :mam' -e 'doit 88;echo :mam' -e 'echo :mam'
+99
+88
+99
+vish -s doit.vsh -s mam.vsh -e 'echo :mam' -e 'doit 88;echo :mam' -e 'echo :mam'
+99
+88
+88
+```
+
+The last example is correct.
 
 
 ## Major Bug: ls does not seem to output to inner stdout

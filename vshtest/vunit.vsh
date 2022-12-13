@@ -17,6 +17,9 @@ function assert_false() {
 function assert_eq(left, right) {
   eq ":{left}" ":{right}" || raise "Expected |:{left}| to equal |:{right}|"
 }
+function assert_neq(left, right) {
+   not { eq ":{left}" ":{right}" } ||  raise "Expected |:{left}| to not equal |:{right}|"
+}
 mkdir /v/tests
 function befores() {
   ls_functions | grep setup

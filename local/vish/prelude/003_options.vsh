@@ -47,5 +47,6 @@ function actualoptq(o) {
 }
 function valoptexec(o, fn) {
   o=:(optof :o)
-  test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); exec :fn ":{src}" }) 
+  __last_wd=:pwd
+  test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); (cd :__last_wd; exec :fn ":{src}") }) 
 }

@@ -1,5 +1,59 @@
 # completed bugs
 
+## 2022-12-12
+
+## Cannot invoke vish.rb from some other directory
+
+```bash
+cat var.vsh
+echo I am var.vsh
+./vish.rb var.vsh
+I am var.vsh
+```
+
+
+Fix: was more careful regarding possible cases of 'cd contamination occurring within
+the module and option processing in ./local/vish/{prelude,modules}
+
+
+
+## Options bug: 
+
+Value options are not truly working. They only work for simple strings
+those with no embedded spaces
+
+```
+./vish.rb -e 'echo I am a string'
+
+```
+
+Only the echo gets evaluated above.
+
+Needed, some type of string for a file thing in /v/options/__FILE__/actual/e/
+
+
+
+Fix: All value options are stored in incremented numbers that are files
+contained in these number files
+
+```
+cd /v/options/init/actual
+ls s
+s/1
+s/2
+s/3
+```
+
+Then you can just read, cat out, the values, or use the valoptexec function
+that takes a lambda to perform with a parameter that is the content.
+
+```
+valoptexec -e &(v) { eval ":{v}" }
+```
+
+Note that the parameter passed to eval must be a single unit.
+
+
 ## 2022-12-09
 
 
