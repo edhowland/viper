@@ -1,5 +1,26 @@
 # completed bugs
 
+## 2022-12-13
+
+## Removed alias at_exit, now is function in vhome/local/vish/prelude/007_events.vsh
+Will store its block or lambda in /v/events/exit/<next number in line>
+Then run_exit_procs will be called by vish.rb in its at_exit do block.
+
+
+## -e does not see the things set by -s, others?
+
+```bash
+./vish.rb -s lv.vsh -e 'lv'
+Command lv: not found
+```
+
+Fix: in local/vish/modules/init/001_process_args.vsh:
+
+Made sure that cd :proj occurs before and after the source module.
+This is needed because, by the time 001_process_args.vsh is run :pwd is: :vhome/local/vish/modules/init
+And, the source'd file itself might perform a cd itself.
+
+
 ## 2022-12-12
 
 ## Cannot invoke vish.rb from some other directory

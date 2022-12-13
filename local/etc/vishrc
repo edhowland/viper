@@ -50,7 +50,6 @@ function rest(_x) { echo :_ }
 function empty() { test -z :_ }
 function load_event() { nop }
 function exit_event() { nop }
-alias at_exit="on exit_event"
 rem 018_environment.vsh: Helper functions for access to users OS environment
 function env(var) { ruby "print ENV[':{var}']" }
 HOME=:(env HOME); global HOME

@@ -33,6 +33,37 @@ Then, in the parseopts stuff,
 with the actual/v, if set, call the block or lambda.
 
 
+## Implement trampoline function to get around lack of tail-code optimization in Vish recursion
+
+### Abstract
+
+Vish does not implement TCO, so there is a danger of stack overflow if recursive functions
+or mutually recursive function nest too deeply. The latter is particularily relevant
+when doing with a meta mode situation.
+
+### What to do: implement trampoline function that works with 3 thunks, taking an initial continuation thunk to start
+
+
+#### The thunks:
+
+1. pred : executed to see if should return from the tramp fn
+2. continuation : The thunk that performs the deconstruction and returns these 3 thunks again
+3. xthunk : The exit thunk that is called and returned from the tramp fn if the pred returns true
+
+### Scheme code to investigate goes here.
+
+### Usage within Viper itself.
+
+The plan is to use VFS to  keep track of the current executing  event handler
+
+/v/events
+ .../exit : Special case that gets performed in tha at_exit Ruby case when Vish is leaving the building, like Elvis.
+... /meta : The current executing meta mode: E.g. vip, com, vim, etc.
+
+/v/events/current : The current event handler in operation.
+
+1. pred
+
 ## Closures are not exactly equivalent to scheme closures
 
 In scheme, you can create a getter, setter closure over some parameter passed to the construction constructer
@@ -503,6 +534,8 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+
 
 
 ## eval within an execed lambda within a function does not globalize, if requested
