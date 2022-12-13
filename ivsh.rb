@@ -8,4 +8,6 @@ require_relative 'libvish'
 
 vm = vish_boot
 load_vishrc vm: vm
+veval('import repl', vm: vm)
+
 repl vm: vm
