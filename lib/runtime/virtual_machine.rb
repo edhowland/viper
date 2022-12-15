@@ -247,7 +247,7 @@ _saved_old = Hal.pwd
       @fs[:__DIR__] = __old_dir
         @fs.globalize
       rescue ExitCalled
-        raise ExitCalled
+        raise # re-raises the same exception
       rescue ReturnCalled => r
         return r.return_code
       rescue => err

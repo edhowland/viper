@@ -8,3 +8,6 @@ function at_exit(exe) {
   nxt=:(incr :(dircount /v/events/exit))
   store :exe "/v/events/exit/:{nxt}"
 }
+function set_exit_code(code) {
+  exit_code=:code; global exit_code
+}

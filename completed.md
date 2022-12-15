@@ -1,5 +1,53 @@
 # completed bugs
 
+## 2022-12-15
+
+## Major Bug: ls does not seem to output to inner stdout
+
+```bash
+mkdir bla; touch bla/{t1,t2,t3}
+ls bla
+t1 t2 t3
+./ivsh.rb
+```
+
+```
+(cd bla; ls) | nop
+t1
+t2
+t3
+```
+
+
+
+
+
+
+
+Fix: just returned stuff from inner l1 method in class Ls. And passed err to l1 for error handling.
+
+## The on exit stuff does not work for new ./vish.rb:
+
+```bash
+cd vshtest
+../vish.rb -s vunit.vsh test_eval.vsh
+
+# back to prompt
+```
+
+But:
+
+```bash
+vish -s vunit.vsh test_eval.vsh
+passed 5
+failures 0
+```
+
+
+Fix: added lib/api/int_or_error that returns numeric value of input if 0-999, else 255
+
+
+
 ## 2022-12-13
 
 ## option parsing is not hygenic, cannot reuse variables within:

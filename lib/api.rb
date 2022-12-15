@@ -29,4 +29,5 @@ require_relative 'api/optparse_from'
 require_relative 'api/stack'
 
 require_relative 'api/repl_pda'
+require_relative 'api/int_or_error'
 

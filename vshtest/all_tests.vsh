@@ -24,3 +24,4 @@ source test_buffer.vsh
 source test_array.vsh
 source test_source.vsh
 source test_eval.vsh
+source test_ls.vsh

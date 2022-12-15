@@ -71,4 +71,5 @@ cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
 source ":{vhome}/local/vfs/bin/vfs.vsh"
 phome=":{vhome}/local/vish/prelude";global phome
 lhome=":{vhome}/local"
+exit_code=0; global exit_code
 source ":{vhome}/local/vish/prelude.vsh"

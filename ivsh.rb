@@ -10,4 +10,9 @@ vm = vish_boot
 load_vishrc vm: vm
 veval('import repl', vm: vm)
 
-repl vm: vm
+
+begin
+  repl vm: vm
+rescue VirtualMachine::ExitCalled => err
+  exit(err.code)
+end
