@@ -2,7 +2,7 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.12.a
+### Version 2.0.12.b
 
 Pre-alpha release for 2.0.12
 
@@ -13,7 +13,7 @@ Release 2.1: Indy pre-release candidate #1
 
 ## Abstract
 
-This is a simple editor in Ruby that works with screen readers, esp. like VoiceOver 
+This is a simple editor in Ruby that works with screen readers, especially like VoiceOver 
 in Mac OS, or with Orca in Linux with Gnome desktops.
 Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
 
@@ -38,6 +38,14 @@ The corresponding Wiki for this project is:
 
 
 Viper requires Ruby versions: 2.4 and above
+
+### Important Ruby version note:
+
+In the upcoming version of Viper and Vish version 2.0.12 and later, these programs
+will require Ruby versions past 3.0. This is because of the use of pattern matching
+in later Ruby versions.  Pattern matching was introduced in Ruby 2.7 as an experimental
+feature. It was improved in Ruby 3.0. This version of Vier/Vish was tested in
+in Ruby version 3.1.2.
 
 
 ### Note on keyboard and Terminal emulators

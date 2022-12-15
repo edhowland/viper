@@ -4,6 +4,24 @@
 
 
 
+## Come up with more functional approach to the ls command
+
+### Abstract
+
+The ls command  already uses the Promise api to handle all the various
+situations it can encounter. However, in the l1 method, the driver method
+still must write out errors to the stderr handle in Vish. It should only return
+some sort of Result type instead of  just a list, and of good outputs.
+
+#### ls:
+
+- no args : the current contents of the :pwd
+- arguments
+  * found files/dirs: outputs them
+    ** dirs descends one level deep and outputs files/dirs there
+  * errors: outputs to stderr and does this first before any good outputs.
+
+
 ## Complete the option parsing to work with help strings
 
 
@@ -153,6 +171,13 @@ true
 And of cource, the single/double quoted string parsing leaves a lot of room for imporvement.
 
 You cannot properly put backslashes in there to escape them.
+
+
+### Note: grep is used only once in scripts/011_extras.vsh:
+
+9:ss=:(count &(c) { echo :c | grep -q scratch  } :(buf_names))
+
+
 
 ## Document the H-E double hockey stix the install_cmd command
 
@@ -521,23 +546,6 @@ Can 'when' be a Vish function?
 
 
 
-
-
-## Major Bug: ls does not seem to output to inner stdout
-
-```bash
-mkdir bla; touch bla/{t1,t2,t3}
-ls bla
-t1 t2 t3
-./ivsh.rb
-```
-
-```
-(cd bla; ls) | nop
-t1
-t2
-t3
-```
 
 
 

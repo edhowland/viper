@@ -1,5 +1,38 @@
 # Changelog for Viper project
 
+## Release 2.0.12.b
+
+Pre-alpha interim release for 2.0.12
+
+2022-12-15
+
+### Features
+
+1. New commands: ./vish.rb and ./ivsh.rb
+2. Vish loading is accomplished in Vish itself via ./local scripts
+3. There is only small Ruby wrapper files: vish.rb and ivsh.rb
+
+In upcomming 2.0.12.c release a new viper.rb scriptt will be created.
+
+
+### Fixes
+
+- ls command now properly writes to stdout and stderr
+- The at_exit now works properly both for versions 2.0.11  old vish command and the new .vish.rb in 2.0.12.b
+  * Use of the set_exit_code to communit the exit code in :exit_code for procescc exit code
+  * See vshtest/vunit.vsh
+- Simple option parser written in Vish functions
+- import function to load profiles for Vish executation:
+  * init: The main Vish module. Performs option parsing and consumes one .vsh script file
+  * repl: The main module for ./ivsh.rb Processes options
+  * [future] : viper/modules/init
+
+
+See the file completed.md for more details and other fixes not mentioned herein.
+
+
+
+
 ## Release 2.0.12.a
 
 Pre-alpha interim release for 2.0.12

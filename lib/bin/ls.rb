@@ -57,17 +57,16 @@ end
 def entry name
   Promise.new {|p|   Hal.exist?(name) ? p.resolve!(name) : p.reject!(name) }.then {|v| Hal.directory?(v) ? LsDir.new(v, Hal["#{v}/*"]) : LsFile.new(v) }
 end
-def l1 *entries
+def l1 *entries, err:
   if entries.empty?
-    puts Hal['*']
-    return
+    return Hal['*']
   end
   p = Promise.all_selected(entries.map {|e| entry(e) })
   p.run
   errs = p.aggregate_errors
   vals = p.aggregate_values
 
-  errs.each {|e| $stderr.puts "ls: #{e}: No such file or directory" }
+  errs.each {|e| err.puts "ls: #{e}: No such file or directory" }
 
   files = vals.reject(&:directory?)
   dirs = vals.select(&:directory?)
@@ -78,7 +77,7 @@ def l1 *entries
 end
 
   def call(*args, env:, frames:)
-    env[:out].puts l1(*args)
+    env[:out].puts l1(*args, err: env[:err])
 
   end
 end

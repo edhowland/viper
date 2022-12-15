@@ -2,6 +2,29 @@
 
 ## 2022-12-15
 
+## Major Bug: ls does not seem to output to inner stdout
+
+```bash
+mkdir bla; touch bla/{t1,t2,t3}
+ls bla
+t1 t2 t3
+./ivsh.rb
+```
+
+```
+(cd bla; ls) | nop
+t1
+t2
+t3
+```
+
+
+
+
+
+
+
+Fix: just returned stuff from inner l1 method in class Ls. And passed err to l1 for error handling.
 
 ## The on exit stuff does not work for new ./vish.rb:
 
