@@ -3,23 +3,6 @@
 # Todo list
 
 
-## The on exit stuff does not work for new ./vish.rb:
-
-```bash
-cd vshtest
-../vish.rb -s vunit.vsh test_eval.vsh
-
-# back to prompt
-```
-
-But:
-
-```bash
-vish -s vunit.vsh test_eval.vsh
-passed 5
-failures 0
-```
-
 
 ## Complete the option parsing to work with help strings
 

@@ -67,4 +67,19 @@ class ArrayExtenderTests < MiniTest::Test
     # default_path 'baz', default: '/v/cmdlet/misc' => /v/cmdlet/misc/baz
     assert_eq '/v/cmdlet/misc/baz', default_path('baz', default: '/v/cmdlet/misc')
   end
+  def test_int_or_error
+    assert_eq 0, int_or_error(0)
+  end
+  def test_int_or_error_with_string_is_0
+    assert_eq 255, int_or_error('foo')
+  end
+  def test_int_or_error_returns_0_when_string_is_0_
+    assert_eq 0, int_or_error('0')
+  end
+  def test_int_or_error_returns_int_value_of_string_number
+    assert_eq 45, int_or_error('45')
+  end
+  def test_int_or_error_returns_0_when_blank_string
+    assert_eq 255, int_or_error('')
+  end
 end

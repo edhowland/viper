@@ -1,5 +1,30 @@
 # completed bugs
 
+## 2022-12-15
+
+
+## The on exit stuff does not work for new ./vish.rb:
+
+```bash
+cd vshtest
+../vish.rb -s vunit.vsh test_eval.vsh
+
+# back to prompt
+```
+
+But:
+
+```bash
+vish -s vunit.vsh test_eval.vsh
+passed 5
+failures 0
+```
+
+
+Fix: added lib/api/int_or_error that returns numeric value of input if 0-999, else 255
+
+
+
 ## 2022-12-13
 
 ## option parsing is not hygenic, cannot reuse variables within:

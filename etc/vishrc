@@ -77,5 +77,10 @@ cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
 path="/v/cmdlet/misc:/v/bin"
 source ":{vhome}/local/vfs/bin/vfs.vsh"
 source ":{vhome}/local/viper/bin/viper.vsh"
+rem set_exit_code sets the :exit_code so as not to call exit inside at_exit handler
+function set_exit_code(code) {
+  exit_code=:code; global exit_code
+}
+set_exit_code 0
 
 

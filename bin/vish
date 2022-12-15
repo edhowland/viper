@@ -206,6 +206,8 @@ $vm = VirtualMachine.new
 
 at_exit do
   $exit_handlers.each { |e| $vm.call e }
+code = int_or_error($vm.fs[:exit_code])
+  exit(code)
 end
 
 # Main start
