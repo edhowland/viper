@@ -1,4 +1,4 @@
-# exit.rb - class Exit- exits out the repl
+# exit.rb - class Exit- exits out the virtual runtime
 
 class Exit < BaseCommand
   def call(*args, env:, frames:)
