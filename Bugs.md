@@ -2,6 +2,16 @@
 
 # Todo list
 
+## Make Deref.call more robust. If @pattern is a string after de-laising
+
+In lib/ast/deref.rb:12 in method call
+
+Should check if @pattern.respond_to? :call, if not, then if respond_to? :to_s
+
+If neither, then raise Exeception something wrong internally
+
+If :to_s, then call it
+
 ## Added PS2 -like dynamic prompt to reline stuff
 
 
@@ -557,25 +567,6 @@ Can 'when' be a Vish function?
 
 
 # Bugs
-
-## importing a non-existant module bonbs out with no method error:
-
-```
-
-vish >import foo
-undefined method `call' for "nop":String
-
-    derefed_pattern = @pattern.call frames: frames
-                              ^^^^^
-```
-
-This bug occurs in git tag 2.0.12.b
-
-
-
-
-
-
 
 
 ## In test -e and give a dereferenced variable, can get an Undefined method error

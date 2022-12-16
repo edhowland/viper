@@ -8,7 +8,7 @@ class AliasDeclaration
 
   def call(env:, frames:)
     string = @expansion.call env: env, frames: frames
-    frames.aliases[@name] = string
+    frames.aliases[@name] = QuotedString.new(string)
   end
 
   def to_s

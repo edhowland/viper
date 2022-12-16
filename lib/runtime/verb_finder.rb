@@ -9,7 +9,7 @@ class VerbFinder
 
   def ordered_procs(name, vm:)
     [ 
-    ->(p) { vm.fs.aliases.has_key?(name) ? p.resolve!([:alias, vm.fs.aliases[name]]) : p.reject!(false) },
+    ->(p) { vm.fs.aliases.has_key?(name) ? p.resolve!([:alias, vm.fs.aliases[name].to_s]) : p.reject!(false) },
     ->(p) { vm.fs.functions.has_key?(name) ? p.resolve!([:function, vm.fs.functions[name]]) : p.reject!(false) },
     ->(p) { vm._builtins.member?(name.to_sym) ? p.resolve!([:builtin, name]) : p.reject!(false) },
     ->(p) { res = Command.first_in_path(name, frames: vm.fs); res ? p.resolve!([:command, res]) : p.reject!(false) },

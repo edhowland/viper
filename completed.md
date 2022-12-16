@@ -1,5 +1,41 @@
 # completed bugs
 
+## 2022-12-16
+
+
+## rem aliased get hosed after calling it within a function twice
+
+```
+cat saved.vsh
+function r() {
+  rem
+}
+r
+r
+
+
+undefined method `call' for "nop":String
+
+    derefed_pattern = @pattern.call frames: frames
+                              ^^^^^
+
+
+```
+
+This occurs in line 12 of lib/ast/glob.rb
+
+
+
+This also occurs in  old ivsh as well in ./ivsh.rb
+
+Fix: In lib/ast/alias_decorator.rb:
+
+Glob.new(QuotedString.new(string))
+
+Also in lib/runtime/verb_finder.rb, need to call :to_s for QuotedString, or any other thing
+
+Note: Todo: still need to find whow calling a function twice caused this problem
+
 ## 2022-12-15
 
 ## Major Bug: ls does not seem to output to inner stdout
