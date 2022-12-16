@@ -2,6 +2,20 @@
 
 # Todo list
 
+## Added PS2 -like dynamic prompt to reline stuff
+
+
+## Check out if more than one Reline can exist
+
+
+Probably just call it with a different prompt
+
+But, does it share the same history as the REPL one, if used for search?
+
+## Add -c option to ./vish.rb
+
+This should be some value option to check the syntax  of a source file and exit
+
 
 
 ## Come up with more functional approach to the ls command
@@ -543,6 +557,21 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## importing a non-existant module bonbs out with no method error:
+
+```
+
+vish >import foo
+undefined method `call' for "nop":String
+
+    derefed_pattern = @pattern.call frames: frames
+                              ^^^^^
+```
+
+This bug occurs in git tag 2.0.12.b
+
+
 
 
 

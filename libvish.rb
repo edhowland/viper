@@ -58,6 +58,8 @@ def repl(vm:)
     $stderr.puts synerr.message
   rescue VishRuntimeError => verr
     $stderr.puts verr.message
+  rescue VirtualMachine::ReturnCalled
+    $stderr.puts "Cannot call return from outside a function"
   end
   $stderr.puts "Ctrl-C"
   #exit(0)
