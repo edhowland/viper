@@ -1,5 +1,24 @@
 # completed bugs
 
+## 2022-12-17
+
+
+added local/viper/modules/edit/0??_*.vsh
+
+The on_import.vsh there will load local/viper/bin/viper.vsh
+
+This gets you many of the Buffer node commands located in /v/viper/bin
+
+```
+mpath=":{lhome}/viper/modules::{mpath}"
+import edit
+o file_to_open.vsh
+meta vip
+```
+
+Much does not yet work
+
+
 ## 2022-12-16
 
 

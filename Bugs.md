@@ -2,6 +2,12 @@
 
 # Todo list
 
+## The unalias command should take an unlimited of alias arguments
+
+Also, if the string is not aliased, report an error and return false
+
+But continue to unalias the rest of the arguments
+
 ## Make Deref.call more robust. If @pattern is a string after de-laising
 
 In lib/ast/deref.rb:12 in method call
@@ -567,6 +573,12 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## Name conflict with :mapth 
+
+mpath is used in new import fn and also in macros
+
+Change it for macros
 
 
 ## In test -e and give a dereferenced variable, can get an Undefined method error

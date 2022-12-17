@@ -4,12 +4,13 @@ require_relative 'context_constants'
 
 class Glob
   def initialize(pattern)
+    raise "glob: pattern is not a kind of QuotedString" unless pattern.kind_of?(QuotedString)
     @pattern = pattern
   end
   attr_reader :pattern
 
   def call(env:, frames:)
-binding.pry unless $debug.nil?
+#binding.pry unless $debug.nil?
     derefed_pattern = @pattern.call frames: frames
     result = []
     if derefed_pattern =~ /\*|\[|\?/
