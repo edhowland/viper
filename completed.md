@@ -1,5 +1,39 @@
 # completed bugs
 
+##2022-12-18
+
+
+### Made load package a new function
+
+#### The app stack as it now stands
+
+- files (file.vsh) : files that can be sourced with source file.vsh
+- modules (init, edit) : libraries of .vsh files in a directory that can be  imported with import module
+- packages : (viper) A collection of 0 or more modules or files that can be loaded with load package
+
+When a module is imported, if there exists a file called: :{module}/on_load.vsh it is sourced and executed.
+
+when a package is loaded, Vish checks if a new block or lambda has been create in /v/packages/:{package}/on_load
+and if it exists and is executable, then it gets run after the load.
+
+There exists a function: when_load that takes a package name and block or lambda
+and stores it in /v/packages/:{package}/on_load. This helper function is run if needed
+in the :lpath/:{module)_pkg.vsh file.
+
+This is used to load the viper editor:
+
+load viper
+
+If run in the RePL, then use o to open a file and then run: meta vip
+
+```
+import viper
+o file.vsh
+meta vip
+```
+
+At this point, you are in the Viper editor.
+
 ## 2022-12-17
 
 
