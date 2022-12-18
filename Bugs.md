@@ -2,6 +2,10 @@
 
 # Todo list
 
+## Move ./etc/keymaps ... .json to local/etc
+
+Create a way to load these when viper package is loaded
+
 ## The unalias command should take an unlimited of alias arguments
 
 Also, if the string is not aliased, report an error and return false

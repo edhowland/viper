@@ -2,6 +2,16 @@
 
 ##2022-12-18
 
+### Created new vish module : keymaps
+
+This (will) set the correct :termfile which is a JSON file, and load_termfile :termfile
+
+### Created new paqckage: local/packages/viper_pkg.vsh
+
+This imports the correct termfile and imports viper/modules/init
+
+You can o filename.ext and then  'meta vip' to get started.
+
 
 ### Made load package a new function
 
