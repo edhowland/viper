@@ -13,6 +13,14 @@ This imports the correct termfile and imports viper/modules/init
 You can o filename.ext and then  'meta vip' to get started.
 
 
+
+This completes:
+
+## Move ./etc/keymaps ... .json to local/etc
+
+Create a way to load these when viper package is loaded
+
+
 ### Made load package a new function
 
 #### The app stack as it now stands

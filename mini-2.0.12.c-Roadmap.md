@@ -9,6 +9,11 @@ a-rolling.
 
 
 
+## Add back in the at_exit stuff  so than you press ctrl_q in viper,
+you get the at_exit behaviour, to check for unsaved files in the open buffers.
+
+## 
+
 ## Make sure that the :mpath variable is searched
 
 ### Current import fn only looks in :vhome/local/vish/modules/*
