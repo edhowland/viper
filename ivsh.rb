@@ -14,7 +14,8 @@ veval('import repl', vm: vm)
 begin
   repl vm: vm
 rescue VirtualMachine::ExitCalled => err
-  exit(err.code)
+  #exit(err.code)
+  vm.fs.first[:exit_code] = err.code.to_i
 end
 
 
