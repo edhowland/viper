@@ -1,4 +1,4 @@
-source ":{_cmdlet}/misc/utils.vsh"
+source ":{vhome}/cmdlet/misc/utils.vsh"
   cmdlet btest -f y '{ ostr = opts[:y] ? 'yes' : 'no'; out.puts ostr }'
 function test_cmdlet_ord_chr_undo_each_other() {
 ord f | chr | read result

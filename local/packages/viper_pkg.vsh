@@ -7,4 +7,4 @@ function viper(fname) {
   _mode=viper apply fn_2
   meta vip
 }
-when_load viper { echo you are now in package viper.; echo  try opening a file with viper filename }
+rem when_load { echo something might go herein }

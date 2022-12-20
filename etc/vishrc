@@ -82,5 +82,7 @@ function set_exit_code(code) {
   exit_code=:code; global exit_code
 }
 set_exit_code 0
+rem dummy out this for vish versions before 2.0.12
+function load(mod) { nop }
 
 
