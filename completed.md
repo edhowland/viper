@@ -1,5 +1,138 @@
 # completed bugs
 
+## 2022-12-20
+
+## Vish when loaded should have a prelude
+
+- standard Vish and Os environment variables
+  * like HOME, XDG_ star, if needed
+  * :vhome, :vroot, etc.
+- a sort of standard library, composed of more than things in /v/bin/ commands
+- access to ARGV, ARGC, even ARGF
+  * would allow for command flag processing within Vish
+  * Should work for Vish scripts
+- A way to process flags and command line arguments
+  * Should work for Vish scripts as well
+  * Should work for Vish functions
+
+The latter might be a sort of getopt like function in Bash, Ruby, Python and others.
+
+
+Change: Moved all to :lhome/vish/prelude/0??_*.vsh
+
+
+## The source command sets functions, but not variables.
+
+Note: This has been partially fixed
+
+There set local to the script itself. You can fix this deficiency by making them global:
+
+```
+rem this is vars.vsh
+foo=foo bar=bar;global foo bar
+```
+
+Somewhere else:
+
+```
+source vars.vsh
+echo :foo :bar
+foo bar
+```
+
+
+This should work like Bash.
+
+Expect the fix is to do a fs.merge after the source has finished.
+
+
+
+### If you call source within a function, it sets functions but not global variables
+
+```bash
+echo "var1=foo" > var1.vsh
+foo() {
+  source var1.vsh
+}
+foo
+echo $var1
+foo
+```
+
+
+Note: the variables declared in the source file are set within the body of the function itself.
+
+
+Fix: Fixed in the source command itself
+
+
+### Move all commands like store, push, pop from /v/bin to /v/vfs/bin
+
+Reason: To unclutter /v/bin and make it more like :vhome/lib/*.rb of requires
+
+Add all these to :path at startup
+
+
+
+Fix: was in some previous commit
+
+## Create new construct: cmdlet or CommandLet
+
+command lets are short snippets  or strings containing Ruby code
+
+They, once loaded, become like commands stored in /v/bin
+
+```
+vish>  cmdlet print_11 '{ puts 11 }' /v/cmdlet/misc
+type print_11
+/v/cmdlet/misc/print_11
+vish> print_11
+11
+```
+
+
+Command lets are first class Vish objects like functions, aliases and /v/bin commands
+
+```
+type foo
+command let
+declare -c foo
+ loadcmd foo '{|*args, ios, fs| ios[:out].puts "foo" }'
+```
+
+Command lets can take optional flags:
+
+```
+cmdlet bar ' ...some ruby code...' 
+```
+
+### The above should default to /v/cmdlet/misc
+
+
+## Add flag parsing to cmdlets
+
+```
+cmdlet foo -f 'j,k,l:' '{ out.puts(opt[:l]) }'
+foo -l top.log
+top.log
+```
+
+The -f flag takes a comma delmited string of options in the C getopt type.
+
+- single char : If present, then opt[:o] return true, false if absent
+- char with trailing ':', if present, returns the value passed , or an empty string otherwise
+
+```
+cmdlet bar -f "t" '{ out.puts("You gave me the -t flag") if opt[:t] }'
+bar -t
+You gave me the -t flag
+```
+
+
+Fix: Also in some previous release: See CHANGELOG.md
+
+
+
 ##2022-12-18
 
 ### Created new vish module : keymaps

@@ -1,5 +1,49 @@
 # Wont fix
 
+## 2022-12-20
+
+## Logging does not work
+
+```bash
+viper -L
+```
+
+Gets:
+```
+
+/home/edh/tmp/viper/lib/runtime/frame_stack.rb:43:in `pop': stack level too deep (SystemStackError)
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:34:in `ensure in call'
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:35:in `call'
+  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
+  from /home/edh/tmp/viper/lib/ast/block.rb:22:in `block in call'
+  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `each'
+  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `call'
+  from /home/edh/tmp/viper/lib/ast/lambda.rb:32:in `call'
+  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
+   ... 8498 levels...
+  from /home/edh/tmp/viper/lib/runtime/virtual_machine.rb:73:in `call'
+  from /home/edh/tmp/viper/bin/viper:204:in `block (2 levels) in <main>'
+  from /home/edh/tmp/viper/bin/viper:204:in `each'
+  from /home/edh/tmp/viper/bin/viper:204:in `block in <main>'
+dell 
+```
+
+
+
+Reason: No need for logging with new prelude, import module and load package in :lhome
+
+Might instead print something in the source command Say some :verbose flag.
+
+
+## Viper flags do all not work
+
+- --finish script has no effect
+
+
+Reason:  In 2.0.12, 2.0.12.c releases we have switched to ./viper.rb and 
+./vish.rb and ./ivsh.rb
+These new files use the parseopts function in Vish itself. along wiht mkboolopt, mkvalopt .etc
+
 ## 2022-12-13
 
 

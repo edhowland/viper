@@ -462,12 +462,6 @@ Note: Not used in any Viper scripts
 
 
 
-### Move all commands like store, push, pop from /v/bin to /v/vfs/bin
-
-Reason: To unclutter /v/bin and make it more like :vhome/lib/*.rb of requires
-
-Add all these to :path at startup
-
 
 ### Deprecations:
 
@@ -478,57 +472,6 @@ Add all these to :path at startup
 
 
 
-## Create new construct: cmdlet or CommandLet
-
-command lets are short snippets  or strings containing Ruby code
-
-They, once loaded, become like commands stored in /v/bin
-
-```
-vish>  cmdlet print_11 '{ puts 11 }' /v/cmdlet/misc
-type print_11
-/v/cmdlet/misc/print_11
-vish> print_11
-11
-```
-
-
-Command lets are first class Vish objects like functions, aliases and /v/bin commands
-
-```
-type foo
-command let
-declare -c foo
- loadcmd foo '{|*args, ios, fs| ios[:out].puts "foo" }'
-```
-
-Command lets can take optional flags:
-
-```
-cmdlet bar ' ...some ruby code...' 
-```
-
-### The above should default to /v/cmdlet/misc
-
-
-## Add flag parsing to cmdlets
-
-```
-cmdlet foo -f 'j,k,l:' '{ out.puts(opt[:l]) }'
-foo -l top.log
-top.log
-```
-
-The -f flag takes a comma delmited string of options in the C getopt type.
-
-- single char : If present, then opt[:o] return true, false if absent
-- char with trailing ':', if present, returns the value passed , or an empty string otherwise
-
-```
-cmdlet bar -f "t" '{ out.puts("You gave me the -t flag") if opt[:t] }'
-bar -t
-You gave me the -t flag
-```
 
 ### Make ord, chr and hex also  read from either stdin or use first argument
 
@@ -605,46 +548,7 @@ Exception thrown
 ```
 
 
-## The source command sets functions, but not variables.
 
-Note: This has been partially fixed
-
-There set local to the script itself. You can fix this deficiency by making them global:
-
-```
-rem this is vars.vsh
-foo=foo bar=bar;global foo bar
-```
-
-Somewhere else:
-
-```
-source vars.vsh
-echo :foo :bar
-foo bar
-```
-
-
-This should work like Bash.
-
-Expect the fix is to do a fs.merge after the source has finished.
-
-
-
-### If you call source within a function, it sets functions but not global variables
-
-```bash
-echo "var1=foo" > var1.vsh
-foo() {
-  source var1.vsh
-}
-foo
-echo $var1
-foo
-```
-
-
-Note: the variables declared in the source file are set within the body of the function itself.
 
 ## Copying once, then another time in the same file results in the previous contents being prepended to contents of clipboard
 
@@ -870,9 +774,6 @@ line
 
 indenting above is doubled
 
-## Viper flags do all not work
-
-- --finish script has no effect
 
 ## Vish parser problems
 
@@ -964,6 +865,22 @@ In all other cases, the editor should start in normal mode.
 
 ### Completly remove 'on' as the entire event handlers are not functional
 
+Also remove the Event class.
+
+### New at_exit handlers work in ./local/vish/prelude/007_events.vsh
+There is only 1 event handled: the exit event:
+
+```
+ls /v/events/exit/*
+1
+2
+3
+```
+
+Each call to at_exit { } will add to another number in /v/events/exit/1,2,3,4 ..., N
+
+The run_exit_procs function is called to perform all these in order upon at_exit do/ .../end in Ruby code.
+
 - Also remove the '-l', --log from options and function logger
 - The call to load_event is just a 'nop'. Ess ./etc/vishrc
   * Remove all of that
@@ -1016,20 +933,6 @@ brace expansion occur, command substitution should also occur.
 Is this a parser failure or vish runtime backend failure?
 
 
-## Vish when loaded should have a prelude
-
-- standard Vish and Os environment variables
-  * like HOME, XDG_ star, if needed
-  * :vhome, :vroot, etc.
-- a sort of standard library, composed of more than things in /v/bin/ commands
-- access to ARGV, ARGC, even ARGF
-  * would allow for command flag processing within Vish
-  * Should work for Vish scripts
-- A way to process flags and command line arguments
-  * Should work for Vish scripts as well
-  * Should work for Vish functions
-
-The latter might be a sort of getopt like function in Bash, Ruby, Python and others.
 
 ## In support of processing. Make a switch/case or match like functionality
 
@@ -1079,32 +982,6 @@ Notice the '[f]' inside the '&([f]) { ...'
 
 Another similar problem to  the above. *args is getting .inspect as a Ruby array.
 
-
-## Logging does not work
-
-```bash
-viper -L
-```
-
-Gets:
-```
-
-/home/edh/tmp/viper/lib/runtime/frame_stack.rb:43:in `pop': stack level too deep (SystemStackError)
-  from /home/edh/tmp/viper/lib/ast/lambda.rb:34:in `ensure in call'
-  from /home/edh/tmp/viper/lib/ast/lambda.rb:35:in `call'
-  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
-  from /home/edh/tmp/viper/lib/ast/block.rb:22:in `block in call'
-  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `each'
-  from /home/edh/tmp/viper/lib/ast/block.rb:19:in `call'
-  from /home/edh/tmp/viper/lib/ast/lambda.rb:32:in `call'
-  from /home/edh/tmp/viper/lib/runtime/event.rb:42:in `on'
-   ... 8498 levels...
-  from /home/edh/tmp/viper/lib/runtime/virtual_machine.rb:73:in `call'
-  from /home/edh/tmp/viper/bin/viper:204:in `block (2 levels) in <main>'
-  from /home/edh/tmp/viper/bin/viper:204:in `each'
-  from /home/edh/tmp/viper/bin/viper:204:in `block in <main>'
-dell 
-```
 
 
 ## Bad code smell: lib/bin/capture.rb
