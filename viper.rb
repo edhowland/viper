@@ -16,7 +16,8 @@ load_vishrc vm: vm
 
 
 begin
-  veval('load_viper_paths; import start; load viper;import run ', vm: vm)
+  veval 'load vip', vm: vm
+  #veval('load_viper_paths; import start; load viper;import run ', vm: vm)
 rescue VirtualMachine::ExitCalled => err
   #$stderr.puts "VM::exitCalled with ec #{err.code}"
   exit(err.code)
