@@ -2,6 +2,16 @@
 
 # Todo list
 
+## The ruby type of :argc is an integer, and thus will not play nicely with the eq command
+
+Options:
+
+1. Make the eq command more forgiving
+2. Make the :argc a string
+
+Decide on one of the above 2 options in light of Vish propensity for strings
+
+
 
 ## The unalias command should take an unlimited of alias arguments
 
@@ -517,6 +527,7 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
 
 ## Name conflict with :mapth 
 

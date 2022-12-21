@@ -1,5 +1,25 @@
 # completed bugs
 
+## 2022-12-21
+
+
+## The at_exit in ./viper.rb does not ask to save any unsaved files
+
+
+Fix: Made the same change in ./viper.rb as in ./ivsh.rb in rescue VirtualMachine::ExitCalled
+
+comment out the actual exit call there.
+
+
+## After ./viper stand-alone, and edit of buffer unnamed1, does not ask to save when exiting
+
+Note: seems to be in local/viper/modules/run dir.
+Is this a problem with load or import?
+Seems to be a problem with parseopts.
+
+Fix: Temp: did a cd :proj just before call to open_argv
+
+
 ## 2022-12-20
 
 ## Vish when loaded should have a prelude

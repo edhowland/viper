@@ -19,13 +19,14 @@ begin
   veval 'load vip', vm: vm
   #veval('load_viper_paths; import start; load viper;import run ', vm: vm)
 rescue VirtualMachine::ExitCalled => err
-  #$stderr.puts "VM::exitCalled with ec #{err.code}"
-  exit(err.code)
+  vm.fs.first[:exit_code] = err.code.to_i
+#exit(err.code)
 end
 
 
 # vm afteer all the vish code has run is passed to the at_exit do block
 at_exit do
+  $stderr.puts "about to run exit procs"
   veval('run_exit_procs', vm: vm)
   code = int_or_error(vm.fs[:exit_code])
   #$stderr.puts "in vish.rb:at_exit code is #{code}, exit_code is #{vm.fs[:exit_code]}"
