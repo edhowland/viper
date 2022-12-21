@@ -10,5 +10,10 @@ function load(package) {
   test -x "/v/packages/:{package}/on_load" && exec "/v/packages/:{package}/on_load"
 }
 function when_load(package, fn) {
+  mkdir "/v/packages/:{package}"; rem this might just be a mkdir -p
   store :fn "/v/packages/:{package}/on_load"
+}
+rem This prepares to load our only one package so far viper
+function load_viper_paths() {
+  module_path edit > /dev/null || mpath=":{lhome}/viper/modules::{mpath}"; global mpath
 }

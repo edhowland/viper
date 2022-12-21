@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# vish.rb: wrapper to get vish loaded and processing arguments
+# viper.rb : derived from vish.rb but also loads viper package
 
 
 require_relative 'libvish'
@@ -14,10 +14,9 @@ vm = vish_boot
 load_vishrc vm: vm
 
 
-# main
 
 begin
-  veval('import init', vm: vm)
+  veval('load_viper_paths; import start; load viper;import run ', vm: vm)
 rescue VirtualMachine::ExitCalled => err
   #$stderr.puts "VM::exitCalled with ec #{err.code}"
   exit(err.code)
