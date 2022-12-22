@@ -536,17 +536,6 @@ mpath is used in new import fn and also in macros
 Change it for macros
 
 
-## In test -e and give a dereferenced variable, can get an Undefined method error
-
-```
-test -e :argv
-
-undefined method `empty?' for nil:NilClass
-
-        result = node.empty?
-                     ^^^^^^^
-```
-
 
 ## There is no rm -f command.
 

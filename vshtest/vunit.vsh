@@ -1,5 +1,8 @@
 cd ":{vhome}/vshtest"
 source load_commands.vsh
+function assert_true() {
+  test :_ || raise Expected :_ to be true but was false
+}
 function assert() {
   :_ || raise "expected :{_} to be true"
 }

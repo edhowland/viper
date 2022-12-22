@@ -1,5 +1,27 @@
 # completed bugs
 
+## 2022-12-22
+
+
+## In test -e and give a dereferenced variable, can get an Undefined method error
+
+```
+test -e :argv
+
+undefined method `empty?' for nil:NilClass
+
+        result = node.empty?
+                     ^^^^^^^
+```
+
+
+### This also happens for an non-existant directory
+
+
+
+Fix: was error checking for no args and node.nil? in options[:e] portion
+of lib/bin/test.rb
+
 ## 2022-12-21
 
 

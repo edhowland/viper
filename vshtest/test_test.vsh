@@ -42,3 +42,17 @@ function test_test_d_dot_virtual_true() {
 function test_test_d_dot_dot_in_virtual_true() {
   (cd /v; mkdir t9/bar; cd t9/bar;  test -d .. || raise Expected test -d .. in virtual to be true but was false)
 }
+function test_e_no_arg_is_error_and_returns_false() {
+  suppress { test -e }; assert_false :exit_status
+}
+function test_e_with_no_valid_pathname_returns_false() {
+  suppress { test -e /v/nothing/here }; assert_false :exit_status
+}
+function test_e_with_non_empty_is_false() {
+  test -e /v; assert_false :exit_status
+}
+function test_e_with_empty_dir_is_true() {
+  mkdir /v/test_e_empty
+  test -e /v/test_e_empty; assert_true :exit_status
+}
+

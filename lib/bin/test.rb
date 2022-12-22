@@ -43,8 +43,15 @@ if Hal.exist?(path)
       elsif @options[:z]
         result = (a[0].nil? || a[0].empty?)
       elsif  @options[:e]
+      if a.length == 0
+        env[:err].puts "test -e: must have exactly one argument"
+        return false
+      end
         root = frames[:vroot]
         node = root[a[0]]
+      if node.nil?
+        return false
+      end
         result = node.empty?
       elsif @options[:l]
         result = obj_or_path_executable?(a[0], [Lambda], frames: frames)
