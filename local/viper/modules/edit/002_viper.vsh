@@ -87,7 +87,7 @@ _mode=viper bind ctrl_a {  select_all_buf :_buf } { buffer_empty :_buf || echo -
 log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }
 _mode=viper bind meta_w { move_word_back } { word_fwd :_buf }
-_mode=viper bind meta_semicolon { echo -n command } { cat; raise commander }
+_mode=viper bind meta_semicolon { nop } { rep1 "Command" }
 ignore_undo meta_semicolon
 _mode=viper bind fake_backspace { del :_buf } { echo -n delete :(xfkey | xfkey -h) }
 store { logk=:(xfkey); echo "fake_backspace,:{logk}" | enq ":{_buf}/.keylog" } /v/klogs/viper/fake_backspace
