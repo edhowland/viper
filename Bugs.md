@@ -2,6 +2,22 @@
 
 # Todo list
 
+## source command should be able to work on files in VFS
+
+```
+source /v/options/viper/actual/e/1
+```
+
+Gets Ruby exception
+
+
+Probably add this functionality to Hal
+
+- Hal.read(path/to/file.txt)
+Hal.write, .open with both 'w', and 'a' options
+
+
+
 ## The ruby type of :argc is an integer, and thus will not play nicely with the eq command
 
 Options:
