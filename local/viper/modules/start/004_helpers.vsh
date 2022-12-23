@@ -4,3 +4,9 @@ function rep1(pr) {
   res=:(getline :pr)
   eval ":{res}"
 }
+rem run_repl. Starts up the REPL within the vish function
+cmdlet run_repl '{ vm=globals[:__vm]; repl(vm: vm) }'
+function vish() {
+  run_repl
+  echo exitting Vish
+}

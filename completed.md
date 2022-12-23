@@ -1,5 +1,15 @@
 # completed bugs
 
+## 2022-12-23
+
+
+Fixed test errors caused by enforcing at least a QuotedString as input to:
+
+1. Glob.new
+2. @vm.fs.aliases['al']  = QuotedString.new('baz')
+
+### Removed All instances of StubDummy from minitest/test_glob.rb
+
 ## 2022-12-22
 
 ## source command should be able to work on files in VFS

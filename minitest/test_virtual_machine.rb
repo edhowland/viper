@@ -29,6 +29,9 @@ class VirtualMachineTests < MiniTest::Test
     @vm.cd '/', env:@vm.ios, frames:@vm.fs
     assert_eq '/', @vm.fs[:pwd]
   end
+  def test_vm_has_pointer_to_self_in___vm_global_var
+    assert_eq @vm, @vm.fs.first[:__vm]
+  end
   def test_cd_no_args_returns_proj_dir
     @vm.cd '/', env:@vm.ios, frames:@vm.fs
     @vm.cd  env:@vm.ios, frames:@vm.fs

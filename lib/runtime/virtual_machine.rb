@@ -21,6 +21,7 @@ class VirtualMachine
 
   def _init
     #
+    @fs[:__vm] = self
     @fs[:exit_status] = true
     @fs.vm = self
     @fs[:pwd] = Hal.pwd
