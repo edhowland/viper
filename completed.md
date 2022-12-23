@@ -2,6 +2,26 @@
 
 ## 2022-12-22
 
+## source command should be able to work on files in VFS
+
+```
+source /v/options/viper/actual/e/1
+```
+
+Gets Ruby exception
+
+
+Probably add this functionality to Hal
+
+- Hal.read(path/to/file.txt)
+Hal.write, .open with both 'w', and 'a' options
+
+
+
+
+Fix: Changed lib/runtime/virtual_machine.rb tin def source, to fh=Hal.open(args[0], 'r')
+and then fh.read from there.
+
 
 ## In test -e and give a dereferenced variable, can get an Undefined method error
 

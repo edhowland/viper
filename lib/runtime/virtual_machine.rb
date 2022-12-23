@@ -237,7 +237,8 @@ _saved_old = Hal.pwd
       false
     else
       begin
-        block = Visher.parse!(File.read(args[0]))
+        fh = Hal.open(args[0], 'r')
+        block = Visher.parse!(fh.read())
       __old_file = @fs[:__FILE__]
       __old_dir = @fs[:__DIR__]
         @fs[:__FILE__] = args[0]
