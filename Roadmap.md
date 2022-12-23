@@ -44,6 +44,9 @@ Note: See ./pry/load_scripts.vsh for how to do this.
 - :argc, :argv for command line arguments
 - Some sort of get_opt - style parsing to take ove the command line args for bin/viper : OptionParser
 
+
+Also created ./ivsh.rb to replace ivsh REPL.
+
 ### 2.0.12.c
 
 Though partially noted above, this interim release will create the viper import module
@@ -51,29 +54,23 @@ Though partially noted above, this interim release will create the viper import 
 A new Ruby loader called viper.rb  will execute :
 
 ```ruby
-veval 'import viper', vm: vm
+veval 'load vip', vm: vm
 ```
+
+The load command is created to load packages in ./local/packages
+The 'vip' package is a meta package that also loads the 'viper' package.
+This allows for the 'viper' package to stand on its own in ./vish.rb (for use in vshtest testing)
+and ./ivsh.rb to allow for experimenation with launching the main Viper run loop.
 
 Note: See mini-2.0.12.c-Roadmap.md for extensive details on this release.
 
 
 
+
+
 ## 2.0.13
 
-- at_exit code to perform checks.
-  * Instead of relying just Ruby's at_exit code to run specified code.
-- range, printf  commandlets to beable to load :vhome/scripts/{001-999}*.vsh
-
-## 2.0.14
-
-Argument parsing  for Vish scripts
-  * flags for Viper are accomplished in here instead of Ruby in :vhome/bin/viper
-- Move more testing to :vhome/vshtest fro :vhome/minitest
-  * NiniTests tests  should be reserved for #1 and #2 above. Ruby core and Vish interpreter
-  * Need to make Vish code more testable. (Whatever that means)
-
-
-## 2.0.15
+(Was formerly 2.0.15)
 
 Move all macro and other user specific from :vhome/doc/* to to ~/.config/vish/viper/macros/*
 - Move out the MacOS: and Gnome terminal config files to ~/.config/vish/viper/term/*
@@ -101,7 +98,7 @@ Also Markdown files
 Built from the RDoc strings in Ruby source code in :vhome/lib/bin/*.rb
 
 
-## 2.0.16
+## 2.0.14
 
 - run prettier -ruby on code base
 - run rubocop
@@ -110,7 +107,7 @@ Built from the RDoc strings in Ruby source code in :vhome/lib/bin/*.rb
   * Perhaps, if not easy to backport, wait until Viper 2.2
 
 
-## 2.0.17
+## 2.0.15
 
 Final wrap-up 
 

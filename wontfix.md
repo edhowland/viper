@@ -1,5 +1,41 @@
 # Wont fix
 
+##  2022-12-23
+
+### Removal of StubDummy from test code:
+
+class StubDummy
+  def self.call(*args)
+    #
+  end
+end
+
+Reason: This was needed to add .call interfcace to bare strings in Glob.new(o)
+where o was just a Ruby string. Glob.new needs at least a QuotedString or StringLiteral.
+
+Tests were changed to explicitly add this
+
+
+
+These changes were removed from Roadmap.md
+Versions 2.0.13 and 2.0.14 are  already accomplished in 2.0.12
+2.0.15, 2.0.16 and 2.0.17 are now moved up to 2.0.13, 2.0.14 and 2.0.15
+
+## 2.0.13
+
+- at_exit code to perform checks.
+  * Instead of relying just Ruby's at_exit code to run specified code.
+- range, printf  commandlets to beable to load :vhome/scripts/{001-999}*.vsh
+
+## 2.0.14
+
+Argument parsing  for Vish scripts
+  * flags for Viper are accomplished in here instead of Ruby in :vhome/bin/viper
+- Move more testing to :vhome/vshtest fro :vhome/minitest
+  * NiniTests tests  should be reserved for #1 and #2 above. Ruby core and Vish interpreter
+  * Need to make Vish code more testable. (Whatever that means)
+
+
 ## 2022-12-20
 
 ## Logging does not work

@@ -40,6 +40,10 @@ class StatementTest < MiniTest::Test
       end
     end
   end
+  def qs str
+    QuotedString.new(str)
+  end
+
   def setup
     @vm = VirtualMachine.new
     block = Visher.parse! 'mount /v;mkdir /v/bin;install'
@@ -259,27 +263,27 @@ class StatementTest < MiniTest::Test
     assert_eq result, 'echo hello; echo world'
   end
   def test_embed_alias_returns_new_statement_string
-    @vm.fs.aliases['e'] = 'echo'
+    @vm.fs.aliases['e'] = qs 'echo'
     s = parse '< xx aa=bb > yy e hello'
     result = s.embed_alias(frames: @vm.fs)
     assert_eq result, '< xx aa=bb > yy echo hello'
   end
   def test_embed_alias_w_multi_statement_alias
-    @vm.fs.aliases['c'] = 'cat | cat >'
+    @vm.fs.aliases['c'] = qs 'cat | cat >'
     s = parse  '< xx c vv'
     result = s.embed_alias(frames: @vm.fs)
     assert_eq result, '< xx cat | cat > vv'
   end
   def test_expand_and_call
-    @vm.fs.aliases['f'] = 'false'
+    @vm.fs.aliases['f'] = qs 'false'
     s = parse 'f'
     result = s.expand_and_call(env: @vm.ios, frames: @vm.fs)
     assert_false result
   end
   def test_expand_and_call_w_non_recursive_alias
-    @vm.fs.aliases['foo'] = 'bar'
-    @vm.fs.aliases['bar'] = 'baz'
-    @vm.fs.aliases['baz'] = 'nop'
+    @vm.fs.aliases['foo'] = qs 'bar'
+    @vm.fs.aliases['bar'] = qs 'baz'
+    @vm.fs.aliases['baz'] = qs 'nop'
     s = parse 'foo'
     result = s.expand_and_call(env: @vm.ios, frames:@vm.fs)
     assert result
@@ -294,7 +298,7 @@ class StatementTest < MiniTest::Test
   def test_foo_alias_to_baz_is_a_function
             blk = Visher.parse! 'function baz() { return false }'
     @vm.call blk
-    @vm.fs.aliases['foo'] = 'baz'
+    @vm.fs.aliases['foo'] = qs 'baz'
     s = parse 'foo'
     result = s.has_alias?(frames: @vm.fs)
     assert result
@@ -305,22 +309,22 @@ class StatementTest < MiniTest::Test
     #skip 'examine this'
     blk = Visher.parse! 'function baz() { return false }'
     @vm.call blk
-    @vm.fs.aliases['foo'] = 'baq'
-    @vm.fs.aliases['baq'] = 'baz'
+    @vm.fs.aliases['foo'] = qs 'baq'
+    @vm.fs.aliases['baq'] = qs 'baz'
     s = parse 'foo'
     result = s.call env: @vm.ios, frames: @vm.fs
     assert_false result
   end
   def test_thing_w_f_is_false_returns_false
-    @vm.fs.aliases['f'] = 'false'
+    @vm.fs.aliases['f'] = qs 'false'
     s = parse 'f'
     result = s.call(env: @vm.ios, frames: @vm.fs)
     assert_false result
   end
   def test_recursive_alias_calls_raise_alias_stack_too_deep
-    @vm.fs.aliases['foo'] = 'bar'
-    @vm.fs.aliases['bar'] = 'baz'
-    @vm.fs.aliases['baz'] = 'echo bad juju;foo'
+    @vm.fs.aliases['foo'] = qs 'bar'
+    @vm.fs.aliases['bar'] = qs 'baz'
+    @vm.fs.aliases['baz'] = qs 'echo bad juju;foo'
     s = parse 'foo'
     assert_raises AliasStackTooDeep do
       s.call(env: @vm.ios, frames: @vm.fs)

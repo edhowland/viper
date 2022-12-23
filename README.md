@@ -10,6 +10,19 @@ See the file CHANGELOG.md for updates.
 
 Release 2.1: Indy pre-release candidate #1
 
+### Important information regarding this patch.point release.
+
+The patch point releases: 2.0.12.a, 2.0.12.b and now 2.0.12.c contain minor code
+changes to the base in ./lib/*/*.rb. Most of the major changes are occurring on
+the ./vish.rb, ./ivsh.rb and ./viper.rb executables. The original: ./bin/vish, ./bin/ivsh
+and ./bin/viper are essentially the same as their 2.0.11 ancestors, with the
+minor changes mentioned above.
+
+Testers of the .12.a,b and c varients should focus on these 3 files in the root
+of this repository. Once 2.0.12 is formerly released, then the .rb files will
+replace in ./bin with no .rb extension. The former executables will be deprecated
+until 2.1.0 is released, at which point they will be removed.
+
 
 ## Abstract
 

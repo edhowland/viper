@@ -2,6 +2,22 @@
 
 # Todo list
 
+## Remove the hunt command only used in the 013_help.vsh stuff
+
+In 2.0.13, or .15 there is extensive redesign of the help system.
+
+## Now that the source command can take a file in the VFS, improve the -e 'echo some command here' processing.
+
+Make an universal function that is shared between viper.rb, ivsh.rb and vish.rb
+
+
+```
+for s in /v/options/:{__FILE__}/actual/e/* { source :s }
+```
+
+This has been proved to work now.
+
+
 
 ## The ruby type of :argc is an integer, and thus will not play nicely with the eq command
 
@@ -1033,3 +1049,5 @@ https://semaphoreci.com/community/tutorials/mocking-in-ruby-with-minitest
 
 
 
+
+Note: At the present time (2.0.12), no need for StubDummy. See wontfix.md: 2022-12-23

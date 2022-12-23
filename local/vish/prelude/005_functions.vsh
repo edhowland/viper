@@ -18,3 +18,7 @@ function module_path(mod,) {
   }
   false
 }
+rem hunt is dummy to eventually rid us of the hunt command
+function hunt() {
+  nop
+}
