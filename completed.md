@@ -1,5 +1,26 @@
 # completed bugs
 
+## 2022-12-24
+
+
+## Problems with rm command:
+### Also problem if no file exists and rm it, throughs exception
+
+```
+rm /v/xxx
+
+Exception thrown
+```
+
+
+Fix: Gathered existant tuples of existance and pathnames, error message on non-existant pathnames
+Then does the remove command on remaining existant pathnames
+
+Returns false if no files were removed.
+
+
+
+
 ## 2022-12-23
 
 

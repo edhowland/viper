@@ -2,6 +2,24 @@
 
 # Todo list
 
+## MAJOR: add back in extension/file type checking
+
+If in ./viper.rb foo.rb
+
+```
+Command: check
+No syntax check for this file type
+```
+
+
+Also, this does not work
+
+```
+Command> checkrb
+checkrb not found
+```
+
+
 ## Remove the hunt command only used in the 013_help.vsh stuff
 
 In 2.0.13, or .15 there is extensive redesign of the help system.
@@ -555,16 +573,6 @@ Change it for macros
 
 
 ## There is no rm -f command.
-
-### Also problem if no file exists and rm it, throughs exception
-
-```
-rm /v/xxx
-
-Exception thrown
-```
-
-
 
 
 ## Copying once, then another time in the same file results in the previous contents being prepended to contents of clipboard
