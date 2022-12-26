@@ -26,9 +26,10 @@ function check_default() {
   perr No syntax check for this file type
   return false
 }
-function package_path(mod) {
+function package_path(pkg) {
   ifs=':' for p in :lpath {
-    test -X ":{p}/:{mod}_pkg.vsh" && exec { echo ":{p}/:{mod}_pkg.vsh"; return true }
+echo now trying ":{p}/:{pkg}_pkg.vsh"
+    test -X ":{p}/:{pkg}_pkg.vsh" && exec { echo ":{p}/:{pkg}_pkg.vsh"; return true }
   }
   false
 }

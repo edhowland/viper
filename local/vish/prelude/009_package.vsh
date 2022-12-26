@@ -1,6 +1,5 @@
-rem package.vsh handlers for loading packages like viper
-rem TODO must make this search the :lpath for matching package
-lpath=":{lhome}/packages"
+rem package functions like load
+lpath=":{lhome}/packages::{lhome}/plugins"
 mkdir /v/packages
 function load(package) {
   pkg_src=:(package_path :package) || exec { perr No such package :package; return false }

@@ -1,5 +1,14 @@
 # completed bugs
 
+## 2022-12-26
+
+
+## Created package_path to search :lpath for first matchping package.
+
+This is used in fn load package
+
+In preparation for local/plugins being added to :lpath
+
 ## 2022-12-24
 
 
