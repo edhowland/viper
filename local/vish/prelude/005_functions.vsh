@@ -28,7 +28,6 @@ function check_default() {
 }
 function package_path(pkg) {
   ifs=':' for p in :lpath {
-echo now trying ":{p}/:{pkg}_pkg.vsh"
     test -X ":{p}/:{pkg}_pkg.vsh" && exec { echo ":{p}/:{pkg}_pkg.vsh"; return true }
   }
   false
