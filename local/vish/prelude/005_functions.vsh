@@ -12,7 +12,7 @@ function find_first(qterm, elem) {
     find_first :qterm :_ }
 }
 rem module_path returns the first found matching module in :mpath else false
-function module_path(mod,) {
+function module_path(mod) {
   ifs=':' for p in :mpath {
     test -d ":{p}/:{mod}" && exec { echo ":{p}/:{mod}"; return true }
   }
@@ -21,4 +21,14 @@ function module_path(mod,) {
 rem hunt is dummy to eventually rid us of the hunt command
 function hunt() {
   nop
+}
+function check_default() {
+  perr No syntax check for this file type
+  return false
+}
+function package_path(mod) {
+  ifs=':' for p in :lpath {
+    test -X ":{p}/:{mod}_pkg.vsh" && exec { echo ":{p}/:{mod}_pkg.vsh"; return true }
+  }
+  false
 }
