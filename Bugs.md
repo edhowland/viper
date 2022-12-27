@@ -2,6 +2,31 @@
 
 # Todo list
 
+## ls command has no way to spy on dotfiles
+
+```bash
+ls -a .vishrc
+.vishrc
+```
+
+
+```
+ls .vishrc
+.vishrc
+cd /v
+mkdir tmp
+cd tmp
+touch .foo .bar
+ls
+
+test -X .foo;es
+true
+```
+
+Problem only occurs in VFS, or so it appears
+
+
+
 ## Vish has a range operator 'x..N'. Does this undo the need for the range commandlet?
 
 ```
@@ -587,6 +612,13 @@ does load viper internally.
 mpath is used in new import fn and also in macros
 
 Change it for macros
+
+
+
+
+## ls command cannot find dotfiles in VFS
+
+See the note in # Todo list above for examples
 
 
 

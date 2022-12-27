@@ -2,6 +2,15 @@
 
 ## 2022-12-27
 
+## Re-established the macro facility for vish_lang plugin
+
+Now works like its 2.0.11 cousin.
+
+
+TODO: Need to add back in ruby_lang package
+
+
+
 
 functions for set_ext_fn and run_ext_fn for extension file types.
 Pass a lambda to set_ext_fn vsh &() { global_var=foo; global global_var }
