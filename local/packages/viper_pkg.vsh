@@ -7,4 +7,4 @@ function viper(fname) {
   _mode=viper apply fn_2
   meta vip
 }
-when_load viper { load vish_lang }
+when_load viper { load vish_lang; load ruby_lang  }

@@ -2,15 +2,38 @@
 
 ## 2022-12-27
 
+## MAJOR: add back in extension/file type checking
+
+If in ./viper.rb foo.rb
+
+```
+Command: check
+No syntax check for this file type
+```
+
+
+Also, this does not work
+
+```
+Command> checkrb
+checkrb not found
+```
+
+
+
+Fix: See below
+
 ## Re-established the macro facility for vish_lang plugin
 
+## re-established ruby language plugin
 Now works like its 2.0.11 cousin.
 
 
-TODO: Need to add back in ruby_lang package
 
 
 
+
+##  Hooks for language plugin support
 
 functions for set_ext_fn and run_ext_fn for extension file types.
 Pass a lambda to set_ext_fn vsh &() { global_var=foo; global global_var }

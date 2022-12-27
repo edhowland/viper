@@ -37,23 +37,6 @@ echo :r
 
 
 
-## MAJOR: add back in extension/file type checking
-
-If in ./viper.rb foo.rb
-
-```
-Command: check
-No syntax check for this file type
-```
-
-
-Also, this does not work
-
-```
-Command> checkrb
-checkrb not found
-```
-
 
 ## Remove the hunt command only used in the 013_help.vsh stuff
 
