@@ -2,6 +2,16 @@
 
 # Todo list
 
+## Vish has a range operator 'x..N'. Does this undo the need for the range commandlet?
+
+```
+r=1..:{indent}
+echo :r
+1 2
+```
+
+
+
 ## MAJOR: add back in extension/file type checking
 
 If in ./viper.rb foo.rb
@@ -563,6 +573,14 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## load of one module cannot load another module
+
+E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang
+which does not get executed
+
+But: there are such things like meta packages. For instance, vip actually
+does load viper internally.
+
 
 ## Name conflict with :mapth 
 
@@ -855,6 +873,20 @@ Can be handled with a  bad hack:
 mytmp=:(echo ":{vhome}/scripts"); (cd :mytemp; for i in ???_*.vsh { source :i })
 ```
 
+
+
+### The range operator does not check for syntax errors
+
+```
+r=1..:{indent}
+echo :r
+1 2
+rem above correct, next is bad
+r=1..:indent
+echo :r
+
+.. hangs
+```
 
 ## Meta mode not quite working yet
 

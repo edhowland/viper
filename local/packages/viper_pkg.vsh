@@ -7,4 +7,4 @@ function viper(fname) {
   _mode=viper apply fn_2
   meta vip
 }
-rem when_load viper { echo something might go herein }
+when_load viper { load vish_lang }

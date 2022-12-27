@@ -1,5 +1,14 @@
 # completed bugs
 
+## 2022-12-27
+
+
+functions for set_ext_fn and run_ext_fn for extension file types.
+Pass a lambda to set_ext_fn vsh &() { global_var=foo; global global_var }
+
+Added when_load viper { load vish_lang } to viper package
+
+
 ## 2022-12-26
 
 
