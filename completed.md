@@ -1,5 +1,18 @@
 # completed bugs
 
+## 2022-12-28
+
+
+Moved fns {set,run}_ext_fn to local/vish/prelude/005_functions.vsh
+
+This makes 'load vish_lang' available to both ./ivsh.rb and ./vissh.rb
+
+TODO: Must add -c option to ./vish.rb
+
+
+The checkvsh fn was changed to call new fn: check_vish_syntax
+This new function can check both :_buf (as before) and also any *.vsh in the filesystem.
+
 ## 2022-12-27
 
 ## MAJOR: add back in extension/file type checking

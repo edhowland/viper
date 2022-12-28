@@ -145,7 +145,6 @@ mkarray /v/editor/modestack
 mkarray /v/editor/macroprompt
 echo "Macro stored. Press command key  then save_macro name .extension (optionally)" | enq /v/editor/macroprompt
 echo -n "Recording macro. Press F 6 again when done" | enq /v/editor/macroprompt
-mkdir /v/macros
 function select_all() {
 beg :_buf; m _ ; fin :_buf
 }

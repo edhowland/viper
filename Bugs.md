@@ -2,6 +2,32 @@
 
 # Todo list
 
+## Renumber local/vish/prelude/0??_*.vsh source filenames
+
+local/vish/prelude/001_argparse.vsh
+local/vish/prelude/002_import.vsh
+local/vish/prelude/003_options.vsh
+local/vish/prelude/004_load_vishrc.vsh
+local/vish/prelude/005_functions.vsh
+local/vish/prelude/006_aliases.vsh
+local/vish/prelude/007_variables.vsh
+local/vish/prelude/008_events.vsh
+local/vish/prelude/009_package.vsh
+
+
+Move  007_variables between  005_functions and 006_aliases
+
+This reflects the hierarchy order of both Vish and Bash 
+
+Note: This move has no real effect.
+Insert new local/vish/prelude/005_vfs_locations.vsh and move others one slot
+
+After this is done: move the mkdir /v/known_extensions/default from new 006_functions.vsh to 005_vfs_defaults.vsh
+
+
+Find other mkdir targets to move there.
+
+
 ## ls command has no way to spy on dotfiles
 
 ```bash
