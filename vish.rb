@@ -17,7 +17,7 @@ load_vishrc vm: vm
 # main
 
 begin
-  veval('import init', vm: vm)
+  veval 'load vish', vm: vm
 rescue VirtualMachine::ExitCalled => err
   #$stderr.puts "VM::exitCalled with ec #{err.code}"
   exit(err.code)
