@@ -2,6 +2,11 @@
 
 # Todo list
 
+## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
+
+This just cleans up the location of functionality from modules to packages
+which are  now the main entry point for Vish apps.
+
 ## Renumber local/vish/prelude/0??_*.vsh source filenames
 
 local/vish/prelude/001_argparse.vsh
@@ -81,6 +86,11 @@ This has been proved to work now.
 
 
 
+
+If this is a function now, then move it's processing to the when_load vish { process_e_flag }
+in local/packages/vish_pkg.vsh
+
+We want the -e option in ./vish.rb to be invoked after all the other  files have been loaded.
 ## The ruby type of :argc is an integer, and thus will not play nicely with the eq command
 
 Options:
