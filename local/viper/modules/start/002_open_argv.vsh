@@ -1,4 +1,4 @@
-rem process_files.vsh function to start all and open all files in argv
+rem open_argv.vsh function to start all and open all files in argv
 function open_argv() {
   cond { not { test -z :_buf } } {
     return false } { echo :argc | read z; zero :z } {

@@ -2,6 +2,11 @@
 
 # Todo list
 
+## There are several local/viper/modules/*/00?_*.vsh that are empty
+
+Remove these and renumber
+
+
 ## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
 
 This just cleans up the location of functionality from modules to packages
@@ -617,6 +622,14 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## If in Viper and either Command or in Vish, type exit. get bad error message:
+
+```
+
+vish >exit
+VirtualMachine::ExitCalled
+exitting Vish
+```
 ## load of one module cannot load another module
 
 E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang

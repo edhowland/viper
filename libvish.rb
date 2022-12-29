@@ -64,7 +64,7 @@ def repl(vm:)
   $stderr.puts "Ctrl-C"
   #exit(0)
 rescue VirtualMachine::ExitCalled => err
-  raise
+  exit(err.code.to_i)
 rescue RuntimeError => err
   $stderr.puts err.message
 rescue => err

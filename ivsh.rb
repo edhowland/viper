@@ -7,10 +7,12 @@ require_relative 'libvish'
 # main
 
 vm = vish_boot
-load_vishrc vm: vm
-#veval('import repl', vm: vm)
+begin 
+  load_vishrc vm: vm
   veval 'load repl', vm: vm
-
+rescue VirtualMachine::ExitCalled => err
+  exit(err.code.to_i)
+end
 
 begin
   repl vm: vm
