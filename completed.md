@@ -2,6 +2,12 @@
 
 ## 2022-12-29
 
+## Makde the :hell variable use the full path.
+
+TODO: Must create a ne file in local/vish/prelude/0??_*.vsh for cmdlets
+and mv the rb_scriptname command there
+
+
 
 ## Added -c syntax checking to ./vish.rb
 
