@@ -1,5 +1,16 @@
 # completed bugs
 
+## 2022-12-29
+
+
+## Added -c syntax checking to ./vish.rb
+
+Consists of new file local/vish/modules/option_processing/002_process_c.vsh and
+corresponding process_c function. Will exit the program after processing
+all of :argv.
+
+
+
 ## 2022-12-28
 
 
