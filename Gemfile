@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 # these gems are for runtime/development use:
 gem 'kpeg', '1.1.0'
-
+gem 'mdl', '~> 0.12.0'
 # these gems are needed for runtime, and testing
 gem 'remedy', '0.2.0'
 gem 'pry'

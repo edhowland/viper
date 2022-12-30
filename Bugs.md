@@ -265,7 +265,7 @@ function until(predicate, body) {
   loop {
     cond { exec :predicate } { break }
     exec :body
-    
+
   }
 }
 ```
@@ -363,6 +363,7 @@ A builtin function should be : cheat
 function cheat(topic) {
   sh curl "cheat.sh/:{topic}"
 }
+```
 
 Then mention this in the help stuff.
 Mention that the user should have curl installed and how to get it.
@@ -386,6 +387,10 @@ like the appros command or
 man -k topic_search_term
 ...
 ```
+
+###  Getting meta help or help about help
+
+
 
 ```
 man man
@@ -630,6 +635,7 @@ vish >exit
 VirtualMachine::ExitCalled
 exitting Vish
 ```
+
 ## load of one module cannot load another module
 
 E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang
@@ -798,7 +804,6 @@ pwd
 ```
 
 This is a HeisenBug, cannot replicate it
-```
 
 
 
@@ -950,7 +955,7 @@ r=1..:indent
 echo :r
 
 .. hangs
-```
+` ``
 
 ## Meta mode not quite working yet
 
