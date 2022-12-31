@@ -1,5 +1,14 @@
 # completed bugs
 
+## 2022-12-31
+
+
+Remade vip package to only import modules of functions and leave processing
+to the when_load vip2 { ... } event.
+
+
+
+
 ## 2022-12-29
 
 ## Makde the :hell variable use the full path.

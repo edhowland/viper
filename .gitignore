@@ -5,3 +5,4 @@ Gemfile.lock
 .vishrc
 .pryrc
 attic/
+.aliases
