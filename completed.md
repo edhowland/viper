@@ -4,7 +4,7 @@
 
 ## created process_s for all current packages: repl (./ivsh.rb), vish and vip2
 
-TODO: integrate for vish.rb and package vip2
+TODO: integrate for and package vip2
 
 
 
