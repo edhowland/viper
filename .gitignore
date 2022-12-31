@@ -6,3 +6,4 @@ Gemfile.lock
 .pryrc
 attic/
 .aliases
+tmp/

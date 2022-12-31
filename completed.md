@@ -2,6 +2,11 @@
 
 ## 2022-12-31
 
+## created process_s for all current packages: repl (./ivsh.rb), vish and vip2
+
+TODO: integrate for vish.rb and package vip2
+
+
 
 Remade vip package to only import modules of functions and leave processing
 to the when_load vip2 { ... } event.

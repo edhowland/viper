@@ -2,6 +2,44 @@
 
 # Todo list
 
+## for loop cannot be given a constructed path with deref expansions in string, either bare nor dquoted
+
+### This problem is actual a problem with the deref + glob expansions
+
+```
+mkdir /v/tmp/foo/bar
+touch /v/tmp/foo/bar/1
+touch /v/tmp/foo/bar/2
+touch /v/tmp/foo/bar/3
+touch /v/tmp/foo/bar/4
+for i in /v/tmp/foo/bar/* { echo :i }
+/v/tmp/foo/bar/1
+/v/tmp/foo/bar/2
+/v/tmp/foo/bar/3
+/v/tmp/foo/bar/4
+
+```
+
+
+Now try the same for loop with a constructed  path:
+
+```
+vish >for i in "/v/tmp/foo/:{m}/*" { echo :i }
+/v/tmp/foo/bar/*
+```
+
+But try this in Bash:
+
+```bash
+
+thor   viper  m=bar
+thor   viper  for i in "./tmp/foo/${m}/*"
+> do
+> echo $i
+> done
+./tmp/foo/bar/1 ./tmp/foo/bar/2 ./tmp/foo/bar/3 ./tmp/foo/bar/4
+```
+
 ## There are several local/viper/modules/*/00?_*.vsh that are empty
 
 Remove these and renumber
