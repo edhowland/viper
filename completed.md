@@ -2,6 +2,12 @@
 
 ## 2022-12-31
 
+## Added -i (partially) to ./run-pkg.rb and vip2_pkg.vsh to create the
+a new bufer 'standard_in' that has the .no_ask2_save stored in its metadata
+
+TODO: get it to read from stdin
+
+
 ## created process_s for all current packages: repl (./ivsh.rb), vish and vip2
 
 
