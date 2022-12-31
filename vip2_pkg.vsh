@@ -4,4 +4,4 @@ mpath=":{lhome}/packages/vip2.d/modules::{mpath}"
 import start
 load viper
 import post
-when_load vip2 { process_v viper; open_vip_files; process_l viper; announce; meta vip }
+when_load vip2 { process_v viper; process_s viper; process_e viper; open_vip_files; process_l viper; announce; meta vip }
