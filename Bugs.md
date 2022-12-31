@@ -627,6 +627,12 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## import on empty directory fails
+
+This is because the ls command will report its glob passed to it
+
+???_*.vsh : No such file or diractory
+
 ## If in Viper and either Command or in Vish, type exit. get bad error message:
 
 ```
