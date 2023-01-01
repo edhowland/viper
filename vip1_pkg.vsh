@@ -1,4 +1,4 @@
-rem vip2_pkg.vsh the main meta package to load and start running Viper editor
+rem vip1_pkg.vsh the main meta package to load and start running Viper editor TODO: move this back to vip2_pkg.vsh
 load_viper_paths
 mpath=":{lhome}/packages/vip2.d/modules::{mpath}"
 import start

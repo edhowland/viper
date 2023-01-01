@@ -665,22 +665,23 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## Whenever you call getline prompt the screen reader does not output the prompt
+
+This happens for meta_semicolon Command
+and  for ctrl_f, ctrl_r
+
+How does this work in 2.0.11 and previous versions?
+
 ## import on empty directory fails
 
 This is because the ls command will report its glob passed to it
 
 ???_*.vsh : No such file or diractory
 
-## If in Viper and either Command or in Vish, type exit. get bad error message:
-
-```
-
-vish >exit
-VirtualMachine::ExitCalled
-exitting Vish
-```
 
 ## load of one module cannot load another module
+
+### Corrected yet?
 
 E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang
 which does not get executed

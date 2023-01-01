@@ -1,5 +1,16 @@
 # completed bugs
 
+## 2023-01-01
+
+## If in Viper and either Command or in Vish, type exit. get bad error message:
+
+```
+
+vish >exit
+VirtualMachine::ExitCalled
+exitting Vish
+```
+
 ## 2022-12-31
 
 ## Added -i (partially) to ./run-pkg.rb and vip2_pkg.vsh to create the

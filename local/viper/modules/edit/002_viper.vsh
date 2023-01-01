@@ -70,11 +70,11 @@ _mode=viper bind ctrl_v { mypos=:(position :_buf); cat < :_clip | ins :_buf | no
 store { data=:(cat); echo "ctrl_v,:{data}" | enq ":{_buf}/:{_keysink}" } /v/klogs/viper/ctrl_v
 _mode=viper bind move_shift_right { mark_exists :_mark || m _ ; echo -n 'lit ' :(at :_buf) } { cat; fwd :_buf }
 _mode=viper bind move_shift_left { mark_exists :_mark || m _ ; echo -n 'lit ' :(at :_buf) } { cat; back :_buf }
-_mode=viper bind ctrl_f { srch_dir=srch_fwd; global srch_dir; echo -n search } { cat; save_pos; raise search_vip_fwd }
+_mode=viper bind ctrl_f { srch_dir=srch_fwd; global srch_dir; echo -n search } { cat; save_pos; do_search fwd }
 log_key_pos ctrl_f
-_mode=viper bind ctrl_r { srch_dir=srch_back; global srch_dir; echo -n search back } { cat; save_pos; raise search_vip_rev }
+_mode=viper bind ctrl_r { srch_dir=srch_back; global srch_dir; echo -n search back } { cat; save_pos; do_search back }
 log_key_pos ctrl_r
-_mode=viper bind ctrl_g { save_pos; fwd :_buf; search_vip_again } { cat }
+_mode=viper bind ctrl_g { save_pos; fwd :_buf } { search_again }
 log_key_pos ctrl_g
 _mode=viper bind meta_d { new_clip; perr -n delete; do_delete } { cat } 
 log_key_clip_sup meta_d

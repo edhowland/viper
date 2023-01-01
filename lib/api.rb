@@ -30,4 +30,5 @@ require_relative 'api/stack'
 
 require_relative 'api/repl_pda'
 require_relative 'api/int_or_error'
+require_relative 'api/reopen_stdin'
 
