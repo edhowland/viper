@@ -2,6 +2,14 @@
 
 # Todo list
 
+## read command should work more like its Bash cousin
+
+E.g. should be able to run a loop over it and break when EOF is reached
+
+```
+loop { read line || break }
+```
+
 ## for loop cannot be given a constructed path with deref expansions in string, either bare nor dquoted
 
 ### This problem is actual a problem with the deref + glob expansions
@@ -44,6 +52,7 @@ thor   viper  for i in "./tmp/foo/${m}/*"
 
 Remove these and renumber
 
+### Also in local/viper/modules/edit as well
 
 ## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
 

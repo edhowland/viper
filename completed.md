@@ -2,6 +2,14 @@
 
 ## 2023-01-01
 
+## Made the -i option work for vip2_pkg.vsh or the vip package that it aspires to be
+
+Changed the arguments to lib/bufnode/openf.rb the fast open
+
+Note: This can also read from standardin to add to an existing buffer.
+But: it will overwrite the end of the buffer after the cursor position.
+Probably only approiate for new empty buffers at this time.
+
 ## If in Viper and either Command or in Vish, type exit. get bad error message:
 
 ```

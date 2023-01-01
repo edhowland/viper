@@ -10,13 +10,23 @@
 
 class Openf < BaseBufferCommand
   def call(*args, env:, frames:)
-    if args.length != 2 || !Hal.virtual?(args[0]) || !Hal.exist?(args[1])
-      env[:err].puts "openf: Argument error. Must have 2 arguments: actual buffer and existing file"
+    if args.length != 2 || !Hal.virtual?(args[0])
+      env[:err].puts "openf: Argument error. Must have 2 arguments: actual buffer and existing file or stdin for reading from standard input"
+      return false
+    end
+    if  (args[1] != 'stdin' && !Hal.exist?(args[1]))
+      env[:err].puts "openf: input must come from an existing file or be the string 'stdin' for reading from standard input"
       return false
     end
     perform(args[0], env: env, frames: frames) do |node|
             buffer = node['buffer']
-    buffer[]= File.read(args[1]).chars
+    if args[1] == 'stdin'
+      inp = $stdin.read
+      $stdin.reopen(File.open('/dev/tty'))
+    else
+      inp = File.read(args[1])
+    end
+    buffer[]= inp.chars
     ''
     end
     true
