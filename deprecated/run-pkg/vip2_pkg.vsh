@@ -1,6 +1,6 @@
 rem vip2_pkg.vsh the main meta package to load and start running Viper editor
 load_viper_paths
-mpath=":{lhome}/packages/vip2.d/modules::{mpath}"
+mpath=":{lhome}/packages/vip.d/modules::{mpath}"
 import start
 load viper
 import post

@@ -2,6 +2,15 @@
 
 ## 2023-01-01
 
+## Changed search via ctrl_f, ctrl_r and ctrl_g to use getline search instead
+
+Made 2 new functions in local/viper/modules/edit/005_search.vsh:
+
+1. do_search {fwd,back}
+2. search_again
+
+
+
 ## Made the -i option work for vip2_pkg.vsh or the vip package that it aspires to be
 
 Changed the arguments to lib/bufnode/openf.rb the fast open
