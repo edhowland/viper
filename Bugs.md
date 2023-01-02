@@ -674,6 +674,10 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## The -i option for ./viper.rb should return to the top of the file
+
+Currently, it places the cursor at the end of the file
+
 ## Whenever you call getline prompt the screen reader does not output the prompt
 
 This happens for meta_semicolon Command
