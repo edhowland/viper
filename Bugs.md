@@ -2,6 +2,8 @@
 
 # Todo list
 
+## Make massive fixes to README.md. Many things ther are now deprecated or removed.
+
 ## read command should work more like its Bash cousin
 
 E.g. should be able to run a loop over it and break when EOF is reached
