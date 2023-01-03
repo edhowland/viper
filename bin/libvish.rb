@@ -7,7 +7,7 @@
 # Above only gets a single of Vish syntax and parses and executes it. You need, at this time, to retype the above, if living in Pry
 require 'reline'
 
-require_relative 'lib/viper'
+require_relative '../lib/viper'
 
 
 def source(path, vm:)
