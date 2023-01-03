@@ -2,11 +2,11 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.12.b
+### Version 2.0.12.c
 
-Pre-alpha release for 2.0.12
+Beta release for 2.0.12
 
-See the file CHANGELOG.md for updates.
+See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 
 Release 2.1: Indy pre-release candidate #1
 
@@ -18,10 +18,10 @@ the ./vish.rb, ./ivsh.rb and ./viper.rb executables. The original: ./bin/vish, .
 and ./bin/viper are essentially the same as their 2.0.11 ancestors, with the
 minor changes mentioned above.
 
-Testers of the .12.a,b and c varients should focus on these 3 files in the root
+Testers of the .12.a,b and c variants should focus on these 3 files in the root
 of this repository. Once 2.0.12 is formerly released, then the .rb files will
 replace in ./bin with no .rb extension. The former executables will be deprecated
-until 2.1.0 is released, at which point they will be removed.
+and placed in the deprecated folder until 2.1.0 is released, at which point they will be removed.
 
 
 ## Abstract
@@ -34,23 +34,13 @@ Viper only attempts an audible interface. Sighted users of the program will only
 
 <https://github.com/edhowland/viper>
 
-### Wiki
-
-The corresponding Wiki for this project is:
-
-[https://github.com/edhowland/viper/wiki](https://github.com/edhowland/viper/wiki)
-
-## Dockerfile
-
-<https://github.com/edhowland/viper/blob/feature/2.0.0/docker/Dockerfile>
-
 
 
 ## System requirements
 
 
 
-Viper requires Ruby versions: 2.4 and above
+Viper requires Ruby versions: 2.7 and above
 
 ### Important Ruby version note:
 
@@ -61,61 +51,14 @@ feature. It was improved in Ruby 3.0. This version of Vier/Vish was tested in
 in Ruby version 3.1.2.
 
 
-### Note on keyboard and Terminal emulators
+## Note on terminal emulators for use with Viper.
 
-Viper makes liberal use of  the Meta or Alt key for many of its functions.
-Some terminal emulators need to be reconfigured to output the correct sequence
-of bytes for a Alt modifier plus key combination.
+Viper uses several keys and their  outputs to control the functions of the editor.
+Examples of these are the cursor movement keys, the PgUp, PgDn and Home and End keys
+along with many of the Function keys. These can vary between operating systems
+and terminal emulators and also with screen readers in the mix.
 
-Before trying to use Viper, check for your terminal emulator's keyboard profile or shortcut settings.
-Below find help for terminal emulators that can be used with Viper:
-
-### Gnome Terminal when using the Orca screen reader
-
-Gnome terminal should work out of the box with the Alt key as the meta key.
-You may want to change the function key setup, though.
-As an alternative to changing the function keys, you may substitute Alt plus 1, 2, 3 ... 0 for  F 1, F 2, F 3 ... F ten.
-
-In addition, the Orca screenreader does not always echo the output from Viper when certain keys are pressed.
-This affects the cursor movement keys, the back tab (Shift Tab) and the backspace (Delete back).
-As an alternative to these keys, you can alias unbound meta (Alt+) to these keys.
-The file in the Viper package orca_alias.vsh maps these for you.
-Add the following line to your ~/.vishrc
-
-```
-source ":{vhome}/etc/keymaps/orca_alias.vsh"
-```
-
-
-### Orca help
-
-To see a list of what these keys are mapped to: Invoke command mode by
-pressing Alt pluss semicolon and entering the following command and then pressing Enter.
-
-```
-help orca
-```
-
-
-### Mac Terminal app using Voice Over
-
-Many of the default Option plus key combinations in the Mac OS Terminal application,
-output extended characters like the Euro symbol, ellipsis , etc.
-Voice over will output the names of these keys.
-To get the meta key behaviour, open the Terminal app preferences dialog
-by pressing the Command key (the Apple key) plus comma while in the Terminal app.
-Select the keyboard tab. Move down until you hear:
-Use Option as Meta key checked
-Make sure the  option is checked. Exit the dialog by pressing the Escape key.
-
-In addition, you should also add the Page Up and Page Down keys to the keys table.
-Set them to output the following text when pressed.
-
-- PageUp : Esc [5~
-- PageDown : Esc [6~
-
-Alternatively, you can press Shift plus PageUp or Shift plus PageDown
-to get the same effect temporarily.
+For more on this see: [Terminals](Terminals.md)
 
 
 ## Installation

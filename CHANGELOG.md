@@ -1,5 +1,183 @@
 # Changelog for Viper project
 
+## Release 2.0.12.c
+
+Beta release for Release 2.0.12
+
+2023-01-03
+
+### Features
+
+- New command ./viper.rb - possible candidate replacement for ./bin/viper
+- Relocation of all *.vsh scripts into a single top-level folder: ./local
+- Ruby code for ./viper.rb, ./vish.rb and ./ivsh.rb is now just a launcher for Vish language.
+- New concept: modules. Modules are imported.
+- New concept: Packages. Packages can be loaded
+
+### Deprecations
+
+- Many rarely used options were removed.
+
+#### Retained options
+
+- '-s source.vsh' sources the file. Many '-s' options can be supplied.
+- '-e "vish command[s]"' Evaluates all '-e' strings after Vish bootup, '-s source.vsh' options have been processed and before the main application gets started.
+- '-c'. Only on ./vish.rb. Will syntax all source files on the  arguments.
+- '-l <positive integer>' Only on ./viper.rb. Will goto the line number  of the first supplied filename loaded.
+- '-i'. Only on ./viper.rb. Reads from stdin into buffer: "standard_in".
+  * This buffer is the first buffer in the buffer ring upon startup.
+- '-v'. On all executables. Reports the version of the of this release and immediately exits.
+  * The reported version for this release is : 2.0.12.c
+  * This can be displayed by 'echo :version' in any REPL or Command mode.
+
+Note: The -h' or help options is not deprecated. This is unfinished code
+and will be returned in release 2.0.12 and later.
+
+
+
+#### Previous scripts that have been removed or replaced.
+
+- ./viper.rb
+
+Previous ./scripts/005_search.vsh has been replaced with :
+./local/viper/modules/edit/005_search.vsh
+
+- scripts/003_command.vsh has been completely removed.
+  * This functionality has been replaced by Ruby's Reline builtin library.
+  * This also is true for the search prompt method.
+- scripts/012_meta.vsh
+  * There is no longer any "meta modes". The main Viper run loop is just
+    the function: 'vip'
+
+### Bug fixes
+
+### Fixed the rm command
+
+All commands: cp, mv and rm now all check for existance and report errors
+if any source is missing.
+
+
+
+#### Mixing of Globbing and alias referencing now works properly.
+
+There is now error type checking on trying to pass a value to a Glob that is not a member of the QuotedString class or its descendants.
+
+
+#### The source command can now read from anywhere inside the VirtualFileSystem or VFS.
+
+
+Also, previously, the source command did not set variables in the global context.
+It did set aliases and functions. Now it does all 3.
+
+
+#### The :path command now includes  vfs/bin and viper/bin.
+
+```
+echo :path
+/v/viper/bin:/v/vfs/bin:/v/cmdlet/misc:/v/bin
+
+```
+
+... in addition to /v/bin and /v/cmdlet/misc
+
+
+
+
+### The ./local/ directory structure.
+
+```
+ls -d ./local/*
+local/etc
+local/packages
+local/plugins
+local/vfs
+local/viper
+local/vish
+```
+
+
+This directory layout is somewhat inspired by both Unix's /usr/local/* and the ~/.local/*
+from freedesktop.org.
+
+Note:  The old ./etc have been redistributed to ./local/etc and other places.
+The ./scripts/*.vsh have been moved to ./local/viper/modules/edit/*.vsh
+
+The ./ext/{rb,vsh} scripts and .json macro files
+have been moved to packages in ./local/plugins/ruby_lang and vish_lang
+
+
+These changes make the executables: ./vish.rb and ./ivsh.rb able to load faster
+because, by default, do not import the viper/modules/edit module.
+You can, however, still load the 'viper' package and recover all the functionality therein.
+Indeed, that is what now happens in the ./vshtest/alltests.vsh, so that Viper editor tests can still run.
+
+These 
+### Modules and packages
+
+#### Modules
+
+Modules are simply directories containing .vsh files that can be sourced
+via a single command: import.
+
+```
+import edit
+```
+
+Note: The edit module, located in ./local/viper/modules, was the old ./scripts directory.
+
+Modules are searched within the :mpath variable. This string contains
+full pathnames delimited by a ':'.
+Generally, modules should only contain definitions for variables, aliases and functions.
+However, this restriction is neither enforced nor even followed in 2.0.12.c.
+
+#####  The module filename protocol.
+
+Any filenames ina module directory must obey the following pattern:
+
+001_xxxx.vsh ... 099_xxxx.vsh. E.g. the regex: '???_*.vsh'
+This allows for 1000 files in a module. From 000_*.vsh to 999_*.vsh
+
+If there is a file in the directory named: 'on_import.vsh', it will be sourced
+after all the other ???_*.vsh have been loaded in order.
+Any Vish commands can been run from that file.
+Any other files or directories in a module directory are ignored by the import command.
+
+
+#### Packages
+
+A package is simply a file that can be sourced. It too is also searched in a :lpath
+variable. 
+
+The :lpath variable contains a number of full pathnames that are delimited with a ':' character
+like the :path and the :mpath variables.
+
+Packages are loaded via the 'load' command.
+
+##### The package filename protocol
+
+For any package to be loaded via the 'load package_name' command, it must have the following
+name convention: <package_name>_pkg.vsh. And it must also be found somewhere in the :lpath search string.
+
+
+Packages, being just Vish files, can do anything they please.
+Generally, a package might setup some global variables, import some packages
+or run some commands. Packages can also load other packages. This is what happens
+with the 'vip' package which loads the 'viper' package.
+You can thing of any package  as a simple package or a meta package.
+
+When a package is loaded, it creates a directory in the VFS in /v/packages/<package_name>
+If that package directory exists and contains a Vish source file named: on_load,
+that file will be exec'ed, meaning it must be a stored lambda or block.
+To make this easier to  create, there is function called: when_load <package_name> { Vish commands go here }.
+
+The on_load will be executed after the entire <package_name>_pkg.vsh has been loaded.
+
+##### Additional directory naming conventions.
+
+This is not enforced, but the convention is to create a directory called <package_name>.d/ in the same directory
+as the <package_name>_pkg.vsh package source file.
+
+
 ## Release 2.0.12.b
 
 Pre-alpha interim release for 2.0.12
