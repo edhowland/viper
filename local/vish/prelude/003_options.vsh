@@ -50,3 +50,9 @@ function valoptexec(o, fn) {
   __last_wd=:pwd
   test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); (cd :__last_wd; exec :fn ":{src}") }) 
 }
+function setopthelp(opt, value) {
+   ord="/v/options/:{__FILE__}/help/order"
+   test -X :ord || mkarray :ord
+   echo :opt | push :ord
+   echo -n  :value :_ > "/v/options/:{__FILE__}/help/:{opt}"
+}

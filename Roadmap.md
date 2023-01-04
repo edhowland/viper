@@ -80,6 +80,16 @@ Move all macro and other user specific from :vhome/doc/* to to ~/.config/vish/vi
 
 The above requires  a move to a initialization strategy upon the first step post-installation.
 
+### Create new Vish application: vupdate, or vishup
+
+Application takes command like 'go new' or 'cargo new'
+
+- vishup init : Creates ~/.config dirs, and copies sone ./local user updatable content therein
+- vishup packages ls - Lists currently known packages with pathnames
+- vishup modules ls - list currently known modules
+vishup paths ls - list known Vish paths for executables (:path), modules (:mpath) and packages (:lpath)
+vishup test - runs all tests or just selected tests in vshtest/ dir.
+- vishup startup ls - Lists the initialization startup order: ./local/boot, ~/.vishrc, :proj/.vishrc
 The rationale for this is to prevent users  from clobbering the built-in macro stuff
 whenever they perform a git pull to get the latest release.
 
