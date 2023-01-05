@@ -2,6 +2,14 @@
 
 ## 2023-01-05
 
+## Fix up the local/packages/viper_pkg.vsh and function viper.
+
+should not have a meta vip inside it
+
+
+Fix: Removed meta before vip at end of viper function.
+Also removed the apply fn_2, as it is redundant
+
 ## Moved ./scripts/ , ./etc/ , ./ext/ to deprecated/2.0.12.c/
 
 Ran all tests and found magic file path in minitest/test_glob.rb. Changed etc to local to fix

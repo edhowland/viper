@@ -5,7 +5,6 @@ import keymaps
 import edit
 function viper(fname) {
   o :fname
-  _mode=viper apply fn_2
-  meta vip
+  vip
 }
 when_load viper { load vish_lang; load ruby_lang; nop process_e viper }

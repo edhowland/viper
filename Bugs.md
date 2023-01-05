@@ -2,9 +2,6 @@
 
 # Todo list
 
-## Fix up the local/packages/viper_pkg.vsh and function viper.
-
-should not have a meta vip inside it
 
 ## Make massive fixes to README.md. Many things ther are now deprecated or removed.
 
