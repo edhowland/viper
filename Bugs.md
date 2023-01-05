@@ -728,24 +728,6 @@ Remember, the original  idea was to allow for movement of the marked pointer
 around without losing iits position in the environment of inserts and deletes
 
 
-## viper option parsing
-
-### -n, --no-start breaks
-
-Note: this is broken even in 2.0.10 and later
-
-```bash
-
-```
-
-### The -R or run only and exit option really does nothing
-
-```bash
-./bin/viper -R -e nop
-Command not found: nop
-```
-
-
 
 
 ## The sh command should prevent users from passing a VFS pathname anywhere in the arguments

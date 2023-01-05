@@ -1,5 +1,34 @@
 # Wont fix
 
+## 2023-01-05
+
+
+## viper option parsing
+
+### -n, --no-start breaks
+
+Note: this is broken even in 2.0.10 and later
+
+```bash
+
+```
+
+
+
+### The -R or run only and exit option really does nothing
+
+```bash
+./bin/viper -R -e nop
+Command not found: nop
+```
+
+
+
+
+
+Reason: All option parsing moved to Vish see local/vish/prelude/003_options.vsh
+
+
 ##  2022-12-23
 
 ### Removal of StubDummy from test code:
