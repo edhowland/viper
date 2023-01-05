@@ -51,11 +51,7 @@ thor   viper  for i in "./tmp/foo/${m}/*"
 ./tmp/foo/bar/1 ./tmp/foo/bar/2 ./tmp/foo/bar/3 ./tmp/foo/bar/4
 ```
 
-## There are several local/viper/modules/*/00?_*.vsh that are empty
 
-Remove these and renumber
-
-### Also in local/viper/modules/edit as well
 
 ## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
 

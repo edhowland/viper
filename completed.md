@@ -2,6 +2,16 @@
 
 ## 2023-01-05
 
+## There are several local/viper/modules/*/00?_*.vsh that are empty
+
+Remove these and renumber
+
+
+
+### Also in local/viper/modules/edit as well
+
+
+
 ## Renamed local/viper/modules/edit/0??_*.vsh to be numbered correctly
 
 
