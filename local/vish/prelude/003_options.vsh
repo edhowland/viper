@@ -56,3 +56,6 @@ function setopthelp(opt, value) {
    echo :opt | push :ord
    echo -n  :value :_ > "/v/options/:{__FILE__}/help/:{opt}"
 }
+function sethelpbanner() {
+   echo :_ >> "/v/options/:{__FILE__}/help/banner"
+}

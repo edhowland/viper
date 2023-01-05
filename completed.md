@@ -1,5 +1,17 @@
 # completed bugs
 
+## 2023-01-05
+
+Added function sethelpbanner to set the possible -h help banner.
+Can be called multiple times to have additonal lines.
+
+Is recognized by process_h function by looking in:
+
+/v/options/:{mod}/help/banner
+
+
+
+
 ## 2023-01-01
 
 ## Changed search via ctrl_f, ctrl_r and ctrl_g to use getline search instead
