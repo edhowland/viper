@@ -2,6 +2,9 @@
 
 ## 2023-01-05
 
+## Renamed local/viper/modules/edit/0??_*.vsh to be numbered correctly
+
+
 ## Fix up the local/packages/viper_pkg.vsh and function viper.
 
 should not have a meta vip inside it

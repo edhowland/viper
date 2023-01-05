@@ -27,7 +27,7 @@ $stderr.puts "result: #{result.class.name}"
     vhome = @vm.fs[:vhome]
     Hal.chdir(vhome)
 
-      g = Glob.new QuotedString.new('scripts/00[12]_*.vsh')
+      g = Glob.new QuotedString.new('local/viper/modules/edit/00[12]_*.vsh')
       result = g.call env: @vm.ios, frames: @vm.fs
       assert !result.empty?
       assert_eq 2, result.length
