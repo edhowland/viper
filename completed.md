@@ -2,6 +2,10 @@
 
 ## 2023-01-05
 
+## Moved ./scripts/ , ./etc/ , ./ext/ to deprecated/2.0.12.c/
+
+Ran all tests and found magic file path in minitest/test_glob.rb. Changed etc to local to fix
+
 Added function sethelpbanner to set the possible -h help banner.
 Can be called multiple times to have additonal lines.
 

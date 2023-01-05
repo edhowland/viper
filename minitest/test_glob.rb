@@ -17,7 +17,7 @@ class GlobTests < MiniTest::Test
   def test_glob_in_physical_layer_path_slash_star_returns_non_empty_array
     vhome = @vm.fs[:vhome]
     Hal.chdir(vhome)
-      g = Glob.new QuotedString.new('etc/*')
+      g = Glob.new QuotedString.new('local/*')
       result = g.call env:@vm.ios, frames:@vm.fs
 $stderr.puts "result: #{result.class.name}"
       assert_is result, Array
