@@ -10,19 +10,6 @@ See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 
 Release 2.1: Indy pre-release candidate #1
 
-### Important information regarding this patch.point release.
-
-The patch point releases: 2.0.12.a, 2.0.12.b and now 2.0.12.c contain minor code
-changes to the base in ./lib/*/*.rb. Most of the major changes are occurring on
-the ./vish.rb, ./ivsh.rb and ./viper.rb executables. The original: ./bin/vish, ./bin/ivsh
-and ./bin/viper are essentially the same as their 2.0.11 ancestors, with the
-minor changes mentioned above.
-
-Testers of the .12.a,b and c variants should focus on these 3 files in the root
-of this repository. Once 2.0.12 is formerly released, then the .rb files will
-replace in ./bin with no .rb extension. The former executables will be deprecated
-and placed in the deprecated folder until 2.1.0 is released, at which point they will be removed.
-
 
 ## Abstract
 
@@ -100,7 +87,7 @@ See the documentation for rbenv to see how to install newer versions:
 
 ## Usage
 
-Run ./bin/viper --help to see a list of command line flags.
+Run ./bin/viper -h to see a list of command line flags.
 Without any non-flag arguments, Viper starts up in editor mode on the buffer : "unnamed1'.
 Otherwise, any non-flag arguments on the command line are assumed to be files
 or will become new files. Viper, upon startup, will announce the current buffer.
@@ -114,22 +101,22 @@ can be used to control the Viper editor. See the file: CommandKeys.md
 E.g. ctrl_s will save the current buffer into the current filename. And ctrl_q
 will exit the Viper editor andask to save any modified buffers.
 F2 speaks the name of the current buffer with its filename.
-Ctrl+T will switch to next file entered on the command line.
+Ctrl+T will switch to next file entered on the command line. Repeating this key
+will continue to move through all buffers and eventually return to the first buffer.
 
 ### Editor modes
 
 - Insert mode (also called viper mode): The standard mode. This mode is activated when Viper starts up.
-- Search mode:  Activated when either ctrl_f (forward search) or ctrl_r (reverse). Previous search queries can be accessed with the up and  down arrows. See Searching.md
+- Search mode:  Activated when either ctrl_f (forward search) or ctrl_r (reverse).   Control G will repeat the last search in the last search direction.
 - Command mode: Enter a single line of Vish script and it will be executed. See Vish.md
   * This mode is also used to open a new filename with the 'o' command.
-  * You can also save and exit the Viper editor with: 'save; exit'
+  * You can also save and exit the Viper editor with: 'save; exit', or if in insert mode with the Control Q key.
 
 #### Extra modes
 
 These modes can be entered with first entering command mode.
 
 - vish mode: Enters the Vish language REPL. Enter commands or define functions, set variables and inspect things. Hit ctrl_d to exit this mode.
-- pry mode. Enters the pry Ruby debugger. This mode is for advanced debugging. Hit ctrl_d to exit this mode.
 
 
 
@@ -137,9 +124,10 @@ These modes can be entered with first entering command mode.
 
 See the file: Modes.md for a more complete list of various modes.
 
-### Other activation modes for Viper
+### Other executables
 
 - ./bin/vish : Runs a script a file with extension: .vsh.
+  * ./bin/vish -c will chack all file arguments  for syntax correctness.
 - ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press ctrl_d to exit or type 'exit' and press Enter.
 
 
