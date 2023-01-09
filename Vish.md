@@ -7,13 +7,22 @@ Most features of the editor are implemented as Vish commands. For instance,
 a keypress is bound to an execution block. When the key is pressed,
 it is looked up in the current mode and then the code block is executed.
 
-## Vish modes in the standard Viper insert mode.
+## Scope of this document
 
-When Viper is invoked, it starts up in insert mode. In this mode, there are
-2 ways to interact with the Vish language.
+This document is not a full specification of the Vish language.
+It only covers a limited number of features and is not exhaustive of Vish declarations
+nor the runtime behaviour.  Further information on the Vish language
+will be eventually be made on the Viper wiki.
 
-1. Command mode
-2. Vish REPL or the Read-Eval-Print-Loop interactive mode.
+This document describes some scenarios you might encounter in using Vish in the Viper
+editor to perform some simple actions.
+
+E.g. 
+
+- Opening and saving files
+- Manipulating the current edit buffer along with the current clipboard
+- Exploring on the current directory or peeking around the  virtual file system
+
 
 ## Vish is similar to Unix shells you may have used recently.
 
@@ -29,6 +38,36 @@ cat bar.txt | ins :_buf
 
 The ins is a special Viper command that inserts at some buffer. The variable
 ':_buf' refers to the current buffer.
+
+
+### Setting and de-referencing variables
+
+In Bash and similar shells, you set a variable with an syntax like this:
+
+```bash
+foo=bar
+```
+
+This works just the same in Vish. Note: no spaces between the variable name,
+the '=' sign and the value. To dereference thsi variable
+and gets its set value, in Bash you would prefix it
+with the '$' sigil. In Vish, this the ':' sigil. (The '$' is reserved for future  use.)
+
+Bash example:
+
+```bash
+foo=bar
+echo $foo
+bar
+```
+
+Vish example:
+
+```
+foo=bar
+echo :foo
+bar
+```
 
 ## Invoking the Vish REPL to look around
 
@@ -48,6 +87,12 @@ There are 3 ways to invoke the Vish Read-eval-print loop or REPL.
 
 Any Vish code written in a file  can be invoked with the ./bin/vish executable.
 
+```bash
+$ ./bin/vish my-script.vsh
+```
+
+Note: The '.vsh' extension is a convention to distinguish from a '.sh' for Bash scripts.
+
 You can treat these as shell scripts that can be used whereever you might use a
 Bash shell script. Or for programming tasks you might use Ruby or Python for
 similar tasks.
@@ -66,11 +111,6 @@ It does not have:
 - case statement.
 
 
-
-
-
-
-
 In all three executables: ./bin/viper, ./vish and ./bin/ivsh  the options '-s' and '-e'
 are recognized.
 
@@ -84,7 +124,7 @@ are processed before all/any '-e' options are  processed.
 ## Variables
 
 Vish variables act almost like their Bash cousins. All variables are of type
-string except for the special values: 'true' and 'false'.
+string except for the special Boolean values: 'true' and 'false'.
 Variables can be dereferenced via the ':' sigil being placed befor the variable name.
 
 ```
@@ -112,7 +152,7 @@ Now the prompt in the REPL will be: 'Ivsh>>'
 
 ###f Setting variables in in source files.
 
-Any variables declared in a file of Vish source code and then loaded by the 'source' or '-s file.vsh' option
+Any variables declared in a file of Vish source code and then loaded by the 'source' command or '-s file.vsh' option
 will become global variables.
 This is not true for variables set in the '-e "foo=bar"' option.
 But can be made global via the 'global' statement.
@@ -133,13 +173,13 @@ once the sub command exits. This can NOT be overriden by the 'global' command.
 
 Vish has 2 ideas imported from functional programming languages.
 
-- First class executation blocks.
+- First class execution blocks.
 - Lambdas
 
 Both of these can be stored in a variable or passed to a function.
 They also both can be stored in the Virtual File System (VFS). See below.
 
-A block is never executed unless explicitly.
+A block is never executed unless done explicitly.
 
 ```
 ablock={ echo I am a block }
@@ -159,6 +199,26 @@ baz
 exec :my_lamb
 bar
 ```
+
+
+The 'exec' command is used for both running a a block or a lambda. In the latter case,
+if any arguments are passed after the lambda, they get passed as parameters to the lambda.
+
+```
+exec &(foo, bar) { echo foo is :foo and bar is :bar } 42  99
+foo is 42 and bar is 99
+```
+
+Additional arguments passed to a block instead of a lambda are ignored.
+Variables set in a block affect the current scope, but not in the body of a lambda.
+Variables set inside the body of a lambda are treated like those in a  the body of a function.
+They are local to the executation lifetime of the lambda. However, they can be made global
+with the 'global' statement like for functions.
+
+
+### Lambdas are closures
+
+Any free variable dereferenced inside the body of a lambda will have the value of
 
 
 ## The Virtual File System

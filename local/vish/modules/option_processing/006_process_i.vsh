@@ -4,5 +4,6 @@ function process_i(mod) {
    open standard_in
    touch ":{_buf}/.no_ask2_save"
    openf :_buf stdin
+   beg :_buf
    rem reopen_stdin
 }

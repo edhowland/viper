@@ -1,5 +1,37 @@
 # completed bugs
 
+## 2023-01-09
+
+
+## The -i option for ./viper.rb should return to the top of the file
+
+Currently, it places the cursor at the end of the file
+
+
+Fix: Added beg :_buf to end of fn process_i
+
+
+
+
+
+ ## scratch alias has failed to work now
+
+```bash
+./bin/viper -e scratch
+```
+
+First buffer is Unnamed1
+second buffer is scratch1
+
+Fix: In open_vip_files fn, added conditional not test -z :_buf which then does a nop
+This then just ignores any buffers that might have been created before post processing of 
+open the files on the command line. The scratch fn does just that
+
+
+
+
+
+
 ## 2023-01-05
 
 ## There are several local/viper/modules/*/00?_*.vsh that are empty
