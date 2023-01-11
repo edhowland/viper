@@ -53,6 +53,22 @@ thor   viper  for i in "./tmp/foo/${m}/*"
 
 
 
+
+## Although this is a Vish parser bug, make the following work: The shbang line at the top of ./myscript.vsh scripts
+
+```
+#!/usr/bin/env vish
+echo I in am running from Vish
+```
+
+```bash
+./myscript.vsh
+Syntax error
+
+````
+
+
+
 ## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
 
 This just cleans up the location of functionality from modules to packages

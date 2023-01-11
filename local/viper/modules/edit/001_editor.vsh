@@ -93,7 +93,7 @@ mkmode delete
 clone_init search
 clone_init command
 indent=2; global indent
-pglines=10; global pglines
+test -z :pglines && pglines=10
 function vip() {
 resolve_ext :_buf
 _mode=viper

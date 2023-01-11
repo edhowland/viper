@@ -10,6 +10,7 @@ it is looked up in the current mode and then the code block is executed.
 ## Scope of this document
 
 This document is not a full specification of the Vish language.
+This document is limited to some features of interest to users of the Viper code and text editor.
 It only covers a limited number of features and is not exhaustive of Vish declarations
 nor the runtime behaviour.  Further information on the Vish language
 will be eventually be made on the Viper wiki.
@@ -21,7 +22,7 @@ E.g.
 
 - Opening and saving files
 - Manipulating the current edit buffer along with the current clipboard
-- Exploring on the current directory or peeking around the  virtual file system
+- Exploring in the current directory or peeking around the  virtual file system
 
 
 ## Vish is similar to Unix shells you may have used recently.
@@ -125,7 +126,8 @@ are processed before all/any '-e' options are  processed.
 
 Vish variables act almost like their Bash cousins. All variables are of type
 string except for the special Boolean values: 'true' and 'false'.
-Variables can be dereferenced via the ':' sigil being placed befor the variable name.
+As mentioned above, you set a variable like in Bash, but you dereference it
+with the ':' placed before the name of the variable instead of the '$' as used in Bash.
 
 ```
 avar=foo
@@ -136,7 +138,7 @@ foo
 All variables are global by default unless they are created in inside the body
 of a function or a lambda. Variables of the same name as a global variable
 defined inside the body of a function or lambda will shadow the global variable of the same name
-until the function returns. If the 'global varname1 varname2' is placed
+until the function returns. If the 'global keyword ' is placed
 after the variable definition, that variable is now set in the global namespace.
 
 ### Special variables
@@ -149,6 +151,25 @@ prompt='Ivish >>'
 ```
 
 Now the prompt in the REPL will be: 'Ivsh>>'
+
+
+Here is another practical example of changing a special variable pglines
+
+The variable 'pglines' control the number of lines to advance invoking the
+pager in the editor with the 'meta_a' key (Alt + "a"). By default
+it is set to 10 lines. You could, for instance, modify this to a higher
+number. If you edit your ~/.vishrc or your current directory ./.vishrc
+to the folloing.
+
+```bash
+./bin/viper ~/.vishrc
+pglines=24
+<Control S then Control Q>
+```
+
+Now in an editing session, whenever  you press Alt + 'a', it will page forward
+24 lines at a time.
+
 
 ###f Setting variables in in source files.
 
@@ -167,7 +188,29 @@ bar
 
 
 Variables set inside either a Vish sub command or  a command substitution will not persist
-once the sub command exits. This can NOT be overriden by the 'global' command.
+once the sub command exits. This can NOT be overrode by the 'global' command.
+
+
+### One further note about  variable scopes
+
+In Vish, you will encounter execution blocks often. These are further discussed
+in the section on Functional programming below. It should be mentioned here,
+however, that variables either created or set to a new value inside an execution
+block live in the same scope as the declaration of the block. In other words,
+if you change a variable inside the bock, the new value will persist when the block
+exits. This is not the behaviour of either functions or lambdas.
+
+```
+foo=bar
+exec { foo=baz }
+echo :foo
+baz
+```
+
+
+Note the '{', '}' surround the  block itself.
+And the 'exec' command executes it directly.
+
 
 ## Functional programming constructs
 
@@ -179,7 +222,7 @@ Vish has 2 ideas imported from functional programming languages.
 Both of these can be stored in a variable or passed to a function.
 They also both can be stored in the Virtual File System (VFS). See below.
 
-A block is never executed unless done explicitly.
+A block is never executed unless done explicitly., usually wiht the the 'exec' command.
 
 ```
 ablock={ echo I am a block }
@@ -189,6 +232,7 @@ I am a block
 
 
 Lambdas are closures. They capture the state of variable binding at the time they are created.
+Lambdas also can take parameters like a function.
 
 ```
 foo=bar
@@ -210,7 +254,7 @@ foo is 42 and bar is 99
 ```
 
 Additional arguments passed to a block instead of a lambda are ignored.
-Variables set in a block affect the current scope, but not in the body of a lambda.
+Variables set in a block affect the current scope, but not in the body of a lambda, as mentioned above in the discussion about variable scope.
 Variables set inside the body of a lambda are treated like those in a  the body of a function.
 They are local to the executation lifetime of the lambda. However, they can be made global
 with the 'global' statement like for functions.
@@ -219,13 +263,30 @@ with the 'global' statement like for functions.
 ### Lambdas are closures
 
 Any free variable dereferenced inside the body of a lambda will have the value of
+the outer variable when the lambda was created.
+
+
+Example of a closure:
+
+```
+spam="taste great"
+howtaste=&() { echo How does spam taste? It ; exec :spam }
+function spamtastes(tastes) {  spam="tastes :{tastes}"; global spam }
+echo spam :spam
+spam tastes great
+spamtastes awful
+echo spam :spam
+spam tastes awful
+exec :howtastes
+spam tastes great
+```
 
 
 ## The Virtual File System
 
 When the Vish runtime gets going, a kind of virtual file system is "mounted" in the pseudo directory: '/v/'.
 Almost all of Vish and Viper data is stored somewhere in the VFS. For instance theViper
-buffers are stored therein.  
+buffers and clipboards  are stored therein.  
 
 Note: Many more things besides files and directories can be stored the VFS.
 
