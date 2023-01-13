@@ -689,7 +689,18 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## The result of the line_number command is an integer, and not compat w/ the goto command
 
+```
+l=:(line_number :_buf)
+for i in 1 2 3 4 { down :_buf }
+rem line number is 4 larger than it was before
+goto :l
+rem current line number is unchanged
+```
+
+Is this a problem with line_number or goto?
+Note trying to output it with 'echo :l' does not work
 
 ## Whenever you call getline prompt the screen reader does not output the prompt
 
