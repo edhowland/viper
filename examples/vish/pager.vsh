@@ -7,9 +7,7 @@ function floor(num) {
    echo :num
 }
 function page_back() {
-perr in page_back saved is :saved
    saved=:(floor :(expr :saved - :(expr 2 '*' :pglines))); global saved
-perr after change saved is now :saved and pglines is :pglines
    suppress { goto :_buf  :saved }
    pager
 }
@@ -21,7 +19,7 @@ fopen :file
 saved=1
 pager
 loop {
-   echo Press space to continue backspace to go back or q to quit
+   echo; echo Press space to continue backspace to go back or q to quit. Current line if :(line_number :_buf)
    key=:(raw - | xfkey)
    pg_apply :key
 }
