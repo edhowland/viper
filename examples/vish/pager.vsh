@@ -8,8 +8,7 @@ function floor(num) {
    echo :num
 }
 function page_back() {
-   saved=:(floor :(expr :saved - :(expr 2 '*' :pglines))); global saved
-   suppress { goto :_buf  :saved }
+   suppress { goto :_buf :(floor :(expr :(line_number :_buf) '-' :(expr 2 '*' :pglines))) }
    pager
 }
 alias second="first :(rest :argv)"
@@ -19,7 +18,6 @@ echo file to page is :file
 lines=:(wc -l < :file)
 echo line count is :lines
 fopen :file
-saved=1
 pager
 loop {
    echo; echo Press space to continue backspace to go back or q to quit. '(' :file ')' :(pct :(line_number :_buf) :lines) '%'
