@@ -37,7 +37,7 @@ ins :_buf <foo.txt
 cat bar.txt | ins :_buf
 ```
 
-The ins is a special Viper command that inserts at some buffer. The variable
+The ins is a special Viper command that inserts text from standard in at the current cursor of some buffer. The variable
 ':_buf' refers to the current buffer.
 
 
@@ -110,6 +110,23 @@ It does not have:
 
 - while loops
 - case statement.
+
+### An example Vish script to explore
+
+In the directory ./examples/vish is a file: pager.vsh that implements a pager like
+'more' or 'less' from Linux.  It displays the :pglines from a file passed as
+its first argument and waits for a keypress.
+
+```bash
+vish examples/vish/pager.vsh Roadmap.md
+....
+Enter space to continue backspace to go back or q to quit
+```
+
+The pglines variable is set to 10 by default but could
+be set in your ~/.vishrc or ./.vishrc to, say 24.
+
+This Vish script shows a number of features of the Vish language referenced in this document.
 
 
 In all three executables: ./bin/viper, ./vish and ./bin/ivsh  the options '-s' and '-e'
