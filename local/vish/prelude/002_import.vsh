@@ -6,7 +6,7 @@ function import(module) {
   test -e :pth && exec { perr module :pth cannot be empty; return false }
   mkdir "/v/modules/:{module}"
   cd :pth
-  for s in ???_*.vsh { source :s; cd :pth }
+  suppress { ls ???_*.vsh } && for s in ???_*.vsh { source :s; cd :pth }
   test -X on_import.vsh && source on_import.vsh
 cd :latest_wd
 }

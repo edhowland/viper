@@ -28,3 +28,4 @@ source test_ls.vsh
 source test_alias.vsh
 source test_version.vsh
 source test_boolean.vsh
+source test_import.vsh

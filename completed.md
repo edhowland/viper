@@ -2,6 +2,15 @@
 
 ## 2023-01-18
 
+## import on empty directory fails
+
+This is because the ls command will report its glob passed to it
+
+???_*.vsh : No such file or diractory
+
+
+
+Fix: with ls :exit_status repaired added suppress { ls ???_*.vsh} && to before for s in ???_*.vsh { ... } in local/vish/prelude/002_import.vsh
 ## HeisenBug: sometimes vshtests/all_tests.vsh fails
 
 ```bash

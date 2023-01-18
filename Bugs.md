@@ -723,12 +723,6 @@ and  for ctrl_f, ctrl_r
 
 How does this work in 2.0.11 and previous versions?
 
-## import on empty directory fails
-
-This is because the ls command will report its glob passed to it
-
-???_*.vsh : No such file or diractory
-
 
 ## load of one module cannot load another module
 
