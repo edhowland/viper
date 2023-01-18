@@ -2,6 +2,19 @@
 
 # Todo list
 
+## The resolve method of Command needs to be refactored
+
+It has too much if/then/else/raise logic.
+Needs to be a more functional approach.
+
+The resolve('command') should return a a valid executable object like a member of BaseCommand, or an alias or function
+It also searches the :path variable.
+
+
+Each type or thing should be its own method that can be independently tested
+Then this should be a fold operation: reduce.
+
+
 
 ## Make massive fixes to README.md. Many things ther are now deprecated or removed.
 
@@ -689,6 +702,7 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+
 ## The result of the line_number command is an integer, and not compat w/ the goto command
 
 ```
@@ -805,22 +819,6 @@ private method `print' called for "":String
 
 Note: This help system relies on parsing Markdown and reads markdown files from the :vhome/doc folder. Not sure how this is supposed to work
 
-
-
-
-
-## HeisenBug: sometimes vshtests/all_tests.vsh fails
-
-```bash
-rake
-...
-
-test_mkdir_1 : expected block or function to return true but returned false instead /v/dir/foo not created
-rake aborted!
-
-```
-
-Running it again usually works
 
 
 

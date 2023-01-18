@@ -24,7 +24,7 @@ function test_between_w_2_patterns_and_trailing_lines() {
 }
 function test_between_w_empty_input() {
   result=:(echo -n | between xxx)
-  assert test -z :result
+  assert_empty :result
 }
 function test_expr_plus() {
   result=:(expr 1 '+' 2)

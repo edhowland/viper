@@ -27,3 +27,4 @@ source test_eval.vsh
 source test_ls.vsh
 source test_alias.vsh
 source test_version.vsh
+source test_boolean.vsh

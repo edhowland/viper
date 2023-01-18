@@ -1,21 +1,18 @@
 cd ":{vhome}/vshtest"
 source load_commands.vsh
-function assert_true() {
-  test :_ || raise Expected :_ to be true but was false
+alias assert_true=assert
+function assert(obj) {
+  is_true :obj || raise "expected :{obj} to be true"
 }
-function assert() {
-  :_ || raise "expected :{_} to be true"
-}
-alias assert_true='assert test'
-alias assert_empty='assert test -z'
+function assert_empty(obj) { test -z :obj || raise Expected :obj to be empty }
 function assert_not_empty() {
   not { test -z :_ }  || raise expected :_ to not be empty but was
 }
 function assert_raises() {
   capture :_ && raise expected exception got none
 }
-function assert_false() {
-  test :_ && raise Expected true to be false
+function assert_false(obj) {
+  is_false :obj || raise Expected true to be false
 }
 function assert_eq(left, right) {
   eq ":{left}" ":{right}" || raise "Expected |:{left}| to equal |:{right}|"

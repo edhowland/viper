@@ -1,5 +1,81 @@
 # completed bugs
 
+## 2023-01-18
+
+## HeisenBug: sometimes vshtests/all_tests.vsh fails
+
+```bash
+rake
+...
+
+test_mkdir_1 : expected block or function to return true but returned false instead /v/dir/foo not created
+rake aborted!
+
+```
+
+Running it again usually works
+
+
+
+
+
+
+Fix: changed to mkdir /v/dir/foo_1. Sometimes conflicted with /v/dir/foo
+
+
+## in testing: vunit.vsh function assert is not robust
+
+E.g. try to run some command then tests its :exit_status, Ruby barfs error message
+
+```bash
+ivsh -s vunit.vsh
+true
+assert :exit_status
+
+/home/edh/tmp/viper/lib/runtime/command.rb:40:in `resolve': undefined method `empty?' for true:TrueClass (NoMethodError)
+
+      return Null.new if id.nil? || id.empty?
+                                      ^^^^^^^
+  from /home/edh/tmp/viper/lib/ast/statement.rb:118:in `block in execute'
+  from /home/edh/tmp/viper/lib/ast/statement.rb:97:in `bump_frames'
+  from /home/edh/tmp/viper/lib/ast/statement.rb:114:in `execute'
+  from /home/edh/tmp/viper/lib/ast/statement.rb:139:in `_call'
+  from /home/edh/tmp/viper/lib/ast/block.rb:23:in `block in call'
+
+
+```
+
+
+Note: This bug is when a non-string is placed in the command position of a command
+
+```
+true; :exit_status
+
+... same error
+```
+
+
+
+Fix: added cmdlet s is_true, is_false to go with assert_true and assert_false in local/vish/prelude/010_cmdlets.vsh
+
+Repaired many inconsistant asserts in vshtest/test_*.vsh
+
+Note: assert_true is alias for assert
+
+assert is functionwrapper over is_true
+assert_false is function wrapper over is_false
+
+## ls exit_status is neither true or false
+
+It exists but seems to be an empty string
+
+In Bash, if even one file is missing in args, ls returns 2 exit code
+
+
+
+Fix: Added proper exit_status to lib/bin/ls.rb 
+
+
 ## 2023-01-09
 
 

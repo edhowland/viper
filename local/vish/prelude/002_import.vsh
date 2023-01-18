@@ -3,6 +3,7 @@ mpath=":{lhome}/vish/modules"
 function import(module) {
   latest_wd=:pwd; global latest_wd
   pth=:(module_path :module) || exec { perr No such module :module; return false }
+  test -e :pth && exec { perr module :pth cannot be empty; return false }
   mkdir "/v/modules/:{module}"
   cd :pth
   for s in ???_*.vsh { source :s; cd :pth }

@@ -2,8 +2,8 @@ rem dir commands mkdir rm cp mv
 source asserts.vsh
 mkdir /v/dir
 function test_mkdir_1() {
-  mkdir /v/dir/foo
-  assert_exec { test -d /v/dir/foo } '/v/dir/foo not created'
+  mkdir /v/dir/foo_1
+  assert_exec { test -d /v/dir/foo_1 } '/v/dir/foo_1 not created'
 }
 function test_dir_mkdir_many() {
   mkdir /v/dir/mbar /v/dir/mbaz /v/dir/mspam

@@ -37,7 +37,12 @@ class Command
     # fake it till you make it
     def resolve(id, env:, frames:, line_number:0)
       @@cache ||= {}
-      return Null.new if id.nil? || id.empty?
+      return Null.new if id.nil? || (id.respond_to?(:empty?) && id.empty?)
+      unless id.kind_of?(String)
+        env[:err].puts "#{id.to_s}: not an object that be converted into a command: #{id.class.name}"
+        return False.new
+      end
+
       id = '_break' if id == 'break'
       id = '_return' if id == 'return'
 
