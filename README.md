@@ -2,9 +2,7 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.12.c
-
-Beta release for 2.0.12
+### Version 2.0.12
 
 See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 
@@ -96,21 +94,24 @@ in subsequent buffers. You can move between them with the : Ctrl-T key. (The Buf
 
 ### Editing
 
-Type any printable key and it will be added to the current buffer. Control and Meta keys
-can be used to control the Viper editor. See the file: CommandKeys.md
+Viper starts up in insert mode like Emacs.
+
+Type any printable key and it will be added to the current buffer. Control and Meta  or (Alt+key)
+keys can be used to control the Viper editor. See the file: [CommandKeys.md](CommandKeys.md)
 E.g. ctrl_s will save the current buffer into the current filename. And ctrl_q
 will exit the Viper editor andask to save any modified buffers.
 F2 speaks the name of the current buffer with its filename.
 Ctrl+T will switch to next file entered on the command line. Repeating this key
-will continue to move through all buffers and eventually return to the first buffer.
+will continue to move through all buffers and eventually rotate to the first buffer.
 
 ### Editor modes
 
 - Insert mode (also called viper mode): The standard mode. This mode is activated when Viper starts up.
 - Search mode:  Activated when either ctrl_f (forward search) or ctrl_r (reverse).   Control G will repeat the last search in the last search direction.
-- Command mode: Enter a single line of Vish script and it will be executed. See Vish.md
+- Command mode: Enter a single line of Vish script and it will be executed. See [Vish.md](Vish.md)
   * This mode is also used to open a new filename with the 'o' command.
-  * You can also save and exit the Viper editor with: 'save; exit', or if in insert mode with the Control Q key.
+  * E.g. 'o newfile.txt'
+  * You can also save and exit the Viper editor with: 'save; exit', or if in insert mode with the Control q key.
 
 #### Extra modes
 
@@ -119,16 +120,11 @@ These modes can be entered with first entering command mode.
 - vish mode: Enters the Vish language REPL. Enter commands or define functions, set variables and inspect things. Hit ctrl_d to exit this mode.
 
 
-
-#### Extra modes
-
-See the file: Modes.md for a more complete list of various modes.
-
 ### Other executables
 
 - ./bin/vish : Runs a script a file with extension: .vsh.
-  * ./bin/vish -c will chack all file arguments  for syntax correctness.
-- ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press ctrl_d to exit or type 'exit' and press Enter.
+  * ./bin/vish -c will check all file arguments  for syntax correctness.
+- ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press Control d to exit or to exit or type 'exit' and press Enter.
 
 
 ## Warnings

@@ -724,16 +724,6 @@ and  for ctrl_f, ctrl_r
 How does this work in 2.0.11 and previous versions?
 
 
-## load of one module cannot load another module
-
-### Corrected yet?
-
-E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang
-which does not get executed
-
-But: there are such things like meta packages. For instance, vip actually
-does load viper internally.
-
 
 ## Name conflict with :mapth 
 
@@ -892,6 +882,8 @@ See reverse in # Todo list
 
 ## The rm command has no  way to remove files recursively
 
+DUP: This is a duplicate of an earlier note. Both notes should be conflated
+
 ```
 rem this does not work:
 mkdir aa1/bb2/cc3
@@ -905,15 +897,6 @@ For physical files you can do the following, and that can be aliased
 ```
 sh rm -rf aa1
 alias rmrf='sh rm -rf'
-```
-
-
-
-
-## wc commands does not work like its Bash cousin
-
-```
-echo hello world | wc -w
 ```
 
 
@@ -1013,22 +996,6 @@ echo :r
 .. hangs
 ` ``
 
-## Meta mode not quite working yet
-
-Switching and out of temporary modes is somewhat broken
-
-You can use eith the command mode/vish REPL to run the function meta_modes, or in viper mode: fn_9
-to print out the meta modes ccurrent in effect.
-
-Notice the following sequence:
-
-1. start viper: fn_9: Meta modes are: vip
-2. enter command modes, and run meta_modes. : vip / commander
-3.  fn_9 : vip
-4. command mode: vish
-5. meta_modes : vip / com
-6. Ctrl_d Back in  vip, fn_9: vip / com / vip
-
 
 ## Refactors
 
@@ -1052,6 +1019,18 @@ Also remove the Event class.
 ### New at_exit handlers work in ./local/vish/prelude/007_events.vsh
 There is only 1 event handled: the exit event:
 
+Note: Addition: This is a Todo, but add an event for something to happen after all all files have been loaded in Viper.
+
+E.g. trying to override the value of a setting in either ~/.vishrc or ./.vishrc via the -e thing.
+
+```bash
+grep pglnes ./.vishrc
+pglines=10
+viper -e 'pglines=24;global pglines'
+... Command mode:
+echo :pglines
+10
+```
 ```
 ls /v/events/exit/*
 1
@@ -1089,6 +1068,8 @@ function map(fn) {
   test -l :fn || raise map requires first argument to be a lambda
 ```
 
+
+### Move range, printf into local/vish/prelude/010_cmdlets.vsh
 
 # Design flaws
 

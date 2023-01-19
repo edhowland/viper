@@ -1,5 +1,54 @@
 # Wont fix
 
+## 2023-01-19
+
+## Meta mode not quite working yet
+
+Switching and out of temporary modes is somewhat broken
+
+You can use eith the command mode/vish REPL to run the function meta_modes, or in viper mode: fn_9
+to print out the meta modes ccurrent in effect.
+
+Notice the following sequence:
+
+1. start viper: fn_9: Meta modes are: vip
+2. enter command modes, and run meta_modes. : vip / commander
+3.  fn_9 : vip
+4. command mode: vish
+5. meta_modes : vip / com
+6. Ctrl_d Back in  vip, fn_9: vip / com / vip
+
+
+
+Reason: There is no longer a meta mode in 2.0.12 and beyond.
+
+To start the editor, just call the 'vip' function.
+
+## wc commands does not work like its Bash cousin
+
+```
+echo hello world | wc -w
+```
+
+
+
+
+
+
+
+
+## load of one module cannot load another module
+
+### Corrected yet?
+
+E.g. in ./local/viper/modules/edit/098_default_plugins.vsh is load vish_lang
+which does not get executed
+
+But: there are such things like meta packages. For instance, vip actually
+does load viper internally.
+
+
+
 ## 2023-01-05
 
 

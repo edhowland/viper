@@ -1,5 +1,42 @@
 # Changelog for Viper project
 
+## Release 2.0.12
+
+2023-01-19
+
+- All new Vish executables installed and old Ruby wrappers deprecated
+  * ./bin/viper, ./bin/vish and ./bin/ivsh
+  * Still thin Ruby  wrappers 
+  * All work is done in ./local/**/*.vsh
+- Command mode, REPL and search modes replaced with Ruby Reline library
+  * Use of Emacs/Bash-like editing keys on command line.
+  * Multi-line functionality
+  * Start a function  definition and continue on subsequent lines until done
+- Proper handling of :argc, :argv for Vish packages and apps
+- A parse options library
+- viper -i now creates a standard_in buffer that does not ask to be saved
+  * Good for piping into from another program
+  * But can be saved if wanted
+- import module functionality
+- load package functionality
+- There are now 4 :path elements
+  * /v/bin : Vish commands that act like *nix commands
+  * /v/vfs/bin : Commands like mkarray, push .etc  that only work on VFS directories and objects
+  * /v/viper/bin : Commands that work on buffer nodes
+  * /v/cmdlet/misc : Where CommandLets get stored
+  * This latter path existed in 2.0.11
+
+### Bug fixes
+
+- import on emptymodule/directory  now fails gracefully
+- fixes for rm, cp and mv commands with multiple arguments
+- Fixed rake test that occasionally failed
+- vshtest/vunit.vsh and test files cleaned up
+  * assert, assert_true and assert_false work with new CommandLets: is_true and is_false
+- ls command when missing filesystem object, returns correct :exit_status
+- source command works on files in virtual filesystem
+- source file will make all variables global even if called from a function
+
 ## Release 2.0.12.c
 
 Beta release for Release 2.0.12

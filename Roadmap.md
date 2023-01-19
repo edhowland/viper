@@ -71,6 +71,11 @@ Note: See mini-2.0.12.c-Roadmap.md for extensive details on this release.
 Finished on 2023-01-03
 
 
+### Release 2.0.12
+
+Finished on 2023-01-19
+
+
 ## 2.0.13
 
 (Was formerly 2.0.15)
@@ -83,6 +88,19 @@ The above requires  a move to a initialization strategy upon the first step post
 ### Create new Vish application: vupdate, or vishup
 
 Application takes command like 'go new' or 'cargo new'
+
+Note: This above is now renamed to 'charm', a Vish app
+
+```bash
+charm help
+charm start # creates initial ~/.config folders
+charm update # aliased to charm up Checks for package updates
+charm install package
+charm ls # lists installed packages
+charm test [test_name] # or run all Vish tests
+# and many more ????
+```
+
 
 - vishup init : Creates ~/.config dirs, and copies sone ./local user updatable content therein
 - vishup packages ls - Lists currently known packages with pathnames
@@ -101,9 +119,11 @@ The help system should be made more just pure Vish code
 Of course, this requires the above Vish changes. E.g. argc, argv and locating things in .config/vish
 Help should be made portable, meaning across OSes and allowing for user contributed help strings
 
+
 Q: Can Vish functions contain docstrings like Python?
 
 - add man pages
+Implement the man page style for vish commands
 
 /v/man/1/cd,mv,tee ... .etc
 
