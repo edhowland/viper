@@ -1,3 +1,5 @@
-rem process_sources.vsh read in any -s sources
-cd :proj
-cond { test -z :(first :argv) } { nop } else {  src=:(first :argv); source ":{latest_wd}/:{src}" }
+rem process_source.vsh if a path to a file.vsh is in argv then source it
+function process_source() {
+   src=:(first :argv)
+   test -z :src || with_dir :proj { source :src }
+}

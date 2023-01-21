@@ -5,6 +5,9 @@ function dircount(dir) {
 function second(a, b) {
   echo :b
 }
+function third(a, b, c) {
+   echo :c
+}
 rem find_first recurses over all remaining in list or using :ifs delimiter
 function find_first(qterm, elem) {
   cond { test -z :elem } { return false } {
@@ -44,4 +47,10 @@ function run_ext_fn(ext) {
   cond { test -d "/v/known_extensions/:{ext}" } {
     cond { test -x "/v/known_extensions/:{ext}/settings.fn" } { exec "/v/known_extensions/:{ext}/settings.fn" } else { perr could not find a settings.fn for extension :ext }
   } else { exec "/v/known_extensions/default/settings.fn" }
+}
+function with_dir(dir, exe) {
+   opwd=:pwd
+   cd :dir
+   exec :exe
+   cd :opwd
 }

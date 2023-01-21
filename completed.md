@@ -1,5 +1,11 @@
 # completed bugs
 
+## 2023-01-20
+
+
+- implemented the ./local/etc/no-viper-welcome-banner  which is git ignored.
+
+
 ## 2023-01-18
 
 ## import on empty directory fails
