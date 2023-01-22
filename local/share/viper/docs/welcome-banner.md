@@ -5,4 +5,7 @@ Sources and documentation can be found at <https://github.com/edhowland/viper>
 
 You can dismiss this message by pressing the space bar on your keyboard which will start
 your editing session with an unnamed buffer. You can prevent this message from
-happening again by running the  
+happening again by running : charm start
+You can get help with the charm program by running : charm help
+
+Press space to proceed.
