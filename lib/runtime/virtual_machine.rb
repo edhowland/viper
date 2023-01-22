@@ -43,6 +43,10 @@ class VirtualMachine
     @fs[:termfile] = "#{@fs[:vhome]}/etc/keymaps/#{@fs[:term_program]}.json"
     # Setup stuff for command, (and possibly cmdlet) name resolution
     @fs[:path] = '/v/bin'
+    @fs[:nl] = "\n"
+    @fs[:tab] = "\t"
+    @fs[:bell] = "\g"
+    @fs[:cr] = "\r"
   end
 
   # %%LINT4 - ignore this long line

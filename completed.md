@@ -1,5 +1,40 @@
 # completed bugs
 
+## 2023-01-21
+
+
+## -s, -e should remove themselves from argc and argv
+
+Once all of these -s and -e args have been processed, then :argc should  reflect the emaining args count
+This does happen with :argv
+
+
+
+## vish /full/path/to/file.vsh will not work
+
+It seems to prepend the current dir before this value:
+
+
+```bash
+vish /home/edh/tmp/viper/e.vsh
+
+/home/edh/foo//home/edh/tmp/viper/e.vsh:0: exception No such file or directory @ rb_sysopen - /home/edh/foo//home/edh/tmp/viper/e.vsh
+thor   foo  
+
+```
+
+
+## The -s, -e options to vish executable occur after the source file has been sourced
+
+This is because they get opened inside of local/vish/modules/init/002_process_sources.vsh
+
+Change to a function that gets called inside the when_load init { ...; process_sources }
+And this will fix the previous bug about prepending the current path to the source
+
+Remember to test all of vshtest/all_tests.vsh and single vshtest/test_something.vsh as well.
+
+
+
 ## 2023-01-20
 
 

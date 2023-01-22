@@ -706,36 +706,29 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## -s, -e should remove themselves from argc and argv
+## head, tail should be able to read from first argument instead of just stdin
 
-Once all of these -s and -e args have been processed, then :argc should  reflect the emaining args count
-This does happen with :argv
-
+Also should be able to take number of lines to read
 
 
-## vish /full/path/to/file.vsh will not work
-
-It seems to prepend the current dir before this value:
 
 
-```bash
-vish /home/edh/tmp/viper/e.vsh
+## The sh command does not seem to work with stdin 
 
-/home/edh/foo//home/edh/tmp/viper/e.vsh:0: exception No such file or directory @ rb_sysopen - /home/edh/foo//home/edh/tmp/viper/e.vsh
-thor   foo  
+It does work with our Vish internal stdout
 
+Broken:
+```
+echo foo | sh grep foo
 ```
 
 
-## The -s, -e options to vish executable occur after the source file has been sourced
-
-This is because they get opened inside of local/vish/modules/init/002_process_sources.vsh
-
-Change to a function that gets called inside the when_load init { ...; process_sources }
-And this will fix the previous bug about prepending the current path to the source
-
-Remember to test all of vshtest/all_tests.vsh and single vshtest/test_something.vsh as well.
-
+Working:
+```
+sh head -1 Bugs.md | read foo
+echo :foo
+# Viper and Vish Bugs
+```
 
 ## The result of the line_number command is an integer, and not compat w/ the goto command
 
