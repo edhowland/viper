@@ -1,0 +1,6 @@
+function if_dir(fname, yes, no) {
+   cond { test -d :fname } { echo :yess } else { echo :no }
+}
+function if_file(fname, yes, no) {
+   cond { test -X :fname } { echo :yes } else { echo :no }
+}

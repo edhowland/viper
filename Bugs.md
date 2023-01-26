@@ -2,6 +2,10 @@
 
 # Todo list
 
+## Make the rmdir command
+
+
+
 ## The resolve method of Command needs to be refactored
 
 It has too much if/then/else/raise logic.
