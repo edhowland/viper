@@ -54,3 +54,9 @@ function with_dir(dir, exe) {
    exec :exe
    cd :opwd
 }
+function cddr(a, b) {
+   echo :_
+}
+function cdddr(a, b, c) {
+   echo :_
+}
