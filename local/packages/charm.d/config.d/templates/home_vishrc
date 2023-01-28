@@ -1,0 +1,7 @@
+rem Lines beginning with rem are remarks or comments
+rem This file was created from running the program charm config vishrc
+rem These lines can be deleted. Removing rem from the following lines will activate them
+rem alias git='sh git'
+rem The following line will make the builtin pager use 24 lines instead of 10
+rem pglines=24
+rem pglines

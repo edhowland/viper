@@ -1,0 +1,4 @@
+rem This file was created by running the program charm configproject
+rem Any legal Vish commands will be executed from here. They might augment/override your home .vishrc or Viper Vish builtins
+ 
+
