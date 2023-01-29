@@ -16,4 +16,9 @@ echo :old_lpath
 echo
 echo The current module search path for use with the import command is
 echo :mpath
+echo
+cond { has_git } { gitok="" } else { gitok="not" }
+echo Git is :gitok installed on your system.
+cond { is_gitdir :proj } { gitdir="" } else { gitdir="not" }
+echo Your current project directory is :gitdir a git repository.
 
