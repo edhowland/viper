@@ -10,3 +10,10 @@ if_dir ":{chome}" "The config folder exists in :{chome}" "There is no local conf
 if_file ":{HOME}/.vishrc" "You already have a local .vishrc in your home directory" "There is no local .vishrc in your home directory. It can be created with charm config vishrc which create one from a template"
 if_file ":{proj}/.vishrc" "There is already a .vishrc in your current project directory :{proj}" "There is no .vishrc in your current project :{proj}. It can be created from a template with charm config project"
 match_path ":{vhome}/bin" :PATH || cat ":{__DIR__}/status.d/path.md"
+echo
+echo The current package and plugin search path for use with the load command is
+echo :old_lpath
+echo
+echo The current module search path for use with the import command is
+echo :mpath
+
