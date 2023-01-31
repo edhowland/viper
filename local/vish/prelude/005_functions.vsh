@@ -60,3 +60,7 @@ function cddr(a, b) {
 function cdddr(a, b, c) {
    echo :_
 }
+function cadddr() {
+   first :(cdddr :_)
+}
+
