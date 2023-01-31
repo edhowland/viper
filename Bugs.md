@@ -2,6 +2,32 @@
 
 # Todo list
 
+## The sh prefix to shell commands does not accept stdin from within vish itself unless given the '-' argument
+
+```
+sh 'ls *.vsh' | cat
+.... output
+```
+
+But
+```
+ls *.vsh | sh cat
+... nothing
+```
+
+But again: using the '-' argument to sh does work
+
+```
+ls *.vsh | sh - cat
+.... output
+```
+
+
+Can this be made optional,
+what if the command always tried to read from stdin, or check if no bytes read.
+
+
+
 ## Make the rmdir command
 
 
@@ -709,6 +735,7 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
 
 ## head, tail should be able to read from first argument instead of just stdin
 
