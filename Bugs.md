@@ -2,6 +2,23 @@
 
 # Todo list
 
+## The car, cdr, cadr, caddr, cdddr, cdddr and cadddr commands do not play nicely together
+
+```
+a="11 22 33 44 55 66 77 88 99 00"
+car :(cddr :a)
+
+{ cddr :a }: not an object that be converted into a command: Block
+```
+
+But this sometimes works
+
+Workaround is to actually write out the function that you want:
+
+```
+function fourth(a, b,c ,d) { echo :d }
+```
+
 ## The sh prefix to shell commands does not accept stdin from within vish itself unless given the '-' argument
 
 ```
