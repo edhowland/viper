@@ -1,5 +1,6 @@
 rem package functions like load
 lpath=":{lhome}/packages::{lhome}/plugins"
+test -d :chome && lpath=":{chome}/packages::{chome}/plugins::{lpath}"
 mkdir /v/packages
 function load(package) {
   pkg_src=:(package_path :package) || exec { perr No such package :package; return false }
