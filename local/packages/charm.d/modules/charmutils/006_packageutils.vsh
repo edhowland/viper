@@ -7,5 +7,8 @@ function ls_pkg(dir) {
    echo Packages in :dir
    (cd :dir; ls *_pkg.vsh) | pn
 }
-
-
+function is_package_dir(dir) {
+   suppress { ls *_pkg.vsh | pn }; pkg=:last_output
+   test -z :pkg && return false
+   test -d ":{pkg}.d/modules" && exec { echo :pkg; return true }
+}
