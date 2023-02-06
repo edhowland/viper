@@ -1,7 +1,9 @@
-rem status a subcommand of the charm app
 rem displays the known status of the Viper ecosystem
-echo you are viewing the Viper ecosystem status
 import charmutils
+pdir=":{__DIR__}/status.d"
+do_help=:(subcmd :argv)
+test -z :do_help  || (eq :do_help help && exec { lpath=:pdir load help; exit })
+echo you are viewing the Viper ecosystem status
 cond { test -X ":{lhome}/etc/no-viper-welcome-banner" } { will=not } else { will='' }
 echo When Viper starts with no files to edit it will :will display the Welcome banner
 echo You can view or change this behaviour with charm welcome "[remove] [restore]"
@@ -19,6 +21,9 @@ echo :mpath
 echo
 cond { has_git } { gitok="" } else { gitok="not" }
 echo Git is :gitok installed on your system.
+echo git will :(eq :no_use_git true && echo not) be used when charm package new is used to create a new package
+echo This behaviour can be changed by setting the no_use_git variable to be true
+echo in your "~/.vishrc" or by setting it in the "-e 'no_use_git=true;global no_use_git'"
 cond { is_gitdir :proj } { gitdir="" } else { gitdir="not" }
 echo Your current project directory is :gitdir a git repository.
 

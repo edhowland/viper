@@ -20,7 +20,7 @@ MPATH=~/src/viper/local/packages/charm.d/modules charm module ls
 
 
 Note here above, the MPATH is all uppercase.
-The Viper and Vish programs are assumed to exist in ~/src/viper/
+The Viper and Vish programs are assumed to exist in ~/src/viper/ for this example
 
 To see which packages are installed, issue the following command
 charm package ls
@@ -33,3 +33,18 @@ ones that do they will usually follow this pathname convention:
 <lpath.component>/<package>.d/modules
 
 E.g. append the package.d/modules string onto the lpath component.
+
+
+## charm module new
+
+The new subcommand will create a new module subdirectory and populate with sample template files.
+
+### Usage
+
+```bash
+charm module new module_name
+```
+
+If you are currently a package source lair, then the charm package new
+will place the new module inside 'package_name.d/modules'. Otherwise, it will just
+create a new subdirectory under the current directory named for the module_name.

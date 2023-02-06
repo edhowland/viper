@@ -6,3 +6,4 @@ checker=check_default
 chome=":{HOME}/.config/vish"
 PATH=:(env PATH)
 SHELL=:(env SHELL)
+no_use_git=false

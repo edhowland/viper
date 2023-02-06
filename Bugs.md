@@ -753,6 +753,10 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## test command with no flags is still broken
+
+Make work like Bash
+
 
 ## head, tail should be able to read from first argument instead of just stdin
 
