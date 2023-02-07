@@ -2,6 +2,10 @@
 
 # Todo list
 
+## The unalias command in Bash can take many aliases, as log as they all exist.
+
+Currently, Vish cannot do this.
+
 ## The car, cdr, cadr, caddr, cdddr, cdddr and cadddr commands do not play nicely together
 
 ```

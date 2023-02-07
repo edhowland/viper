@@ -1,3 +1,4 @@
+rem if_exists.vsh various checks against extant paths and folders
 function if_dir(fname, yes, no) {
    cond { test -d :fname } { echo :yes } else { echo :no }
 }
@@ -10,3 +11,11 @@ function package_exists(pname) {
    }
    return false
 }
+vhome_bin=":{vhome}/bin"
+function in_path() {
+   ifs=":" for p in :PATH {
+      eq :vhome_bin :p && return true
+   }
+   return false
+}
+
