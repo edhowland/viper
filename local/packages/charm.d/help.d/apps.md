@@ -5,8 +5,10 @@ Every command listed below also has a [help] subcommand that is not listed.
 
 
 charm status : Displays  current status of the Viper ecosystem
-charm config [create] {vishrc] [project] : 
+charm config [create] {vishrc] [project] [ignore] [path] [alias] : 
   Creates local  Viper/Vish config directories and .vishrc files
+  Can also be used to help set your $PATH or aliases to viper and vish programs.
+  And helps with adding ./.vishrc to your .gitignore file if needed.
 charm package [ls] [new] [test] [install [path]] : 
   Lists extant, creates new, tests and installs packages
 charm module [ls] [package] [new] :
@@ -15,5 +17,4 @@ charm module [ls] [package] [new] :
   The new subcommand will create a new module and populate with some template sample files
 charm welcome : [remove] [restore] :
   Displays the Viper startup banner. Or removes it or restores it at startup.
-charm ignore  : Adds any local project's  ./vishrc to your .gitignore
 charm help displays this help text

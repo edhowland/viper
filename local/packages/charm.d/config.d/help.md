@@ -25,7 +25,8 @@ Vish, and Viper by the fact it is just a Vish program, will search this director
 search path.
 
 Note: The Vish package search path for the 'load package_name' command is :lpath.
-
+By maintaining this :lpath variable, you can locate packages which you may have
+downloaded or created yourself.
 
 
 You can check if this directory structure is known to the Vish  by invoking:
@@ -35,7 +36,37 @@ charm status
 ```
 
 
-## charm config vishrc
+### charm config path
+
+This subcommand will construct a new $PATH variable for you. You can
+then append it to your ~/.bashrc or the startup script for your shell.
+
+E.g.
+
+```bash
+# In Bash shell:
+echo export PATH="$(charm config path)" >> ~/.bashrc
+```
+
+
+
+### charm config alias
+
+Instead of munging your $PATH environment variable, you may want to create
+a series of  aliases instead. This is where 'charm config alias' comes in.
+
+E.g.
+
+```bash
+# Again, for Bash shelll:
+charm config alias > viper.alias
+source viper.alias
+# Or, for a more permanent solution:
+charm config alias >> ~/.bashrc
+```
+
+
+### charm config vishrc
 
 This subcommand 'vishrc' will copy a sample .vishrc template to your
 home directory. It will not overwrite one if one already exists.
@@ -52,17 +83,19 @@ in your current project directory.
 
 
 Note: If git is installed and the value of the variable of :no_use_git is false,
-then charm config project will also invoke the 'charm ignore' command which
-will place ./.vishrc in your .gitignore file. See charm ignore help for details.
+then charm config project will also invoke the 'charm config ignore' command which
+will place ./.vishrc in your .gitignore file.
 If you have either set no_use_git=true in any of   your .vishrc files, it will not
 perform this action.
 
 
 
-## charm config path
 
-This subcommand 'path' will construct a PATH shell environment variable
-that 
+### charm config ignore
+
+Issuing this command in a project directory that is also a git repository
+will cause any Vish dotfiles in this directory to be added to your .gitignore file.
+Currently, this is only ./.vishrc 
 
 ## charm config help
 
