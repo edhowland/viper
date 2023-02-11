@@ -147,7 +147,8 @@ Final wrap-up
 - Better documentation
 - More help system internal help
   * create man command to work from viper docs/wiki
-
+- Complete Todo items from Bugs.md marked with a '*'
+  * These are must-haves for 2.1
 
 
 

@@ -1,5 +1,21 @@
 # completed bugs
 
+2023-02-11
+
+## The order of loading the various ~/.vishrc or ./.vishrc is not correct
+
+The prelude code overrides them
+
+
+
+
+## Add -c option to ./vish.rb
+
+This should be some value option to check the syntax  of a source file and exit
+
+
+
+
 ## 2023-01-21
 
 

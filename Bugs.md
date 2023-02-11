@@ -2,12 +2,14 @@
 
 # Todo list
 
-## Change ~/.vishrc to become ./config/vish/vishrc
+The Todo list items herein marked with an '*' are must haves for version 2.1 (final)
+
+## Change ~/.vishrc to become ./config/vish/vishrc *
 
 Schedule this change before 2.1 release
 Requires massive refit.
 
-## LPATH, MPATH should be able to change the package and module search paths for all programs not just charm
+## LPATH, MPATH should be able to change the package and module search paths for all programs not just charm *
 
 Both are defined in local/vish/prelude/007_variables.vsh
 
@@ -32,7 +34,7 @@ Workaround is to actually write out the function that you want:
 function fourth(a, b,c ,d) { echo :d }
 ```
 
-## The sh prefix to shell commands does not accept stdin from within vish itself unless given the '-' argument
+## The sh prefix to shell commands does not accept stdin from within vish itself unless given the '-' argument *
 
 ```
 sh 'ls *.vsh' | cat
@@ -58,7 +60,7 @@ what if the command always tried to read from stdin, or check if no bytes read.
 
 
 
-## Make the rmdir command
+## Make the rmdir command *
 
 
 
@@ -76,9 +78,9 @@ Then this should be a fold operation: reduce.
 
 
 
-## Make massive fixes to README.md. Many things ther are now deprecated or removed.
+## Make massive fixes to README.md. Many things ther are now deprecated or removed. *
 
-## read command should work more like its Bash cousin
+## read command should work more like its Bash cousin *
 
 E.g. should be able to run a loop over it and break when EOF is reached
 
@@ -131,7 +133,7 @@ thor   viper  for i in "./tmp/foo/${m}/*"
 
 
 
-## Although this is a Vish parser bug, make the following work: The shbang line at the top of ./myscript.vsh scripts
+## Although this is a Vish parser bug, make the following work: The shbang line at the top of ./myscript.vsh scripts *
 
 ```
 #!/usr/bin/env vish
@@ -151,7 +153,7 @@ Syntax error
 This just cleans up the location of functionality from modules to packages
 which are  now the main entry point for Vish apps.
 
-## Renumber local/vish/prelude/0??_*.vsh source filenames
+## Renumber local/vish/prelude/0??_*.vsh source filenames *
 
 local/vish/prelude/001_argparse.vsh
 local/vish/prelude/002_import.vsh
@@ -177,7 +179,12 @@ After this is done: move the mkdir /v/known_extensions/default from new 006_func
 Find other mkdir targets to move there.
 
 
-## ls command has no way to spy on dotfiles
+
+### The 004_load_vishrc.vsh has been moved to 090_load_vishrc.vsh
+
+This was done because both ~/.vishrc and ./.vishrc should override any settings in vish/prelude.
+prelude/004_stub.vsh has been left in its place if needed, or removed in the future after rnumbering
+## ls command has no way to spy on dotfiles *
 
 ```bash
 ls -a .vishrc
@@ -213,7 +220,7 @@ echo :r
 
 
 
-## Remove the hunt command only used in the 013_help.vsh stuff
+## Remove the hunt command only used in the 013_help.vsh stuff * Must do for 2.0.13.b
 
 In 2.0.13, or .15 there is extensive redesign of the help system.
 
@@ -248,6 +255,8 @@ Decide on one of the above 2 options in light of Vish propensity for strings
 
 ## The unalias command should take an unlimited of alias arguments
 
+Note: This is also an earlier Todo item
+
 Also, if the string is not aliased, report an error and return false
 
 But continue to unalias the rest of the arguments
@@ -262,7 +271,7 @@ If neither, then raise Exeception something wrong internally
 
 If :to_s, then call it
 
-## Added PS2 -like dynamic prompt to reline stuff
+## Added PS2 -like dynamic prompt to reline stuff *
 
 
 ## Check out if more than one Reline can exist
@@ -271,11 +280,6 @@ If :to_s, then call it
 Probably just call it with a different prompt
 
 But, does it share the same history as the REPL one, if used for search?
-
-## Add -c option to ./vish.rb
-
-This should be some value option to check the syntax  of a source file and exit
-
 
 
 ## Come up with more functional approach to the ls command
@@ -297,6 +301,8 @@ some sort of Result type instead of  just a list, and of good outputs.
 
 
 ## Complete the option parsing to work with help strings
+
+Note: This is partially completed
 
 
 And make stored lambdas for things like -v, --version
@@ -490,7 +496,7 @@ rm
 
 
 
-## help topics
+## help topics * For 2.0.13.b
 
 Note: some of this is mentioned elsewhere in the doc and also in Roadmap.md
 
@@ -563,6 +569,8 @@ def arg_error expected, got: 0, env
 
 ## create rmdir command
 
+Note this is a duplicate
+
 From its Bash cousin
 
 
@@ -581,7 +589,7 @@ Investigate the MiniTest stub/mocking framework.
 
 
 
-## Vish grammar problems
+## Vish grammar problems *
 
 Note: consolidate these with parser/grammar problems elsewhere in this doc
 
@@ -644,7 +652,7 @@ For this to work, the read command must capture its input into the :reply variab
 See the Bug about this.
 
 
-## in vshtest/vunit.vsh: the placement of assert_eq is backwards
+## in vshtest/vunit.vsh: the placement of assert_eq is backwards *
 
 Should match its minitest cousin
 
@@ -706,7 +714,7 @@ This command is never used. Not sure what its purpose is?
 
 Note: Not used in any Viper scripts
 
-## Make ruby code formatter work to clean up code base
+## Make ruby code formatter work to clean up code base *
 
 
 
@@ -766,9 +774,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## The order of loading the various ~/.vishrc or ./.vishrc is not correct
-
-The prelude code overrides them
 
 ## If no module can be found in the  :mpath search path should have a better error message
 
