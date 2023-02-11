@@ -2,6 +2,15 @@
 
 # Todo list
 
+## Change ~/.vishrc to become ./config/vish/vishrc
+
+Schedule this change before 2.1 release
+Requires massive refit.
+
+## LPATH, MPATH should be able to change the package and module search paths for all programs not just charm
+
+Both are defined in local/vish/prelude/007_variables.vsh
+
 ## The unalias command in Bash can take many aliases, as log as they all exist.
 
 Currently, Vish cannot do this.
@@ -757,6 +766,14 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## The order of loading the various ~/.vishrc or ./.vishrc is not correct
+
+The prelude code overrides them
+
+## If no module can be found in the  :mpath search path should have a better error message
+
+Especially if the component of :mpath cannot be located.
+Make sure to use fully qualified pathnames for path components.
 ## test command with no flags is still broken
 
 Make work like Bash

@@ -17,7 +17,7 @@ echo The current package and plugin search path for use with the load command is
 echo :old_lpath
 echo
 echo The current module search path for use with the import command is
-echo :mpath
+echo :old_mpath
 echo
 cond { has_git } { gitok="" } else { gitok="not" }
 echo Git is :gitok installed on your system.

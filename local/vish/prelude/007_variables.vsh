@@ -7,3 +7,4 @@ chome=":{HOME}/.config/vish"
 PATH=:(env PATH)
 SHELL=:(env SHELL)
 no_use_git=false
+LPATH=:(env LPATH); MPATH=:(env MPATH)
