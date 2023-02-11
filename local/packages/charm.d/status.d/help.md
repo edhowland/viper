@@ -37,7 +37,7 @@ grep  .vishrc .gitignore
 If it does not contain it it then run:
 
 ```bash
-charm ignore
+charm config ignore
 ```
 
 to add it.
