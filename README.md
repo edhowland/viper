@@ -14,6 +14,8 @@ Release 2.1: Indy pre-release candidate #1
 This is a simple editor in Ruby that works with screen readers, especially like VoiceOver 
 in Mac OS, or with Orca in Linux with Gnome desktops.
 Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
+Viper is designed to work in terminal sessions either directly or over an ssh tunnel.
+Viper is not a GUI program.
 
 ## Source
 
@@ -83,10 +85,51 @@ See the documentation for rbenv to see how to install newer versions:
 [rbenv: Manage your app's Ruby environment](https://github.com/rbenv/rbenv)
 
 
+
+## Before you start
+
+Out of the box, Viper is a functional code and text editor. However, your usage
+might be enhanced with a few configuration changes.
+
+### Introducing the 'charm'  Viper ecosystem manager
+
+The 'charm' program has been supplied to help you configure Viper and Vish
+options. Viper and Vish do not automatically dump various dotfiles over your
+home directory or current project directory. Obviously, you can create these
+yourself, but charm helps you locate and create them from templates.
+
+Here are some useful charm commands:
+
+- charm status : Displays all the things that charm knows how to report or change
+- charm welcome : Shows the Welcome banner and has subcommands to remove it or restore it.
+  * display options. The Welcome banner is shown when Viper starts with no files to edit.
+- charm config : This command has many subcommands to configure Viper and Vish
+  * See charm config help for details
+
+And there are a few other charm commands that can be useful. Try charm help
+for more information.
+
+Recommended approach:
+
+```bash
+# This command will create the folder structure unde ~/.config/vish
+./bin/charm  config create
+# This command will create a PATH string for you to add the ./bin/ folder to your path
+./bin/charm config path
+# after you have managed your path, run this command to see what else you might configure in Viper/Vish
+charm status
+# At any time you can get help with any charm command
+charm help
+# or help with any subcommand
+charm config help
+```
+
+
 ## Usage
 
-Run ./bin/viper -h to see a list of command line flags.
+Run viper -h to see a list of command line flags.
 Without any non-flag arguments, Viper starts up in editor mode on the buffer : "unnamed1'.
+Unless the Welcome banner is still enabled, in which it will be displayed first.
 Otherwise, any non-flag arguments on the command line are assumed to be files
 or will become new files. Viper, upon startup, will announce the current buffer.
 If there are more than one non-flag arguments, the other files will be opened
