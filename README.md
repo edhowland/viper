@@ -105,6 +105,7 @@ Here are some useful charm commands:
   * display options. The Welcome banner is shown when Viper starts with no files to edit.
 - charm config : This command has many subcommands to configure Viper and Vish
   * See charm config help for details
+- charm help : Describes the charm program and lists its commands with their subcommands 
 
 And there are a few other charm commands that can be useful. Try charm help
 for more information.
@@ -112,15 +113,17 @@ for more information.
 Recommended approach:
 
 ```bash
+# You probably want to add viper, vish, ivsh and the charm programs to your $PATH
+# Here is one way to do this for the Bash shell. For other shells, YMMV:
+echo export PATH=$(./bin/charm config path) >> ~/.bashrc
 # This command will create the folder structure unde ~/.config/vish
-./bin/charm  config create
-# This command will create a PATH string for you to add the ./bin/ folder to your path
-./bin/charm config path
-# after you have managed your path, run this command to see what else you might configure in Viper/Vish
+charm  config create
+# Run this command to check out the current status of your Viper environment
+# It will helpfully list other charm commands to run
 charm status
 # At any time you can get help with any charm command
 charm help
-# or help with any subcommand
+# or help with any subcommand. E.g. 
 charm config help
 ```
 
