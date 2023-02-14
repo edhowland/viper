@@ -1,0 +1,3 @@
+#!/bin/bash
+src=$(dirname $0)
+vish "${src}/charm.vsh" $@
