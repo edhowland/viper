@@ -3,8 +3,8 @@ import option_processing
 load_viper_paths
 import keymaps
 import edit
+import pluginutils
 function viper(fname) {
   o :fname
   vip
 }
-when_load viper { load vish_lang; load ruby_lang; nop process_e viper }

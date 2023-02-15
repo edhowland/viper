@@ -2,6 +2,29 @@
 
 # Todo list
 
+## charm package needs 3 new additional subcommands: remove,  get  and search
+
+Must have
+
+- remove <package_name>
+- get <package_name>
+- search <package_name>
+
+### The remove subcommand searches for a package
+
+Uses the logic in ls subcommand to find a package. Given its full path
+it rm -rf s from there
+
+
+###  The get package subcommand downloads from github a packaged tarball
+if it can be found and then extracts it into a source folder of the package name
+Then after cd -ing into that d/l -ed  folder, it runs charm package install
+
+
+### The search subcommand gets a list of known packages on GitHub and greps for package
+
+It should output the charm command to get and install the package.
+
 The Todo list items herein marked with an '*' are must haves for version 2.1 (final)
 
 ## Change ~/.vishrc to become ./config/vish/vishrc *
@@ -773,6 +796,26 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## store command fails with bad error method when target directory does not exist
+
+```
+store &() { nop } /v/nada/foo
+
+undefined method `[]=' for nil:NilClass
+
+    my_node[elements[-1]] = object
+           ^^^^^^^^^^^^^^^^
+```
+
+This should be a better error message. Test the existance of the target dir first.
+
+## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
+
+Remove and then re-run all tests
+
+
+
 
 
 ## If no module can be found in the  :mpath search path should have a better error message
