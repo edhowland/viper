@@ -116,6 +116,9 @@ Recommended approach:
 # You probably want to add viper, vish, ivsh and the charm programs to your $PATH
 # Here is one way to do this for the Bash shell. For other shells, YMMV:
 echo export PATH=$(./bin/charm config path) >> ~/.bashrc
+# You may want to re-source your ~/.bashrc at this point or log out and re-login again.
+# The next commands lines assume that the programs charm, vish and viper and ivsh
+# are in your $PATH
 # This command will create the folder structure unde ~/.config/vish
 charm  config create
 # Run this command to check out the current status of your Viper environment
@@ -171,7 +174,7 @@ These modes can be entered with first entering command mode.
 - ./bin/vish : Runs a script a file with extension: .vsh.
   * ./bin/vish -c will check all file arguments  for syntax correctness.
 - ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press Control d to exit or to exit or type 'exit' and press Enter.
-
+- ./bin/charm : The Viper and Vish ecosystem manager
 
 ## Warnings
 
@@ -191,6 +194,36 @@ is use the command 'rew' if you get into trouble.
 This will restore the current file from its last saved version on disk.
 
 Please report any bugs encountered via the GitHub issues page for this repository.
+
+## Plugins (and packages)
+
+Viper is meant for editing source code in a programming language.
+Most languages have settled on some unique filename extension for their
+source files.
+
+1. Ruby :.rb
+2. Python: .py
+3. JavaScript: .js
+4. Rust: .rs
+
+and  many others. Viper relies on this fact to automatically configure
+some editor setting specific for each language type. It does this through 
+the use of language plugins. Plugins are just Vish packages, no different than
+any other Vish package. Remember that viper is just a Vish package.
+When Viper starts up, it searches the known locations for plugins and any that
+are found are loaded.  There is a one-to-one relationship between the 
+filename extension and its plugin. E.g. .rb => ruby_lang plugin.
+
+Viper ships out of the box with 2 plugins:
+
+1. Ruby: ruby_lang => .rb extension
+2. Vish: vish_lang => .vsh extension
+
+But many others can be created and will be over time.
+
+You can read more about language plugins and how to create a Python
+plugin here: [Plugins.md](Plugins.md)
+
 
 [https://github.com/edhowland/viper/issues](https://github.com/edhowland/viper/issues)
 
