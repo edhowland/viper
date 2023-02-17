@@ -6,6 +6,7 @@
 class Retrv < BaseCommand
   def call(*args, env:, frames:)
     raise VishSyntaxError.new("retrv: Expected 2 arguments, got #{args.length}") if args.length != 2
+    raise VishSyntaxError.new("retrv: first argument must be a valid object in the virtual filesystem") unless (Hal.exist?(args[0]) && Hal.virtual?(args[0]))
     path, var = args
     vroot = frames[:vroot]
     

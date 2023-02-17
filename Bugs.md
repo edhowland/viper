@@ -2,6 +2,15 @@
 
 # Todo list
 
+## Make pry debugging to rely on ./bin/libvish.rb
+
+Now does this manually in ./pry/*.rb
+
+Rationale: Pry should do whatever Vish, Viper and ivsh all do naturally
+
+Old assumptions: Old pry used to rely on the pre-2.0.12 file structure
+New vish now loads everything from the ./local/vish/... E.g. bin/boot.vsh and etc/vishrc and prelude module
+
 ## charm package needs 3 new additional subcommands: remove,  get  and search
 
 Must have
