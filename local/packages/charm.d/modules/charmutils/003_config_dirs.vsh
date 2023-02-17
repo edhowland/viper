@@ -4,4 +4,5 @@ function populate_chome() {
    for d in packages plugins {
       mkdir ":{chome}/:{d}"
    }
+   cp ":{lhome}/packages/charm.d//config.d/templates/home_vishrc" ":{chome}/rc"
 }

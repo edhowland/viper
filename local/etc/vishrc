@@ -3,7 +3,6 @@ rem Use this line as pattern for all comments
 mkdir /v/buf
 _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
-proj=:pwd
 rem OS environment variables
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
 function debugging() { false }
