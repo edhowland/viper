@@ -5,10 +5,12 @@ Every command listed below also has a [help] subcommand that is not listed.
 
 
 charm status : Displays  current status of the Viper ecosystem
-charm config [create] {vishrc] [project] [ignore] [path] [alias] : 
+charm config [create] [project] [ignore] [path] [alias] : 
   Creates local  Viper/Vish config directories and .vishrc files
   Can also be used to help set your $PATH or aliases to viper and vish programs.
-  And helps with adding ./.vishrc to your .gitignore file if needed.
+  It also copies a sample vishrc style template to $HOME/.config/vish/rc.
+  This file can contain any settings, aliases, variables and functions
+  which might override default Vish settings, et al.
 charm package [ls] [new] [test] [install [path]] : 
   Lists extant, creates new, tests and installs packages
 charm module [ls] [package] [new] :

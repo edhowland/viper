@@ -36,6 +36,12 @@ charm status
 ```
 
 
+### HOME/.config/vish/rc
+
+This file is supplied from a template and is the Vish init file like ./.vishrc
+It can contain any valid Vish settings, variables, aliases and functions, which
+will override the default settings, et al of Vish.
+
 ### charm config path
 
 This subcommand will construct a new $PATH variable for you. You can
@@ -66,14 +72,7 @@ charm config alias >> ~/.bashrc
 ```
 
 
-### charm config vishrc
 
-This subcommand 'vishrc' will copy a sample .vishrc template to your
-home directory. It will not overwrite one if one already exists.
-To see if you already have a  ~/.vishrc either do 'ls ~/.vishrc' or 'charm status'
-
-Any Vish statements including variables, aliases and functions can be placed
-inside your ~/.vishrc. They will override any matching default elements of Vish.
 
 ## charm config project
 
