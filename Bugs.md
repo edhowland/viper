@@ -2,6 +2,41 @@
 
 # Todo list
 
+## Make sure that MPATH and LPATH can take relative pathanems
+
+```bash
+MPATH=.. charm module ls
+```
+
+
+## Add the Python inspired VISH_STARTUP environment variable
+
+By default, the values of ~/.vishrc, ~/.config/vish/rc and ${PWD}/.vishrc
+are searched for initialization of Vish in prelude.
+:{lhome}/vish/prelude/090_load_vishrc.vsh
+
+There should also be a lookup for the shell environment variable: VISH_STARTUP
+
+Say you are in a deeply nested project directory structure, and you move about
+and then start up Viper therein. Viper is not aware that you might have
+a  project_root/.vishrc like git does following parent dirs upto some .git directory.
+
+This can be accomplished like Python does with PYTHON_STARTUP.
+
+```bash
+$ pwd
+/home/me/path/to/myproject
+$ ls .vishrc
+.vishrc
+$ source .rc
+# sets up VISH_STARTUP to ${PWD}
+$ cd ./deeply/nested/sub/directory
+$ viper sourcefile.rb
+# The above .vishrc is found
+```
+
+Put the code inside the 090_load_vishrc.vsh before
+the current :proj/.vishrc possible candidate.
 ## Make pry debugging to rely on ./bin/libvish.rb
 
 Now does this manually in ./pry/*.rb
@@ -805,6 +840,17 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## Get an ls error when invoking charm package ls
+
+
+```bash
+$ charm package ls
+
+```
+
+
+
 
 ## store command fails with bad error method when target directory does not exist
 

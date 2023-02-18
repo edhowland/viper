@@ -32,29 +32,17 @@ This document borrows heavily from the CONTRIBUTING.md for the Atom editor on Gi
 
 Please read the [Code of Conduct](CODE_OF_CONDUCT). before proceeding.
 
+### You might also be interested in my philosophy of programming and project management:
+
+[Philosophy.md](Philosophy.md)
 
 
 
 ### Viper development environment
 
 
-Viper is coded in Ruby 2, so you should also have a complete Ruby development toolchain. If you can already run Viper,
-you probably can also begin to develop for Viper, since the runtime environment mirrors the development closely. You only need to install 3 other gems:
-
-1. rubocop
-2. simplecov
-3. simplecov-json
-
-
-```
-# Add to Gemfile:
-
-gem 'rubocop', '~> 0.36.0', require: false
-gem 'simplecov', :require => false, :group => :test
-gem 'simplecov-json', :require => false
-```
-
-Then, run 'bundle' to install.  
+Viper is coded in Ruby 2 and 3, so you should also have a complete Ruby development toolchain. If you can already run Viper,
+you probably can also begin to develop for Viper
 
 ## Reporting Bugs 
 
