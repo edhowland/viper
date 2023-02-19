@@ -182,8 +182,131 @@ package_name.d/modules/module_name/
 Let's create our own package and  populate with a new module
 
 ```bash
-$ cd project_root
-$ charm pcakge new mypackage
-$ cd mypackage
-$ charm module new mymodule
+$ charm  package new mypack
+Creating new package source directory in mypack/
+Which will become a git repository
+Initialized empty Git repository in /home/edh/charm/mypack/.git/
+$  cd mypack/
+$  charm module new myutils
+sample templates copied into mypack.d/modules/myutils
+$  
+```
 
+
+After this operation, mypack/mypack.d/modules/myutils will contain 2 files
+
+1. 001_sample.vsh : A file of Vish comments onlyy
+2. on_import.vsh : Another file of comments
+
+You are free to rename/remove these files at will.
+
+They are not added to the git repository yet. That is your job.
+
+## Creating a standalone module
+
+
+```bash
+$ charm module new singmod
+```
+
+This creates a directory: singmod/ with the above files 001_sample.vsh and on_import.vsh
+
+## Testing your module after you add code.
+
+
+As stated above, the MPATH shell environment variable can be set temporarily
+to allow for testing any module.
+
+If in a package, then you can either do:
+
+- Test the entire package with the LPATH shell variable. See [Packages.md](Packages.md)
+- Set MPATH to ${PWD}/mypack.d/modules
+
+But that might be risky.
+
+### Testing standalone modules
+
+All 4 Viper executables understand the MPATH shell environment variable.
+
+This includes:
+
+- viper
+- vish
+- ivsh
+- charm
+
+If your module contains variables, functions and aliases,
+then try out ivsh, the Vish REPL, first.
+
+```bash
+$ MPATH=${PWD} ivsh
+vish> import singmod
+vish> .... test out things now
+```
+
+Caution: Be aware of what the file 'on_import.vsh' might doif it is present.
+
+
+
+##  Other uses of the charm module subcommand
+
+### ls
+
+```bash
+charm module ls
+```
+
+will list the  current modules found in the :mpath search path
+
+to get even more modules, say within a package, prepend the MPATH variable first:
+
+```bash
+MPATH=/path/to/package/package.d/modules charm module ls
+```
+
+You can use the 'vish' command to help you with this task. 
+
+```bash
+# Say we only want to search the first component of :lpath for our modules
+$ MPATH="$(vish -e 'echo :(ifs=: first :mpath))/mypack.d/modules" charm module ls
+```
+
+
+###  package
+
+This package helps you out finding known modules if you know the name of the
+of the package the modules might be listed in. It is similar the the MPATH=
+wexample where we looked at the first component of :lpath above.
+
+Say you want to see the modules for the Ruby language plugin:
+
+```bash
+$ charm module package ruby_lang
+modules in ruby_lang package of lpath component /home/me/tmp/viper/local/plugins
+syntax
+```
+
+The package must exist some where in :lpath.
+But you can prepend more paths with the LPATH= method, as previously mentioned.
+
+### help
+
+This subcommand lists information about the charm module command, including explantions
+regarding its subcommands.
+
+```bash
+$ charm module help
+```
+
+## Conclusion
+
+A Vish module is just a directory of Vish source code that can be gulped
+in one stroke with the import <module_name> command. You can use the charm program
+to  query and create  new modules.
+Modules can be stand-alone or part of a Vish package.
+Filenames in a module subdirectory obey a naming convention that is sequential.
+And a file called: 'on_import.vsh', if it exists in the module subdirectory,
+will be sourced after all other sequentially named source file have been sourced.
+
+Fundamentally, a module is just a searchable bundle of Vish functionality with a name
+that be imported with: 'import module_name'.

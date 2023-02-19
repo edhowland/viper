@@ -1,4 +1,4 @@
-# Vish
+# Vish The Viper extension shell language
 
 ## Abstract
 
@@ -601,6 +601,52 @@ _mode=viper bind ctrl_d { suppress { date | ins :_buf } } { echo -n  Current dat
 Any commands executed in the block passed to the 'suppress' command will not
 not be output to stdin. Then we just report that the date has been inserted.
 
+
+
+
+## Vish packages
+
+Vish packages are searchable code that provide additional functionality or even
+implement an entire program.  Packages can be loaded with 
+the 'load package_name' command. The 'charm' program can be used
+to inspect and otherwise manage Vish packages.
+For more on packages see: [Packages.md](Packages.md)
+For more on the charm program see: [Charm.md](Charm.md)
+
+### Plugins
+
+In Viper, you can have any number of plugins. A plugin is really just a Vish
+package, but lives in another component of the package search path.
+
+Plugins usually are meant to provide per file type customizations to Viper
+functionality. E.g. the Ruby plugin, ruby_lang,  does the following:
+
+- Sets autoindent to true
+  * This changes what happens when Return is pressed and the current line is currently indented.
+  * The new line will be indented the same amount
+- Sets the indent and outdent setting to 2 spaces
+  * This changes what happens when you press either tab or backtab
+- A new function 'checkrb' is added to check the syntax of the current buffer.
+- The checker variable is set to 'checkrb' when a .rb file extension is now the current buffer
+  * Now when you press Alt plus semicolon and tyep 'check' and press Return checkrb will be run
+- Macros specific to  the Ruby programming language are loaded
+
+Plugins can be created with the help of the 'charm package new plugin_name' command.
+A 'syntax' module can be created with the  'charm module new syntax' command
+when inside the package directory created above.
+
+For more on plugins see: [Plugins.md](Plugins.md)
+-
+
+## Vish modules
+
+In Vish, a module is a smaller self-contained bundle of functionality that can
+be searched and imported with the 'import module_name' command.
+Modules can either be stand-alone or  part of a package.
+The charm program can be used to query or create new stand-alone modules or 
+modules in a package.
+
+For more on modules see: [Modules.md](Modules.md)
 
 
 ## Conclusion

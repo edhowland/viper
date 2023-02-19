@@ -285,3 +285,28 @@ $ charm welcome restore
 
 
 
+
+
+## charm module
+
+
+## charm admin
+
+This program, not mentioned anywhere in the charm help documentation, except here,
+is meant for maintainers of the Viper source distribution. It changes the Viper Welcome banner
+page to reflect the current version of Viper and Vish.
+It should be run as part of creating a new release of Viper.
+
+```bash
+$ charm admin
+```
+
+## charm help
+
+Shows the help page for the charm program and lists
+all commands and their subcommands
+
+```bash
+$ charm help
+```
+

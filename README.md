@@ -2,7 +2,7 @@
 
 ## Text and Code editor for use with screen readers
 
-### Version 2.0.12
+### Version 2.0.13.a
 
 See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 
@@ -12,7 +12,7 @@ Release 2.1: Indy pre-release candidate #1
 ## Abstract
 
 This is a simple editor in Ruby that works with screen readers, especially like VoiceOver 
-in Mac OS, or with Orca in Linux with Gnome desktops.
+in Mac OS, or with Orca using Linux.
 Viper only attempts an audible interface. Sighted users of the program will only see confusing gibberish on the screen.
 Viper is designed to work in terminal sessions either directly or over an ssh tunnel.
 Viper is not a GUI program.
@@ -120,6 +120,8 @@ echo export PATH=$(./bin/charm config path) >> ~/.bashrc
 # The next commands lines assume that the programs charm, vish and viper and ivsh
 # are in your $PATH
 # This command will create the folder structure unde ~/.config/vish
+# It also gives you a ~/.config/vish/rc from a template to get you started with
+# additional customizations
 charm  config create
 # Run this command to check out the current status of your Viper environment
 # It will helpfully list other charm commands to run
@@ -174,6 +176,7 @@ These modes can be entered with first entering command mode.
 - ./bin/vish : Runs a script a file with extension: .vsh.
   * ./bin/vish -c will check all file arguments  for syntax correctness.
 - ./bin/ivsh : Starts Viper in Vish REPL interactive mode. Press Control d to exit or to exit or type 'exit' and press Enter.
+  * This can also be invoked within Viper itself via the 'vish' entered in Command mode
 - ./bin/charm : The Viper and Vish ecosystem manager
 
 ## Warnings
@@ -187,7 +190,7 @@ you already have git.
 One thing that you can do to help protect yourself, besides saving often and using a VCS,
 is use the command 'rew' if you get into trouble.
 
-1. Invoke Command mode with : Alt+';'
+1. Invoke Command mode with : Alt+semicolon
 2. Enter rew and press Enter
 
 
@@ -225,7 +228,36 @@ You can read more about language plugins and how to create a Python
 plugin here: [Plugins.md](Plugins.md)
 
 
-[https://github.com/edhowland/viper/issues](https://github.com/edhowland/viper/issues)
+
+## The Vish extension shell language
+
+Viper is really just a program written Vish.
+Commands entered in Command mode or in your ~/.config/vish/rc or ./.vishrc
+files are all written in Vish. When you invoke the Vish REPL either
+by running './bin/ivsh' or by invoking Command mode and entering 'vish' and
+pressing Return,  you are interactively working the Vish runtime and syntax.
+
+The Vish language looks a lot like Bash and other Unix shells you might
+have encountered before. However there are some notable functionality
+that has been added and some syntax changes. For more on Vish see [Vish.md](Vish.md)
+
+## The philosophy of Viper
+
+
+I originally created Viper in the fall/winter of 2015 through 2016 to "scratch my own itch".
+I have been using it ever since as my daily driver. But it hasn't gotten any TLC
+since then and it badly need some. Also, I have learned a few new tricks
+and better software engineering principals. For this reason,
+I am working to improve  it with a look to version 2.1 which is what version 2.0 really
+should have been back then if I had continued improving. The break has given me some perspective
+on how to do it better gradually going forward.
+
+I have collected some thoughts on Viper and general development precepts here: [Philosophy.md](Philosophy.md)
+I hope you might share some of them and strive with me to make the world
+better for blind and visual impaired programmers in the future.
+Thank you.
+
+
 
 
 
