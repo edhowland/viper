@@ -1,7 +1,12 @@
 # Wont fix
 
-## 2023-01-19
+## 2023-02-19
 
+Make an universal function that is shared between viper.rb, ivsh.rb and vish.rb
+
+
+
+## 2023-01-19
 ## Meta mode not quite working yet
 
 Switching and out of temporary modes is somewhat broken

@@ -1,5 +1,23 @@
 # Changelog for Viper project
 
+## Release 2.0.13.a
+
+2023-02-19
+
+
+- New Vish program: charm
+  * An ecosystem manager for Viper and Vish
+  * Many commands with subcommands to help with querying and creating new Vish packages, plugins and modules
+  * Populating the default ~/.config/vish directory for extending Viper and Vish
+-  Many fixes and extensions to Vish's import and load commands for modules and packages
+- Added new Welcome banner for Viper upon startup
+  * Only displays when no files to edit when Viper invoked, like vim does
+  * Chan be configured away with 'charm welcome remove' and restored again with 'charm welcome restore'
+- Changed the default for initialization/customization scripts
+  * Previously was in ~/.vishrc . Will still work for backward compatibility
+  * If 'charm config create' has been run, expects ~/.config/vish/rc now and in the future
+
+
 ## Release 2.0.12
 
 2023-01-19

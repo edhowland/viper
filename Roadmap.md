@@ -85,32 +85,29 @@ Move all macro and other user specific from :vhome/doc/* to to ~/.config/vish/vi
 
 The above requires  a move to a initialization strategy upon the first step post-installation.
 
-### Create new Vish application: vupdate, or vishup
+### Create new Vish application: charm
+
+### Version 2.0.13.a
 
 Application takes command like 'go new' or 'cargo new'
 
-Note: This above is now renamed to 'charm', a Vish app
 
 ```bash
-charm help
-charm start # creates initial ~/.config folders
-charm update # aliased to charm up Checks for package updates
-charm install package
-charm ls # lists installed packages
-charm test [test_name] # or run all Vish tests
+$ charm help
+$ charm config create
+$ charm status
+$ charm package install
+$ charm package ls
+$ charm module ls
 # and many more ????
 ```
 
 
-- vishup init : Creates ~/.config dirs, and copies sone ./local user updatable content therein
-- vishup packages ls - Lists currently known packages with pathnames
-- vishup modules ls - list currently known modules
-vishup paths ls - list known Vish paths for executables (:path), modules (:mpath) and packages (:lpath)
-vishup test - runs all tests or just selected tests in vshtest/ dir.
-- vishup startup ls - Lists the initialization startup order: ./local/boot, ~/.vishrc, :proj/.vishrc
 The rationale for this is to prevent users  from clobbering the built-in macro stuff
 whenever they perform a git pull to get the latest release.
 
+
+### version 2.0.13.b
 - Fix broken help system
 
 Currently based on parsing MarkDown files in :vhome/doc
@@ -181,20 +178,22 @@ Vish should be:
 - Able to be an extension language for more than just Viper
   * An email client
   * A interactive http client
+  * A better pager
+  * A better diff viewer
 - Run stand-alone scripts to perform utility actions.
 - 
 
 
 ## What Viper 2.1 is NOT!
 
-Viper 2.1 is not a major rewrite of Viper 2.0, despite 2.0 being about 6 years old at this point.
+Viper 2.1 is not a major rewrite of Viper 2.0, despite 2.0 being about 7 years old at this point.
 
 The Ruby is quite smelly:
 
 - VFS (Virtual File System) should just be a simple Hash with both '.', and '..'
 pointers. (Not easy to do unless you introduce thunks, or defer lambdas
 
-- Vish syntax has a few definciencies:
+- Vish syntax has a few definciencies
   * Subshells should be able to be used anywhere in a statement. The return code (:exit_status) is supplied for the argument at that argument position.
   * There should be redirection primitives like 2>&1, or 1>&2.
   * Within double-quoted strings, the command substitution should be interpolated:
@@ -209,6 +208,8 @@ hello world
 
 - The current of meta/mode switching is truly broken.
   * Relies on raising an exception and using a single array: /v/meta
+
+Note: This has been fixed in version 2.0.12
 - Newer modes like a Vim-like mode are not able to be implemented herein.
 
 

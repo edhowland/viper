@@ -2,6 +2,12 @@
 
 # Todo list
 
+## Add new Rake task: release
+
+Use a here document to list all the steps for creating a new release
+
+
+
 ## Make sure that MPATH and LPATH can take relative pathanems
 
 ```bash
@@ -71,14 +77,6 @@ It should output the charm command to get and install the package.
 
 The Todo list items herein marked with an '*' are must haves for version 2.1 (final)
 
-## Change ~/.vishrc to become ./config/vish/vishrc *
-
-Schedule this change before 2.1 release
-Requires massive refit.
-
-## LPATH, MPATH should be able to change the package and module search paths for all programs not just charm *
-
-Both are defined in local/vish/prelude/007_variables.vsh
 
 ## The unalias command in Bash can take many aliases, as log as they all exist.
 
@@ -146,6 +144,8 @@ Then this should be a fold operation: reduce.
 
 
 ## Make massive fixes to README.md. Many things ther are now deprecated or removed. *
+
+Note: Much of this has been done in version 2.0.13.a
 
 ## read command should work more like its Bash cousin *
 
@@ -215,13 +215,18 @@ Syntax error
 
 
 
-## Move option processing form vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
+## Move option processing from vish/modules/init to packages/vish_pkg.vsh: local/packages/vish.d/modules/option_handler/
 
 This just cleans up the location of functionality from modules to packages
 which are  now the main entry point for Vish apps.
 
+Note: This might be moved to wontfix.md because I am happy with the current 
+option processing
+
 ## Renumber local/vish/prelude/0??_*.vsh source filenames *
 
+
+Note: Much of this been done in 2.0.13.a
 local/vish/prelude/001_argparse.vsh
 local/vish/prelude/002_import.vsh
 local/vish/prelude/003_options.vsh
@@ -293,7 +298,6 @@ In 2.0.13, or .15 there is extensive redesign of the help system.
 
 ## Now that the source command can take a file in the VFS, improve the -e 'echo some command here' processing.
 
-Make an universal function that is shared between viper.rb, ivsh.rb and vish.rb
 
 
 ```
@@ -515,7 +519,10 @@ echo foo | grep foo;echo :exit_status
 true
 ```
 
-And of cource, the single/double quoted string parsing leaves a lot of room for imporvement.
+Note: can be aliased to 'sh - grep', but must check this.
+Only seems to be an extant command in the edit module of Viper somewhere.
+
+And of cource, the single/double quoted string parsing leaves a lot of room for improvement.
 
 You cannot properly put backslashes in there to escape them.
 
@@ -841,29 +848,7 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## Get an ls error when invoking charm package ls
 
-
-```bash
-$ charm package ls
-
-```
-
-
-
-
-## store command fails with bad error method when target directory does not exist
-
-```
-store &() { nop } /v/nada/foo
-
-undefined method `[]=' for nil:NilClass
-
-    my_node[elements[-1]] = object
-           ^^^^^^^^^^^^^^^^
-```
-
-This should be a better error message. Test the existance of the target dir first.
 
 ## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
 

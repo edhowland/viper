@@ -1,5 +1,42 @@
 # completed bugs
 
+## 2023-02-19
+
+## Get an ls error when invoking charm package ls
+
+
+```bash
+$ charm package ls
+
+```
+
+
+
+
+
+
+## store command fails with bad error method when target directory does not exist
+
+```
+store &() { nop } /v/nada/foo
+
+undefined method `[]=' for nil:NilClass
+
+    my_node[elements[-1]] = object
+           ^^^^^^^^^^^^^^^^
+```
+
+This should be a better error message. Test the existance of the target dir first.
+
+## Change ~/.vishrc to become ./config/vish/vish/rc
+If ~/.vishrc still exists it is loaded for backward compat.
+
+## LPATH, MPATH should be able to change the package and module search paths for all programs not just charm *
+
+Both are defined in local/vish/prelude/007_variables.vsh
+
+
+
 2023-02-11
 
 ## The order of loading the various ~/.vishrc or ./.vishrc is not correct
