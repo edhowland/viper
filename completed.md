@@ -1,5 +1,31 @@
 # completed bugs
 
+## 2023-02-27
+
+### Entering a blank line immediately exits
+
+
+
+
+### When the vsh_parse blk happens, it gets lost when exec'ed
+
+1. Start ivsh # The vish version, not the ivsh.rb version
+2. try: 'echo -n kak | read abc'
+3 The abc var is unknown
+
+But:
+
+```
+vish> echo -n hello world | read abc; global abc
+vish> type abc
+Variable
+hello world
+```
+
+This is because the whole thing is happening inside the rep1 function, methinks
+
+
+
 ## 2023-02-19
 
 ## Get an ls error when invoking charm package ls

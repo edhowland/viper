@@ -32,7 +32,11 @@ end
 
 
 def safe_get_line(prompt="vish3")
-  get_line(prompt=prompt)
+  res=get_line(prompt=prompt)
+  if res.nil?
+    return 'ctrl_d'
+  end
+  return res
   rescue Interrupt
   $stderr.puts "Control C"
 end

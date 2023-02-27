@@ -4,25 +4,6 @@
 
 ## Problems with new ivsh: E.g. the pure vish script version
 
-### When the vsh_parse blk happens, it gets lost when exec'ed
-
-1. Start ivsh # The vish version, not the ivsh.rb version
-2. try: 'echo -n kak | read abc'
-3 The abc var is unknown
-
-But:
-
-```
-vish> echo -n hello world | read abc; global abc
-vish> type abc
-Variable
-hello world
-```
-
-This is because the whole thing is happening inside the rep1 function, methinks
-
-
-### Entering a blank line immediately exits
 
 
 ## Add new Rake task: release
