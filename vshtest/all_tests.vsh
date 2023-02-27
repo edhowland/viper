@@ -30,3 +30,5 @@ source test_version.vsh
 source test_boolean.vsh
 source test_import.vsh
 source test_store.vsh
+source test_capture.vsh
+

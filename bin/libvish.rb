@@ -31,6 +31,12 @@ def load_vishrc vm:
 end
 
 
+def safe_get_line(prompt="vish3")
+  get_line(prompt=prompt)
+  rescue Interrupt
+  $stderr.puts "Control C"
+end
+
 def get_line(prompt='vish2>')
   #prompt = 'vish>> '
   use_history = true

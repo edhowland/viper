@@ -2,6 +2,29 @@
 
 # Todo list
 
+## Problems with new ivsh: E.g. the pure vish script version
+
+### When the vsh_parse blk happens, it gets lost when exec'ed
+
+1. Start ivsh # The vish version, not the ivsh.rb version
+2. try: 'echo -n kak | read abc'
+3 The abc var is unknown
+
+But:
+
+```
+vish> echo -n hello world | read abc; global abc
+vish> type abc
+Variable
+hello world
+```
+
+This is because the whole thing is happening inside the rep1 function, methinks
+
+
+### Entering a blank line immediately exits
+
+
 ## Add new Rake task: release
 
 Use a here document to list all the steps for creating a new release
@@ -847,6 +870,26 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+
+## capture command the first block does not seem to execute in the current scope
+
+```
+rem capture.vsh utests whether the execute bloc within capture command can change global env
+capture { aa=foo } { exit }
+type  aa
+```
+
+```bash
+vish capture.vsh
+aa Unknown
+```
+
+## echo -n does not work at all
+
+
+## when cat is given a file path it cannot find, its dies
+
+
 
 
 

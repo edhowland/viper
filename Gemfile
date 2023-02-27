@@ -8,7 +8,7 @@ gem 'mdl', '~> 0.12.0'
 # these gems are needed for runtime, and testing
 gem 'remedy', '0.2.0'
 gem 'pry'
-gem 'reline', '0.3.1'
+gem 'reline', '0.3.2'
 #gem 'redcarpet'
 #gem "espeak-ruby", require: "espeak"
 # this gem is only for checking/linting code
