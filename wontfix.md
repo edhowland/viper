@@ -1,5 +1,11 @@
 # Wont fix
 
+## 2023-02-27
+
+
+The cmdlet getline will not accept multi-word prompts as the first argument
+For now, will only use the value of :prompt
+
 ## 2023-02-19
 
 Make an universal function that is shared between viper.rb, ivsh.rb and vish.rb

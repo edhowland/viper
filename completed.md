@@ -1,6 +1,17 @@
 # completed bugs
 
 ## 2023-02-27
+### No matter what I do, the prompt is just 'vish' and not whatever the :prompt variable is
+
+Note: when changing the prompt to have a '>' or '>>' after it
+it it chompts that off
+
+
+
+Fix: Only uses :prompt inside the getline CommandLet
+If it is passed   as the first argument, then chompts off the  everything from the first space to the end of line/statement
+
+This is a wont fix
 
 ### Entering a blank line immediately exits
 

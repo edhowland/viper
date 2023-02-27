@@ -4,6 +4,14 @@
 
 ## Problems with new ivsh: E.g. the pure vish script version
 
+### Cannot pass arguments to ivsh like -e and -s
+
+Because of Bash shell script: ./bi/ivsh and the call to vish
+
+
+
+### Still echo -n foo has no output in ivsh
+
 
 
 ## Add new Rake task: release
@@ -851,6 +859,8 @@ Can 'when' be a Vish function?
 
 
 # Bugs
+## Setting values in  .vishrc like :prompt have no effect if set other where in ./local
+
 
 ## capture command the first block does not seem to execute in the current scope
 
