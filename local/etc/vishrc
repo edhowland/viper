@@ -24,7 +24,7 @@ echo :init
 }
 function map() {
 shift fn
-for e in :_ { echo -n :(exec :fn :e) ' ' }
+for e in :_ { echo -n :(exec :fn :e) :ofs }
 }
 function each() {
 shift fn

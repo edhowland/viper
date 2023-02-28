@@ -1,5 +1,18 @@
 # completed bugs
 
+
+2023-02-28
+
+### Still echo -n foo has no output in ivsh
+
+
+
+
+Fix: Problem is that the Reline library does a clear line before outputing the prompt, this happens
+in raw mode. Solution was, although not perfect, was to output a newline before
+calling safe_get_line in bin/libvish.rb
+
+
 ## 2023-02-27
 ### No matter what I do, the prompt is just 'vish' and not whatever the :prompt variable is
 

@@ -10,9 +10,6 @@ Because of Bash shell script: ./bi/ivsh and the call to vish
 
 
 
-### Still echo -n foo has no output in ivsh
-
-
 
 ## Add new Rake task: release
 
