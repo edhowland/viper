@@ -1,5 +1,34 @@
 # Wont fix
 
+## 2023-02-28
+
+# Viper and Vish Bugs
+
+
+Reason: This is MacOS Catalina bug, not Viper/Vish bug
+
+## The sh command does not seem to work with stdin 
+
+It does work with our Vish internal stdout
+
+Broken:
+```
+echo foo | sh grep foo
+```
+
+
+Working:
+```
+sh head -1 Bugs.md | read foo
+echo :foo
+```
+
+Reason: sh - is ok way to alert programmer of vish intention.
+Must document this thoroughly..
+
+
+
+
 ## 2023-02-27
 
 

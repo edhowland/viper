@@ -9,12 +9,6 @@ Use a here document to list all the steps for creating a new release
 
 
 
-## Make sure that MPATH and LPATH can take relative pathanems
-
-```bash
-MPATH=.. charm module ls
-```
-
 
 ## Add the Python inspired VISH_STARTUP environment variable
 
@@ -44,14 +38,6 @@ $ viper sourcefile.rb
 
 Put the code inside the 090_load_vishrc.vsh before
 the current :proj/.vishrc possible candidate.
-## Make pry debugging to rely on ./bin/libvish.rb
-
-Now does this manually in ./pry/*.rb
-
-Rationale: Pry should do whatever Vish, Viper and ivsh all do naturally
-
-Old assumptions: Old pry used to rely on the pre-2.0.12 file structure
-New vish now loads everything from the ./local/vish/... E.g. bin/boot.vsh and etc/vishrc and prelude module
 
 ## charm package needs 3 new additional subcommands: remove,  get  and search
 
@@ -848,7 +834,6 @@ Can 'when' be a Vish function?
 
 
 # Bugs
-## Setting values in  .vishrc like :prompt have no effect if set other where in ./local
 
 
 ## capture command the first block does not seem to execute in the current scope
@@ -864,7 +849,6 @@ vish capture.vsh
 aa Unknown
 ```
 
-## echo -n does not work at all
 
 
 ## when cat is given a file path it cannot find, its dies
@@ -897,22 +881,6 @@ Also should be able to take number of lines to read
 
 
 
-## The sh command does not seem to work with stdin 
-
-It does work with our Vish internal stdout
-
-Broken:
-```
-echo foo | sh grep foo
-```
-
-
-Working:
-```
-sh head -1 Bugs.md | read foo
-echo :foo
-# Viper and Vish Bugs
-```
 
 ## The result of the line_number command is an integer, and not compat w/ the goto command
 

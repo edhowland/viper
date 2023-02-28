@@ -3,6 +3,34 @@
 
 2023-02-28
 
+## Setting values in  .vishrc like :prompt have no effect if set other where in ./local
+
+
+
+## Make pry debugging to rely on ./bin/libvish.rb
+
+Now does this manually in ./pry/*.rb
+
+Rationale: Pry should do whatever Vish, Viper and ivsh all do naturally
+
+Old assumptions: Old pry used to rely on the pre-2.0.12 file structure
+New vish now loads everything from the ./local/vish/... E.g. bin/boot.vsh and etc/vishrc and prelude module
+
+
+
+## Make sure that MPATH and LPATH can take relative pathanems
+
+```bash
+MPATH=.. charm module ls
+```
+
+
+Note: These to new file local/vish/prelude/004_environment.vsh
+
+## echo -n does not work at all
+
+
+
 ## Problems with new ivsh: E.g. the pure vish script version
 
 ### Cannot pass arguments to ivsh like -e and -s

@@ -53,6 +53,7 @@ end
 
 # The Read/Eval/Print/Loop or REPL
 def repl(vm:)
+  Reline.prompt_proc = ->(x) {   [vm.fs[:prompt], vm.fs[:prompt2]] }
   loop do
   $stdout.print("\n")
     src = get_line(prompt=vm.fs[:prompt])
