@@ -54,6 +54,7 @@ end
 # The Read/Eval/Print/Loop or REPL
 def repl(vm:)
   loop do
+  $stdout.print("\n")
     src = get_line(prompt=vm.fs[:prompt])
     return nil if src.nil?
     unless src.empty?

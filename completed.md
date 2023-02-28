@@ -3,6 +3,24 @@
 
 2023-02-28
 
+## Problems with new ivsh: E.g. the pure vish script version
+
+### Cannot pass arguments to ivsh like -e and -s
+
+Because of Bash shell script: ./bi/ivsh and the call to vish
+
+
+
+
+
+Fix: Reverted to ivsh Ruby script.
+Added explicit \n before each iteration of loop
+This recovers the state of the terminal line buffer before Reline
+gets ahold of it. Now the old option parsing is back in place.
+ivsh Bash shell script and the vish_repl.vsh are now  in ./examples/repl
+Nice try but no bananas
+
+
 ### Still echo -n foo has no output in ivsh
 
 

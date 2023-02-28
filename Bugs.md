@@ -2,14 +2,6 @@
 
 # Todo list
 
-## Problems with new ivsh: E.g. the pure vish script version
-
-### Cannot pass arguments to ivsh like -e and -s
-
-Because of Bash shell script: ./bi/ivsh and the call to vish
-
-
-
 
 ## Add new Rake task: release
 
