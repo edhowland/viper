@@ -39,7 +39,7 @@ class Capture < BaseCommand
       env.pop unless env.length <= 1
       justice.call(env: env, frames: frames)
     end
-
+  frames.merge
     result
   end
 end

@@ -1,5 +1,24 @@
 # completed bugs
 
+## 2023-03-01
+
+
+## capture command the first block does not seem to execute in the current scope
+
+```
+rem capture.vsh utests whether the execute bloc within capture command can change global env
+capture { aa=foo } { exit }
+type  aa
+```
+
+```bash
+vish capture.vsh
+aa Unknown
+```
+
+
+
+
 
 2023-02-28
 
