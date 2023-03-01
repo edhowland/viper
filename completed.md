@@ -2,6 +2,13 @@
 
 ## 2023-03-01
 
+## when cat is given a file path it cannot find, its dies
+
+
+Fix: New fns: extract and filter_args which splits argument list into a
+duo of an ok_list and a bad_list
+
+
 
 ## capture command the first block does not seem to execute in the current scope
 

@@ -837,7 +837,6 @@ Can 'when' be a Vish function?
 
 
 
-## when cat is given a file path it cannot find, its dies
 
 
 

@@ -5,6 +5,8 @@
 
 class Cat < BaseCommand
   def call(*args, env:, frames:)
+  args, bad_list = filter_args(*args)
+    bad_list.each {|fo| env[:err].puts("#{fo}: No such file or directory") }
     unless args.empty?
       stdin_ndx = args.index {|a| a == '-' }
       args.each_with_index do |a, i|
