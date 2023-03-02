@@ -79,5 +79,8 @@ function head() {
 function tail() {
    cond { is_tty } { sh tail :_ } else { sh - tail :_ }
 }
+function grep() {
+   cond { is_tty } { sh grep :_ } else { sh - grep :_ }
+}
 
 

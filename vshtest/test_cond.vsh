@@ -55,3 +55,15 @@ function test_cond_true_false_else_first_fires() {
   cond { false } { a=2 } { false } { a=3 } else { a=4 }
   assert_eq :a 4
 }
+function test_cond_returns_consequent_exit_status() {
+   cond { true } { false }
+   assert_false :exit_status
+}
+function test_cond_antecedant_preserves_exit_status() {
+   cond { false } { true } else { false }
+   assert_false :exit_status
+}
+function test_cond_intermediate_clause_preserves_exit_status() {
+   cond { false } { true } { true } { false } else { true }
+   assert_false :exit_status
+}

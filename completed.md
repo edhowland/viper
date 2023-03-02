@@ -1,6 +1,14 @@
 # completed bugs
 
 ## 2023-03-02
+## Added PS2 -like dynamic prompt to reline stuff *
+
+This works with both :prompt and :prompt2
+Needed to add a Reline.prompt_proc = ->(b) { [fs[:prompt], fs[:prompt2]] } or some such code.
+See bin/libvish.rb
+
+
+
 ## head, tail should be able to read from first argument instead of just stdin
 
 Also should be able to take number of lines to read

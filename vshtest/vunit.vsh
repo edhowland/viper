@@ -34,7 +34,7 @@ function run_afters() {
   each &(f) { :f } :(afters)
 }
 function units() {
-ls_functions | grep '/^test/'
+ls_functions | grep '^test'
 }
 function run_units() {
   map &(fn) { capture { run_befores; :fn >> /v/tests/log; run_afters; echo pass } { echo :fn ':' :last_exception >> /v/tests/fails; echo :fn } } :(shuffle :(units))

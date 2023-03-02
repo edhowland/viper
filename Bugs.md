@@ -329,8 +329,6 @@ If neither, then raise Exeception something wrong internally
 
 If :to_s, then call it
 
-## Added PS2 -like dynamic prompt to reline stuff *
-
 
 ## Check out if more than one Reline can exist
 
@@ -835,6 +833,20 @@ Can 'when' be a Vish function?
 
 # Bugs
 
+## 2.0.13.a does not work out of the box
+
+Check out the code on dell:dev/previous_vipers/2.0.13.a/viper and ./bin/viper Or setting the path first
+
+## charm problems
+
+### charm status has some wrong help messages
+
+## charm config ignore has a wrong exit status
+
+## charm config project has a incorrect suggestion
+
+It refers to the old charm ignore instead of charm config ignore
+
 ## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
 
 Remove and then re-run all tests
@@ -869,7 +881,7 @@ Note trying to output it with 'echo :l' does not work
 
 ## Whenever you call getline prompt the screen reader does not output the prompt
 
-This happens for meta_semicolon Command
+This happens for meta_semicolon Command Or the Command invoke key
 and  for ctrl_f, ctrl_r
 
 How does this work in 2.0.11 and previous versions?

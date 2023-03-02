@@ -1,5 +1,34 @@
 # Changelog for Viper project
 
+## Release 2.0.13.b
+
+
+## Fixes
+
+- cond now returns  the actual exit status of the matching consequent clause
+- rep1, repl works with a newline character output even if no trailing newline on last command
+  * Tracked to a bug in the Ruby Reline module
+- cat now properly handles non-existant arguments
+
+
+### Changes
+
+- head, tail commands are now function wrappers around sh head, sh tail instead of Ruby code
+- grep is now function wrapper around sh grep
+
+Note: these commands are never or rarely used in entire code base
+
+- prompt2 now works when in a multiline input situation. Like new irb and always pry
+
+
+
+### Removed
+
+- In Viper meta_v does no longer been bound to anything
+  * Actually edit the :_clip to see what is in the clipboard
+
+Note: Fill out the rest of this
+
 ## Release 2.0.13.a
 
 2023-02-19

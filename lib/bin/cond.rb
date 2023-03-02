@@ -9,6 +9,7 @@ class Cond < BaseCommand
   end
   attr_reader :truth
   def call(*args, env:, frames:)
+    result = true
     super do |*a|
       raise VishSyntaxError.new("cond: requires one or more of predicate, action clauses. Args length  was #{a.length}, and was not a multiple of 2") if (a.length % 2) != 0
       if a.length >= 4 && a[-2] == 'else'
@@ -26,5 +27,6 @@ class Cond < BaseCommand
       end
 
     end
+    result
   end
 end
