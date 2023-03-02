@@ -102,7 +102,6 @@ ignore_undo key_delete
 _mode=viper bind ctrl_z { undo || bell } { cat }
 store { nop } /v/klogs/viper/ctrl_z
 _mode=viper bind meta_z { redo || bell } { cat }
-_mode=viper bind meta_v { next_clip } { echo -n clip now contains :(head -n1 < :_clip) }
 _mode=viper bind ctrl_n { scratch true } { cat }
 ignore_undo ctrl_n
 _mode=viper bind fn_1 { buffers | wc -l } { echo -n Viper Editor buffers :(cat) }

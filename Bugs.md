@@ -835,13 +835,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-
-
-
-
-
-
-
 ## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
 
 Remove and then re-run all tests
@@ -854,16 +847,10 @@ Remove and then re-run all tests
 
 Especially if the component of :mpath cannot be located.
 Make sure to use fully qualified pathnames for path components.
+
 ## test command with no flags is still broken
 
 Make work like Bash
-
-
-## head, tail should be able to read from first argument instead of just stdin
-
-Also should be able to take number of lines to read
-
-
 
 
 

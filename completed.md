@@ -1,5 +1,10 @@
 # completed bugs
 
+## 2023-03-02
+## head, tail should be able to read from first argument instead of just stdin
+
+Also should be able to take number of lines to read
+
 ## 2023-03-01
 
 ## when cat is given a file path it cannot find, its dies

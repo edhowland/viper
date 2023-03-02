@@ -73,5 +73,11 @@ function man(command) {
    echo "And running the command 'load viper_help' will load the sections of the  manual specific to Viper only commands"
    return false
 }
+function head() {
+   cond { is_tty } { sh head :_ } else { sh - head :_ }
+}
+function tail() {
+   cond { is_tty } { sh tail :_ } else { sh - tail :_ }
+}
 
 
