@@ -7,5 +7,5 @@ Gemfile.lock
 attic/
 .aliases
 tmp/
-/home/edh/tmp/viper/local/etc/no-viper-welcome-banner
+./local/etc/no-viper-welcome-banner
 hello.cpython-310.pyc

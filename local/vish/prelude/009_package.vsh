@@ -1,6 +1,7 @@
 rem package functions like load
 lpath=":{lhome}/packages::{lhome}/plugins"
-test -d :chome && lpath=":{chome}/packages::{chome}/plugins::{lpath}"
+cpackages=":{chome}/packages"; cplugins=":{chome}/plugins"
+test -d :cplugins && lpath=":{cplugins}::{lpath}"; test -d :cpackages && lpath=":{cpackages}::{lpath}"
 test -z :LPATH || lpath=":{LPATH}::{lpath}"
 mkdir /v/packages
 function load(package) {

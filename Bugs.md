@@ -833,9 +833,6 @@ Can 'when' be a Vish function?
 
 # Bugs
 
-## 2.0.13.a does not work out of the box
-
-Check out the code on dell:dev/previous_vipers/2.0.13.a/viper and ./bin/viper Or setting the path first
 
 ## charm problems
 

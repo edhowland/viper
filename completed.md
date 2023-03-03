@@ -1,5 +1,23 @@
 # completed bugs
 
+## 2023-03-03
+
+## After initial git clone of viper, welcome banner does not display
+
+
+
+
+
+Problem was that .gitignore had full path to ./local/etc/no-display-welcome-banner
+
+## 2.0.13.a does not work out of the box
+
+Check out the code on dell:dev/previous_vipers/2.0.13.a/viper and ./bin/viper Or setting the path first
+
+Fix: Defensive coding in local/vish/prelude/009_package.vsh:
+Only add :lpath components from :chome/packages, :chome/plugis unless they actually exist
+
+
 ## 2023-03-02
 ## Added PS2 -like dynamic prompt to reline stuff *
 
