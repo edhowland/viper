@@ -1,5 +1,15 @@
 # completed bugs
 
+## 2023-03-04
+
+
+### charm status has some wrong help messages
+
+
+Fix: Created new status module: statlist
+This individualizes the many separate charm status checks
+They can now be reordered, or added to at well.
+
 ## 2023-03-03
 
 ## After initial git clone of viper, welcome banner does not display

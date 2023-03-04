@@ -836,7 +836,6 @@ Can 'when' be a Vish function?
 
 ## charm problems
 
-### charm status has some wrong help messages
 
 ## charm config ignore has a wrong exit status
 
