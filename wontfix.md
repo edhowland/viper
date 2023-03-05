@@ -2,6 +2,22 @@
 
 ## 2023-03-04
 
+## If no module can be found in the  :mpath search path should have a better error message
+
+Especially if the component of :mpath cannot be located.
+Make sure to use fully qualified pathnames for path components.
+
+Reason: This is a documentation only problem
+MPATH is now converted by a realpath statement.
+Builtin :mpath stuff is set by the vish code, and also by packages and even viper itself.
+
+## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
+
+Remove and then re-run all tests
+
+
+Reason: Already removed previously.
+
 
 
 ## charm config ignore has a wrong exit status

@@ -107,7 +107,16 @@ The rationale for this is to prevent users  from clobbering the built-in macro s
 whenever they perform a git pull to get the latest release.
 
 
-### version 2.0.13.b
+
+## 2.0.13.b:
+
+- Reline fixes
+- charm problems
+- vish commands fixes
+- Environment testing on fresh install
+  * Does it work out the box?
+
+### version 2.0.13.c
 - Fix broken help system
 
 Currently based on parsing MarkDown files in :vhome/doc

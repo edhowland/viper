@@ -9,7 +9,9 @@
 - rep1, repl works with a newline character output even if no trailing newline on last command
   * Tracked to a bug in the Ruby Reline module
 - cat now properly handles non-existant arguments
-
+- charm commands and subcommands have more accurate documentation
+- charm status now is a set of individual checks in the statlist module
+  * New checks can be added, some can be rearranged or removed
 
 ### Changes
 
