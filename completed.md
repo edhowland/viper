@@ -1,6 +1,16 @@
 # completed bugs
 
+
 ## 2023-03-04
+
+## charm problems
+
+
+
+## charm config project has a incorrect suggestion
+
+It refers to the old charm ignore instead of charm config ignore
+
 
 
 ### charm status has some wrong help messages

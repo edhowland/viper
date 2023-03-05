@@ -834,14 +834,6 @@ Can 'when' be a Vish function?
 # Bugs
 
 
-## charm problems
-
-
-## charm config ignore has a wrong exit status
-
-## charm config project has a incorrect suggestion
-
-It refers to the old charm ignore instead of charm config ignore
 
 ## In local/packages/viper_pkg.vsh: in the when viper { ... there is a nop ahead of process_e to be removed }
 

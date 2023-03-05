@@ -1,5 +1,13 @@
 # Wont fix
 
+## 2023-03-04
+
+
+
+## charm config ignore has a wrong exit status
+
+Reason. This is intentional. If used in some automation script, want to exit as a failure.
+
 ## 2023-02-28
 
 # Viper and Vish Bugs
