@@ -30,9 +30,15 @@ task :release do
   - git tag -a '2.x.x-rcX' -m '2.x.y.rcX snapshot'
   - git push pi : push local release candidate to Raspberry Pi
   - Environment test
-    * Log in to dell
+    * Log in to test machine
     * cd to ~/dev/viper_testing
-  - git clone pi:/path/to/repos/viper with above rc tag number
+    * git clone -b 2.0.x.y.rc0 pi:/path/to/repos/viper
+    * mv viper 2.0.x.y.rcX
+    * cd 2.0.x.y.rc0
+    * rbenv local 3.1.2
+  - Run smoke tests: ./bin/vish -v, ./bin/ivsh, ./bin/viper
+    * The last test: ./bin/viper should display the Welcome banner.
+    * ./bin/charm status
   - Update version in lib/vish/version.rb
   - Update README.md and change version number.
   - Update Bugs.md, completed.md and wontfix.md
