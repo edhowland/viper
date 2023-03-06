@@ -19,6 +19,40 @@ task all_tests: [:test, :test_vsh]
 
 task default: [:all_tests]
 
+
+desc  'What steps to create a new Release'
+task :release do
+  puts <<EOD
+  Steps to create a new release:
+  - Run 'rake' to run all tests, minitest and vshtest
+  * Correct all problems
+  - git add and git.wip to snapshot current release candidate
+  - git tag -a '2.x.x-rcX' -m '2.x.y.rcX snapshot'
+  - git push pi : push local release candidate to Raspberry Pi
+  - Environment test
+    * Log in to dell
+    * cd to ~/dev/viper_testing
+  - git clone pi:/path/to/repos/viper with above rc tag number
+  - Update version in lib/vish/version.rb
+  - Update README.md and change version number.
+  - Update Bugs.md, completed.md and wontfix.md
+    * Add ## 2023-mm-dd to completed.md, and if applicable, wontfix.md
+    * Move Todo, bug items from Bugs.md to completed.md or wontfix.md
+  - Create Release notes in CHANGELOG.md
+    * Create ## Release 2.x.x
+    * Add date in 2023-mm-dd
+    * Add ## New Features
+    * Add ### Corrections
+    * Get these from completed.md and git commit logs
+    * Use '- summary title'
+    * Add ###  Changes
+    * Add ### Removed and deprecations (if not N/A)
+  Run charm admin to update Welcome page
+EOD
+end
+
+
+
 desc 'Build documentation'
 task :yard do
   sh 'yardoc -o ./doc'

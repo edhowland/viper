@@ -3,7 +3,7 @@
 ## Release 2.0.13.b
 
 
-## Fixes
+## Corrections
 
 - cond now returns  the actual exit status of the matching consequent clause
 - rep1, repl works with a newline character output even if no trailing newline on last command
