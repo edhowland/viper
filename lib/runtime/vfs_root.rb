@@ -77,6 +77,7 @@ class VFSRoot
   end
 
   def directory?(path)
+    return true if path == '.'
     start, *elements = path_to_elements resolve_path(path)
     mynode = node elements, start
     mynode.instance_of? VFSNode

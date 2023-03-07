@@ -13,10 +13,17 @@ class VirtualLayerTests < MiniTest::Test
   def test_chdir_ok
     VirtualLayer.chdir '/v'
   end
+  def test_exist_true_for_dot
+    assert VirtualLayer.exist?('.')
+  end
   def test_chdir_bad_raises_Errno
         assert_raises Errno::ENOENT do 
       VirtualLayer.chdir '/v/xxx/ttt/ggg'
     end 
+  end
+  def test_chdir_dot_ok
+    VirtualLayer.chdir('/v')
+    VirtualLayer.chdir('..')
   end
   def test_touch
     VirtualLayer.touch '/v/aa'

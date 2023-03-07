@@ -3,12 +3,6 @@
 # Todo list
 
 
-## Add new Rake task: release
-
-Use a here document to list all the steps for creating a new release
-
-
-
 
 ## Add the Python inspired VISH_STARTUP environment variable
 
@@ -68,6 +62,9 @@ The Todo list items herein marked with an '*' are must haves for version 2.1 (fi
 ## The unalias command in Bash can take many aliases, as log as they all exist.
 
 Currently, Vish cannot do this.
+
+Also, if the string is not aliased, report an error and return false
+
 
 ## The car, cdr, cadr, caddr, cdddr, cdddr and cadddr commands do not play nicely together
 
@@ -311,11 +308,8 @@ Decide on one of the above 2 options in light of Vish propensity for strings
 
 
 
-## The unalias command should take an unlimited of alias arguments
 
-Note: This is also an earlier Todo item
 
-Also, if the string is not aliased, report an error and return false
 
 But continue to unalias the rest of the arguments
 
@@ -697,6 +691,8 @@ Or, handle the side-effects in such a way, that the monads are still composable.
 
 ## The map, filter and reduce functions should work on stdin as well. and also each
 
+## Move thes to the new collections module
+
 Currently, they only work for a list of passed arguments.
 
 ```
@@ -718,6 +714,8 @@ Should match its minitest cousin
 If changed, will not require any  changes to existing tests
 
 ## Candidates for conversion from BaseCommand or FlaggedCommand to CommandLet s
+
+Note: And some can be changed to sh commands with function in local/vish/prelude/xxx_functions.vsh
 
 ### Some missing *nix commands could be done as aliases:
 
@@ -789,6 +787,8 @@ Note: Not used in any Viper scripts
 
 
 ### Make ord, chr and hex also  read from either stdin or use first argument
+
+Note: Make these sh commands with functions (see local/vish/prelude/xxx_functions.vsh)
 
 ### Partially implement, but does not properly implement capture closures, esp. inside REPL: ivsh
 
@@ -971,23 +971,6 @@ true
 ### The existing behaviour becomes -X, and -f becomes what -X does now
 
 Note: a lot of code relies (.vsh code) on the current existing behaviour of -f working as it does now
-
-
-
-## cd sometimes get caught and cannot escape from a VFS dir
-
-```
-cd /v
-mkdir tmp
-cd tmp
-cd
-rem should return to starting point
-pwd
-/v/tmp
-```
-
-This is a HeisenBug, cannot replicate it
-
 
 
 

@@ -2,6 +2,9 @@
 
 ## Release 2.0.13.b
 
+2023-03-06
+
+
 
 ## Corrections
 
@@ -12,6 +15,10 @@
 - charm commands and subcommands have more accurate documentation
 - charm status now is a set of individual checks in the statlist module
   * New checks can be added, some can be rearranged or removed
+  * charm config create handles previous installations of Viper w/o ~/.config/vish/{rc,packages,plugins}/
+- cd command works in VFS better
+  * test -d . works
+  * cd . works ok
 
 ### Changes
 

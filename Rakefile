@@ -26,6 +26,7 @@ task :release do
   Steps to create a new release:
   - Run 'rake' to run all tests, minitest and vshtest
   * Correct all problems
+  - git status
   - git add and git.wip to snapshot current release candidate
   - git tag -a '2.x.x-rcX' -m '2.x.y.rcX snapshot'
   - git push pi : push local release candidate to Raspberry Pi
@@ -39,6 +40,7 @@ task :release do
   - Run smoke tests: ./bin/vish -v, ./bin/ivsh, ./bin/viper
     * The last test: ./bin/viper should display the Welcome banner.
     * ./bin/charm status
+    * ./bin/charm config create # To checkout your ~/.config/vish directory structure
   - Update version in lib/vish/version.rb
   - Update README.md and change version number.
   - Update Bugs.md, completed.md and wontfix.md
@@ -54,6 +56,11 @@ task :release do
     * Add ###  Changes
     * Add ### Removed and deprecations (if not N/A)
   Run charm admin to update Welcome page
+  - git status & git add stuff
+  - git commit -m 'Release 2.0.x.y'
+  - git tag -a '2.0.x.y' -m 'Release 2.0.x.y'
+git push --follow-tags pi
+  - git push --follow-tags
 EOD
 end
 

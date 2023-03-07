@@ -1,5 +1,43 @@
 # completed bugs
 
+## 2023-03-06
+
+## cd sometimes get caught and cannot escape from a VFS dir
+
+```
+cd /v
+mkdir tmp
+cd tmp
+cd
+rem should return to starting point
+pwd
+/v/tmp
+```
+
+This is a HeisenBug, cannot replicate it
+
+
+
+
+
+
+Fix: No real bug here. Reason it seemed to be a HeisenBug was because of
+that MacOS sometimes will repeat a previous line instead of the current actual line
+To check this: Use line mode in QuickNav on mode and press up arrow
+
+
+### Actual bug here: Cannot cd . in any VFS path
+
+Fix: checked for this in various VirtualLayer.rb and vfs_root.rb code.
+
+## Add new Rake task: release
+
+Use a here document to list all the steps for creating a new release
+
+
+
+
+
 
 ## 2023-03-04
 

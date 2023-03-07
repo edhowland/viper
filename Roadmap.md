@@ -117,6 +117,7 @@ whenever they perform a git pull to get the latest release.
   * Does it work out the box?
 
 ### version 2.0.13.c
+
 - Fix broken help system
 
 Currently based on parsing MarkDown files in :vhome/doc

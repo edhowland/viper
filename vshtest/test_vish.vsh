@@ -20,6 +20,15 @@ function test_cd_virtual_should_be_bad() {
   assert_false :exit_status
   assert_eq :pwd /v/buf
 }
+function test_cd_dot_should_work_ok() {
+   cd .
+   assert_true :exit_status
+   mkdir /v/tmp
+   cd /v/tmp
+   cd .
+   assert_true :exit_status
+   suppress { cd - }
+}
 function test_echo_ok_path() {
   cd /v
   aa=aa
