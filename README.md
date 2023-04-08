@@ -1,8 +1,8 @@
 # VIPER
 
-##  The Accessable, extensible terminal based code editor  for blind and visually impaired developers!
+##  The highly  extensible, Accessable  terminal based code editor  for blind and visually impaired developers!
 
-Need a screenreader friendly code editor that even work over SSH or on your daily
+Need a screenreader friendly code editor that will even work over SSH or as your daily
 driver? Viper will do the job for you.
 
 
