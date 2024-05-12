@@ -43,11 +43,7 @@ class Hal
 
     # simulate File.open, directory?
     def open(path, mode)
-      if virtual?(path) || $in_virtual
-        VirtualLayer.open(path, mode)
-      else
-        PhysicalLayer.open path, mode
-      end
+      _dispatch(path) {|k| k.open(path, mode) }
     end
 
     def touch(path)
