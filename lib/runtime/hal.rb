@@ -51,11 +51,7 @@ class Hal
     end
 
     def touch(path)
-      if $in_virtual || virtual?(path)
-        VirtualLayer.touch(path)
-      else
-        PhysicalLayer.touch path
-      end
+      _dispatch(path) {|k| k.touch(path) }
     end
 
     def basename(path)
@@ -66,6 +62,15 @@ class Hal
       File.dirname path
     end
 
+    # checks which layer is present in vogue and dispatches the block with that klass as arg to block
+    def _dispatch(path, &blk)
+      if $in_virtual || virtual?(path)
+        yield VirtualLayer
+      else
+        yield PhysicalLayer
+      end
+                end
+    # returns the actual klass to be used for this state
     def _determine(arg, within = false)
       if virtual?(arg) || within
         VirtualLayer
