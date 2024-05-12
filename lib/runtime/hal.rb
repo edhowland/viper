@@ -55,7 +55,7 @@ class Hal
     end
 
     # checks which layer is present in vogue and dispatches the block with that klass as arg to block
-    def _dispatch(path, &blk)
+    def _dispatch(path='', &blk)
       if $in_virtual || virtual?(path)
         yield VirtualLayer
       else
