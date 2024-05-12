@@ -66,7 +66,7 @@ class Hal
       File.dirname path
     end
 
-    def _dispatch(arg, within = false)
+    def _determine(arg, within = false)
       if virtual?(arg) || within
         VirtualLayer
       else
@@ -85,7 +85,7 @@ class Hal
         if args.length.zero?
           klass = ($in_virtual ? VirtualLayer : PhysicalLayer)
         else
-        klass = _dispatch args[0] # , $in_virtual
+        klass = _determine args[0] # , $in_virtual
         end
         raise ::ArgumentError.new() if klass.method(name).arity < args.length
         klass.send name, *args
