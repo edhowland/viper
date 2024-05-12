@@ -10,11 +10,7 @@ class Hal
     end
 
     def pwd
-      if $in_virtual
-        VirtualLayer.pwd
-      else
-        PhysicalLayer.pwd
-      end
+      _dispatch {|k| k.pwd }
     end
 
     def relative?(path)
