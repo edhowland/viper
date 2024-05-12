@@ -6,11 +6,7 @@ class Hal
   class << self
     # simulate Dir[]
     def [](path)
-      if $in_virtual || virtual?(path)
-        VirtualLayer[path]
-      else
-        PhysicalLayer[path]
-      end
+      _dispatch(path) {|k| k[path] }
     end
 
     def pwd
