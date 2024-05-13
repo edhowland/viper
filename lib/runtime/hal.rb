@@ -59,9 +59,9 @@ class Hal
       end
                 end
     # returns the actual klass to be used for this state
-    def _determine(arg, within = false)
-      if virtual?(arg) || within
-        VirtualLayer
+    def _determine(arg)
+      if virtual?(arg)
+              VirtualLayer
       else
         PhysicalLayer
       end
