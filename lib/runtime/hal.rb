@@ -74,7 +74,6 @@ class Hal
     raise ::ArgumentError.new() if args[0].nil?
 
         if args.length.zero?
-          #klass = ($in_virtual ? VirtualLayer : PhysicalLayer)
           klass = _dispatch {|k| k }
         else
         klass = _determine args[0] # , $in_virtual
