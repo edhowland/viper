@@ -76,7 +76,9 @@ class Hal
         if args.length.zero?
           klass = _dispatch {|k| k }
         else
-        klass = _determine args[0] # , $in_virtual
+        #klass = _determine args[0]
+          klass = _dispatch(args[0]) {|k| k }
+
         end
         raise ::ArgumentError.new() if klass.method(name).arity < args.length
         klass.send name, *args
