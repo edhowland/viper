@@ -42,8 +42,8 @@ class Hal
       _dispatch(path) {|k| k.touch(path) }
     end
 
-    # Need to figure out how to do this:
-        # TODO: Move the code from PhysicalLayer.basename to here.
+    # No need to dispatch to either of the other 2 layers here.
+        # can just do it ourself
     def basename(path)
       File.basename path
     end
@@ -74,7 +74,8 @@ class Hal
     raise ::ArgumentError.new() if args[0].nil?
 
         if args.length.zero?
-          klass = ($in_virtual ? VirtualLayer : PhysicalLayer)
+          #klass = ($in_virtual ? VirtualLayer : PhysicalLayer)
+          klass = _dispatch {|k| k }
         else
         klass = _determine args[0] # , $in_virtual
         end
