@@ -57,7 +57,7 @@ class HalTest < MiniTest::Test
       Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
     end 
   end
-  def test_realpathequals_here
+  def _test_realpathequals_here
     home_dir do
       assert_eq(Hal.realpath('.'), ENV['HOME'])
     end

@@ -60,11 +60,7 @@ class Hal
                 end
     # returns the actual klass to be used for this state
     def _determine(arg)
-      if virtual?(arg)
-              VirtualLayer
-      else
-        PhysicalLayer
-      end
+      _dispatch(arg) {|k| k }
     end
 
     def respond_to_missing?(name, private = false)
