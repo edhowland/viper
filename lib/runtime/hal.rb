@@ -61,9 +61,7 @@ class Hal
       end
                 end
     # returns the actual klass to be used for this state
-    def _determine(arg)
-      _dispatch(arg) {|k| k }
-    end
+
 
     def respond_to_missing?(name, private = false)
       PhysicalLayer.respond_to?(name) && VirtualLayer.respond_to?(name)
@@ -76,7 +74,6 @@ class Hal
         if args.length.zero?
           klass = _dispatch {|k| k }
         else
-        #klass = _determine args[0]
           klass = _dispatch(args[0]) {|k| k }
 
         end
