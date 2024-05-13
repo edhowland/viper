@@ -33,7 +33,7 @@ class PhysicalLayer
     FileUtils.touch(path)
   end
 
-  def basename(path)
+  def _basename(path)
     File.basename path
   end
 

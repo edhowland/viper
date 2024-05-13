@@ -42,8 +42,10 @@ class Hal
       _dispatch(path) {|k| k.touch(path) }
     end
 
+    # Need to figure out how to do this:
+        # TODO: Move the code from PhysicalLayer.basename to here.
     def basename(path)
-      PhysicalLayer.basename path
+      File.basename path
     end
 
     def dirname(path)

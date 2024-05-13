@@ -124,7 +124,7 @@ end
       facade.open path, mode
     end
 
-    def basename(path)
+    def _basename(path)
       @@root.basename path
     end
 
