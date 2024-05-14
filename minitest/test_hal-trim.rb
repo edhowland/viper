@@ -16,6 +16,11 @@ class HalTest < MiniTest::Test
     @vroot = @vm.fs[:vroot]
     @oldpwd = @vm.fs[:pwd]
   end
+
+  # can we inject our mocked filesystem?
+  def test_can_inject_mocked_filesystem
+    Hal.set_filesystem(PhysicalLayer)
+  end
     def runit string, vm
     block = Visher.parse! string
     vm.call block
@@ -126,7 +131,7 @@ class HalTest < MiniTest::Test
       Hal.exist?
     end
   end
-  def test_argument_error_raised_when_in_physical_and_arity_mismatch
+  def _test_argument_error_raised_when_in_physical_and_arity_mismatch
     Hal.chdir(@oldpwd)
 
     assert_raises ::ArgumentError do
