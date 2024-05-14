@@ -4,8 +4,10 @@ require_relative 'fakir'
 
 class TestFakir < MiniTest::Test
   def test_ok
-    run_safe do
+    run_safe(self, :pwd) do
       assert true
     end
-    end
+
+
+  end
 end
