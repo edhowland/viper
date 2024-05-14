@@ -68,7 +68,7 @@ class Hal
     end
 
     def method_missing(name, *args)
-      if PhysicalLayer.respond_to?(name) && VirtualLayer.respond_to?(name)
+      if _dispatch {|k| k.respond_to? name }
     raise ::ArgumentError.new() if args[0].nil?
 
         if args.length.zero?
