@@ -10,4 +10,9 @@ class TestFakir < MiniTest::Test
 
 
   end
+  def test_preserves_old_filesystem
+    clip = Hal.get_filesystem
+    run_safe(self, :pwd) { }
+    assert_equals clip, Hal.get_filesystem
+        end
 end
