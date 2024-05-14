@@ -64,7 +64,7 @@ class Hal
 
 
     def respond_to_missing?(name, private = false)
-      PhysicalLayer.respond_to?(name) && VirtualLayer.respond_to?(name)
+      _dispatch {|k| k.respond_to? name }
     end
 
     def method_missing(name, *args)
