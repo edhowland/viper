@@ -34,7 +34,7 @@ class Hal
         VirtualLayer.chdir path
       else
         $in_virtual = false
-        PhysicalLayer.chdir path
+        @@p_layer.chdir path
       end
     end
 
