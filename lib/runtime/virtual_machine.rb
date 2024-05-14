@@ -15,6 +15,7 @@ class VirtualMachine
       @return_code = return_code
     end
     attr_reader :return_code
+  
   end
   class IOError < RuntimeError
   end
@@ -54,6 +55,9 @@ class VirtualMachine
     env: FrameStack.new(frames: [{ in: $stdin, out: $stdout, err: $stderr }]),
     frames: FrameStack.new
   )
+
+    # Initialize Hal to have the default actual filesystem
+        Hal.set_filesystem(PhysicalLayer)
     @fs = frames
     @ios = env
     _init
@@ -154,7 +158,7 @@ _saved_old = Hal.pwd
     root.mount_pt = args[0]
     frames[:vroot] = root
     frames.merge
-    true
+    #Hal.set_filesystem(PhysicalLayer)
   end
 
   def mkdir(*args, env:, frames:)

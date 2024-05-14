@@ -4,6 +4,16 @@
 
 class Hal
   class << self
+
+      # inject either a real file system layer or a mocked one
+      # the vm will initially inject it when the mount system is called.
+      # because any other call must go thru Hal and both the filesystem
+      # and the vfs must be setup first
+
+      @@p_layer = nil
+      def set_filesystem(klass)
+        @@p_layer = klass
+      end
     # simulate Dir[]
     def [](path)
       _dispatch(path) {|k| k[path] }
@@ -54,6 +64,7 @@ class Hal
 
     # checks which layer is present in vogue and dispatches the block with that klass as arg to block
     def _dispatch(path='', &blk)
+      raise RuntimeError.new("Invallid Hal configuration. No @@p_layer set. Did you mean to call Hal.set_filesystem() earlier?") if @@p_layer.nil?
       if $in_virtual || (!path.empty? && virtual?(path))
         yield VirtualLayer
       else
