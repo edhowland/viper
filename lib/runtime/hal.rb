@@ -68,7 +68,7 @@ class Hal
       if $in_virtual || (!path.empty? && virtual?(path))
         yield VirtualLayer
       else
-        yield PhysicalLayer
+        yield @@p_layer
       end
                 end
     # returns the actual klass to be used for this state
