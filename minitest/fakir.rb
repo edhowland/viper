@@ -7,8 +7,13 @@ class Fakir
     @out = out
 
     # record run statuses
-    @result = {meth: false, inp: false, out: false}
+    @result = {meth: false, inp: false}
+  end
+  def method_missing(name, *args)
+    @result[:meth] = (@meth == name)
+    @result[:inp] = (inp == args)
 
+    @out
   end
   def verify!
     @result.values.reduce(true) {|i,j| i && j } 
