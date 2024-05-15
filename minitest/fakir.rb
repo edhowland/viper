@@ -10,15 +10,15 @@ class Fakir
     @result = {meth: false, inp: false}
   end
   def method_missing(name, *args)
-    puts "missing: meth: #{name}, inp: #{args}"
+
     @result[:meth] = (@meth == name)
     @result[:inp] = (@inp == args)
 
     @out
   end
   def verify!
-    puts 'in verify!'
-    puts @result
+
+
     @result.values.reduce(true) {|i,j| i && j } 
   end
 end
