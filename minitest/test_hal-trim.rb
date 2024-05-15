@@ -1,6 +1,7 @@
 # hal_test.rb - tests for Hal - chdir, virtual?, others
 
 require_relative 'test_helper'
+require_relative 'fakir'
 
 class HalTest < MiniTest::Test
   def home_dir &blk
@@ -141,6 +142,20 @@ class HalTest < MiniTest::Test
   def test_raises_argument_error__when_arg_is_nil
     assert_raises ::ArgumentError do
       Hal.exist? nil
+    end
+  end
+  
+  def test_fakir_can_run_hal_pwd
+    Hal.chdir @orig_dir
+    run_safe(self, :pwd, [], '/v/foo') do
+      Hal.pwd
+    end
+  end
+
+  def test_fakir_can_runbasename_w_fullpath
+    Hal.chdir @orig_dir
+    run_safe self, :[], ['.'], 'foo' do
+      Hal['.']
     end
   end
 end

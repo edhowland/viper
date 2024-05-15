@@ -2,6 +2,30 @@
 
 ## Ruby debugging
 
+## Making sure library can be even loaded
+
+```bash
+pry -r ./pry/ipl.rb
+```
+
+```ruby
+# in pry here
+>> vm = ipl
+>> Hal.pwd
+# => ".../viper"
+>> Hal.touch 'foo1'
+Ctrl-D
+```
+
+```bash
+rm foo1
+```
+
+... should not show any errors
+
+
+
+
 ###  smoke test with pry:
 
 ```bash
