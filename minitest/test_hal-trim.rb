@@ -53,9 +53,8 @@ class HalTest < MiniTest::Test
     end
   end
   def _test_physical_chdir_works
-    home_dir do
+    run_safe(self, :chdir,['/'], nil) do 
       Hal.chdir '/'
-      assert_eq Dir.pwd, '/'
     end
   end
   def _test_chdir_non_existant_physical_raises_no_such_file_or_dir
@@ -64,8 +63,8 @@ class HalTest < MiniTest::Test
     end 
   end
   def _test_realpathequals_here
-    home_dir do
-      assert_eq(Hal.realpath('.'), ENV['HOME'])
+    run_safe(self, :realpath, ['.'], @orig_dir) do
+      assert_eq(Hal.realpath('.'), @orig_dir)
     end
   end
   def test_rm
@@ -116,8 +115,8 @@ class HalTest < MiniTest::Test
     Hal.chdir('/v')
     assert $in_virtual
   end
-  def _test_in_virtual_false_when_in_physical
-    Hal.chdir('/home')
+  def test_in_virtual_false_when_in_physical
+    Hal.chdir(@orig_dir)
     assert_false $in_virtual
   end
   # check that ::ArgumentError raised for dispatched methods with wrong number of args in method_missing
