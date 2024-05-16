@@ -4,12 +4,6 @@ require_relative 'test_helper'
 require_relative 'fakir'
 
 class HalTest < MiniTest::Test
-  def home_dir &blk
-    old = Dir.pwd
-    Dir.chdir ENV['HOME']
-    yield
-    Dir.chdir old
-  end
   def setup
     @orig_dir = File.dirname(File.expand_path(__FILE__))
     @vm = VirtualMachine.new
