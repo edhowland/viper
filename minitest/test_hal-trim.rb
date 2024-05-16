@@ -63,6 +63,7 @@ class HalTest < MiniTest::Test
     end 
   end
   def _test_realpathequals_here
+    Hal.chdir @orig_dir
     run_safe(self, :realpath, ['.'], @orig_dir) do
       assert_eq(Hal.realpath('.'), @orig_dir)
     end
@@ -131,10 +132,10 @@ class HalTest < MiniTest::Test
       Hal.exist?
     end
   end
-  def _test_argument_error_raised_when_in_physical_and_arity_mismatch
-    Hal.chdir(@oldpwd)
+  def test_argument_error_raised_when_in_physical_and_arity_mismatch
+    Hal.chdir(@orig_dir)
 
-    assert_raises ::ArgumentError do
+    katch(self, :exist?, [], ::ArgumentError) do
       Hal.exist?
     end
   end
