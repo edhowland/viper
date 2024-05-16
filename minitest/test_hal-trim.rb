@@ -69,8 +69,9 @@ class HalTest < MiniTest::Test
     assert_false Hal.exist?('/v/xxx')
   end
 
-  def _test_rm_raises_err_w_no_such_file_physical
-    assert_raises Errno::ENOENT do 
+  def test_rm_raises_err_w_no_such_file_physical
+    Hal.chdir(@orig_dir)
+    katch(self, :rm, ['xyzzy'], Errno::ENOENT) do 
       Hal.rm 'xyzzy'
     end
   end

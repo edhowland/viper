@@ -1,9 +1,17 @@
 # class Fakir to mock a PhysicalLayer and function to wrap Hal.set_filesystem
 
 class Fakir
+
+  @current_arity = 0
+      def _arity(name)
+      @current_arity
+    end
+
+
   def initialize(meth, inp=[], out=nil)
     @meth = meth
     @inp = inp
+    @current_arity = @inp.length
     @out = out
 
     # record run statuses
@@ -37,13 +45,25 @@ end
 
 
 # This version will simulate raising an error like ArgumentError
-class FakirErr
+class FakirErr  
+  @current_arity = 0
+
+    def _arity(name)
+      @current_arity
+    end
+
   def initialize(meth, args, err)
     @meth = meth
     @args = args
+    @current_arity = @args.length
     @err = err
   end
-  
+
+  # fake this out because VirtualLayer relies on Hal.pwd which is missing when Fakir-ed
+  def pwd
+    Dir.pwd
+  end
+
   def method_missing(name, *args)
     if name == @meth
       raise @err.new
@@ -51,7 +71,7 @@ class FakirErr
       raise RuntimeError.new("Incorrect call to #{self.class.name} -> #{name} : Unknown method name, did you mean #{@meth}")
     end
   end
-  def respond_to_missing?(name)
+  def respond_to_missing?(name, private = false)
     name == @meth
   end
 end
