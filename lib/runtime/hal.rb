@@ -14,6 +14,9 @@ class Hal
       def set_filesystem(klass)
         @@p_layer = klass
       end
+      def get_filesystem
+        @@p_layer
+      end
     # simulate Dir[]
     def [](path)
       _dispatch(path) {|k| k[path] }
@@ -88,7 +91,7 @@ class Hal
           klass = _dispatch(args[0]) {|k| k }
 
         end
-        raise ::ArgumentError.new() if klass.method(name).arity < args.length
+        raise ::ArgumentError.new("Wrong number of args for method: #{name} on class: #{klass.class.name}; Expected #{klass.method(name).arity} but got #{args.length} for parameters: #{args}") if klass._arity(name) < args.length
         klass.send name, *args
       else
         super

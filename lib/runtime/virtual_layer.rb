@@ -12,6 +12,11 @@ $in_virtual = false
 
 class VirtualLayer
   class << self
+    # helpers
+    def _arity(meth)
+      self.method(meth).arity
+    end
+
     # imports from l1.rb
 def expand_glob glob, prefix: '/v'
   vroot = VirtualLayer.get_root

@@ -1,5 +1,16 @@
 # class Fakir to mock a PhysicalLayer and function to wrap Hal.set_filesystem
 
+# Actual layer preserving context
+def with_layer(layer, &blk)
+  old_layer = Hal.get_filesystem
+  Hal.set_filesystem(layer)
+puts "in with_layer(#{layer.class.name})"
+  yield
+  Hal.set_filesystem(old_layer)
+end
+
+
+
 class Fakir
 
   @current_arity = 0
@@ -33,12 +44,10 @@ end
 
 # Makes sure Hal filesystem @@p_layer is saved and preserved
 def run_safe(testr, meth, inp=[], out=nil, &blk)
-  old_player = Hal.get_filesystem
-  new_player = Fakir.new(meth, inp, out)
+  with_layer(Fakir.new(meth, inp, out), &blk)
 
-  Hal.set_filesystem(new_player)
-  yield
-  Hal.set_filesystem(old_player)
+
+
   testr.assert(new_player.verify!)
 end
 

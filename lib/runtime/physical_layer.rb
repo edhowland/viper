@@ -3,6 +3,11 @@
 
 class PhysicalLayer
   class << self
+    # helpers
+    def _arity(meth)
+      self.method(meth).arity
+    end
+
   def mkdir_p(path)
     FileUtils.mkdir_p path
   end

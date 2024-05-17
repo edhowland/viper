@@ -56,12 +56,7 @@ class HalTest < MiniTest::Test
       Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
     end 
   end
-  def _test_realpathequals_here
-    Hal.chdir @orig_dir
-    run_safe(self, :realpath, ['.'], @orig_dir) do
-      assert_eq(Hal.realpath('.'), @orig_dir)
-    end
-  end
+
   def test_rm
     Hal.touch '/v/xxx'
     assert Hal.exist?( '/v/xxx')
@@ -140,17 +135,18 @@ class HalTest < MiniTest::Test
     end
   end
   
-  def test_fakir_can_run_hal_pwd
-    Hal.chdir @orig_dir
-    run_safe(self, :pwd, [], '/v/foo') do
-      Hal.pwd
-    end
-  end
 
-  def test_fakir_can_runbasename_w_fullpath
-    Hal.chdir @orig_dir
-    run_safe self, :[], ['.'], 'foo' do
-      Hal['.']
-    end
-  end
 end
+
+
+## Removed tests
+
+# Hal.realpath is really not an abstraction over some underlying layer
+# It is just a convienence shim over File.realpath
+#  def test_realpathequals_here
+#    Hal.chdir @orig_dir
+#    run_safe(self, :realpath, ['.'], @orig_dir) do
+#      assert_eq(Hal.realpath('.'), @orig_dir)
+#    end
+#  end
+
