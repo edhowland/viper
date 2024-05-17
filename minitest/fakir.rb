@@ -4,7 +4,7 @@
 def with_layer(layer, &blk)
   old_layer = Hal.get_filesystem
   Hal.set_filesystem(layer)
-puts "in with_layer(#{layer.class.name})"
+  #puts "in with_layer(#{layer.class.name})"
   yield
   Hal.set_filesystem(old_layer)
 end
@@ -90,5 +90,28 @@ end
 def katch(testr, meth, args, err, &blk)
   with_layer(FakirErr.new(meth, args, err)) do
     testr.assert_raises(err, &blk)
+  end
+end
+
+
+# This test double mimics a stateful PhysicalLayer.chdir and pwd
+
+class StatefulFakir
+  def chdir(path)
+    @dir = path
+    end
+
+    def pwd
+    @dir
+    end
+
+end
+
+
+# wrapper for stateful chdir tests must pass self, the dir to chdir, the current dir and a block
+# The block is passed the current dir passed in prev_dir
+def run_cd(path, prev_dir, &blk)
+  with_layer(StatefulFakir.new) do
+    blk.call(prev_dir)
   end
 end

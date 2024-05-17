@@ -46,9 +46,10 @@ class HalTest < MiniTest::Test
       Hal.chdir '/v/a/c', @vm.fs[:pwd]
     end
   end
-  def _test_physical_chdir_works
-    run_safe(self, :chdir,['/'], nil) do 
+  def test_physical_chdir_works
+    run_cd('/v', @orig_dir) do
       Hal.chdir '/'
+      assert_eq '/', Hal.pwd
     end
   end
   def _test_chdir_non_existant_physical_raises_no_such_file_or_dir
