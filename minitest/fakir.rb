@@ -88,11 +88,7 @@ end
 
 # catch and kill an error for this mock
 def katch(testr, meth, args, err, &blk)
-  old_player = Hal.get_filesystem
-  new_player = FakirErr.new(meth, args, err)
-  Hal.set_filesystem(new_player)
-  testr.assert_raises(err, &blk)
-
-  Hal.set_filesystem(old_player)
-
+  with_layer(FakirErr.new(meth, args, err)) do
+    testr.assert_raises(err, &blk)
+  end
 end
