@@ -8,7 +8,7 @@ module BinCommand
   class NixCommand
     def self.descendants
     ObjectSpace.each_object(Class).select { |klass| klass < self }.reject {|k| k == BaseCommand }
-  end
+    end
   def self.install_pairs
     descendants.map {|k| [snakeize(k.name), k.new] }
   end
