@@ -169,3 +169,22 @@ end
 #      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
 #    end 
 #  end
+
+
+# eed to test all the following methods
+    #def [] path
+    #def pwd
+    #def relative? path
+    #def chdir path, current_pwd
+    #def virtual? path
+    #def mkdir_p path
+    #def open path, mode
+    #def directory? path
+    #def touch path
+    #def basename path
+    #def dirname path
+    #def realpath path
+    #def mv src, dest
+    #def rm path
+    #def exist? path
+##
