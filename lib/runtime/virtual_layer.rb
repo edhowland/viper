@@ -25,18 +25,17 @@ def expand_glob glob, prefix: '/v'
 end
 
     def walk_globs list, acc: [], prefix: ''
-  if list.empty?
-    acc
-  else
-    start, *rest  = list
-    exgs = expand_glob(start, prefix: prefix) # ele_or_list()
-#    if exgs.instance_of?(Array)
-      exgs.map {|x| walk_globs(rest, acc: (acc + [x]), prefix: prefix+"/#{x}") }
-#    else
-#      walk_globs(rest, acc: (acc << start), prefix: (prefix + "/#{start}"))
-#    end
-  end
-end
+      if list.empty?
+        acc
+      else
+        start, *rest  = list
+        exgs = expand_glob(start, prefix: prefix)
+        exgs.map {|x| walk_globs(rest, acc: (acc + [x]), prefix: prefix+"/#{x}") }
+
+
+
+      end
+    end
 
 # should be call expand_all_globs_in_path(path). E.g. expand_all '/v/tmp/a*/*.txt'
 # TODO: Make sure this gets realpath
