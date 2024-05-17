@@ -64,6 +64,19 @@ class HalTest < MiniTest::Test
     assert_false Hal.exist?('/v/xxx')
   end
 
+  def test_touch_physical
+    skip("TODO figure this strange one out why Hal.touch does not work with Fakir")
+    Hal.chdir @orig_dir
+    run_safe(self, :touch, ['xyz'], nil) do
+      Hal.touch 'xyz'
+    end
+  end
+  def test_touch_virtual
+    Hal.chdir '/v'
+    Hal.touch 'foo'
+    assert Hal.exist?('/v/foo')
+    Hal.chdir @orig_dir
+  end
   def test_rm_raises_err_w_no_such_file_physical
     Hal.chdir(@orig_dir)
     katch(self, :rm, ['xyzzy'], Errno::ENOENT) do 
