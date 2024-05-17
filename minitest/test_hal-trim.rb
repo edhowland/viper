@@ -47,16 +47,12 @@ class HalTest < MiniTest::Test
     end
   end
   def test_physical_chdir_works
-    run_cd('/v', @orig_dir) do
-      Hal.chdir '/'
+    run_cd('/v', @orig_dir) do |d|
+      Hal.chdir '/', d
       assert_eq '/', Hal.pwd
     end
   end
-  def _test_chdir_non_existant_physical_raises_no_such_file_or_dir
-    assert_raises Errno::ENOENT do 
-      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
-    end 
-  end
+
 
   def test_rm
     Hal.touch '/v/xxx'
@@ -164,3 +160,12 @@ end
 #    end
 #  end
 
+
+
+# This test deleted because Hal.chdir when in PhysicalLayer is just a  shim over Dir.pwd
+# Iron-clad rule: Do not test Other People's Code
+#  def test_chdir_non_existant_physical_raises_no_such_file_or_dir
+#    assert_raises Errno::ENOENT do 
+#      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
+#    end 
+#  end
