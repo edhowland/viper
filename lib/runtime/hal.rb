@@ -73,7 +73,7 @@ class Hal
       else
         yield @@p_layer
       end
-                end
+    end
     # returns the actual klass to be used for this state
 
 

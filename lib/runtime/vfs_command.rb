@@ -9,7 +9,7 @@ class BinCommand::VFSCommand
   def self.install_pairs
     descendants.map {|k| [snakeize(k.name), k.new] }
   end
-def args_parse!(args)
+  def args_parse!(args)
     @options = {}
     args.select { |e| e =~ /^\-.+/ }
         .map { |e| e[1..-1].to_sym }
