@@ -2,7 +2,7 @@
 
 require_relative 'test_helper'
 
-class VirtualMachineTests < MiniTest::Test
+class SubShellTest< MiniTest::Test
   def setup
   @orig_dir = File.dirname(File.expand_path(__FILE__))
     @errbuf = StringIO.new
