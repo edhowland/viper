@@ -6,12 +6,13 @@ require_relative 'test_helper'
 class TestPiped < MiniTest::Test
   def test_piped_new_does_not_remove_any_args_when_no_dash
     a = ['foo', 'bar', 'baz']
-    p = Piped.new a
+
     assert_eq 3, a.length
   end
   def test_piped_does_remove_dash_arg_when_present
     a = ["foo", "-", "bar"]
-    p = Piped.new a
+
+    Piped.new a
     assert_eq 2, a.length
   end
   def test_actual_arg_of_dash_is_removed_when_present
