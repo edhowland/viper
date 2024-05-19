@@ -35,7 +35,13 @@ def merge-rows [] {
 # Gives a combinded report of the indent level and the first non-blank token of every line of a file.
 # Pay attention to odd number indentation numbers.
 def main [
-    sfile: string
+    sfile: string,
+    --range (-r): range
     ] {
-  read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  table -t none
+  if ($range | is-not-empty) {
+    read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  range $range | table -t none
+  } else {
+    read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  table -t none
+  }
+
 }
