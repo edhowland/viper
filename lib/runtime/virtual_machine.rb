@@ -338,8 +338,7 @@ _saved_old = Hal.pwd
   # type arg - reports type of arg, either alias function or alias or unknown
   def type *args, env:, frames:
     raise ArgumentError, 'Expected 1 argumnet' if args.empty?
-    message = 'unknown'
-    result = false
+
     vf = VerbFinder.new
     if args[0] == "-a"
       args.shift
