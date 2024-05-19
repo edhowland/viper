@@ -26,6 +26,7 @@ task :release do
   Steps to create a new release:
   - Run 'rake' to run all tests, minitest and vshtest
   * Correct all problems
+  * Remove any 'binding.pry' or even commented out '#binding.pry' lines
   - git status
   - git add and git.wip to snapshot current release candidate
   - git tag -a '2.x.x-rcX' -m '2.x.y.rcX snapshot'

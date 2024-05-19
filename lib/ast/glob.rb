@@ -10,7 +10,6 @@ class Glob
   attr_reader :pattern
 
   def call(env:, frames:)
-#binding.pry unless $debug.nil?
     derefed_pattern = @pattern.call frames: frames
     result = []
     if derefed_pattern =~ /\*|\[|\?/

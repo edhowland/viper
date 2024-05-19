@@ -6,7 +6,9 @@ Need a screenreader friendly code editor that will even work over SSH or as your
 driver? Viper will do the job for you.
 
 
-### Version 2.0.13.b
+### Version 2.0.13.c
+
+##### Update: This release only works up to Ruby 3.1.2. Version of Ruby 3.2.x is known to be broken.
 
 See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 

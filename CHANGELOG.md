@@ -1,5 +1,67 @@
 # Changelog for Viper project
 
+## Release 2.0.13.c
+
+2024-05-19
+
+## Corrections
+
+
+- Updated README.md to reflect that only works with Ruby 3.1.2 and not 3.2.x
+- Fixed bug on MacOS where the minitest/test_hal.rb errored out with a problem in 'getcwd' internal Ruby
+  * Added test double to fake out the actual filesystem when Hal tries to dispatch to PhysicalLayer
+  * No more explicit tests that actually write to an actual filesystem
+- Corrected indentation warnings in both lib/* and minitest/*
+- Corrected unused variables in lib/ minitest/
+- Corrected unreachable statements in lib/runtime/virtual_machine.rb
+
+
+## Additions
+
+- Added pry/ipl.rb
+  * Can now do simple: 'pry -r ./pry/ipl.rb' and then 'vm = ipl' to get some Viper ruby code running.
+  * Does not run the vish_boot stuff; do that manually or use another ./pry/*.rb scrpt
+- Added ./pry/indents.nu to help examine Ruby source files for indentation warnings
+  * When running 'rake test' if .rb files have warnings they will be repored first in output of rake.
+  * If indentation inconsistenancies occur, you can run :
+
+```bash
+# NOTE: You must have a recent version of Nushell installed.; tested with version 0.92.x
+
+$ ./pry/indents.nu lib/runtime/virtual_machine.rb
+```
+
+You will get a table with columns: lineno indent and token0
+
+If you supply the indents.nu with the --range, -r option, you can narrow the context around the warning output message.
+
+
+The inent column reports the number of spaces before the first token (token0) on every line.
+The token0 reports the first actual non-whitespace token like 'class' or 'def' or 'if, 'end' .etc
+
+By comparing the warning message with this table around its context, you may discover that either the previous matching syntax element
+or the warned line maybe either too much indented or outdented and you can take corrective measures.
+
+
+Note: If using a version of Viper you know to be working, you can:
+
+```bash
+viper -l 14 lib/runtime/virtual_machine.rb
+```
+
+
+... and be brought to the (possibly) offending line number in the file.
+
+```bash
+./pry/indents.nu -r 14..25 lib/runtime/virtual_machine.rb
+```
+
+
+
+
+
+
+
 ## Release 2.0.13.b
 
 2023-03-06
