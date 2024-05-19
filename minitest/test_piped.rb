@@ -17,7 +17,8 @@ class TestPiped < MiniTest::Test
   end
   def test_actual_arg_of_dash_is_removed_when_present
     a = ["foo", "-", "bar", "baz"]
-    p = Piped.new a
+
+    Piped.new a
     assert_eq ["foo", "bar", "baz"], a
   end
   def test_piped_question_mark_is_not_true_when_dash_isnt_present
