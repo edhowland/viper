@@ -16,7 +16,7 @@ class HalTest < MiniTest::Test
   def test_can_inject_mocked_filesystem
     Hal.set_filesystem(PhysicalLayer)
   end
-    def runit string, vm
+  def runit string, vm
     block = Visher.parse! string
     vm.call block
   end

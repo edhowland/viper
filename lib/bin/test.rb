@@ -13,13 +13,13 @@
 
 class Test < BaseCommand
   def fs_object(path, frames:)
-if Hal.exist?(path)
-          root = frames[:vroot]
-        node = root[path]
-    node
-        else
-          false
-        end    
+    if Hal.exist?(path)
+      root = frames[:vroot]
+      node = root[path]
+      node
+    else
+      false
+    end    
   end
   def executable?(obj, klass_set=[Block, Lambda])
     klass_set.reduce(false) {|i, j| i || obj.kind_of?(j) }
@@ -57,8 +57,8 @@ if Hal.exist?(path)
         result = obj_or_path_executable?(a[0], [Lambda], frames: frames)
       elsif @options[:b]
         result = obj_or_path_executable?(a[0], [Block], frames: frames)
-    elsif @options[:X]
-      result = Hal.exist?(a[0]) && !Hal.directory?(a[0])
+      elsif @options[:X]
+        result = Hal.exist?(a[0]) && !Hal.directory?(a[0])
       else
         result = a[0]
       end

@@ -14,9 +14,9 @@ end
 class Fakir
 
   @current_arity = 0
-      def _arity(name)
+  def _arity(name)
       @current_arity
-    end
+  end
 
 
   def initialize(meth, inp=[], out=nil)
@@ -99,7 +99,7 @@ end
 class StatefulFakir
   def chdir(path)
     @dir = path
-    end
+  end
 
     def pwd
     @dir
