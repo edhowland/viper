@@ -26,10 +26,16 @@ def read-lines [p: path] {
 
 
 
+# combine zipped tuples into records
+def merge-rows [] {
+  each {|it| {indent: $it.0, token0: $it.1} }
+}
+
+
 # Gives a combinded report of the indent level and the first non-blank token of every line of a file.
 # Pay attention to odd number indentation numbers.
 def main [
     sfile: string
     ] {
-  read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } |flatten |  table -t none
+  read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  table -t none
 }
