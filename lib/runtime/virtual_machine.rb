@@ -238,7 +238,6 @@ _saved_old = Hal.pwd
     vroot = frames[:vroot]
     vroot.creat(path, clet)
     return true
-    return false
   end
   def source(*args, env:, frames:)
     if args.empty?
