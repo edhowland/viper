@@ -10,7 +10,7 @@ class Cp < BaseCommand
     dest, *src = args.reverse
     src.each {|s| Hal.cp(s, dest) }
     true
-    rescue Errno::ENOENT => err
+  rescue Errno::ENOENT => err
       env[:err].puts "cp: No such file or directory. Command was cp #{args.join(' ')}"
       env[:err].puts err.message
 

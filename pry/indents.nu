@@ -28,20 +28,21 @@ def read-lines [p: path] {
 
 # combine zipped tuples into records
 def merge-rows [] {
-  each {|it| {indent: $it.0, token0: $it.1} }
+  each {|it| {lineno: $it.0.index, indent: $it.0.item, token0: $it.1} }
 }
 
 
 # Gives a combinded report of the indent level and the first non-blank token of every line of a file.
+# If using the --range, -r option then remember the numbers are 0-based while error messages are 1-based.
 # Pay attention to odd number indentation numbers.
 def main [
     sfile: string,
     --range (-r): range
     ] {
   if ($range | is-not-empty) {
-    read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  range $range | table -t none
+    read-lines  $sfile | indent-level | enumerate | zip { read-lines $sfile | word0 } | merge-rows |  range $range | table  -t none
   } else {
-    read-lines  $sfile | indent-level | zip { read-lines $sfile | word0 } | merge-rows |  table -t none
+    read-lines  $sfile | indent-level |enumerate |  zip { read-lines $sfile | word0 } | merge-rows |  table -t none
   }
 
 }

@@ -138,7 +138,7 @@ _saved_old = Hal.pwd
   rescue Errno::ENOTDIR => err
     env[:err].puts "cd: #{err.message}"
     false
-      rescue Errno::ENOENT => err
+  rescue Errno::ENOENT => err
     env[:err].puts "cd: #{err.message}"
     false
   end
