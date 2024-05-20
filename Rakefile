@@ -20,8 +20,20 @@ task all_tests: [:test, :test_vsh]
 task default: [:all_tests]
 
 
+desc 'Eliminate straggling left over binding.[pry,irb]'
+task :binding do
+  puts "Remove these left over binding.pry or binding.irb from the code"
+  sh "rg --vimgrep binding lib minitest local vshtest bin  || echo Your code is clean of left over 'binding.pry or .irb s'"
+end
+
+desc 'Check for left over to-dos and fix-mes and remove-mes'
+task :todo do
+  puts "Unfinished business; Possibly pipe this into viper -i"
+  sh "rg --vimgrep 'TODO|FIX|REMOVE' lib local minitest bin vshtest || echo Your code is clean of to-dos, fix-mes and remove-mes"
+end
+
 desc  'What steps to create a new Release'
-task :release do
+task release: [:binding, :todo] do
   puts <<EOD
   Steps to create a new release:
   - Run 'rake' to run all tests, minitest and vshtest
@@ -57,7 +69,7 @@ task :release do
     * Add ###  Changes
     * Add ### Removed and deprecations (if not N/A)
   Run charm admin to update Welcome page
-  - git status & git add stuff
+  - git status & git add stuff; E.g. the welcome page is in local so do at least git add ./local
   - git commit -m 'Release 2.0.x.y'
   - git tag -a '2.0.x.y' -m 'Release 2.0.x.y'
 git push --follow-tags pi

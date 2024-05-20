@@ -29,6 +29,7 @@ snake in 1957. He wrongly believed it would not be fatal.
 1. Update lib/vish/version.rb and bump the version number
 
 2. Cleanup code, remove '#binding.pry' and any non-comment '=begin/=end' comment out blocks of code
+  * Run 'rake todo' to check for left over comments in  code for unfinished things to do, remove or needs fixing
 3. Update README.md, bump version# and release name
 4. Add release notes to CHANGELOG.md
 5. Make sure rake runs cleanly
