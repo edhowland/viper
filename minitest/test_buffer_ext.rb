@@ -17,6 +17,6 @@ class TestBufferExt < Minitest::Test
     #
   end
   def test_at_returns_empty_string_when_buffer_empty
-    assert_eq '', @buf.at
+    assert_equal '', @buf.at
   end
 end

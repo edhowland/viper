@@ -46,12 +46,12 @@ class VirtualLayerTests < MiniTest::Test
     VirtualLayer.touch 'old'
     file.print 'hello'
     file.rewind
-    assert_eq file.string, 'hello'
+    assert_equal file.string, 'hello'
     VirtualLayer.cp 'file', 'old'
     new_file = @vroot['/v/old']
     new_file.rewind
     contents = new_file.string
-    assert_eq contents, 'hello'
+    assert_equal contents, 'hello'
   end
   def test_mv_w_full_path
     VirtualLayer.touch '/v/aa'
@@ -114,12 +114,12 @@ class VirtualLayerTests < MiniTest::Test
   end
   def test_realpath
     VirtualLayer.mkdir_p '/v/dir/foo/bar'
-    assert_eq '/v/dir/foo/bar', VirtualLayer.realpath('/v/dir/foo/bar/')
+    assert_equal '/v/dir/foo/bar', VirtualLayer.realpath('/v/dir/foo/bar/')
   end
   def test_realpath_works_for_dot_dot
     VirtualLayer.mkdir_p '/v/dir/foo/bar'
     VirtualLayer.chdir '/v/dir/foo/bar'
-    assert_eq '/v/dir/foo', VirtualLayer.realpath('..')
+    assert_equal '/v/dir/foo', VirtualLayer.realpath('..')
   end
   def test_relative_is_true_for_foo_bar
     assert VirtualLayer.relative?('foo/bar')

@@ -48,7 +48,7 @@ class PipeTests < MiniTest::Test
     mk_params 'true', 'true' do |l, r|
       p = Pipe.new l, r
       p.call env:@vm.ios, frames:@vm.fs
-      assert_eq @vm.fs[:pipe_status].length, 2
+      assert_equal @vm.fs[:pipe_status].length, 2
     end
   end
   def k_test_false_true_sets_pipe_status
@@ -75,8 +75,8 @@ class PipeTests < MiniTest::Test
         p1 = Pipe.new l, p2
         result = p1.call env:@vm.ios, frames:@vm.fs
         assert result
-        assert_eq @vm.fs[:pipe_status].length, 3
-        assert_eq @vm.fs[:pipe_status], [ true, true, true ]
+        assert_equal @vm.fs[:pipe_status].length, 3
+        assert_equal @vm.fs[:pipe_status], [ true, true, true ]
       end
     end
   end

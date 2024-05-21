@@ -20,30 +20,30 @@ class RedirectionTest  < MiniTest::Test
         @redir = Redirection.new '>', @target
 @redir.call env:@ios, frames:@frames
 assert_is @ios[:out], ObjectRedir
-assert_eq @ios[:out].target, 'xxyyzz'
-assert_eq @ios[:out].mode, 'w'
+assert_equal @ios[:out].target, 'xxyyzz'
+assert_equal @ios[:out].mode, 'w'
   end
   def test_call_with_stdin
     @redir = Redirection.new '<', @target
     result = @redir.call(env:@ios, frames:@frames)
     assert_nil result
     assert_is @ios[:in], ObjectRedir
-    assert_eq @ios[:in].target, 'xxyyzz'
-    assert_eq @ios[:in].mode, 'r'
+    assert_equal @ios[:in].target, 'xxyyzz'
+    assert_equal @ios[:in].mode, 'r'
   end
   def test_call_with_append
     @redir = Redirection.new '>>', @target
     result = @redir.call env:@ios, frames:@frames
     assert_nil result
     assert_is @ios[:out], ObjectRedir
-    assert_eq @ios[:out].target, 'xxyyzz'
-    assert_eq @ios[:out].mode, 'a'
+    assert_equal @ios[:out].target, 'xxyyzz'
+    assert_equal @ios[:out].mode, 'a'
   end
   def test_deref_target
     @frames[:kk] = 'hello'
     var = Deref.new :kk
     result = var.call frames:@frames
-    assert_eq result, 'hello'
+    assert_equal result, 'hello'
   end
   def test_redir_target_is_deref
     @frames[:pathn] = 'xxyyzz'
@@ -51,8 +51,8 @@ assert_eq @ios[:out].mode, 'w'
     redir = Redirection.new '<', var
     _ = redir.call env:@ios, frames:@frames
     assert_is @ios[:in], ObjectRedir
-    #assert_eq @ios[:in].target, 'xxyyzz'
-    assert_eq @ios[:in].target, 'xxyyzz'
+    #assert_equal @ios[:in].target, 'xxyyzz'
+    assert_equal @ios[:in].target, 'xxyyzz'
 
   end
   def test_raises_ambigous_error

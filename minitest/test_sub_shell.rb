@@ -21,7 +21,7 @@ class SubShellTest< MiniTest::Test
     @vhome = @vm.fs[:vhome]
   end
   def teardown
-    assert_eq @errbuf.string, ''
+    assert_equal @errbuf.string, ''
   end
 
   def test_vm_restore_pwd_if_different
@@ -29,12 +29,12 @@ class SubShellTest< MiniTest::Test
     @vm.cd path,    env:@vm.ios, frames:@vm.fs
     Hal.chdir(ENV['HOME'], Hal.pwd)
     @vm.restore_pwd
-    assert_eq Hal.pwd, path
+    assert_equal Hal.pwd, path
   end
   def test_restore_pwd_does_nothing_if_already_at_pwd
     path = Hal.pwd
     @vm.restore_pwd
-    assert_eq path, Hal.pwd
+    assert_equal path, Hal.pwd
   end
   def test_cloned_vm_does_not_change_pwd_in_parent_vm
     pwd = @vm.cdbuf[0]
@@ -42,7 +42,7 @@ class SubShellTest< MiniTest::Test
     nvm = @vm._clone
     nvm.cd "#{@vhome}/lib", env:nvm.ios, frames:nvm.fs
     @vm.restore_pwd
-    assert_eq pwd, @vm.cdbuf[0]
+    assert_equal pwd, @vm.cdbuf[0]
   end
   def test_cloned_vm_has_not_changed_parents_oldpwd
 
@@ -51,7 +51,7 @@ class SubShellTest< MiniTest::Test
     nvm = @vm._clone
     nvm.cd 'lib', env:nvm.ios, frames:nvm.fs
     @vm.restore_pwd
-    assert_eq oldpwd, @vm.cdbuf[1]
+    assert_equal oldpwd, @vm.cdbuf[1]
   end
   def test_pid_starts_at_two_because_of_global_vm
     assert_is @vm.pid,Integer 
@@ -59,38 +59,38 @@ class SubShellTest< MiniTest::Test
   def test_pid_increments_after_clone_once
     old = @vm.pid
     vv = @vm._clone
-    assert_eq vv.pid, (old + 1)
+    assert_equal vv.pid, (old + 1)
   end
   def test_pid_advances_twice_after_2_clones
     old = @vm.pid
     baby = @vm._clone
     grandbaby = baby._clone
-    assert_eq grandbaby.pid, (old + 2)
+    assert_equal grandbaby.pid, (old + 2)
   end
   def test_pid_remains_unchanged_after_3_clones
     old = @vm.pid
     3.times { @vm._clone }
-    assert_eq @vm.pid, old
+    assert_equal @vm.pid, old
   end
   def test_parent_pid_ppid_is_one_less_than_pid
-    assert_eq @vm.ppid, (@vm.pid - 1)
+    assert_equal @vm.ppid, (@vm.pid - 1)
   end
   def test_ppid_advances_to_parent_of_child_vm
     vv = @vm._clone
-    assert_eq vv.ppid, @vm.pid
+    assert_equal vv.ppid, @vm.pid
   end
   def test_ppid_is_from_actual_parent
     5.times { @vm._clone }
     baby = @vm._clone
-    assert_eq baby.ppid, @vm.pid
+    assert_equal baby.ppid, @vm.pid
   end
   def test_fs_pid_is_reset_to_actual_pid
     baby = @vm._clone;
-    assert_eq baby.fs[:pid], baby.pid
+    assert_equal baby.fs[:pid], baby.pid
   end
   def test_fs_ppid_retains_actual_ppid
     baby=@vm._clone
-    assert_eq baby.fs[:ppid], baby.ppid
+    assert_equal baby.fs[:ppid], baby.ppid
   end
   def test_restore_oldpwd_sets_current_framestack
     fs = @vm.fs._clone
@@ -98,6 +98,6 @@ class SubShellTest< MiniTest::Test
     fs[:oldpwd] = 'xxx'
     k.fs = fs
     k.restore_oldpwd
-    assert_eq k.fs[:oldpwd], k.cdbuf[1]
+    assert_equal k.fs[:oldpwd], k.cdbuf[1]
   end
 end

@@ -13,7 +13,7 @@ class TestVfsNode < MiniTest::Test
     VirtualLayer.mkdir_p '/v/dir/foo/bar'
     VirtualLayer.chdir '/v/dir/foo/bar'
     vnode = @vroot.wd
-    assert_eq '/v/dir/foo/bar', vnode.pathname
+    assert_equal '/v/dir/foo/bar', vnode.pathname
     
   end
   def test_vfs_node_elements_is_array_and_matches
@@ -22,6 +22,6 @@ class TestVfsNode < MiniTest::Test
     vnode = @vroot.wd
     res = vnode.elements
     assert_is res, Array
-    assert_eq ['', 'v', 'dir', 'foo', 'bar'], res
+    assert_equal ['', 'v', 'dir', 'foo', 'bar'], res
   end
 end

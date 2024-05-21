@@ -34,7 +34,7 @@ class FlagParserTests < MiniTest::Test
       str = string
     end
     @parser.parse ['-e', 'dummy']
-    assert_eq str, 'dummy'
+    assert_equal str, 'dummy'
   end
   def test_parse_exclaim_returns_non_arg_values
     bool = false
@@ -43,8 +43,8 @@ class FlagParserTests < MiniTest::Test
     @parser.on('-f') {|file| my_file = file }
     result = @parser.parse! ['-f', 'ruby.rb', 'no_arg', '-e', 'nuther']
     assert bool
-    assert_eq my_file, 'ruby.rb'
-    assert_eq result, ['no_arg', 'nuther']
+    assert_equal my_file, 'ruby.rb'
+    assert_equal result, ['no_arg', 'nuther']
   end
 end
 
@@ -55,7 +55,7 @@ class FlagHashTests < MiniTest::Test
   end
   def test_parse_returns_hash_w_empty_returns_original_hash
     result = @parser.parse []
-    assert_eq result, @orig_hash
+    assert_equal result, @orig_hash
   end
   def test_w_dash_e_returns_true_value_in_hash
     result = @parser.parse ['-e']
@@ -72,12 +72,12 @@ class FlagHashTests < MiniTest::Test
   end
   def test_w_param_returns_hash_value_is_param
     result = @parser.parse ['-f', 'file']
-    assert_eq result['-f'], 'file'
+    assert_equal result['-f'], 'file'
   end
   def test_multiple_types_of_flags_params
     result = @parser.parse ['-e', '-f', 'string', 'dummy']
     assert result['-e']
-    assert_eq result['-f'], 'string'
+    assert_equal result['-f'], 'string'
   end
   def test_parse_exclaim_returns_flags_and_remaining_args
     flags, args = @parser.parse! ['-e', '-f', 'filename', 'arg1', 'arg2']

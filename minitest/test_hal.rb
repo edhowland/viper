@@ -31,7 +31,7 @@ class HalTest < MiniTest::Test
   def test_chdir_ok
     Hal.mkdir_p '/v/a/b'
     Hal.chdir '/v/a/b'
-    assert_eq Hal.pwd, '/v/a/b'
+    assert_equal Hal.pwd, '/v/a/b'
   end
   def test_chdir_raises_ioerror_if_not_directory
     Hal.touch '/v/foo'
@@ -49,7 +49,7 @@ class HalTest < MiniTest::Test
   def test_physical_chdir_works
     run_cd('/v', @orig_dir) do |d|
       Hal.chdir '/', d
-      assert_eq '/', Hal.pwd
+      assert_equal '/', Hal.pwd
     end
   end
 

@@ -25,13 +25,13 @@ class ClosureTests < MiniTest::Test
     @fs.top[:__FUNCTION_TYPE__] = 'function'
     @fs.push
     fr = Closure.close(@fs)
-    assert_eq fr, @fs.frames[-2..-1]
+    assert_equal fr, @fs.frames[-2..-1]
   end
   def test_floor_returns_0_when_no_function
-    assert_eq Closure.floor(@fs), BFN::Max
+    assert_equal Closure.floor(@fs), BFN::Max
   end
   def test_ceil_returns_0_when_no_outer_lambda
-    assert_eq Closure.ceil(@fs), BFN::Max
+    assert_equal Closure.ceil(@fs), BFN::Max
   end
   def test_closed_predicate_returns_false_for_both_maxs
     assert_false Closure.closed?(BFN::Max, BFN::Max)
@@ -59,7 +59,7 @@ class ClosureTests < MiniTest::Test
     @fs.push
         @fs[:__FUNCTION_TYPE__] = 'lambda'
     fr = Closure.close(@fs)
-    assert_eq fr.length, 3
+    assert_equal fr.length, 3
   end
   def test_multi_levels_of_functions_and_lambdas_do_the_right_thing
     pushit
@@ -69,8 +69,8 @@ class ClosureTests < MiniTest::Test
     pushit
     makeit 'lambda'
                 fr = Closure.close(@fs)
-    assert_eq fr[0][:level], 2
-    assert_eq fr[-1][:level], 3
+    assert_equal fr[0][:level], 2
+    assert_equal fr[-1][:level], 3
   end
   def test_just_a_bunch_of_lambdas
     pushit
@@ -80,7 +80,7 @@ class ClosureTests < MiniTest::Test
     pushit
     makeit 'lambda'
     fr = Closure.close(@fs)
-    assert_eq fr[0][:level], 1
+    assert_equal fr[0][:level], 1
   end
   def test_a_bunch_of_functions_only_finds_innermost
     pushit
@@ -90,6 +90,6 @@ class ClosureTests < MiniTest::Test
     pushit
     makeit 'function'
     fr = Closure.close @fs
-    assert_eq fr[0][:level], 3
+    assert_equal fr[0][:level], 3
   end
 end

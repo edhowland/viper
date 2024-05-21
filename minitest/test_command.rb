@@ -30,7 +30,7 @@ class CommandTests < MiniTest::Test
   end
   def test_normal_command_is_found_in_v_bin
     result = Command.first_in_path 'cat', frames: @vm.fs
-    assert_eq result, '/v/bin/cat'
+    assert_equal result, '/v/bin/cat'
   end
   def test_get_command_from_path_search_normal_path
     result = Command.command_from_path Command.first_in_path('cat', frames: @vm.fs), frames: @vm.fs
@@ -41,7 +41,7 @@ class CommandTests < MiniTest::Test
         @vm.fs.first[:path] = '/v/cmdlet:/v/bin'
     @root.creat '/v/cmdlet/ord', CommandLet.new
     result = Command.first_in_path 'ord', frames: @vm.fs
-    assert_eq result, '/v/cmdlet/ord'
+    assert_equal result, '/v/cmdlet/ord'
         
 #
   end

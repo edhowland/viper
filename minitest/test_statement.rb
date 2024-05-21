@@ -80,15 +80,15 @@ class StatementTest < MiniTest::Test
   end
   def test_redir_is_present
     s = parse 'echo hello > /v/xx'
-    assert_eq s.context.map(&:ordinal), [COMMAND, COMMAND, REDIR]
+    assert_equal s.context.map(&:ordinal), [COMMAND, COMMAND, REDIR]
   end
   def test_bump_frames_push_frames
     s = Statement.new
     cur_ios_len = @vm.ios.length
     cur_fs_len = @vm.fs.length
     s.bump_frames env:@vm.ios, frames:@vm.fs do |ios, fs|
-      assert_eq ios.length, (cur_ios_len + 1)
-      assert_eq fs.length, (cur_fs_len + 1)
+      assert_equal ios.length, (cur_ios_len + 1)
+      assert_equal fs.length, (cur_fs_len + 1)
     end
   end
   def test_bump_frames_pops_after_call
@@ -101,8 +101,8 @@ class StatementTest < MiniTest::Test
     end
     rescue => _err
     end
-    assert_eq @vm.ios.length, cur_ios_len
-    assert_eq @vm.fs.length, cur_fs_len
+    assert_equal @vm.ios.length, cur_ios_len
+    assert_equal @vm.fs.length, cur_fs_len
 
   end
   def test_bump_frames_returns_result_of_block
@@ -110,7 +110,7 @@ class StatementTest < MiniTest::Test
     result = s.bump_frames env:@vm.ios, frames:@vm.fs do |ios, fs|
       99
     end
-    assert_eq result, 99
+    assert_equal result, 99
   end
   def test_wrap_streams
     s = Statement.new
@@ -119,7 +119,7 @@ class StatementTest < MiniTest::Test
       55
       end
     end
-      assert_eq result, 55
+      assert_equal result, 55
   end
   def test_wrap_streams_w_exception_closes_streams
     s = Statement.new
@@ -156,30 +156,30 @@ class StatementTest < MiniTest::Test
   def test_perform_redirs
     s = parse 'echo hello > /v/xx'
     ctx = s.perform_redirs s.context, env:@vm.ios, frames:@vm.fs
-    assert_eq ctx.length, 2
+    assert_equal ctx.length, 2
   end
   def test_perform_assigns
     s = parse 'aa=11 echo hello > /v/xx'
     ctx = s.perform_assigns s.context, env:@vm.ios, frames:@vm.fs
-    assert_eq ctx.length, 3
+    assert_equal ctx.length, 3
   end
   def test_perform_derefs
     s = parse 'echo :prompt'
     ctx = s.perform_derefs s.context, env:@vm.ios, frames:@vm.fs
-    assert_eq ctx, ['echo', 'vish', '>']
+    assert_equal ctx, ['echo', 'vish', '>']
   end
   def test_perform_all
     s = parse '> /v/xx aa=bb echo :prompt'
     ctx = s.perform_redirs s.context, env:@vm.ios, frames:@vm.fs
     ctx = s.perform_assigns ctx, env:@vm.ios, frames:@vm.fs
     ctx = s.perform_derefs ctx, env:@vm.ios, frames:@vm.fs
-    assert_eq ctx, ['echo', 'vish', '>']
+    assert_equal ctx, ['echo', 'vish', '>']
   end
   def test_prepare
     s = parse 'echo hello > :aa'
     @vm.fs[:aa] = '/v/xx'
     ctx = s.prepare s.context, env:@vm.ios, frames:@vm.fs
-    assert_eq ctx, ['echo', 'hello']
+    assert_equal ctx, ['echo', 'hello']
   end
   def test_execute
     s = parse 'echo hello'
@@ -195,33 +195,33 @@ class StatementTest < MiniTest::Test
     s = parse 'false'
     s.execute env:@vm.ios, frames:@vm.fs
     assert_false @vm.fs[:exit_status]
-    assert_eq @vm.fs[:pipe_status], [false]
+    assert_equal @vm.fs[:pipe_status], [false]
   end
   def test_execute_w_assignments
     s = parse 'aa=bb nop'
     @vm.fs[:aa] = ''
     s.execute env:@vm.ios, frames:@vm.fs
-    assert_eq @vm.fs[:bb], ''
+    assert_equal @vm.fs[:bb], ''
   end
   def test_execute_w_local_assigns_can_globalize_them
     s = parse 'aa=bb global aa'
         s.execute env:@vm.ios, frames:@vm.fs
-        assert_eq @vm.fs[:aa], 'bb'
+        assert_equal @vm.fs[:aa], 'bb'
   end
   def test_execute_w_redir_to_stdout
     s = parse '> /v/xx echo hello'
             s.execute env:@vm.ios, frames:@vm.fs
     vroot = @vm.fs[:vroot]
-    assert_eq vroot['/v/xx'].string, "hello\n"
+    assert_equal vroot['/v/xx'].string, "hello\n"
 
   end
   def test_command_ndx
     s = parse 'echo hello'
-    assert_eq s.command_ndx, 0
+    assert_equal s.command_ndx, 0
   end
   def test_command_ndx_w_preceeding_stuff
     s = parse 'aa=bb > xx echo hello'
-    assert_eq s.command_ndx, 2
+    assert_equal s.command_ndx, 2
   end
   def test_command_ndx_w_no_command_returns_nil
     s = parse 'aa=bb'
@@ -254,25 +254,25 @@ class StatementTest < MiniTest::Test
             @vm.fs.aliases['f'] = 'false'
     s = parse 'f'
     result = s.expand_alias(frames: @vm.fs)
-    assert_eq result, 'false'
+    assert_equal result, 'false'
   end
   def test_expand_alias_w_complicated_expansion
     @vm.fs.aliases['nonce'] = 'echo hello; echo world'
     s = parse 'nonce'
     result = s.expand_alias(frames: @vm.fs)
-    assert_eq result, 'echo hello; echo world'
+    assert_equal result, 'echo hello; echo world'
   end
   def test_embed_alias_returns_new_statement_string
     @vm.fs.aliases['e'] = qs 'echo'
     s = parse '< xx aa=bb > yy e hello'
     result = s.embed_alias(frames: @vm.fs)
-    assert_eq result, '< xx aa=bb > yy echo hello'
+    assert_equal result, '< xx aa=bb > yy echo hello'
   end
   def test_embed_alias_w_multi_statement_alias
     @vm.fs.aliases['c'] = qs 'cat | cat >'
     s = parse  '< xx c vv'
     result = s.embed_alias(frames: @vm.fs)
-    assert_eq result, '< xx cat | cat > vv'
+    assert_equal result, '< xx cat | cat > vv'
   end
   def test_expand_and_call
     @vm.fs.aliases['f'] = qs 'false'
