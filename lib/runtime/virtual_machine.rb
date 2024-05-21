@@ -102,7 +102,7 @@ _saved_old = Hal.pwd
     rescue => err
       @ios[:err].puts '_chdir: ' + err.message
       result = false
-      #raise err # TODO: Added this for testing
+
     ensure
       @fs.first[:pwd] = Hal.pwd
       @cdbuf[0] = Hal.pwd
