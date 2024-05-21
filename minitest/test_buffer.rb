@@ -82,8 +82,8 @@ class BufferTests < MiniTest::Test
     @buffer.ins 'abcde'
     @buffer.beg
     @buffer.fwd
-    assert_eq(@buffer.del_at, 'b')
-    assert_eq(@buffer.to_s, 'acde')
+    assert_equal(@buffer.del_at, 'b')
+    assert_equal(@buffer.to_s, 'acde')
   end
 #describe 'overwrite!' do
   def test_overwrite
