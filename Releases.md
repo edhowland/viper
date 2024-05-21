@@ -26,6 +26,8 @@ snake in 1957. He wrongly believed it would not be fatal.
 
 ## Instructions on creating a new release
 
+Note: These instructions are output when you do: 'rake -q release' including checking for to-dos, and left over bindings
+
 1. Update lib/vish/version.rb and bump the version number
 
 2. Cleanup code, remove '#binding.pry' and any non-comment '=begin/=end' comment out blocks of code
