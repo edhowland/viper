@@ -30,14 +30,14 @@ class BaseCommandTests < MiniTest::Test
   def test_options_are_empty_w_no_options_in_array
     result = @cmd.args_parse! ['jj', 'kk', 'll']
     assert_empty @cmd.options
-    assert_eq result.length, 3
+    assert_equal result.length, 3
   end
   def test_options_are_set
     result = @cmd.args_parse! ['jj', 'kk', '-e', 'll', '-force']
     assert @cmd.options[:e]
     assert @cmd.options[:force]
-    assert_eq result.length, 3
-    assert_eq result, ['jj', 'kk', 'll']
+    assert_equal result.length, 3
+    assert_equal result, ['jj', 'kk', 'll']
   end
   def test_arg_error_with_array
     @cmd.arg_error [0,1,2,3], env:@vm.ios
