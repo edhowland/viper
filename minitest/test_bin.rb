@@ -23,31 +23,31 @@ class BinTests < MiniTest::Test
   def test_stat_examine_reports_directory
     cmd = Stat.new
     str = cmd.examine Hal, :directory?, '/v/bin'
-    assert_eq str, 'directory? true'
+    assert_equal str, 'directory? true'
   end
   def test_stat_examine_directory_false
         cmd = Stat.new
     str = cmd.examine Hal, :directory?, '/v/xxx'
-    assert_eq str, 'directory? false'
+    assert_equal str, 'directory? false'
   end
   def test_examine_virtual_dir
     cmd = Stat.new
     str = cmd.examine Hal, :virtual?, '/v/bin'
-    assert_eq str, 'virtual? true'
+    assert_equal str, 'virtual? true'
   end
   def test_examine_virtual_false
     cmd = Stat.new
     str = cmd.examine Hal, :virtual?, '/dev/null'
-    assert_eq str, 'virtual? false'
+    assert_equal str, 'virtual? false'
   end
   # ls tests
   def test_ls_dir_star_w_directory
     cmd = Ls.new
-    assert_eq cmd.dir_star('/v/bin'), '/v/bin/*'
+    assert_equal cmd.dir_star('/v/bin'), '/v/bin/*'
   end
   def test_dir_star_w_file
     cmd = Ls.new
-    assert_eq cmd.dir_star('xx'), 'xx'
+    assert_equal cmd.dir_star('xx'), 'xx'
   end
   def test_capture_one_block
     cmd = Capture.new
@@ -81,30 +81,30 @@ class BinTests < MiniTest::Test
     handler = Visher.parse! 'result=ok; global result'
     result = cmd.call block, handler, env: @vm.ios, frames: @vm.fs
     assert_false result
-    assert_eq @vm.fs[:result], 'ok'
+    assert_equal @vm.fs[:result], 'ok'
   end
   def test_capture_sets_last_exception
     go 'capture { raise bad }'
-    assert_eq @vm.fs[:last_exception], 'bad'
+    assert_equal @vm.fs[:last_exception], 'bad'
   end
   def test_capture_catch_block_runs
     go 'capture { raise bad } { xx=hi; global xx }'
-    assert_eq @vm.fs[:xx], 'hi'
+    assert_equal @vm.fs[:xx], 'hi'
   end
   def test_capture_ensure_always_runs_w_no_raise
     go 'capture { nop } { nop } { xx=hi; global xx }'
-        assert_eq @vm.fs[:xx], 'hi'
+        assert_equal @vm.fs[:xx], 'hi'
   end
   def test_capture_ensure_runs_with_raise
     go 'capture { raise bad } { nop } { xx=hi; global xx }'
-        assert_eq @vm.fs[:xx], 'hi'
+        assert_equal @vm.fs[:xx], 'hi'
   end
   def test_capture_w_raises_and_redirection_still_has_original_stream
     go 'function db() { raise bad; echo ok }; capture { db >> /v/xxx } { echo caught exception :last_exception } { echo finally }'
   end
   def test_stat_ok
     go 'stat /v/bin'
-    assert_eq @outbuf.string, "stat\n/v/bin\nvirtual? true\ndirectory? true\nVFSNode: directory node: bin\n"
+    assert_equal @outbuf.string, "stat\n/v/bin\nvirtual? true\ndirectory? true\nVFSNode: directory node: bin\n"
   end
   def betx(inp, mtch)
     btw = Between.new
@@ -119,25 +119,25 @@ class BinTests < MiniTest::Test
     @inbuf = StringIO.new expected
     @vm.ios[:in] = @inbuf
     btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
-    assert_eq @vm.ios[:out].string, expected
+    assert_equal @vm.ios[:out].string, expected
   end
   def test_between_w_single_fence_post
     @inbuf = StringIO.new "key_d\nfn_6\nkey_e\nkey_f\n"
     @vm.ios[:in] = @inbuf
     btw = Between.new
     btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
-    assert_eq @vm.ios[:out].string, "key_e\nkey_f\n"
+    assert_equal @vm.ios[:out].string, "key_e\nkey_f\n"
   end
   def test_between_gets_every_thing_between_2_fence_posts
     @inbuf = StringIO.new "key_h\nfn_6\nkey_e\nkey_l\nkey_l\nfn_6\nkey_o\n"
     btw = Between.new
     @vm.ios[:in] = @inbuf
     btw.call 'fn_6', env:@vm.ios, frames:@vm.fs
-    assert_eq @vm.ios[:out].string, "key_e\nkey_l\nkey_l\n"
+    assert_equal @vm.ios[:out].string, "key_e\nkey_l\nkey_l\n"
   end
 
   def test_between_just_one_fence_post
     actual = betx("fn_6\n", 'fn_6')
-    assert_eq actual, ''
+    assert_equal actual, ''
   end
 end

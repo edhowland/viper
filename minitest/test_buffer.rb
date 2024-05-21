@@ -38,44 +38,44 @@ class BufferTests < MiniTest::Test
     @buffer = Buffer.new 'the brown fox'
     @buffer.fwd; @buffer.fwd; @buffer.fwd; @buffer.fwd
     @buffer.ins 'quick '
-    assert_eq @buffer.to_s, 'the quick brown fox'
+    assert_equal @buffer.to_s, 'the quick brown fox'
   end
   def test_fwd_back_ins
     @buffer = Buffer.new '012345'
     @buffer.fwd; @buffer.fwd;@buffer.fwd
-    assert_eq @buffer.at, '3'
+    assert_equal @buffer.at, '3'
     @buffer.back
     @buffer.ins 'A'
-    assert_eq @buffer.to_s, '01A2345'
+    assert_equal @buffer.to_s, '01A2345'
   end
   def test_srch_fwd
     @buffer = Buffer.new 'Now is the time for all good men to come to the aid of their country'
     @buffer.srch_fwd 'good'
-    assert_eq @buffer.at, 'g'
+    assert_equal @buffer.at, 'g'
   end
   def test_srch_fwd_non_existant
         @buffer = Buffer.new 'Now is the time for all good men to come to the aid of their country'
         @buffer.srch_fwd 'zzzyyxx'
-        assert_eq @buffer.at, 'N'
+        assert_equal @buffer.at, 'N'
   end
   def test_srch_back
         @buffer = Buffer.new 'Now is the time for all good men to come to the aid of their country'
   @buffer.fin
 @buffer.srch_back 'good'
-  assert_eq @buffer.at, 'g'
+  assert_equal @buffer.at, 'g'
   end
 #describe 'srch_back for non-existant regex' do
   def test_srch_back_for_nonexist_pattern
             @buffer = Buffer.new 'Now is the time for all good men to come to the aid of their country'
   @buffer.fin
   @buffer.srch_back 'xxyyzz'
-  assert_eq '', @buffer.at
+  assert_equal '', @buffer.at
   end
 #describe 'del a lot of content' do
   def test_del_a_lot_of_content
     @buffer.ins 'abcde'
-    assert_eq @buffer.del('abcde'), 'abcde'
-    assert_eq @buffer.to_s, ''
+    assert_equal @buffer.del('abcde'), 'abcde'
+    assert_equal @buffer.to_s, ''
   end
 #describe 'del_at' do
   def test_del_at
@@ -89,39 +89,39 @@ class BufferTests < MiniTest::Test
   def test_overwrite
     @buffer = Buffer.new 'abcde'
     @buffer.overwrite! '01234'
-    assert_eq @buffer.to_s, '01234'
+    assert_equal @buffer.to_s, '01234'
   end
 #describe 'goto_position' do
   def test_goto_position
     @buffer = Buffer.new 'abcde'
     @buffer.goto_position 2
-    assert_eq @buffer.position, 2
-    assert_eq @buffer.at, 'c'
+    assert_equal @buffer.position, 2
+    assert_equal @buffer.at, 'c'
   end
 #describe 'goto_position backwards' do
   def test_goto_position_backwards
     @buffer = Buffer.new 'hellow world'
     @buffer.fin
     @buffer.goto_position 5
-    assert_eq @buffer.position, 5
-    assert_eq @buffer.at, 'w'
+    assert_equal @buffer.position, 5
+    assert_equal @buffer.at, 'w'
   end
 
 #describe 'word_back' do
   def test_word_back
     @buffer = Buffer.new "ABCD\n  EFGH"
     @buffer.fin
-    assert_eq @buffer.word_back, "EFGH"
+    assert_equal @buffer.word_back, "EFGH"
   end
 #describe 'rchomp string w/o beginning newline' do
   def test_rchomp_without_beginning_newline
     string = 'hello'
-    assert_eq @buffer.rchomp(string), string
+    assert_equal @buffer.rchomp(string), string
   end
 #describe 'rchomp with leading newline' do
   def test_rchomp_with_leading_newline
     string = "\nhello"
-    assert_eq @buffer.rchomp(string), 'hello'
+    assert_equal @buffer.rchomp(string), 'hello'
   end
 #describe 'look_ahead' do
   def test_look_ahead
@@ -138,12 +138,12 @@ class BufferTests < MiniTest::Test
   def test_line_number
     @buffer = Buffer.new "\n\n\n\n\n"
     @buffer.down; @buffer.down
-    assert_eq @buffer.line_number, 3
+    assert_equal @buffer.line_number, 3
   end
 #describe 'word_fwd' do
   def test_word_fwd
     @buffer = Buffer.new 'hello world'
-    assert_eq @buffer.word_fwd, 'hello'
+    assert_equal @buffer.word_fwd, 'hello'
   end
 #describe 'word_fwd - no match' do
   def test_word_fwd_no_match
@@ -165,30 +165,30 @@ class BufferTests < MiniTest::Test
 #describe 'indent_level' do
   def test_indent_level
     @buffer = Buffer.new '  Jq something'
-    assert_eq @buffer.indent_level, 2
+    assert_equal @buffer.indent_level, 2
   end
 #describe 'empty line indent_level is 0' do
   def test_empty_line_indent_level_is_0
-    assert_eq @buffer.indent_level, 0
+    assert_equal @buffer.indent_level, 0
   end
 #describe 'no indent_level should be 0' do
   def test_indent_level_full_string_is_0
     @buffer = Buffer.new 'hello world'
-    assert_eq @buffer.indent_level, 0
+    assert_equal @buffer.indent_level, 0
   end
 #describe '2 tabs should be 4 indent_level' do
   def test_2_tabs_indent_level_should_be_4
     @buffer = Buffer.new '    hello world'
-    assert_eq @buffer.indent_level, 4
+    assert_equal @buffer.indent_level, 4
   end
 #describe 'only spaces still report 6' do
 def test_only_spaces_indent_level_should_still_be_6
 @buffer = Buffer.new '      '
-      assert_eq @buffer.indent_level, 6
+      assert_equal @buffer.indent_level, 6
 end
   def test_lines
     @buffer.ins "line 1\nline 2\nline 3\n"
-    assert_eq @buffer.lines.length, 3
+    assert_equal @buffer.lines.length, 3
   end
   def test_mismatched_buffers_are_not_equal
     b1 = Buffer.new 'hello'
@@ -198,12 +198,12 @@ end
   def test_buffers_with_exact_same_contents_are_equal
     b1 = Buffer.new 'hello'
     b2 = Buffer.new 'hello'
-    assert_eq b1, b2
+    assert_equal b1, b2
   end
   def test_clones_are_equal
     b1 = Buffer.new 'hello'
     b2 = b1.clone
-    assert_eq b1, b2
+    assert_equal b1, b2
   end
   def test_clones_are_not_the_exact_same_object
     b1 = Buffer.new 'hello'
@@ -238,16 +238,16 @@ end
 
   def test_length_0
     b = Buffer.new
-    assert_eq 0, b.length
+    assert_equal 0, b.length
   end
   def test_length_5
     b = Buffer.new 'hello'
-    assert_eq 5, b.length
+    assert_equal 5, b.length
   end
   def test_length_10_when_not_at_either_end
     b = Buffer.new
     b.ins '0123456789'
     b.back; b.back; b.back
-    assert_eq 10, b.size
+    assert_equal 10, b.size
   end
 end
