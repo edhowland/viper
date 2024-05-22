@@ -5,11 +5,7 @@
 # %%LINT1 # forced to do this by Rubocop alignment cop
 
 class BaseCommand < BinCommand::NixCommand
-=begin
-  def self.descendants
-    ObjectSpace.each_object(Class).select { |klass| klass < self }
-  end
-=end
+
 
   def initialize
     @options = {}

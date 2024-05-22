@@ -2,7 +2,20 @@
 
 ## Release 2.0.13.c
 
-2024-05-19
+2024-05-21
+
+
+## WONTFIX
+
+These items will not be fixed in this release: 2.0.13.c but should be addressed in 2.0.14.
+
+
+- Stuck at Ruby 3.1.2 as Ruby 3.2.x is causing problems
+  * Use rbenv local 3.1.2 after cloneing and before running 'bundle'
+- 1 skipped test in mnitest/test_hal.rb
+  * Strange error that must needs pursuing when the test is calling 'Hal.touch
+  * But not when doing it in the REPL: ivsh either in physical or virtuaul filesystem
+- Many more tests to add in test_hal.rb; see final comment
 
 ## Corrections
 
@@ -18,6 +31,7 @@
 
 ## Additions
 
+- New version information in ./bin/charm status
 - Added pry/ipl.rb
   * Can now do simple: 'pry -r ./pry/ipl.rb' and then 'vm = ipl' to get some Viper ruby code running.
   * Does not run the vish_boot stuff; do that manually or use another ./pry/*.rb scrpt
@@ -58,6 +72,30 @@ viper -l 14 lib/runtime/virtual_machine.rb
 
 
 
+
+
+
+
+- Rakefile now has more tests related to preparing a release
+  * New locate function that does a ripgrep on source files for regexs that should be addressed:
+    - =begin/=end pairs of commented out code
+     Instances of todo, fixme and removeme comments in code  including in Vish sources
+    - Left over instances of 'binding.pry or binding.irb  in Ruby code; including those that are currently commented out
+
+
+Always do a rake with the '-q' flag when preparing a release
+as that does not produce echoed output of the shell command.
+
+```bash
+rake -q commented_out
+
+# For example
+
+# Probably do a 'ruby -c <path-to-file.rb> to make sure no syntax errors have been introduced
+
+# Now re-run all tests to make sure nothing has gone ammis
+rake
+```
 
 
 

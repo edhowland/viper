@@ -1,4 +1,6 @@
-# Rakefile for running tests
+# Rakefile for Viper project
+# Updated to version 2.0.13.c
+
 require 'rake/testtask'
 
 Rake::TestTask.new do|t|
@@ -14,16 +16,26 @@ desc 'Tests Vish commands'
 task :test_vsh do
   sh 'cd ./vshtest; ../bin/vish all_tests.vsh'
 end
+
+# For release prep search for certain regex in sources
+def locate(regex, *dirs)
+  sh "rg --vimgrep '#{regex}' #{dirs.join(' ')} || echo You have no more instances of '#{regex}' in your source files"
+end
+
+
+# main
+
 desc 'Run all tests. Including Ruby and Vish tests'
 task all_tests: [:test, :test_vsh]
 
 task default: [:all_tests]
 
 
+# Things to accomplish before pushing a new Release
 desc 'Eliminate straggling left over binding.[pry,irb]'
 task :binding do
   puts "Remove these left over binding.pry or binding.irb from the code"
-  sh "rg --vimgrep binding lib minitest local vshtest bin  || echo Your code is clean of left over 'binding.pry or .irb s'"
+  locate 'binding.(pry|irb)', 'lib', 'bin', 'minitest'
 end
 
 desc 'Check for left over to-dos and fix-mes and remove-mes'
@@ -32,8 +44,16 @@ task :todo do
   sh "rg --vimgrep 'TODO|FIX|REMOVE' lib local minitest bin vshtest || echo Your code is clean of to-dos, fix-mes and remove-mes"
 end
 
+desc 'Check for "=begin ... =end" style commented out blocks of code'
+task :commented_out do
+  puts "Remove these uncommented out blocks of code using the '=begin ... =end comment style"
+  puts "Possibly run this with 'rake -q commented_out | viper -i'"
+  locate '^(=begin|=end)',  'lib', 'minitest','bin'
+end
+
+
 desc  'What steps to create a new Release'
-task release: [:binding, :todo] do
+task release: [:binding, :todo, :comment_out] do
   puts <<EOD
   Steps to create a new release:
   - Run 'rake' to run all tests, minitest and vshtest
@@ -53,7 +73,7 @@ task release: [:binding, :todo] do
   - Run smoke tests: ./bin/vish -v, ./bin/ivsh, ./bin/viper
     * The last test: ./bin/viper should display the Welcome banner.
     * ./bin/charm status
-    * ./bin/charm config create # To checkout your ~/.config/vish directory structure
+
   - Update version in lib/vish/version.rb
   - Update README.md and change version number.
   - Update Bugs.md, completed.md and wontfix.md
@@ -82,4 +102,18 @@ end
 desc 'Build documentation'
 task :yard do
   sh 'yardoc -o ./doc'
+end
+
+
+
+desc 'Things to perform after cloning this repository'
+task :post_clone do
+  puts <<EOD
+  cd ./viper
+    rbenv local 3.1.2 ; Must ensure this version of Ruby is selected for running Viper and related commands
+    bundle; Will get the correct gem versions for this project (locally if using rbenv)
+    ./bin/charm status; Decide if to remove the welcome banner if viper is started without any files to edit.
+    * ./bin/charm config create # To checkout your ~/.config/vish directory structure
+EOD
+
 end
