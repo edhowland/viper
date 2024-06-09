@@ -10,3 +10,4 @@ tmp/
 ./local/etc/no-viper-welcome-banner
 hello.cpython-310.pyc
 ./doc/Index.html
+MUST-FIX.md

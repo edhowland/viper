@@ -137,8 +137,16 @@ Implement the man page style for vish commands
 Also Markdown files
 Built from the RDoc strings in Ruby source code in :vhome/lib/bin/*.rb
 
+### Major update for 2.0.13.c
+
+Out of the box on MacOS does not work.
+Fixed: minitest/test_hal.rb ==> Used test double: Fakir instead of testing PhysicalLayer
+- can not use Ruby 3.2.x - Must needs fixing
+
 
 ## 2.0.14
+
+Remove man pages; only use help system like in Nushell
 
 - run prettier -ruby on code base
 - run rubocop

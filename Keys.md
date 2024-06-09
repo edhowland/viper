@@ -116,9 +116,13 @@ to a canonical key name.
 
 ```
 # Type this line and then press the F1 key
-vish >rawspace-space|spacexfkey
-fn_1vish >
+
 ```
+raw - | xfkey
+```
+
+fn_1
+
 
 The output of xfkey does not have a newline so immediate the 'vish>' prompt
 trails  the fn_1 above.
@@ -332,8 +336,8 @@ j
 
 ## Summary
 
-In Viper, a keypress invokes some action that gets executed by the Vish
-command language. Along the way, the keypress goes through some transformations.
+In Viper, a key-press invokes some action that gets executed by the Vish
+command language. Along the way, the key-press goes through some transformations.
 
 1. The raw key is captured and passed through the pipeline to ...
 2. The 'xfkey' internal function is called which maps the raw key ordinal values to some canonical string which is the key's name.

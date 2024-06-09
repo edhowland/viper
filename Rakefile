@@ -41,7 +41,7 @@ end
 desc 'Check for left over to-dos and fix-mes and remove-mes'
 task :todo do
   puts "Unfinished business; Possibly pipe this into viper -i"
-  sh "rg --vimgrep 'TODO|FIX|REMOVE' lib local minitest bin vshtest || echo Your code is clean of to-dos, fix-mes and remove-mes"
+  locate 'TODO|FIXME|REMOVEME', 'local', 'lib', 'bin', 'minitest', 'vshtest'
 end
 
 desc 'Check for "=begin ... =end" style commented out blocks of code'

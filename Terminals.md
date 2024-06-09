@@ -20,7 +20,77 @@ workstation, not the remote's installed terminal emulator.
 
 ### Note on keyboard and Terminal emulators
 
-Viper makes liberal use of  the Meta or Alt key for many of its functions.
+### How Viper goes about determining which keymap to use
+
+As previously mentioned, Viper is just an application written in the Vish
+shell language. There is some Ruby runtime involved but most of the logic
+is written in various .vsh files [the extension for Vish scripts].
+
+There is a  builtin command 'load_termfile' which will read the appropriate .json for your current terminal.
+
+[The terminal you are currently are typing on, not the terminal in the remote Viper session if running over ssh.]
+
+This is determined by the $TERM_PROGRAM shell environment variable.
+This environment variable is passed thru to a remote ssh session, so even if you
+are running Viper over on the remote, it will map keys to the terminal you
+are physically typing on locally.
+
+To see which keymap is currently in use on whichever session is in force
+run this command before starting Viper:
+
+```bash
+viper -e 'echo :termfile'
+```
+
+Then press Control-Q to exit Viper.
+
+You should see something like
+
+```
+<viper-distribution>/local/etc/keymaps/<your-terminal-name>.json
+```
+
+
+
+ 
+##### Using the 'ivsh' REPL to see if you have the right :termfile
+
+By default, both the ./bin/vish script runner and the ./bin/ivsh REPL do not
+automatically load the :termfile  upon start so they can be used for debugging.
+But, you can play around  after starting './bin/ivsh':
+
+```
+import keymaps
+echo :termfile
+```
+
+
+
+#### Viper uses three variables to determine which keymap to load:
+
+- :lhome => The current localtion of './local/' in your Viper distribution
+- :term_program => ...  Loaded from $TERM_PROGRAM when the virtual machine first loads.
+- :termfile => {lhome}/etc/keymaps/{term_program}.json
+
+This all happens in the keymaps module which is located in:
+
+```
+ls ./local/vish/modules/keymaps/
+```
+
+
+Once the correct :termfile is in place, Viper must then map actual keys
+to actions  to be performed in the editor, e.g. deleting the previous word.
+
+Basically, the actual raw characters sent by the terminal to Viper are mapped
+to canonical strings in the above mentioned .json keymap file specified by :termfile.
+Which actual action is performed is determined by the current mode currently
+ in force at the time the key is pressed.
+
+For a more complete explanation of this process, please see : [Keys.md](Keys.md)
+
+
+## Viper makes liberal use of  the Meta or Alt key for many of its functions.
 Some terminal emulators need to be reconfigured to output the correct sequence
 of bytes for a Alt modifier plus key combination.
 
@@ -73,4 +143,25 @@ Set them to output the following text when pressed.
 
 Alternatively, you can press Shift plus PageUp or Shift plus PageDown
 to get the same effect temporarily.
+
+
+
+#### The environment variable TERM_PROGRAM in MacOS with the Terminal.app
+
+If using the Terminal.app which ships with MacOS, it will probably set the $TERM_PROGRAM to "Apple_Terminal".
+
+In Viper 2.0.13.c and earlier, Viper will try to use this keymap which
+is located in ./local/etc/keymaps/Apple_Termina.json
+
+This will severely limit what keys are available to Viper.
+For instance any key combos that use the Alt key [The Option key on the Mac keyboard]
+will simply report that the key is unbound and not actually do anything.
+
+To suppress this behaviour in this set of circumstances, change how you
+invoke viper:
+
+```bash
+TERM_PROGRAM=xterm viper
+```
+
 
