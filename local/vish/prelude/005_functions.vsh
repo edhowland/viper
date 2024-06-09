@@ -63,7 +63,7 @@ function cdddr(a, b, c) {
 function cadddr() {
    first :(cdddr :_)
 }
-function help(topic) {
+function _help(topic) {
    echo "The help subsystem has not yet been loaded. Please type either 'load vish_help' or 'load viper_help' which loads both Vish and Viper help packages"
    return false
 }

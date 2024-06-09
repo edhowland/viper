@@ -22,7 +22,7 @@ function help_parse(doc) {
   hdoc="/v/help/:{doc}"
   test -f :hdoc || mdparse ":{vhome}/doc/help/:{doc}.md" :hdoc
 }
-function help(doc) {
+function _help(doc) {
   test -z :doc && doc=help
   help_qlaunch :doc
   peek :_help
