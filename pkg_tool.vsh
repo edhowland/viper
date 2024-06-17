@@ -21,6 +21,15 @@ function pkg_dir(pkg) {
 }
 rem performs a hard remove of the found package
 function pkg_rm(pkg) {
+   pkg_d=:(pkg_dir :pkg)
+   test -d :pkg_d && sh "rm -rf :{pkg_d}"
    rm :(which_pkg :pkg)
-   pkg_d=:(pkg_dir :pkg); test -d :pkg_d && sh "rm -rf :{pkg_d}"
 }
+rem check for mandatory number of arguments presumably for some package sub command
+function mandate_argc(req, act, msg) {
+   rem Note that at least for this version argv 0 is the name of  the program itself and makes the argc one item bigger
+   real_argc=:(expr :act '-' 1)
+   eq :real_argc :req || exec { perr ":{msg} requires :{req} arguments and you supplied :{real_argc}"; return false }
+   return true
+}
+
