@@ -6,7 +6,7 @@ function install_it(_, src, dst) {
    test -d :src || exec { perr :src must exist and be a directory containing at least 1 .vsh file; exit 1 }
    test -d :dst || exec { perr Destination directory :dst must exist and be a directory; exit 2 }
    dst_in_lpath :dst || exec { perr Destination directory must exist in the lpath Note the dash f option is not yet implemented; exit 3 }
-   cond { which_pkg :src > /dev/null } { echo Removing previously installed :src ; pkg_rm :src }
+   test -f :(pkg_dst_file :src :dst) && exec { echo Removing previously installed package  :src from :(realpath :dst); pkg_rm :src }
    pkg_cp :src :dst
 }
    install_it :argv

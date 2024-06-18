@@ -37,6 +37,11 @@ function pkg_src_file(src) {
    part=:(basename :src)
    echo ":{src}/:{part}_pkg.vsh"
 }
+rem Gets the possible destination package target package_pkg.vsh file if it exists
+function pkg_dst_file(src, dst) {
+   base_p=:(basename :src); dst_full=:(realpath :dst)
+   echo ":{dst_full}/:{base_p}_pkg.vsh"
+}
 rem copies everything inside of src to dst recursively
 function pkg_cp(src, dst) {
    full_dst=:(realpath :dst)
