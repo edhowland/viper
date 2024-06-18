@@ -32,4 +32,21 @@ function mandate_argc(req, act, msg) {
    eq :real_argc :req || exec { perr ":{msg} requires :{req} arguments and you supplied :{real_argc}"; return false }
    return true
 }
+rem Given the source dir form the probable package/package_pkg.vsh filename
+function pkg_src_file(src) {
+   part=:(basename :src)
+   echo ":{src}/:{part}_pkg.vsh"
+}
+rem copies everything inside of src to dst recursively
+function pkg_cp(src, dst) {
+   full_dst=:(realpath :dst)
+   sh "cd :{src}; cp -r * :{full_dst}"
+}
+rem is the target destination folder in the lpath
+function dst_in_lpath(dst) {
+   ifs=':' for d in :lpath {
+      eq :(realpath :dst) :d && return true
+   }
+   return false
+}
 
