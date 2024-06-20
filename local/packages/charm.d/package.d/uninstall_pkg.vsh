@@ -1,3 +1,4 @@
+rem uninstall package with charm package uninstall package_name
 mandate_argc 1 :argc "charm package uninstall" || exit 1
 pkg_=:(subarg :argv)
 echo about to uninstall :pkg_
