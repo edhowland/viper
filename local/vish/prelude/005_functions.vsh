@@ -8,6 +8,8 @@ function second(a, b) {
 function third(a, b, c) {
    echo :c
 }
+function fourth(a, b, c, d) { echo :d }
+function fifth(a, b, c, d, e) { echo :e }
 rem find_first recurses over all remaining in list or using :ifs delimiter
 function find_first(qterm, elem) {
   cond { test -z :elem } { return false } {
