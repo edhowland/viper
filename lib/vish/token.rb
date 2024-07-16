@@ -4,12 +4,16 @@
 
 EOF = 0xFF
 NEWLINE = 0xFE
+WS = 0xFD
+
 def token_names(type)
   case type
   when EOF
     "<EOF>"
   when NEWLINE
     "<new line>"
+when WS
+  "<white space>"
   else
     "!Unknown!"
   end

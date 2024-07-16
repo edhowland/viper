@@ -12,6 +12,19 @@ def advance(amount=1)
   $cursor += amount
 end
 
+def lx_whitespace
+  result = ''
+  while $cursor < $fin
+    if $source[$cursor] == ' ' or $source[$cursor] == "\t"
+      result << $source[$cursor]
+      advance
+    else
+      break
+    end
+  end
+  Token.new(result, type: WS)
+end
+
 # primary i/f to lexer
 def get
   if $cursor >= $fin
@@ -22,6 +35,8 @@ def get
   when "\n"
     $tokens << Token.new($source[$cursor], type: NEWLINE)
     advance
+  when " ", "\t"
+    $tokens << lx_whitespace
   else
     raise RuntimeError.new("Unrecognized token type")
   end
