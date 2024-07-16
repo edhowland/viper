@@ -5,6 +5,7 @@
 EOF = 0xFF
 NEWLINE = 0xFE
 WS = 0xFD
+COMMENT = 0xFC
 
 def token_names(type)
   case type
@@ -14,6 +15,8 @@ def token_names(type)
     "<new line>"
 when WS
   "<white space>"
+  when COMMENT
+    "<comment>"
   else
     "!Unknown!"
   end

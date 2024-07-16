@@ -25,6 +25,23 @@ def lx_whitespace
   Token.new(result, type: WS)
 end
 
+
+# Consume a comment till the end of the next newline char or the EOF
+def lx_comment
+  result = ''
+  while $cursor < $fin
+    if $source[$cursor] == '#'
+      advance
+    elsif $source[$cursor] == "\n"
+      break
+    else
+      result << $source[$cursor]
+      advance
+    end
+  end
+  Token.new(result, type: COMMENT)
+end
+
 # primary i/f to lexer
 def get
   if $cursor >= $fin
@@ -37,6 +54,8 @@ def get
     advance
   when " ", "\t"
     $tokens << lx_whitespace
+  when "#"
+    $tokens << lx_comment
   else
     raise RuntimeError.new("Unrecognized token type")
   end
