@@ -28,6 +28,14 @@ TILDE = 0xE0
 COMMA = 0xDF
 EQUALS = 0xDE
 
+
+# words, keywords and strings
+BARE = 0xCF
+
+
+# regex patterns
+$regex_bare = /\w+/
+
 def lx_is_punct?(char)
   [';', ':', '|', '&', '@', '~', ',', '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', '$', '='].member?(char)
 end
@@ -82,6 +90,7 @@ def lx_punct_type(char)
     '=' => EQUALS,
   }[char]
 end
+
 def token_names(type)
   if type >= COMMA and type <= SEMICOLON
     lx_punct_name(type)
@@ -95,6 +104,8 @@ when WS
   "<white space>"
   when COMMENT
     "<comment>"
+  when BARE
+    "bare string"
   else
     "!Unknown!"
   end
@@ -115,6 +126,6 @@ class Token
   attr_reader :contents, :type, :line_number
 
   def to_s
-    "content: >#{@content}<, type: #{token_names(@type)}, line: #{@line_number}"
+    "content: >#{@contents}<, type: #{token_names(@type)}, line: #{@line_number}"
   end
 end

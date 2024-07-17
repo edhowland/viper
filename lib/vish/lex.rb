@@ -42,12 +42,24 @@ def lx_comment
   Token.new(result, type: COMMENT)
 end
 
+
+# match on some regex
+def lx_regex(pattern)
+  m = pattern.match($source[$cursor..])
+  if m
+    m[0]
+  else
+    false
+  end
+end
+
 # primary i/f to lexer
 def get
   if $cursor >= $fin
     $tokens << Token.new('', type: EOF)
     return false 
   end
+
   if lx_is_punct?($source[$cursor])
     $tokens << Token.new($source[$cursor], type: lx_punct_type($source[$cursor]))
     advance
@@ -61,6 +73,10 @@ def get
     $tokens << lx_whitespace
   when "#"
     $tokens << lx_comment
+  when /\w/
+    tmp = lx_regex($regex_bare)
+    $tokens << Token.new(tmp, type: BARE)
+    advance(tmp.length)
   else
     raise RuntimeError.new("Unrecognized token type")
   end
