@@ -51,7 +51,36 @@ They will be be valid tokens types that will be filtered out before parser.
 But will still exist is needing to merge them for future usage as docstrings for function documentation
 
 
+
+## tokenizer: lex.rb
+
+- lib/vish/token.rb
+- lib/vish/lex.rb
+
+```ruby
+# globals: $tokens, $cursor and $source are created with:
+lex("echo foo")
+# Run a single step of the tokenizer
+get
+# => true
+# ...
+get
+# => false
+# when EOF is reached
+
+
+# or:
+lx_run;
+
+# For debugging:
+lx_tokens;
+```
+
 ## Must work
+
+### Tokenizer:
+
+- bare string regex is not fully developed yet
 
 - empty file
 - empty line(s)

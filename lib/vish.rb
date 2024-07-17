@@ -8,3 +8,5 @@ require_relative 'vish/version'
 require_relative 'vish/token'
 
 require_relative 'vish/lex'
+
+require_relative 'vish/parser'
