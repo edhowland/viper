@@ -7,7 +7,82 @@ NEWLINE = 0xFE
 WS = 0xFD
 COMMENT = 0xFC
 
+# punctuation tokens
+SEMICOLON = 0xEF
+COLON = 0xEE
+LPAREN = 0xED
+RPAREN = 0xEC
+LBRACE = 0xEB
+RBRACE = 0xEA
+LBRACKET = 0xE9
+RBRACKET = 0xE8
+
+PIPE = 0xE7
+AMPERSAND = 0xE6
+GT = 0xE5
+LT = 0xE4
+DOLLAR = 0xE3
+ATSIGN = 0xE2
+PERCENT = 0xE1
+TILDE = 0xE0
+COMMA = 0xDF
+
+def lx_is_punct?(char)
+  [';', ':', '|', '&', '@', '~', ',' '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', ','].member?(char)
+end
+
+def lx_punct_name(type)
+  {
+SEMICOLON => "<semicolon>",
+COLON => "<colon>", 
+LPAREN => "<left paren>", 
+RPAREN => "<right paren", 
+LBRACE => "<left brace>",
+RBRACE => "<right brace>",
+LBRACKET => "<left bracket>",
+RBRACKET => "<right bracket>",
+PIPE => "<pipe>",
+AMPERSAND => "<ampersand>", 
+GT => "<gt>",
+LT => "<lt>", 
+DOLLAR => "<dollar>", 
+ATSIGN => "at sign>",
+PERCENT => "<percent>", 
+TILDE => "<tilde>", 
+COMMA => "<comma>", 
+  }[type]
+end
+
+
+
+
+
+
+def lx_punct_type(char)
+  {
+    ";" => SEMICOLON,
+    ":" => COLON ,
+    "(" => LPAREN,
+    ")" => RPAREN,
+    "{" => LBRACE,
+    "}" => RBRACE,
+    "[" => LBRACKET,
+    "]" => RBRACKET,
+    "|" => PIPE,
+    "&" => AMPERSAND,
+    ">" => GT,
+    "<" => LT,
+    "$" => DOLLAR,
+    "@" => ATSIGN,
+    "%" => PERCENT,
+    "~" => TILDE,
+    "," => COMMA,
+  }[char]
+end
 def token_names(type)
+  if type >= COMMA and type <= SEMICOLON
+    lx_punct_name(type)
+  else
   case type
   when EOF
     "<EOF>"
@@ -19,6 +94,7 @@ when WS
     "<comment>"
   else
     "!Unknown!"
+  end
   end
 end
 

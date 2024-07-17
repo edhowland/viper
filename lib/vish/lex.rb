@@ -48,6 +48,11 @@ def get
     $tokens << Token.new('', type: EOF)
     return false 
   end
+  if lx_is_punct?($source[$cursor])
+    $tokens << Token.new($source[$cursor], type: lx_punct_type($source[$cursor]))
+    advance
+    return true
+  end
   case $source[$cursor]
   when "\n"
     $tokens << Token.new($source[$cursor], type: NEWLINE)
