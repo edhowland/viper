@@ -73,6 +73,14 @@ def get
     $tokens << lx_whitespace
   when "#"
     $tokens << lx_comment
+  when '"'
+    tmp = lx_regex($regex_dquote)
+    $tokens << Token.new(tmp, type: DQUOTE)
+    advance(tmp.length)
+  when "'"
+    tmp = lx_regex($regex_squote)
+    $tokens << Token.new(tmp, type: SQUOTE)
+    advance(tmp.length)
   when /\w/
     tmp = lx_regex($regex_bare)
     $tokens << Token.new(tmp, type: BARE)

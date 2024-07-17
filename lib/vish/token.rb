@@ -31,11 +31,14 @@ EQUALS = 0xDE
 
 # words, keywords and strings
 BARE = 0xCF
+DQUOTE = 0xCE
+SQUOTE = 0xCD
 
 
 # regex patterns
 $regex_bare = /\w+/
-
+$regex_dquote = /"[^"]*"/
+$regex_squote = /'[^']*'/
 def lx_is_punct?(char)
   [';', ':', '|', '&', '@', '~', ',', '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', '$', '='].member?(char)
 end
@@ -106,6 +109,10 @@ when WS
     "<comment>"
   when BARE
     "bare string"
+  when DQUOTE
+    "double quoted string"
+  when SQUOTE
+    "single quoted string"
   else
     "!Unknown!"
   end
