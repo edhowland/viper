@@ -5,9 +5,35 @@
 
 
 
+# initializes parser data structures
+def p_init
+  $p_ast = []
+  $p_tok = 0
+end
+
+# examines the current token without advancing the $p_tok index
+def p_peek
+  $tokens[$p_tok]
+end
+
+# gets the next token and advanves the token index $p_tok
+def p_next
+  x = $p_tok
+  $p_tok += 1
+  $tokens[x]
+end
+# parses a single statement
+def p_statement
+  if p_peek().type == BARE
+    [ Statement.new(p_next.contents) ]
+  else
+    false
+  end
+end
+
 # parses a list of statements
 def p_statement_list
-  []
+  p_statement
 end
 
 # parses a block
@@ -25,8 +51,7 @@ def vparse(source)
   lex source
   lx_run
   strip_comments
-  $p_tok = 0
-  $p_ast = []
+  p_init
   $p_ast = p_block
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF
   Block.new($p_ast)
