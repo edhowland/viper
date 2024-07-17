@@ -76,6 +76,24 @@ lx_run;
 lx_tokens;
 ```
 
+
+
+### The parser: vparse
+
+````ruby
+block = vparse("echo foo")
+````
+
+#### Vish EBNF
+
+block ::= statement_list
+
+statement_list ::= statement statement_list
+    | statement
+      EPS
+
+statement ::= BARE (WS BARE)*
+
 ## Must work
 
 ### Tokenizer:
