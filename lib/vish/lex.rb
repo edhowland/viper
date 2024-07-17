@@ -77,3 +77,7 @@ end
 def lx_tokens
   $tokens.each {|t| puts t.to_s }
 end
+
+def lx_run
+  while get(); end
+end

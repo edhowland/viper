@@ -26,9 +26,10 @@ ATSIGN = 0xE2
 PERCENT = 0xE1
 TILDE = 0xE0
 COMMA = 0xDF
+EQUALS = 0xDE
 
 def lx_is_punct?(char)
-  [';', ':', '|', '&', '@', '~', ',' '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', ','].member?(char)
+  [';', ':', '|', '&', '@', '~', ',', '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', '$', '='].member?(char)
 end
 
 def lx_punct_name(type)
@@ -49,7 +50,8 @@ DOLLAR => "<dollar>",
 ATSIGN => "at sign>",
 PERCENT => "<percent>", 
 TILDE => "<tilde>", 
-COMMA => "<comma>", 
+COMMA => "<comma>",
+    EQUALS => "<equal sign>",
   }[type]
 end
 
@@ -77,6 +79,7 @@ def lx_punct_type(char)
     "%" => PERCENT,
     "~" => TILDE,
     "," => COMMA,
+    '=' => EQUALS,
   }[char]
 end
 def token_names(type)
