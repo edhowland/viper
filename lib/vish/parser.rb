@@ -25,15 +25,49 @@ end
 # parses a single statement
 def p_statement
   if p_peek().type == BARE
-    [ Statement.new([Glob.new(QuotedString.new(p_next.contents))]) ]
+    stmnt = p_peek.contents; lnum = p_next.line_number # must must always consume the current token
+    [ Statement.new([Glob.new(QuotedString.new(stmnt))], lnum) ]
   else
+    false
+  end
+end
+
+
+# parses a statement list with newlines between them
+def p_statement_list_1
+  stok = $p_tok
+  tmp = p_statement
+  if tmp
+    if p_peek.type == NEWLINE 
+      p_next
+      tmp + p_statement_list
+    else
+      $p_tok = stok
+      false
+    end
+  else
+    $p_tok = stok
     false
   end
 end
 
 # parses a list of statements
 def p_statement_list
-  p_statement
+  stok = $p_tok
+  tmp = p_statement_list_1
+
+  if tmp == false
+    $p_tok = stok
+    tmp = p_statement
+    if tmp == false
+      $p_tok = stok
+      []
+    else
+      tmp
+    end
+  else
+    tmp
+  end
 end
 
 # parses a block
@@ -77,4 +111,11 @@ def vparse(source)
   $p_ast = p_block
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF
   Block.new($p_ast)
+end
+
+# debugging support
+
+# resets the parser to the beginning
+def p_reset
+  p_init
 end
