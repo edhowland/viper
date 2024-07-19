@@ -7,3 +7,9 @@ def ipl
   vm
   end
   
+  
+  # debug old parser
+  def ps(src)
+    p = Vish.new(src)
+    p.parse && p.result
+  end

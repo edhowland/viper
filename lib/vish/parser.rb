@@ -25,7 +25,7 @@ end
 # parses a single statement
 def p_statement
   if p_peek().type == BARE
-    [ Statement.new(p_next.contents) ]
+    [ Statement.new([Glob.new(QuotedString.new(p_next.contents))]) ]
   else
     false
   end
@@ -71,6 +71,8 @@ def vparse(source)
   lex source
   lx_run
   strip_comments
+  strip_whitespace
+  collapse_newlines
   p_init
   $p_ast = p_block
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF
