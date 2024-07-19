@@ -56,7 +56,7 @@ end
 def collapse_newlines
   deletes = []
   # find adjacent newlines
-  $tokens.zip($tokens).each do |x, y|
+  $tokens.zip($tokens.drop(1)).each do |x, y|
     if x.type == NEWLINE and y.type == NEWLINE
       deletes << y.object_id
     end
