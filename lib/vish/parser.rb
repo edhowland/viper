@@ -46,6 +46,26 @@ end
 def strip_comments
   $tokens = $tokens.reject {|t| t.type == COMMENT }
 end
+
+# strips out whitespace
+def strip_whitespace
+  $tokens = $tokens.reject {|t| t.type == WS }
+end
+
+# collapse all runs of newlines into a single newline
+def collapse_newlines
+  deletes = []
+  # find adjacent newlines
+  $tokens.zip($tokens).each do |x, y|
+    if x.type == NEWLINE and y.type == NEWLINE
+      deletes << y.object_id
+    end
+  end
+
+  # Now remove them
+  $tokens = $tokens.reject {|t| deletes.member?(t.object_id) }
+end
+
 # parses strings and if successful returns new Block
 def vparse(source)
   lex source
