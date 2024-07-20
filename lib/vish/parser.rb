@@ -88,7 +88,7 @@ end
 
 # parses a list of statements
 def p_statement_list
-  p_alt(-> { p_statement_list_1 }, -> { p_statement_list_2 }, -> { p_statement })
+  p_alt(-> { p_statement_list_1 }, -> { p_statement_list_2 }, -> { p_statement }, -> { [] })
 end
 
 # parses a block
