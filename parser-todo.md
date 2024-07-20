@@ -84,13 +84,30 @@ lx_tokens;
 block = vparse("echo foo")
 ````
 
+
+### Parser internals
+
+Each rule in the grammar below becomes a Ruby function.
+This includes  the alternatives after the '|' delimiter.
+These inner rules are enumerated with _1, _2 etc with the rule name like thus:
+
+- statement_list : Then entry point to the statement_list parser
+- statement_list_1 : The first alternative : statement "\n" statement_list
+- statement_list_2: The second alternative : statement ";" statement_list
+
+Note: no need for a separate extra function for Epsilon, it is just tacked on as the last item in the alternatives list
+
+## Further parser To Do items
+
+Must expand single statement parser to handle extra  arguments to the statement
 #### Vish EBNF
 
 block ::= statement_list
 
-statement_list ::= statement statement_list
-    | statement
-      EPS
+statement_list ::= statement "\n" statement_list
+               | statement ";" statement_list
+               | statement
+               | eps
 
 statement ::= BARE (WS BARE)*
 
