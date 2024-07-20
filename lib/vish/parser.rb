@@ -26,13 +26,17 @@ end
 # collection stuff: seq and alt
 
 # if the current token is expected, consume it and return [], else return false
+# actually returns a closure that can be used in p_seq, p_alt
 def expect(exp)
+  -> {
   if p_peek.type == exp
     p_next
     []
   else
     false
   end
+  
+  }
 end
 
 def restore_unless(&blk)
@@ -65,20 +69,7 @@ end
 
 # parses a statement list with newlines between them
 def p_statement_list_1
-  stok = $p_tok
-  tmp = p_statement
-  if tmp
-    if p_peek.type == NEWLINE 
-      p_next
-      tmp + p_statement_list
-    else
-      $p_tok = stok
-      false
-    end
-  else
-    $p_tok = stok
-    false
-  end
+  p_seq(-> { p_statement },  expect(NEWLINE), -> { p_statement_list })
 end
 
 
