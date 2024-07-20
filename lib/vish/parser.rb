@@ -55,6 +55,13 @@ def p_seq(*l)
   end
 
 
+# Alternatives. Tries every closure and returns the one that eventually succeeds
+def p_alt(*l)
+  restore_unless do
+    l.reduce(false) {|i,j| i || j.() }
+  end
+end
+
 # Grammar rules
 # parses a single statement
 def p_statement
@@ -75,40 +82,13 @@ end
 
 # parses statements delimited with semicolons
 def p_statement_list_2
-  stok = $p_tok
-  tmp = p_statement
-  if tmp
-    if p_peek.type == SEMICOLON 
-      p_next
-      tmp + p_statement_list
-    else
-      $p_tok = stok
-      false
-    end
-  else
-    $p_tok = stok
-    false
-  end
+  p_seq(-> { p_statement }, expect(SEMICOLON), -> { p_statement_list })
 end
 
 
 # parses a list of statements
 def p_statement_list
-  stok = $p_tok
-  tmp = p_statement_list_1
-
-  if tmp == false
-    $p_tok = stok
-    tmp = p_statement
-    if tmp == false
-      $p_tok = stok
-      []
-    else
-      tmp
-    end
-  else
-    tmp
-  end
+  p_alt(-> { p_statement_list_1 }, -> { p_statement_list_2 }, -> { p_statement })
 end
 
 # parses a block
