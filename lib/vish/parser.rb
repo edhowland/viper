@@ -22,6 +22,36 @@ def p_next
   $p_tok += 1
   $tokens[x]
 end
+
+# collection stuff: seq and alt
+
+# if the current token is expected, consume it and return [], else return false
+def expect(exp)
+  if p_peek.type == exp
+    p_next
+    []
+  else
+    false
+  end
+end
+
+def restore_unless(&blk)
+  stok = $p_tok
+  res = blk.call
+  unless res
+    $p_tok = stok
+  end
+  res
+end
+
+def p_seq(*l)
+  restore_unless do
+    l.reduce([]) {|i,j| i && ((t = j.()) ? i + t : false) }
+  end
+  end
+
+
+# Grammar rules
 # parses a single statement
 def p_statement
   if p_peek().type == BARE
@@ -50,6 +80,26 @@ def p_statement_list_1
     false
   end
 end
+
+
+# parses statements delimited with semicolons
+def p_statement_list_2
+  stok = $p_tok
+  tmp = p_statement
+  if tmp
+    if p_peek.type == SEMICOLON 
+      p_next
+      tmp + p_statement_list
+    else
+      $p_tok = stok
+      false
+    end
+  else
+    $p_tok = stok
+    false
+  end
+end
+
 
 # parses a list of statements
 def p_statement_list
