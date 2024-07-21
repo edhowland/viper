@@ -6,8 +6,9 @@ class TestParser < MiniTest::Test
   def start(src)
     lex src
     lx_run
-    
+
     p_init
+    strip_whitespace
   end
 
 
@@ -46,6 +47,27 @@ class TestParser < MiniTest::Test
     start "pwd;echo\ncd;pwd"
     x = p_statement_list
     assert_eq 4, x.length
-    
+  end
+
+  # argument parsing stuff
+  def test_arg_list_empty
+    start ''
+    assert p_arg_list.empty?
+  end
+
+  def test_one_argument
+    start 'foo'
+    assert_eq 1, p_arg_list.length
+  end
+
+  def test_2_args
+    start 'arg1 arg2'
+    assert_eq 2, p_arg_list.length
+  end
+
+
+  def test_multiple_args
+    start 'foo bar baz arg4 arg5'
+    assert_eq 5, p_arg_list.length
   end
 end
