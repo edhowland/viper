@@ -85,14 +85,20 @@ def p_arg_list
     -> { p_arg },
     -> { [] })
 end
+
+
+
+
+# A command is part of a statement
+def p_command
+  restore_unless do
+    lnum = p_peek.line_number
+    p_peek.type == BARE && [ Statement.new([Glob.new(QuotedString.new(p_next.contents))], lnum) ]
+  end
+end
 # parses a single statement
 def p_statement
-  if p_peek().type == BARE
-    stmnt = p_peek.contents; lnum = p_next.line_number # must must always consume the current token
-    [ Statement.new([Glob.new(QuotedString.new(stmnt))], lnum) ]
-  else
-    false
-  end
+  p_seq(-> { p_command }, -> { p_arg_list })
 end
 
 

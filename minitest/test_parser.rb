@@ -70,4 +70,33 @@ class TestParser < MiniTest::Test
     start 'foo bar baz arg4 arg5'
     assert_eq 5, p_arg_list.length
   end
+
+  # start to combine commands with (possibly empty) argument lists
+  def test_command
+    start 'echo'
+    assert_eq 1, p_command.length
+      end
+
+  def test_command_stores_string
+    start 'pwd'
+    assert_eq 'pwd', p_command.first.to_s
+  end
+  def test_command_properly_returns_false
+    start "\n"
+    assert_false p_command
+    assert_eq 0, $p_tok
+  end
+
+
+  def test_command_with_one_argument
+    start 'echo foo'
+    x = p_statement
+    assert_eq 2, x.length
+  end
+
+  def test_command_with_multiple_arguments
+    start 'echo foo bar baz arg4 arg5'
+    assert_eq 6, p_statement.length   # remember that 'echo' is first element in array, so 1 + 5 args == 6 elements
+  end
+
 end
