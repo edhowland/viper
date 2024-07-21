@@ -34,4 +34,18 @@ class TestParser < MiniTest::Test
     x = p_statement_list
     assert_eq 3, x.length
   end
+
+  def test_two_commands_with_semicolons
+    start 'foo;baz'
+    x = p_statement_list
+    assert_eq 2, x.length
+  end
+
+  # compound source with both newlines and semicolons
+  def test_both_newlines_and_colons
+    start "pwd;echo\ncd;pwd"
+    x = p_statement_list
+    assert_eq 4, x.length
+    
+  end
 end

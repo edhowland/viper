@@ -63,6 +63,28 @@ def p_alt(*l)
 end
 
 # Grammar rules
+
+
+# a single argument
+def p_arg
+  restore_unless do
+    tok = p_next
+    tok.type == BARE && [ tok.contents ]
+  end
+end
+
+
+# arg_list sub rule 1
+def p_arg_list_1
+  p_seq(-> { p_arg }, -> { p_arg_list })
+end
+
+# A possible list of arguments to a command
+def p_arg_list
+  p_alt(->{ p_arg_list_1 },
+    -> { p_arg },
+    -> { [] })
+end
 # parses a single statement
 def p_statement
   if p_peek().type == BARE

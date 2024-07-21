@@ -1,5 +1,12 @@
 # To Do list for parser fix
 
+## Must do
+
+- Check if need to restore_unless block in p_statement around p_alt alternatives
+
+This might not be needed because all the alternatives actually already do this
+and the final alternative does not consume anything.
+
 ## Abstract
 
 This branch: parser-new represents a new hand written  recursive descent parser
@@ -110,6 +117,11 @@ statement_list ::= statement "\n" statement_list
                | eps
 
 statement ::= BARE (WS BARE)*
+
+arg_list  ::= arg arg_list
+          | arg
+          | eps
+
 
 ## Must work
 
