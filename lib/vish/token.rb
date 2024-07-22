@@ -114,6 +114,8 @@ when WS
     "double quoted string"
   when SQUOTE
     "single quoted string"
+  when EQUALS
+    "<equal sign>"
   else
     "!Unknown!"
   end
