@@ -99,4 +99,10 @@ class TestParser < MiniTest::Test
     assert_eq 6, p_statement.length   # remember that 'echo' is first element in array, so 1 + 5 args == 6 elements
   end
 
+
+  def test_multiple_statements_where_one_has_one_argument
+    start 'cd /foo/bar;pwd'
+    x = p_statement_list;
+    assert_eq 2, x.length
+  end
 end

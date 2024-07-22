@@ -62,6 +62,11 @@ def p_alt(*l)
   end
 end
 
+
+# util functions
+def glob_lit(str)
+  Glob.new(StringLiteral.new(str))
+end
 # Grammar rules
 
 
@@ -93,7 +98,7 @@ end
 def p_command
   restore_unless do
     lnum = p_peek.line_number
-    p_peek.type == BARE && [ Statement.new([Glob.new(QuotedString.new(p_next.contents))], lnum) ]
+    p_peek.type == BARE && [ Statement.new([ glob_lit(p_next.contents)], lnum) ]
   end
 end
 # parses a single statement
