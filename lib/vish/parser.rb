@@ -155,8 +155,8 @@ def collapse_newlines
 
   # Now remove them
   $tokens = $tokens.reject {|t| deletes.member?(t.object_id) }
-  # drops leading extra newlines
-  $tokens = $tokens.drop_while {|it| it.type == NEWLINE }
+  # drops leading and trailing extra newlines
+  $tokens = $tokens.drop_while {|it| it.type == NEWLINE }.reverse.drop_while {|it| it.type == NEWLINE }.reverse
 end
 
 # parses strings and if successful returns new Block
