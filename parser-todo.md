@@ -3,7 +3,16 @@
 ## Must do
 
 - Check if need to restore_unless block in p_statement around p_alt alternatives
+- write tests for statements with 0, 1, or + argument list in multiple statements:
 
+E.g.
+
+```
+echo foo bar bax baz bat
+echo
+pwd; echo one
+echo
+```
 This might not be needed because all the alternatives actually already do this
 and the final alternative does not consume anything.
 

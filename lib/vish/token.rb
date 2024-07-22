@@ -36,7 +36,8 @@ SQUOTE = 0xCD
 
 
 # regex patterns
-$regex_bare = /\w+/
+$regex_bare =  /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
+
 $regex_dquote = /"[^"]*"/
 $regex_squote = /'[^']*'/
 def lx_is_punct?(char)

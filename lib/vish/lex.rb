@@ -81,7 +81,7 @@ def get
     tmp = lx_regex($regex_squote)
     $tokens << Token.new(tmp, type: SQUOTE)
     advance(tmp.length)
-  when /\w/
+  when /[\/\.\-_\?\[\]0-9A-Za-z]/
     tmp = lx_regex($regex_bare)
     $tokens << Token.new(tmp, type: BARE)
     advance(tmp.length)
