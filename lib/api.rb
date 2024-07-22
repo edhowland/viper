@@ -33,4 +33,5 @@ require_relative 'api/int_or_error'
 require_relative 'api/reopen_stdin'
 require_relative 'api/extract'
 require_relative 'api/filter_args'
+require_relative 'api/drop_while'
 

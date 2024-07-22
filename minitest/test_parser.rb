@@ -8,7 +8,6 @@ class TestParser < MiniTest::Test
     lx_run
 
     p_init
-    strip_whitespace
   end
 
 
@@ -112,4 +111,31 @@ class TestParser < MiniTest::Test
     x = p_statement_list;
     assert_eq 2, x.length
   end
+  # working with comments
+  def test_comment_line_by_itself_between_2_commands
+    start "pwd\n# this is a comment\necho foo\n"
+    sl = p_statement_list
+    assert_eq 2, sl.length
+  end
+
+
+  def test_comment_trails_command_after_some_whitespace
+    start "pwd\necho foo  \t# this is a comment\n"
+    sl = p_statement_list
+    assert_eq 2, sl.length
+  end
+  # compound tests of statement lists
+  def test_compound_with_leading_newlines_and_comments
+    start <<-EOD
+    
+      # a comment
+      pwd
+      
+      
+      echo foo # trailing comment
+    EOD
+    sl = p_statement_list
+    assert_eq 2, sl.length
+  end
+
 end

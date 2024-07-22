@@ -7,8 +7,11 @@
 
 # initializes parser data structures
 def p_init
-  $p_ast = []
-  $p_tok = 0
+strip_comments
+strip_whitespace
+collapse_newlines
+
+p_reset
 end
 
 # examines the current token without advancing the $p_tok index
@@ -141,6 +144,7 @@ end
 
 # collapse all runs of newlines into a single newline
 def collapse_newlines
+  $tokens = $tokens.extend(Dropper) # will add .drop_while {|it| ... it ... } to that array
   deletes = []
   # find adjacent newlines
   $tokens.zip($tokens.drop(1)).each do |x, y|
@@ -151,15 +155,15 @@ def collapse_newlines
 
   # Now remove them
   $tokens = $tokens.reject {|t| deletes.member?(t.object_id) }
+  # drops leading extra newlines
+  $tokens = $tokens.drop_while {|it| it.type == NEWLINE }
 end
 
 # parses strings and if successful returns new Block
 def vparse(source)
   lex source
   lx_run
-  strip_comments
-  strip_whitespace
-  collapse_newlines
+
   p_init
   $p_ast = p_block
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF
@@ -170,5 +174,6 @@ end
 
 # resets the parser to the beginning
 def p_reset
-  p_init
+  $p_ast = []
+  $p_tok = 0
 end
