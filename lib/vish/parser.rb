@@ -97,13 +97,12 @@ end
 # A command is part of a statement
 def p_command
   restore_unless do
-    lnum = p_peek.line_number
-    p_peek.type == BARE && [ Statement.new([ glob_lit(p_next.contents)], lnum) ]
+    p_peek.type == BARE && [  glob_lit(p_next.contents)  ]
   end
 end
 # parses a single statement
 def p_statement
-  p_seq(-> { p_command }, -> { p_arg_list })
+  (t = p_seq(-> { p_command }, -> { p_arg_list })) && [ Statement.new(t, p_peek.line_number) ]
 end
 
 

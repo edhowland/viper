@@ -201,7 +201,29 @@ A grammar rule
 
 ## Further parser To Do items
 
-Must expand single statement parser to handle extra  arguments to the statement
+Must expand single statement parser to handle extra  arguments to the statement - Done
+
+Note: A Statement contains a context
+the parser finds a p_command with 0 or more arguments and at least one actual command.
+This is returned as an array with is the input to the Statement constructor, along with the token current line number.
+Use the attr_reader context and line_number to get from statement.
+
+
+```ruby
+s = p_statement
+s.class
+# => Array
+# because gets combined into longer statement_lists
+s.first.contents.class
+# => Array
+# contains the command and its arguments, if any
+s.first.line_number
+# => 2
+# if this statement occurred on line 2
+```
+
+
+
 #### Vish EBNF
 
 block ::= statement_list

@@ -91,12 +91,19 @@ class TestParser < MiniTest::Test
   def test_command_with_one_argument
     start 'echo foo'
     x = p_statement
-    assert_eq 2, x.length
+    assert_eq 1, x.length
   end
 
-  def test_command_with_multiple_arguments
+  def test_command_with_multiple_arguments_is_single_statement
     start 'echo foo bar baz arg4 arg5'
-    assert_eq 6, p_statement.length   # remember that 'echo' is first element in array, so 1 + 5 args == 6 elements
+    assert_eq 1, p_statement.length
+  end
+
+  def test_statement_actually_hasmultiple_arguments_within
+    start 'mkdir /var/foo /xxx/yyy/ just_in_time'
+    s = p_statement
+    assert_eq 4, s.first.context.length
+    
   end
 
 
