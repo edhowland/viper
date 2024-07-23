@@ -28,7 +28,21 @@ end
 
 # collection stuff: seq and alt
 
-# if the current token is expected, consume it and return [], else return false
+
+# If the current token is expected, consume it and return its contents, else return false
+def consume(exp)
+  -> {
+  if p_peek.type == exp
+    [ p_next.contents ]
+  else
+    false
+  end
+  
+  }
+end
+
+
+# if the current token is expected, consume it and return empty array  [], else return false
 # actually returns a closure that can be used in p_seq, p_alt
 def expect(exp)
   -> {
@@ -51,9 +65,14 @@ def restore_unless(&blk)
   res
 end
 
-def p_seq(*l)
+def p_seq(*l, &blk)
   restore_unless do
-    l.reduce([]) {|i,j| i && ((t = j.()) ? i + t : false) }
+    t = l.reduce([]) {|i,j| i && ((t = j.()) ? i + t : false) }
+    if block_given?
+      blk.call(*t)
+    else
+      t
+    end
   end
   end
 
@@ -97,6 +116,13 @@ end
 
 
 
+
+# An assignment is a variable name, (e.g. ident)and equal sign and a bare string
+# TODO: must try and narrow down the variable name which starts out life as a
+# BARE string but must be here an IDENT
+def p_assignment
+  p_seq(consume(BARE), expect(EQUALS), consume(BARE)) {|n, v| Assignment.new(n, v) }
+end
 # A command is part of a statement
 def p_command
   restore_unless do

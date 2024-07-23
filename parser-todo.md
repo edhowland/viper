@@ -233,12 +233,16 @@ statement_list ::= statement "\n" statement_list
                | statement
                | eps
 
-statement ::= BARE (WS BARE)*
+command ::= BARE arg_list*
+
+assignment = IDENT EQUALS BARE
 
 arg_list  ::= arg arg_list
           | arg
           | eps
 
+
+statement ::= command | assignment 
 
 ## Must work
 
