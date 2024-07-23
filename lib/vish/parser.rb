@@ -30,10 +30,14 @@ end
 
 
 # If the current token is expected, consume it and return its contents, else return false
-def consume(exp)
+def consume(exp, &blk)
   -> {
   if p_peek.type == exp
-    [ p_next.contents ]
+    if block_given?
+      [ blk.call(p_next.contents) ]
+    else
+      [ p_next.contents ]
+    end
   else
     false
   end
@@ -126,12 +130,13 @@ end
 # A command is part of a statement
 def p_command
   restore_unless do
-    p_peek.type == BARE && [  glob_lit(p_next.contents)  ]
+    #p_peek.type == BARE && [  glob_lit(p_next.contents)  ]
+    consume(BARE) {|it| glob_lit(it) }
   end
 end
 # parses a single statement
 def p_statement
-  (t = p_seq(-> { p_command }, -> { p_arg_list })) && [ Statement.new(t, p_peek.line_number) ]
+  (t = p_seq( p_command , -> { p_arg_list })) && [ Statement.new(t, p_peek.line_number) ]
 end
 
 

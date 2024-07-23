@@ -73,16 +73,16 @@ class TestParser < MiniTest::Test
   # start to combine commands with (possibly empty) argument lists
   def test_command
     start 'echo'
-    assert_eq 1, p_command.length
+    assert_eq 1, p_command.call().length
       end
 
   def test_command_stores_string
     start 'pwd'
-    assert_eq 'pwd', p_command.first.to_s
+    assert_eq 'pwd', p_command.call().first.to_s
   end
   def test_command_properly_returns_false
     start "\n"
-    assert_false p_command
+    assert_false p_command.call()
     assert_eq 0, $p_tok
   end
 
