@@ -26,10 +26,29 @@ def p_next
   $tokens[x]
 end
 
+# The Epsilon or empty string case
+def p_epsilon
+  -> { [] }
+end
+
 # collection stuff: seq and alt
+def p_add_if(i, j)
+  if i
+    j = j.()
+    if j
+      i + j
+    else
+      false
+    end
+  else
+    false
+  end
+end
 
 
+# returns a closure that:
 # If the current token is expected, consume it and return its contents, else return false
+# and wrap it in an array for further processing
 def consume(exp, &blk)
   -> {
   if p_peek.type == exp
@@ -69,7 +88,29 @@ def restore_unless(&blk)
   res
 end
 
-def p_seq(*l, &blk)
+
+# formerly p_seq
+# all items in listin order must be there, and must be closures
+# will be run in turn and resulting array returned unless block is present
+# and if block, parameters of block are mapped to elements of array. Remember
+# that any expects will be skipped over and not be present in result or args to
+# block params
+def p_all(*l, &blk)
+  restore_unless do
+  t = l.reduce([]) {|i, j| p_add_if(i, j) }
+  if t
+    if block_given?
+      blk.call(*t)
+    else
+      t
+    end
+  else
+    false
+  end
+  end
+end
+
+def _p_seq(*l, &blk)
   restore_unless do
     t = l.reduce([]) {|i,j| i && ((t = j.()) ? i + t : false) }
     if block_given?
@@ -98,23 +139,21 @@ end
 
 # a single argument
 def p_arg
-  restore_unless do
-    tok = p_next
-    tok.type == BARE && [ tok.contents ]
+  consume(BARE) {|v| glob_lit(v) } 
   end
-end
+
 
 
 # arg_list sub rule 1
 def p_arg_list_1
-  p_seq(-> { p_arg }, -> { p_arg_list })
+  p_all( p_arg, -> { p_arg_list })
 end
 
 # A possible list of arguments to a command
 def p_arg_list
   p_alt(->{ p_arg_list_1 },
-    -> { p_arg },
-    -> { [] })
+    p_arg,
+    p_epsilon)
 end
 
 
@@ -125,8 +164,9 @@ end
 # TODO: must try and narrow down the variable name which starts out life as a
 # BARE string but must be here an IDENT
 def p_assignment
-  p_seq(consume(BARE), expect(EQUALS), consume(BARE)) {|n, v| Assignment.new(n, v) }
+  p_all(consume(BARE), expect(EQUALS), consume(BARE)) {|n, v| [ Assignment.new(n, v) ] }
 end
+
 # A command is part of a statement
 def p_command
   restore_unless do
@@ -134,27 +174,45 @@ def p_command
     consume(BARE) {|it| glob_lit(it) }
   end
 end
+
+# a command with 0 or more arguments
+def p_command_args
+  p_all( p_command, -> { p_arg_list })
+end
+
 # parses a single statement
 def p_statement
-  (t = p_seq( p_command , -> { p_arg_list })) && [ Statement.new(t, p_peek.line_number) ]
+  t = p_alt(
+    -> { p_assignment },
+  -> {p_command_args },
+  )
+  if t
+    [ Statement.new(t) ]
+  else
+    false
+  end
 end
 
 
 # parses a statement list with newlines between them
 def p_statement_list_1
-  p_seq(-> { p_statement },  expect(NEWLINE), -> { p_statement_list })
+  p_all(-> { p_statement },  expect(NEWLINE), -> { p_statement_list })
 end
 
 
 # parses statements delimited with semicolons
 def p_statement_list_2
-  p_seq(-> { p_statement }, expect(SEMICOLON), -> { p_statement_list })
+  p_all(-> { p_statement }, expect(SEMICOLON), -> { p_statement_list })
 end
 
 
 # parses a list of statements
 def p_statement_list
-  p_alt(-> { p_statement_list_1 }, -> { p_statement_list_2 }, -> { p_statement }, -> { [] })
+  p_alt(-> { p_statement_list_1 },
+    -> { p_statement_list_2 },
+    -> { p_statement },
+    p_epsilon
+  )
 end
 
 # parses a block

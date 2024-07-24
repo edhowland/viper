@@ -2,9 +2,7 @@
 
 ## Must do
 
-- Check if need to restore_unless block in p_statement around p_alt alternatives
-- write tests for statements with 0, 1, or + argument list in multiple statements:
-
+- p_seq must return false if even one of its elements does not match
 E.g.
 
 ```

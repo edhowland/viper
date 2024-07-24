@@ -10,7 +10,57 @@ class TestParser < MiniTest::Test
     p_init
   end
 
+  # parser util functions
+  def test_expect_matches_and_returns_empty_array
+    start ';'
+    t = expect(SEMICOLON).()
+    assert_eq Array, t.class
+    assert t.empty?
+  end
 
+  def test_expect_is_false_if_no_match
+    start ':'
+        t = expect(SEMICOLON).()
+    assert_false t
+  end
+
+  def test_consume_returnsarray_of_token_contents_if_matches
+    start 'foo'
+    t = consume(BARE).()
+    assert_eq Array, t.class
+    assert_eq 1, t.length
+    assert_eq 'foo', t.first
+  end
+
+  def test_consume_returns_false_ifno_match
+    start ':'
+    t = consume(BARE).()
+    assert_false t
+  end
+
+  # alt with consume should return correct match
+  def test_alt_with_3_choices_and_no_matches_should_return_false
+    start ':'
+    t = p_alt(consume(BARE), consume(SEMICOLON), consume(EQUALS))
+    assert_false t
+  end
+
+  def test_alt_with_middle_match_returns_it
+    start ':'
+    t = p_alt(consume(SEMICOLON), consume(COLON), consume(BARE))
+    assert t
+    assert_eq Array, t.class
+    assert_eq 1, t.length
+    assert_eq ':', t.first
+  end
+
+  def test_seq_with_all_fails_returns_false
+    start 'echo foo bar'
+    t = p_all(consume(COLON), consume(EQUALS), consume(SEMICOLON))
+    assert_false t
+  end
+
+  # testing grammar rule functions
   def test_empty
     start ''
     x = p_statement_list
