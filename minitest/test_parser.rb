@@ -188,4 +188,17 @@ class TestParser < MiniTest::Test
     assert_eq 2, sl.length
   end
 
+  def test_assignment_semicolon_command
+    start 'foo=baz; pwd'
+    t = p_statement_list
+    assert_eq Statement, t[0].class
+    assert_eq Statement, t[1].class
+  end
+
+  def test_command_newline_assignment
+    start "pwd  \n  abc=10  "
+    t = p_statement_list
+    assert_eq Statement, t[0].class
+    assert_eq Statement, t[1].class    
+  end
 end
