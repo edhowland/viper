@@ -120,6 +120,8 @@ when WS
     "single quoted string"
   when EQUALS
     "<equal sign>"
+  when FUNCTION
+    "<function keyword>"
   else
     "!Unknown!"
   end

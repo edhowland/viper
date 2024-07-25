@@ -139,7 +139,7 @@ end
 
 # a single argument
 def p_arg
-  consume(BARE) {|v| glob_lit(v) } 
+  consume(BARE) {|v| glob_lit(v) }
   end
 
 
@@ -157,6 +157,24 @@ def p_arg_list
 end
 
 
+
+  # a single parameter becomes a Ruby symbol
+  def p_param
+    consume(BARE) {|k| k.to_sym }
+  end
+# parameters to a function
+def p_parameter_list_1
+  p_all( p_param, expect(COMMA), -> { p_parameter_list })
+end
+
+
+# parameters to a function declaration
+def p_parameter_list
+  p_alt( -> { p_parameter_list_1 },
+    p_param,
+    p_epsilon
+  )
+end
 
 
 
