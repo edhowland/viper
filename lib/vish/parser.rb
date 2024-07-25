@@ -218,7 +218,7 @@ end
 
 # parses a block
 def p_block
-  p_statement_list
+  Block.new(p_all(expect(LBRACE), -> { p_statement_list }, expect(RBRACE)))
 end
 
 
@@ -249,15 +249,19 @@ def collapse_newlines
   $tokens = $tokens.drop_while {|it| it.type == NEWLINE }.reverse.drop_while {|it| it.type == NEWLINE }.reverse
 end
 
+
+def p_program
+  Block.new(p_statement_list)
+end
 # parses strings and if successful returns new Block
 def vparse(source)
   lex source
   lx_run
 
   p_init
-  $p_ast = p_block
+  res = p_program
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF
-  Block.new($p_ast)
+  res
 end
 
 # debugging support
