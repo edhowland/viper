@@ -82,9 +82,15 @@ def get
     tmp = lx_regex($regex_squote)
     $tokens << Token.new(tmp, type: SQUOTE)
     advance(tmp.length)
+
+
   when /[\/\.\-_\?\[\]0-9A-Za-z]/
-    tmp = lx_regex($regex_bare)
-    $tokens << Token.new(tmp, type: BARE)
+    if (tmp = lx_regex($regex_function))
+    $tokens << Token.new(tmp, type: FUNCTION)    
+    else
+      tmp = lx_regex($regex_bare)
+      $tokens << Token.new(tmp, type: BARE)
+    end
     advance(tmp.length)
   else
     raise RuntimeError.new("Unrecognized token type")

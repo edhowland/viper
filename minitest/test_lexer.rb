@@ -20,4 +20,8 @@ class TestLexer < MiniTest::Test
     assert_eq 2, $tokens[2].line_number
   end
 
+  def test_function_keywords_bare
+    start 'function () { pwd }'
+    assert_eq FUNCTION, $tokens[0].type
+  end
 end

@@ -35,11 +35,15 @@ DQUOTE = 0xCE
 SQUOTE = 0xCD
 IDENT = 0xCC   # these will start out life as BARE; then get narrowd in parser
 
+## keywords
+FUNCTION =  0xCB
 # regex patterns
 $regex_bare =  /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
 $regex_ident = /[_A-Za-z][_A-Za-z0-9]*/
 $regex_dquote = /"[^"]*"/
 $regex_squote = /'[^']*'/
+$regex_function = /(fn|function)/
+
 def lx_is_punct?(char)
   [';', ':', '|', '&', '@', '~', ',', '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', '$', '='].member?(char)
 end
