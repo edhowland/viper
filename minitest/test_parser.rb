@@ -1,4 +1,4 @@
-# test_parser.rb - tests for Hal - chdir, virtual?, others
+# test_parser.rb - tests fornew Vish parser
 
 require_relative 'test_helper'
 
@@ -200,5 +200,15 @@ class TestParser < MiniTest::Test
     t = p_statement_list
     assert_eq Statement, t[0].class
     assert_eq Statement, t[1].class    
+  end
+  
+  # line number preserving
+  def test_statement_preserves_line_numbers_from_token_stream
+    start "pwd;echo foo\ncd foo\n"
+    
+    sl = p_statement_list
+    assert_eq 1, sl[0].line_number
+    assert_eq 1, sl[1].line_number
+    assert_eq 2, sl[2].line_number
   end
 end

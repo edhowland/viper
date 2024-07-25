@@ -125,6 +125,11 @@ end
 class Token
   # remember where our lines start at
   @@line_number = 1
+  # MUST fix
+  def self.reset
+    @@line_number = 1
+  end
+
   def initialize(contents, type: EOF)
     @contents = contents
     @type = type

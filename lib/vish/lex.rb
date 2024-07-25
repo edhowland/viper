@@ -6,6 +6,7 @@ def lex(source)
   $cursor = 0
   $fin = source.length
   $tokens = []
+  Token.reset # MUST: fix when code here is moved to Lexer class
 end
 
 def advance(amount=1)

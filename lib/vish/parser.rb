@@ -182,12 +182,13 @@ end
 
 # parses a single statement
 def p_statement
+  lnum = p_peek.line_number
   t = p_alt(
     -> { p_assignment },
   -> {p_command_args },
   )
   if t
-    [ Statement.new(t) ]
+    [ Statement.new(t, lnum) ]
   else
     false
   end
