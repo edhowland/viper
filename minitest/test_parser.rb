@@ -211,4 +211,40 @@ class TestParser < MiniTest::Test
     assert_eq 1, sl[1].line_number
     assert_eq 2, sl[2].line_number
   end
+  # function declarations
+  def test_parameter_list_is_empty
+    start ''
+    assert p_parameter_list.empty?
+  end
+  def test_parameter_list_has_1_symbol
+    start 'foo'
+    t = p_parameter_list
+    assert_eq 1, t.length
+    assert_eq :foo, t.first
+  end
+
+  def test_parameter_list_has_3_symbols
+    start 'a, b, c'
+    t = p_parameter_list
+    assert_eq 3, t.length
+    assert_eq [:a, :b, :c], t
+  end
+  # function decl
+  def test_function_w_no_params
+    start 'function foo() { pwd }'
+    
+    x = p_function
+    assert_eq FunctionDeclaration, x.class
+    assert x.args.empty?
+    assert_eq 1, x.block.statement_list.length
+  end
+
+
+  def test_function_decl_has_3_arguments_all_symbols
+    start 'function bar(a, b, c) { pwd }'
+    
+    x = p_function;
+    assert_eq 3, x.args.length
+    assert x.args.reduce(true) {|i, j| i && (j.class == Symbol) }
+  end
 end

@@ -110,16 +110,6 @@ def p_all(*l, &blk)
   end
 end
 
-def _p_seq(*l, &blk)
-  restore_unless do
-    t = l.reduce([]) {|i,j| i && ((t = j.()) ? i + t : false) }
-    if block_given?
-      blk.call(*t)
-    else
-      t
-    end
-  end
-  end
 
 
 # Alternatives. Tries every closure and returns the one that eventually succeeds
