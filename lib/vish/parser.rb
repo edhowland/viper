@@ -236,6 +236,11 @@ def p_function
   p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| FunctionDeclaration.new(n, a[:params], b) }
 end
 
+
+# parses a lambda declaration
+def p_lambda
+  p_all(expect(AMPERSAND), expect(LPAREN), -> { [ {params: p_parameter_list} ] }, expect(RPAREN), -> { [ p_block] }) {|a,b| LambdaDeclaration.new(a[:params], b) }
+end
 # strips out comments
 def strip_comments
   $tokens = $tokens.reject {|t| t.type == COMMENT }

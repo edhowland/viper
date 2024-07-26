@@ -6,6 +6,7 @@ class LambdaDeclaration
     @args = args
     @block = block
   end
+  attr_reader :args, :block
 
   def call(*_args, env:, frames:)
     #  save the environment of of us back to  first lambda on stack or  or just our own environment frames[-1]

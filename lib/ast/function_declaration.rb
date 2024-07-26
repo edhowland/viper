@@ -9,7 +9,7 @@ class FunctionDeclaration
     @line_number = line_number
   end
 
-  attr_reader :line_number
+  attr_reader :name, :line_number, :args, :block
 
   def call(env:, frames:)
     frames.functions[@name] = Function.new(@args, @block, @name)

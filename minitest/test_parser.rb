@@ -247,4 +247,14 @@ class TestParser < MiniTest::Test
     assert_eq 3, x.args.length
     assert x.args.reduce(true) {|i, j| i && (j.class == Symbol) }
   end
+  # lambdas
+  def test_lambda_decl_has_2_args_and_a_block
+    start '&(a, b) { pwd }'
+    
+    x = p_lambda
+    assert_eq LambdaDeclaration, x.class
+    assert_eq 2, x.args.length
+    assert_eq 1, x.block.statement_list.length
+  end
+
 end
