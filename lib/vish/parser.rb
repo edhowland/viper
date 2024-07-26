@@ -253,6 +253,11 @@ def p_subshell
   p_all(expect(LPAREN), -> { [ p_statement_list ]}, expect(RPAREN)) {|b| SubShell.new(Block.new(b)) } 
 end
 
+#  parses a variable dereference
+def p_dereference
+  p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v.to_sym) }
+end
+
 
 # strips out comments
 def strip_comments

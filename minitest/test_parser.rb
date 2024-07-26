@@ -270,4 +270,14 @@ class TestParser < MiniTest::Test
     assert_eq 'ruby test_parser.rb', x.block.statement_list[1].to_s
   end
 
+
+  # variable dereference
+  def test_variable_dereference
+    start ':baz'
+    
+    x = p_dereference
+    assert_eq Deref, x.class
+    assert_eq Symbol, x.key.class
+    assert_eq 'baz', x.key.to_s
+  end
 end
