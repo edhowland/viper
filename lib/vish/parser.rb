@@ -235,10 +235,16 @@ def p_statement_list
 end
 
 # parses a block
+# TODO: invistigate if need to pass a closure in the LazyArgument case
 def p_block
   Block.new(p_all(expect(LBRACE), -> { p_statement_list }, expect(RBRACE)))
 end
 
+
+# parses a function declaration
+def p_function
+  p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| FunctionDeclaration.new(n, a[:params], b) }
+end
 
 # strips out comments
 def strip_comments
