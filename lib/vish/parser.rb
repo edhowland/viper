@@ -246,6 +246,14 @@ end
 def p_subshell_expansion
   p_all(expect(COLON), expect(LPAREN), -> { [ p_statement_list ] }) {|b| SubShellExpansion.new(Block.new(b)) }
 end
+
+
+# a subshell or nested call: "(cd minitest; ruby test_parser.rb)
+def p_subshell
+  p_all(expect(LPAREN), -> { [ p_statement_list ]}, expect(RPAREN)) {|b| SubShell.new(Block.new(b)) } 
+end
+
+
 # strips out comments
 def strip_comments
   $tokens = $tokens.reject {|t| t.type == COMMENT }

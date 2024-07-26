@@ -263,4 +263,11 @@ class TestParser < MiniTest::Test
     x = p_subshell_expansion
     assert_eq 'pwd', x.block.statement_list.first.to_s
   end
+  # subshell
+  def test_subshell
+    start '(cd minitest; ruby test_parser.rb)'
+    x = p_subshell
+    assert_eq 'ruby test_parser.rb', x.block.statement_list[1].to_s
+  end
+
 end
