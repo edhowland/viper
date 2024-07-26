@@ -257,4 +257,10 @@ class TestParser < MiniTest::Test
     assert_eq 1, x.block.statement_list.length
   end
 
+  # subshell expansion aka command substitution
+  def test_subshell_expansion
+    start ':( pwd )';
+    x = p_subshell_expansion
+    assert_eq 'pwd', x.block.statement_list.first.to_s
+  end
 end

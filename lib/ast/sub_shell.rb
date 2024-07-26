@@ -10,7 +10,7 @@ class SubShell
     @oldpwd = ''
 #    @vm = nil
   end
-
+  attr_reader :block
   def line_number
     result = 0
     if @block.statement_list.length >= 1

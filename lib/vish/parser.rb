@@ -224,7 +224,7 @@ def p_statement_list
   )
 end
 
-# parses a block
+# parses a block with enclosing braces
 # TODO: invistigate if need to pass a closure in the LazyArgument case
 def p_block
   Block.new(p_all(expect(LBRACE), -> { p_statement_list }, expect(RBRACE)))
@@ -240,6 +240,11 @@ end
 # parses a lambda declaration
 def p_lambda
   p_all(expect(AMPERSAND), expect(LPAREN), -> { [ {params: p_parameter_list} ] }, expect(RPAREN), -> { [ p_block] }) {|a,b| LambdaDeclaration.new(a[:params], b) }
+end
+
+# parses a subshell expansion otherwise known in Bash-world as command substitution
+def p_subshell_expansion
+  p_all(expect(COLON), expect(LPAREN), -> { [ p_statement_list ] }) {|b| SubShellExpansion.new(Block.new(b)) }
 end
 # strips out comments
 def strip_comments
