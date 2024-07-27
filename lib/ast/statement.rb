@@ -19,7 +19,8 @@ class Statement
     @context = context
     @line_number = line_number
   end
-  attr_reader :context, :line_number
+  attr_reader :context
+  attr_accessor  :line_number
 
   # comment these out to restore old call method
  # alias_method :old_call, :call

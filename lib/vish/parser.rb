@@ -185,21 +185,16 @@ end
 
 # a command with 0 or more arguments
 def p_command_args
-  p_all( p_command, -> { p_arg_list })
+  lnum = p_peek.line_number
+  p_all( p_command, -> { p_arg_list }) {|c, *a| [ Statement.new([c] + a, lnum) ] }
 end
 
 # parses a single statement
 def p_statement
-  lnum = p_peek.line_number
-  t = p_alt(
+  p_alt(
     -> { p_assignment },
   -> {p_command_args },
   )
-  if t
-    [ Statement.new(t, lnum) ]
-  else
-    false
-  end
 end
 
 
