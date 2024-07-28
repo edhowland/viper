@@ -44,6 +44,26 @@ def lx_comment
 end
 
 
+
+# this is very AWK -like
+# patterns and actions for keywords
+# first matching pattern in this list has priority
+$lx_keywords = [
+  { pattern: /^(fn|function)/, action: ->(val) { Token.new(val, type: FUNCTION) }},
+  { pattern: /^alias/, action: ->(val) { Token.new(val, type: ALIAS) } },
+]
+
+# Given the above structure of patterns/actions, try and find a matching in the char stream
+def lx_keyword
+  $lx_keywords.each do |h|
+    x = h[:pattern].match($source[$cursor..])
+    if x
+      return h[:action].call(x[0])
+    end
+  end
+  false
+end
+
 # match on some regex
 def lx_regex(pattern)
   m = pattern.match($source[$cursor..])
@@ -61,6 +81,13 @@ def get
     return false 
   end
 
+
+  # check for keyword
+  if (t = lx_keyword)
+    $tokens << t
+    advance(t.contents.length)
+    return true
+  end
   if lx_is_punct?($source[$cursor])
     $tokens << Token.new($source[$cursor], type: lx_punct_type($source[$cursor]))
     advance
@@ -85,12 +112,9 @@ def get
 
 
   when /[\/\.\-_\?\[\]0-9A-Za-z]/
-    if (tmp = lx_regex($regex_function))
-    $tokens << Token.new(tmp, type: FUNCTION)    
-    else
+
       tmp = lx_regex($regex_bare)
       $tokens << Token.new(tmp, type: BARE)
-    end
     advance(tmp.length)
   else
     raise RuntimeError.new("Unrecognized token type")

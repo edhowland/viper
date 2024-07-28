@@ -37,6 +37,8 @@ IDENT = 0xCC   # these will start out life as BARE; then get narrowd in parser
 
 ## keywords
 FUNCTION =  0xCB
+ALIAS = 0xCA
+
 # regex patterns
 $regex_bare =  /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
 $regex_ident = /[_A-Za-z][_A-Za-z0-9]*/
@@ -122,6 +124,8 @@ when WS
     "<equal sign>"
   when FUNCTION
     "<function keyword>"
+  when ALIAS
+    "<alias keyword>"
   else
     "!Unknown!"
   end

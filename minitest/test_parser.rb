@@ -237,9 +237,9 @@ class TestParser < MiniTest::Test
     start 'function foo() { pwd }'
     
     x = p_function
-    assert_eq FunctionDeclaration, x.class
-    assert x.args.empty?
-    assert_eq 1, x.block.statement_list.length
+    assert_eq FunctionDeclaration, x.first.class
+    assert x.first.args.empty?
+    assert_eq 1, x.first.block.statement_list.length
   end
 
 
@@ -247,8 +247,8 @@ class TestParser < MiniTest::Test
     start 'function bar(a, b, c) { pwd }'
     
     x = p_function;
-    assert_eq 3, x.args.length
-    assert x.args.reduce(true) {|i, j| i && (j.class == Symbol) }
+    assert_eq 3, x.first.args.length
+    assert x.first.args.reduce(true) {|i, j| i && (j.class == Symbol) }
   end
   # lambdas
   def test_lambda_decl_has_2_args_and_a_block

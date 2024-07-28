@@ -194,6 +194,7 @@ def p_statement
   p_alt(
     -> { p_assignment },
   -> {p_command_args },
+    -> { p_function },
   )
 end
 
@@ -228,7 +229,7 @@ end
 
 # parses a function declaration
 def p_function
-  p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| FunctionDeclaration.new(n, a[:params], b) }
+  p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| [ FunctionDeclaration.new(n, a[:params], b) ] }
 end
 
 
