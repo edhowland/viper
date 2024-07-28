@@ -13,3 +13,9 @@ def ipl
     p = Vish.new(src)
     p.parse && p.result
   end
+  
+  def p2(src)
+    lex src
+    lx_run
+    p_init
+  end
