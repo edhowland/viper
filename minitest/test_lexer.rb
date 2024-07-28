@@ -55,4 +55,11 @@ class TestLexer < MiniTest::Test
     assert_eq WS, $tokens[1].type
     assert_eq FUNCTION, $tokens[12].type
   end
+# check for keyword proper regex matches
+def test_match_future_function_after_statement
+  start "pwd\nfn foo() { pwd }"
+  
+  assert_eq BARE, $tokens[0].type
+end
+
 end

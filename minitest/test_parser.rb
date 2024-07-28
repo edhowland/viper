@@ -283,4 +283,31 @@ class TestParser < MiniTest::Test
     assert_eq Symbol, x.key.class
     assert_eq 'baz', x.key.to_s
   end
+  # multiple kinds of statements
+  def test_can_parse_3_different_statement_types
+    start 'pwd;function foo() { pwd };foo'
+    
+    x = p_statement_list
+    assert_eq 3, x.length
+    assert_eq Statement, x.first.class
+    assert_eq FunctionDeclaration, x[1].class
+    assert_eq Statement, x[2].class
+  end
+
+
+  def test_line_numbers_for_different_statement_types
+    start "pwd\nfn foo() { pwd }\n"
+    x = p_statement_list
+    assert_eq 2, x[1].line_number
+  end
+  # aliases
+  def test_alias_declaration
+    start 'alias foo=bar'
+    
+    x = p_alias
+    assert_eq 1, x.length
+    assert_eq AliasDeclaration, x.first.class
+    assert_eq 'alias foo="bar"', x.first.to_s
+  end
+
 end

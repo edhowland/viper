@@ -227,12 +227,44 @@ def p_block
 end
 
 
+
+# strings
+# a string can be a bare string, a single quoted string or a double quoted string
+# TODO: fill this out 
+def p_string
+  consume(BARE)
+end
 # parses a function declaration
 def p_function
-  p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| [ FunctionDeclaration.new(n, a[:params], b) ] }
+  lnum = p_peek.line_number
+  p_all(expect(FUNCTION), consume(BARE), expect(LPAREN), -> { [{params: p_parameter_list}] }, expect(RPAREN), -> { [ p_block]  }) {|n, a, b| [ FunctionDeclaration.new(n, a[:params], b, lnum) ] }
+end
+
+# aliases
+# an alias can be an declaration, a alias item or an alias list
+# an alias declaration
+def p_alias_declaration
+  p_all(expect(ALIAS), consume(BARE), expect(EQUALS), p_string) {|n,v| [ AliasDeclaration.new(n, v) ] }
+end
+
+# Or,  it can just be a statement
+def p_alias_item
+  p_all(expect(ALIAS), consume(BARE)) {|n| [ Statement.new(['alias', n]) ] }
+end
+
+# finally, just a list of all alias values
+def p_alias_list
+  p_all(consume(ALIAS)) {|v| [ Statement.new([v]) ] }
 end
 
 
+# the alias alternatives
+def p_alias
+  p_alt(-> { p_alias_declaration },
+    -> { p_alias_item },
+    -> { p_alias_list }
+  )
+end
 # parses a lambda declaration
 def p_lambda
   p_all(expect(AMPERSAND), expect(LPAREN), -> { [ {params: p_parameter_list} ] }, expect(RPAREN), -> { [ p_block] }) {|a,b| LambdaDeclaration.new(a[:params], b) }

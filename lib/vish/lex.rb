@@ -54,14 +54,20 @@ $lx_keywords = [
 ]
 
 # Given the above structure of patterns/actions, try and find a matching in the char stream
+
+# Abandoned: cannot figure out to not match future keywords given using ^pattern and interleaving newlines
+
+# hard code every possible keyword char by char in $source
 def lx_keyword
-  $lx_keywords.each do |h|
-    x = h[:pattern].match($source[$cursor..])
-    if x
-      return h[:action].call(x[0])
-    end
+if $source[($cursor)..($cursor + 1)] == 'fn' 
+  return Token.new('fn', type: FUNCTION)
+  elsif $source[($cursor)..($cursor+7)]   == 'function'
+  Token.new('function', type: FUNCTION)
+  elsif $source[($cursor)..($cursor + 4)] == 'alias'
+  Token.new('alias', type: ALIAS)
+  else
+    false
   end
-  false
 end
 
 # match on some regex
