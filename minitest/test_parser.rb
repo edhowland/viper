@@ -310,4 +310,22 @@ class TestParser < MiniTest::Test
     assert_eq 'alias foo="bar"', x.first.to_s
   end
 
+  # alias item: alias foo
+  def test_alias_item
+    start 'alias foo'
+
+    x = p_statement_list
+    assert_eq 1, x.length
+    assert_eq Statement, x.first.class
+  end
+
+  # alias list: lists all aliases, this happens when evaluation occufrs
+  def test_alias_list
+    start "alias\nfn foo() { pwd }\necho foo"
+    x = p_statement_list
+    assert_eq 3, x.length
+    assert_eq Statement, x.first.class
+    assert_eq FunctionDeclaration, x[1].class
+    assert_eq Statement, x[2].class
+  end
 end

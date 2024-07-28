@@ -195,6 +195,7 @@ def p_statement
     -> { p_assignment },
   -> {p_command_args },
     -> { p_function },
+    -> { p_alias },
   )
 end
 
