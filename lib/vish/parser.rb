@@ -196,6 +196,7 @@ def p_statement
   -> {p_command_args },
     -> { p_function },
     -> { p_alias },
+    -> { p_subshell },
   )
 end
 
@@ -245,17 +246,20 @@ end
 # an alias can be an declaration, a alias item or an alias list
 # an alias declaration
 def p_alias_declaration
-  p_all(expect(ALIAS), consume(BARE), expect(EQUALS), p_string) {|n,v| [ AliasDeclaration.new(n, v) ] }
+  lnum = p_peek.line_number
+  p_all(expect(ALIAS), consume(BARE), expect(EQUALS), p_string) {|n,v| [ AliasDeclaration.new(n, v, lnum) ] }
 end
 
 # Or,  it can just be a statement
 def p_alias_item
-  p_all(expect(ALIAS), consume(BARE)) {|n| [ Statement.new(['alias', n]) ] }
+  lnum = p_peek.line_number
+  p_all(expect(ALIAS), consume(BARE)) {|n| [ Statement.new(['alias', n], lnum) ] }
 end
 
 # finally, just a list of all alias values
 def p_alias_list
-  p_all(consume(ALIAS)) {|v| [ Statement.new([v]) ] }
+  lnum = p_peek.line_number
+  p_all(consume(ALIAS)) {|v| [ Statement.new([v], lnum) ] }
 end
 
 
@@ -279,7 +283,7 @@ end
 
 # a subshell or nested call: "(cd minitest; ruby test_parser.rb)
 def p_subshell
-  p_all(expect(LPAREN), -> { [ p_statement_list ]}, expect(RPAREN)) {|b| SubShell.new(Block.new(b)) } 
+  p_all(expect(LPAREN), -> { [ p_statement_list ]}, expect(RPAREN)) {|b| [SubShell.new(Block.new(b)) ] } 
 end
 
 #  parses a variable dereference

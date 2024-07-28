@@ -328,4 +328,46 @@ class TestParser < MiniTest::Test
     assert_eq FunctionDeclaration, x[1].class
     assert_eq Statement, x[2].class
   end
+
+  def test_alias_declaration_preserves_line_number
+    start "pwd\nalias foo=bar\necho foo"
+    x = p_statement_list
+    assert_eq 2, x[1].line_number
+  end
+
+  def test_alias_item_preserves_line_number
+    start "pwd\necho foo\nalias foo\n"
+  x = p_statement_list
+  assert_eq 3,x[2].line_number
+  end
+
+  def test_alias_list_preserves_line_number
+  start "pwd\nfn foo() { pwd }\necho foo\nalias\n"
+  x = p_statement_list
+  assert_eq 4, x[3].line_number
+    #
+  end
+
+  # subshell
+  def test_subshell
+    start "(cd foo; bar)"
+    x = p_statement_list
+    assert_eq 1, x.length
+    assert_eq SubShell, x.first.class
+    assert_eq 1, x.first.line_number
+  end
+
+  def test_subshell_on_different_line
+    start "pwd\n(cd foo; pwd)\n"
+    x = p_statement_list
+    assert_eq SubShell, x[1].class
+    assert_eq 2, x[1].line_number
+  end
+
+  # subshell expansion or command substitution
+  def test_subshell_expansion
+    start ":(pwd)"
+    x = p_subshell_expansion
+    assert_eq SubShellExpansion, x.class
+  end
 end
