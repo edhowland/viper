@@ -378,4 +378,12 @@ class TestParser < MiniTest::Test
     assert_eq Pipe, x.first.class
     assert_eq 'echo foo | cat', x.first.to_s
   end
+  # logical and, or compound statements
+  def test_logical_and
+    start 'true && false'
+    x = p_statement_list
+    assert_eq BooleanAnd, x.first.class
+    assert_eq 'true && false', x.first.to_s
+  end
+
 end
