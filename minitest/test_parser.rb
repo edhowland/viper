@@ -370,4 +370,12 @@ class TestParser < MiniTest::Test
     x = p_subshell_expansion
     assert_eq SubShellExpansion, x.class
   end
+
+  # pipes
+  def test_pipe_is_2_statements
+    start 'echo       foo|     cat'
+    x = p_statement_list
+    assert_eq Pipe, x.first.class
+    assert_eq 'echo foo | cat', x.first.to_s
+  end
 end

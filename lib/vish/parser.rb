@@ -212,10 +212,17 @@ def p_statement_list_2
   p_all(-> { p_statement }, expect(SEMICOLON), -> { p_statement_list })
 end
 
+# parses a pipe expression
+def p_pipe
+  lnum = p_peek.line_number
+  p_all(-> { p_statement }, expect(PIPE), -> { p_statement }) {|l, r| [ Pipe.new(l, r, lnum) ] }
+end
 
 # parses a list of statements
 def p_statement_list
-  p_alt(-> { p_statement_list_1 },
+  p_alt(
+    -> { p_pipe },
+    -> { p_statement_list_1 },
     -> { p_statement_list_2 },
     -> { p_statement },
     p_epsilon
