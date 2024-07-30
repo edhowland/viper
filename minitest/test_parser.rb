@@ -283,6 +283,30 @@ class TestParser < MiniTest::Test
     assert_eq Symbol, x.key.class
     assert_eq 'baz', x.key.to_s
   end
+
+  # redirections
+  def test_redirect_in
+    start '< foo'
+    x = p_redirection
+    assert_eq Redirection, x.class
+    assert_eq '<', x.op
+    assert_eq 'foo', x.target
+  end
+  def test_redirect_out
+    start '> bar'
+    x = p_redirection
+    assert_eq Redirection, x.class
+    assert_eq '>', x.op
+    assert_eq 'bar', x.target
+  end
+  def test_redirect_append
+    start '>> baz'
+    x = p_redirection
+    assert_eq Redirection, x.class
+    assert_eq '>>', x.op
+    assert_eq 'baz', x.target
+  end
+
   # multiple kinds of statements
   def test_can_parse_3_different_statement_types
     start 'pwd;function foo() { pwd };foo'

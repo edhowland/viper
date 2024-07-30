@@ -28,6 +28,7 @@ class Redirection
     @op = op
     @target = target
   end
+  attr_reader :op, :target
 
   def key
     { '<' => :in, '>' => :out, '2>' => :err, '>>' => :out }[@op]

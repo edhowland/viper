@@ -312,7 +312,32 @@ def p_dereference
   p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v.to_sym) }
 end
 
+  # redirections
 
+  # parse a stdin redirection < foo.txt
+  def p_redirect_in
+    p_all(consume(LT), consume(BARE)) {|op, t|  Redirection.new(op, t)  }
+  end
+
+  # parses redirection to stdout : > bar.txt
+  def p_redirect_out
+    p_all(consume(GT), consume(BARE)) {|op, t| Redirection.new(op, t) }
+  end
+
+# parses redirection for append: >> target
+def p_redirect_append
+  p_all(expect(GT), expect(GT), consume(BARE)) {|t| Redirection.new('>>', t) }
+end
+
+#  choice between all possible redirection types
+def p_redirection
+  p_alt(
+    -> { p_redirect_in },
+    -> { p_redirect_append },
+    -> { p_redirect_out },
+  )
+end
+  
 # strips out comments
 def strip_comments
   $tokens = $tokens.reject {|t| t.type == COMMENT }
