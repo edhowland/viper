@@ -2,17 +2,18 @@
 
 ## Must do
 
-- p_seq must return false if even one of its elements does not match
-E.g.
+- redirect statement and expressions so variable derefs, redirections become part of Statement.context
+- change statement_list, statements to allow for compound types:
 
 ```
-echo foo bar bax baz bat
-echo
-pwd; echo one
-echo
-```
+echo foo | cat | grep foo
+````
+
+And also for '||' and '&&' logical operators.
+
+Consult lib/vish/vish.kpeg
+
 This might not be needed because all the alternatives actually already do this
-and the final alternative does not consume anything.
 
 ## Abstract
 

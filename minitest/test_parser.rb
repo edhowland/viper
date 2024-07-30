@@ -290,21 +290,21 @@ class TestParser < MiniTest::Test
     x = p_redirection
     assert_eq Redirection, x.class
     assert_eq '<', x.op
-    assert_eq 'foo', x.target
+    assert_eq 'foo', x.target.to_s
   end
   def test_redirect_out
     start '> bar'
     x = p_redirection
     assert_eq Redirection, x.class
     assert_eq '>', x.op
-    assert_eq 'bar', x.target
+    assert_eq 'bar', x.target.to_s
   end
   def test_redirect_append
     start '>> baz'
     x = p_redirection
     assert_eq Redirection, x.class
     assert_eq '>>', x.op
-    assert_eq 'baz', x.target
+    assert_eq 'baz', x.target.to_s
   end
 
   # multiple kinds of statements
