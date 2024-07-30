@@ -386,4 +386,13 @@ class TestParser < MiniTest::Test
     assert_eq 'true && false', x.first.to_s
   end
 
+  # Logical or with ||
+  def test_logical_or
+    start 'false || true'
+
+    x = p_statement_list
+    assert_eq BooleanOr, x.first.class
+    assert_eq 'false || true', x.first.to_s
+  end
+
 end

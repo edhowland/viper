@@ -223,11 +223,19 @@ def p_logical_and
   lnum = p_peek.line_number
   p_all(-> { p_statement }, expect(AMPERSAND), expect(AMPERSAND), -> { p_statement }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
 end
+
+# parses a logical orr
+def p_logical_or
+  lnum = p_peek.line_number
+  p_all(-> { p_statement }, expect(PIPE), expect(PIPE), -> { p_statement }) {|l, r| [ BooleanOr.new(l, r, lnum) ] }
+end
+
 # parses a list of statements
 def p_statement_list
   p_alt(
     -> { p_pipe },
     -> { p_logical_and },
+    -> { p_logical_or },
     -> { p_statement_list_1 },
     -> { p_statement_list_2 },
     -> { p_statement },
