@@ -4,10 +4,17 @@
 require_relative 'test_helper'
 
 class TestLexer < MiniTest::Test
+  def setup
+    @lexer = nil
+  end
+
   def start(src)
+    @lexer = Lexer.new(src)
     lex src
     lx_run
+    @lexer.run
   end
+
   # line numbers
   def test_line_number_starts_as_1
     start "foo"

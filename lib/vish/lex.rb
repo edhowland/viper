@@ -1,6 +1,69 @@
 # lex.rb - function lex : Takes a string as imput and returns array of Tokens
 # Can also throw an error if no matching token type is recognized
 
+class Lexer
+  def initialize source
+    @source = source
+    @tokens = []
+    @cursor = 0
+    @fin = @source.length
+    Token.reset # MUST make this an instance variable here
+  end
+  attr_reader :source, :cursor, :tokens, :fin
+
+  def run
+    while get(); end
+  end
+
+  def advance(count=1)
+    @cursor = @cursor + count
+  end
+
+  def whitespace
+    result = ''
+    while @cursor < @fin
+    if @source[@cursor] == ' ' or @source[@cursor] == "\t"
+      result << @source[@cursor]
+      advance
+    else
+      break
+    end
+  end
+  Token.new(result, type: WS)
+end
+
+  def comment
+  result = ''
+  while @cursor < @fin
+    if @source[@cursor] == '#'
+      advance
+    elsif @source[@cursor] == "\n"
+      break
+    else
+      result << @source[@cursor]
+      advance
+    end
+  end
+  Token.new(result, type: COMMENT)  
+  end
+
+
+  def keyword
+if @source[(@cursor)..(@cursor + 1)] == 'fn' 
+  return Token.new('fn', type: FUNCTION)
+  elsif @source[(@cursor)..(@cursor+7)] == 'function'
+  Token.new('function', type: FUNCTION)
+  elsif @source[(@cursor)..(@cursor + 4)] == 'alias'
+  Token.new('alias', type: ALIAS)
+  else
+    false
+  end
+  end
+  def get
+    false
+  end
+end
+
 def lex(source)
   $source = source
   $cursor = 0
