@@ -20,16 +20,23 @@ class TestLexer < MiniTest::Test
     start "foo"
 
   assert_eq 1, $tokens[0].line_number
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
   end
   def test_line_number_increments
     start "pwd\necho fo\n"
 
     assert_eq 2, $tokens[2].line_number
+    assert_eq 2, @lexer.tokens[2].line_number
+
+    #$tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
 
   def test_function_keywords_bare
     start 'function () { pwd }'
     assert_eq FUNCTION, $tokens[0].type
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
   # keywords
   def test_match_no_keyword
