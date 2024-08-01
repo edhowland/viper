@@ -1,6 +1,23 @@
 # lex.rb - function lex : Takes a string as imput and returns array of Tokens
 # Can also throw an error if no matching token type is recognized
 
+# some common regexs
+def regex_dquote
+  #
+end
+
+def regex_squote
+  /'[^']*'/
+end
+
+def regex_dquote
+  /"[^"]*"/
+end
+
+def regex_bare
+  /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
+end
+
 class Lexer
   def initialize source
     @source = source
@@ -67,6 +84,99 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
     false
   end
   end
+
+def regex(pattern)
+  m = pattern.match(@source[@cursor..])
+  if m
+    m[0]
+  else
+    false
+  end
+end
+
+
+
+  def is_punct?(char)
+      [';', ':', '|', '&', '@', '~', ',', '<', '>', '(', ')', '{', '}', '[', ']', '%', '~', '$', '='].member?(char)
+
+  end
+def punct_name(type)
+  {
+SEMICOLON => "<semicolon>",
+COLON => "<colon>", 
+LPAREN => "<left paren>", 
+RPAREN => "<right paren", 
+LBRACE => "<left brace>",
+RBRACE => "<right brace>",
+LBRACKET => "<left bracket>",
+RBRACKET => "<right bracket>",
+PIPE => "<pipe>",
+AMPERSAND => "<ampersand>", 
+GT => "<gt>",
+LT => "<lt>", 
+DOLLAR => "<dollar>", 
+ATSIGN => "at sign>",
+PERCENT => "<percent>", 
+TILDE => "<tilde>", 
+COMMA => "<comma>",
+    EQUALS => "<equal sign>",
+  }[type]
+end
+
+
+
+def lx_punct_name(type)
+  {
+SEMICOLON => "<semicolon>",
+COLON => "<colon>", 
+LPAREN => "<left paren>", 
+RPAREN => "<right paren", 
+LBRACE => "<left brace>",
+RBRACE => "<right brace>",
+LBRACKET => "<left bracket>",
+RBRACKET => "<right bracket>",
+PIPE => "<pipe>",
+AMPERSAND => "<ampersand>", 
+GT => "<gt>",
+LT => "<lt>", 
+DOLLAR => "<dollar>", 
+ATSIGN => "at sign>",
+PERCENT => "<percent>", 
+TILDE => "<tilde>", 
+COMMA => "<comma>",
+    EQUALS => "<equal sign>",
+  }[type]
+end
+
+
+
+
+
+
+def punct_type(char)
+  {
+    ";" => SEMICOLON,
+    ":" => COLON ,
+    "(" => LPAREN,
+    ")" => RPAREN,
+    "{" => LBRACE,
+    "}" => RBRACE,
+    "[" => LBRACKET,
+    "]" => RBRACKET,
+    "|" => PIPE,
+    "&" => AMPERSAND,
+    ">" => GT,
+    "<" => LT,
+    "$" => DOLLAR,
+    "@" => ATSIGN,
+    "%" => PERCENT,
+    "~" => TILDE,
+    "," => COMMA,
+    '=' => EQUALS,
+  }[char]
+end
+
+
   def get
   if @cursor >= @fin
     @tokens << Token.new('', type: EOF)
@@ -97,24 +207,26 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
     return true
   end
 
-  case @source[@cursor]
-  when "\n"
-    @tokens << Token.new(@source[@cursor], type: NEWLINE)
-    advance
+    if is_punct?(at)
+      @tokens << Token.new(at, type: punct_type(at))
+      advance
+      return true
+    end
+  case at
 
   when '"'
-    tmp = lx_regex($regex_dquote)
+    tmp = regex(regex_dquote)
     @tokens << Token.new(tmp, type: DQUOTE)
     advance(tmp.length)
   when "'"
-    tmp = lx_regex($regex_squote)
+    tmp = regex(regex_squote)
     @tokens << Token.new(tmp, type: SQUOTE)
     advance(tmp.length)
 
 
   when /[\/\.\-_\?\[\]0-9A-Za-z]/
 
-      tmp = lx_regex($regex_bare)
+      tmp = regex(regex_bare)
       @tokens << Token.new(tmp, type: BARE)
     advance(tmp.length)
   else
