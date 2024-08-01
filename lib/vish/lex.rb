@@ -39,7 +39,9 @@ class Lexer
 end
 
   def comment
+  return false unless (at == '#')
   result = ''
+
   while @cursor < @fin
     if @source[@cursor] == '#'
       advance
@@ -71,6 +73,11 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
     return false 
   end
 
+  if at == "\n"
+    @tokens << Token.new(at, type: NEWLINE)
+    advance
+    return true
+  end
 
   # check for keyword
   if (t = keyword)
@@ -84,11 +91,12 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
     @tokens << t
     return true
   end
+
   if (t = comment)
     @tokens << t
-    advance(t.contents.length)
     return true
   end
+
   case @source[@cursor]
   when "\n"
     @tokens << Token.new(@source[@cursor], type: NEWLINE)
@@ -113,6 +121,10 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
     raise RuntimeError.new("Unrecognized token type")
   end
   return true
+  end
+
+  def x_tokens
+    @tokens.each {|t| puts t.to_s }
   end
 end
 

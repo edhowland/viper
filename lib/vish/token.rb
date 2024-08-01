@@ -135,7 +135,7 @@ end
 class Token
   # remember where our lines start at
   @@line_number = 1
-  # MUST fix
+  # MUST fix TODO
   def self.reset
     @@line_number = 1
   end
@@ -152,5 +152,8 @@ class Token
 
   def to_s
     "content: >#{@contents}<, type: #{token_names(@type)}, line: #{@line_number}"
+  end
+  def ==(other)
+    self.class == other.class && self.type == other.type && self.contents == other.contents && self.line_number == other.line_number
   end
 end
