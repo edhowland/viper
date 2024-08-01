@@ -15,11 +15,17 @@ class Lexer
     while get(); end
   end
 
+  def at
+    @source[@cursor]
+  end
   def advance(count=1)
     @cursor = @cursor + count
   end
 
-  def whitespace
+    def whitespace
+  unless [" ", "\t"].member?(at)
+    return false
+  end
     result = ''
     while @cursor < @fin
     if @source[@cursor] == ' ' or @source[@cursor] == "\t"
@@ -60,7 +66,53 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
   end
   end
   def get
-    false
+  if @cursor >= @fin
+    @tokens << Token.new('', type: EOF)
+    return false 
+  end
+
+
+  # check for keyword
+  if (t = keyword)
+    @tokens << t
+    advance(t.contents.length)
+    return true
+  end
+
+
+  if (t = whitespace)
+    @tokens << t
+    return true
+  end
+  if (t = comment)
+    @tokens << t
+    advance(t.contents.length)
+    return true
+  end
+  case @source[@cursor]
+  when "\n"
+    @tokens << Token.new(@source[@cursor], type: NEWLINE)
+    advance
+
+  when '"'
+    tmp = lx_regex($regex_dquote)
+    @tokens << Token.new(tmp, type: DQUOTE)
+    advance(tmp.length)
+  when "'"
+    tmp = lx_regex($regex_squote)
+    @tokens << Token.new(tmp, type: SQUOTE)
+    advance(tmp.length)
+
+
+  when /[\/\.\-_\?\[\]0-9A-Za-z]/
+
+      tmp = lx_regex($regex_bare)
+      @tokens << Token.new(tmp, type: BARE)
+    advance(tmp.length)
+  else
+    raise RuntimeError.new("Unrecognized token type")
+  end
+  return true
   end
 end
 
