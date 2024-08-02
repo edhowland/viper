@@ -25,11 +25,21 @@ class Lexer
     @cursor = 0
     @fin = @source.length
     Token.reset # MUST make this an instance variable here
+    @line_number
   end
-  attr_reader :source, :cursor, :tokens, :fin
+  attr_reader :source, :cursor, :tokens, :fin, :line_number
 
   def run
     while get(); end
+    # TODO FIXME MUST reset all line numbers already inserted
+    @tokens.each {|t| t.line_number = 1 }
+    # update only the newline tokens
+    @tokens.select {|t| t.type == NEWLINE }.zip(2..).each {|t,n| t.line_number = n }
+  # the initial seed token with a line number of 1 and type == NEWLINE
+  seed = Token.new("\n", type: NEWLINE); seed.line_number = 1
+  ([seed] + @tokens).zip((@tokens + [seed])).each do |i, j|
+    j.line_number = i.line_number unless j.type == NEWLINE
+  end
   end
 
   def at

@@ -28,7 +28,7 @@ class TestLexer < MiniTest::Test
     assert_eq 2, $tokens[2].line_number
     assert_eq 2, @lexer.tokens[2].line_number
 
-    #$tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
 
   end
 
@@ -37,16 +37,22 @@ class TestLexer < MiniTest::Test
     assert_eq FUNCTION, $tokens[0].type
     $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
 
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
   # keywords
   def test_match_no_keyword
     lex 'foo'
     assert_false lx_keyword
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
 
   def test_match_keyword_fn
     lex 'fn'
     assert_eq FUNCTION, lx_keyword().type
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
   def test_match_function
     lex 'function'
@@ -59,6 +65,8 @@ class TestLexer < MiniTest::Test
     x = lx_keyword
     assert_eq ALIAS, x.type
     assert_eq 'alias', x.contents
+    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+
   end
 
   # check to make sure that lexer does not double on fns because the regex matcher must be anchored at start

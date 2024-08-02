@@ -148,8 +148,8 @@ class Token
     end
     @line_number = @@line_number
   end
-  attr_reader :contents, :type, :line_number
-
+  attr_reader :contents, :type
+  attr_accessor :line_number
   def to_s
     "content: >#{@contents}<, type: #{token_names(@type)}, line: #{@line_number}"
   end
