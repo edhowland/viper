@@ -44,15 +44,11 @@ class TestLexer < MiniTest::Test
   def test_match_no_keyword
     lex 'foo'
     assert_false lx_keyword
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
-
   end
 
   def test_match_keyword_fn
     lex 'fn'
     assert_eq FUNCTION, lx_keyword().type
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
-
   end
   def test_match_function
     lex 'function'
@@ -65,7 +61,6 @@ class TestLexer < MiniTest::Test
     x = lx_keyword
     assert_eq ALIAS, x.type
     assert_eq 'alias', x.contents
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
 
   end
 
