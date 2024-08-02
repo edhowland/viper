@@ -14,6 +14,9 @@ collapse_newlines
 p_reset
 end
 
+# the interim location for the lexer instance
+@lxr = nil
+
 # examines the current token without advancing the $p_tok index
 def p_peek
   $tokens[$p_tok]
@@ -337,33 +340,7 @@ def p_redirection
     -> { p_redirect_out },
   )
 end
-  
-# strips out comments
-def strip_comments
-  $tokens = $tokens.reject {|t| t.type == COMMENT }
-end
 
-# strips out whitespace
-def strip_whitespace
-  $tokens = $tokens.reject {|t| t.type == WS }
-end
-
-# collapse all runs of newlines into a single newline
-def collapse_newlines
-  $tokens = $tokens.extend(Dropper) # will add .drop_while {|it| ... it ... } to that array
-  deletes = []
-  # find adjacent newlines
-  $tokens.zip($tokens.drop(1)).each do |x, y|
-    if x.type == NEWLINE and y.type == NEWLINE
-      deletes << y.object_id
-    end
-  end
-
-  # Now remove them
-  $tokens = $tokens.reject {|t| deletes.member?(t.object_id) }
-  # drops leading and trailing extra newlines
-  $tokens = $tokens.drop_while {|it| it.type == NEWLINE }.reverse.drop_while {|it| it.type == NEWLINE }.reverse
-end
 
 
 def p_program
@@ -371,9 +348,10 @@ def p_program
 end
 # parses strings and if successful returns new Block
 def vparse(source)
+  @lxr = Lexer.new(source)
   lex source
   lx_run
-
+  @lxr.run
   p_init
   res = p_program
   raise SyntaxError.new("Un expected end of input") unless $tokens[$p_tok].type == EOF

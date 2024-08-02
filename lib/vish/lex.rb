@@ -248,6 +248,10 @@ end
   def x_tokens
     @tokens.each {|t| puts t.to_s }
   end
+  def map_tokens(&blk)
+    @tokens = blk.call(@tokens)
+  end
+
 end
 
 def lex(source)
@@ -390,4 +394,30 @@ end
 
 def lx_run
   while get(); end
+end
+# strips out comments
+def strip_comments
+  $tokens = $tokens.reject {|t| t.type == COMMENT }
+end
+
+# strips out whitespace
+def strip_whitespace
+  $tokens = $tokens.reject {|t| t.type == WS }
+end
+
+# collapse all runs of newlines into a single newline
+def collapse_newlines
+  $tokens = $tokens.extend(Dropper) # will add .drop_while {|it| ... it ... } to that array
+  deletes = []
+  # find adjacent newlines
+  $tokens.zip($tokens.drop(1)).each do |x, y|
+    if x.type == NEWLINE and y.type == NEWLINE
+      deletes << y.object_id
+    end
+  end
+
+  # Now remove them
+  $tokens = $tokens.reject {|t| deletes.member?(t.object_id) }
+  # drops leading and trailing extra newlines
+  $tokens = $tokens.drop_while {|it| it.type == NEWLINE }.reverse.drop_while {|it| it.type == NEWLINE }.reverse
 end
