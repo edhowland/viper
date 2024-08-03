@@ -49,6 +49,8 @@ def expect(exp)
 end
 
 
+  # consumes a token and returns its contents in an array that can be appended to AST so far
+  # this returns a Proc that can be called by p_all or p_alt
 def consume(exp, &blk)
   -> {
   if p_peek.type == exp
@@ -64,6 +66,22 @@ def consume(exp, &blk)
   }
 end
 
+
+  # match works like consume but returns just the actual contents of the token
+  # or whatever the block returns if given
+  def match(exp, &blk)
+    -> {
+  if p_peek.type == exp
+    if block_given?
+      blk.call(p_next.contents)
+    else
+      p_next.contents
+    end
+  else
+    false
+  end
+    }
+  end
 def p_add_if(i, j)
   if i
     j = j.()
@@ -98,22 +116,56 @@ def p_alt(*l)
   end
 end
 
+# utilities
+def glob_lit(str)
+  Glob.new(StringLiteral.new(str))
+end
+
+
   # Grammar
+
+  def match_ident
+    match(BARE) {|v| [ v.to_sym] }
+  end
     def glob
-      consume(BARE) {|g| Glob.new(StringLiteral.new(g)) }
+      consume(BARE) {|g| glob_lit(g) }
     end
 
   def argument
-    glob.call.first
+    glob
   end
 
   def assignment
-    p_all(consume(BARE), expect(EQUALS), -> { glob.call }) {|k, v| Assignment.new(k, v) }
+    p_all(match_ident, expect(EQUALS), glob) {|k, v| Assignment.new(k, v) }
   end
 
   def element
-    p_alt(-> { assignment }, -> { argument })
+    p_alt(-> { assignment }, argument, -> { p_redirection })
   end
+
+  def p_redirect_in
+    p_all(consume(LT), consume(BARE)) {|op, t| Redirection.new(op, glob_lit(t)) }
+  end
+
+  # parses redirection to stdout : > bar.txt
+  def p_redirect_out
+    p_all(consume(GT), consume(BARE)) {|op, t| Redirection.new(op, glob_lit(t)) }
+  end
+
+# parses redirection for append: >> target
+def p_redirect_append
+  p_all(expect(GT), expect(GT), consume(BARE)) {|t| Redirection.new('>>', glob_lit(t)) }
+end
+
+#  choice between all possible redirection types
+def p_redirection
+  p_alt(
+    -> { p_redirect_in },
+    -> { p_redirect_append },
+    -> { p_redirect_out },
+  )
+end
+
 
   def statement_list
     []
