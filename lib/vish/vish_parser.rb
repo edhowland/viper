@@ -10,12 +10,12 @@ class VishParser
   end
   attr_reader :source, :lexer, :pos
 
-  def peek
+  def p_peek
     @lexer.tokens[@pos]
   end
 
-  def next
-    tok = peek
+  def p_next
+    tok = p_peek
     if @pos < @lexer.tokens.length
       @pos += 1
     else
@@ -23,6 +23,80 @@ class VishParser
     end
     tok
   end
+
+  # support functions
+  def maybe_backup(&blk)
+    tok = @pos
+    res = blk.call
+    if res
+      res#
+    else
+      @pos = tok
+      return false
+    end
+  end
+
+def expect(exp)
+  -> {
+  if p_peek.type == exp
+    p_next
+    []
+  else
+    false
+  end
+  
+  }
+end
+
+
+def consume(exp, &blk)
+  -> {
+  if p_peek.type == exp
+    if block_given?
+      [ blk.call(p_next.contents) ]
+    else
+      [ p_next.contents ]
+    end
+  else
+    false
+  end
+  
+  }
+end
+
+def p_add_if(i, j)
+  if i
+    j = j.()
+    if j
+      i + j
+    else
+      false
+    end
+  else
+    false
+  end
+end
+
+  def p_all(*seq, &blk)
+  maybe_backup do
+  t = seq.reduce([]) {|i, j| p_add_if(i, j) }
+  if t
+    if block_given?
+      blk.call(*t)
+    else
+      t
+    end
+  else
+    false
+  end
+  end
+  end
+
+def p_alt(*l)
+  maybe_backup do
+    l.reduce(false) {|i,j| i || j.() }
+  end
+end
 
   # Grammar
   def statement_list
