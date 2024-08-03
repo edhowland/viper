@@ -99,13 +99,30 @@ def p_alt(*l)
 end
 
   # Grammar
+    def glob
+      consume(BARE) {|g| Glob.new(StringLiteral.new(g)) }
+    end
+
+  def argument
+    glob.call.first
+  end
+
+  def assignment
+    p_all(consume(BARE), expect(EQUALS), -> { glob.call }) {|k, v| Assignment.new(k, v) }
+  end
+
+  def element
+    p_alt(-> { assignment }, -> { argument })
+  end
+
   def statement_list
     []
   end
 
   def setup
     @lexer.run
-    @lexer.tokens.reject! {|t| t.type == COMMENT }.reject! {|t| t.type == WS }
+    @lexer.tokens.reject! {|t| t.type == COMMENT }
+    @lexer.tokens.reject! {|t| t.type == WS }
     #collapse_newlines
   end
 
