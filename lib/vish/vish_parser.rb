@@ -102,9 +102,16 @@ end
   def statement_list
     []
   end
+
+  def setup
+    @lexer.run
+    @lexer.tokens.reject! {|t| t.type == COMMENT }.reject! {|t| t.type == WS }
+    #collapse_newlines
+  end
+
   # start me up
   def run
-    @lexer.run
+    setup
   # Make a block out of trying to parse a statement list
   Block.new(statement_list())
   end
