@@ -117,6 +117,14 @@ def p_alt(*l)
 end
 
 # utilities
+
+  def enclose_when(target)
+    if target
+      [ target ]
+    else
+      false
+    end
+  end
 def glob_lit(str)
   Glob.new(StringLiteral.new(str))
 end
@@ -128,19 +136,28 @@ end
     match(BARE) {|v| [ v.to_sym] }
   end
     def glob
-      consume(BARE) {|g| glob_lit(g) }
+      match(BARE) {|g| glob_lit(g) }
     end
 
+
+  def deref
+    p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v) }
+  end
+
+  # this MUST be a choice between glob, lambda, subshell_expansion, deref, .etc
   def argument
-    glob
+    p_alt(
+      glob,
+      -> { deref },
+    )
   end
 
   def assignment
-    p_all(match_ident, expect(EQUALS), glob) {|k, v| Assignment.new(k, v) }
+    p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
   end
 
   def element
-    p_alt(-> { assignment }, argument, -> { p_redirection })
+    p_alt(-> { assignment }, -> { argument }, -> { p_redirection })
   end
 
   def p_redirect_in
@@ -178,6 +195,10 @@ end
     #collapse_newlines
   end
 
+  # reset things
+  def reset
+    @pos = 0
+  end
   # start me up
   def run
     setup
