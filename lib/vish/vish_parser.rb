@@ -160,6 +160,14 @@ end
     p_alt(-> { assignment }, -> { argument }, -> { p_redirection })
   end
 
+  # a context is something that gets stuffed into a statement
+  def context
+    p_alt(
+      -> { p_all(-> { enclose_when(element) }, -> { context }) },
+      -> { enclose_when(element) }
+    )
+  end
+
   def p_redirect_in
     p_all(consume(LT), consume(BARE)) {|op, t| Redirection.new(op, glob_lit(t)) }
   end
