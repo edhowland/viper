@@ -131,6 +131,18 @@ end
     end
   end
 
+
+  def unwrap_if(target)
+    if target
+      if target.class == Array
+        target.first
+      else
+        target
+      end
+    else
+      false
+    end
+  end
 def glob_lit(str)
   Glob.new(StringLiteral.new(str))
 end
@@ -156,8 +168,8 @@ end
     end
 
 
-  def variable
-    p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v.to_sym) }
+  def variable(&blk)
+  unwrap_if(p_all(expect(COLON), -> { enclose_when(identifier) }, &blk))
   end
 
 
@@ -168,6 +180,7 @@ end
     match(DQUOTE) {|s| QuotedString.new(s) },
     match(SQUOTE) {|s| StringLiteral.new(s) }
     )
+    return false unless s
     if block_given?
       blk.call(s)
     else
@@ -185,14 +198,17 @@ end
     end
   end
 
+# this belongs in def argument:
+     # -> { bare_string {|s| Argument.new(s) } },
+
   # this MUST be a choice between glob, lambda, subshell_expansion, deref, .etc
   def argument
     p_alt(
       glob,
       -> { lambda_declaration },
-      -> { string{|s| Argument.new(s) }  },
-      -> { bare_string {|s| Argument.new(s) } },
-      -> { variable },
+      -> { string{|s| Argument.new(s) } },
+      -> {  variable {|v| Argument.new(Deref.new(v)) } },
+      -> { subshell_expansion },
     )
   end
 
@@ -221,6 +237,12 @@ end
   def lambda_declaration
     p_all(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b|   LambdaDeclaration.new(a, b) }
   end
+
+
+
+    def subshell_expansion
+      p_all(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
+    end
   def assignment
     p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
   end
