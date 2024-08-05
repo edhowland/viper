@@ -206,20 +206,20 @@ end
 
   # the recursive case for function_args
   def function_args_1
-    p_all(-> { identifier {|i| [ i ] } }, expect(COMMA), -> { function_args })
+    p_all(-> { enclose_when(identifier) }, expect(COMMA), -> { function_args })
   end
 
 
   def function_args
     p_alt(
       -> { function_args_1 },
-      -> { identifier {|i| [ i ] } },
+      -> { enclose_when(identifier)  },
       epsilon
       )
   end
   # a lambda is an argument to something else or a return value
   def lambda_declaration
-    p_all(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b| puts "args are : #{a.class.name} => #{a}";  LambdaDeclaration.new(a, b) }
+    p_all(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b|   LambdaDeclaration.new(a, b) }
   end
   def assignment
     p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
