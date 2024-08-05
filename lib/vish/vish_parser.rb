@@ -140,15 +140,42 @@ end
     end
 
 
-  def deref
-    p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v) }
+  def variable
+    p_all(expect(COLON), consume(BARE)) {|v| Deref.new(v.to_sym) }
+  end
+
+
+  # given either a single or double quoted string return AST node matching type
+  # or if block, then execute that before returning
+  def string(&blk)
+    s = p_alt(
+    match(DQUOTE) {|s| QuotedString.new(s) },
+    match(SQUOTE) {|s| StringLiteral.new(s) }
+    )
+    if block_given?
+      blk.call(s)
+    else
+      s
+    end
+  end
+
+
+  def bare_string(blk)
+    s = match(BARE) {|s|  StringLiteral.new(s) }
+    if block_given?
+      blk.call(s)
+    else
+      s
+    end
   end
 
   # this MUST be a choice between glob, lambda, subshell_expansion, deref, .etc
   def argument
     p_alt(
       glob,
-      -> { deref },
+      -> { string{|s| Argument.new(s) }  },
+      -> { bare_string {|s| Argument.new(s) } },
+      -> { variable },
     )
   end
 
