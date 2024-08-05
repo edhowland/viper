@@ -118,6 +118,11 @@ end
 
 # utilities
 
+  # Epsilon returns a closure wrapped empty array. Use as final alternative in lists.
+  def epsilon
+    -> { [] }
+  end
+
   def enclose_when(target)
     if target
       [ target ]
@@ -125,12 +130,23 @@ end
       false
     end
   end
+
 def glob_lit(str)
   Glob.new(StringLiteral.new(str))
 end
 
 
   # Grammar
+
+  # handle identifiers whenever they occur herein
+  def identifier(&blk)
+    i = match(BARE) {|v| v.to_sym }.call
+    if block_given?
+      blk.call(i)
+    else
+      i
+    end
+  end
 
   def match_ident
     match(BARE) {|v| [ v.to_sym] }
@@ -173,12 +189,38 @@ end
   def argument
     p_alt(
       glob,
+      -> { lambda_declaration },
       -> { string{|s| Argument.new(s) }  },
       -> { bare_string {|s| Argument.new(s) } },
       -> { variable },
     )
   end
 
+
+  # a block is a list of statements: TODO MUST expand this when statement_list is completed
+  def block
+    Block.new([])
+  end
+
+
+
+  # the recursive case for function_args
+  def function_args_1
+    p_all(-> { identifier {|i| [ i ] } }, expect(COMMA), -> { function_args })
+  end
+
+
+  def function_args
+    p_alt(
+      -> { function_args_1 },
+      -> { identifier {|i| [ i ] } },
+      epsilon
+      )
+  end
+  # a lambda is an argument to something else or a return value
+  def lambda_declaration
+    p_all(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b| puts "args are : #{a.class.name} => #{a}";  LambdaDeclaration.new(a, b) }
+  end
   def assignment
     p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
   end
