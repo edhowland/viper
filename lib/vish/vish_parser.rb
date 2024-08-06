@@ -209,6 +209,7 @@ end
       -> { string{|s| Argument.new(s) } },
       -> {  variable {|v| Argument.new(Deref.new(v)) } },
       -> { subshell_expansion },
+      -> { lazy_block },
     )
   end
 
@@ -243,6 +244,10 @@ end
     def subshell_expansion
       p_all(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
     end
+
+  def lazy_block
+    p_all(expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
+  end
   def assignment
     p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
   end
@@ -282,6 +287,38 @@ def p_redirection
   )
 end
 
+
+
+
+  # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
+  def alias_declaration
+    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a| AliasDeclaration.new(i, a) }
+  end
+
+  # wrapper around context that makes a new Statement
+  def statement
+    p_all(-> { context }) {|c| Statement.new(c, 0) }
+  end
+  # expression_kind are types of expressions. E.g. statements, function declarations and aliases
+  def expression_kind
+    p_alt(
+      -> { alias_declaration },
+      -> { statement },
+    )
+  end
+
+  # a piped expression is one kind of expression compound type
+  def piped_expression
+    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r) ] }
+  end
+
+  # expressions are compound statement types, e.g. a piped expression
+  def expression
+    p_alt(
+      -> { piped_expression },
+      -> { enclose_when(expression_kind) }
+    )
+  end
 
   def statement_list
     []
