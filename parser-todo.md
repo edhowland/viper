@@ -2,7 +2,9 @@
 
 ## Must do
 
-- redirect statement and expressions so variable derefs, redirections become part of Statement.context
+- Check against a old parser
+
+
 - change statement_list, statements to allow for compound types:
 
 ```

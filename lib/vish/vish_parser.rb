@@ -290,9 +290,14 @@ end
 
 
 
+  # a subshell which is a kind of expression
+  def subshell
+    p_all(expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|s| [ SubShell.new(s) ] }
+  end
+
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
-    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a| AliasDeclaration.new(i, a) }
+    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a| [ AliasDeclaration.new(i, a) ] }
   end
 
   # a function declaration
@@ -307,6 +312,7 @@ end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
     p_alt(
+      -> { subshell },
       -> { alias_declaration },
       -> { function_declaration },
       -> { statement },
