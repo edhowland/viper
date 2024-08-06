@@ -6,6 +6,7 @@ class Argument
   def initialize(thing)
     @storage = thing
   end
+  attr_reader :storage
 
   def call(env:, frames:)
     @storage.call frames: frames, env: env

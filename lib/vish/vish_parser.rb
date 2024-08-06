@@ -295,6 +295,11 @@ end
     p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a| AliasDeclaration.new(i, a) }
   end
 
+  # a function declaration
+  def function_declaration
+    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|   [ FunctionDeclaration.new(n, a, b, 0) ] }
+  end
+
   # wrapper around context that makes a new Statement
   def statement
     p_all(-> { context }) {|c| Statement.new(c, 0) }
@@ -303,6 +308,7 @@ end
   def expression_kind
     p_alt(
       -> { alias_declaration },
+      -> { function_declaration },
       -> { statement },
     )
   end
