@@ -2,6 +2,10 @@
 
 ## Must do
 
+- There are missing to_s for lib/ast nodes.
+  * probably because of the missing one in the enclosed block
+
+
 - Check against a old parser
 
 

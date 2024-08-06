@@ -7,7 +7,7 @@ class BooleanOr
     @line_number = line_number
   end
 
-  attr_reader :line_number
+  attr_reader :line_number, :left, :right
   def call(env:, frames:)
     @left.call(env: env, frames: frames) ||
       @right.call(env: env, frames: frames)

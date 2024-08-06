@@ -324,10 +324,23 @@ end
     p_all(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r) ] }
   end
 
+
+  # a logical and operation using double ampersands:  'foo && bar'
+  def logical_and
+    p_all(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r) ] }
+  end
+
+  # a logical or using double pipe or 'foo || bar'
+  def logical_or
+    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r) ] } 
+  end
+
   # expressions are compound statement types, e.g. a piped expression
   def expression
     p_alt(
       -> { piped_expression },
+      -> { logical_and },
+      -> { logical_or },
       -> { enclose_when(expression_kind) }
     )
   end
