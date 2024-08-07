@@ -3,7 +3,13 @@
 require_relative 'test_helper'
 
 class TestParser < MiniTest::Test
+  def setup
+    @lexer = nil
+  end
+
   def start(src)
+    @lexer = Lexer.new(src)
+    @lexer.run
     lex src
     lx_run
 

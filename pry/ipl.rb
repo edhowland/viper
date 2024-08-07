@@ -19,3 +19,9 @@ def ipl
     lx_run
     p_init
   end
+  
+  def p3(src)
+    vp = VishParser.new(src)
+    vp.setup
+    vp
+  end
