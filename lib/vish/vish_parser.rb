@@ -214,6 +214,23 @@ end
   end
 
 
+  def statement_list_semicolon
+    p_all(-> { expression }, expect(SEMICOLON), -> { statement_list }) {|s1, s2| [s1] + [s2] }
+  end
+
+  def statement_list_newline
+    p_all(-> { expression }, expect(NEWLINE), -> { statement_list }) {|s1, s2| [s1] + [s2] }
+  end
+
+  def statement_list
+    p_alt(
+      -> { statement_list_semicolon },
+      -> { statement_list_newline },
+      -> { expression }
+    )
+  end
+
+
   # a block is a list of statements: TODO MUST expand this when statement_list is completed
   def block
     Block.new([])
@@ -345,9 +362,7 @@ end
     )
   end
 
-  def statement_list
-    []
-  end
+
 
   def setup
     @lexer.run
