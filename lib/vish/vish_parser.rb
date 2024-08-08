@@ -49,6 +49,18 @@ def expect(exp)
 end
 
 
+  # try both alternate token types and return empty array if either matches, else false
+  def either(t1, t2)
+    -> {
+    if p_peek.type == t1 or p_peek.type == t2
+      p_next
+      []
+    else
+      false
+    end
+  }
+  end
+
   # consumes a token and returns its contents in an array that can be appended to AST so far
   # this returns a Proc that can be called by p_all or p_alt
 def consume(exp, &blk)
@@ -214,18 +226,12 @@ end
   end
 
 
-  def statement_list_semicolon
-    p_all(-> { expression }, expect(SEMICOLON), -> { statement_list }) {|s1, s2| [s1] + [s2] }
-  end
-
-  def statement_list_newline
-    p_all(-> { expression }, expect(NEWLINE), -> { statement_list }) {|s1, s2| [s1] + [s2] }
-  end
-
+  # A list of statements is either a single expression, or several expressions
+  # strung together with either semicolons or newlines
   def statement_list
     p_alt(
-      -> { statement_list_semicolon },
-      -> { statement_list_newline },
+    #-> { p_all(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) {|s1, s2|p s1, s2;   [s1] + [s2] } },
+      -> { p_all(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) },
       -> { expression }
     )
   end
@@ -324,7 +330,7 @@ end
 
   # wrapper around context that makes a new Statement
   def statement
-    p_all(-> { context }) {|c| Statement.new(c, 0) }
+    p_all(-> { context }) {|c| Statement.new([c], 0) }
   end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
