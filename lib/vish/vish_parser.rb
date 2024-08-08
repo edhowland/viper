@@ -239,7 +239,7 @@ end
 
   # a block is a list of statements: TODO MUST expand this when statement_list is completed
   def block
-    Block.new([])
+    Block.new(statement_list)
   end
 
 
@@ -315,17 +315,17 @@ end
 
   # a subshell which is a kind of expression
   def subshell
-    p_all(expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|s| [ SubShell.new(s) ] }
+    p_all(expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|s|  SubShell.new(s)  }
   end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
-    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a| [ AliasDeclaration.new(i, a) ] }
+    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i, a)  }
   end
 
   # a function declaration
   def function_declaration
-    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|   [ FunctionDeclaration.new(n, a, b, 0) ] }
+    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, 0)  }
   end
 
   # wrapper around context that makes a new Statement
