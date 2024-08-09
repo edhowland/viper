@@ -375,6 +375,11 @@ end
     @lexer.tokens.reject! {|t| t.type == COMMENT }
     @lexer.tokens.reject! {|t| t.type == WS }
     #collapse_newlines
+    @lexer.tokens = @lexer.tokens.drop_while {|t| t.type == NEWLINE }
+    # extract the end of file
+    saved_tok = @lexer.tokens[-1]
+    @lexer.tokens = @lexer.tokens.reverse[1..].drop_while {|t| t.type == NEWLINE }.reverse
+    @lexer.tokens << saved_tok
   end
 
   # reset things
