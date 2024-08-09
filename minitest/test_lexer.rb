@@ -10,8 +10,6 @@ class TestLexer < MiniTest::Test
 
   def start(src)
     @lexer = Lexer.new(src)
-    lex src
-    lx_run
     @lexer.run
   end
 
@@ -19,25 +17,21 @@ class TestLexer < MiniTest::Test
   def test_line_number_starts_as_1
     start "foo"
 
-  assert_eq 1, $tokens[0].line_number
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+  assert_eq 1, @lexer.tokens[0].line_number
   end
   def test_line_number_increments
     start "pwd\necho fo\n"
 
-    assert_eq 2, $tokens[2].line_number
+    assert_eq 2, @lexer.tokens[2].line_number
     assert_eq 2, @lexer.tokens[2].line_number
 
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
 
   end
 
   def test_function_keywords_bare
     start 'function () { pwd }'
-    assert_eq FUNCTION, $tokens[0].type
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
+    assert_eq FUNCTION, @lexer.tokens[0].type
 
-    $tokens.zip(@lexer.tokens).each {|l, r| assert_eq l, r }
 
   end
   # keywords
@@ -68,15 +62,15 @@ class TestLexer < MiniTest::Test
   def test_correctly_matches_2_functions
     start 'fn foo() { pwd };fn bar() { foo }'
     
-    assert_eq FUNCTION, $tokens[0].type
-    assert_eq WS, $tokens[1].type
-    assert_eq FUNCTION, $tokens[12].type
+    assert_eq FUNCTION, @lexer.tokens[0].type
+    assert_eq WS, @lexer.tokens[1].type
+    assert_eq FUNCTION, @lexer.tokens[12].type
   end
 # check for keyword proper regex matches
 def test_match_future_function_after_statement
   start "pwd\nfn foo() { pwd }"
   
-  assert_eq BARE, $tokens[0].type
+  assert_eq BARE, @lexer.tokens[0].type
 end
 
 end
