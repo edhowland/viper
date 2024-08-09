@@ -219,7 +219,7 @@ end
       glob,
       -> { lambda_declaration },
       -> { string{|s| Argument.new(s) } },
-      -> {  variable {|v| Argument.new(Deref.new(v)) } },
+      -> { variable {|v| Argument.new(Deref.new(v)) } },
       -> { subshell_expansion },
       -> { lazy_block },
     )
