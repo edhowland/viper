@@ -330,7 +330,7 @@ end
 
   # wrapper around context that makes a new Statement
   def statement
-    p_all(-> { context }) {|c| Statement.new([c], 0) }
+    p_all(-> { context }) {|*c| Statement.new(c, 0) }
   end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
