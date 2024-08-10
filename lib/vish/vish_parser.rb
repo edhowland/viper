@@ -2,6 +2,12 @@
 
 require_relative 'lex'
 
+module Deleter
+  def deleteme!
+    true
+  end
+end
+
 class VishParser
   def initialize(source)
     @source = source
@@ -380,6 +386,16 @@ end
     saved_tok = @lexer.tokens[-1]
     @lexer.tokens = @lexer.tokens.reverse[1..].drop_while {|t| t.type == NEWLINE }.reverse
     @lexer.tokens << saved_tok
+
+  # Now eliminate extra runs of newlines collapsing them into a single newline per occurrance
+    deletes = []
+    @lexer.tokens.zip(@lexer.tokens[1..]).each do |i, j|
+      if i.type == NEWLINE and j.type == NEWLINE
+        deletes << j.object_id
+      end
+    end
+    # now delete them
+    @lexer.tokens = @lexer.tokens.reject {|t| deletes.member?(t.object_id) }
   end
 
   # reset things
