@@ -221,16 +221,14 @@ class TestParser < MiniTest::Test
   end
   def test_parameter_list_has_1_symbol
     start 'foo'
-    skip('no such function as parameter list')
-    t = @parser.parameter_list
+    t = @parser.function_args
     assert_eq 1, t.length
     assert_eq :foo, t.first
   end
 
   def test_parameter_list_has_3_symbols
-    skip('nsf: parameter_list')
     start 'a, b, c'
-    t = @parser.parameter_list
+    t = @parser.function_args
     assert_eq 3, t.length
     assert_eq [:a, :b, :c], t
   end
