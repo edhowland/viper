@@ -58,7 +58,7 @@ class TestParser < MiniTest::Test
 
   def test_seq_with_all_fails_returns_false
     start 'echo foo bar'
-    t = @parser.p_all(consume(COLON), consume(EQUALS), consume(SEMICOLON))
+    t = @parser.p_all(@parser.consume(COLON), @parser.consume(EQUALS), @parser.consume(SEMICOLON))
     assert_false t
   end
 
@@ -150,7 +150,7 @@ class TestParser < MiniTest::Test
   def test_statement_actually_hasmultiple_arguments_within
     start 'mkdir /var/foo /xxx/yyy/ just_in_time'
     s = @parser.statement
-    assert_eq 4, s.first.context.length
+    assert_eq 4, s.context.length
 
   end
 
@@ -217,7 +217,7 @@ class TestParser < MiniTest::Test
   # function declarations
   def test_parameter_list_is_empty
     start ''
-    assert @parser.parameter_list.empty?
+    assert @parser.function_args.empty?
   end
   def test_parameter_list_has_1_symbol
     start 'foo'

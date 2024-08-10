@@ -147,8 +147,9 @@ class Token
       @@line_number += 1
     end
     @line_number = @@line_number
+    @ann = false
   end
-  attr_reader :contents, :type
+  attr_reader :contents, :type, :ann
   attr_accessor :line_number
   def to_s
     "content: >#{@contents}<, type: #{token_names(@type)}, line: #{@line_number}"
@@ -156,4 +157,17 @@ class Token
   def ==(other)
     self.class == other.class && self.type == other.type && self.contents == other.contents && self.line_number == other.line_number
   end
+
+  # allow for extra annotation
+  def annotation=(bk)
+    @ann = bk
+  end
+  def annotation!
+    if @ann
+      @ann.call
+    else
+      false
+    end
+  end
+
 end

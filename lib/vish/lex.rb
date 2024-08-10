@@ -29,6 +29,10 @@ class Lexer
   end
   attr_reader :source, :cursor, :tokens, :fin, :line_number
 
+  def tokens=(that)
+    @tokens = that
+  end
+
   def run
     while get(); end
     # TODO FIXME MUST reset all line numbers already inserted
