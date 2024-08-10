@@ -326,17 +326,20 @@ end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
-    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i, a)  }
+    lnum = p_peek.line_number
+    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i, a, lnum)  }
   end
 
   # a function declaration
   def function_declaration
-    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, 0)  }
+    lnum = p_peek.line_number
+    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, lnum)  }
   end
 
   # wrapper around context that makes a new Statement
   def statement
-    p_all(-> { context }) {|*c| Statement.new(c, 0) }
+    lnum = p_peek.line_number
+    p_all(-> { context }) {|*c| Statement.new(c, lnum) }
   end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
@@ -350,18 +353,21 @@ end
 
   # a piped expression is one kind of expression compound type
   def piped_expression
-    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r) ] }
+      lnum = p_peek.line_number
+    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r, lnum) ] }
   end
 
 
   # a logical and operation using double ampersands:  'foo && bar'
   def logical_and
-    p_all(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r) ] }
+    lnum = p_peek.line_number
+    p_all(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
   end
 
   # a logical or using double pipe or 'foo || bar'
   def logical_or
-    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r) ] } 
+    lnum = p_peek.line_number
+    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
   end
 
   # expressions are compound statement types, e.g. a piped expression

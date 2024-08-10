@@ -206,9 +206,8 @@ class TestParser < MiniTest::Test
   
   # line number preserving
   def test_statement_preserves_line_numbers_from_token_stream
-    skip('line numbers NYI')
     start "pwd;echo foo\ncd foo\n"
-    
+
     sl = @parser.statement_list
     assert_eq 1, sl[0].line_number
     assert_eq 1, sl[1].line_number
@@ -324,7 +323,6 @@ class TestParser < MiniTest::Test
 
 
   def test_line_numbers_for_different_statement_types
-    skip('line numbers NYI')
 
     start "pwd\nfn foo() { pwd }\n"
     x = @parser.statement_list
@@ -361,7 +359,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_declaration_preserves_line_number
-    skip('line numbers NYI')
 
     start "pwd\nalias foo=bar\necho foo"
     x = @parser.statement_list
@@ -369,7 +366,7 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_item_preserves_line_number
-    skip('line numbers NYI')
+    skip('no support yet for degenerate forms of alias yet and alsoline numbers NYI')
 
     start "pwd\necho foo\nalias foo\n"
   x = @parser.statement_list
@@ -377,7 +374,7 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_list_preserves_line_number
-    skip('line numbers NYI')
+    skip('no support for degenerate forms of alias and also line numbers NYI')
 
   start "pwd\nfn foo() { pwd }\necho foo\nalias\n"
   x = @parser.statement_list
@@ -396,7 +393,7 @@ class TestParser < MiniTest::Test
   end
 
   def test_subshell_on_different_line
-    skip('line numbers NYI')
+    #skip('line numbers NYI')
 
     start "pwd\n(cd foo; pwd)\n"
     x = @parser.statement_list
