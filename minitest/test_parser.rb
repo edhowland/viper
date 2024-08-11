@@ -339,7 +339,6 @@ class TestParser < MiniTest::Test
 
   # alias item: alias foo
   def test_alias_item
-    skip('because there is a bug in not seeing BARE when the token is ALIAS. TODO MUST: figure this out')
     start 'alias foo'
 
     x = @parser.statement_list
@@ -349,7 +348,6 @@ class TestParser < MiniTest::Test
 
   # alias list: lists all aliases, this happens when evaluation occufrs
   def test_alias_list
-    skip('single alias statement NYI')
     start "alias\nfn foo() { pwd }\necho foo"
     x = @parser.statement_list
     assert_eq 3, x.length
@@ -366,7 +364,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_item_preserves_line_number
-    skip('no support yet for degenerate forms of alias yet and alsoline numbers NYI')
 
     start "pwd\necho foo\nalias foo\n"
   x = @parser.statement_list
@@ -374,7 +371,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_list_preserves_line_number
-    skip('no support for degenerate forms of alias and also line numbers NYI')
 
   start "pwd\nfn foo() { pwd }\necho foo\nalias\n"
   x = @parser.statement_list
@@ -388,12 +384,10 @@ class TestParser < MiniTest::Test
     x = @parser.statement_list
     assert_eq 1, x.length
     assert_eq SubShell, x.first.class
-    # skipped because no line numbers yet: TODO MUST
     #assert_eq 1, x.first.line_number
   end
 
   def test_subshell_on_different_line
-    #skip('line numbers NYI')
 
     start "pwd\n(cd foo; pwd)\n"
     x = @parser.statement_list

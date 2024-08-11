@@ -330,6 +330,14 @@ end
     p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i, a, lnum)  }
   end
 
+  def alias_invocation
+    lnum = p_peek.line_number
+    p_alt(
+      -> { p_all(expect(ALIAS), consume(BARE)) {|v| Statement.new(['alias', v], lnum) } },
+      -> { p_all(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
+    )
+  end
+
   # a function declaration
   def function_declaration
     lnum = p_peek.line_number
@@ -346,6 +354,7 @@ end
     p_alt(
       -> { subshell },
       -> { alias_declaration },
+      -> { alias_invocation },
       -> { function_declaration },
       -> { statement },
     )
