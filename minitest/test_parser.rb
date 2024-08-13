@@ -188,7 +188,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_assignment_semicolon_command
-    skip('assignment is not an assignment')
     start 'foo=baz; pwd'
     t = @parser.statement_list
     assert_eq Statement, t[0].class
@@ -196,7 +195,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_command_newline_assignment
-    skip('assignment is not an assignment')
 
     start "pwd  \n  abc=10  "
     t = @parser.statement_list
@@ -291,7 +289,6 @@ class TestParser < MiniTest::Test
     assert_eq 'foo', x.target.to_s
   end
   def test_redirect_out
-    #skip('no redirections NYI')
 
     start '> bar'
     x = @parser.p_redirection
@@ -300,7 +297,6 @@ class TestParser < MiniTest::Test
     assert_eq 'bar', x.target.to_s
   end
   def test_redirect_append
-    #skip('no redirections NYI')
 
     start '>> baz'
     x = @parser.p_redirection
