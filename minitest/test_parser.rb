@@ -284,27 +284,26 @@ class TestParser < MiniTest::Test
 
   # redirections
   def test_redirect_in
-    skip('no redirections NYI')
     start '< foo'
-    x = @parser.redirection
+    x = @parser.p_redirection
     assert_eq Redirection, x.class
     assert_eq '<', x.op
     assert_eq 'foo', x.target.to_s
   end
   def test_redirect_out
-    skip('no redirections NYI')
+    #skip('no redirections NYI')
 
     start '> bar'
-    x = @parser.redirection
+    x = @parser.p_redirection
     assert_eq Redirection, x.class
     assert_eq '>', x.op
     assert_eq 'bar', x.target.to_s
   end
   def test_redirect_append
-    skip('no redirections NYI')
+    #skip('no redirections NYI')
 
     start '>> baz'
-    x = @parser.redirection
+    x = @parser.p_redirection
     assert_eq Redirection, x.class
     assert_eq '>>', x.op
     assert_eq 'baz', x.target.to_s
