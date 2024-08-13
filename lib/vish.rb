@@ -9,6 +9,6 @@ require_relative 'vish/token'
 
 require_relative 'vish/lex'
 
-require_relative 'vish/parser'
+#require_relative 'vish/parser'
 
 require_relative 'vish/vish_parser'

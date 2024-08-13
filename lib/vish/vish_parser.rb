@@ -389,6 +389,21 @@ end
     )
   end
 
+  # Start of parsing
+  
+  # A correct parse is a block followd by an EOF
+  def p_root
+    b = block
+    if b
+      if expect(EOF).call
+        b
+      else
+        raise VishSyntaxError.new("Expected end of file butgot #{@lexer.tokens[@pos].to_s} instead")
+      end
+    else
+      raise VishSyntaxError.new("Expected statement list but got something else")
+    end
+  end
 
 
   def setup
