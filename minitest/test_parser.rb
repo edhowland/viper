@@ -421,4 +421,10 @@ class TestParser < MiniTest::Test
     assert_eq 'false || true', x.first.to_s
   end
 
+  # multi line function declarations
+  def test_multi_line_function_decl
+    start "fn baz(b) {\n  pwd\n}\n"
+    assert @parser.function_declaration
+  end
+
 end

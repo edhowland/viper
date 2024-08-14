@@ -113,6 +113,10 @@ def p_add_if(i, j)
   end
 end
 
+  def epsilon
+    -> { [] }
+  end
+
   def p_all(*seq, &blk)
   maybe_backup do
   t = seq.reduce([]) {|i, j| p_add_if(i, j) }
@@ -134,6 +138,14 @@ def p_alt(*l)
   end
 end
 
+
+  # optional production (part)
+  def p_opt(prc)
+    p_alt(
+      prc,
+      epsilon
+    )
+  end
 # utilities
 
   # Epsilon returns a closure wrapped empty array. Use as final alternative in lists.
@@ -341,7 +353,7 @@ end
   # a function declaration
   def function_declaration
     lnum = p_peek.line_number
-    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, lnum)  }
+    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, lnum)  }
   end
 
   # wrapper around context that makes a new Statement
