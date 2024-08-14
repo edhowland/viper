@@ -4,15 +4,21 @@
 require_relative 'pry/ipl'
 
 
-  # main
-  p = pf(ARGV.first)
-
+def syn_chk(fname)
+  p = pf(fname)
+  
 begin
   p.p_root
   puts "#{ARGV.first}: Syntax ok"
-  exit(0)
 rescue => err
   $stderr.puts "Syntax error : #{err.message}"
   exit(1)
 end
+end
 
+  # main
+
+ARGV.each do |f|
+  puts "Checking #{f}"
+  syn_chk(f)
+end

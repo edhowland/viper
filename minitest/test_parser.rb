@@ -427,4 +427,22 @@ class TestParser < MiniTest::Test
     assert @parser.function_declaration
   end
 
+  # from ./local/**/*.vsh
+  def test_redirect_in_w_quoted_string
+    start 'foo < "bar"'
+    b= @parser.p_root
+    assert_eq Block, b.class
+  end
+
+  def test_redirect_out_w_single_quoted_string
+    start "foo > 'bar.txt'"
+    b = @parser.p_root;
+    assert_eq Block, b.class
+  end
+
+  def test_redirect_append_w_double_quoted_pathname
+    start 'echo foo >> "/foo/bar/"'
+    b = @parser.p_root
+    assert_eq Block, b.class
+  end
 end

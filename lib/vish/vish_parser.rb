@@ -236,7 +236,7 @@ end
     p_alt(
       glob,
       -> { lambda_declaration },
-      -> { string{|s| Argument.new(s) } },
+      -> { string {|s| Argument.new(s) } },
       -> { variable {|v| Argument.new(Deref.new(v)) } },
       -> { subshell_expansion },
       -> { lazy_block },
@@ -306,17 +306,17 @@ end
   end
 
   def p_redirect_in
-    p_all(consume(LT), consume(BARE)) {|op, t| Redirection.new(op, glob_lit(t)) }
+    p_all(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, glob_lit(t)) }
   end
 
   # parses redirection to stdout : > bar.txt
   def p_redirect_out
-    p_all(consume(GT), consume(BARE)) {|op, t| Redirection.new(op, glob_lit(t)) }
+    p_all(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, glob_lit(t)) }
   end
 
 # parses redirection for append: >> target
 def p_redirect_append
-  p_all(expect(GT), expect(GT), consume(BARE)) {|t| Redirection.new('>>', glob_lit(t)) }
+  p_all(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', glob_lit(t)) }
 end
 
 #  choice between all possible redirection types
