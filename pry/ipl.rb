@@ -25,3 +25,8 @@ def ipl
     vp.setup
     vp
   end
+  
+  # read in file
+  def pf(fname)
+    p3(File.read(fname))
+  end
