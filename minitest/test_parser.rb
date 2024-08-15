@@ -12,6 +12,14 @@ class TestParser < MiniTest::Test
     @parser.setup
   end
 
+  # run the full parser, expects a Block to result and that is returned, else assertion fails
+  def full(src)
+    start(src)
+    b = @parser.p_root
+    assert_eq Block, b.class
+    b
+  end
+
   # parser util functions
   def test_expect_matches_and_returns_empty_array
     start ';'
@@ -452,4 +460,12 @@ class TestParser < MiniTest::Test
     assert_eq Block, b.class
   end
 
+
+  def test_multiline_loop
+    full "loop {\n cond { eq :i 0 } { break } else { perr :i } \n}\n"
+  end
+
+  def test_catch_w_multiline_blocks
+    full "catch {\n pwd \n} {\n echo ok \n}"
+  end
 end
