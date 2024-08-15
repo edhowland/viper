@@ -287,7 +287,7 @@ end
     end
 
   def lazy_block
-    p_all(expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
+    p_all(expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
   end
   def assignment
     p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
@@ -410,7 +410,7 @@ end
       if expect(EOF).call
         b
       else
-        raise VishSyntaxError.new("Expected end of file butgot #{@lexer.tokens[@pos].to_s} instead")
+        raise VishSyntaxError.new("Expected end of file but got #{@lexer.tokens[@pos].to_s} instead")
       end
     else
       raise VishSyntaxError.new("Expected statement list but got something else")

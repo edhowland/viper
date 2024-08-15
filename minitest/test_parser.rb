@@ -445,4 +445,11 @@ class TestParser < MiniTest::Test
     b = @parser.p_root
     assert_eq Block, b.class
   end
+  # for loops and maybe catch blocks need optional newline tokens after lbrace and before rbrace
+  def test_for_loop_w_multi_line
+    start  "for i in boo oob spam {\n echo :i \n}"
+    b = @parser.p_root
+    assert_eq Block, b.class
+  end
+
 end
