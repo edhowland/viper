@@ -73,4 +73,9 @@ def test_match_future_function_after_statement
   assert_eq BARE, @lexer.tokens[0].type
 end
 
+  # from tests on existing code base
+  def test_alias_keyword_is_not_confused_with_identifier_starting_with_alias_prefix
+    start 'alias_keyword foo'
+      assert_neq ALIAS, @lexer.tokens.first.type
+  end
 end

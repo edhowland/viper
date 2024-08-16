@@ -92,7 +92,7 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn'
   return Token.new('fn', type: FUNCTION)
   elsif @source[(@cursor)..(@cursor+7)] == 'function'
   Token.new('function', type: FUNCTION)
-  elsif @source[(@cursor)..(@cursor + 4)] == 'alias'
+  elsif @source[(@cursor)..(@cursor + 4)] == 'alias' and ([' ', "\n", nil].member?(@source[@cursor + 5]))
   Token.new('alias', type: ALIAS)
   else
     false
