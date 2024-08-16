@@ -15,7 +15,7 @@ def regex_dquote
 end
 
 def regex_bare
-  /[\/\.\-_\?\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
+  /[\/\.\-_\?\*\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
 end
 
 class Lexer
@@ -238,13 +238,13 @@ end
     advance(tmp.length)
 
 
-  when /[\/\.\-_\?\[\]0-9A-Za-z]/
+  when /[\/\.\-_\?\*\[\]0-9A-Za-z]/
 
       tmp = regex(regex_bare)
       @tokens << Token.new(tmp, type: BARE)
     advance(tmp.length)
   else
-    raise RuntimeError.new("Unrecognized token type")
+    raise RuntimeError.new("Unrecognized token type |#{@source[@cursor]}|")
   end
   return true
   end

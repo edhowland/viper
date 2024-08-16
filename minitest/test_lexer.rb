@@ -88,4 +88,9 @@ end
     start 'fn_foo'
     assert_neq FUNCTION, @lexer.tokens.first.type
   end
+
+  def test_bare_string_allows_for_astrix
+    start '??_*.vsh'
+    
+  end
 end

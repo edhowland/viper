@@ -30,3 +30,15 @@ def ipl
   def pf(fname)
     p3(File.read(fname))
   end
+  
+  def le(src)
+    l = Lexer.new(src)
+    l.run
+    l
+  end
+  
+  def lf(fname)
+    l=Lexer.new(File.read(fname))
+    l.run
+    l
+  end
