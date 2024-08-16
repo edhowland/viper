@@ -37,8 +37,8 @@ function package_path(pkg) {
 }
 mkdir /v/macros
 mkdir /v/known_extensions/default
-function set_ext_fn(ext, fn) {
-  store :fn "/v/known_extensions/:{ext}/settings.fn"
+function set_ext_fn(ext, f) {
+  store :f "/v/known_extensions/:{ext}/settings.fn"
 }
 rem setup editor defaults for language settings
 set_ext_fn default &() { checker=check_default  autoindent=false indent=2; global checker autoindent indent }

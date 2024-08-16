@@ -1,4 +1,4 @@
-rem package_utils.vsh various package related aliases and functions
+# package_utils.vsh various package related aliases and functions
 function pn() { sh - "sed -E 's/(.+)_pkg.vsh/\1/'"
 
 }
