@@ -78,4 +78,14 @@ end
     start 'alias_keyword foo'
       assert_neq ALIAS, @lexer.tokens.first.type
   end
+
+  def test_function_keyword_not_to_be_confused_with_identifiers_beginningwith_string_starting_with_function
+    start 'function_declaration'
+    assert_neq FUNCTION, @lexer.tokens.first.type
+  end
+
+  def test_fn_keyword_not_to_be_confused_with_identifiers_beginning_with_string_starting_with_fn
+    start 'fn_foo'
+    assert_neq FUNCTION, @lexer.tokens.first.type
+  end
 end
