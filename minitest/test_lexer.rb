@@ -93,4 +93,13 @@ end
     start '??_*.vsh'
     
   end
+  def test_fn_as_an_identifier_followd_by_right_paren
+    start ' fn)'
+    assert_neq FUNCTION, @lexer.tokens[1].type
+  end
+  def test_fn_as_an_identifier_followd_by_a_comma
+    start 'fn, bar)'
+    assert_neq FUNCTION, @lexer.tokens.first.type
+  end
+
 end

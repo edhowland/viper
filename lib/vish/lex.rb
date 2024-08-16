@@ -88,7 +88,7 @@ end
 
 
   def keyword
-if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @source[@cursor + 2]
+if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @source[@cursor + 2] and @source[@cursor - 1] != ':'
   return Token.new('fn', type: FUNCTION)
   elsif @source[(@cursor)..(@cursor+7)] == 'function' and [' ', "\n", nil].member? @source[@cursor + 8]
   Token.new('function', type: FUNCTION)
