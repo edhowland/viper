@@ -1,4 +1,4 @@
-rem package functions like load
+# package functions like load
 lpath=":{lhome}/packages::{lhome}/plugins"
 cpackages=":{chome}/packages"; cplugins=":{chome}/plugins"
 test -d :cplugins && lpath=":{cplugins}::{lpath}"; test -d :cpackages && lpath=":{cpackages}::{lpath}"
