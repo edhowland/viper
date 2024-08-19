@@ -468,4 +468,9 @@ class TestParser < MiniTest::Test
   def test_catch_w_multiline_blocks
     full "catch {\n pwd \n} {\n echo ok \n}"
   end
+
+  # lambda problems
+  def test_lambda_decl_can_finish_with_ident_followed_with_rbrace
+    full 'exec &() { echo bar}'
+  end
 end

@@ -15,7 +15,7 @@ def regex_dquote
 end
 
 def regex_bare
-  /[\/\.\-_\?\*\[\]0-9A-Za-z][\/\.\-\{\}:_\?\[\]0-9A-Za-z]*/
+  /[\/\.\-_\?\*0-9A-Za-z][\/\.\-:_\?0-9A-Za-z]*/
 end
 
 class Lexer
@@ -239,7 +239,6 @@ end
 
 
   when /[\/\.\-_\?\*\[\]0-9A-Za-z]/
-
       tmp = regex(regex_bare)
       @tokens << Token.new(tmp, type: BARE)
     advance(tmp.length)

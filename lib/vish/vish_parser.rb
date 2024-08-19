@@ -14,7 +14,7 @@ class VishParser
     @lexer = Lexer.new(@source)
     @pos = 0
   end
-  attr_reader :source, :lexer, :pos
+  attr_reader :source, :lexer, :pos, :pos_limit
 
   def p_peek
     @lexer.tokens[@pos]
@@ -22,10 +22,12 @@ class VishParser
 
   def p_next
     tok = p_peek
+    # uncomment for debugging
+    #$stderr.puts "#{@pos}: #{tok.to_s}"
     if @pos < @lexer.tokens.length
       @pos += 1
     else
-      raise RuntimeError.new("parser exceeded all tokens from the lexer")
+      raise VishSyntaxError.new("parser exceeded all tokens from the lexer")
     end
     tok
   end
@@ -120,6 +122,7 @@ end
   def p_all(*seq, &blk)
   maybe_backup do
   t = seq.reduce([]) {|i, j| p_add_if(i, j) }
+  @limit_pos = @pos
   if t
     if block_given?
       blk.call(*t)
@@ -286,6 +289,7 @@ end
       p_all(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
     end
 
+  # 
   def lazy_block
     p_all(expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
   end
@@ -410,7 +414,7 @@ end
       if expect(EOF).call
         b
       else
-        raise VishSyntaxError.new("Expected end of file but got #{@lexer.tokens[@pos].to_s} instead")
+        raise VishSyntaxError.new("Expected end of file but got #{@lexer.tokens[@pos].to_s} instead. This occurredat token position #{@pos}")
       end
     else
       raise VishSyntaxError.new("Expected statement list but got something else")

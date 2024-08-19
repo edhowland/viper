@@ -102,4 +102,8 @@ end
     assert_neq FUNCTION, @lexer.tokens.first.type
   end
 
+  def test_bare_string_does_not_containing_rbrace
+    start 'foo}'
+    assert_neq 'foo}', @lexer.tokens.first.contents
+  end
 end
