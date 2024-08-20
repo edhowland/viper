@@ -85,6 +85,13 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @sourc
   def regex_bare
     /[\/\.\-_\?\*0-9A-Za-z][\/\.\-:_\?0-9A-Za-z]*/
   end
+def regex_dquote
+    /"[^"]*"/
+end
+
+def regex_squote
+  /'[^']*'/
+end
 
 def regex(pattern)
   m = pattern.match(@source[@cursor..])
