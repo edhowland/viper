@@ -5,6 +5,7 @@ class QuotedString
   def initialize(string)
     @storage = string
   end
+  attr_reader :storage
 
   def call(frames:, env: {})
     @storage.to_s
@@ -12,5 +13,8 @@ class QuotedString
 
   def to_s
     @storage.to_s
+  end
+  def ==(other)
+    (other.class == self.class) && (other.storage == self.storage)
   end
 end

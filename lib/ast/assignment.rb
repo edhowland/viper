@@ -8,6 +8,7 @@ class Assignment
     @left = left
     @right = right
   end
+  attr_reader :left, :right
 
   def call(env:, frames:)
     frames[@left] = @right.call env: env, frames: frames
