@@ -1,6 +1,6 @@
 # vish_parser.rb : class VishParser - takes source string returns Block
 
-require_relative 'lex'
+#require_relative 'lex'
 
 module Deleter
   def deleteme!

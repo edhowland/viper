@@ -36,26 +36,22 @@ class TestLexer < MiniTest::Test
   end
   # keywords
   def test_match_no_keyword
-    lex 'foo'
-    assert_false lx_keyword
+    start 'foo'
+    assert_false @lexer.keyword
   end
 
   def test_match_keyword_fn
-    lex 'fn'
-    assert_eq FUNCTION, lx_keyword().type
+    start 'fn'
+    assert_eq FUNCTION, @lexer.tokens.first.type
   end
   def test_match_function
-    lex 'function'
-    x = lx_keyword
-    assert_eq FUNCTION, x.type
-    assert_eq 'function', x.contents
+    start 'function'
+    assert_eq FUNCTION, @lexer.tokens.first.type
+    assert_eq 'function', @lexer.tokens.first.contents
   end
   def test_match_alias
-    lex 'alias'
-    x = lx_keyword
-    assert_eq ALIAS, x.type
-    assert_eq 'alias', x.contents
-
+    start 'alias '
+    assert_eq ALIAS,@lexer.tokens.first.type 
   end
 
   # check to make sure that lexer does not double on fns because the regex matcher must be anchored at start
