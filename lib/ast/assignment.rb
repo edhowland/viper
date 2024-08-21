@@ -4,6 +4,7 @@
 require_relative 'context_constants'
 
 class Assignment
+  include ClassEquivalence
   def initialize(left, right)
     @left = left
     @right = right
@@ -21,5 +22,8 @@ class Assignment
 
   def ordinal
     ASSIGN
+  end
+  def ==(other)
+    class_eq(other) && (other.left == self.left && other.right == self.right)
   end
 end

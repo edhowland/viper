@@ -2,6 +2,8 @@
 # strings. Will not interpolate them
 
 class QuotedString
+  include ClassEquivalence
+
   def initialize(string)
     @storage = string
   end
@@ -15,6 +17,6 @@ class QuotedString
     @storage.to_s
   end
   def ==(other)
-    (other.class == self.class) && (other.storage == self.storage)
+    class_eq(other) && (other.storage == self.storage)
   end
 end

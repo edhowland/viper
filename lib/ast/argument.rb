@@ -3,6 +3,8 @@
 require_relative 'context_constants'
 
 class Argument
+  include ClassEquivalence
+
   def initialize(thing)
     @storage = thing
   end
@@ -18,5 +20,8 @@ class Argument
 
   def ordinal
     COMMAND
+  end
+  def ==(other)
+    class_eq(other) && (other.storage == self.storage)
   end
 end

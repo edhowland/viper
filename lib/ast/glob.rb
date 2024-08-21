@@ -3,6 +3,7 @@
 require_relative 'context_constants'
 
 class Glob
+  include ClassEquivalence
   def initialize(pattern)
     raise "glob: pattern is not a kind of QuotedString" unless pattern.kind_of?(QuotedString)
     @pattern = pattern
@@ -29,5 +30,9 @@ class Glob
 
   def ordinal
     COMMAND
+  end
+
+  def ==(other)
+    class_eq(other) && (other.pattern == self.pattern)
   end
 end
