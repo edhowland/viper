@@ -25,5 +25,11 @@ class AstTests < MiniTest::Test
     c=Visher.parse! 'alias foo="bar"'
     assert_eq b.statement_list.first, c.statement_list.first
   end
+  def test_equality_for_function_decl
+    b=Visher.parse! 'function baz(a, b, c) { pwd }'
+    c=Visher.parse! 'function baz(a, b, c) { pwd }'
+    assert_eq b.statement_list.first, c.statement_list.first
+
+  end
 end
 

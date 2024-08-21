@@ -2,6 +2,8 @@
 # function name(arg1, arg2, .. , argn) { stmnt1; stmnt2 }
 
 class FunctionDeclaration
+  include ClassEquivalence
+
   def initialize(name, args, block, line_number = 0)
     @name = name
     @args = args
@@ -18,5 +20,8 @@ class FunctionDeclaration
 
   def to_s
     "function #{@name}(#{@args}) { #{@block} }"
+  end
+  def ==(other)
+    class_eq(other) && (other.name == self.name && other.args == self.args) # && other.block == self.block
   end
 end
