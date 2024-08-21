@@ -2,6 +2,8 @@
 # returns Lambda instance
 
 class LambdaDeclaration
+  include ClassEquivalence
+
   def initialize(args, block)
     @args = args
     @block = block
@@ -26,5 +28,9 @@ class LambdaDeclaration
 
   def to_s
     '&(' + @args.to_s + ') { ' + @block.to_s + ' )'
+  end
+
+  def ==(other)
+    class_eq(other) # && other.block == self.block
   end
 end

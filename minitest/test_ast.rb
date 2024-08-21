@@ -31,5 +31,22 @@ class AstTests < MiniTest::Test
     assert_eq b.statement_list.first, c.statement_list.first
 
   end
+  def test_redirection_equality_stdin
+    b=Visher.parse! 'cat < foo.txt'
+    c=Visher.parse! 'cat < foo.txt'
+    assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]
+  end
+
+  def test_redirection_equality_stdout
+    b=Visher.parse! 'cat > foo.txt'
+    c=Visher.parse! 'cat > foo.txt'
+    assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]
+  end
+  
+  def test_redirection_equality_append
+    b=Visher.parse! 'cat >> foo.txt'
+    c=Visher.parse! 'cat >> foo.txt'
+    assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]
+  end
 end
 

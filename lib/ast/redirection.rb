@@ -24,6 +24,8 @@ class ObjectRedir
 end
 
 class Redirection
+  include ClassEquivalence
+
   def initialize(op, target)
     @op = op
     @target = target
@@ -53,5 +55,8 @@ class Redirection
 
   def to_s
     @op + ' ' + @target.to_s
+  end
+  def ==(other)
+    class_eq(other) && (other.op == self.op && other.target == self.target)
   end
 end
