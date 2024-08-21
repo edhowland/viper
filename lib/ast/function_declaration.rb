@@ -22,6 +22,6 @@ class FunctionDeclaration
     "function #{@name}(#{@args}) { #{@block} }"
   end
   def ==(other)
-    class_eq(other) && (other.name == self.name && other.args == self.args && other.line_number == self.line_number) # && other.block == self.block
+    class_eq(other) && (other.name == self.name && other.args == self.args && other.line_number == self.line_number  && other.block == self.block)
   end
 end

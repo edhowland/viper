@@ -48,5 +48,29 @@ class AstTests < MiniTest::Test
     c=Visher.parse! 'cat >> foo.txt'
     assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]
   end
+  def test_all_types_of_subshell_equality
+    b = Visher.parse! '(pwd)'
+    c = Visher.parse! '(pwd)'
+    assert_eq b.statement_list.first, c.statement_list.first
+
+  end
+  def test_deref_equivalence
+    b = Visher.parse! 'echo :foo'
+    c = Visher.parse! 'echo :foo'
+    assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]   # this is actuall argument, but the == goes thru to Deref
+
+  end
+  def test_lazy_argument_equality
+    b = Visher.parse! 'exec { pwd }'
+    c = Visher.parse! 'exec { pwd }'
+    assert_eq b.statement_list.first.context[1], c.statement_list.first.context[1]
+
+  end
+  def test_statement_equality
+    b = Visher.parse! 'echo :a foo baz'
+    c = Visher.parse! 'echo :a foo baz'
+    assert_eq b.statement_list.first, c.statement_list.first
+
+  end
 end
 

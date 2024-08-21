@@ -31,6 +31,6 @@ class LambdaDeclaration
   end
 
   def ==(other)
-    class_eq(other) # && other.block == self.block
+    class_eq(other) && other.block == self.block
   end
 end

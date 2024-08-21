@@ -1,6 +1,8 @@
 # deref - class Deref - Dereferences a variable given some starting hash
 
 class Deref
+  include ClassEquivalence
+
   def initialize(symbol)
     @key = symbol
     @value = ''
@@ -36,5 +38,8 @@ class Deref
 
   def to_s
     ':' + @key.to_s
+  end
+  def ==(other)
+    class_eq(other) && (other.key == self.key && other.value == self.value)
   end
 end

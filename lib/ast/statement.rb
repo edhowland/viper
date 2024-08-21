@@ -14,6 +14,7 @@ end
 
 class Statement
   include Redirectable
+  include ClassEquivalence
 
   def initialize(context = [], line_number = 0)
     @context = context
@@ -198,6 +199,9 @@ class Statement
 
   def to_s
     @context.map(&:to_s).join(' ')
+  end
+  def ==(other)
+    class_eq(other) && list_eq(other.context, self.context)
   end
  
   # comment these out to restore old call method functionality 

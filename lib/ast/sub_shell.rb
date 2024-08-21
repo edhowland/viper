@@ -2,6 +2,7 @@
 
 class SubShell
   include Redirectable
+  include ClassEquivalence
 
   def initialize(block, redirections = [])
     @block = block
@@ -100,5 +101,8 @@ frames[:exit_status] = result
 
   def to_s
     '(' + @block.to_s + ')' + @redirections.map {|r| r.to_s }.join(' ')
+  end
+  def ==(other)
+    class_eq(other) && other.block == self.block
   end
 end
