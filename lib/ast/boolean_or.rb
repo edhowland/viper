@@ -1,6 +1,8 @@
 # boolean_or - class BooleanOr- implements || operator
 
 class BooleanOr
+  include ClassEquivalence
+
   def initialize(left, right, line_number = 0)
     @left = left
     @right = right
@@ -15,5 +17,8 @@ class BooleanOr
 
   def to_s
     @left.to_s + ' || ' + @right.to_s
+  end
+  def ==(other)
+    class_eq(other) && (other.left == self.left && other.right == self.right && other.line_number == self.line_number)
   end
 end

@@ -3,12 +3,14 @@
 # all status are collected in the :pipe_status array
 
 class Pipe
+  include ClassEquivalence
+
   def initialize(left, right, line_number = 0)
     @left = left
     @right = right
     @line_number = line_number
   end
-  attr_reader :line_number
+  attr_reader :line_number, :left, :right
 
   def call(env:, frames:)
     io = StringIO.new
@@ -31,5 +33,8 @@ class Pipe
 
   def to_s
     @left.to_s + ' | ' + @right.to_s
+  end
+  def ==(other)
+    class_eq(other) && (other.left == self.left && other.right == self.right && other.line_number == self.line_number)
   end
 end
