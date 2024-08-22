@@ -16,6 +16,16 @@ class VishParser
   end
   attr_reader :source, :lexer, :pos, :pos_limit
 
+  # unwrap any quote marks from strings, if they exist
+  def unquote(s)
+    if s[0] == "'" and s[-1] == "'"
+      s[1..(-2)]
+    elsif s[0] == '"' and s[-1] == '"'
+      s[1..(-2)]
+    else
+      s
+    end
+  end
   def p_peek
     @lexer.tokens[@pos]
   end
@@ -210,8 +220,8 @@ end
   # or if block, then execute that before returning
   def string(&blk)
     s = p_alt(
-    match(DQUOTE) {|s| QuotedString.new(s) },
-    match(SQUOTE) {|s| StringLiteral.new(s) }
+    match(DQUOTE) {|s| StringLiteral.new(unquote(s)) },
+    match(SQUOTE) {|s| QuotedString.new(unquote(s)) }
     )
     return false unless s
     if block_given?

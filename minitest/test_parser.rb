@@ -473,4 +473,25 @@ class TestParser < MiniTest::Test
   def test_lambda_decl_can_finish_with_ident_followed_with_rbrace
     full 'exec &() { echo bar}'
   end
+
+  def test_single_quoted_string_returns_quoted_string
+    start "'foo'"
+    assert_eq QuotedString, @parser.string().class
+  end
+  def test_double_quoted_string_returns_string_literal
+    start '"bar"'
+    assert_eq StringLiteral, @parser.string().class
+  end
+  def test_dquoted_strings_are_unquoted_before_stored
+    start '"foo"'
+    x = @parser.string()
+    assert_neq '"', x.storage[0]
+    assert_neq '"', x.storage[-1]
+  end
+  def test_single_quoted_string_is_unquoted_before_storage
+    start "'bar'"
+    x = @parser.string()
+    assert_neq "'", x.storage[0]
+    assert_neq "'", x.storage[-1]
+  end
 end
