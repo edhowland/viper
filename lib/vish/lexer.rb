@@ -19,14 +19,7 @@ class Lexer
   def run
     while get(); end
     # TODO FIXME MUST reset all line numbers already inserted
-    @tokens.each {|t| t.line_number = 1 }
-    # update only the newline tokens
-    @tokens.select {|t| t.type == NEWLINE }.zip(2..).each {|t,n| t.line_number = n }
-  # the initial seed token with a line number of 1 and type == NEWLINE
-  seed = Token.new("\n", type: NEWLINE); seed.line_number = 1
-  ([seed] + @tokens).zip((@tokens + [seed])).each do |i, j|
-    j.line_number = i.line_number unless j.type == NEWLINE
-  end
+  @tokens = @tokens.reduce([[Token.new("\n", type: NEWLINE), 0]]) {|i, j| tk, l = i[-1]; l += 1 if tk.type == NEWLINE; j.line_number = l; i << [j, l] }.drop(1).map {|i| i[0] }
   end
 
   def at

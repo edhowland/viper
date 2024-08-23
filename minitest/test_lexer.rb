@@ -107,6 +107,7 @@ end
     start "foo\nbar\nbaz\n"
     l2 = Lexer.new("spam\nquo\n")
     l2.run
-    assert_eq 3, l2.tokens[3].line_number
+    assert_eq 2, l2.tokens[3].line_number
+    assert_eq 3, l2.tokens[-1].line_number
   end
 end
