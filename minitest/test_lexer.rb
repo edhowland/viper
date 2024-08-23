@@ -102,4 +102,11 @@ end
     start 'foo}'
     assert_neq 'foo}', @lexer.tokens.first.contents
   end
+  # compute line numbers per each instance of Lexer
+  def test_2_lexers_have_different_line_numbers
+    start "foo\nbar\nbaz\n"
+    l2 = Lexer.new("spam\nquo\n")
+    l2.run
+    assert_eq 3, l2.tokens[3].line_number
+  end
 end
