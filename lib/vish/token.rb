@@ -137,16 +137,13 @@ class Token
   # @@line_number = 1
   # MUST fix TODO
   def self.reset
-    #@@line_number = 1
   end
 
   def initialize(contents, type: EOF)
     @contents = contents
     @type = type
     if @type == NEWLINE
-      #@@line_number += 1
     end
-    #@line_number = @@line_number
     @ann = false
   end
   attr_reader :contents, :type, :ann
