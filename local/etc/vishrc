@@ -1,9 +1,9 @@
+# Use this line as pattern for some comments
 alias rem=nop
-rem Use this line as pattern for all comments
 mkdir /v/buf
 _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
-rem OS environment variables
+# OS environment variables
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
 function debugging() { false }
 function filter(f) {
@@ -42,13 +42,13 @@ function rest(_x) { echo :_ }
 function empty() { test -z :_ }
 function load_event() { nop }
 function exit_event() { nop }
-rem 018_environment.vsh: Helper functions for access to users OS environment
+# 018_environment.vsh: Helper functions for access to users OS environment
 function env(var) { ruby "print ENV[':{var}']" }
 HOME=:(env HOME); global HOME
 XDG_CONFIG_HOME=:(env XDG_CONFIG_HOME); test -z :XDG_CONFIG_HOME && XDG_CONFIG_HOME=":{HOME}/.config"
-rem Set some Vish variables
+# Set some Vish variables
 _vconfig=":{XDG_CONFIG_HOME}/vish"; global _vconfig
-rem _vpm_root is the location of all Vish Package Management files
+# _vpm_root is the location of all Vish Package Management files
 _vpm_root=":{_vconfig}/vpm"; global _vpm_root
 alias if=cond
 mkdir /v/options

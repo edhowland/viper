@@ -353,13 +353,13 @@ end
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
     lnum = p_peek.line_number
-    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i, a, lnum)  }
+    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
   end
 
   def alias_invocation
     lnum = p_peek.line_number
     p_alt(
-      -> { p_all(expect(ALIAS), consume(BARE)) {|v| Statement.new(['alias', v], lnum) } },
+      -> { p_all(expect(ALIAS), consume(BARE)) {|v| Statement.new([glob_lit('alias'), glob_lit(v)], lnum) } },
       -> { p_all(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
     )
   end
