@@ -6,34 +6,27 @@ version=:(ruby 'puts Vish::VERSION')
 rem OS environment variables
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
 function debugging() { false }
-function filter() {
-shift fn
-for e in :_ { exec :fn :e && echo -n :e ' ' }
+function filter(f) {
+for e in :_ { exec :f :e && echo -n :e ' ' }
 }
-function reject() {
-shift fn
-for e in :_ { exec :fn :e || echo -n :e ' ' }
+function reject(f) {
+for e in :_ { exec :f :e || echo -n :e ' ' }
 }
-function reduce() {
-shift fn
-shift init
+function reduce(f, init) {
 for e in :_ {
-init=:(exec :fn ":{init}" ":{e}")
+init=:(exec :f ":{init}" ":{e}")
 }
 echo :init
 }
-function map() {
-shift fn
-for e in :_ { echo -n :(exec :fn :e) :ofs }
+function map(f) {
+for e in :_ { echo -n :(exec :f :e) :ofs }
 }
-function each() {
-shift fn
-for e in :_ { exec :fn :e }
+function each(f) {
+for e in :_ { exec :f :e }
 }
-function count() {
-shift fn
+function count(f) {
 cnt=0
-for i in :_ { exec :fn :i && cnt=:(expr 1 '+' :cnt) }
+for i in :_ { exec :f :i && cnt=:(expr 1 '+' :cnt) }
 echo :cnt
 }
 function decr(x) {
