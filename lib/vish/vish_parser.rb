@@ -367,7 +367,7 @@ end
   # a function declaration
   def function_declaration
     lnum = p_peek.line_number
-    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n, a, b, lnum)  }
+    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
   end
 
   # wrapper around context that makes a new Statement
