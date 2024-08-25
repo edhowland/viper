@@ -110,4 +110,9 @@ end
     assert_eq 2, l2.tokens[3].line_number
     assert_eq 3, l2.tokens[-1].line_number
   end
+  # bugs in bare string tokenizer
+  def test_underbar_does_not_split_into_2_tokens
+    start '_*.vsh'
+    assert_eq 2, @lexer.tokens.length
+  end
 end

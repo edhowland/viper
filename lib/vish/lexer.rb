@@ -76,7 +76,7 @@ if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @sourc
   end
 
   def regex_bare
-    /[\/\.\-_\?\*0-9A-Za-z][\/\.\-:_\?0-9A-Za-z]*/
+    /[\/\.\-_\?\*0-9A-Za-z][\/\.\-:_\?\*0-9A-Za-z]*/
   end
 def regex_dquote
     /"[^"]*"/
