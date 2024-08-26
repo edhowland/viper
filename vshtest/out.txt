@@ -1,0 +1,81 @@
+about to test_alias.vsh
+The return code from test_alias.vsh was 0
+about to test_arity.vsh
+The return code from test_arity.vsh was 0
+about to test_array.vsh
+The return code from test_array.vsh was 0
+about to test_ast.vsh
+The return code from test_ast.vsh was 0
+about to test_bin.vsh
+The return code from test_bin.vsh was 0
+about to test_boolean.vsh
+The return code from test_boolean.vsh was 0
+about to test_buffer.vsh
+The return code from test_buffer.vsh was 0
+about to test_capture.vsh
+The return code from test_capture.vsh was 0
+about to test_cat.vsh
+The return code from test_cat.vsh was 0
+about to test_cmdlet.vsh
+The return code from test_cmdlet.vsh was 0
+about to test_comment.vsh
+The return code from test_comment.vsh was 0
+about to test_cond.vsh
+The return code from test_cond.vsh was 0
+about to test_defn.vsh
+The return code from test_defn.vsh was 0
+about to test_dir_cmds.vsh
+test_dir_cmds.vsh:0: exception Expected end of file but got content: >function<, type: <function keyword>, line: 59 instead. This occurredat token position 401
+The return code from test_dir_cmds.vsh was 0
+about to test_editor.vsh
+The return code from test_editor.vsh was 0
+about to test_empty.vsh
+
+Total 0
+Passed 0
+Failures 0
+The return code from test_empty.vsh was 0
+about to test_eval.vsh
+The return code from test_eval.vsh was 0
+about to test_fail.vsh
+Failures
+test_fail
+
+Total 1
+Passed 0
+Failures 1
+test_fail : expected false to be true
+The return code from test_fail.vsh was 1
+about to test_function.vsh
+The return code from test_function.vsh was 0
+about to test_glob.vsh
+The return code from test_glob.vsh was 0
+about to test_import.vsh
+The return code from test_import.vsh was 0
+about to test_ls.vsh
+The return code from test_ls.vsh was 0
+about to test_mark.vsh
+The return code from test_mark.vsh was 0
+about to test_node_commands.vsh
+The return code from test_node_commands.vsh was 0
+about to test_path_expansion.vsh
+The return code from test_path_expansion.vsh was 0
+about to test_read.vsh
+The return code from test_read.vsh was 0
+about to test_slice_of.vsh
+The return code from test_slice_of.vsh was 0
+about to test_source.vsh
+The return code from test_source.vsh was 0
+about to test_store.vsh
+The return code from test_store.vsh was 0
+about to test_test.vsh
+The return code from test_test.vsh was 0
+about to test_test_executables.vsh
+asserts.vsh:0: exception Expected end of file but got content: >function<, type: <function keyword>, line: 1 instead. This occurredat token position 0
+The return code from test_test_executables.vsh was 0
+about to test_type.vsh
+The return code from test_type.vsh was 0
+about to test_version.vsh
+The return code from test_version.vsh was 0
+about to test_vish.vsh
+The return code from test_vish.vsh was 0

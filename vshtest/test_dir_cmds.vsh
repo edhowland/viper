@@ -56,7 +56,8 @@ function test_cp_dot_blah_to_dot_dot_ram() {
   mkdir /v/dir/s6; echo hello > /v/dir/s6/blah
   assert_exec { (cd /v/dir/s6; cp ./blah ./ram) } 'cannot cp ./blah to ./ram'
   assert_exec { assert_eq :(cat < /v/dir/s6/blah) :(cat < /v/dir/s6/ram) } 'contents of s6/blah and s6/ram differ and should not'
-}function test_dir_rm_one_object() {
+}
+function test_dir_rm_one_object() {
   mkdir /v/dir/re; touch /v/dir/re/r1
   assert_exec { rm /v/dir/re/r1 } 'could not rm /v/dir/re/r1'
   assert_exec_false { test -f /v/dir/re/r1 } 're/r1 still exists after rm'
