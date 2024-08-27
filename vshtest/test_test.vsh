@@ -9,7 +9,8 @@ function test_test_w_f_is_false() {
   test -f /v/xyzzy; assert_false :exit_status
 }
 function test_test_w_x() {
-  test -x /v/modes/viper/ctrl_a; assert_true :exit_status
+   mkdir /v/tmp; store { echo bar } /v/tmp/bar
+  test -x /v/tmp/bar; assert_true :exit_status
 }
 function test_test_w_x_is_true_for_cat() {
   test -x /v/bin/cat; assert_true :exit_status
