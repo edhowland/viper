@@ -1,4 +1,4 @@
-source asserts.vsh
+ source asserts.vsh
 function test_test_b_w_block_true() {
   assert_exec { test -b { nop } } 'test -b with block was false'
 }
