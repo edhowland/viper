@@ -23,11 +23,11 @@ function mark_next(mark) {
 function mark_prev(mark) {
   goto_position :_buf :(trait_prev :_buf :mark)
 }
-function mark_apply(fn,buf, mark) {
+function mark_apply(f, buf, mark) {
   test -z ":{mark}" && raise No mark set
   mpos=:(trait_first :buf :mark)
   pos=:(decr :(position :buf))
-  exec :fn :buf :mpos :pos
+  exec :f :buf :mpos :pos
   unset _mark; global _mark
 }
 function mark_copy(buf, mark) {
@@ -47,13 +47,13 @@ function mark_del(mark) {
 function mark_line_extent(buf, m) {
   mark_apply &(buf, m, p) { p=:(incr :p); goto_position :buf :m; lm=:(line_number :buf); goto_position :buf :p; lp=:(line_number :buf); echo :lm :lp } :buf :m 
 }
-function mark_lines_apply(fn, buf, m) {
+function mark_lines_apply(f, buf, m) {
   _=:(mark_line_extent :buf :m)
   shift start; shift fini
   r=":{start}..:{fini}"
   for l in :r {
     goto :buf :l
-    exec :fn :buf
+    exec :f :buf
   }
 }
 capture { new_clip } { echo caught :last_exception in :__FILE__; (test -f /v/clip/metadata/clips && echo /v/clip/metadata/clips exists) || echo /v/clip/metadata/clips does not exist }

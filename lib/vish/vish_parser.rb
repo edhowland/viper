@@ -345,9 +345,17 @@ end
 
 
 
+  # Collect any redirections into a list, this must be passed to SubShell.new
+  def redirection_list
+    p_alt(
+      -> { p_all(-> { enclose_when(p_redirection) }, -> { redirection_list }) },
+      -> { enclose_when(p_redirection) },
+      epsilon
+    )
+  end
   # a subshell which is a kind of expression
   def subshell
-    p_all(expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|s|  SubShell.new(s)  }
+    p_all(-> { [redirection_list] }, expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN), -> { [redirection_list] }) {|r1, s, r2| SubShell.new(s, r1 + r2) }
   end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments

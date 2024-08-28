@@ -494,4 +494,35 @@ class TestParser < MiniTest::Test
     assert_neq "'", x.storage[0]
     assert_neq "'", x.storage[-1]
   end
+  # collect any redirections into a list. See below for call out to subshell.
+  def test_redirection_list_handles_1_redirection
+    start '< foo.txt'
+    x = @parser.redirection_list
+    assert_eq 1, x.length
+    assert_eq Redirection, x.first.class
+  end
+  def test_redirection_list_is_emppty
+    start '(echo foo)'
+    x = @parser.redirection_list
+    assert_eq Array, x.class
+    assert x.empty?
+  end
+  def test_redirection_list_is_2
+    start '< foo.txt >> bar.txt'
+    x = @parser.redirection_list
+    assert_eq 2, x.length
+  end
+  # Now test all the possible subshell given 0, 1 or 2 redirections
+  def test_subshell_with_1_redirection
+    start '< foo.txt (cat)'
+    x = @parser.subshell
+    assert_eq SubShell, x.class
+    assert_eq 1, x.redirections.length
+  end
+  def test_subshell_when_redirection_trails_parens
+    start '(cat) > foo.txt'
+    x = @parser.subshell
+    assert_eq SubShell, x.class
+    assert_eq 1, x.redirections.length
+  end
 end

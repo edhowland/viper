@@ -38,7 +38,7 @@ function applys(key, data) { exec "/v/views/:{_mode}/:{key}" :data }
 function applyk(key, opt) {
 (test -f "/v/klogs/:{_mode}/:{key}" && exec "/v/klogs/:{_mode}/:{key}" :opt) || log_key :key :opt
 }
-function bind(key, fn1, fn2) { store :fn1 /v/modes/:{_mode}/:{key}; store :fn2 /v/views/:{_mode}/:{key} }
+function bind(key, f1, f2) { store :f1 "/v/modes/:{_mode}/:{key}"; store :f2 "/v/views/:{_mode}/:{key}" }
 function is_bound(key) {
   test -f "/v/modes/:{_mode}/:{key}"
 }
@@ -63,9 +63,9 @@ function apply(ch, data) {
 }
 _mode=viper; global _mode
 function mkmode(m) {
-mkdir /v/modes/:{m}
-mkdir /v/views/:{m} 
-mkdir /v/klogs/:{m}
+mkdir "/v/modes/:{m}"
+mkdir "/v/views/:{m}"
+mkdir "/v/klogs/:{m}"
 }
 function printable() {
 uc=A..Z lc=a..z nu=0..9 pu1='!../' pu2=':..@' pu3='[..`' pu4='{..~'
@@ -98,8 +98,8 @@ function vip() {
 resolve_ext :_buf
 _mode=viper
 loop {
-fn=:(raw -|xfkey)
-  cond { key_exists :fn } { apply :fn } else { perr -n  :fn is not bound }
+f=:(raw -|xfkey)
+  cond { key_exists :f } { apply :f } else { perr -n  :f is not bound }
 }
 }
 function apply_times(n, key) {
