@@ -82,7 +82,7 @@ _mode=viper bind meta_l { line_number :_buf } { cat }
 ignore_undo meta_l
 _mode=viper bind fn_6 { nop } { peek /v/editor/macroprompt; rotate /v/editor/macroprompt }
 _mode=viper bind fn_8  { nop } { echo selection is; copy :_buf }
-_mode=viper bind fn_9 { echo Meta Modes are: ; meta_modes } { cat; nop }
+_mode=viper bind fn_9 { echo "Meta Modes are:" ; meta_modes } { cat; nop }
 _mode=viper bind ctrl_a {  select_all_buf :_buf } { buffer_empty :_buf || echo -n select all }
 log_key_pos ctrl_a
 _mode=viper bind ctrl_w { move_word } { word_fwd :_buf }

@@ -1,7 +1,7 @@
 function open(fname) {
 bname=:(basename :fname)
 rbuf=:(rand -c 0 5)
-_buf=/v/buf/:{rbuf}
+_buf="/v/buf/:{rbuf}"
 mkbuf :_buf
 global _buf
 mkarray ":{_buf}/.keylog"

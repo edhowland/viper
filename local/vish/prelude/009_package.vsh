@@ -10,9 +10,9 @@ function load(package) {
   source :pkg_src
   test -x "/v/packages/:{package}/on_load" && exec "/v/packages/:{package}/on_load"
 }
-function when_load(package, fn) {
+function when_load(package, f) {
   mkdir "/v/packages/:{package}"; rem this might just be a mkdir -p
-  store :fn "/v/packages/:{package}/on_load"
+  store :f "/v/packages/:{package}/on_load"
 }
 rem This prepares to load our only one package so far viper
 function load_viper_paths() {
