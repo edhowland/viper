@@ -8,20 +8,22 @@ function teardown_buf() {
   unset _buf
   unset _clip
 }
-function x_test_cut_off_by_1() {
-  echo 0123456789 > :_buf
+function test_cut_off_by_1() {
+  echo '0123456789' | ins :_buf
+   beg :_buf
   fwd :_buf
   m _
   fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
   mark_cut :_buf :_mark 
-  assert_eq 056789 :(cat < :_buf)
+  assert_eq '056789' :(cat  :_buf)
 }
-function x_test_copy() {
-  echo hello world > :_buf
+function test_copy() {
+  echo hello world | ins  :_buf
+   beg :_buf
   m m
   fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
   mark_copy :_buf m
-  assert_eq hello :(cat < :_clip)
+  assert_eq 'hello' :(cat < :_clip)
 }
 function test_paste() {
   echo -n "hello" | ins :_buf
