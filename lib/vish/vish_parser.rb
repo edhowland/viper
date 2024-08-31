@@ -320,17 +320,17 @@ end
   end
 
   def p_redirect_in
-    p_all(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, glob_lit(t)) }
+    p_all(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
   # parses redirection to stdout : > bar.txt
   def p_redirect_out
-    p_all(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, glob_lit(t)) }
+    p_all(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
 # parses redirection for append: >> target
 def p_redirect_append
-  p_all(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', glob_lit(t)) }
+  p_all(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', t) }
 end
 
 #  choice between all possible redirection types

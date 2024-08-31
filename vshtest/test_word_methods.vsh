@@ -29,25 +29,6 @@ function test_del_word_fwd() {
 echo -n 'hello world' | ins :_buf
 beg :_buf
 del_word_fwd :_buf
-cat < :_buf | ifs='x' read result
-assert_eq ":{result}" ' world'
-}
-# experiment with parts of original method
-function x_del_word_fwd(buf) {
-word=:(word_fwd :buf)
-test -z :word && return false
-len=:(echo -n :word | wc)
-echo "The word :{word} length is :{len}" > test.log
-r="1..:{len}"
-   for i in :r { 
-      del_at :buf 
-   } | nop
-}
-function test_x_del_word_fwd() {
-echo -n 'hello world' | ins :_buf
-beg :_buf
-   x_del_word_fwd :_buf
-   assert :exit_status
-cat < :_buf | ifs='x' read result
-assert_eq ":{result}" ' world'
+   beg :_buf; fwd :_buf
+assert_eq 'w' :(at :_buf)
 }
