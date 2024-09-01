@@ -386,11 +386,11 @@ end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
     p_alt(
-      -> { subshell },
-      -> { alias_declaration },
-      -> { alias_invocation },
-      -> { function_declaration },
       -> { statement },
+      -> { function_declaration },
+      -> { alias_declaration },
+      -> { subshell },
+      -> { alias_invocation },
     )
   end
 
