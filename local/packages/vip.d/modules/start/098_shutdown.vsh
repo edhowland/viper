@@ -1,6 +1,6 @@
 alias savable=ask2_save
 at_exit {
-   echo running the 098 at_exit
+   #echo running the 098 at_exit
 function unsaved_buffers() {
    filter &(f) { is_dirty :f } :(filter &(b) { savable :b } :(buffers))
 }

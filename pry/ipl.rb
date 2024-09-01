@@ -42,3 +42,13 @@ def ipl
     l.run
     l
   end
+  
+  # for ease of use in testing parse results from old parser
+  def vf(fname)
+    Visher.parse!(File.read(fname))
+  end
+  # parse and read filename for new parser
+  def nf(fname)
+    p = pf(fname)
+    p.p_root
+  end

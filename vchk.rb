@@ -9,9 +9,9 @@ def syn_chk(fname)
   
 begin
   p.p_root
-  puts "#{ARGV.first}: Syntax ok"
+  puts "#{fname}: Syntax ok"
 rescue => err
-  $stderr.puts "Syntax error : #{err.message}"
+  $stderr.puts "#{fname}: Syntax error : #{err.message}"
   exit(1)
 end
 end

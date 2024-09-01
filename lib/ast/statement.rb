@@ -106,7 +106,12 @@ class Statement
       closers = open_redirs env: env
     yield env, frames
   ensure
-    fail 'nil found for closers' if closers.nil?
+    #fail 'nil found for closers' if closers.nil?
+    if closers.nil?
+      Log.say_time("closers were nil for this statement: > #{self.to_s} <")
+      fail
+    end
+
     close_redirs closers  
   end
 
