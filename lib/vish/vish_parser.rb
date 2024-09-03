@@ -129,6 +129,31 @@ end
     -> { [] }
   end
 
+
+  def p_seq(*seq,  &blk)
+    res =  []
+    will_fail = false
+    maybe_backup do
+      seq.each do |ele|
+        x =  ele.call()
+        if x == false
+          will_fail = true
+          break
+        end
+        res += x
+      end
+    unless will_fail
+      if block_given?
+        blk.call(*res)
+      else
+        res
+      end
+    else
+      false
+    end
+  end
+  end
+
   def p_all(*seq, &blk)
   maybe_backup do
   t = seq.reduce([]) {|i, j| p_add_if(i, j) }
@@ -296,7 +321,7 @@ end
 
 
     def subshell_expansion
-      p_all(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
+      p_seq(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
     end
 
   # 
@@ -314,7 +339,7 @@ end
   # a context is something that gets stuffed into a statement
   def context
     p_alt(
-      -> { p_all(-> { enclose_when(element) }, -> { context }) },
+      -> { p_seq(-> { enclose_when(element) }, -> { context }) },
       -> { enclose_when(element) }
     )
   end
@@ -355,34 +380,35 @@ end
   end
   # a subshell which is a kind of expression
   def subshell
-    p_all(-> { [redirection_list] }, expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN), -> { [redirection_list] }) {|r1, s, r2| SubShell.new(s, r1 + r2) }
+    p_seq(-> { [redirection_list] }, expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN), -> { [redirection_list] }) {|r1, s, r2| SubShell.new(s, r1 + r2) }
   end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
     lnum = p_peek.line_number
-    p_all(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
+    p_seq(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
   end
 
   def alias_invocation
     lnum = p_peek.line_number
     p_alt(
-      -> { p_all(expect(ALIAS), consume(BARE)) {|v| Statement.new([glob_lit('alias'), glob_lit(v)], lnum) } },
-      -> { p_all(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
+      -> { p_seq(expect(ALIAS), consume(BARE)) {|v| Statement.new([glob_lit('alias'), glob_lit(v)], lnum) } },
+      -> { p_seq(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
     )
   end
 
   # a function declaration
   def function_declaration
     lnum = p_peek.line_number
-    p_all(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
+    p_seq(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
   end
 
   # wrapper around context that makes a new Statement
   def statement
     lnum = p_peek.line_number
-    p_all(-> { context }) {|*c| Statement.new(c, lnum) }
+    p_seq(-> { context }) {|*c| Statement.new(c, lnum) }
   end
+
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
   def expression_kind
     p_alt(
