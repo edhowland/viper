@@ -323,12 +323,14 @@ end
   end
   # a lambda is an argument to something else or a return value
   def lambda_declaration
+    return false unless @lexer.tokens[@pos].type == AMPERSAND
     p_seq(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b|   LambdaDeclaration.new(a, b) }
   end
 
 
 
     def subshell_expansion
+    return false unless @lexer.tokens[@pos].type == COLON
       p_seq(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
     end
 
@@ -388,17 +390,18 @@ end
   end
   # a subshell which is a kind of expression
   def subshell
+    #return false unless @lexer.tokens[@pos].type == LPAREN
     p_seq(-> { [redirection_list] }, expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN), -> { [redirection_list] }) {|r1, s, r2| SubShell.new(s, r1 + r2) }
   end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
-    lnum = p_peek.line_number
+    tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number #lnum = p_peek.line_number
     p_seq(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
   end
 
   def alias_invocation
-    lnum = p_peek.line_number
+    tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number #lnum = p_peek.line_number
     p_alt(
       -> { p_seq(expect(ALIAS), consume(BARE)) {|v| Statement.new([glob_lit('alias'), glob_lit(v)], lnum) } },
       -> { p_seq(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
@@ -407,7 +410,7 @@ end
 
   # a function declaration
   def function_declaration
-    lnum = p_peek.line_number
+    tk = p_peek; return false unless tk.type ==  FUNCTION; lnum =  tk.line_number#lnum = p_peek.line_number
     p_seq(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
   end
 
