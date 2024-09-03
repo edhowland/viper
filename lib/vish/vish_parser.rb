@@ -27,13 +27,15 @@ class VishParser
     end
   end
   def p_peek
+    #puts "p_peek: #{@lexer.tokens[@pos].contents}"
     @lexer.tokens[@pos]
   end
 
   def p_next
-    tok = p_peek
+    #tok = p_peek
+    tok =  @lexer.tokens[@pos]
     # uncomment for debugging
-    #$stderr.puts "#{@pos}: #{tok.to_s}"
+    #$stderr.puts "p_next: #{@pos}: #{tok.to_s}"
     if @pos < @lexer.tokens.length
       @pos += 1
     else
@@ -47,8 +49,9 @@ class VishParser
     tok = @pos
     res = blk.call
     if res
-      res#
+      res
     else
+      #puts "maybe_backup :  will backup, now: #{@pos}, prev: #{tok}"
       @pos = tok
       return false
     end
@@ -134,12 +137,17 @@ end
     res =  []
     will_fail = false
     maybe_backup do
+      cnt = 0
       seq.each do |ele|
+        #puts "p_seq: cnt: #{cnt}"
+         cnt +=  1
         x =  ele.call()
         if x == false
           will_fail = true
+          #puts "p_seq: breaking early"
           break
         end
+        #puts "p_seq:  continuing to next part of rule"
         res += x
       end
     unless will_fail
@@ -154,7 +162,7 @@ end
   end
   end
 
-  def p_all(*seq, &blk)
+  def _x_p_all(*seq, &blk)
   maybe_backup do
   t = seq.reduce([]) {|i, j| p_add_if(i, j) }
   @limit_pos = @pos
@@ -237,7 +245,7 @@ end
 
 
   def variable(&blk)
-  unwrap_if(p_all(expect(COLON), -> { enclose_when(identifier) }, &blk))
+  unwrap_if(p_seq(expect(COLON), -> { enclose_when(identifier) }, &blk))
   end
 
 
@@ -286,8 +294,8 @@ end
   # strung together with either semicolons or newlines
   def statement_list
     p_alt(
-    #-> { p_all(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) {|s1, s2|p s1, s2;   [s1] + [s2] } },
-      -> { p_all(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) },
+    #-> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) {|s1, s2|p s1, s2;   [s1] + [s2] } },
+      -> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) },
       -> { expression }
     )
   end
@@ -302,7 +310,7 @@ end
 
   # the recursive case for function_args
   def function_args_1
-    p_all(-> { enclose_when(identifier) }, expect(COMMA), -> { function_args })
+    p_seq(-> { enclose_when(identifier) }, expect(COMMA), -> { function_args })
   end
 
 
@@ -315,7 +323,7 @@ end
   end
   # a lambda is an argument to something else or a return value
   def lambda_declaration
-    p_all(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b|   LambdaDeclaration.new(a, b) }
+    p_seq(expect(AMPERSAND), expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN),expect(LBRACE), -> { enclose_when(block) }, expect(RBRACE)) {|a, b|   LambdaDeclaration.new(a, b) }
   end
 
 
@@ -326,10 +334,10 @@ end
 
   # 
   def lazy_block
-    p_all(expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
+    p_seq(expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|b| LazyArgument.new(b) }
   end
   def assignment
-    p_all(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
+    p_seq(match_ident, expect(EQUALS), ->{ enclose_when(argument) }) {|k, v| Assignment.new(k, v) }
   end
 
   def element
@@ -345,17 +353,17 @@ end
   end
 
   def p_redirect_in
-    p_all(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
+    p_seq(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
   # parses redirection to stdout : > bar.txt
   def p_redirect_out
-    p_all(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
+    p_seq(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
 # parses redirection for append: >> target
 def p_redirect_append
-  p_all(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', t) }
+  p_seq(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', t) }
 end
 
 #  choice between all possible redirection types
@@ -373,7 +381,7 @@ end
   # Collect any redirections into a list, this must be passed to SubShell.new
   def redirection_list
     p_alt(
-      -> { p_all(-> { enclose_when(p_redirection) }, -> { redirection_list }) },
+      -> { p_seq(-> { enclose_when(p_redirection) }, -> { redirection_list }) },
       -> { enclose_when(p_redirection) },
       epsilon
     )
@@ -423,20 +431,20 @@ end
   # a piped expression is one kind of expression compound type
   def piped_expression
       lnum = p_peek.line_number
-    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r, lnum) ] }
+    p_seq(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r, lnum) ] }
   end
 
 
   # a logical and operation using double ampersands:  'foo && bar'
   def logical_and
     lnum = p_peek.line_number
-    p_all(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
+    p_seq(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
   end
 
   # a logical or using double pipe or 'foo || bar'
   def logical_or
     lnum = p_peek.line_number
-    p_all(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
+    p_seq(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
   end
 
   # expressions are compound statement types, e.g. a piped expression

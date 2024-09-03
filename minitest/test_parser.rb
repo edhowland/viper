@@ -66,7 +66,7 @@ class TestParser < MiniTest::Test
 
   def test_seq_with_all_fails_returns_false
     start 'echo foo bar'
-    t = @parser.p_all(@parser.consume(COLON), @parser.consume(EQUALS), @parser.consume(SEMICOLON))
+    t = @parser.p_seq(@parser.consume(COLON), @parser.consume(EQUALS), @parser.consume(SEMICOLON))
     assert_false t
   end
 
