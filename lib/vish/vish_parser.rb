@@ -353,7 +353,7 @@ end
 
 
   def function_args
-    p_alt(
+    choice(
       -> { function_args_1 },
       -> { enclose_when(identifier)  },
       epsilon
