@@ -392,6 +392,23 @@ end
   end
 
   def element
+    case p_peek.type
+    when LT, GT
+      redirection
+    when BARE
+      if @lexer.tokens[@pos + 1].type == EQUALS
+        assignment
+      else
+        argument
+      end
+    when AMPERSAND, COLON, SQUOTE, DQUOTE, LBRACE
+      argument
+    else
+      false
+    end
+  end
+
+  def x_element
     p_alt(-> { assignment }, -> { argument }, -> { p_redirection })
   end
 
@@ -417,6 +434,20 @@ def p_redirect_append
   p_seq(expect(GT), expect(GT), -> { enclose_when(argument) }) {|t| Redirection.new('>>', t) }
 end
 
+  def redirection
+    case p_peek.type
+    when LT
+      p_redirect_in
+    when GT
+      if @lexer.tokens[@pos +  1].type == GT
+        p_redirect_append
+      else
+        p_redirect_out
+      end
+    else
+      false
+    end
+  end
 #  choice between all possible redirection types
 def p_redirection
   p_alt(
