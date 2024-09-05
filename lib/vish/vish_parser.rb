@@ -561,7 +561,7 @@ end
 
   # expressions are compound statement types, e.g. a piped expression
   def expression
-    p_alt(
+    choice(
       -> { piped_expression },
       -> { logical_and },
       -> { logical_or },
