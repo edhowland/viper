@@ -178,6 +178,16 @@ end
   end
   end
 
+  def choice(*l)
+    res = false
+    maybe_backup do
+      l.each do |e|
+      res =  e.call
+      break if res
+      end
+      res
+    end
+  end
 def p_alt(*l)
   maybe_backup do
     l.reduce(false) {|i,j| i || j.() }
@@ -342,7 +352,7 @@ end
   # A list of statements is either a single expression, or several expressions
   # strung together with either semicolons or newlines
   def statement_list
-    p_alt(
+    choice(
     #-> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) {|s1, s2|p s1, s2;   [s1] + [s2] } },
       -> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) },
       -> { expression }
@@ -463,8 +473,8 @@ end
   # Collect any redirections into a list, this must be passed to SubShell.new
   def redirection_list
     p_alt(
-      -> { p_seq(-> { enclose_when(p_redirection) }, -> { redirection_list }) },
-      -> { enclose_when(p_redirection) },
+      -> { p_seq(-> { enclose_when(redirection) }, -> { redirection_list }) },
+      -> { enclose_when(redirection) },
       epsilon
     )
   end
