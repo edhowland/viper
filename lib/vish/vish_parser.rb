@@ -434,14 +434,7 @@ end
       false
     end
   end
-#  choice between all possible redirection types
-def p_redirection
-  p_alt(
-    -> { p_redirect_in },
-    -> { p_redirect_append },
-    -> { p_redirect_out },
-  )
-end
+
 
 
 

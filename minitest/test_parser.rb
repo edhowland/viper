@@ -291,7 +291,7 @@ class TestParser < MiniTest::Test
   # redirections
   def test_redirect_in
     start '< foo'
-    x = @parser.p_redirection
+    x = @parser.redirection
     assert_eq Redirection, x.class
     assert_eq '<', x.op
     assert_eq 'foo', x.target.to_s
@@ -299,7 +299,7 @@ class TestParser < MiniTest::Test
   def test_redirect_out
 
     start '> bar'
-    x = @parser.p_redirection
+    x = @parser.redirection
     assert_eq Redirection, x.class
     assert_eq '>', x.op
     assert_eq 'bar', x.target.to_s
@@ -307,7 +307,7 @@ class TestParser < MiniTest::Test
   def test_redirect_append
 
     start '>> baz'
-    x = @parser.p_redirection
+    x = @parser.redirection
     assert_eq Redirection, x.class
     assert_eq '>>', x.op
     assert_eq 'baz', x.target.to_s
