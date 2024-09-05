@@ -83,7 +83,7 @@ end
   end
 
   # consumes a token and returns its contents in an array that can be appended to AST so far
-  # this returns a Proc that can be called by p_all or p_alt
+  # this returns a Proc that can be called by p_seq  or choice
 def consume(exp, &blk)
   -> {
   if p_peek.type == exp
@@ -188,11 +188,7 @@ end
       res
     end
   end
-def p_alt(*l)
-  maybe_backup do
-    l.reduce(false) {|i,j| i || j.() }
-  end
-end
+
 
 
   # optional production (part)
