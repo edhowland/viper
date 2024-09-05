@@ -424,7 +424,7 @@ end
 
   # a context is something that gets stuffed into a statement
   def context
-    p_alt(
+    choice(
       -> { p_seq(-> { enclose_when(element) }, -> { context }) },
       -> { enclose_when(element) }
     )
