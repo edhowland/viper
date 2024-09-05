@@ -472,7 +472,7 @@ end
 
   # Collect any redirections into a list, this must be passed to SubShell.new
   def redirection_list
-    p_alt(
+    choice(
       -> { p_seq(-> { enclose_when(redirection) }, -> { redirection_list }) },
       -> { enclose_when(redirection) },
       epsilon
@@ -492,7 +492,7 @@ end
 
   def alias_invocation
     tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number #lnum = p_peek.line_number
-    p_alt(
+    choice(
       -> { p_seq(expect(ALIAS), consume(BARE)) {|v| Statement.new([glob_lit('alias'), glob_lit(v)], lnum) } },
       -> { p_seq(expect(ALIAS)) {|| Statement.new(['alias'], lnum) } }
     )
