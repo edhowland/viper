@@ -243,6 +243,15 @@ end
       match(BARE) {|g| glob_lit(g) }
     end
 
+  # simpler version of glob
+  def n_glob
+    if p_peek.type ==  BARE
+      glob_lit(p_next.contents)
+    else
+      false
+    end
+  end
+
 
   def variable(&blk)
   unwrap_if(p_seq(expect(COLON), -> { enclose_when(identifier) }, &blk))
@@ -274,11 +283,11 @@ end
     end
   end
 
-# this belongs in def argument:
+# this belongs in  argument: method
      # -> { bare_string {|s| Argument.new(s) } },
 
   # this MUST be a choice between glob, lambda, subshell_expansion, deref, .etc
-  def argument
+  def x_argument
     p_alt(
       glob,
       -> { lambda_declaration },
@@ -287,6 +296,28 @@ end
       -> { subshell_expansion },
       -> { lazy_block },
     )
+  end
+
+  def argument
+    case p_peek.type
+    when AMPERSAND
+      lambda_declaration
+    when COLON
+      #puts "checking colon for net token: #{@lexer.tokens[@pos + 1].to_s}"
+      if @lexer.tokens[@pos + 1].type == LPAREN
+        #puts "think we are in subshell_expansion"
+        subshell_expansion
+      else
+        #puts "think we are in  variable deref"
+        variable {|v| Argument.new(Deref.new(v)) }
+      end
+    when SQUOTE, DQUOTE
+      string {|s| Argument.new(s) }
+    when LBRACE
+      lazy_block
+    else
+      n_glob
+    end
   end
 
 
@@ -330,7 +361,7 @@ end
 
 
     def subshell_expansion
-    return false unless @lexer.tokens[@pos].type == COLON
+    #return false unless @lexer.tokens[@pos].type == COLON
       p_seq(expect(COLON), expect(LPAREN), -> { enclose_when(block) }, expect(RPAREN)) {|b| SubShellExpansion.new(b) }
     end
 
@@ -421,7 +452,7 @@ end
   end
 
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
-  def expression_kind
+  def x_expression_kind
     p_alt(
       -> { statement },
       -> { function_declaration },
@@ -429,6 +460,25 @@ end
       -> { subshell },
       -> { alias_invocation },
     )
+  end
+
+  def expression_kind
+    case p_peek.type
+    when FUNCTION
+      function_declaration
+    when ALIAS
+      res =       alias_declaration
+      unless res
+        alias_invocation
+      else
+        res
+      end
+    when LPAREN
+      subshell
+    else
+      statement
+    
+    end
   end
 
   # a piped expression is one kind of expression compound type
