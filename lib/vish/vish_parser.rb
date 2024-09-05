@@ -261,6 +261,24 @@ end
   # given either a single or double quoted string return AST node matching type
   # or if block, then execute that before returning
   def string(&blk)
+    res =  case p_peek.type
+    when SQUOTE
+      QuotedString.new(unquote(p_next.contents))
+    when DQUOTE
+      StringLiteral.new(unquote(p_next.contents))
+    else
+      false
+    
+    end
+    return false unless res
+    if block_given?
+      blk.call(res)
+    else
+      res
+    end
+  end
+
+  def x_string(&blk)
     s = p_alt(
     match(DQUOTE) {|s| StringLiteral.new(unquote(s)) },
     match(SQUOTE) {|s| QuotedString.new(unquote(s)) }
