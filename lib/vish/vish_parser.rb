@@ -162,21 +162,6 @@ end
   end
   end
 
-  def _x_p_all(*seq, &blk)
-  maybe_backup do
-  t = seq.reduce([]) {|i, j| p_add_if(i, j) }
-  @limit_pos = @pos
-  if t
-    if block_given?
-      blk.call(*t)
-    else
-      t
-    end
-  else
-    false
-  end
-  end
-  end
 
   def choice(*l)
     res = false
