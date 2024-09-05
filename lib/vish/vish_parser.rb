@@ -288,18 +288,6 @@ end
     end
   end
 
-  def x_string(&blk)
-    s = p_alt(
-    match(DQUOTE) {|s| StringLiteral.new(unquote(s)) },
-    match(SQUOTE) {|s| QuotedString.new(unquote(s)) }
-    )
-    return false unless s
-    if block_given?
-      blk.call(s)
-    else
-      s
-    end
-  end
 
 
   def bare_string(blk)
@@ -315,16 +303,7 @@ end
      # -> { bare_string {|s| Argument.new(s) } },
 
   # this MUST be a choice between glob, lambda, subshell_expansion, deref, .etc
-  def x_argument
-    p_alt(
-      glob,
-      -> { lambda_declaration },
-      -> { string {|s| Argument.new(s) } },
-      -> { variable {|v| Argument.new(Deref.new(v)) } },
-      -> { subshell_expansion },
-      -> { lazy_block },
-    )
-  end
+
 
   def argument
     case p_peek.type
@@ -418,9 +397,6 @@ end
     end
   end
 
-  def x_element
-    p_alt(-> { assignment }, -> { argument }, -> { p_redirection })
-  end
 
   # a context is something that gets stuffed into a statement
   def context
@@ -511,15 +487,6 @@ end
   end
 
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
-  def x_expression_kind
-    p_alt(
-      -> { statement },
-      -> { function_declaration },
-      -> { alias_declaration },
-      -> { subshell },
-      -> { alias_invocation },
-    )
-  end
 
   def expression_kind
     case p_peek.type
