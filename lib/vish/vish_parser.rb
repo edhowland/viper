@@ -197,7 +197,7 @@ end
 
   # optional production (part)
   def p_opt(prc)
-    p_alt(
+    choice(
       prc,
       epsilon
     )
