@@ -13,6 +13,18 @@ class VishParser
     @source = source
     @lexer = Lexer.new(@source)
     @pos = 0
+
+    # predefined procs for  common token expectors or consumers
+    @x_lparen =  expect(LPAREN)
+    @x_rparen =  expect(RPAREN)
+    @x_lbrace = expect(LBRACE)
+    @x_rbrace = expect(RBARCE)
+    # @x_function =  expect(FUNCTION)
+    @x_alias = expect(ALIAS)
+    @x_newline = expect(NEWLINE)
+    @x_semicolon = expect(SEMICOLON)
+    @x_colon = expect(COLON)
+    @x_ampersand = expect(AMPERSAND)
   end
   attr_reader :source, :lexer, :pos, :pos_limit
 
