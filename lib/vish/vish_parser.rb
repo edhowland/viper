@@ -26,6 +26,9 @@ class VishParser
     @x_colon = expect(COLON)
     @x_ampersand = expect(AMPERSAND)
     @x_pipe = expect(PIPE)
+
+  # the either semicolon, newline proc
+  @e_semi_nl =  either(SEMICOLON, NEWLINE)
   end
   attr_reader :source, :lexer, :pos, :pos_limit
 
@@ -326,8 +329,7 @@ end
   # strung together with either semicolons or newlines
   def statement_list
     choice(
-    #-> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) {|s1, s2|p s1, s2;   [s1] + [s2] } },
-      -> { p_seq(-> { expression }, either(SEMICOLON, NEWLINE), -> { statement_list }) },
+      -> { p_seq(-> { expression }, @e_semi_nl, -> { statement_list }) },
       -> { expression }
     )
   end
