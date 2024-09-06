@@ -18,8 +18,8 @@ class VishParser
     @x_lparen =  expect(LPAREN)
     @x_rparen =  expect(RPAREN)
     @x_lbrace = expect(LBRACE)
-    @x_rbrace = expect(RBARCE)
-    # @x_function =  expect(FUNCTION)
+    @x_rbrace = expect(RBRACE)
+    @x_function = expect(FUNCTION)
     @x_alias = expect(ALIAS)
     @x_newline = expect(NEWLINE)
     @x_semicolon = expect(SEMICOLON)
@@ -463,7 +463,7 @@ end
   # a function declaration
   def function_declaration
     tk = p_peek; return false unless tk.type ==  FUNCTION; lnum =  tk.line_number#lnum = p_peek.line_number
-    p_seq(expect(FUNCTION), -> { enclose_when(identifier) }, expect(LPAREN), -> { enclose_when(function_args) }, expect(RPAREN), expect(LBRACE), -> { p_opt(expect(NEWLINE)) }, -> { enclose_when(block) }, -> { p_opt(expect(NEWLINE)) }, expect(RBRACE)) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
+    p_seq(@x_function, -> { enclose_when(identifier) }, @x_lparen, -> { enclose_when(function_args) }, @x_rparen, @x_lbrace, -> { p_opt(@x_newline) }, -> { enclose_when(block) }, -> { p_opt(@x_newline) }, @x_rbrace) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
   end
 
   # wrapper around context that makes a new Statement
