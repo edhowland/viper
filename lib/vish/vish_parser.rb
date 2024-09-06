@@ -25,6 +25,7 @@ class VishParser
     @x_semicolon = expect(SEMICOLON)
     @x_colon = expect(COLON)
     @x_ampersand = expect(AMPERSAND)
+    @x_pipe = expect(PIPE)
   end
   attr_reader :source, :lexer, :pos, :pos_limit
 
@@ -503,13 +504,13 @@ end
   # a logical and operation using double ampersands:  'foo && bar'
   def logical_and
     lnum = p_peek.line_number
-    p_seq(-> { enclose_when(expression_kind) }, expect(AMPERSAND), expect(AMPERSAND), -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
+    p_seq(-> { enclose_when(expression_kind) }, @x_ampersand, @x_ampersand, -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
   end
 
   # a logical or using double pipe or 'foo || bar'
   def logical_or
     lnum = p_peek.line_number
-    p_seq(-> { enclose_when(expression_kind) }, expect(PIPE), expect(PIPE), -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
+    p_seq(-> { enclose_when(expression_kind) }, @x_pipe, @x_pipe, -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
   end
 
   # expressions are compound statement types, e.g. a piped expression
