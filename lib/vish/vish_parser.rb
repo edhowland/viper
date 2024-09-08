@@ -29,6 +29,10 @@ class VishParser
 
   # the either semicolon, newline proc
   @e_semi_nl =  either(SEMICOLON, NEWLINE)
+
+    # consumer procs
+    @c_lt = consume(LT)
+    @c_gt = consume(GT)
   end
   attr_reader :source, :lexer, :pos, :pos_limit
 
@@ -403,12 +407,12 @@ end
   end
 
   def p_redirect_in
-    p_seq(consume(LT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
+    p_seq(@c_lt, -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
   # parses redirection to stdout : > bar.txt
   def p_redirect_out
-    p_seq(consume(GT), -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
+    p_seq(@c_gt, -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
   end
 
 # parses redirection for append: >> target

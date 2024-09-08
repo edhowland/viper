@@ -51,13 +51,13 @@ class TestParser < MiniTest::Test
   # alt with consume should return correct match
   def test_alt_with_3_choices_and_no_matches_should_return_false
     start ':'
-    t = @parser.p_alt(@parser.consume(BARE), @parser.consume(SEMICOLON), @parser.consume(EQUALS))
+    t = @parser.choice(@parser.consume(BARE), @parser.consume(SEMICOLON), @parser.consume(EQUALS))
     assert_false t
   end
 
   def test_alt_with_middle_match_returns_it
     start ':'
-    t = @parser.p_alt(@parser.consume(SEMICOLON), @parser.consume(COLON), @parser.consume(BARE))
+    t = @parser.choice(@parser.consume(SEMICOLON), @parser.consume(COLON), @parser.consume(BARE))
     assert t
     assert_eq Array, t.class
     assert_eq 1, t.length
