@@ -329,6 +329,11 @@ end
   end
 
 
+
+  # new  statement_list
+  def _statement_list
+    #
+  end
   # A list of statements is either a single expression, or several expressions
   # strung together with either semicolons or newlines
   def statement_list
@@ -354,6 +359,7 @@ end
     when BARE
       function_args(acc: acc + [p_next.contents.to_sym])
     when COMMA
+      return false if acc.empty?  # do not  allow:    (, bar ,baz)
       p_next
       return false unless p_peek.type == BARE
       function_args(acc: acc + [p_next.contents.to_sym])
