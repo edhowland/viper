@@ -346,13 +346,28 @@ end
 
 
 
+  # new  function arg method
+  def function_args(acc:  [])
+    case p_peek.type
+    when RPAREN
+      acc
+    when BARE
+      function_args(acc: acc + [p_next.contents.to_sym])
+    when COMMA
+      p_next
+      return false unless p_peek.type == BARE
+      function_args(acc: acc + [p_next.contents.to_sym])
+    else
+      return false
+    end
+  end
   # the recursive case for function_args
   def function_args_1
     p_seq(-> { enclose_when(identifier) }, expect(COMMA), -> { function_args })
   end
 
 
-  def function_args
+  def _function_args
     choice(
       -> { function_args_1 },
       -> { enclose_when(identifier)  },
