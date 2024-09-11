@@ -398,8 +398,22 @@ end
   end
 
 
-  # a context is something that gets stuffed into a statement
+  def parse_context(acc:  false)
+    if !([GT,LT,SQUOTE, DQUOTE,BARE,COLON,AMPERSAND,LBRACE].member?(p_peek.type))
+      acc
+    else
+      res = element
+      return acc unless  res
+      acc ||= []
+      acc <<  res
+      parse_context(acc: acc)
+    end
+  end
   def context
+    maybe_backup { parse_context }
+  end
+  # a context is something that gets stuffed into a statement
+  def _x_context
     choice(
       -> { p_seq(-> { enclose_when(element) }, -> { context }) },
       -> { enclose_when(element) }
