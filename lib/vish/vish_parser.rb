@@ -331,14 +331,24 @@ end
 
 
   # new  statement_list
-  def _statement_list
-    #
+  def statement_list(acc: [])
+    res = expression
+    if res
+      if [SEMICOLON, NEWLINE].member?(p_peek.type)
+      p_next  # eat the  semicolon or  newline
+        statement_list(acc: acc + res)
+      else
+        acc + res
+      end
+    else
+      acc  #false
+    end
   end
   # A list of statements is either a single expression, or several expressions
   # strung together with either semicolons or newlines
-  def statement_list
+  def _statement_list
     choice(
-      -> { p_seq(-> { expression }, @e_semi_nl, -> { statement_list }) },
+      -> { p_seq(-> { expression }, @e_semi_nl, -> { _statement_list }) },
       -> { expression }
     )
   end
