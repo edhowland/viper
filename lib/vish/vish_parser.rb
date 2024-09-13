@@ -505,10 +505,21 @@ end
 
   # an alias declaration. other methods of calling alias, like 'alias' and 'alias foo' are treated like normal statements w/o or with arguments
   def alias_declaration
-    tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number #lnum = p_peek.line_number
-    p_seq(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
+    tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number
+    if @pos < @lexer.tokens.length
+    return false unless @lexer.tokens[@pos +  1].type == BARE
+    return false unless @lexer.tokens[@pos +  2].type == EQUALS
+    end
+    #p_seq(expect(ALIAS), -> { enclose_when(identifier) }, expect(EQUALS), -> { enclose_when(argument) }) {|i, a|  AliasDeclaration.new(i.to_s, a, lnum)  }
+    p_next # consume the alias keyword
+    ident=p_next.contents; p_next; 
+    val=argument
+    return false unless val
+    AliasDeclaration.new(ident, val, lnum)
   end
 
+  # an alias invocation is wher, in the REPL, the user does alias to get all the aliases or alias name to get just that alias
+  # Not  worth doing a perf  improvement because it only is needed interactively, not to load loading the source for the editor
   def alias_invocation
     tk = p_peek; return false unless tk.type ==  ALIAS; lnum =  tk.line_number #lnum = p_peek.line_number
     choice(
