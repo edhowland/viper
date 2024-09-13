@@ -485,6 +485,11 @@ end
 
 
   # Collect any redirections into a list, this must be passed to SubShell.new
+  # TODO: this should really work  like Statement and  just be part of the context
+  # In Bash,  you  cannot do this w/o getting a  syntax error
+  # For now,  leave it alone because
+  #  1: rarely  used in actual code
+  # 2:  Changes must be made in semantic layer first
   def redirection_list
     choice(
       -> { p_seq(-> { enclose_when(redirection) }, -> { redirection_list }) },
@@ -564,8 +569,19 @@ end
     p_seq(-> { enclose_when(expression_kind) }, @x_pipe, @x_pipe, -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
   end
 
-  # expressions are compound statement types, e.g. a piped expression
   def expression
+    if (tmp=piped_expression)
+      tmp
+    elsif (tmp=logical_and)
+      tmp
+    elsif  (tmp=logical_or)
+      tmp
+    else
+      enclose_when(expression_kind)
+    end
+  end
+  # expressions are compound statement types, e.g. a piped expression
+  def _expression
     choice(
       -> { piped_expression },
       -> { logical_and },
