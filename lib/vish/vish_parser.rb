@@ -71,7 +71,7 @@ class VishParser
     if res
       res
     else
-      #puts "maybe_backup :  will backup, now: #{@pos}, prev: #{tok}"
+      #puts "maybe_backup :  will backup, now  cur(@pos): #{@pos}, prev (tok): #{tok}"
       @pos = tok
       return false
     end
@@ -528,8 +528,57 @@ end
     )
   end
 
-  # a function declaration
   def function_declaration
+    maybe_backup do
+      if p_peek.type ==  FUNCTION
+    #puts 'lexeme ==  fn'
+        lnum =  p_peek.line_number
+        p_next
+        if p_peek.type ==  BARE
+      #puts 'ident found'
+          ident =  p_next.contents
+          if p_peek.type ==  LPAREN
+            p_next
+            args =  function_args
+            if p_peek.type ==  RPAREN and args
+#puts 'got args and  right  paren'
+              p_next
+              if p_peek.type == LBRACE
+    #puts 'got  left brace'
+                p_next
+                if p_peek.type ==  NEWLINE
+                  p_next
+                end
+  #puts 'about to get block'
+                bk =  block
+                if p_peek.type == RBRACE and bk
+  #puts  'found block and right brace'
+                  p_next
+                  FunctionDeclaration.new(ident, args, bk, lnum)
+                else
+                  false
+                end
+              else
+                false
+              end
+            else
+              false
+            end
+          else
+            false
+          end
+        else
+          false
+        end
+      else
+        false
+      end
+    end
+  end
+
+
+  # a function declaration
+  def _function_declaration
     tk = p_peek; return false unless tk.type ==  FUNCTION; lnum =  tk.line_number#lnum = p_peek.line_number
     p_seq(@x_function, -> { enclose_when(identifier) }, @x_lparen, -> { enclose_when(function_args) }, @x_rparen, @x_lbrace, -> { p_opt(@x_newline) }, -> { enclose_when(block) }, -> { p_opt(@x_newline) }, @x_rbrace) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
   end
@@ -543,6 +592,7 @@ end
   # expression_kind are types of expressions. E.g. statements, function declarations and aliases
 
   def expression_kind
+#puts  "expression_kind: #{p_peek.to_s}"
     case p_peek.type
     when FUNCTION
       function_declaration
@@ -562,25 +612,43 @@ end
   end
 
   # a piped expression is one kind of expression compound type
-  def piped_expression
+  def piped_expression(expr: nil)
       lnum = p_peek.line_number
-    p_seq(-> { enclose_when(expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r, lnum) ] }
+    p_seq(-> { enclose_when(expr || expression_kind) }, expect(PIPE), -> { expression }) {|l, r| [ Pipe.new(l, r, lnum) ] }
   end
 
 
   # a logical and operation using double ampersands:  'foo && bar'
-  def logical_and
+  def logical_and(expr: nil)
     lnum = p_peek.line_number
-    p_seq(-> { enclose_when(expression_kind) }, @x_ampersand, @x_ampersand, -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
+    p_seq(-> { enclose_when(expr || expression_kind) }, @x_ampersand, @x_ampersand, -> { expression }) {|l, r| [ BooleanAnd.new(l, r, lnum) ] }
   end
 
   # a logical or using double pipe or 'foo || bar'
-  def logical_or
+  def logical_or(expr: nil)
     lnum = p_peek.line_number
-    p_seq(-> { enclose_when(expression_kind) }, @x_pipe, @x_pipe, -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
+    p_seq(-> { enclose_when(expr || expression_kind) }, @x_pipe, @x_pipe, -> { expression }) {|l, r|[ BooleanOr.new(l, r, lnum) ] } 
   end
 
   def expression
+    expr =  expression_kind
+    return false unless expr
+    if p_peek.type == PIPE
+      if @lexer.tokens[@pos + 1].type ==  PIPE
+        logical_or(expr: expr)
+      else
+        piped_expression(expr: expr)
+      end
+    else
+      if p_peek.type == AMPERSAND and @lexer.tokens[@pos + 1].type == AMPERSAND
+        logical_and(expr: expr)
+      else
+        enclose_when(expr)
+      end
+    end
+  end
+
+  def _expression
     if (tmp=piped_expression)
       tmp
     elsif (tmp=logical_and)
