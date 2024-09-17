@@ -74,7 +74,7 @@ class TestParser < MiniTest::Test
   def test_empty
     start ''
     x = @parser.statement_list
-    assert_false x
+    assert x.empty? #assert_false x
   end
 
   def test_one_command
@@ -110,17 +110,17 @@ class TestParser < MiniTest::Test
 
   # argument parsing stuff
   def test_arg_list_empty
-    start ''
+    start ')'
     assert @parser.function_args.empty?
   end
 
   def test_one_argument
-    start 'foo'
+    start 'foo)'
     assert_eq 1, @parser.function_args.length
   end
 
   def test_2_args
-    start 'arg1, arg2'
+    start 'arg1, arg2)'
     assert_eq 2, @parser.function_args.length
   end
 
@@ -128,6 +128,16 @@ class TestParser < MiniTest::Test
   def test_multiple_args
     start 'foo bar baz arg4 arg5'
     assert_eq 5, @parser.context.length
+  end
+  def test_function_args_w_illegal_colon_token_is_false
+    start '(:b, c)'
+    @parser.p_next # consume the  LPAREN
+    assert_false @parser.function_args
+  end
+  def test_function_args_cannot_start_with_comma
+    start '(, bar, baz)'
+    @parser.p_next # consume the  left  paren
+        assert_false @parser.function_args
   end
 
   # start to combine commands with (possibly empty) argument lists
@@ -221,18 +231,18 @@ class TestParser < MiniTest::Test
   end
   # function declarations
   def test_parameter_list_is_empty
-    start ''
+    start ')'
     assert @parser.function_args.empty?
   end
   def test_parameter_list_has_1_symbol
-    start 'foo'
+    start 'foo)'
     t = @parser.function_args
     assert_eq 1, t.length
     assert_eq :foo, t.first
   end
 
   def test_parameter_list_has_3_symbols
-    start 'a, b, c'
+    start 'a, b, c)'
     t = @parser.function_args
     assert_eq 3, t.length
     assert_eq [:a, :b, :c], t
@@ -374,7 +384,6 @@ class TestParser < MiniTest::Test
   end
 
   def test_alias_list_preserves_line_number
-
   start "pwd\nfn foo() { pwd }\necho foo\nalias\n"
   x = @parser.statement_list
   assert_eq 4, x[3].line_number

@@ -36,7 +36,9 @@ class VirtualMachineTests < MiniTest::Test
     @vm.restore_pwd
     assert_eq path, Hal.pwd
   end
-  def test_cloned_vm_does_not_change_pwd_in_parent_vm
+
+  # commented out following test because is does in  rake test_vsh:test_sub_shell.vsh
+  def _test_cloned_vm_does_not_change_pwd_in_parent_vm
     pwd = @vm.cdbuf[0]
     _oldpwd = @vm.cdbuf[1]
     nvm = @vm._clone

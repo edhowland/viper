@@ -1,0 +1,41 @@
+test_cat.vsh:    echo -n :i > "/v/tmp/:{i}"
+test_cat.vsh:    echo -n :i > "/v/tmp/:{i}"
+vunit.vsh:cd ":{vhome}/vshtest"
+vunit.vsh:  is_true :obj || raise "expected :{obj} to be true"
+vunit.vsh:  eq ":{left}" ":{right}" || raise "Expected |:{left}| to equal |:{right}|"
+vunit.vsh:   not { eq ":{left}" ":{right}" } ||  raise "Expected |:{left}| to not equal |:{right}|"
+asserts.vsh:  exec :f || raise "expected block or function to return true but returned :{exit_status} instead :{message}"
+asserts.vsh:  exec :f &&  raise "expected block or function to return false but returned :{exit_status} instead :{message}"
+test_node_commands.vsh:  assert_eq ":{result}" 'hello world'
+test_node_commands.vsh:  assert_eq ":{result}" '3 1 2'
+cpr_mimic.vsh:  mkdir ":{prefix}/:{src}"
+cpr_mimic.vsh:  for f in :files { touch ":{prefix}/:{src}/:{f}" }
+cpr_mimic.vsh:  (cd :src; for d in :dirs {  cpr_mimic :d ":{prefix}/:{src}" })
+all_tests.vsh:cd ":{vhome}/vshtest"
+one_viper_test.vsh:echo "About to run:{tf}" 
+test_cmdlet.vsh:source ":{vhome}/cmdlet/misc/utils.vsh"
+glob_help.vsh:  cd ":{vhome}/vshtest/tmp"
+glob_help.vsh:  exec :fn1 :(ifs=':' zip ":{sys}" ":{phy}")
+glob_help.vsh:  exec :fn1 :(ifs=':' zip ":{sys}" ":{vir}")
+glob_help.vsh:  sh echo ":{glob}"
+glob_help.vsh:   src="echo :{glob}"
+glob_help.vsh:  src="echo :{glob}"
+glob_help.vsh:cd ":{vhome}/vshtest"
+one_test.vsh:echo "About to run:{tf}" 
+test_editor.vsh:  assert_eq 'hello world' ":{yy}"
+test_editor.vsh:assert_eq ":{result}" ' world'
+test_editor.vsh:  function dim(key) { exec "/v/modes/:{_mode}/:{key}" jj }
+t2.vsh:  # assert_eq ":{result}" '1 2 3 4'
+test_ast.vsh:  (cd t1; (cd t2; (cd t3; assert_eq ":{vhome}/vshtest/t1/t2" :oldpwd); assert_eq ":{vhome}/vshtest/t1" :oldpwd); assert_eq ":{vhome}/vshtest" :oldpwd)
+f.vsh:   exec :f || raise "got bad for :{exit_status} :{message}"
+test_read.vsh:  assert_eq 'bar baz' ":{bar}"
+test_function.vsh:  function _baz(a, b) { echo ":{a},:{b}" }
+test_function.vsh:  assert_eq "1 2" ":{a}"
+test_function.vsh:   _baz=&(a, b) { echo ":{a},:{b}" }
+test_function.vsh:  assert_eq "1 2" ":{a}"
+test_function.vsh:  store &() { shift aa bb; echo ":{aa}:{bb}" } /v/l2
+test_bin.vsh:  assert_eq ":{result}" '1 2 3 4'
+test_bin.vsh:  assert_eq ":{result}" '3 4'
+test_bin.vsh:  assert_eq ":{result}" '3 4'
+test_bin.vsh:  assert_eq ":{result}" '3 4' 
+test_dir_cmds.vsh:    assert_exec { test -d :i } ":{i} not created"
