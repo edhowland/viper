@@ -346,14 +346,7 @@ end
   end
   # A list of statements is either a single expression, or several expressions
   # strung together with either semicolons or newlines
-=begin
-  def _statement_list
-    choice(
-      -> { p_seq(-> { expression }, @e_semi_nl, -> { _statement_list }) },
-      -> { expression }
-    )
-  end
-=end
+
 
   # a block is a list of statements: TODO MUST expand this when statement_list is completed
   def block
@@ -383,15 +376,7 @@ end
     p_seq(-> { enclose_when(identifier) }, expect(COMMA), -> { function_args })
   end
 
-=begin
-  def _function_args
-    choice(
-      -> { function_args_1 },
-      -> { enclose_when(identifier)  },
-      epsilon
-      )
-  end
-=end
+
     # a lambda is an argument to something else or a return value
   def lambda_declaration
     return false unless @lexer.tokens[@pos].type == AMPERSAND
@@ -446,14 +431,7 @@ end
     maybe_backup { parse_context }
   end
   # a context is something that gets stuffed into a statement
-=begin
-  def _x_context
-    choice(
-      -> { p_seq(-> { enclose_when(element) }, -> { context }) },
-      -> { enclose_when(element) }
-    )
-  end
-=end
+
 
   def p_redirect_in
     p_seq(@c_lt, -> { enclose_when(argument) }) {|op, t| Redirection.new(op, t) }
@@ -582,12 +560,7 @@ end
 
 
   # a function declaration
-=begin
-  def _function_declaration
-    tk = p_peek; return false unless tk.type ==  FUNCTION; lnum =  tk.line_number#lnum = p_peek.line_number
-    p_seq(@x_function, -> { enclose_when(identifier) }, @x_lparen, -> { enclose_when(function_args) }, @x_rparen, @x_lbrace, -> { p_opt(@x_newline) }, -> { enclose_when(block) }, -> { p_opt(@x_newline) }, @x_rbrace) {|n, a, b|    FunctionDeclaration.new(n.to_s, a, b, lnum)  }
-  end
-=end
+
 
   # wrapper around context that makes a new Statement
   def statement
@@ -653,30 +626,9 @@ end
       end
     end
   end
-=begin
-  def _expression
-    if (tmp=piped_expression)
-      tmp
-    elsif (tmp=logical_and)
-      tmp
-    elsif  (tmp=logical_or)
-      tmp
-    else
-      enclose_when(expression_kind)
-    end
-  end
-=end
+
   # expressions are compound statement types, e.g. a piped expression
-=begin
-  def _expression
-    choice(
-      -> { piped_expression },
-      -> { logical_and },
-      -> { logical_or },
-      -> { enclose_when(expression_kind) }
-    )
-  end
-=end
+
   # Start of parsing
   
   # A correct parse is a block followd by an EOF
