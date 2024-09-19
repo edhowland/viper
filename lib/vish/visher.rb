@@ -1,6 +1,5 @@
 # visher - class Visher - wraps Vish parser with parse! method
 
-#require_relative 'vish.kpeg'
 
 class Visher
   class << self
@@ -14,7 +13,11 @@ class Visher
       v = VishParser.new statement
     v.setup
 
-    v.p_root
+    bk  = v.p_root
+    # put in  any found docs
+    bk.statement_list.select {|s|FunctionDeclaration ==  s.class }.each {|f| f.doc = "#{f.name} has no docs" } 
+
+    bk
     end
   end
 end

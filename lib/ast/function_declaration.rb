@@ -9,12 +9,15 @@ class FunctionDeclaration
     @args = args
     @block = block
     @line_number = line_number
+    @doc = ''
   end
 
   attr_reader :name, :line_number, :args, :block
+  attr_accessor :doc
 
   def call(env:, frames:)
     frames.functions[@name] = Function.new(@args, @block, @name)
+    frames.functions[@name].doc = @doc
     true
   end
 

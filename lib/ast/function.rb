@@ -6,9 +6,10 @@ class Function
     @block = block
     @name = name
     @arity = @args.length  # The arity of this function is the number of the defined named parameters
+    @doc = ''
   end
-
   attr_reader :name, :args, :block, :arity
+    attr_accessor :doc
 
   def call(*args, env:, frames:)
     frames.push
