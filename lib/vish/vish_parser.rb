@@ -33,8 +33,10 @@ class VishParser
     # consumer procs
     @c_lt = consume(LT)
     @c_gt = consume(GT)
+    # storage for  collected docstrings
+    @docstrings = Hash.new {|| '<empty>'  }
   end
-  attr_reader :source, :lexer, :pos, :pos_limit
+  attr_reader :source, :lexer, :pos, :pos_limit, :docstrings
 
   # unwrap any quote marks from strings, if they exist
   def unquote(s)
