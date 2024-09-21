@@ -651,6 +651,10 @@ end
   def setup
     @lexer.run
     @lexer.tokens.reject! {|t| t.type == WS }
+    cr =  CommentRuns.new(@lexer.tokens)
+    cr.setup
+    cr.run
+    @docstrings = cr.collection
     @lexer.tokens.reject! {|t| t.type == COMMENT }
 
     #collapse_newlines
