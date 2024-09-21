@@ -4,7 +4,10 @@ mkdir /v/buf
 _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
 # OS environment variables
+
+# if then else wrapper
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
+# sets debugging to false
 function debugging() { false }
 function filter(f) {
 for e in :_ { exec :f :e && echo -n :e ' ' }
