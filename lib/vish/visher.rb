@@ -14,8 +14,9 @@ class Visher
     v.setup
 
     bk  = v.p_root
+#binding.pry
     # put in  any found docs
-    bk.statement_list.select {|s|FunctionDeclaration ==  s.class }.each {|f| f.doc = "#{f.name} #{v.docstrings[f]}" } 
+    bk.statement_list.select {|s| FunctionDeclaration ==  s.class }.each {|f| f.doc = "#{f.name} #{v.docstrings[f.name]}" } 
 
     bk
     end
