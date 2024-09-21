@@ -650,8 +650,9 @@ end
 
   def setup
     @lexer.run
-    @lexer.tokens.reject! {|t| t.type == COMMENT }
     @lexer.tokens.reject! {|t| t.type == WS }
+    @lexer.tokens.reject! {|t| t.type == COMMENT }
+
     #collapse_newlines
     @lexer.tokens = @lexer.tokens.drop_while {|t| t.type == NEWLINE }
     # extract the end of file
