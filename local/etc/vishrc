@@ -5,43 +5,74 @@ _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
 # OS environment variables
 
-# if then else wrapper
+# If then else. Takes 3 arguments which must all be either blocks or lambdas. 
+# The predicate which  returns true or false
+# The consequent which  only runs if the predicate returns true
+# The alternative which only runs if the predicate returns false.
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
 # sets debugging to false
 function debugging() { false }
+#  filters a list  based on passed lambda
 function filter(f) {
 for e in :_ { exec :f :e && echo -n :e ' ' }
 }
+
+# Returns new list from old list where predicate lambda returns true for  ites elements
 function reject(f) {
 for e in :_ { exec :f :e || echo -n :e ' ' }
 }
+
+#  Reduces over a list. Takes a lambda and an initial value.
+# Returns a  single value  by  iterating over the list and passing both the
+#    accumulator and the  current item of the list.
 function reduce(f, init) {
 for e in :_ {
 init=:(exec :f ":{init}" ":{e}")
 }
 echo :init
 }
+
+# Maps over a list returning a new list where every element is transformed
+# by the passed in lambda.
 function map(f) {
 for e in :_ { echo -n :(exec :f :e) :ofs }
 }
+
+# Iterates over a list passing every element to the passed in lambda.
 function each(f) {
 for e in :_ { exec :f :e }
 }
+
+# Counts the  items in a list where  element passed into the lambda return true.
+# Just passing a block with  true as its only statement whill count all the items
+# in the list.
 function count(f) {
 cnt=0
 for i in :_ { exec :f :i && cnt=:(expr 1 '+' :cnt) }
 echo :cnt
 }
+
+
+# Decrements it s argument by 1
 function decr(x) {
   expr :x '-' 1
 }
+
+
+# Increments its argument by 1
 function incr(x) {
   expr :x '+' 1
 }
+
+# Returns the first item of a list.
 function first(item) {
   echo :item
 }
+
+# Returns the remainder of the list after dropping the first element
 function rest(_x) { echo :_ }
+
+# Returns true if the list is empty
 function empty() { test -z :_ }
 function load_event() { nop }
 function exit_event() { nop }

@@ -1,4 +1,4 @@
-rem vish_pkg.vsh the package for vish script runner vish
+# vish_pkg.vsh the package for vish script runner vish
 import option_processing
 import init
 load vish_lang

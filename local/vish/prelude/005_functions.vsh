@@ -1,14 +1,21 @@
-rem Common Vish functions
+# Common Vish functions
+
+# Returns the count of files in the passed directory
 function dircount(dir) {
   cond { test -e :dir } { echo 0 } else { (cd :dir; echo -n *) | wc -w }
 }
+
+# Returns its second argument
 function second(a, b) {
   echo :b
 }
+
+# Returns its third argument
 function third(a, b, c) {
    echo :c
 }
-rem find_first recurses over all remaining in list or using :ifs delimiter
+
+# find_first recurses over all remaining in list or using :ifs delimiter
 function find_first(qterm, elem) {
   cond { test -z :elem } { return false } {
     eq :qterm :elem } { echo :elem; return true } else {
