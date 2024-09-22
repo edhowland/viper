@@ -37,6 +37,10 @@ class Function
   def to_s
     "(#{@args.join(', ')}) " + @block.to_s
   end
+  def help
+    alist = "\nArgs:\n"  + @args.map {|a| "- #{a}" }.join("\n")
+    "Function: #{@name}" + alist + "\n" + @doc
+  end
   def inspect
     self.to_s
   end
