@@ -92,6 +92,12 @@ function split(val, sep) {
 function join(sep) {
   ofs=:sep echo :_
 }
+
+# neq is not eq takes  2 arguments and returns true if both are not equal
+fn neq(a1, a2) {
+   not { eq :a1 :a2 }
+} 
+
 cmdlet range '{ out.puts(((args[0].to_i)..(args[1].to_i)).to_a.join(locals[:ofs])) }'
 cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
 source ":{vhome}/local/vfs/bin/vfs.vsh"

@@ -2,5 +2,16 @@
 function process_source() {
    src=:(first :argv)
    test -z :src || with_dir :proj { source :src }
-   suppress  { type main } && main :(rest :argv)
+   cond { suppress  { type main } } {
+      # now check if they just want the help for the script
+      cond { eq '--help' :(first  :(rest :argv)) } {
+         help_fn_doc main
+      } else {
+         main :(rest :argv) && exit  0 || exit 1
+
+      }
+   }
 }
+
+
+#   main :(rest :argv)

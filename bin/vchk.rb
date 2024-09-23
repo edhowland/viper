@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # checks Vish lang syntax using new parser
 
-require_relative 'pry/ipl'
+require_relative '../pry/ipl'
 
 
 def syn_chk(fname)
