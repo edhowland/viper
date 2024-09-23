@@ -94,6 +94,10 @@ class CommandLet
   def err=(err)
     @err = err
   end
+  # die with a message by raising an exception
+  def die(msg:  'Will die')
+    raise RuntimeError.new(msg)
+  end
 end
 
 
