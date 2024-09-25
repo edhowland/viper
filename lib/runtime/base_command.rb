@@ -46,8 +46,8 @@ class BaseCommand < BinCommand::NixCommand
     message(*phrases, stream: :out, env: env, sep: sep)
   end
 
-  def arg_error(expected, env:)
-    error 'Wrong number of arguments', 'Expected', expected, env: env
+  def arg_error(expected, env:, actual: 0)
+    error 'Wrong number of arguments', 'Expected', expected, 'Actual', actual, env: env
   end
 
   def call(*args, env:, frames:)

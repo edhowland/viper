@@ -5,7 +5,7 @@ class Eq < BaseCommand
     if args.length == 2
       args[0] == args[1]
     else
-      arg_error 2, env: env
+      arg_error 2, actual: args.length,  env: env
       false
     end
   end

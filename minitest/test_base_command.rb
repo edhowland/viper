@@ -22,7 +22,7 @@ class BaseCommandTests < MiniTest::Test
   end
   def test_arg_error
     @cmd.call env:@vm.ios, frames:@vm.fs
-    assert_equal @ebuf.string, "dummy: Wrong number of arguments: Expected: 2\n"   # was assert_diff
+    assert_equal @ebuf.string, "dummy: Wrong number of arguments: Expected: 2: Actual: 0\n"
   end
   def test_options_are_empty
     assert_empty @cmd.options
