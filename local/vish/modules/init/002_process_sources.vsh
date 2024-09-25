@@ -4,7 +4,8 @@ function process_source() {
    test -z :src || with_dir :proj { source :src }
    cond { suppress  { type main } } {
       # now check if they just want the help for the script
-      cond { eq '--help' :(first  :(rest :argv)) } {
+      rv=:(rest :argv); fv=:(first :rv)
+      cond { empty :argv ||  eq '--help'":{fv}"    } {
          help_fn_doc main
       } else {
          main :(rest :argv) && exit  0 || exit 1
