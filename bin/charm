@@ -22,4 +22,5 @@ fn args_err() {
 fn main() {
    cond { empty  :_ } { args_err; return false }
    load charm
+  return true
 }
