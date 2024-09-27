@@ -3,6 +3,7 @@
 
 # Viper
 # Given args will attempt  to load files into  buffers that can be editted
+# To  see a  complete list of  options start viper  wiht 'h'
 fn main() {
    argv=:(rest  :argv)
    load vip

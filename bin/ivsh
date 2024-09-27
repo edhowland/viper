@@ -1,32 +1,13 @@
-#!/usr/bin/env ruby
-# ivsh.rb: The Vish REPL using the reline library;
-
-require_relative 'libvish'
-
-# main
-
-vm = vish_boot
-begin 
-  load_vishrc vm: vm
-  veval 'load repl', vm: vm
-rescue VirtualMachine::ExitCalled => err
-  exit(err.code.to_i)
-end
-
-begin
-  repl vm: vm
-rescue VirtualMachine::ExitCalled => err
-  #exit(err.code)
-  vm.fs.first[:exit_code] = err.code.to_i
-end
+#!/usr/bin/env vish
+# The Vish  REPL
 
 
-# vm afteer all the vish code has run is passed to the at_exit do block
-at_exit do
-  veval('run_exit_procs', vm: vm)
-  code = int_or_error(vm.fs[:exit_code])
-  #$stderr.puts "in vish.rb:at_exit code is #{code}, exit_code is #{vm.fs[:exit_code]}"
+cmdlet start_repl '{ repl(vm: globals[:__vm])  }'
 
-  exit(code)
-end
-
+# ivsh: The interactive vish  REPL
+# To see a list ofall options start  ivsh with the '-h' option
+fn main()  {
+   argv=:(rest  :argv)
+   load repl
+   start_repl
+}
