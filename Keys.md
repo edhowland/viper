@@ -7,7 +7,71 @@ For instance, if the right arrow key is pressed, Viper needs to moe the cursor
 one character to the right in the buffer.  If a printable char was pressed,
 then it needs to be inserted in the buffer at the cursor point.
 
-## The Remedy gem
+## Overview
+
+Basically, there is a loop consisting of the following pseudo-code:
+
+- Get the raw bytes from the  key (or keys pressed in  combination; e.g. Alt+m)
+- Map  these raw  byts to a canonical keyname
+  * E.g. for the  Alt+m combo: meta_m
+- Apply the canonical  key  name to  an action and response for the given mode
+
+The second step above is called  mapping. We map raw bytes given the TERM in use
+at the time. More on this later.
+
+The third step is  based on the binding of the canonical key name to some
+executable code called the  action and response. This  pair of code is  specific to a mode in use.
+Most of the time, the  mode is 'viper'.
+
+The  output of the  action code is piped into the response code. For  normal printable characters,
+the response is just  the 'cat'  program.
+But in some cases, the output of  the action code is  captured and  an appropriate response
+is constructed. For example, pressing the backspace key deletes the  character to the left of the cursor
+and this char is output to the response code which captures it  and  then outputs "delete j".
+In other  cases, the response ignores the input  from the action.
+E.g.  ctrl_s <Ctl-s> saves the current puffer.
+
+The  action for this is simply 'save'. The response, however reports the  full path
+is  saved to the output.
+
+
+
+### The  Action and Response executable blocks
+
+These are stored in the  virtual file system (VFS) in the  directories:
+
+- /v/modes/<mode>
+- /v/views/<mode>
+
+For example,  ctrl_s is in:
+
+- /v/modes/viper/ctrl_s -  for the action
+- /v/views/viper/ctrl_s -  for the response.
+
+You can look at these by using the  stat command while in the REPL.
+
+Invoking the REPL to investigate things:
+
+- Press the combo Alt+semicolon <meta_semicolon>
+- Enter 'vish' and press  Return.
+
+Leaving the RPL and returning to  the  editor:
+
+- Press  Ctrl+d <ctrl_d>
+
+```sh
+stat /v/modes/viper/ctrl_s
+virtual? true
+directory? false
+Block: { save }
+
+stat /v/views/viper/ctrl_s
+virtual? true
+directory? false
+Block: { echo -n :({ buffer_name }) saved to :({ pathname }) }
+```
+
+### The Remedy gem
 
 
 Viper uses Remedy gem:
