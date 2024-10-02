@@ -14,6 +14,10 @@ class FunctionDeclaration
 
   attr_reader :name, :line_number, :args, :block
   attr_accessor :doc
+  def set_name(name)
+    @name =  name
+    self
+  end
 
   def call(env:, frames:)
     frames.functions[@name] = Function.new(@args, @block, @name)
