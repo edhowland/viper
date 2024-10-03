@@ -35,4 +35,7 @@ fn add_all_test_files() {
 }
 
 # list any  functions that begin with 'test_'. These will be shuffled
-cmdlet test_fns '{ globals[:__vm].fs.functions.keys.filter {|f| f.match("^test_.+") }.each {|f| out.puts f } }'
+cmdlet test_fns '{ globals[:__vm].fs.functions.keys.filter {|f| f.match("^test_.+\.test_.+") }.each {|f| out.puts f } }'
+
+# shuffle all args and  then output them
+cmdlet shuffle  '{ out.puts(args.shuffle.join(" ")) }'
