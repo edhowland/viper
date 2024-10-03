@@ -10,13 +10,20 @@ source map_fn_name.vsh
 source add_test_file.vsh
 
 
+
+# initializes /v/tests if not already  done
+alias before_run="test -d /v/tests || mkdir /v/tests"
+alias after_run="echo  count of tests"
+
 # run a single  test function given its name
 # also run any setup and teardown defined in the same module
 fn run_test(tname) {
    modname=:(first :(split :tname '.')); setup_fn=":{modname}.setup"; teardown_fn=":{modname}.teardown"
-   cond { suppress { declare -f:setup_fn } } { :setup_fn }
-   :tname
-   cond { suppress { declare -f :teardown_fn } } { :teardown_fn }
+   before_run
+   cond { suppress { declare -f:setup_fn } } { echo -n ":{setup_fn} " >> /v/tests/log;  :setup_fn >> /v/tests/log }
+   echo -n ":{tname}: " >> /v/tests/log
+   :tname >> /v/tests/log
+   cond { suppress { declare -f :teardown_fn } } { echo  -n ":{teardown_fn} " >> /v/tests/log; :teardown_fn >> /v/tests/log }
 }
     
     # adds a test file by  sourcing it and  executing the  new  renamed block
@@ -46,4 +53,9 @@ fn run_all_tests() {
 for t in :(shuffle :(test_fns)) {
       run_test :t
    }
+}
+
+# output any logs creted during any tests that were run
+fn log_of_tests() {
+   test -f /v/tests/log && cat /v/tests/log
 }
