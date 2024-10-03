@@ -39,3 +39,11 @@ cmdlet test_fns '{ globals[:__vm].fs.functions.keys.filter {|f| f.match("^test_.
 
 # shuffle all args and  then output them
 cmdlet shuffle  '{ out.puts(args.shuffle.join(" ")) }'
+
+
+# runs  all tests thathave been shuffled
+fn run_all_tests() {
+for t in :(shuffle :(test_fns)) {
+      run_test :t
+   }
+}
