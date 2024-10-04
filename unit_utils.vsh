@@ -1,9 +1,12 @@
 # unit_utils.vsh  various  utilities for running  unit tests in  Vish
 
+# acts like  grep on  input lines
+cmdlet vgrep '{ inp.read.lines.filter {|e| e.match(args[0]) }.each {|n| out.puts n } }'
 # returns the filename  part of a filename without its extension
 cmdlet filepart '{ out.puts(File.basename(args[0], ".*")) }'
 
-
+# list all  currently know function names
+cmdlet  fn_names '{ globals[:__vm].fs.functions.keys.each {|f| out.puts f } }'
 source map_fn_name.vsh
 
 
@@ -44,7 +47,7 @@ fn add_all_test_files() {
 }
 
 # list any  functions that begin with 'test_'. These will be shuffled
-cmdlet test_fns '{ globals[:__vm].fs.functions.keys.filter {|f| f.match("^test_.+\.test_.+") }.each {|f| out.puts f } }'
+alias test_fns="fn_names | vgrep '^test_.+\.test_.+'"
 
 # shuffle all args and  then output them
 cmdlet shuffle  '{ out.puts(args.shuffle.join(" ")) }'
