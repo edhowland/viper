@@ -11,6 +11,7 @@ fn  main() {
    echo runing tests in random order
    run_all_tests
    echo  log of  tests
+   error_log
    # log_of_tests
 
    echo  stats

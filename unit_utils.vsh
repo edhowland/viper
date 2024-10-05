@@ -1,5 +1,9 @@
 # unit_utils.vsh  various  utilities for running  unit tests in  Vish
 
+# gives a random number which can be used as input to shuffle tests in run_all_tests
+cmdlet  random '{ out.puts(Random.new().to_s) }'
+
+
 # acts like  grep on  input lines
 cmdlet vgrep '{ inp.read.lines.filter {|e| e.match(args[0]) }.each {|n| out.puts n } }'
 # returns the filename  part of a filename without its extension
@@ -43,12 +47,12 @@ fn total() {
 fn run_test(tname) {
    modname=:(first :(split :tname '.')); setup_fn=":{modname}.setup"; teardown_fn=":{modname}.teardown"
    capture {
-   cond { suppress { declare -f:setup_fn } } { echo -n ":{setup_fn} " >> /v/tests/log;  :setup_fn >> /v/tests/log }
+   cond { suppress { declare -f :setup_fn } } { echo -n ":{setup_fn} " >> /v/tests/log;  :setup_fn >> /v/tests/log }
    echo -n ":{tname}: " >> /v/tests/log
    :tname >> /v/tests/log
    cond { suppress { declare -f :teardown_fn } } { echo  -n ":{teardown_fn} " >> /v/tests/log; :teardown_fn >> /v/tests/log }
       echo  ":{tname}: Ok" >> /v/tests/passes
-   } { echo -n ":{tname} :{last_exception}" >> /v/tests/fails }
+   } { echo -n ":{tname} Fail" >> /v/tests/fails; echo ":{tname} failure" >> /v/tests/errlog; echo :last_exception  >> /v/tests/errlog }
 }
     
     # adds a test file by  sourcing it and  executing the  new  renamed block
@@ -91,3 +95,17 @@ fn stats() {
    failures
    total
 }
+
+
+#  calculate a new  global random  number from a seed. random  will be used in shuffle   in run_all_tests
+fn new_seed(in_seed) {
+   echo  :in_seed
+   }
+   
+   
+   # Gives  more detail on  any reported errors or failures
+   fn error_log() {
+   perr Failures reported
+   cat /v/tests/errlog
+   }
+   
