@@ -7,15 +7,35 @@ cmdlet filepart '{ out.puts(File.basename(args[0], ".*")) }'
 
 # list all  currently know function names
 cmdlet  fn_names '{ globals[:__vm].fs.functions.keys.each {|f| out.puts f } }'
-source map_fn_name.vsh
+
+# bring in the  mod keyword
+source mod.vsh
 
 
-source add_test_file.vsh
+# source add_test_file.vsh
 
 
 
 # initializes /v/tests if not already  done
 alias clear_logs='test -f /v/tests && rm -rf /v/tests; mkdir /v/tests;touch /v/tests/passes; touch /v/tests/fails; touch /v/tests/log; touch /v/tests/errlog'
+
+# display the number of successful passes
+fn passes() {
+   echo  Passes :(cat /v/tests/passes | wc -l)
+}
+
+#  Display the number of failures
+fn failures() {
+   echo Failures :(cat /v/tests/fails | wc -l)
+}
+
+# Display the total number of tests run
+fn total() {
+   pnum=:(cat /v/tests/passes | wc -l)
+   fnum=:(cat /v/tests/fails | wc -l)
+   echo Total :(expr :pnum '+' :fnum)
+}
+
 
 
 # run a single  test function given its name
@@ -43,7 +63,7 @@ fn add_test_file(fname) {
 
 # loop  through all files  beginning with test and ending with .vsh and add them
 fn add_all_test_files() {
-   for f in test_*.vsh { add_test_file :f; echo  loading  :f }
+   for f in test_*.vsh { source :f; echo  loading  :f }
 }
 
 # list any  functions that begin with 'test_'. These will be shuffled
@@ -67,9 +87,7 @@ fn log_of_tests() {
 
 # report  statistics of all test runs
 fn stats() {
-   echo 0 passed
-   test -f /v/tests/passes && cat < /v/tests/passes
-   echo  0 failures
-    test -f /v/tests/fails &&  cat < /v/tests/fails
-   echo 0 Total
+   passes
+   failures
+   total
 }
