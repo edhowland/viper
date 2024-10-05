@@ -1,7 +1,7 @@
 # unit_utils.vsh  various  utilities for running  unit tests in  Vish
 
 # gives a random number which can be used as input to shuffle tests in run_all_tests
-cmdlet  random '{ out.puts(Random.new().to_s) }'
+source mkrandom.vsh
 
 
 # acts like  grep on  input lines
@@ -98,8 +98,11 @@ fn stats() {
 
 
 #  calculate a new  global random  number from a seed. random  will be used in shuffle   in run_all_tests
-fn new_seed(in_seed) {
-   echo  :in_seed
+fn new_seed() {
+   a1=:(first :_)
+   cond { test -z ":{a1}" } {
+      sh 'dd if=/dev/urandom count=1 bs=8 2>/dev/null' | mkrandom
+   } else { echo :a1 }
    }
    
    
