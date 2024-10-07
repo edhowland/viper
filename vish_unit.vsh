@@ -3,13 +3,14 @@
 source unit_utils.vsh
 source assert.vsh
 
-fn  main() {
+fn main(seed) {
+   cond { test -z ":{seed}" } { echo  will  generate a  new seed for  shuffling } else { echo  A supplied  seed value of  :seed will be used for shuffling }
    echo clearing all previous logs
    clear_logs
    echo  loading all test files
    add_all_test_files
    echo runing tests in random order
-   run_all_tests
+   run_all_tests :seed
    echo  log of  tests
    error_log
    # log_of_tests

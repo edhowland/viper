@@ -67,19 +67,22 @@ fn add_test_file(fname) {
 
 # loop  through all files  beginning with test and ending with .vsh and add them
 fn add_all_test_files() {
-   for f in test_*.vsh { source :f; echo  loading  :f }
+   for f in test_*.vsh { source :f; echo loading :f >> /v/tests/log }
+   echo :(cat /v/tests/log |  wc -l)  test files loaded
 }
 
 # list any  functions that begin with 'test_'. These will be shuffled
 alias test_fns="fn_names | vgrep '^test_.+\.test_.+'"
 
 # shuffle all args and  then output them
-cmdlet shuffle  '{ out.puts(args.shuffle.join(" ")) }'
+cmdlet shuffle '{ seed=args[0].to_i; out.puts(args[1..].shuffle(random: Random.new(seed)).join(" ")) }'
 
 
 # runs  all tests thathave been shuffled
-fn run_all_tests() {
-for t in :(shuffle :(test_fns)) {
+fn run_all_tests(seed) {
+   cond { test -z ":{seed}" } { seed=:(sh 'dd if=/dev/urandom count=1 bs=8 2>/dev/null' | mkrandom) }
+   echo  The random seed used is :seed
+for t in :(shuffle :seed :(test_fns)) {
       run_test :t
    }
 }
