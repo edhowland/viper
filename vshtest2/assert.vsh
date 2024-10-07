@@ -20,3 +20,5 @@ function assert_eq(left, right) {
 function assert_neq(left, right) {
    not { eq ":{left}" ":{right}" } ||  raise "Expected |:{left}| to not equal |:{right}|"
 }
+# to make tests here work TODO  remove this after assert_true becomes assert
+alias assert_true=assert

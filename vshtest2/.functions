@@ -1,0 +1,4 @@
+# functions to run tests
+tall() {
+  PATH="${PWD}../bin:${PATH}" $@
+}
