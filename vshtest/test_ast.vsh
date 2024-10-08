@@ -1,4 +1,8 @@
 mod test_ast {
+   fn setup() {
+      mkdir /v/scratch/test_ast
+      cd /v/scratch/test_ast
+      }
 function test_boolean_or() {
   false || false
   assert_false :exit_status
@@ -37,6 +41,6 @@ function test_false_and_false_is_false() {
 }
 function test_subshell_oldpwd() {
     mkdir t1/t2/t3
-  (cd t1; (cd t2; (cd t3; assert_eq ":{vhome}/vshtest/t1/t2" :oldpwd); assert_eq ":{vhome}/vshtest/t1" :oldpwd); assert_eq ":{vhome}/vshtest" :oldpwd)
+  (cd t1; (cd t2; (cd t3; assert_eq /v/scratch/test_ast/t1/t2 :oldpwd); assert_eq /v/scratch/test_ast/t1 :oldpwd); assert_eq  /v/scratch/test_ast :oldpwd)
 }
 }
