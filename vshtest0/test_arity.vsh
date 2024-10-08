@@ -1,4 +1,3 @@
-mod test_arity {
 function test_arity1() {
   function foo_bar(a1) {
     ar=:_arity; global ar
@@ -22,5 +21,4 @@ function test_lambda1() {
   fb=&(a1) { ar=:_arity; global ar }
   exec :fb
   assert_eq 1 :ar
-}
 }

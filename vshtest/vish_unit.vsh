@@ -3,6 +3,8 @@
 source unit_utils.vsh
 source assert.vsh
 
+# If the developer has supplied a helper file for use here
+test -f helper.vsh && source helper.vsh
 fn main(seed) {
    cond { test -z ":{seed}" } { echo  will  generate a  new seed for  shuffling } else { echo  A supplied  seed value of  :seed will be used for shuffling }
    echo clearing all previous logs
