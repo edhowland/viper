@@ -1,4 +1,5 @@
-source glob_help.vsh
+# source glob_help.vsh
+mod test_glob {
 function test_no_glob() {
   run_glob 'aa3' &(x,y) { assert_eq :x :y }
 }
@@ -31,4 +32,5 @@ function test_d1_e2_range_bracket_1_3() {
 }
 function test_glob_d1_e2_range_brack_1_3() {
   run_glob "'d1/e2/range[13]'" &() { map_pairs &(x, y) { assert_eq :y :x } :_ }
+}
 }
