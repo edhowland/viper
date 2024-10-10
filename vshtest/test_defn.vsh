@@ -3,6 +3,9 @@ mod test_defn {
       function mys(x) {
   defn _mys { echo :x }
 }
+function a_fu(x) {
+  defn a_bar &() { echo :x }
+}
    }
 function test_defn_can_take_a_block() {
   defn my_bar { echo bar }
@@ -15,9 +18,7 @@ function test_defn_can_capture_closure() {
   my_xxx | read result
   assert_eq :result 7
 }
-function a_fu(x) {
-  defn a_bar &() { echo :x }
-}
+
 function test_defn_can_capture_closure_from_inside_functions() {
   a_fu 88
   a_bar | read result
