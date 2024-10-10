@@ -9,7 +9,7 @@ fn main(fname, seed) {
    cond { test -z ":{seed}" } { echo  will  generate a  new seed for  shuffling } else { echo  A supplied  seed value of  :seed will be used for shuffling }
    echo clearing all previous logs
    clear_logs
-   echo  loading:fname
+   echo loading :fname
    source :fname
    echo runing tests in random order
    run_all_tests :seed
