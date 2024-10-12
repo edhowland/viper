@@ -40,6 +40,13 @@ fn total() {
    echo Total :(expr :pnum '+' :fnum)
 }
 
+# run code inside  a subshell. If functions or aliases declared they disappear
+# after subshell exits
+fn  subsh(exe) {
+   (exec :exe)
+}
+
+
 
 
 # run a single  test function given its name

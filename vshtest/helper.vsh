@@ -3,3 +3,4 @@
 cmdlet slice_of '{ f,l = args[0..1].map(&:to_i); src = (args[2] == "-" ? inp.read.chomp : args[2]); out.puts src[(f)..(l)] }'
 
 source glob_helper.vsh
+source viper_helper.vsh
