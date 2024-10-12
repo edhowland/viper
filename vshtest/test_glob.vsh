@@ -1,5 +1,9 @@
 # source glob_help.vsh
 mod test_glob {
+   fn setup() {
+      mkdir /v/tests/test_glob
+      mkdir /v/glob/tmp
+   }
 function test_no_glob() {
   run_glob 'aa3' &(x,y) { assert_eq :x :y }
 }

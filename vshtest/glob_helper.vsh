@@ -3,7 +3,7 @@ function map_pairs(fn) {
   cond { test -z :_ } { return } else { shift a b; exec :fn :a :b; map_pairs :fn :_ }
 }
 # source cpr_mimic.vsh
-rem cpr_mimic.vsh mimics the actions of cp -r src/ dest without actually copying anything
+# cpr_mimic.vsh mimics the actions of cp -r src/ dest without actually copying anything
 function cpr_mimic(src, prefix) {
   cond { test -d :src } {
   mkdir ":{prefix}/:{src}"
@@ -19,7 +19,7 @@ function cpr_mimic(src, prefix) {
 cmdlet zip '{ out.puts args[0].split(locals[:ifs]).zip(args[1].split(locals[:ifs])).join(locals[:ofs]) }'
 
 function run_glob(glob, fn1) {
-  cd ":{vhome}/vshtest/tmp"
+  cd /v/tests/test_glob
   sys=:(join ':' :(bash_glob :glob))
   phy=:(join ':' :(vish_glob :glob))
   vir=:(join ':' :(vfs_glob :glob))
