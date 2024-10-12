@@ -51,17 +51,19 @@ fn  subsh(exe) {
 
 # run a single  test function given its name
 # also run any setup and teardown defined in the same module
+# each  individual test_function will also be run inside a subshell
+# providing even more isolation
 fn run_test(tname) {
    modname=:(first :(split :tname '.')); setup_fn=":{modname}.setup"; teardown_fn=":{modname}.teardown"
    capture {
-   cond { suppress { declare -f :setup_fn } } { echo -n ":{setup_fn} " >> /v/tests/log;  :setup_fn >> /v/tests/log }
+   subsh { cond { suppress { declare -f :setup_fn } } { echo -n ":{setup_fn} " >> /v/tests/log;  :setup_fn >> /v/tests/log }
    echo -n ":{tname}: " >> /v/tests/log
    :tname >> /v/tests/log
-   cond { suppress { declare -f :teardown_fn } } { echo  -n ":{teardown_fn} " >> /v/tests/log; :teardown_fn >> /v/tests/log }
+   cond { suppress { declare -f :teardown_fn } } { echo  -n ":{teardown_fn} " >> /v/tests/log; :teardown_fn >> /v/tests/log } }
       echo  ":{tname}: Ok" >> /v/tests/passes
    } { echo -n ":{tname} Fail" >> /v/tests/fails; echo ":{tname} failure" >> /v/tests/errlog; echo :last_exception  >> /v/tests/errlog }
 }
-    
+
     # adds a test file by  sourcing it and  executing the  new  renamed block
 # of  test functions
 fn add_test_file(fname) {
