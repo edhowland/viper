@@ -8,7 +8,7 @@ function process_source() {
       cond { empty :argv ||  eq '--help'":{fv}"    } {
          help_fn_doc main
       } else {
-         main :(rest :argv) && exit  0 || exit 1
+         exec { main :(rest :argv) && exit  0} || exit 1
 
       }
    }
