@@ -12,7 +12,7 @@ import './lib/vish/compile.rake'
 
 desc 'Tests Vish commands'
 task :test_vsh do
-  sh 'cd vshtest.1;../bin/vish -e \'load vish_unit; test_all\''
+  sh 'cd vshtest;../bin/vish -e \'load vish_unit; test_all\''
 # 'cd ./vshtest; ../bin/vish all_tests.vsh'
 end
 desc 'Run all tests. Including Ruby and Vish tests'
