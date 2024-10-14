@@ -1,9 +1,0 @@
-The word hello length is 5
-i: 1 the value of buf is /v/buf/2rv56Y and the cursor is at h
-i: 2 the value of buf is /v/buf/2rv56Y and the cursor is at e
-i: 3 the value of buf is /v/buf/2rv56Y and the cursor is at l
-i: 4 the value of buf is /v/buf/2rv56Y and the cursor is at l
-i: 5 the value of buf is /v/buf/2rv56Y and the cursor is at o
-
-The final value of /v/buf/2rv56Y is | world
-after the call to x_del_word_fwd the value of the /v/buf/2rv56Y is > world
