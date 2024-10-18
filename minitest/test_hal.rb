@@ -1,14 +1,9 @@
 # hal_test.rb - tests for Hal - chdir, virtual?, others
 
 require_relative 'test_helper'
+require_relative 'fakir'
 
 class HalTest < MiniTest::Test
-  def home_dir &blk
-    old = Dir.pwd
-    Dir.chdir ENV['HOME']
-    yield
-    Dir.chdir old
-  end
   def setup
     @orig_dir = File.dirname(File.expand_path(__FILE__))
     @vm = VirtualMachine.new
@@ -16,7 +11,12 @@ class HalTest < MiniTest::Test
     @vroot = @vm.fs[:vroot]
     @oldpwd = @vm.fs[:pwd]
   end
-    def runit string, vm
+
+  # can we inject our mocked filesystem?
+  def test_can_inject_mocked_filesystem
+    Hal.set_filesystem(PhysicalLayer)
+  end
+  def runit string, vm
     block = Visher.parse! string
     vm.call block
   end
@@ -31,7 +31,7 @@ class HalTest < MiniTest::Test
   def test_chdir_ok
     Hal.mkdir_p '/v/a/b'
     Hal.chdir '/v/a/b'
-    assert_eq Hal.pwd, '/v/a/b'
+    assert_equal Hal.pwd, '/v/a/b'
   end
   def test_chdir_raises_ioerror_if_not_directory
     Hal.touch '/v/foo'
@@ -46,22 +46,14 @@ class HalTest < MiniTest::Test
       Hal.chdir '/v/a/c', @vm.fs[:pwd]
     end
   end
-  def  test_physical_chdir_works
-    home_dir do
-      Hal.chdir '/'
-      assert_eq Dir.pwd, '/'
+  def test_physical_chdir_works
+    run_cd('/v', @orig_dir) do |d|
+      Hal.chdir '/', d
+      assert_equal '/', Hal.pwd
     end
   end
-  def test_chdir_non_existant_physical_raises_no_such_file_or_dir
-    assert_raises Errno::ENOENT do 
-      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
-    end 
-  end
-  def test_realpathequals_here
-    home_dir do
-      assert_eq(Hal.realpath('.'), ENV['HOME'])
-    end
-  end
+
+
   def test_rm
     Hal.touch '/v/xxx'
     assert Hal.exist?( '/v/xxx')
@@ -69,8 +61,22 @@ class HalTest < MiniTest::Test
     assert_false Hal.exist?('/v/xxx')
   end
 
+  def test_touch_physical
+    skip("TODO figure this strange one out why Hal.touch does not work with Fakir")
+    Hal.chdir @orig_dir
+    run_safe(self, :touch, ['xyz'], nil) do
+      Hal.touch 'xyz'
+    end
+  end
+  def test_touch_virtual
+    Hal.chdir '/v'
+    Hal.touch 'foo'
+    assert Hal.exist?('/v/foo')
+    Hal.chdir @orig_dir
+  end
   def test_rm_raises_err_w_no_such_file_physical
-    assert_raises Errno::ENOENT do 
+    Hal.chdir(@orig_dir)
+    katch(self, :rm, ['xyzzy'], Errno::ENOENT) do 
       Hal.rm 'xyzzy'
     end
   end
@@ -111,7 +117,7 @@ class HalTest < MiniTest::Test
     assert $in_virtual
   end
   def test_in_virtual_false_when_in_physical
-    Hal.chdir('/home')
+    Hal.chdir(@orig_dir)
     assert_false $in_virtual
   end
   # check that ::ArgumentError raised for dispatched methods with wrong number of args in method_missing
@@ -127,9 +133,9 @@ class HalTest < MiniTest::Test
     end
   end
   def test_argument_error_raised_when_in_physical_and_arity_mismatch
-    Hal.chdir(@oldpwd)
+    Hal.chdir(@orig_dir)
 
-    assert_raises ::ArgumentError do
+    katch(self, :exist?, [], ::ArgumentError) do
       Hal.exist?
     end
   end
@@ -138,7 +144,32 @@ class HalTest < MiniTest::Test
       Hal.exist? nil
     end
   end
+  
+
 end
+
+
+## Removed tests
+
+# Hal.realpath is really not an abstraction over some underlying layer
+# It is just a convienence shim over File.realpath
+#  def test_realpathequals_here
+#    Hal.chdir @orig_dir
+#    run_safe(self, :realpath, ['.'], @orig_dir) do
+#      assert_eq(Hal.realpath('.'), @orig_dir)
+#    end
+#  end
+
+
+
+# This test deleted because Hal.chdir when in PhysicalLayer is just a  shim over Dir.pwd
+# Iron-clad rule: Do not test Other People's Code
+#  def test_chdir_non_existant_physical_raises_no_such_file_or_dir
+#    assert_raises Errno::ENOENT do 
+#      Hal.chdir '/xxtt/zzz', @vm.fs[:pwd]
+#    end 
+#  end
+
 
 # eed to test all the following methods
     #def [] path

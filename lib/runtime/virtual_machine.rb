@@ -15,6 +15,7 @@ class VirtualMachine
       @return_code = return_code
     end
     attr_reader :return_code
+  
   end
   class IOError < RuntimeError
   end
@@ -54,6 +55,9 @@ class VirtualMachine
     env: FrameStack.new(frames: [{ in: $stdin, out: $stdout, err: $stderr }]),
     frames: FrameStack.new
   )
+
+    # Initialize Hal to have the default actual filesystem
+        Hal.set_filesystem(PhysicalLayer)
     @fs = frames
     @ios = env
     _init
@@ -98,7 +102,7 @@ _saved_old = Hal.pwd
     rescue => err
       @ios[:err].puts '_chdir: ' + err.message
       result = false
-      #raise err # TODO: Added this for testing
+
     ensure
       @fs.first[:pwd] = Hal.pwd
       @cdbuf[0] = Hal.pwd
@@ -134,7 +138,7 @@ _saved_old = Hal.pwd
   rescue Errno::ENOTDIR => err
     env[:err].puts "cd: #{err.message}"
     false
-      rescue Errno::ENOENT => err
+  rescue Errno::ENOENT => err
     env[:err].puts "cd: #{err.message}"
     false
   end
@@ -154,7 +158,7 @@ _saved_old = Hal.pwd
     root.mount_pt = args[0]
     frames[:vroot] = root
     frames.merge
-    true
+    #Hal.set_filesystem(PhysicalLayer)
   end
 
   def mkdir(*args, env:, frames:)
@@ -234,7 +238,6 @@ _saved_old = Hal.pwd
     vroot = frames[:vroot]
     vroot.creat(path, clet)
     return true
-    return false
   end
   def source(*args, env:, frames:)
     if args.empty?
@@ -335,8 +338,7 @@ _saved_old = Hal.pwd
   # type arg - reports type of arg, either alias function or alias or unknown
   def type *args, env:, frames:
     raise ArgumentError, 'Expected 1 argumnet' if args.empty?
-    message = 'unknown'
-    result = false
+
     vf = VerbFinder.new
     if args[0] == "-a"
       args.shift
