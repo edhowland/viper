@@ -7,11 +7,11 @@ module BinCommand
   # See also: BinCommand::VFSCommand, BinCommand::ViperCommand
   class NixCommand
     def self.descendants
-    ObjectSpace.each_object(Class).select { |klass| klass < self }.reject {|k| k == BaseCommand }
-  end
-  def self.install_pairs
-    descendants.map {|k| [snakeize(k.name), k.new] }
-  end
+      ObjectSpace.each_object(Class).select { |klass| klass < self }.reject {|k| k == BaseCommand }
+    end
+    def self.install_pairs
+      descendants.map {|k| [snakeize(k.name), k.new] }
+    end
   
   end
 end

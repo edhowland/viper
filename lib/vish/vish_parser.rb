@@ -95,13 +95,13 @@ end
   # try both alternate token types and return empty array if either matches, else false
   def either(t1, t2)
     -> {
-    if p_peek.type == t1 or p_peek.type == t2
-      p_next
-      []
-    else
-      false
-    end
-  }
+      if p_peek.type == t1 or p_peek.type == t2
+        p_next
+        []
+      else
+        false
+      end
+    }
   end
 
   # consumes a token and returns its contents in an array that can be appended to AST so far
@@ -149,11 +149,11 @@ def p_add_if(i, j)
     false
   end
 end
-
+=begin
   def epsilon
     -> { [] }
   end
-
+=end
 
   def p_seq(*seq,  &blk)
     res =  []

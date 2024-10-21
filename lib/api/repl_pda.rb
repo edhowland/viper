@@ -98,7 +98,7 @@ class ReplPDA
     idx = 0
     until str[idx].nil? do
       @state, *meth = delta(str[idx], @state, @stack.peek)
-      @stack.send *meth
+      @stack.send(*meth)
       idx += 1
     end
     @stack.length == 1 && @stack.peek == :"$"

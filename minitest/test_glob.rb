@@ -33,12 +33,11 @@ $stderr.puts "result: #{result.class.name}"
       assert_eq 2, result.length
   end
   def test_physical_works_w_question
-      vhome = @vm.fs[:vhome]
+      #vhome = 
+      @vm.fs[:vhome]
       g = Glob.new(QuotedString.new('scripts/???_*'))
       result = g.call env: @vm.ios, frames: @vm.fs
       assert !result.empty?
-  
-
   end
   def test_star_returns_non_empty_array
     Hal.chdir '/v/bin'

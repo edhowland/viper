@@ -391,7 +391,7 @@ class TestParser < MiniTest::Test
   end
 
   # subshell
-  def test_subshell
+  def test_subshell_semantic_performs_all_ops
     start "(cd foo; bar)"
     x = @parser.statement_list
     assert_eq 1, x.length
@@ -408,7 +408,7 @@ class TestParser < MiniTest::Test
   end
 
   # subshell expansion or command substitution
-  def test_subshell_expansion
+  def test_subshell_expansion_performs_all_semantic_ops
     start ":(pwd)"
     x = @parser.subshell_expansion
     assert_eq SubShellExpansion, x.class

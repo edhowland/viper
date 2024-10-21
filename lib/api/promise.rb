@@ -121,10 +121,10 @@ class Promise
     def aggregate_values
       @value.select(&:resolved?).map(&:value)
     end
-  def aggregate_errors
-    @value.select(&:rejected?).map(&:error)
-  end
-end  
+    def aggregate_errors
+      @value.select(&:rejected?).map(&:error)
+    end
+  end  
   def resolve!(obj)
     @state = :resolved
     @value = @handle_resolve.call(obj)
