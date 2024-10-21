@@ -105,30 +105,30 @@ def token_names(type)
   if type >= COMMA and type <= SEMICOLON
     lx_punct_name(type)
   else
-  case type
-  when EOF
-    "<EOF>"
-  when NEWLINE
-    "<new line>"
-when WS
-  "<white space>"
-  when COMMENT
-    "<comment>"
-  when BARE
-    "bare string"
-  when DQUOTE
-    "double quoted string"
-  when SQUOTE
-    "single quoted string"
-  when EQUALS
-    "<equal sign>"
-  when FUNCTION
-    "<function keyword>"
-  when ALIAS
-    "<alias keyword>"
-  else
-    "!Unknown!"
-  end
+    case type
+    when EOF
+      "<EOF>"
+    when NEWLINE
+      "<new line>"
+    when WS
+      "<white space>"
+    when COMMENT
+      "<comment>"
+    when BARE
+      "bare string"
+    when DQUOTE
+      "double quoted string"
+    when SQUOTE
+      "single quoted string"
+    when EQUALS
+      "<equal sign>"
+    when FUNCTION
+      "<function keyword>"
+    when ALIAS
+      "<alias keyword>"
+    else
+      "!Unknown!"
+    end
   end
 end
 

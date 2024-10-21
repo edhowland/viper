@@ -4,7 +4,7 @@ require_relative 'test_helper'
 
 
 class TestVfsNode < MiniTest::Test
-    def setup
+  def setup
     @vm = VirtualMachine.new
     @vm.mount '/v', env:@vm.ios, frames:@vm.fs
     @vroot = @vm.fs[:vroot]

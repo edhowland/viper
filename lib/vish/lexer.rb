@@ -29,21 +29,21 @@ class Lexer
     @cursor = @cursor + count
   end
 
-    def whitespace
-  unless [" ", "\t"].member?(at)
-    return false
-  end
+  def whitespace
+    unless [" ", "\t"].member?(at)
+      return false
+    end
     result = ''
     while @cursor < @fin
-    if @source[@cursor] == ' ' or @source[@cursor] == "\t"
-      result << @source[@cursor]
-      advance
-    else
-      break
+      if @source[@cursor] == ' ' or @source[@cursor] == "\t"
+        result << @source[@cursor]
+        advance
+      else
+        break
+      end
     end
+    Token.new(result, type: WS)
   end
-  Token.new(result, type: WS)
-end
 
   def comment
   return false unless (at == '#')
@@ -64,15 +64,15 @@ end
 
 
   def keyword
-if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @source[@cursor + 2] and @source[@cursor - 1] != ':'
-  return Token.new('fn', type: FUNCTION)
-  elsif @source[(@cursor)..(@cursor+7)] == 'function' and [' ', "\n", nil].member? @source[@cursor + 8]
-  Token.new('function', type: FUNCTION)
-  elsif @source[(@cursor)..(@cursor + 4)] == 'alias' and ([' ', "\n", nil].member?(@source[@cursor + 5]))
-  Token.new('alias', type: ALIAS)
-  else
-    false
-  end
+    if @source[(@cursor)..(@cursor + 1)] == 'fn' and [' ', "\n", nil].member? @source[@cursor + 2] and @source[@cursor - 1] != ':'
+      return Token.new('fn', type: FUNCTION)
+    elsif @source[(@cursor)..(@cursor+7)] == 'function' and [' ', "\n", nil].member? @source[@cursor + 8]
+      Token.new('function', type: FUNCTION)
+    elsif @source[(@cursor)..(@cursor + 4)] == 'alias' and ([' ', "\n", nil].member?(@source[@cursor + 5]))
+      Token.new('alias', type: ALIAS)
+    else
+      false
+    end
   end
 
   def regex_bare

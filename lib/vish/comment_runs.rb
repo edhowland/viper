@@ -8,7 +8,7 @@ class CommentRuns
     @idx = -1
     @docstring = ''
     @collection = {}
-end
+  end
   attr_reader :tokens,  :state, :idx, :docstring,  :collection
   # this is  just for debugging
   def setup
@@ -74,6 +74,4 @@ end
       step1
     end
   end
-
-
 end
