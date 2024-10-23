@@ -1,6 +1,6 @@
 Welcome to the Viper code and text editor which is optimized for screen readers.
 
-This is version 2.0.13.b
+This is version 2.0.14
 Sources and documentation can be found at <https://github.com/edhowland/viper>
 
 You can dismiss this message by pressing the space bar on your keyboard which will start
