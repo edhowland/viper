@@ -8,22 +8,7 @@ class BaseNodeCommand < BinCommand::VFSCommand
   end
 
   include NodePerform
-=begin
-  def perform(path, env:, frames:)
-    root = frames[:vroot]
-    node = root[path]
-    return false if node.nil? 
-    result = true
-    output = ''
-    output = yield node if block_given?
-    if output.nil?
-      result = false
-      output = ''
-    end
-    env[:out].print output
-    result
-  end
-=end
+
   def perform_new(path, env:, frames:)
     dir = path.pathmap('%d')
     base = path.pathmap('%f')

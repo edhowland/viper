@@ -1,5 +1,44 @@
 # Changelog for Viper project
 
+## Release 2.0.14
+
+2024-10-21
+
+### Changes
+
+- Vish now uses a hand written recursive descent parser instead of  the  'kpeg' gem
+  * The parser uses a lexer and parser as  2 different phases.
+  * Comments now  begin with a leading '#'
+  * Functions can  be specified  with either  the 'fn' or  'function'  keyword.
+  * The 'fn' keyword is now the preferred function prefix.
+  * The 'function' keyword is  retained for backward compatibility.
+
+- All  programs in  ./bin are now Vish scripts witha shebang line.
+  * Previously, these were Ruby scripts. The only Ruby script is  ./bin/vish itself now.
+- The  'charm config alias' command now reflects this situation.
+  * Every alias  created relies on the  'vish' alias created first.
+
+The upshot of these changes are that the goal of only making Viper a simple
+program written entirely in the Vish language has been achieved.
+In this respect, Viper  emulates the EMacs editor which  is really just
+a Lisp interpreter that  runs a Lisp editor program.
+Ruby is  used  to implement the Vish  interpreter and also implements many 
+editor commands that  are invoked in  Vish source code.
+
+
+-  The  previous vunit  unit test framework has been replaced with the  'vish_unit' package.
+  * See Rake 'task :test_vsh' to see how to invoke the unit tests in the ./vshtest/
+directory. 
+  *   Any file in that directory that begins witha 'test_*.vsh' pattern will be included in the test  output.
+  * Test files  must now use the  mod command let with a name and a block.
+  * test functions  must be included in the  block passed to the mod command let.
+  * In the  test output, if any assertions fail, then  the  output will reflect both the mod name and the function  name which  was defined in the block.
+  * E.g. 'mod test_foo {  fn test_bar()  {  assert_eq  1 2 } }
+  * will   result in the  output  being named 'test_foo.test_bar'
+  * All tests
+
+
+
 ## Release 2.0.13.b
 
 2023-03-06

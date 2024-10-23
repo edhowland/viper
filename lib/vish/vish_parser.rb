@@ -149,11 +149,7 @@ def p_add_if(i, j)
     false
   end
 end
-=begin
-  def epsilon
-    -> { [] }
-  end
-=end
+
 
   def p_seq(*seq,  &blk)
     res =  []
