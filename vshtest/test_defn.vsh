@@ -1,3 +1,12 @@
+mod test_defn {
+   fn setup() {
+      function mys(x) {
+  defn _mys { echo :x }
+}
+function a_fu(x) {
+  defn a_bar &() { echo :x }
+}
+   }
 function test_defn_can_take_a_block() {
   defn my_bar { echo bar }
   my_bar | read result
@@ -9,9 +18,7 @@ function test_defn_can_capture_closure() {
   my_xxx | read result
   assert_eq :result 7
 }
-function a_fu(x) {
-  defn a_bar &() { echo :x }
-}
+
 function test_defn_can_capture_closure_from_inside_functions() {
   a_fu 88
   a_bar | read result
@@ -23,9 +30,7 @@ function test_defn_takes_block_as_closure() {
   my_aa | read result
   assert_eq :result 66
 }
-function mys(x) {
-  defn _mys { echo :x }
-}
+
 function test_defn_when_wrapped_in_outer_function_takes_parameter() {
   mys 78
   _mys | read result
@@ -53,4 +58,5 @@ retrv /v/bar bar
 defn echo_bar :bar
 echo_bar | read result
 assert_eq :result bar
+}
 }

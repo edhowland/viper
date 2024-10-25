@@ -1,3 +1,6 @@
+# test_array.vsh tests various array methods
+
+mod test_array {
 function test_push() {
   mkarray /v/pus1; echo hello | push /v/pus1
   result=:(cat < /v/pus1)
@@ -55,3 +58,5 @@ function test_rotate_error() {
   rotate /v/nil; assert_false :exit_status
   rotate -r /v/rot9; assert_false :exit_status
 }
+}
+

@@ -1,3 +1,4 @@
+mod test_node_commands {
 function test_enq() {
   mkarray /v/arr
   echo hello | enq /v/arr
@@ -33,3 +34,6 @@ function test_rotate_back() {
   result=:(cat < /v/arr)
   assert_eq ":{result}" '3 1 2'
 }
+
+}
+

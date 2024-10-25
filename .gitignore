@@ -9,4 +9,8 @@ attic/
 tmp/
 ./local/etc/no-viper-welcome-banner
 hello.cpython-310.pyc
-./doc/Index.html
+
+lib/runtime/vish.logmastodon
+.functions
+.rc
+TODO.md

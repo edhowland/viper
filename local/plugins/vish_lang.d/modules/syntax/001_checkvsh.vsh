@@ -1,4 +1,4 @@
-rem checkvsh fn checkvsh
+# checkvsh fn checkvsh
 function check_vish_syntax(object) { 
   capture { cat < :object | vsh_parse } { echo Syntax Error }
 }

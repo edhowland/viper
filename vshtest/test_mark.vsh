@@ -1,3 +1,6 @@
+# test_mark.vsh -  tests editor marking ability methods
+
+mod test_mark {
 function setup() {
   open xxx
   new_clip
@@ -14,4 +17,6 @@ function test_bad() {
   fwd :_buf; fwd :_buf
   mark_cut :_buf :_mark
   unset _mark
+}
+
 }

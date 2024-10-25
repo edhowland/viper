@@ -1,4 +1,10 @@
-rem test_eval.vsh tests to see how eval performs
+# test_eval.vsh tests to see how eval performs
+mod test_eval {
+   fn setup() {
+function eval_test(value) {
+  exec &() { eval "__nine=10; global __nine" }
+}   
+   }
 function test_eval_top_level() {
   foo=foo
   eval 'foo=bar'
@@ -19,10 +25,9 @@ function test_eval_within_lambda_then_global_works() {
   assert_eq :quz 22
 }
 __nine=9
-function eval_test(value) {
-  exec &() { eval "__nine=10; global __nine" }
-}
+
 function test_eval_within_lambda_within_function_w_global_works() {
   eval_test 10
   assert_eq :__nine 10
+}
 }

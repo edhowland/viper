@@ -45,10 +45,10 @@ function parseopts() {
 function actualoptq(o) {
   test -f "/v/options/:{__FILE__}/actual/:{o}"
 }
-function valoptexec(o, fn) {
+function valoptexec(o, f) {
   o=:(optof :o)
   __last_wd=:pwd
-  test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); (cd :__last_wd; exec :fn ":{src}") }) 
+  test -d "/v/options/:{__FILE__}/actual/:{o}"&&    (cd "/v/options/:{__FILE__}/actual/:{o}"; for v in * { src=:(cat :v); (cd :__last_wd; exec :f ":{src}") }) 
 }
 function setopthelp(opt, value) {
    ord="/v/options/:{__FILE__}/help/order"

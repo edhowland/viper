@@ -30,14 +30,14 @@ $stderr.puts "result: #{result.class.name}"
       g = Glob.new QuotedString.new('local/viper/modules/edit/00[12]_*.vsh')
       result = g.call env: @vm.ios, frames: @vm.fs
       assert !result.empty?
-      assert_equal 2, result.length
+      assert_eq 2, result.length
   end
   def test_physical_works_w_question
+      #vhome = 
+      @vm.fs[:vhome]
       g = Glob.new(QuotedString.new('scripts/???_*'))
       result = g.call env: @vm.ios, frames: @vm.fs
       assert !result.empty?
-  
-
   end
   def test_star_returns_non_empty_array
     Hal.chdir '/v/bin'

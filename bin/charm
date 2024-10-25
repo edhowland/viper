@@ -1,3 +1,26 @@
-#!/bin/bash
-src=$(dirname $0)
-${src}/vish "${src}/charm.vsh" $@
+#!/usr/bin/env vish
+# The Charm  manager of the Vish/Viper ecosystem
+
+
+
+# Prints error message about  wrong number arguments
+# running charm expects at least one argument
+fn args_err() {
+   perr "charm:  Wrong number of arguments. Given 0 and expects at least 1"
+   perr "Try 'charm help' to get help about charm"
+   perr "Other  subcommands you might try are:"
+   perr "charm status : To  see whow  Viper and Vish are  currently set"
+   perr "charm config : to   work with the Viper and Vish configuration"
+   perr "charm  welcome remove : to remove the Welcome banner Viper displays when it starts with no files to edit"
+      perr ""
+   perr "All charm subcommands also have their own help documentation"
+   perr "E.g. 'charm config help' :  To  get help  for 'charm config'"
+   
+}
+
+# charm package and ecosystem  tool
+fn main() {
+   cond { empty  :_ } { args_err; return false }
+   load charm
+  return true
+}

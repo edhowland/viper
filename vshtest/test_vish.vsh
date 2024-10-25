@@ -1,3 +1,4 @@
+mod test_vish {
 function test_cd_ok() {
   cd /
   assert_true :exit_status
@@ -5,8 +6,8 @@ function test_cd_ok() {
   assert_true :exit_status
 }
 function test_cd_should_be_bad() {
-  perr "The following error message is intentional"
-  cd /yyzzyy
+  # error messages are suppresed
+  suppress { cd /yyzzyy }
   assert_false :exit_status
 }
 function test_cd_virtual_ok() {
@@ -15,8 +16,8 @@ function test_cd_virtual_ok() {
 }
 function test_cd_virtual_should_be_bad() {
   cd /v/buf
-  perr "The following error message is intentional"
-  cd /v/sdfjxdfdlirj
+  # the error messages are suppressed
+  suppress { cd /v/sdfjxdfdlirj }
   assert_false :exit_status
   assert_eq :pwd /v/buf
 }
@@ -69,4 +70,5 @@ function test_grep_returns_true_w_match_occurs() {
 function test_grep_w_no_match_returns_false() {
   echo xxx | grep -q hello
   assert_false :exit_status
+}
 }

@@ -106,8 +106,8 @@ end
     end
 
     def chdir(path)
-      raise  Errno::ENOENT    unless self.exist?(path)
-      raise Errno::ENOTDIR unless self.directory?(path)
+      raise  Errno::ENOENT.new(path)    unless self.exist?(path)
+      raise Errno::ENOTDIR.new(path) unless self.directory?(path)
     return if path == '.'
       @@root.cd path
     end

@@ -1,3 +1,7 @@
+# test_bin.vsh
+
+mod test_bin {
+
 function test_between_w_middle_part() {
   open buf
   (echo 1;echo 2;echo 3;echo 4) | ins :_buf
@@ -34,3 +38,6 @@ function test_expr_div() {
   result=:(expr 10 '/' 2)
   assert_eq :result 5
 }
+
+}
+

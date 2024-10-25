@@ -1,3 +1,4 @@
+mod test_cat {
 function test_cat_w_stdin_flag() {
   mkdir /v/tmp
   for i in foo bar baz spam {
@@ -34,4 +35,5 @@ function test_cat_both_redir_in_out() {
   test -f gamma; assert_true :exit_status
   res=:(cat gamma)
   assert_eq :res 'beta'
+}
 }

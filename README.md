@@ -1,14 +1,12 @@
 # VIPER
 
-##  The highly  extensible, Accessable  terminal based code editor  for blind and visually impaired developers!
+##  The highly  extensible, Accessible  terminal based code editor  for blind and visually impaired developers!
 
 Need a screenreader friendly code editor that will even work over SSH or as your daily
 driver? Viper will do the job for you.
 
 
-### Version 2.0.13.c
-
-##### Update: This release only works up to Ruby 3.1.2. Version of Ruby 3.2.x is known to be broken.
+### Version 2.0.14
 
 See the file [CHANGELOG.md](CHANGELOG.md) for updates.
 
@@ -40,6 +38,12 @@ will require Ruby versions past 3.0. This is because of the use of pattern match
 in later Ruby versions.  Pattern matching was introduced in Ruby 2.7 as an experimental
 feature. It was improved in Ruby 3.0. This version of Vier/Vish was tested in
 in Ruby version 3.1.2.
+
+Note 2 about  Ruby versions:
+
+There is an  undiagnosed problem with  using  Ruby  versions later than 3.1.
+As of the release Viper 2.0.14, please use Ruby versions  <= 3.1.2
+or >= than  2.7
 
 
 ## Note on terminal emulators for use with Viper.
@@ -169,7 +173,7 @@ Alt plus a will page forward some lines forward. (depends on the value of :pglin
 F2 speaks the name of the current buffer with its filename.
 Ctrl+T will switch to next file entered on the command line. Repeating this key
 will continue to move through all buffers and eventually rotate to the first buffer.
-Opening a new file withing the buffer is performed with the Command mode. (See Slightly advanced, but not really expert mode)
+Opening a new file within the buffer is performed with the Command mode. (See Slightly advanced, but not really expert mode)
 
 ### Editor modes
 
@@ -240,7 +244,7 @@ control.
 Vish can group commands together like most Unix shells.  Here are all of the ways:
 
 - ';' semicolon. Groups sequentially, runs each command in turn
-- '|' pipe operator : Connects the left command's output to the input  of the right hand command
+- '|' pipe operator : Connects the left hand command's output to the input  of the right hand command
 - '&&' The logical and operator. Only runs the right hand command if the exit status of the left hand command was true
 - '||' The logical or operator : Only runs the right hand command if the left hand command returned a false exit status
 - (command{s}) : Runs commands in a subshell:.
@@ -274,7 +278,7 @@ to functions and returned from functions.
 
 Vish takes inspiration from PowerShell in the form of CommandLets.
 CommandLets are short one-liner scripts written in Ruby that become commands
-in the executation path of Vish. If Vish has no builtin facility to do some computation,
+in the execution path of Vish. If Vish has no builtin facility to do some computation,
 then it can usually be written in a Ruby one liner. CommandLets have a powerful
 API to give access to most of Vish and Viper.
 
@@ -301,12 +305,30 @@ only used for manipulating buffers and other data structures used by Viper.
 
 Although not a comprehensive list, Viper also sports these features:
 
-- Language plugins and support for additiona languages that be added later
+- Language plugins and support for additional languages that be added later
 - Macros : Used to expand things like code snippets, .etc
 
 ... and many more.
 
 ### Other executables
+
+Note:  There is only one  actual  executable program: ./bin/vish.
+All other programs are scripts written in Vish and include a '#!/usr/bin/env vish'
+which is sometimes called a  'shebang'. Therefore, the  <viper folder>/bin must bein
+your  system's PATH environment  variable if you want to run them directly.
+
+There are two  methods to help you  get the most out of setting  up your
+environment to  run  Viper when you  start or log in.
+
+```bash
+./bin/vish ./bin/charm config path
+# => A new  PATH assignment statement that you can  add to your ~/.bashrc.
+
+./bin/vish ./bin/charm  config alias
+# =>  Bash  alias  statements to run viper without  needing to  set your  PATH variable
+```
+
+
 
 - ./bin/vish : Runs a script a file with extension: .vsh.
   * ./bin/vish -c will check all file arguments  for syntax correctness.
@@ -316,9 +338,9 @@ Although not a comprehensive list, Viper also sports these features:
 
 ## Warnings
 
-Viper is under active development and as such there is always some possiblility
-of file corruption. It is recommended that it is only used in conjuction
-a version control system (VCS) like git. If you installe this Viper distribution
+Viper is under active development and as such there is always some possibility
+of file corruption. It is recommended that it is only used in conjunction
+a version control system (VCS) like git. If you install this Viper distribution
 via a 'git clone' like mentioned in the Installation section above, then
 you already have git. 
 

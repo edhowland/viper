@@ -1,43 +1,48 @@
-function setup_buf() {
+# test_editor.vsh  tests editor functions TODO break this up into smaller chunks
+
+mod test_editor {
+function setup() {
   open xxx
   __obuf=:_buf; global __obuf
   new_clip
 }
-function teardown_buf() {
+function teardown() {
   rm :__obuf
   unset _buf
   unset _clip
 }
 function test_cut_off_by_1() {
-  echo 0123456789 > :_buf
+  echo '0123456789' | ins :_buf
+   beg :_buf
   fwd :_buf
   m _
   fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
   mark_cut :_buf :_mark 
-  assert_eq 056789 :(cat < :_buf)
+  assert_eq '056789' :(cat  :_buf)
 }
 function test_copy() {
-  echo hello world > :_buf
+  echo hello world | ins  :_buf
+   beg :_buf
   m m
   fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf; fwd :_buf
   mark_copy :_buf m
-  assert_eq hello :(cat < :_clip)
+  assert_eq 'hello' :(cat < :_clip)
 }
 function test_paste() {
-  echo hello > :_buf
+  echo -n "hello" | ins :_buf
   new_clip
-  echo ' world' > :_clip
+  echo -n ' world' | ins :_clip
   fin :_buf
-  cat < :_clip | ins :_buf
-  yy=:(cat < :_buf)
+  cat :_clip | ins :_buf
+  yy=:(cat :_buf)
   assert_eq 'hello world' ":{yy}"
 }
 function test_del_word_fwd() {
 echo -n 'hello world' | ins :_buf
 beg :_buf
 del_word_fwd :_buf
-cat < :_buf | ifs='x' read result
-assert_eq ":{result}" ' world'
+   beg :_buf; fwd :_buf
+assert_eq 'w' :(at :_buf)
 }
 function x_test_mark_cut_releases_mark() {
   echo hello_world_sailor | ins :_buf
@@ -79,4 +84,5 @@ function test_new_fn() {
 function test_should_ask2_save() {
   ask2_save :_buf
     assert_true :exit_status
+}
 }

@@ -1,4 +1,5 @@
-rem test_store.vsh vunit tests for the store and retrv commands
+# test_store.vsh vunit tests for the store and retrv commands
+mod test_store {
 function test_store_lambda() {
    mkdir /v/tmp/test_store
    store &() { return false } /v/tmp/test_store/ret_false
@@ -19,4 +20,5 @@ function test_retrv_raises_exception_with_no_valid_path() {
 }
 function test_retrv_with_not_than_2_args_raises() {
    assert_raises { retrv }
+}
 }

@@ -1,4 +1,4 @@
-rem import set paths and the import module_name function
+# import set paths and the import module_name function
 mpath=":{lhome}/vish/modules"
 test -z :MPATH || mpath=":{MPATH}::{mpath}"
 function import(module) {

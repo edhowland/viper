@@ -1,3 +1,4 @@
+mod test_cond {
 function test_single_clause() {
   a=1
   cond { false } { a=2   }
@@ -66,4 +67,5 @@ function test_cond_antecedant_preserves_exit_status() {
 function test_cond_intermediate_clause_preserves_exit_status() {
    cond { false } { true } { true } { false } else { true }
    assert_false :exit_status
+}
 }

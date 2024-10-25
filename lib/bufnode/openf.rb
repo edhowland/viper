@@ -30,8 +30,8 @@ class Openf < BaseBufferCommand
     ''
     end
     true
-  rescue Errno::EACCES
-    env[:err].puts "openf: permission denied for #{args[1]}"
+  rescue Errno::EACCES => err
+    env[:err].puts "openf: permission denied for #{args[1]}\n#{err.message}"
     return false
   end
 end

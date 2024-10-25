@@ -14,12 +14,14 @@ end
 
 class Statement
   include Redirectable
+  include ClassEquivalence
 
   def initialize(context = [], line_number = 0)
     @context = context
     @line_number = line_number
   end
-  attr_reader :context, :line_number
+  attr_reader :context
+  attr_accessor  :line_number
 
   # comment these out to restore old call method
  # alias_method :old_call, :call
@@ -104,7 +106,12 @@ class Statement
       closers = open_redirs env: env
     yield env, frames
   ensure
-    fail 'nil found for closers' if closers.nil?
+    #fail 'nil found for closers' if closers.nil?
+    if closers.nil?
+      Log.say_time("closers were nil for this statement: > #{self.to_s} <")
+      fail
+    end
+
     close_redirs closers  
   end
 
@@ -197,6 +204,9 @@ class Statement
 
   def to_s
     @context.map(&:to_s).join(' ')
+  end
+  def ==(other)
+    class_eq(other) && (other.line_number == self.line_number) && list_eq(other.context, self.context)
   end
  
   # comment these out to restore old call method functionality 

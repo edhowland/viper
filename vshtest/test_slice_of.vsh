@@ -1,3 +1,4 @@
+mod test_slice_of {
 function test_slice_of_works() {
   x=:(slice_of 0 2 foobar)
   assert_eq :x "foo"
@@ -15,3 +16,5 @@ function test_slice_of_using_stdin() {
   echo -n foobar | slice_of 0 2 - | read x
   assert_eq :x "foo"
 }
+}
+

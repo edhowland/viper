@@ -1,4 +1,5 @@
-source asserts.vsh
+# source asserts.vsh
+mod test_test_executables {
 function test_test_b_w_block_true() {
   assert_exec { test -b { nop } } 'test -b with block was false'
 }
@@ -17,8 +18,9 @@ function test_test_b_with_lambda_false() {
 function test_test_l_with_block_false() {
   assert_exec_false { test -l { nop } } 'test -l with block should return false but returned ftrue'
 }
-function test_test_x_with_path_ctrl_s_true() {
-  assert_exec { test -x /v/modes/viper/ctrl_s } 'test -x ctrl_s block did not return true'
+function test_test_x_with_path_foo_true() {
+   mkdir /v/tmp; store { echo foo } /v/tmp/foo
+  assert_exec { test -x /v/tmp/foo } 'test -x foo block did not return true'
 }
 function test_test_x_path_to_lambda_true() {
   store &() { nop } /v/nop_lam
@@ -37,4 +39,5 @@ function test_test_l_ctrl_s_false() {
 }
 function test_test_x_command_let_true() {
   assert_exec { test -x /v/cmdlet/misc/range } 'test -x with CommandLet was not true'
+}
 }

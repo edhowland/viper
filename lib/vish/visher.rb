@@ -1,17 +1,24 @@
 # visher - class Visher - wraps Vish parser with parse! method
-require_relative 'vish.kpeg'
+
 
 class Visher
   class << self
     def check!(statement)
-      v = Vish.new statement
-      v.parse
+      v = VishParser.new statement
+    v.setup
+      v.p_root().class == Block
     end
 
     def parse!(statement)
-      v = Vish.new statement
-      raise VishSyntaxError unless v.parse
-      v.result
+      v = VishParser.new statement
+    v.setup
+
+    bk  = v.p_root
+#binding.pry
+    # put in  any found docs
+    bk.statement_list.select {|s| FunctionDeclaration ==  s.class }.each {|f| f.doc = "#{f.name} #{v.docstrings[f.name]}" } 
+
+    bk
     end
   end
 end

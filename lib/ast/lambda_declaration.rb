@@ -2,10 +2,13 @@
 # returns Lambda instance
 
 class LambdaDeclaration
+  include ClassEquivalence
+
   def initialize(args, block)
     @args = args
     @block = block
   end
+  attr_reader :args, :block
 
   def call(*_args, env:, frames:)
     #  save the environment of of us back to  first lambda on stack or  or just our own environment frames[-1]
@@ -25,5 +28,9 @@ class LambdaDeclaration
 
   def to_s
     '&(' + @args.to_s + ') { ' + @block.to_s + ' )'
+  end
+
+  def ==(other)
+    class_eq(other) && other.block == self.block
   end
 end

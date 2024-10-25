@@ -1,102 +1,41 @@
 # Changelog for Viper project
 
-## Release 2.0.13.c
+## Release 2.0.14
 
-2024-05-21
+2024-10-21
 
+### Changes
 
-## WONTFIX
+- Vish now uses a hand written recursive descent parser instead of  the  'kpeg' gem
+  * The parser uses a lexer and parser as  2 different phases.
+  * Comments now  begin with a leading '#'
+  * Functions can  be specified  with either  the 'fn' or  'function'  keyword.
+  * The 'fn' keyword is now the preferred function prefix.
+  * The 'function' keyword is  retained for backward compatibility.
 
-These items will not be fixed in this release: 2.0.13.c but should be addressed in 2.0.14.
+- All  programs in  ./bin are now Vish scripts witha shebang line.
+  * Previously, these were Ruby scripts. The only Ruby script is  ./bin/vish itself now.
+- The  'charm config alias' command now reflects this situation.
+  * Every alias  created relies on the  'vish' alias created first.
 
-
-- Stuck at Ruby 3.1.2 as Ruby 3.2.x is causing problems
-  * Use rbenv local 3.1.2 after cloneing and before running 'bundle'
-- 1 skipped test in mnitest/test_hal.rb
-  * Strange error that must needs pursuing when the test is calling 'Hal.touch
-  * But not when doing it in the REPL: ivsh either in physical or virtuaul filesystem
-- Many more tests to add in test_hal.rb; see final comment
-
-## Corrections
-
-
-- Updated README.md to reflect that only works with Ruby 3.1.2 and not 3.2.x
-- Fixed bug on MacOS where the minitest/test_hal.rb errored out with a problem in 'getcwd' internal Ruby
-  * Added test double to fake out the actual filesystem when Hal tries to dispatch to PhysicalLayer
-  * No more explicit tests that actually write to an actual filesystem
-- Corrected indentation warnings in both lib/* and minitest/*
-- Corrected unused variables in lib/ minitest/
-- Corrected unreachable statements in lib/runtime/virtual_machine.rb
+The upshot of these changes are that the goal of only making Viper a simple
+program written entirely in the Vish language has been achieved.
+In this respect, Viper  emulates the EMacs editor which  is really just
+a Lisp interpreter that  runs a Lisp editor program.
+Ruby is  used  to implement the Vish  interpreter and also implements many 
+editor commands that  are invoked in  Vish source code.
 
 
-## Additions
-
-- New version information in ./bin/charm status
-- Added pry/ipl.rb
-  * Can now do simple: 'pry -r ./pry/ipl.rb' and then 'vm = ipl' to get some Viper ruby code running.
-  * Does not run the vish_boot stuff; do that manually or use another ./pry/*.rb scrpt
-- Added ./pry/indents.nu to help examine Ruby source files for indentation warnings
-  * When running 'rake test' if .rb files have warnings they will be repored first in output of rake.
-  * If indentation inconsistenancies occur, you can run :
-
-```bash
-# NOTE: You must have a recent version of Nushell installed.; tested with version 0.92.x
-
-$ ./pry/indents.nu lib/runtime/virtual_machine.rb
-```
-
-You will get a table with columns: lineno indent and token0
-
-If you supply the indents.nu with the --range, -r option, you can narrow the context around the warning output message.
-
-
-The inent column reports the number of spaces before the first token (token0) on every line.
-The token0 reports the first actual non-whitespace token like 'class' or 'def' or 'if, 'end' .etc
-
-By comparing the warning message with this table around its context, you may discover that either the previous matching syntax element
-or the warned line maybe either too much indented or outdented and you can take corrective measures.
-
-
-Note: If using a version of Viper you know to be working, you can:
-
-```bash
-viper -l 14 lib/runtime/virtual_machine.rb
-```
-
-
-... and be brought to the (possibly) offending line number in the file.
-
-```bash
-./pry/indents.nu -r 14..25 lib/runtime/virtual_machine.rb
-```
-
-
-
-
-
-
-
-- Rakefile now has more tests related to preparing a release
-  * New locate function that does a ripgrep on source files for regexs that should be addressed:
-    - =begin/=end pairs of commented out code
-     Instances of todo, fixme and removeme comments in code  including in Vish sources
-    - Left over instances of 'binding.pry or binding.irb  in Ruby code; including those that are currently commented out
-
-
-Always do a rake with the '-q' flag when preparing a release
-as that does not produce echoed output of the shell command.
-
-```bash
-rake -q commented_out
-
-# For example
-
-# Probably do a 'ruby -c <path-to-file.rb> to make sure no syntax errors have been introduced
-
-# Now re-run all tests to make sure nothing has gone ammis
-rake
-```
-
+-  The  previous vunit  unit test framework has been replaced with the  'vish_unit' package.
+  * See Rake 'task :test_vsh' to see how to invoke the unit tests in the ./vshtest/
+directory. 
+  *   Any file in that directory that begins witha 'test_*.vsh' pattern will be included in the test  output.
+  * Test files  must now use the  mod command let with a name and a block.
+  * test functions  must be included in the  block passed to the mod command let.
+  * In the  test output, if any assertions fail, then  the  output will reflect both the mod name and the function  name which  was defined in the block.
+  * E.g. 'mod test_foo {  fn test_bar()  {  assert_eq  1 2 } }
+  * will   result in the  output  being named 'test_foo.test_bar'
+  * All tests
 
 
 

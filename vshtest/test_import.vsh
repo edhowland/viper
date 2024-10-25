@@ -1,6 +1,11 @@
+# test_import.vsh  tests the ability to import a module
+# which must exist in the :mpath and contain at least one 0??_*.vsh file
+mod test_import {
+   fn setup() {
+      mkdir /v/tmp/foo.dir
+   }
 function test_import_empty_dir_does_not_fail() {
-   mkdir /v/tmp/foo.dir
-   mpath=/v/tmp import foo.dir
+   suppress { mpath=/v/tmp import foo.dir }
    assert_false :exit_status
 }
 function test_import_works_with_one_file() {
@@ -22,4 +27,5 @@ function test_import_empty_with_on_import_works() {
    echo "im1=100" > /v/tmp/import/foo.d/on_import.vsh
    mpath=/v/tmp/import import foo.d
    assert_eq  100 :im1
+}
 }

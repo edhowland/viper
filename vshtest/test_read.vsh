@@ -1,3 +1,4 @@
+mod test_read {
 function test_read_no_args_reply() {
   echo hello | read
   assert_eq 'hello' :reply
@@ -28,4 +29,4 @@ function test_more_stdin_than_args_w_ofs_colon() {
   echo 11 22 33 | ofs=':' read eleven twothree
   assert_eq 11 :eleven
   assert_eq '22:33' :twothree
-}
+}}

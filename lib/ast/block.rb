@@ -11,6 +11,8 @@ module LineNumberable
 end
 
 class Block
+  include ClassEquivalence
+
   def initialize(statement_list)
     @statement_list = statement_list
   end
@@ -36,5 +38,8 @@ class Block
   
   def empty?
     @statement_list.empty?
+  end
+  def ==(other)
+    class_eq(other) && list_eq(other.statement_list, self.statement_list)
   end
 end

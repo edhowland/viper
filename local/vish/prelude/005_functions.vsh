@@ -1,14 +1,21 @@
-rem Common Vish functions
+# Common Vish functions
+
+# Returns the count of files in the passed directory
 function dircount(dir) {
   cond { test -e :dir } { echo 0 } else { (cd :dir; echo -n *) | wc -w }
 }
+
+# Returns its second argument
 function second(a, b) {
   echo :b
 }
+
+# Returns its third argument
 function third(a, b, c) {
    echo :c
 }
-rem find_first recurses over all remaining in list or using :ifs delimiter
+
+# find_first recurses over all remaining in list or using :ifs delimiter
 function find_first(qterm, elem) {
   cond { test -z :elem } { return false } {
     eq :qterm :elem } { echo :elem; return true } else {
@@ -37,8 +44,8 @@ function package_path(pkg) {
 }
 mkdir /v/macros
 mkdir /v/known_extensions/default
-function set_ext_fn(ext, fn) {
-  store :fn "/v/known_extensions/:{ext}/settings.fn"
+function set_ext_fn(ext, f) {
+  store :f "/v/known_extensions/:{ext}/settings.fn"
 }
 rem setup editor defaults for language settings
 set_ext_fn default &() { checker=check_default  autoindent=false indent=2; global checker autoindent indent }

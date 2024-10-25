@@ -1,4 +1,5 @@
-rem test_caputre.vsh does capture work ok
+# test_caputre.vsh does capture work ok
+mod test_capture {
 function test_capture_executes_within_current_scope() {
    capture { aa=11 } { nop }
    assert_eq :aa 11
@@ -18,4 +19,5 @@ function test_capture_ensure_always_runs() {
 function test_capture_rescue_does_not_run_when_no_exception() {
    capture { nop } { touch /v/test_capture_no_rescue } { nop }
    test -X /v/test_capture_no_rescue && raise rescue_called
+}
 }

@@ -6,9 +6,10 @@ class Function
     @block = block
     @name = name
     @arity = @args.length  # The arity of this function is the number of the defined named parameters
+    @doc = ''
   end
-
   attr_reader :name, :args, :block, :arity
+    attr_accessor :doc
 
   def call(*args, env:, frames:)
     frames.push
@@ -35,6 +36,10 @@ class Function
 
   def to_s
     "(#{@args.join(', ')}) " + @block.to_s
+  end
+  def help
+    alist = "\nArgs:\n"  + @args.map {|a| "- #{a}" }.join("\n")
+    "Function: #{@name}" + alist + "\n" + @doc
   end
   def inspect
     self.to_s

@@ -3,7 +3,10 @@ def assert_false obj
   assert obj == false
 end
 
-
+# TODO Remove me and replace with assert_equal
+def assert_eq val1, val2
+  assert_equal val1, val2
+end
 # ditto. Replace with assert_equal
 def assert_equals val1, val2
   assert_equal val1, val2

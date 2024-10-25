@@ -1,3 +1,4 @@
+mod test_function {
 function test_makes_function() {
   function _foo() { nop }
   type _foo; assert_true :exit_status
@@ -93,5 +94,4 @@ function test_stored_lambda_shifts_2_arguments() {
   exec /v/l2 11 33 | read result
   assert_eq :result 1133
 }
-
-
+}

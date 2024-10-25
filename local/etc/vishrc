@@ -1,61 +1,88 @@
+# Use this line as pattern for some comments
 alias rem=nop
-rem Use this line as pattern for all comments
 mkdir /v/buf
 _bufd=/v/buf; global _bufd
 version=:(ruby 'puts Vish::VERSION')
-rem OS environment variables
+# OS environment variables
+
+# If then else. Takes 3 arguments which must all be either blocks or lambdas. 
+# The predicate which  returns true or false
+# The consequent which  only runs if the predicate returns true
+# The alternative which only runs if the predicate returns false.
 function ifelse(expr, icl, ecl) { exec { exec :expr || exec { exec :ecl && false } } && exec :icl }
+# sets debugging to false
 function debugging() { false }
-function filter() {
-shift fn
-for e in :_ { exec :fn :e && echo -n :e ' ' }
+#  filters a list  based on passed lambda
+function filter(f) {
+for e in :_ { exec :f :e && echo -n :e ' ' }
 }
-function reject() {
-shift fn
-for e in :_ { exec :fn :e || echo -n :e ' ' }
+
+# Returns new list from old list where predicate lambda returns true for  ites elements
+function reject(f) {
+for e in :_ { exec :f :e || echo -n :e ' ' }
 }
-function reduce() {
-shift fn
-shift init
+
+#  Reduces over a list. Takes a lambda and an initial value.
+# Returns a  single value  by  iterating over the list and passing both the
+#    accumulator and the  current item of the list.
+function reduce(f, init) {
 for e in :_ {
-init=:(exec :fn ":{init}" ":{e}")
+init=:(exec :f ":{init}" ":{e}")
 }
 echo :init
 }
-function map() {
-shift fn
-for e in :_ { echo -n :(exec :fn :e) :ofs }
+
+# Maps over a list returning a new list where every element is transformed
+# by the passed in lambda.
+function map(f) {
+for e in :_ { echo -n :(exec :f :e) :ofs }
 }
-function each() {
-shift fn
-for e in :_ { exec :fn :e }
+
+# Iterates over a list passing every element to the passed in lambda.
+function each(f) {
+for e in :_ { exec :f :e }
 }
-function count() {
-shift fn
+
+# Counts the  items in a list where  element passed into the lambda return true.
+# Just passing a block with  true as its only statement whill count all the items
+# in the list.
+function count(f) {
 cnt=0
-for i in :_ { exec :fn :i && cnt=:(expr 1 '+' :cnt) }
+for i in :_ { exec :f :i && cnt=:(expr 1 '+' :cnt) }
 echo :cnt
 }
+
+
+# Decrements it s argument by 1
 function decr(x) {
   expr :x '-' 1
 }
+
+
+# Increments its argument by 1
 function incr(x) {
   expr :x '+' 1
 }
+
+# Returns the first item of a list.
 function first(item) {
   echo :item
 }
+
+# Returns the remainder of the list after dropping the first element
 function rest(_x) { echo :_ }
+
+# Returns true if the list is empty
 function empty() { test -z :_ }
 function load_event() { nop }
 function exit_event() { nop }
-rem 018_environment.vsh: Helper functions for access to users OS environment
+# 018_environment.vsh: Helper functions for access to users OS environment
 function env(var) { ruby "print ENV[':{var}']" }
 HOME=:(env HOME); global HOME
 XDG_CONFIG_HOME=:(env XDG_CONFIG_HOME); test -z :XDG_CONFIG_HOME && XDG_CONFIG_HOME=":{HOME}/.config"
-rem Set some Vish variables
+# Set some Vish variables
 _vconfig=":{XDG_CONFIG_HOME}/vish"; global _vconfig
-rem _vpm_root is the location of all Vish Package Management files
+# _vpm_root is the location of all Vish Package Management files
 _vpm_root=":{_vconfig}/vpm"; global _vpm_root
 alias if=cond
 mkdir /v/options
@@ -65,6 +92,12 @@ function split(val, sep) {
 function join(sep) {
   ofs=:sep echo :_
 }
+
+# neq is not eq takes  2 arguments and returns true if both are not equal
+fn neq(a1, a2) {
+   not { eq :a1 :a2 }
+} 
+
 cmdlet range '{ out.puts(((args[0].to_i)..(args[1].to_i)).to_a.join(locals[:ofs])) }'
 cmdlet printf '{out.puts(args[0] % args[1].to_i) }'
 source ":{vhome}/local/vfs/bin/vfs.vsh"
